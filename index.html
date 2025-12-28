@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Editor — Professional Screenplay Formatting for Google Docs</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="description" content="Screenplay Editor is a Google Docs add-on for professional screenplay formatting. Write in industry-standard format directly in your browser.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      position: relative;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: 160px 30px 90px;
+      text-align: center;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image: 
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-logo-stacked {
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+    }
+
+    .hero-logo-stacked .line1 {
+      font-size: 48px;
+      color: #fff;
+      display: block;
+    }
+
+    .hero-logo-stacked .line2 {
+      font-size: 48px;
+      color: #666;
+      display: block;
+    }
+
+    .hero-logo-stacked .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      color: #888;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--violet);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .cta-button:hover {
+      background: var(--violet-dark);
+      transform: translateY(-1px);
+    }
+
+    .cta-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .hero-screenshot {
+      margin-top: 60px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-screenshot img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ============================================
+       FEATURES
+       ============================================ */
+    .features {
+      padding: 80px 30px 100px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 60px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 50px 40px;
+    }
+
+    .feature {
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .feature h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .feature p {
+      font-size: 13px;
+      font-weight: 400;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       CTA SECTION
+       ============================================ */
+    .cta-section {
+      text-align: center;
+      padding: 80px 30px 100px;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+      background-image: 
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .cta-section h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section p {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 22px;
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 900px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 130px 20px 60px;
+      }
+
+      .hero-logo-stacked .line1,
+      .hero-logo-stacked .line2 {
+        font-size: 28px;
+        letter-spacing: 2px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .features {
+        padding: 60px 20px 80px;
+      }
+
+      .features h2 {
+        font-size: 20px;
+        margin-bottom: 40px;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="#features">Features</a>
+        <a href="about.html">About</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-logo-stacked">
+          <span class="line1">SCR<span class="cursor">██</span>NPLAY</span>
+          <span class="line2"><span class="cursor">█</span>DITOR</span>
+        </div>
+        <h1>Write screenplays.<br>Right in Google Docs.</h1>
+        <p class="hero-subtitle">
+          Professional screenplay formatting without the complexity. 
+          No new software to learn. No files to sync. Just write.
+        </p>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">Get it free</a>
+        <p class="cta-note">Available on Google Workspace Marketplace</p>
+        
+        <div class="hero-screenshot">
+          <img src="screenshot.png" alt="Screenplay Editor in action - Google Docs with screenplay formatting sidebar">
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <h2>Everything you need to write</h2>
+
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-icon">⌨️</div>
+          <h3>Smart Formatting</h3>
+          <p>Scene headings, action, character, dialogue, parentheticals. All formatted automatically with one click.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">👥</div>
+          <h3>Character Management</h3>
+          <p>Keep track of your characters. See who's in your script at a glance.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">📄</div>
+          <h3>Industry-Standard Export</h3>
+          <p>Export to PDF or .fdx format. Your script, ready for production or any other software.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">☁️</div>
+          <h3>Always in Sync</h3>
+          <p>It's Google Docs. Collaborate in real-time, access from anywhere, never lose your work.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🔒</div>
+          <h3>Private by Design</h3>
+          <p>Your scripts stay yours. No external servers, no data collection. Everything stays in your Google account.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🎬</div>
+          <h3>AI Scene Board</h3>
+          <p>Coming soon: visualize your script structure with AI-powered scene breakdowns.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Start writing today</h2>
+      <p>Screenplay Editor is free and installs in seconds.</p>
+      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">Install from Google Workspace Marketplace</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR▌</div>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+</body>
+</html>
