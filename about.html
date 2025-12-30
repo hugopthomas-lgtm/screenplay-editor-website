@@ -94,9 +94,8 @@
 
     /* Photo Section */
     .photo-section {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      position: sticky;
+      top: 120px;
     }
 
     .author-photo {
@@ -107,10 +106,6 @@
       box-shadow:
         0 25px 60px rgba(157, 123, 234, 0.25),
         0 10px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .author-photo-wide {
-      aspect-ratio: auto;
     }
 
     .author-name {
@@ -293,7 +288,6 @@
       <img src="hugo.png" alt="Hugo Thomas" class="author-photo">
       <div class="author-name">Hugo Thomas</div>
       <div class="author-role">Writer & Director</div>
-      <img src="hugo3.jpg" alt="Hugo Thomas" class="author-photo author-photo-wide">
     </div>
 
     <div class="text-section">
