@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Get Your Short Film Read by Producers — Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="description" content="A practical guide to getting producers to read your short film screenplay. Real strategies, real emails, from a filmmaker who's done it.">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-200);
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+    }
+
+    .header-nav a {
+      margin-left: 32px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-600);
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 140px 32px 80px;
+      background: linear-gradient(180deg, var(--violet-light) 0%, #fff 100%);
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--dark);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Section Base */
+    section {
+      padding: 80px 32px;
+    }
+
+    .section-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Steps List */
+    .method-steps {
+      list-style: none;
+      counter-reset: step-counter;
+    }
+
+    .method-steps li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .method-steps li:last-child {
+      border-bottom: none;
+    }
+
+    .method-steps li::before {
+      content: counter(step-counter);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      height: 40px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .method-steps li span {
+      font-size: 16px;
+      color: var(--gray-700);
+      line-height: 1.7;
+      padding-top: 8px;
+    }
+
+    /* Email Block */
+    .email-block {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .email-header {
+      background: var(--gray-50);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .email-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .email-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .email-dots span:nth-child(1) { background: #ff5f56; }
+    .email-dots span:nth-child(2) { background: #ffbd2e; }
+    .email-dots span:nth-child(3) { background: #27ca40; }
+
+    .email-subject {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-left: auto;
+    }
+
+    .email-content {
+      padding: 32px;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--gray-700);
+    }
+
+    .email-content p {
+      margin-bottom: 20px;
+    }
+
+    .email-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .email-content .signature {
+      margin-top: 28px;
+      color: var(--gray-600);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .cta-button i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cta-button.primary {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button.primary:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-button.secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .cta-button.secondary:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 32px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 24px;
+    }
+
+    .footer-nav {
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .method-steps li {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .method-steps li::before {
+        min-width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+
+      .email-content {
+        padding: 24px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../index.html" class="logo">
+        SCR<span class="cursor">|</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html">Resources</a>
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="send"></i>
+      Industry Advice
+    </div>
+    <h1>They Do Read. Here's How to Reach Them.</h1>
+    <p class="hero-subtitle">
+      The myth that producers don't read unsolicited scripts is mostly false. For short films, the door is more open than you think.
+    </p>
+  </section>
+
+  <!-- The Method -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="map"></i>
+        The Method
+      </span>
+      <h2 class="section-title">How I Found Producers for My Shorts</h2>
+      <p class="section-intro">
+        This isn't theory. This is exactly what I did, starting from zero connections.
+      </p>
+
+      <ol class="method-steps">
+        <li>
+          <span>Find festivals you'd love to screen at. Start with the ones you've heard of, then dig into the ones that match your taste.</span>
+        </li>
+        <li>
+          <span>Look at their winners and selections. Check the last few years.</span>
+        </li>
+        <li>
+          <span>For each film, find the production company. It's usually in the credits or on IMDb.</span>
+        </li>
+        <li>
+          <span>Find their email. Most production companies have a contact page. Some are harder to find, but they exist.</span>
+        </li>
+        <li>
+          <span>Send a sharp email. Not a novel. Not a generic pitch. Something personal, with proof that you've done the work.</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Email Example -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="mail"></i>
+        An Email That Worked
+      </span>
+      <h2 class="section-title">Real Email, Real Results</h2>
+      <p class="section-intro">
+        Here's an actual email I sent in 2014, when I was just out of film school. It led to real conversations.
+      </p>
+
+      <div class="email-block">
+        <div class="email-header">
+          <div class="email-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="email-subject">Subject: Short film</span>
+        </div>
+        <div class="email-content">
+          <p>Hello,</p>
+          <p>I'm reaching out because I just graduated from the first class of Luc Besson's film school, where I studied directing.</p>
+          <p>I've already written and directed a self-produced short, <em>Premier Metro</em> (7 min), which was selected at 10 festivals and won 4 awards. My second short, <em>Perrault, La Fontaine, Mon Cul!</em> (18 min), made as my graduation film, was noticed by Luc Besson himself, who gave it a 17/20.</p>
+          <p>I'm currently finishing my first feature screenplay, <em>L'hiver</em>, and I'm looking for a production company like yours — one that produces both shorts and features, especially in the dramatic comedy genre. I'd love to direct my first produced short, <em>Une Place Pour Les Choses</em>.</p>
+          <p>Attached: the screenplay, my CV, and links to my two shorts.</p>
+          <p class="signature">Best,<br>Hugo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <span class="section-label">
+      <i data-lucide="pen-tool"></i>
+      Your Turn
+    </span>
+    <h2 class="section-title">Now Write Yours</h2>
+    <p class="section-intro">
+      You have a short film idea? Start with a properly formatted script.
+    </p>
+    <div class="cta-buttons">
+      <a href="short-film-screenplay-template.html" class="cta-button primary">
+        <i data-lucide="file-text"></i>
+        Get the Short Film Template
+      </a>
+      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary">
+        <i data-lucide="plus"></i>
+        Install Screenplay Editor
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR|</div>
+      <nav class="footer-nav">
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+        <a href="index.html">Resources</a>
+      </nav>
+      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
