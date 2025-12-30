@@ -6,7 +6,8 @@
   <title>Horror Screenplay Template — Free Google Docs Format | Screenplay Editor</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../favicon.png">
-  <meta name="description" content="Free horror screenplay template for Google Docs. Inspired by Scream's structure — build tension, plant the scare, deliver the kill.">
+  <meta name="description" content="Download a free horror screenplay template for Google Docs. Properly formatted, ready to write. The opening scene of Scream, formatted for you.">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * {
       margin: 0;
@@ -18,11 +19,15 @@
       --violet: #9D7BEA;
       --violet-dark: #8B6AD4;
       --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
       --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
       --gray-500: #737373;
       --gray-600: #525252;
-      --red: #dc2626;
-      --red-dark: #b91c1c;
+      --gray-700: #404040;
     }
 
     body {
@@ -44,16 +49,16 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(26, 26, 26, 0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.2);
+      border-bottom: 1px solid var(--gray-200);
       z-index: 100;
     }
 
     .header-content {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 18px 30px;
+      padding: 16px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -61,10 +66,10 @@
 
     .logo {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       letter-spacing: 1px;
-      color: #fff;
+      color: var(--dark);
     }
 
     .logo .cursor {
@@ -72,10 +77,10 @@
     }
 
     .header-nav a {
-      margin-left: 30px;
+      margin-left: 32px;
       font-size: 14px;
       font-weight: 500;
-      color: #888;
+      color: var(--gray-600);
       transition: color 0.2s;
     }
 
@@ -83,207 +88,265 @@
       color: var(--violet);
     }
 
-    /* Hero */
+    /* Hero Section - Dark */
     .hero {
-      background: var(--dark);
       padding: 140px 32px 80px;
-      text-align: center;
+      background: var(--dark);
       background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      text-align: center;
     }
 
-    .hero-tag {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--red);
+    .hero * {
+      color: #fff;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-400);
       margin-bottom: 24px;
     }
 
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
     .hero h1 {
-      font-size: 42px;
+      font-size: 48px;
       font-weight: 700;
-      color: #fff;
+      line-height: 1.15;
       margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
       font-style: italic;
     }
 
     .hero-subtitle {
-      font-size: 17px;
-      color: #888;
-      max-width: 560px;
+      font-size: 18px;
+      color: var(--gray-400);
+      max-width: 540px;
       margin: 0 auto 40px;
       line-height: 1.7;
     }
 
     .hero-cta {
-      display: inline-block;
-      padding: 16px 32px;
-      background: var(--red);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--violet);
       color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
       font-size: 15px;
       font-weight: 600;
-      border-radius: 10px;
       transition: all 0.2s;
     }
 
     .hero-cta:hover {
-      background: var(--red-dark);
+      background: var(--violet-dark);
       transform: translateY(-2px);
     }
 
-    /* Sections */
-    .section {
-      padding: 80px 32px;
-      max-width: 900px;
-      margin: 0 auto;
+    .hero-cta i {
+      width: 20px;
+      height: 20px;
     }
 
-    .section-dark {
-      background: #fafafa;
-      max-width: none;
-    }
-
-    .section-dark .section-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .section h2 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--dark);
-    }
-
-    .section p {
-      font-size: 17px;
-      line-height: 1.8;
-      color: var(--gray-600);
-      margin-bottom: 20px;
-    }
-
-    .section p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* Feature Cards */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 40px;
-    }
-
-    .feature-card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 28px;
-    }
-
-    .feature-card h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
-
-    .feature-card p {
-      font-size: 14px;
+    .hero-note {
+      margin-top: 16px;
+      font-size: 13px;
       color: var(--gray-500);
-      margin-bottom: 0;
-      line-height: 1.6;
     }
 
-    /* Film Section */
-    .film-section {
-      background: var(--dark);
+    /* Section Base */
+    section {
       padding: 80px 32px;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
     }
 
-    .film-inner {
+    .section-inner {
       max-width: 900px;
       margin: 0 auto;
     }
 
-    .film-section h2 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: #fff;
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
     }
 
-    .film-section p {
-      font-size: 17px;
-      line-height: 1.8;
-      color: #aaa;
-      margin-bottom: 20px;
+    .section-label i {
+      width: 22px;
+      height: 22px;
     }
 
-    .film-section em {
-      font-style: italic;
-      color: #ccc;
-    }
-
-    /* Final CTA */
-    .final-cta {
-      text-align: center;
-      padding: 80px 32px;
-      background: #fff;
-    }
-
-    .final-cta h2 {
+    .section-title {
       font-size: 32px;
       font-weight: 700;
       margin-bottom: 16px;
       color: var(--dark);
     }
 
-    .final-cta p {
+    .section-intro {
       font-size: 17px;
-      color: var(--gray-500);
-      margin-bottom: 32px;
+      color: var(--gray-600);
+      max-width: 700px;
+      line-height: 1.8;
     }
 
-    .final-cta .cta-button {
-      display: inline-block;
-      padding: 18px 40px;
-      background: var(--red);
-      color: #fff;
-      font-size: 16px;
+    .section-intro + .section-intro {
+      margin-top: 20px;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .checklist-icon {
+      width: 28px;
+      height: 28px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .checklist-icon i {
+      width: 16px;
+      height: 16px;
+      color: #43a047;
+    }
+
+    .checklist-item h4 {
+      font-size: 15px;
       font-weight: 600;
-      border-radius: 10px;
-      transition: all 0.2s;
+      margin-bottom: 4px;
     }
 
-    .final-cta .cta-button:hover {
-      background: var(--red-dark);
+    .checklist-item p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Film Section */
+    .film-content {
+      max-width: 700px;
+    }
+
+    .film-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+    }
+
+    .film-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .film-content strong {
+      color: var(--dark);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button:hover {
+      background: var(--violet-dark);
       transform: translateY(-2px);
+    }
+
+    .cta-button i {
+      width: 20px;
+      height: 20px;
     }
 
     /* Footer */
     footer {
       background: var(--dark);
       color: #fff;
-      padding: 50px 30px;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+      padding: 60px 32px;
     }
 
     .footer-content {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       text-align: center;
     }
@@ -294,18 +357,17 @@
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--violet);
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .footer-nav {
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .footer-nav a {
-      color: #888;
-      margin: 0 14px;
-      font-size: 12px;
-      font-weight: 500;
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
       transition: color 0.2s;
     }
 
@@ -314,50 +376,30 @@
     }
 
     .footer-copy {
-      font-size: 11px;
-      color: #555;
+      font-size: 13px;
+      color: var(--gray-600);
     }
 
     /* Responsive */
-    @media (max-width: 700px) {
+    @media (max-width: 768px) {
       .hero h1 {
         font-size: 32px;
       }
 
-      .features-grid {
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .checklist {
         grid-template-columns: 1fr;
       }
 
-      .section h2,
-      .film-section h2,
-      .final-cta h2 {
-        font-size: 24px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .header-content {
-        padding: 15px 20px;
+      .section-title {
+        font-size: 26px;
       }
 
-      .header-nav a {
-        margin-left: 18px;
-        font-size: 12px;
-      }
-
-      .hero {
-        padding: 120px 20px 60px;
-      }
-
-      .section,
-      .film-section,
-      .final-cta {
-        padding: 60px 20px;
-      }
-
-      .footer-nav a {
-        display: block;
-        margin: 10px 0;
+      .cta-section .section-title {
+        font-size: 28px;
       }
     }
   </style>
@@ -379,56 +421,117 @@
     </div>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
-    <span class="hero-tag">Template</span>
-    <h1>"What's your favorite scary movie?"</h1>
-    <p class="hero-subtitle">A free horror screenplay template for Google Docs. Inspired by the structure of <em>Scream</em> — build tension, plant the scare, deliver the kill.</p>
-    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="hero-cta">Get the template →</a>
+    <div class="hero-badge">
+      <i data-lucide="skull"></i>
+      Free Template
+    </div>
+    <h1>What's your favorite scary movie?</h1>
+    <p class="hero-subtitle">
+      A horror screenplay template for Google Docs. Properly formatted. Ready for your nightmare.
+    </p>
+    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="hero-cta">
+      <i data-lucide="download"></i>
+      Get the template (free)
+    </a>
+    <p class="hero-note">Opens in Google Docs — make a copy and start writing.</p>
   </section>
 
-  <section class="section">
-    <h2>Why this template?</h2>
-    <p>Horror is rhythm. It's knowing when to hold a beat, when to break the silence, when to make the audience look away — and when to make them regret it.</p>
-    <p>This template is built around the structure that made <em>Scream</em> a masterclass in tension: the setup, the false relief, the real scare. It's not about jump scares. It's about making readers feel unsafe on the page before anything even happens.</p>
-  </section>
-
-  <section class="section section-dark">
+  <!-- Why this template? -->
+  <section class="bg-white">
     <div class="section-inner">
-      <h2>What's inside</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3>Tension structure</h3>
-          <p>How to build dread that pays off. Setup, escalation, release — the rhythm that keeps readers on edge.</p>
+      <span class="section-label">
+        <i data-lucide="help-circle"></i>
+        Why this template?
+      </span>
+      <h2 class="section-title">Horror is structure.</h2>
+      <p class="section-intro">
+        The best scary movies aren't random — they're machines designed to build dread, release tension, then build it again.
+      </p>
+      <p class="section-intro">
+        This template gives you the bones. Scene headings, action blocks, dialogue — all formatted to industry standard. You focus on the scares. The margins are already correct.
+      </p>
+    </div>
+  </section>
+
+  <!-- What's inside -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="package"></i>
+        What's inside
+      </span>
+      <h2 class="section-title">Everything You Need</h2>
+
+      <div class="checklist">
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Industry-standard format</h4>
+            <p>Courier 12pt, correct margins</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <h3>White space as a weapon</h3>
-          <p>Horror lives in what you don't show. Learn to use the page itself to create unease.</p>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Pre-built scene structure</h4>
+            <p>Adapt or delete as needed</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <h3>Opening kill template</h3>
-          <p>The cold open that hooks readers. A proven structure for the scene that sets the rules.</p>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Character and dialogue formatting</h4>
+            <p>Ready to go</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <h3>Genre formatting tips</h3>
-          <p>How to write scares that translate to screen. Action lines, pacing, and the art of restraint.</p>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Works with Screenplay Editor</h4>
+            <p>One-click auto-formatting</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="film-section">
-    <div class="film-inner">
-      <h2>The film behind the template</h2>
-      <p><em>Scream</em> (1996) didn't just revive the slasher genre — it rewrote the rules. Kevin Williamson's script is a masterclass in misdirection, self-awareness, and the art of making an audience complicit in the horror.</p>
-      <p>The opening scene with Drew Barrymore is twelve minutes of pure tension. No backstory, no exposition — just a phone call, a quiz, and the slow realization that the rules have changed. That's the energy this template captures.</p>
-      <p>Study <em>Scream</em>. Then break its rules on purpose.</p>
+  <!-- The film behind the template -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="film"></i>
+        The film behind the template
+      </span>
+      <h2 class="section-title">Scream (1996)</h2>
+      <div class="film-content">
+        <p>
+          This template contains the opening scene of <strong>Scream</strong> (1996), the film that reinvented the slasher genre.
+        </p>
+        <p>
+          Kevin Williamson wrote the script in three days, selling it for $400,000. It became a cultural phenomenon — $173 million worldwide, four sequels, and a complete revival of horror in the late '90s.
+        </p>
+        <p>
+          What made it work? Self-awareness without losing the stakes. Characters who knew the rules of horror movies — and died anyway. A whodunit structure layered over slasher mechanics.
+        </p>
+        <p>
+          <strong>That's the structure that works. That's what this template gives you.</strong>
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="final-cta">
-    <h2>Ready to write something terrifying?</h2>
-    <p>Make a copy. Start writing. Don't answer the phone.</p>
-    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="cta-button">Get the free template →</a>
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <h2 class="section-title">Start writing.</h2>
+    <p class="section-intro">
+      The template is free. The nightmares are yours.
+    </p>
+    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="cta-button">
+      <i data-lucide="download"></i>
+      Get the template (free)
+    </a>
   </section>
 
   <footer>
@@ -439,10 +542,14 @@
         <a href="../support.html">Support</a>
         <a href="../privacy.html">Privacy Policy</a>
         <a href="../terms.html">Terms of Service</a>
-        <a href="../free-google-docs-screenplay-template.html">Free Template</a>
+        <a href="index.html">Resources</a>
       </nav>
       <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
