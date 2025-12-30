@@ -234,6 +234,55 @@
       font-weight: 500;
     }
 
+    /* Featured Card */
+    .featured-card {
+      background: linear-gradient(135deg, var(--violet-light) 0%, #fff 100%);
+      border: 2px solid var(--violet);
+      border-radius: 12px;
+      padding: 32px;
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .featured-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(157, 123, 234, 0.2);
+    }
+
+    .featured-card .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .featured-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .featured-card p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .featured-card .arrow {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--violet);
+      font-weight: 600;
+    }
+
     /* Coming Soon */
     .coming-soon {
       opacity: 0.6;
@@ -358,6 +407,16 @@
       <p class="page-subtitle">Guides, templates, and tools to help you write better screenplays.</p>
 
       <div class="resource-section">
+        <h2>Start Here</h2>
+        <a href="how-to-write-screenplay-google-docs.html" class="featured-card">
+          <span class="tag">Essential Guide</span>
+          <h3>How to Write a Screenplay in Google Docs</h3>
+          <p>A complete guide to formatting professional screenplays in Google Docs, from page setup to export. The foundation for everything else.</p>
+          <span class="arrow">Read the guide →</span>
+        </a>
+      </div>
+
+      <div class="resource-section">
         <h2>Templates</h2>
         <div class="resource-grid">
           <a href="../free-google-docs-screenplay-template.html" class="resource-card">
@@ -393,13 +452,6 @@
       <div class="resource-section">
         <h2>Guides</h2>
         <div class="resource-grid">
-          <a href="how-to-write-screenplay-google-docs.html" class="resource-card">
-            <span class="tag guide">Guide</span>
-            <h3>How to Write a Screenplay in Google Docs</h3>
-            <p>A complete guide to formatting professional screenplays in Google Docs, from page setup to export.</p>
-            <span class="arrow">Read guide →</span>
-          </a>
-
           <a href="how-to-get-your-short-film-read-by-producers.html" class="resource-card">
             <span class="tag guide">Guide</span>
             <h3>How to Get Your Short Film Read by Producers</h3>
