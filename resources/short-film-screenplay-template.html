@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Short Film Screenplay Template for Google Docs — Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="description" content="Free short film screenplay template for Google Docs. Professional formatting for films under 40 minutes, with tips for tight storytelling.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      position: relative;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      margin-top: 60px;
+      background: var(--dark);
+      padding: 20px 30px;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .breadcrumb-content a {
+      color: var(--violet);
+      transition: opacity 0.2s;
+    }
+
+    .breadcrumb-content a:hover {
+      opacity: 0.8;
+    }
+
+    .breadcrumb-content .separator {
+      color: #555;
+    }
+
+    .breadcrumb-content .current {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Article Content */
+    .article-content {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 50px 30px 80px;
+    }
+
+    .article-content h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+
+    .article-meta {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .article-content h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 45px;
+      margin-bottom: 18px;
+      padding-left: 15px;
+      border-left: 3px solid var(--violet);
+      color: var(--dark);
+    }
+
+    .article-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 30px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .article-content p {
+      margin-bottom: 18px;
+      color: #444;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .article-content ul, .article-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .article-content li {
+      margin-bottom: 10px;
+      color: #444;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .article-content strong {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .article-content a {
+      color: var(--violet);
+    }
+
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Intro box */
+    .intro-box {
+      background: var(--violet-light);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 35px;
+      border-left: 4px solid var(--violet);
+    }
+
+    .intro-box p {
+      margin-bottom: 0;
+      color: #5a4a7a;
+    }
+
+    /* Feature list */
+    .feature-list {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 24px;
+      margin: 20px 0 25px;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--violet);
+      font-weight: 600;
+    }
+
+    /* Tip cards */
+    .tip-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 15px;
+    }
+
+    .tip-card h3 {
+      font-size: 14px;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .tip-card p {
+      margin-bottom: 0;
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* Steps */
+    .steps {
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding-left: 50px;
+      margin-bottom: 25px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .step h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .step p {
+      margin-bottom: 0;
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* CTA Box */
+    .cta-box {
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 35px;
+      margin: 40px 0;
+      text-align: center;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .cta-box h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--violet);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .cta-button:hover {
+      background: var(--violet-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .cta-button.secondary {
+      background: transparent;
+      border: 1px solid #555;
+      color: #fff;
+    }
+
+    .cta-button.secondary:hover {
+      border-color: var(--violet);
+      background: rgba(157, 123, 234, 0.1);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 22px;
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .breadcrumb-bar {
+        padding: 15px 20px;
+      }
+
+      .article-content {
+        padding: 40px 20px 60px;
+      }
+
+      .article-content h1 {
+        font-size: 24px;
+      }
+
+      .cta-box {
+        padding: 28px 20px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html#features">Features</a>
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="../index.html">Home</a>
+      <span class="separator">→</span>
+      <a href="index.html">Resources</a>
+      <span class="separator">→</span>
+      <span class="current">Short Film Template</span>
+    </div>
+  </div>
+
+  <main>
+    <article class="article-content">
+
+      <h1>Short Film Screenplay Template for Google Docs</h1>
+      <p class="article-meta">A free template designed for films under 40 minutes</p>
+
+      <div class="intro-box">
+        <p>
+          Short films demand tight storytelling. Every scene, every line of dialogue, every action must earn its place on the page. This template gives you the proper formatting foundation so you can focus on crafting a story that works within a limited runtime.
+        </p>
+      </div>
+
+      <p>
+        Writing a short film isn't just writing a shorter feature. The format requires a different approach: faster setups, fewer characters, and stories that can be told in 5, 10, or 20 pages. Film festivals, student projects, and proof-of-concept shorts all benefit from scripts that understand these constraints.
+      </p>
+
+      <p>
+        This Google Docs template follows industry-standard screenplay formatting while being optimized for the short form. Whether you're entering a 48-hour film competition or developing a passion project, you'll have a professional foundation from page one.
+      </p>
+
+      <h2>What This Template Includes</h2>
+
+      <ul class="feature-list">
+        <li>Pre-configured page margins (1.5" left, 1" right, top, and bottom)</li>
+        <li>Courier 12pt font with proper line spacing</li>
+        <li>Sample scene heading, action, and dialogue formatting</li>
+        <li>Title page with standard short film fields</li>
+        <li>Page numbering starting on page 2</li>
+        <li>Runtime estimation guide (1 page ≈ 1 minute)</li>
+      </ul>
+
+      <h2>Short Film-Specific Formatting Tips</h2>
+
+      <div class="tip-card">
+        <h3>Start Late, End Early</h3>
+        <p>Short films don't have time for lengthy setups. Begin your scenes as late as possible—often mid-conversation or mid-action. End them the moment the dramatic point is made. This keeps your page count lean and your story moving.</p>
+      </div>
+
+      <div class="tip-card">
+        <h3>Limit Your Locations</h3>
+        <p>Every new location costs time and money in production. For short films, aim for 1-3 locations maximum. Use your scene headings strategically—multiple scenes in the same location are easier to shoot and often create stronger visual continuity.</p>
+      </div>
+
+      <div class="tip-card">
+        <h3>Trim Your Cast</h3>
+        <p>Two or three characters are often enough for a powerful short. Each character name in your script represents a casting decision, a costume, and screen time. Fewer characters means deeper development within your limited pages.</p>
+      </div>
+
+      <div class="tip-card">
+        <h3>Embrace Visual Storytelling</h3>
+        <p>Short films often work best with minimal dialogue. Use your action lines to tell the story visually. A glance, a gesture, an object in frame—these can replace entire conversations and keep your page count under control.</p>
+      </div>
+
+      <h2>How to Use This Template</h2>
+
+      <div class="steps">
+        <div class="step">
+          <h3>Open the Template</h3>
+          <p>Click the link below to open the template in Google Docs. You'll see a sample short film page layout with all formatting pre-configured.</p>
+        </div>
+
+        <div class="step">
+          <h3>Make a Copy</h3>
+          <p>Go to File → Make a copy to save your own version. Rename it with your project title. The original template stays unchanged for future use.</p>
+        </div>
+
+        <div class="step">
+          <h3>Replace the Sample Content</h3>
+          <p>Delete the example scenes and start writing your own. The formatting styles are preserved—just type your scene headings, action, and dialogue.</p>
+        </div>
+
+        <div class="step">
+          <h3>Install Screenplay Editor (Optional)</h3>
+          <p>For automatic formatting, keyboard shortcuts, and export options, install our free Google Docs add-on. It makes writing faster and keeps your formatting consistent.</p>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Get the Template</h3>
+        <p>Start your short film with professional formatting.</p>
+        <div class="cta-buttons">
+          <a href="../free-google-docs-screenplay-template.html" class="cta-button">Open Template</a>
+          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary">Get Screenplay Editor — Free</a>
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR▌</div>
+      <nav class="footer-nav">
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+        <a href="../free-google-docs-screenplay-template.html">Free Template</a>
+      </nav>
+      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -176,6 +176,40 @@
       text-decoration: underline;
     }
 
+    /* Author Section */
+    .author-section {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    .author-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      flex-shrink: 0;
+    }
+
+    .author-text p:first-child {
+      margin-top: 0;
+    }
+
+    @media (max-width: 600px) {
+      .author-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .author-photo {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
     /* Footer */
     footer {
       background: var(--dark);
@@ -299,18 +333,23 @@
       </p>
 
       <h2>Who made this?</h2>
-      <p>
-        I'm Hugo, a screenwriter and filmmaker based in France. I built Screenplay Editor because 
-        I was tired of paying for bloated software just to write. I wanted something simple: 
-        open Google Docs, write, format, done.
-      </p>
-      <p>
-        No company behind this. Just me, a laptop, and way too many hours obsessing over margins 
-        and indentation so you don't have to.
-      </p>
-      <p>
-        If you have feedback, ideas, or just want to say hi, I read every email.
-      </p>
+      <div class="author-section">
+        <img src="hugo.png" alt="Hugo, creator of Screenplay Editor" class="author-photo">
+        <div class="author-text">
+          <p>
+            I'm Hugo, a screenwriter and filmmaker based in France. I built Screenplay Editor because
+            I was tired of paying for bloated software just to write. I wanted something simple:
+            open Google Docs, write, format, done.
+          </p>
+          <p>
+            No company behind this. Just me, a laptop, and way too many hours obsessing over margins
+            and indentation so you don't have to.
+          </p>
+          <p>
+            If you have feedback, ideas, or just want to say hi, I read every email.
+          </p>
+        </div>
+      </div>
 
       <h2>Open & Transparent</h2>
       <p>

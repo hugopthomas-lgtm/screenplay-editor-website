@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources — Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="description" content="Free screenwriting resources, guides, and templates for Screenplay Editor users.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      position: relative;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar with Art Deco Grid */
+    .breadcrumb-bar {
+      margin-top: 60px;
+      background: var(--dark);
+      padding: 20px 30px;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .breadcrumb-content a {
+      color: var(--violet);
+      transition: opacity 0.2s;
+    }
+
+    .breadcrumb-content a:hover {
+      opacity: 0.8;
+    }
+
+    .breadcrumb-content .separator {
+      color: #555;
+    }
+
+    .breadcrumb-content .current {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Page Content */
+    .page-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 50px 30px 80px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 50px;
+    }
+
+    /* Resource Categories */
+    .resource-section {
+      margin-bottom: 50px;
+    }
+
+    .resource-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-left: 15px;
+      border-left: 3px solid var(--violet);
+      color: var(--dark);
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .resource-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+      display: block;
+    }
+
+    .resource-card:hover {
+      border-color: var(--violet);
+      transform: translateY(-2px);
+    }
+
+    .resource-card .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .resource-card .tag.guide {
+      background: var(--violet-light);
+      color: var(--violet-dark);
+    }
+
+    .resource-card .tag.template {
+      background: #e6f7f0;
+      color: #1a8f5c;
+    }
+
+    .resource-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .resource-card p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .resource-card .arrow {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--violet);
+      font-weight: 500;
+    }
+
+    /* Coming Soon */
+    .coming-soon {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .coming-soon .tag {
+      background: #f0f0f0 !important;
+      color: #888 !important;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 22px;
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .breadcrumb-bar {
+        padding: 15px 20px;
+      }
+
+      .page-content {
+        padding: 40px 20px 60px;
+      }
+
+      .page-title {
+        font-size: 26px;
+      }
+
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html#features">Features</a>
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="../index.html">Home</a>
+      <span class="separator">→</span>
+      <span class="current">Resources</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Resources</h1>
+      <p class="page-subtitle">Guides, templates, and tools to help you write better screenplays.</p>
+
+      <div class="resource-section">
+        <h2>Templates</h2>
+        <div class="resource-grid">
+          <a href="../free-google-docs-screenplay-template.html" class="resource-card">
+            <span class="tag template">Template</span>
+            <h3>Free Screenplay Template</h3>
+            <p>A ready-to-use Google Docs template with proper screenplay formatting. Just make a copy and start writing.</p>
+            <span class="arrow">View template →</span>
+          </a>
+
+          <a href="short-film-screenplay-template.html" class="resource-card">
+            <span class="tag template">Template</span>
+            <h3>Short Film Template</h3>
+            <p>Optimized for films under 40 minutes. Tight storytelling tips and proper formatting for festivals and student projects.</p>
+            <span class="arrow">View template →</span>
+          </a>
+
+          <a href="horror-screenplay-template.html" class="resource-card">
+            <span class="tag template">Template</span>
+            <h3>Horror Template</h3>
+            <p>Genre-specific formatting tips for building tension, crafting scares, and using white space as a weapon.</p>
+            <span class="arrow">View template →</span>
+          </a>
+
+          <a href="tv-pilot-screenplay-template.html" class="resource-card">
+            <span class="tag template">Template</span>
+            <h3>TV Pilot Template</h3>
+            <p>For hour-long dramas and half-hour comedies. Includes act break formatting and teaser structure.</p>
+            <span class="arrow">View template →</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="resource-section">
+        <h2>Guides</h2>
+        <div class="resource-grid">
+          <a href="how-to-write-screenplay-google-docs.html" class="resource-card">
+            <span class="tag guide">Guide</span>
+            <h3>How to Write a Screenplay in Google Docs</h3>
+            <p>A complete guide to formatting professional screenplays in Google Docs, from page setup to export.</p>
+            <span class="arrow">Read guide →</span>
+          </a>
+
+          <div class="resource-card coming-soon">
+            <span class="tag guide">Coming Soon</span>
+            <h3>Writing Your First Feature</h3>
+            <p>A step-by-step guide to writing your first feature-length screenplay, from concept to final draft.</p>
+          </div>
+
+          <div class="resource-card coming-soon">
+            <span class="tag guide">Coming Soon</span>
+            <h3>Character Development</h3>
+            <p>How to create memorable, three-dimensional characters that drive your story forward.</p>
+          </div>
+
+          <div class="resource-card coming-soon">
+            <span class="tag guide">Coming Soon</span>
+            <h3>Scene Structure</h3>
+            <p>Master the art of writing scenes that move your story forward and keep readers engaged.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR▌</div>
+      <nav class="footer-nav">
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+        <a href="../free-google-docs-screenplay-template.html">Free Template</a>
+      </nav>
+      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+</body>
+</html>
