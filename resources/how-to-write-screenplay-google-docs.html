@@ -744,6 +744,37 @@
       padding-left: 32px;
     }
 
+    /* Masterpieces Section */
+    .masterpieces-grid {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin-top: 48px;
+    }
+
+    .masterpiece-card {
+      text-align: center;
+      max-width: 200px;
+    }
+
+    .masterpiece-card img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      margin-bottom: 16px;
+    }
+
+    .masterpiece-card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .masterpiece-card p {
+      font-size: 11px;
+      color: var(--gray-500);
+    }
+
     /* Footer */
     footer {
       background: var(--dark);
@@ -1294,6 +1325,33 @@
             <span>What if I already have a script in Final Draft format?</span>
           </div>
           <p class="faq-answer">There are online tools that convert .fdx to plain text. Paste that into Google Docs, then use Screenplay Editor to reformat the elements. Not instant, but doable. Going the other way (Docs to .fdx) is built right into the add-on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Masterpieces Referenced -->
+  <section class="bg-gray">
+    <div class="section-inner" style="text-align: center;">
+      <span class="section-label">
+        <i data-lucide="award"></i>
+        Reference Material
+      </span>
+      <h2 class="section-title">Masterpieces Referenced in This Guide</h2>
+      <p class="section-intro" style="margin-left: auto; margin-right: auto;">
+        The examples in this guide were drawn from some of cinema's most influential works. We encourage you to study these films closely.
+      </p>
+
+      <div class="masterpieces-grid">
+        <div class="masterpiece-card">
+          <img src="../sushi.jpg" alt="Dead Sushi movie poster">
+          <h4>Dead Sushi</h4>
+          <p>Noboru Iguchi, 2012</p>
+        </div>
+        <div class="masterpiece-card">
+          <img src="../cannibals.jpg" alt="Cannibal Women in the Avocado Jungle of Death movie poster">
+          <h4>Cannibal Women in the Avocado Jungle of Death</h4>
+          <p>J.F. Lawton, 1989</p>
         </div>
       </div>
     </div>
