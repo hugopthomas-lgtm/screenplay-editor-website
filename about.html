@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Screenplay Editor — Free Screenplay Formatting for Google Docs</title>
   <meta name="description" content="Learn about Screenplay Editor, the free Google Docs add-on for professional screenplay formatting. Built by a screenwriter, for screenwriters.">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     * {
@@ -19,14 +19,16 @@
       --violet-dark: #8B6AD4;
       --violet-light: #f8f6fc;
       --dark: #1a1a1a;
+      --gray-500: #737373;
+      --gray-600: #525252;
     }
 
     body {
-      font-family: 'JetBrains Mono', monospace;
-      background: #fafafa;
-      color: #1a1a1a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
       line-height: 1.6;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     a {
@@ -40,7 +42,7 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(248, 246, 252, 0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid #eee;
       z-index: 100;
@@ -56,40 +58,20 @@
     }
 
     .logo {
-      position: relative;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--dark);
-      cursor: pointer;
     }
 
     .logo .cursor {
       color: var(--violet);
     }
 
-    .logo .full-name {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .logo:hover .mark {
-      opacity: 0;
-    }
-
-    .logo:hover .full-name {
-      opacity: 1;
-    }
-
     .header-nav a {
       margin-left: 30px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       color: #666;
       transition: color 0.2s;
@@ -99,142 +81,75 @@
       color: var(--violet);
     }
 
-    /* Breadcrumb Bar with Art Deco Grid */
-    .breadcrumb-bar {
-      margin-top: 60px;
-      background: var(--dark);
-      padding: 20px 30px;
-      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
-      background-image: 
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .breadcrumb-content {
-      max-width: 1100px;
+    /* Main Content */
+    .about-container {
+      max-width: 1000px;
       margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
+      padding: 140px 40px 100px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 80px;
+      align-items: start;
     }
 
-    .breadcrumb-content a {
-      color: var(--violet);
-      transition: opacity 0.2s;
-    }
-
-    .breadcrumb-content a:hover {
-      opacity: 0.8;
-    }
-
-    .breadcrumb-content .separator {
-      color: #555;
-    }
-
-    .breadcrumb-content .current {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    /* Page Content */
-    .page-content {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 50px 30px 80px;
-    }
-
-    .page-title {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 30px;
-      color: var(--dark);
-    }
-
-    .page-content h2 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-top: 40px;
-      margin-bottom: 15px;
-      padding-left: 15px;
-      border-left: 3px solid var(--violet);
-      color: var(--dark);
-    }
-
-    .page-content p {
-      margin-bottom: 18px;
-      color: #444;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .page-content a {
-      color: var(--violet);
-    }
-
-    .page-content a:hover {
-      text-decoration: underline;
-    }
-
-    /* Author Section */
-    .author-section {
-      margin: 20px 0 50px;
-    }
-
-    .author-photo-wrapper {
-      text-align: center;
-      margin-bottom: 12px;
+    /* Photo Section */
+    .photo-section {
+      position: sticky;
+      top: 120px;
     }
 
     .author-photo {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
+      width: 100%;
+      aspect-ratio: 4/5;
       object-fit: cover;
-      border: 3px solid var(--violet);
-      box-shadow: 0 12px 40px rgba(157, 123, 234, 0.25);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .author-photo:hover {
-      transform: scale(1.03);
-      box-shadow: 0 16px 50px rgba(157, 123, 234, 0.35);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
     }
 
     .author-name {
-      font-size: 14px;
-      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--violet);
-      margin-bottom: 32px;
+      margin-top: 20px;
       letter-spacing: 0.5px;
-      text-align: center;
     }
 
-    .author-text {
-      text-align: left;
-    }
-
-    .author-text p {
-      margin-bottom: 20px;
-      color: #444;
+    .author-role {
       font-size: 14px;
-      line-height: 1.8;
+      color: var(--gray-500);
+      margin-top: 4px;
     }
 
-    .author-text p:last-child {
+    /* Text Section */
+    .text-section {
+      padding-top: 20px;
+    }
+
+    .text-section p {
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--gray-600);
+      margin-bottom: 28px;
+    }
+
+    .text-section p:last-of-type {
       margin-bottom: 0;
+    }
+
+    .text-section em {
+      font-style: italic;
     }
 
     .contact-button {
       display: inline-block;
-      margin-top: 28px;
-      padding: 14px 28px;
+      margin-top: 40px;
+      padding: 16px 32px;
       background: var(--violet);
-      color: #fff;
-      font-size: 14px;
+      color: #fff !important;
+      font-size: 15px;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 10px;
       transition: all 0.2s;
     }
 
@@ -244,23 +159,12 @@
       text-decoration: none;
     }
 
-    @media (max-width: 600px) {
-      .author-section {
-        margin: 15px 0 40px;
-      }
-
-      .author-photo {
-        width: 140px;
-        height: 140px;
-      }
-    }
-
     /* Footer */
     footer {
       background: var(--dark);
       color: #fff;
       padding: 50px 30px;
-      background-image: 
+      background-image:
         linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
       background-size: 60px 60px;
@@ -273,6 +177,7 @@
     }
 
     .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
@@ -302,6 +207,31 @@
     }
 
     /* Responsive */
+    @media (max-width: 800px) {
+      .about-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 120px 24px 80px;
+      }
+
+      .photo-section {
+        position: static;
+        max-width: 280px;
+      }
+
+      .author-photo {
+        aspect-ratio: 1;
+      }
+
+      .text-section {
+        padding-top: 0;
+      }
+
+      .text-section p {
+        font-size: 16px;
+      }
+    }
+
     @media (max-width: 600px) {
       .header-content {
         padding: 15px 20px;
@@ -310,18 +240,6 @@
       .header-nav a {
         margin-left: 18px;
         font-size: 12px;
-      }
-
-      .breadcrumb-bar {
-        padding: 15px 20px;
-      }
-
-      .page-content {
-        padding: 40px 20px 60px;
-      }
-
-      .page-title {
-        font-size: 26px;
       }
 
       .footer-nav a {
@@ -336,8 +254,7 @@
   <header>
     <div class="header-content">
       <a href="index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">▌</span></span>
-        <span class="full-name">SCREENPLAY EDITOR</span>
+        SCR<span class="cursor">|</span>
       </a>
       <nav class="header-nav">
         <a href="index.html#features">Features</a>
@@ -349,43 +266,30 @@
     </div>
   </header>
 
-  <div class="breadcrumb-bar">
-    <div class="breadcrumb-content">
-      <a href="index.html">Home</a>
-      <span class="separator">→</span>
-      <span class="current">About</span>
+  <main class="about-container">
+    <div class="photo-section">
+      <img src="hugo.png" alt="Hugo Thomas" class="author-photo">
+      <div class="author-name">Hugo Thomas</div>
+      <div class="author-role">Writer & Director</div>
     </div>
-  </div>
 
-  <main>
-    <div class="page-content">
-      
-      <h1 class="page-title">About</h1>
-
-      <div class="author-section">
-        <div class="author-photo-wrapper">
-          <img src="hugo.png" alt="Hugo Thomas, creator of Screenplay Editor" class="author-photo">
-        </div>
-        <div class="author-name">Hugo Thomas</div>
-        <div class="author-text">
-          <p>
-            I'm Hugo Thomas, a French writer and director. My first feature film, <em>Willy 1er</em>, premiered at Cannes. <em>Juniors</em>, my second baby, screened at festivals worldwide. They're both on Netflix. Before that, my shorts <em>Perrault, La Fontaine, Mon Cul!</em> and <em>Ich Bin Eine Tata</em> both won awards at Clermont-Ferrand, the world's largest short film festival in the world (did I mention it's the largest?).
-          </p>
-          <p>
-            I've spent years formatting scripts, fighting with software that wasn't built for how writers actually work. Final Draft feels like the 90s to me. I do love vintage aesthetics, but sending license codes by email every time you need to collaborate? That's where I draw the line.
-          </p>
-          <p>
-            This is the tool I wish I had when I started. Simple, fast, and built by someone who actually writes. I built Screenplay Editor because professional tools shouldn't cost a fortune or get in the way of writing.
-          </p>
-          <a href="mailto:hugothomas@hotmail.fr" class="contact-button">Contact me</a>
-        </div>
-      </div>
+    <div class="text-section">
+      <p>
+        I'm Hugo Thomas, a French writer and director. My first feature film, <em>Willy 1er</em>, premiered at Cannes. <em>Juniors</em>, my second baby, screened at festivals worldwide. They're both on Netflix. Before that, my shorts <em>Perrault, La Fontaine, Mon Cul!</em> and <em>Ich Bin Eine Tata</em> both won awards at Clermont-Ferrand, the world's largest short film festival in the world (did I mention it's the largest?).
+      </p>
+      <p>
+        I've spent years formatting scripts, fighting with software that wasn't built for how writers actually work. Final Draft feels like the 90s to me. I do love vintage aesthetics, but sending license codes by email every time you need to collaborate? That's where I draw the line.
+      </p>
+      <p>
+        This is the tool I wish I had when I started. Simple, fast, and built by someone who actually writes. I built Screenplay Editor because professional tools shouldn't cost a fortune or get in the way of writing.
+      </p>
+      <a href="mailto:hugothomas@hotmail.fr" class="contact-button">Contact me</a>
     </div>
   </main>
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">SCR▌</div>
+      <div class="footer-logo">SCR|</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="support.html">Support</a>
