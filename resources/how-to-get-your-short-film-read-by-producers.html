@@ -90,7 +90,7 @@
 
     /* Hero Section */
     .hero {
-      padding: 140px 32px 80px;
+      padding: 140px 32px 50px;
       background: linear-gradient(180deg, var(--violet-light) 0%, #fff 100%);
       text-align: center;
     }
@@ -269,17 +269,23 @@
       margin: 0;
     }
 
-    /* Author Image in Hero */
-    .hero-author {
-      margin-top: 48px;
-      display: flex;
-      justify-content: center;
+    /* Author Photo with Caption */
+    .author-photo-block {
+      margin-top: 40px;
+      text-align: center;
     }
 
-    .hero-author img {
-      width: 280px;
+    .author-photo-block img {
+      width: 260px;
       border-radius: 12px;
-      box-shadow: 0 20px 50px rgba(157, 123, 234, 0.2);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .author-photo-block figcaption {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--gray-500);
+      font-style: italic;
     }
 
     /* Email Block */
@@ -506,9 +512,6 @@
     <p class="hero-subtitle">
       The myth that producers don't read unsolicited scripts is mostly false. For short films, the door is more open than you think.
     </p>
-    <div class="hero-author">
-      <img src="../hugo3.jpg" alt="Hugo Thomas">
-    </div>
   </section>
 
   <!-- The Method -->
@@ -566,6 +569,11 @@
       <div class="debrief">
         <p>This email worked because it was specific. I mentioned their genre, showed I'd done my homework, and proved I wasn't a beginner — I had films, selections, awards. Keep yours short, factual, and personal. No flattery, no begging. Just: here's who I am, here's what I've done, here's what I want.</p>
       </div>
+
+      <figure class="author-photo-block">
+        <img src="../hugo3.jpg" alt="Hugo Thomas at Clermont-Ferrand">
+        <figcaption>At Clermont-Ferrand</figcaption>
+      </figure>
     </div>
   </section>
 
