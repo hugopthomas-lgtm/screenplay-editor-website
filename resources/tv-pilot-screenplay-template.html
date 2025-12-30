@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TV Pilot Screenplay Template for Google Docs — Screenplay Editor</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../favicon.png">
   <meta name="description" content="Free TV pilot screenplay template for Google Docs. Professional formatting for hour-long dramas and half-hour comedies with act break guidance.">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * {
       margin: 0;
@@ -18,15 +19,25 @@
       --violet: #9D7BEA;
       --violet-dark: #8B6AD4;
       --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
       --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+      --tv-blue: #2563eb;
+      --tv-blue-light: #eff6ff;
     }
 
     body {
-      font-family: 'JetBrains Mono', monospace;
-      background: #fafafa;
-      color: #1a1a1a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
       line-height: 1.6;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     a {
@@ -40,58 +51,38 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(248, 246, 252, 0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--gray-200);
       z-index: 100;
     }
 
     .header-content {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 18px 30px;
+      padding: 16px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo {
-      position: relative;
-      font-size: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--dark);
-      cursor: pointer;
     }
 
     .logo .cursor {
       color: var(--violet);
     }
 
-    .logo .full-name {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .logo:hover .mark {
-      opacity: 0;
-    }
-
-    .logo:hover .full-name {
-      opacity: 1;
-    }
-
     .header-nav a {
-      margin-left: 30px;
-      font-size: 13px;
+      margin-left: 32px;
+      font-size: 14px;
       font-weight: 500;
-      color: #666;
+      color: var(--gray-600);
       transition: color 0.2s;
     }
 
@@ -99,337 +90,503 @@
       color: var(--violet);
     }
 
-    /* Breadcrumb Bar */
-    .breadcrumb-bar {
-      margin-top: 60px;
-      background: var(--dark);
-      padding: 20px 30px;
-      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+    /* Hero Section */
+    .hero {
+      padding: 140px 32px 80px;
+      background: linear-gradient(180deg, var(--tv-blue-light) 0%, #fff 100%);
+      text-align: center;
     }
 
-    .breadcrumb-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
+    .hero-badge {
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      padding: 8px 16px;
+      border-radius: 100px;
       font-size: 13px;
-    }
-
-    .breadcrumb-content a {
-      color: var(--violet);
-      transition: opacity 0.2s;
-    }
-
-    .breadcrumb-content a:hover {
-      opacity: 0.8;
-    }
-
-    .breadcrumb-content .separator {
-      color: #555;
-    }
-
-    .breadcrumb-content .current {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    /* Article Content */
-    .article-content {
-      max-width: 750px;
-      margin: 0 auto;
-      padding: 50px 30px 80px;
-    }
-
-    .article-content h1 {
-      font-size: 32px;
-      font-weight: 700;
+      font-weight: 500;
+      color: var(--gray-600);
       margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--tv-blue);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
       color: var(--dark);
-      line-height: 1.3;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .article-meta {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 40px;
-      padding-bottom: 30px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .article-content h2 {
+    .hero-subtitle {
       font-size: 18px;
-      font-weight: 600;
-      margin-top: 45px;
-      margin-bottom: 18px;
-      padding-left: 15px;
-      border-left: 3px solid var(--violet);
-      color: var(--dark);
-    }
-
-    .article-content h3 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-top: 30px;
-      margin-bottom: 12px;
-      color: var(--dark);
-    }
-
-    .article-content p {
-      margin-bottom: 18px;
-      color: #444;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .article-content ul, .article-content ol {
-      margin-bottom: 18px;
-      padding-left: 24px;
-    }
-
-    .article-content li {
-      margin-bottom: 10px;
-      color: #444;
-      font-size: 14px;
+      color: var(--gray-600);
+      max-width: 540px;
+      margin: 0 auto 40px;
       line-height: 1.7;
     }
 
-    .article-content strong {
-      color: var(--dark);
-      font-weight: 600;
-    }
-
-    .article-content a {
-      color: var(--violet);
-    }
-
-    .article-content a:hover {
-      text-decoration: underline;
-    }
-
-    /* Intro box */
-    .intro-box {
-      background: var(--violet-light);
-      border-radius: 10px;
-      padding: 24px;
-      margin-bottom: 35px;
-      border-left: 4px solid var(--violet);
-    }
-
-    .intro-box p {
-      margin-bottom: 0;
-      color: #5a4a7a;
-    }
-
-    /* Feature list */
-    .feature-list {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 24px;
-      margin: 20px 0 25px;
-    }
-
-    .feature-list li {
-      position: relative;
-      padding-left: 28px;
-      margin-bottom: 12px;
-    }
-
-    .feature-list li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--violet);
-      font-weight: 600;
-    }
-
-    /* Tip cards */
-    .tip-card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin-bottom: 15px;
-    }
-
-    .tip-card h3 {
-      font-size: 14px;
-      margin-top: 0;
-      margin-bottom: 8px;
-    }
-
-    .tip-card p {
-      margin-bottom: 0;
-      font-size: 13px;
-      color: #666;
-    }
-
-    /* Format comparison */
-    .format-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0 25px;
-      font-size: 13px;
-    }
-
-    .format-table th, .format-table td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-
-    .format-table th {
-      background: var(--violet-light);
-      font-weight: 600;
-      color: var(--dark);
-    }
-
-    .format-table td {
-      color: #555;
-      background: #fff;
-    }
-
-    /* Steps */
-    .steps {
-      counter-reset: step;
-    }
-
-    .step {
-      position: relative;
-      padding-left: 50px;
-      margin-bottom: 25px;
-    }
-
-    .step::before {
-      counter-increment: step;
-      content: counter(step);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 32px;
-      height: 32px;
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       background: var(--violet);
       color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta i {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Section Base */
+    section {
+      padding: 80px 32px;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-blue { background: var(--tv-blue-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Format Cards */
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .format-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .format-card:hover {
+      border-color: var(--tv-blue);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+    }
+
+    .format-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .format-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--tv-blue-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .format-card-icon i {
+      width: 24px;
+      height: 24px;
+      color: var(--tv-blue);
+    }
+
+    .format-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .format-card-meta {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .format-card p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .checklist-icon {
+      width: 28px;
+      height: 28px;
+      background: #e8f5e9;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
+      flex-shrink: 0;
     }
 
-    .step h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
+    .checklist-icon i {
+      width: 16px;
+      height: 16px;
+      color: #43a047;
+    }
+
+    .checklist-item h4 {
       font-size: 15px;
-    }
-
-    .step p {
-      margin-bottom: 0;
-      font-size: 13px;
-      color: #666;
-    }
-
-    /* CTA Box */
-    .cta-box {
-      background: var(--dark);
-      border-radius: 12px;
-      padding: 35px;
-      margin: 40px 0;
-      text-align: center;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .cta-box h3 {
-      font-size: 18px;
       font-weight: 600;
-      color: #fff;
-      margin-bottom: 10px;
+      margin-bottom: 4px;
     }
 
-    .cta-box p {
+    .checklist-item p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Tips Grid */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .tip-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .tip-card:hover {
+      border-color: var(--violet);
+    }
+
+    .tip-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .tip-card-header i {
+      width: 20px;
+      height: 20px;
+      color: var(--tv-blue);
+    }
+
+    .tip-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .tip-card p {
       font-size: 14px;
-      color: #888;
-      margin-bottom: 20px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* Screenplay Block */
+    .screenplay-block {
+      background: #fffef8;
+      border: 1px solid #e8e4d4;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 32px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .screenplay-header {
+      background: #f8f6f0;
+      padding: 12px 20px;
+      border-bottom: 1px solid #e8e4d4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .screenplay-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-500);
+    }
+
+    .screenplay-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .screenplay-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .screenplay-dots span:nth-child(1) { background: #ff5f56; }
+    .screenplay-dots span:nth-child(2) { background: #ffbd2e; }
+    .screenplay-dots span:nth-child(3) { background: #27ca40; }
+
+    .screenplay-content {
+      padding: 32px 48px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #222;
+    }
+
+    .screenplay-content .act-break {
+      text-align: center;
+      font-weight: bold;
+      margin: 24px 0;
+      padding: 12px;
+      background: var(--gray-100);
+      border-radius: 4px;
+    }
+
+    .screenplay-content .scene-heading {
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .screenplay-content .action {
+      margin-bottom: 16px;
+      max-width: 480px;
+    }
+
+    .screenplay-content .character {
+      margin-left: 180px;
+      margin-bottom: 0;
+      font-weight: bold;
+    }
+
+    .screenplay-content .dialogue {
+      margin-left: 100px;
+      margin-right: 140px;
+      margin-bottom: 16px;
+    }
+
+    /* Steps */
+    .steps-container {
+      margin-top: 48px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 56px;
+      height: 56px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .step-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
     }
 
     .cta-buttons {
       display: flex;
-      gap: 15px;
+      gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
     }
 
     .cta-button {
-      display: inline-block;
-      background: var(--violet);
-      color: #fff;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 15px;
       font-weight: 600;
-      transition: background 0.2s, transform 0.2s;
+      transition: all 0.2s;
     }
 
-    .cta-button:hover {
+    .cta-button i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cta-button.primary {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button.primary:hover {
       background: var(--violet-dark);
-      transform: translateY(-1px);
-      text-decoration: none;
+      transform: translateY(-2px);
     }
 
     .cta-button.secondary {
-      background: transparent;
-      border: 1px solid #555;
+      background: rgba(255,255,255,0.1);
       color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .cta-button.secondary:hover {
-      border-color: var(--violet);
-      background: rgba(157, 123, 234, 0.1);
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
     }
 
     /* Footer */
     footer {
       background: var(--dark);
       color: #fff;
-      padding: 50px 30px;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+      padding: 60px 32px;
     }
 
     .footer-content {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       text-align: center;
     }
 
     .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--violet);
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .footer-nav {
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .footer-nav a {
-      color: #888;
-      margin: 0 14px;
-      font-size: 12px;
-      font-weight: 500;
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
       transition: color 0.2s;
     }
 
@@ -438,52 +595,42 @@
     }
 
     .footer-copy {
-      font-size: 11px;
-      color: #555;
+      font-size: 13px;
+      color: var(--gray-600);
     }
 
     /* Responsive */
-    @media (max-width: 600px) {
-      .header-content {
-        padding: 15px 20px;
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
       }
 
-      .header-nav a {
-        margin-left: 18px;
-        font-size: 12px;
+      .hero-subtitle {
+        font-size: 16px;
       }
 
-      .breadcrumb-bar {
-        padding: 15px 20px;
+      .format-grid,
+      .tips-grid,
+      .checklist {
+        grid-template-columns: 1fr;
       }
 
-      .article-content {
-        padding: 40px 20px 60px;
+      .step {
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
 
-      .article-content h1 {
-        font-size: 24px;
+      .screenplay-content {
+        padding: 24px;
       }
 
-      .cta-box {
-        padding: 28px 20px;
+      .screenplay-content .character {
+        margin-left: 60px;
       }
 
-      .cta-buttons {
-        flex-direction: column;
-      }
-
-      .format-table {
-        font-size: 12px;
-      }
-
-      .format-table th, .format-table td {
-        padding: 10px 12px;
-      }
-
-      .footer-nav a {
-        display: block;
-        margin: 10px 0;
+      .screenplay-content .dialogue {
+        margin-left: 20px;
+        margin-right: 20px;
       }
     }
   </style>
@@ -493,8 +640,7 @@
   <header>
     <div class="header-content">
       <a href="../index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">▌</span></span>
-        <span class="full-name">SCREENPLAY EDITOR</span>
+        SCR<span class="cursor">▌</span>
       </a>
       <nav class="header-nav">
         <a href="../index.html#features">Features</a>
@@ -506,131 +652,259 @@
     </div>
   </header>
 
-  <div class="breadcrumb-bar">
-    <div class="breadcrumb-content">
-      <a href="../index.html">Home</a>
-      <span class="separator">→</span>
-      <a href="index.html">Resources</a>
-      <span class="separator">→</span>
-      <span class="current">TV Pilot Template</span>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="tv"></i>
+      TV Template
     </div>
-  </div>
+    <h1>TV Pilot Screenplay Template</h1>
+    <p class="hero-subtitle">
+      A free Google Docs template for hour-long dramas and half-hour comedies. Professional formatting with act break structure.
+    </p>
+    <a href="../free-google-docs-screenplay-template.html" class="hero-cta">
+      <i data-lucide="download"></i>
+      Get the Template
+    </a>
+  </section>
 
-  <main>
-    <article class="article-content">
-
-      <h1>TV Pilot Screenplay Template for Google Docs</h1>
-      <p class="article-meta">A free template for hour-long dramas and half-hour comedies</p>
-
-      <div class="intro-box">
-        <p>
-          Television pilots follow different rules than feature films. Act breaks, cold opens, teasers, tags—the structure of episodic storytelling requires specific formatting that signals to readers you understand the medium. This template gives you that foundation.
-        </p>
-      </div>
-
-      <p>
-        Writing a pilot isn't just about telling a great story in 30 or 60 pages. It's about demonstrating a world that can sustain hundreds of episodes. You need to introduce characters, establish tone, tell a complete story, and plant seeds for seasons to come—all while following television's specific formatting conventions.
+  <!-- Formats -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="layout-template"></i>
+        Choose Your Format
+      </span>
+      <h2 class="section-title">Hour Drama or Half-Hour Comedy</h2>
+      <p class="section-intro">
+        TV pilots follow different structures depending on runtime and genre. Choose the format that fits your show.
       </p>
 
-      <p>
-        Whether you're writing a prestige drama for streaming, a network procedural, or a single-camera comedy, this Google Docs template provides the professional formatting you need. It handles the technical requirements so you can focus on building your series.
+      <div class="format-grid">
+        <div class="format-card">
+          <div class="format-card-header">
+            <div class="format-card-icon"><i data-lucide="clock"></i></div>
+            <h3>Hour-Long Drama</h3>
+          </div>
+          <div class="format-card-meta">55-65 pages • 5 acts + teaser</div>
+          <p>For prestige dramas, procedurals, and streaming series. Five-act structure with commercial break opportunities. Includes teaser (cold open) and tag options.</p>
+        </div>
+        <div class="format-card">
+          <div class="format-card-header">
+            <div class="format-card-icon"><i data-lucide="smile"></i></div>
+            <h3>Half-Hour Comedy</h3>
+          </div>
+          <div class="format-card-meta">28-35 pages • 2-3 acts</div>
+          <p>For single-cam and multi-cam comedies. Simpler structure with A/B storylines. Multi-cam format includes stage directions for live audience shows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="package"></i>
+        What's Included
+      </span>
+      <h2 class="section-title">Everything for Your TV Pilot</h2>
+      <p class="section-intro">
+        Industry-standard TV formatting with act breaks, teasers, and episode structure.
       </p>
 
-      <h2>What This Template Includes</h2>
+      <div class="checklist">
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Act Break Formatting</h4>
+            <p>Clear act labels and page breaks</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Teaser Structure</h4>
+            <p>Cold open / teaser section template</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Episode Title Page</h4>
+            <p>Show name, episode title, draft info</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Professional Margins</h4>
+            <p>1.5" left, 1" right, top, and bottom</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Scene Numbering</h4>
+            <p>Production-ready scene numbers</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Character List</h4>
+            <p>Cast breakdown page template</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <ul class="feature-list">
-        <li>Industry-standard TV script margins and Courier 12pt font</li>
-        <li>Act break formatting with proper spacing</li>
-        <li>Cold open (teaser) structure</li>
-        <li>Title page formatted for television specs</li>
-        <li>Sample dialogue and action formatting</li>
-        <li>End of episode formatting (tag, end of show)</li>
-      </ul>
-
-      <p>
-        The template adapts to both hour-long and half-hour formats. Here's how page counts typically break down:
+  <!-- Example -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="file-text"></i>
+        Example
+      </span>
+      <h2 class="section-title">TV Format in Action</h2>
+      <p class="section-intro">
+        Here's how a TV pilot looks with proper act breaks and teaser structure.
       </p>
 
-      <table class="format-table">
-        <tr>
-          <th>Format</th>
-          <th>Page Count</th>
-          <th>Act Structure</th>
-        </tr>
-        <tr>
-          <td>Hour-long Drama</td>
-          <td>55-65 pages</td>
-          <td>Teaser + 5 Acts (or 4 Acts + Tag)</td>
-        </tr>
-        <tr>
-          <td>Half-hour Comedy</td>
-          <td>28-35 pages</td>
-          <td>Cold Open + 2 Acts (+ optional Tag)</td>
-        </tr>
-        <tr>
-          <td>Streaming (no ads)</td>
-          <td>Varies</td>
-          <td>Often no act breaks, natural story beats</td>
-        </tr>
-      </table>
-
-      <h2>TV Pilot-Specific Formatting Tips</h2>
-
-      <div class="tip-card">
-        <h3>Format Your Act Breaks Correctly</h3>
-        <p>Each act break should be centered, in caps: "END OF ACT ONE" followed by a page break. The next page starts with "ACT TWO" centered at the top. This isn't just convention—it tells producers exactly where commercial breaks would fall.</p>
+      <div class="screenplay-block">
+        <div class="screenplay-header">
+          <span class="screenplay-label">TV Pilot Format</span>
+          <div class="screenplay-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="screenplay-content">
+          <div class="act-break">TEASER</div>
+          <div class="scene-heading">INT. POLICE STATION - BULLPEN - NIGHT</div>
+          <div class="action">The station is nearly empty. A single desk lamp illuminates DETECTIVE CHEN (40s), hunched over a case file. Coffee cups everywhere.</div>
+          <div class="action">Her phone BUZZES. She checks it. Her face goes pale.</div>
+          <div class="character">CHEN</div>
+          <div class="dialogue">No. Not again.</div>
+          <div class="action">She grabs her jacket and runs.</div>
+          <div class="act-break">END OF TEASER</div>
+          <div class="act-break">ACT ONE</div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="tip-card">
-        <h3>Your Teaser Is Your Pitch</h3>
-        <p>The cold open (or teaser) is the first thing readers see. It should immediately establish tone, hook the audience, and ideally pose a question that carries through the episode. Keep it tight—usually 3-5 pages for drama, 1-3 for comedy.</p>
+  <!-- Tips -->
+  <section class="bg-violet">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="lightbulb"></i>
+        TV Writing Tips
+      </span>
+      <h2 class="section-title">Sell Your Series</h2>
+      <p class="section-intro">
+        A pilot isn't just the first episode. It's a proof of concept for 100 more.
+      </p>
+
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="repeat"></i>
+            <h3>Show the Engine</h3>
+          </div>
+          <p>Your pilot must demonstrate what happens every week. What's the repeatable story engine? A cop solves cases. A family navigates chaos. Make the format clear.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="sparkles"></i>
+            <h3>Nail the Teaser</h3>
+          </div>
+          <p>The first 3-5 pages determine whether anyone reads the rest. Hook readers immediately. Establish tone, world, and stakes before the first act break.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="users"></i>
+            <h3>Ensemble Introductions</h3>
+          </div>
+          <p>TV is about characters we want to spend years with. Give each major character a memorable introduction that reveals who they are under pressure.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="git-branch"></i>
+            <h3>A-Story Meets B-Story</h3>
+          </div>
+          <p>Most TV episodes juggle multiple storylines. Your pilot should establish at least two plot threads that intersect by the end. Show you can handle complexity.</p>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="tip-card">
-        <h3>Introduce Your Ensemble Efficiently</h3>
-        <p>TV pilots need to introduce more characters than features, but you have less time. Use action lines to give quick, memorable character descriptions. Focus on behavior over appearance—what they do tells us who they are.</p>
-      </div>
+  <!-- How to Use -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="list-ordered"></i>
+        How to Use
+      </span>
+      <h2 class="section-title">Get Started in 4 Steps</h2>
+      <p class="section-intro">
+        From template to finished pilot script.
+      </p>
 
-      <div class="tip-card">
-        <h3>End on Engines, Not Conclusions</h3>
-        <p>Unlike features, pilots shouldn't wrap everything up. End with engines—ongoing conflicts, relationships in tension, mysteries unsolved. Your pilot needs to prove there's more story to tell. The best pilots make readers immediately want episode two.</p>
-      </div>
-
-      <h2>How to Use This Template</h2>
-
-      <div class="steps">
+      <div class="steps-container">
         <div class="step">
-          <h3>Open the Template</h3>
-          <p>Click below to access the TV pilot template in Google Docs. It includes sample act breaks and formatting for both hour-long and half-hour structures.</p>
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Open the Template</h3>
+            <p>Click the button below to open the template in Google Docs. You'll see TV-specific formatting with act breaks and teaser structure.</p>
+          </div>
         </div>
-
         <div class="step">
-          <h3>Make a Copy</h3>
-          <p>Go to File → Make a copy to create your own version. Name it with your series title and "Pilot" (e.g., "UNTITLED CRIME DRAMA - Pilot").</p>
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Choose Your Format</h3>
+            <p>Delete the format you don't need (hour drama or half-hour comedy). Keep the structure that matches your show's runtime and genre.</p>
+          </div>
         </div>
-
         <div class="step">
-          <h3>Choose Your Structure</h3>
-          <p>Delete the act breaks you don't need. Writing a streaming show with no commercials? Remove all act breaks. Network drama? Keep the full five-act structure.</p>
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Fill in Your Show</h3>
+            <p>Replace the sample content with your series. Update the title page with your show name, episode title, and contact information.</p>
+          </div>
         </div>
-
         <div class="step">
-          <h3>Install Screenplay Editor</h3>
-          <p>For faster formatting and keyboard shortcuts, add our free Google Docs extension. It's especially helpful when you're juggling multiple storylines and scene types.</p>
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Install Screenplay Editor (Optional)</h3>
+            <p>For automatic formatting, keyboard shortcuts, and export options, install our free Google Docs add-on. It makes TV formatting consistent.</p>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="cta-box">
-        <h3>Get the Template</h3>
-        <p>Start your TV pilot with professional formatting.</p>
-        <div class="cta-buttons">
-          <a href="../free-google-docs-screenplay-template.html" class="cta-button">Open Template</a>
-          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary">Get Screenplay Editor — Free</a>
-        </div>
-      </div>
-
-    </article>
-  </main>
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <span class="section-label">
+      <i data-lucide="rocket"></i>
+      Ready to Write
+    </span>
+    <h2 class="section-title">Start Your TV Pilot Today</h2>
+    <p class="section-intro">
+      Professional TV formatting, act break structure, zero setup time.
+    </p>
+    <div class="cta-buttons">
+      <a href="../free-google-docs-screenplay-template.html" class="cta-button primary">
+        <i data-lucide="download"></i>
+        Get the Template
+      </a>
+      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary">
+        <i data-lucide="plus"></i>
+        Install Screenplay Editor
+      </a>
+    </div>
+  </section>
 
   <footer>
     <div class="footer-content">
@@ -640,10 +914,14 @@
         <a href="../support.html">Support</a>
         <a href="../privacy.html">Privacy Policy</a>
         <a href="../terms.html">Terms of Service</a>
-        <a href="../free-google-docs-screenplay-template.html">Free Template</a>
+        <a href="index.html">Resources</a>
       </nav>
       <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>

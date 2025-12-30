@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Horror Screenplay Template for Google Docs — Screenplay Editor</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../favicon.png">
   <meta name="description" content="Free horror screenplay template for Google Docs. Professional formatting with genre-specific tips for building tension and crafting scares.">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * {
       margin: 0;
@@ -18,15 +19,25 @@
       --violet: #9D7BEA;
       --violet-dark: #8B6AD4;
       --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
       --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+      --blood: #8B0000;
+      --blood-light: #fef2f2;
     }
 
     body {
-      font-family: 'JetBrains Mono', monospace;
-      background: #fafafa;
-      color: #1a1a1a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
       line-height: 1.6;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     a {
@@ -40,58 +51,38 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(248, 246, 252, 0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--gray-200);
       z-index: 100;
     }
 
     .header-content {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 18px 30px;
+      padding: 16px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo {
-      position: relative;
-      font-size: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--dark);
-      cursor: pointer;
     }
 
     .logo .cursor {
       color: var(--violet);
     }
 
-    .logo .full-name {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .logo:hover .mark {
-      opacity: 0;
-    }
-
-    .logo:hover .full-name {
-      opacity: 1;
-    }
-
     .header-nav a {
-      margin-left: 30px;
-      font-size: 13px;
+      margin-left: 32px;
+      font-size: 14px;
       font-weight: 500;
-      color: #666;
+      color: var(--gray-600);
       transition: color 0.2s;
     }
 
@@ -99,312 +90,441 @@
       color: var(--violet);
     }
 
-    /* Breadcrumb Bar */
-    .breadcrumb-bar {
-      margin-top: 60px;
-      background: var(--dark);
-      padding: 20px 30px;
-      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+    /* Hero Section */
+    .hero {
+      padding: 140px 32px 80px;
+      background: linear-gradient(180deg, var(--dark) 0%, #2d2d2d 100%);
+      text-align: center;
     }
 
-    .breadcrumb-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
-    }
-
-    .breadcrumb-content a {
-      color: var(--violet);
-      transition: opacity 0.2s;
-    }
-
-    .breadcrumb-content a:hover {
-      opacity: 0.8;
-    }
-
-    .breadcrumb-content .separator {
-      color: #555;
-    }
-
-    .breadcrumb-content .current {
+    .hero * {
       color: #fff;
-      font-weight: 600;
     }
 
-    /* Article Content */
-    .article-content {
-      max-width: 750px;
-      margin: 0 auto;
-      padding: 50px 30px 80px;
-    }
-
-    .article-content h1 {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      color: var(--dark);
-      line-height: 1.3;
-    }
-
-    .article-meta {
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 100px;
       font-size: 13px;
-      color: #888;
-      margin-bottom: 40px;
-      padding-bottom: 30px;
-      border-bottom: 1px solid #eee;
+      font-weight: 500;
+      color: var(--gray-400);
+      margin-bottom: 24px;
     }
 
-    .article-content h2 {
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--blood);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-subtitle {
       font-size: 18px;
-      font-weight: 600;
-      margin-top: 45px;
-      margin-bottom: 18px;
-      padding-left: 15px;
-      border-left: 3px solid var(--violet);
-      color: var(--dark);
-    }
-
-    .article-content h3 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-top: 30px;
-      margin-bottom: 12px;
-      color: var(--dark);
-    }
-
-    .article-content p {
-      margin-bottom: 18px;
-      color: #444;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .article-content ul, .article-content ol {
-      margin-bottom: 18px;
-      padding-left: 24px;
-    }
-
-    .article-content li {
-      margin-bottom: 10px;
-      color: #444;
-      font-size: 14px;
+      color: var(--gray-400);
+      max-width: 540px;
+      margin: 0 auto 40px;
       line-height: 1.7;
     }
 
-    .article-content strong {
-      color: var(--dark);
-      font-weight: 600;
-    }
-
-    .article-content a {
-      color: var(--violet);
-    }
-
-    .article-content a:hover {
-      text-decoration: underline;
-    }
-
-    /* Intro box */
-    .intro-box {
-      background: var(--violet-light);
-      border-radius: 10px;
-      padding: 24px;
-      margin-bottom: 35px;
-      border-left: 4px solid var(--violet);
-    }
-
-    .intro-box p {
-      margin-bottom: 0;
-      color: #5a4a7a;
-    }
-
-    /* Feature list */
-    .feature-list {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 24px;
-      margin: 20px 0 25px;
-    }
-
-    .feature-list li {
-      position: relative;
-      padding-left: 28px;
-      margin-bottom: 12px;
-    }
-
-    .feature-list li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--violet);
-      font-weight: 600;
-    }
-
-    /* Tip cards */
-    .tip-card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin-bottom: 15px;
-    }
-
-    .tip-card h3 {
-      font-size: 14px;
-      margin-top: 0;
-      margin-bottom: 8px;
-    }
-
-    .tip-card p {
-      margin-bottom: 0;
-      font-size: 13px;
-      color: #666;
-    }
-
-    /* Steps */
-    .steps {
-      counter-reset: step;
-    }
-
-    .step {
-      position: relative;
-      padding-left: 50px;
-      margin-bottom: 25px;
-    }
-
-    .step::before {
-      counter-increment: step;
-      content: counter(step);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 32px;
-      height: 32px;
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       background: var(--violet);
       color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta i {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Section Base */
+    section {
+      padding: 80px 32px;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(139, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 0, 0, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .checklist-icon {
+      width: 28px;
+      height: 28px;
+      background: #e8f5e9;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
+      flex-shrink: 0;
     }
 
-    .step h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
+    .checklist-icon i {
+      width: 16px;
+      height: 16px;
+      color: #43a047;
+    }
+
+    .checklist-item h4 {
       font-size: 15px;
-    }
-
-    .step p {
-      margin-bottom: 0;
-      font-size: 13px;
-      color: #666;
-    }
-
-    /* CTA Box */
-    .cta-box {
-      background: var(--dark);
-      border-radius: 12px;
-      padding: 35px;
-      margin: 40px 0;
-      text-align: center;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .cta-box h3 {
-      font-size: 18px;
       font-weight: 600;
-      color: #fff;
-      margin-bottom: 10px;
+      margin-bottom: 4px;
     }
 
-    .cta-box p {
+    .checklist-item p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Tips Grid */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .tip-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .tip-card:hover {
+      border-color: var(--blood);
+      box-shadow: 0 8px 24px rgba(139, 0, 0, 0.08);
+    }
+
+    .tip-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .tip-card-header i {
+      width: 20px;
+      height: 20px;
+      color: var(--blood);
+    }
+
+    .tip-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .tip-card p {
       font-size: 14px;
-      color: #888;
-      margin-bottom: 20px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* Screenplay Block */
+    .screenplay-block {
+      background: #0d0d0d;
+      border: 1px solid #333;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 32px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .screenplay-header {
+      background: #1a1a1a;
+      padding: 12px 20px;
+      border-bottom: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .screenplay-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--blood);
+    }
+
+    .screenplay-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .screenplay-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .screenplay-dots span:nth-child(1) { background: #ff5f56; }
+    .screenplay-dots span:nth-child(2) { background: #ffbd2e; }
+    .screenplay-dots span:nth-child(3) { background: #27ca40; }
+
+    .screenplay-content {
+      padding: 32px 48px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #e0e0e0;
+    }
+
+    .screenplay-content .scene-heading {
+      font-weight: bold;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .screenplay-content .action {
+      margin-bottom: 16px;
+      max-width: 480px;
+    }
+
+    .screenplay-content .character {
+      margin-left: 180px;
+      margin-bottom: 0;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .screenplay-content .parenthetical {
+      margin-left: 140px;
+      font-style: italic;
+      margin-bottom: 0;
+      color: #999;
+    }
+
+    .screenplay-content .dialogue {
+      margin-left: 100px;
+      margin-right: 140px;
+      margin-bottom: 16px;
+    }
+
+    /* Steps */
+    .steps-container {
+      margin-top: 48px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 56px;
+      height: 56px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .step-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
     }
 
     .cta-buttons {
       display: flex;
-      gap: 15px;
+      gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
     }
 
     .cta-button {
-      display: inline-block;
-      background: var(--violet);
-      color: #fff;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 15px;
       font-weight: 600;
-      transition: background 0.2s, transform 0.2s;
+      transition: all 0.2s;
     }
 
-    .cta-button:hover {
+    .cta-button i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cta-button.primary {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button.primary:hover {
       background: var(--violet-dark);
-      transform: translateY(-1px);
-      text-decoration: none;
+      transform: translateY(-2px);
     }
 
     .cta-button.secondary {
-      background: transparent;
-      border: 1px solid #555;
+      background: rgba(255,255,255,0.1);
       color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .cta-button.secondary:hover {
-      border-color: var(--violet);
-      background: rgba(157, 123, 234, 0.1);
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
     }
 
     /* Footer */
     footer {
       background: var(--dark);
       color: #fff;
-      padding: 50px 30px;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+      padding: 60px 32px;
     }
 
     .footer-content {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       text-align: center;
     }
 
     .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--violet);
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .footer-nav {
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .footer-nav a {
-      color: #888;
-      margin: 0 14px;
-      font-size: 12px;
-      font-weight: 500;
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
       transition: color 0.2s;
     }
 
@@ -413,44 +533,45 @@
     }
 
     .footer-copy {
-      font-size: 11px;
-      color: #555;
+      font-size: 13px;
+      color: var(--gray-600);
     }
 
     /* Responsive */
-    @media (max-width: 600px) {
-      .header-content {
-        padding: 15px 20px;
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
       }
 
-      .header-nav a {
-        margin-left: 18px;
-        font-size: 12px;
+      .hero-subtitle {
+        font-size: 16px;
       }
 
-      .breadcrumb-bar {
-        padding: 15px 20px;
+      .tips-grid,
+      .checklist {
+        grid-template-columns: 1fr;
       }
 
-      .article-content {
-        padding: 40px 20px 60px;
+      .step {
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
 
-      .article-content h1 {
-        font-size: 24px;
+      .screenplay-content {
+        padding: 24px;
       }
 
-      .cta-box {
-        padding: 28px 20px;
+      .screenplay-content .character {
+        margin-left: 60px;
       }
 
-      .cta-buttons {
-        flex-direction: column;
+      .screenplay-content .parenthetical {
+        margin-left: 40px;
       }
 
-      .footer-nav a {
-        display: block;
-        margin: 10px 0;
+      .screenplay-content .dialogue {
+        margin-left: 20px;
+        margin-right: 20px;
       }
     }
   </style>
@@ -460,8 +581,7 @@
   <header>
     <div class="header-content">
       <a href="../index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">▌</span></span>
-        <span class="full-name">SCREENPLAY EDITOR</span>
+        SCR<span class="cursor">▌</span>
       </a>
       <nav class="header-nav">
         <a href="../index.html#features">Features</a>
@@ -473,104 +593,228 @@
     </div>
   </header>
 
-  <div class="breadcrumb-bar">
-    <div class="breadcrumb-content">
-      <a href="../index.html">Home</a>
-      <span class="separator">→</span>
-      <a href="index.html">Resources</a>
-      <span class="separator">→</span>
-      <span class="current">Horror Template</span>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="skull"></i>
+      Horror Template
     </div>
-  </div>
+    <h1>Horror Screenplay Template</h1>
+    <p class="hero-subtitle">
+      A free Google Docs template built for the horror genre. Professional formatting with tips for building tension and crafting effective scares.
+    </p>
+    <a href="../free-google-docs-screenplay-template.html" class="hero-cta">
+      <i data-lucide="download"></i>
+      Get the Template
+    </a>
+  </section>
 
-  <main>
-    <article class="article-content">
-
-      <h1>Horror Screenplay Template for Google Docs</h1>
-      <p class="article-meta">A free template for writing scripts that terrify</p>
-
-      <div class="intro-box">
-        <p>
-          Horror lives and dies on the page before it ever reaches the screen. The way you format your scares—the pacing of your action lines, the rhythm of your dialogue, the white space that lets dread build—can make the difference between a script that unsettles readers and one that falls flat.
-        </p>
-      </div>
-
-      <p>
-        Horror is one of the most format-sensitive genres in screenwriting. A jump scare needs specific pacing on the page. Tension requires careful control of how much information you reveal and when. The template handles the standard formatting so you can focus on what matters: making your reader afraid to turn the page.
+  <!-- What's Included -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="package"></i>
+        What's Included
+      </span>
+      <h2 class="section-title">Everything for Your Horror Script</h2>
+      <p class="section-intro">
+        Industry-standard formatting with genre-specific considerations for horror screenwriting.
       </p>
 
-      <p>
-        Whether you're writing supernatural horror, slasher, psychological thriller, or creature feature, this Google Docs template provides the professional foundation your script needs. It follows industry standards while giving you the flexibility to craft your own brand of terror.
+      <div class="checklist">
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Professional Margins</h4>
+            <p>1.5" left, 1" right, top, and bottom</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Courier 12pt Font</h4>
+            <p>Industry standard with proper line spacing</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Horror Scene Examples</h4>
+            <p>Sample tension-building sequences</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Title Page Included</h4>
+            <p>Standard feature film title page</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>White Space Techniques</h4>
+            <p>Formatting that creates visual tension</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Pacing Guidelines</h4>
+            <p>Structure tips for horror beats</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="file-text"></i>
+        Example
+      </span>
+      <h2 class="section-title">Horror Formatting in Action</h2>
+      <p class="section-intro">
+        Notice how white space and short lines create tension. The page itself becomes a tool for building dread.
       </p>
 
-      <h2>What This Template Includes</h2>
-
-      <ul class="feature-list">
-        <li>Industry-standard page margins and Courier 12pt formatting</li>
-        <li>Sample scene demonstrating tension-building techniques</li>
-        <li>Title page formatted for spec scripts</li>
-        <li>Proper spacing for action lines and dialogue</li>
-        <li>Page numbering and header configuration</li>
-        <li>Examples of effective horror scene headings</li>
-      </ul>
-
-      <h2>Horror-Specific Formatting Tips</h2>
-
-      <div class="tip-card">
-        <h3>Use White Space as a Weapon</h3>
-        <p>Short paragraphs. Single-line action beats. These create visual tension on the page. When a reader's eye moves quickly down the page, their heart rate follows. Save your longer descriptive paragraphs for moments of false calm—then snap back to short, punchy lines when the horror arrives.</p>
+      <div class="screenplay-block">
+        <div class="screenplay-header">
+          <span class="screenplay-label">Horror Format</span>
+          <div class="screenplay-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="screenplay-content">
+          <div class="scene-heading">INT. BASEMENT - NIGHT</div>
+          <div class="action">Darkness.</div>
+          <div class="action">A single lightbulb flickers overhead. SARAH (30s) descends the wooden stairs. Each step CREAKS.</div>
+          <div class="action">She stops.</div>
+          <div class="action">Silence.</div>
+          <div class="action">Then, from somewhere in the dark:</div>
+          <div class="action">Breathing.</div>
+          <div class="character">SARAH</div>
+          <div class="parenthetical">(whisper)</div>
+          <div class="dialogue">Hello?</div>
+          <div class="action">The lightbulb goes out.</div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="tip-card">
-        <h3>Write What the Character Sees, Not What's There</h3>
-        <p>Horror is about perception and misdirection. Consider how Lloyd Kaufman approached this in his 2006 masterpiece <em>Poultrygeist: Night of the Chicken Dead</em>. Instead of "The zombie chicken stands behind Wendy," the script reads: "Wendy's reflection in the fryer glass. Behind her, a shape. Feathered. Twitching." This keeps the reader in the character's limited perspective and amplifies the dread.</p>
+  <!-- Tips -->
+  <section class="bg-violet">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="lightbulb"></i>
+        Horror Writing Tips
+      </span>
+      <h2 class="section-title">Craft Fear on the Page</h2>
+      <p class="section-intro">
+        Horror screenwriting has its own rules. Here's how to make readers feel the dread.
+      </p>
+
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="align-left"></i>
+            <h3>White Space is Your Weapon</h3>
+          </div>
+          <p>Short paragraphs. Single-line actions. Let the page breathe. Empty space creates anticipation. When readers see white space, they slow down. They feel the dread building.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="volume-x"></i>
+            <h3>Sound Before Sight</h3>
+          </div>
+          <p>What we hear is often scarier than what we see. A creak. A whisper. Breathing in the dark. Let sound design do the heavy lifting in your action lines.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="clock"></i>
+            <h3>Delay the Reveal</h3>
+          </div>
+          <p>The monster you don't see is always scarier. Keep your creature, killer, or threat in the shadows as long as possible. Build anticipation through glimpses and sounds.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="heart"></i>
+            <h3>Make Us Care First</h3>
+          </div>
+          <p>Horror without empathy is just gore. Give us characters we root for before you put them in danger. The scares hit harder when we care about survival.</p>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="tip-card">
-        <h3>Sound Deserves Its Own Line</h3>
-        <p>In horror, sound is everything. Give important sounds their own action line: "A CREAK. From upstairs." This visual isolation on the page mimics the isolation of that sound in the silence. It forces the reader to pause, just like your audience will.</p>
-      </div>
+  <!-- How to Use -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="list-ordered"></i>
+        How to Use
+      </span>
+      <h2 class="section-title">Get Started in 4 Steps</h2>
+      <p class="section-intro">
+        From template to finished horror script.
+      </p>
 
-      <div class="tip-card">
-        <h3>Let Silence Speak</h3>
-        <p>Don't fill every moment with action or dialogue. A line like "She waits. Listening. Nothing." creates unbearable tension through restraint. The reader knows something is coming—and the waiting is worse than the payoff.</p>
-      </div>
-
-      <h2>How to Use This Template</h2>
-
-      <div class="steps">
+      <div class="steps-container">
         <div class="step">
-          <h3>Open the Template</h3>
-          <p>Click the link below to access the horror screenplay template in Google Docs. You'll see sample formatting that demonstrates effective horror pacing.</p>
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Open the Template</h3>
+            <p>Click the button below to open the template in Google Docs. You'll see horror-specific formatting examples with tension-building techniques.</p>
+          </div>
         </div>
-
         <div class="step">
-          <h3>Make a Copy</h3>
-          <p>Go to File → Make a copy and save it to your own Google Drive. Name it something appropriately ominous—or just your working title.</p>
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Make a Copy</h3>
+            <p>Go to File → Make a copy to save your own version. Rename it with your project title. The original template stays unchanged.</p>
+          </div>
         </div>
-
         <div class="step">
-          <h3>Study the Sample, Then Replace It</h3>
-          <p>The template includes a sample scene showing horror formatting techniques. Study how white space and line breaks create tension, then delete it and write your own nightmares.</p>
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Study the Examples</h3>
+            <p>Before deleting the sample content, note how white space and short paragraphs create tension. Apply these techniques to your own scenes.</p>
+          </div>
         </div>
-
         <div class="step">
-          <h3>Add Screenplay Editor for Faster Formatting</h3>
-          <p>Our free add-on lets you format with keyboard shortcuts—essential when you're in the flow of a terrifying sequence and don't want to break the spell by clicking menus.</p>
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Install Screenplay Editor (Optional)</h3>
+            <p>For automatic formatting, keyboard shortcuts, and export options, install our free Google Docs add-on. It keeps your formatting consistent as you write.</p>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="cta-box">
-        <h3>Get the Template</h3>
-        <p>Start writing your horror screenplay with professional formatting.</p>
-        <div class="cta-buttons">
-          <a href="../free-google-docs-screenplay-template.html" class="cta-button">Open Template</a>
-          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary">Get Screenplay Editor — Free</a>
-        </div>
-      </div>
-
-    </article>
-  </main>
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <span class="section-label">
+      <i data-lucide="rocket"></i>
+      Ready to Write
+    </span>
+    <h2 class="section-title">Start Your Horror Script Today</h2>
+    <p class="section-intro">
+      Professional formatting, genre-specific tips, zero setup time.
+    </p>
+    <div class="cta-buttons">
+      <a href="../free-google-docs-screenplay-template.html" class="cta-button primary">
+        <i data-lucide="download"></i>
+        Get the Template
+      </a>
+      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary">
+        <i data-lucide="plus"></i>
+        Install Screenplay Editor
+      </a>
+    </div>
+  </section>
 
   <footer>
     <div class="footer-content">
@@ -580,10 +824,14 @@
         <a href="../support.html">Support</a>
         <a href="../privacy.html">Privacy Policy</a>
         <a href="../terms.html">Terms of Service</a>
-        <a href="../free-google-docs-screenplay-template.html">Free Template</a>
+        <a href="index.html">Resources</a>
       </nav>
       <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
