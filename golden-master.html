@@ -330,121 +330,121 @@ Do not format this document. Duplicate it first.
 
 === SCENE HEADINGS ===
 
-INT. COFFEE SHOP - DAY
+INT. COFFEE SHOP - DAY [SCENE_HEADING]
 
-EXT. PARKING LOT - NIGHT
+EXT. PARKING LOT - NIGHT [SCENE_HEADING]
 
-INT./EXT. CAR - MOVING - DAY
+INT./EXT. CAR - MOVING - DAY [SCENE_HEADING]
 
-I/E. HOUSE - CONTINUOUS
+I/E. HOUSE - CONTINUOUS [SCENE_HEADING]
 
-1. INT. NUMBERED SCENE - DAY
+1. INT. NUMBERED SCENE - DAY [SCENE_HEADING]
 
 === CHARACTERS ===
 
-JOHN
+JOHN [CHARACTER]
 
-MARY JANE
+MARY JANE [CHARACTER]
 
-DR. SMITH
+DR. SMITH [CHARACTER]
 
-JOHN (V.O.)
+JOHN (V.O.) [CHARACTER]
 
-MARY (O.S.)
+MARY (O.S.) [CHARACTER]
 
-JOHN (CONT'D)
+JOHN (CONT'D) [CHARACTER]
 
-MRS. ROBINSON
+MRS. ROBINSON [CHARACTER]
 
 === DIALOGUE ===
 
-JOHN
-Hello.
+JOHN [CHARACTER]
+Hello. [DIALOGUE]
 
-MARY
-This is a short line.
+MARY [CHARACTER]
+This is a short line. [DIALOGUE]
 
-JOHN
-This is a much longer line of dialogue that should wrap properly and stay within the correct margins for dialogue formatting.
+JOHN [CHARACTER]
+This is a much longer line of dialogue that should wrap properly and stay within the correct margins for dialogue formatting. [DIALOGUE]
 
 === PARENTHETICALS ===
 
-JOHN
-(whispering)
-I can't believe it.
+JOHN [CHARACTER]
+(whispering) [PARENTHETICAL]
+I can't believe it. [DIALOGUE]
 
-MARY
-(to John, sarcastically)
-Oh really?
+MARY [CHARACTER]
+(to John, sarcastically) [PARENTHETICAL]
+Oh really? [DIALOGUE]
 
 === TRANSITIONS ===
 
-CUT TO:
+CUT TO: [TRANSITION]
 
-FADE OUT.
+FADE OUT. [TRANSITION]
 
-FADE IN:
+FADE IN: [TRANSITION]
 
-DISSOLVE TO:
+DISSOLVE TO: [TRANSITION]
 
-SMASH CUT TO:
+SMASH CUT TO: [TRANSITION]
 
 === ACTIONS ===
 
-John walks into the room. He looks around nervously.
+John walks into the room. He looks around nervously. [ACTION]
 
-The door SLAMS shut behind him.
+The door SLAMS shut behind him. [ACTION]
 
-This is underlined action text that should lose its underline.
+This is underlined action text that should lose its underline. [ACTION]
 
-This is bold action text that should lose its bold.
+This is bold action text that should lose its bold. [ACTION]
 
-This is italic action text.
+This is italic action text. [ACTION]
 
 === ACTION LISTS ===
 
-- John grabs the gun
-- Mary screams
-- The lights go out
+- John grabs the gun [ACTION]
+- Mary screams [ACTION]
+- The lights go out [ACTION]
 
 === MIXED SCENARIOS ===
 
-INT. HOSPITAL ROOM - NIGHT
+INT. HOSPITAL ROOM - NIGHT [SCENE_HEADING]
 
-A dark room. Monitors BEEP steadily.
+A dark room. Monitors BEEP steadily. [ACTION]
 
-DOCTOR CHEN
-(checking clipboard)
-The results are in.
+DOCTOR CHEN [CHARACTER]
+(checking clipboard) [PARENTHETICAL]
+The results are in. [DIALOGUE]
 
-PATIENT
-And?
+PATIENT [CHARACTER]
+And? [DIALOGUE]
 
-DOCTOR CHEN
-(beat)
-You're going to be fine.
+DOCTOR CHEN [CHARACTER]
+(beat) [PARENTHETICAL]
+You're going to be fine. [DIALOGUE]
 
-The patient exhales. Relief washes over her face.
+The patient exhales. Relief washes over her face. [ACTION]
 
-CUT TO:
+CUT TO: [TRANSITION]
 
-EXT. HOSPITAL - PARKING LOT - LATER
+EXT. HOSPITAL - PARKING LOT - LATER [SCENE_HEADING]
 
-Rain pours down.
+Rain pours down. [ACTION]
 
 === EDGE CASES ===
 
-OK
+OK [ACTION]
 
-TV plays in the background.
+TV plays in the background. [ACTION]
 
-The CIA agent enters.
+The CIA agent enters. [ACTION]
 
-ALEX (30s) sits alone at the bar.
+ALEX (30s) sits alone at the bar. [ACTION]
 
-A man chews a toothpick.
+A man chews a toothpick. [ACTION]
 
-I...
+I... [ACTION]
 
 === END OF TEST DOCUMENT ===</pre>
         </div>
@@ -461,8 +461,13 @@ I...
             <li>Paste into the Google Doc</li>
             <li><strong>Duplicate the doc</strong> (File → Make a copy) — don't format the original!</li>
             <li>Run <strong>"Format my document"</strong> on the copy</li>
-            <li>Check results against the checklist below</li>
+            <li>Click <strong>"Validate formatting"</strong> (debug button at bottom of sidebar)</li>
+            <li>Check that all <code>[TYPE]</code> tags match the detected formatting</li>
           </ol>
+        </div>
+
+        <div class="warning" style="margin-top: 15px;">
+          <p>💡 The <code>[TYPE]</code> tags tell the validator what each line should become. After formatting, click "Validate" to automatically check if the formatting is correct.</p>
         </div>
       </div>
 
