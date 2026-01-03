@@ -722,11 +722,6 @@
             <td>Google Docs interprets it as spacingAfter on the PREVIOUS paragraph, causing a visual bug and "Remove spacing after" option to appear</td>
             <td>Insert an empty paragraph with <code>body.insertParagraph(index, '')</code></td>
           </tr>
-          <tr>
-            <td>Use <code>setAttributes()</code> alone for formatting</td>
-            <td>May not reset all styles properly (underline, spacing)</td>
-            <td>Always call <code>setSpacingAfter(0)</code> and reset styles explicitly after setAttributes</td>
-          </tr>
         </table>
       </div>
 
