@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Golden Master — Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+      --green: #34C759;
+      --red: #FF3B30;
+      --orange: #FF9500;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      background: var(--dark);
+      padding: 20px 30px;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+    }
+
+    .header-badge {
+      font-size: 11px;
+      color: #666;
+      background: rgba(157, 123, 234, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(157, 123, 234, 0.2);
+    }
+
+    /* Page Content */
+    .page-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 30px 80px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-left: 15px;
+      border-left: 3px solid var(--violet);
+      color: var(--dark);
+    }
+
+    .section p {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* Code block */
+    .code-container {
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .code-block {
+      background: var(--dark);
+      color: #ccc;
+      padding: 25px;
+      border-radius: 8px;
+      font-size: 12px;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.5;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--violet);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .copy-btn:hover {
+      background: var(--violet-dark);
+    }
+
+    .copy-btn:active {
+      transform: scale(0.95);
+    }
+
+    .copy-btn.copied {
+      background: var(--green);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 15px;
+      background: var(--dark);
+      color: #fff;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+
+    th:last-child {
+      border-radius: 0 8px 0 0;
+    }
+
+    td {
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      color: #444;
+    }
+
+    tr:last-child td:first-child {
+      border-radius: 0 0 0 8px;
+    }
+
+    tr:last-child td:last-child {
+      border-radius: 0 0 8px 0;
+    }
+
+    tr:hover td {
+      background: var(--violet-light);
+    }
+
+    .value {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Instructions */
+    .instructions {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .instructions ol {
+      margin-left: 20px;
+    }
+
+    .instructions li {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .instructions li strong {
+      color: var(--dark);
+    }
+
+    /* Warning */
+    .warning {
+      background: #fff9f0;
+      border-left: 4px solid var(--orange);
+      padding: 15px 20px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+
+    .warning p {
+      margin: 0;
+      color: #995500;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .footer-text a {
+      color: var(--violet);
+    }
+
+    .footer-nav {
+      margin-bottom: 15px;
+    }
+
+    .footer-nav a {
+      color: var(--violet);
+      margin: 0 15px;
+      font-size: 12px;
+    }
+
+    .footer-nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .page-content {
+        padding: 30px 20px 60px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .code-block {
+        font-size: 10px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">SCR▌ GOLDEN MASTER</div>
+      <div class="header-badge">Test Document</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Golden Master</h1>
+      <p class="page-subtitle">Reference document for testing "Format my document". Never format this directly — duplicate first.</p>
+
+      <!-- RAW TEXT -->
+      <div class="section">
+        <h2>Raw Text to Copy</h2>
+
+        <div class="warning">
+          <p>⚠️ Do not format the original document. Always duplicate first, then format the copy.</p>
+        </div>
+
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyText()">Copy to clipboard</button>
+          <pre class="code-block" id="golden-text">GOLDEN MASTER - TEST DOCUMENT
+Do not format this document. Duplicate it first.
+
+=== SCENE HEADINGS ===
+
+INT. COFFEE SHOP - DAY
+
+EXT. PARKING LOT - NIGHT
+
+INT./EXT. CAR - MOVING - DAY
+
+I/E. HOUSE - CONTINUOUS
+
+1. INT. NUMBERED SCENE - DAY
+
+=== CHARACTERS ===
+
+JOHN
+
+MARY JANE
+
+DR. SMITH
+
+JOHN (V.O.)
+
+MARY (O.S.)
+
+JOHN (CONT'D)
+
+MRS. ROBINSON
+
+=== DIALOGUE ===
+
+JOHN
+Hello.
+
+MARY
+This is a short line.
+
+JOHN
+This is a much longer line of dialogue that should wrap properly and stay within the correct margins for dialogue formatting.
+
+=== PARENTHETICALS ===
+
+JOHN
+(whispering)
+I can't believe it.
+
+MARY
+(to John, sarcastically)
+Oh really?
+
+=== TRANSITIONS ===
+
+CUT TO:
+
+FADE OUT.
+
+FADE IN:
+
+DISSOLVE TO:
+
+SMASH CUT TO:
+
+=== ACTIONS ===
+
+John walks into the room. He looks around nervously.
+
+The door SLAMS shut behind him.
+
+This is underlined action text that should lose its underline.
+
+This is bold action text that should lose its bold.
+
+This is italic action text.
+
+=== ACTION LISTS ===
+
+- John grabs the gun
+- Mary screams
+- The lights go out
+
+=== MIXED SCENARIOS ===
+
+INT. HOSPITAL ROOM - NIGHT
+
+A dark room. Monitors BEEP steadily.
+
+DOCTOR CHEN
+(checking clipboard)
+The results are in.
+
+PATIENT
+And?
+
+DOCTOR CHEN
+(beat)
+You're going to be fine.
+
+The patient exhales. Relief washes over her face.
+
+CUT TO:
+
+EXT. HOSPITAL - PARKING LOT - LATER
+
+Rain pours down.
+
+=== EDGE CASES ===
+
+OK
+
+TV plays in the background.
+
+The CIA agent enters.
+
+ALEX (30s) sits alone at the bar.
+
+A man chews a toothpick.
+
+I...
+
+=== END OF TEST DOCUMENT ===</pre>
+        </div>
+      </div>
+
+      <!-- INSTRUCTIONS -->
+      <div class="section">
+        <h2>Instructions</h2>
+
+        <div class="instructions">
+          <ol>
+            <li>Create a new Google Doc</li>
+            <li>Copy the text above using the <strong>"Copy to clipboard"</strong> button</li>
+            <li>Paste into the Google Doc</li>
+            <li><strong>Duplicate the doc</strong> (File → Make a copy) — don't format the original!</li>
+            <li>Run <strong>"Format my document"</strong> on the copy</li>
+            <li>Check results against the checklist below</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- EXPECTED RESULTS -->
+      <div class="section">
+        <h2>Expected Results</h2>
+
+        <table>
+          <tr>
+            <th>Section</th>
+            <th>Expected</th>
+          </tr>
+          <tr>
+            <td class="value">Scene headings</td>
+            <td>All UPPERCASE, left-aligned, no indent</td>
+          </tr>
+          <tr>
+            <td class="value">Characters</td>
+            <td>All UPPERCASE, centered (indent 194pt US)</td>
+          </tr>
+          <tr>
+            <td class="value">Dialogue</td>
+            <td>Under character, indented (101pt left, 94pt right US)</td>
+          </tr>
+          <tr>
+            <td class="value">Parentheticals</td>
+            <td>In parentheses, indented (151pt US)</td>
+          </tr>
+          <tr>
+            <td class="value">Transitions</td>
+            <td>UPPERCASE, right-aligned</td>
+          </tr>
+          <tr>
+            <td class="value">Actions</td>
+            <td>Left-aligned, no indent, NO bold/italic/underline</td>
+          </tr>
+          <tr>
+            <td class="value">Action lists</td>
+            <td>Compact (no space between dash items)</td>
+          </tr>
+          <tr>
+            <td class="value">Edge cases (OK, TV, CIA)</td>
+            <td>Should remain ACTION, not CHARACTER</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <nav class="footer-nav">
+      <a href="spec.html">Format Spec</a>
+      <a href="spec-live.html">AI Live Spec</a>
+      <a href="docs.html">All Docs</a>
+      <a href="index.html">Back to site</a>
+    </nav>
+    <p class="footer-text">Screenplay Editor — Test Document</p>
+  </footer>
+
+  <script>
+    function copyText() {
+      const text = document.getElementById('golden-text').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy to clipboard';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
