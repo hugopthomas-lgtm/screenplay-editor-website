@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Formatting Spec — Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+      --green: #34C759;
+      --red: #FF3B30;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      background: var(--dark);
+      padding: 20px 30px;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+    }
+
+    .header-badge {
+      font-size: 11px;
+      color: #666;
+      background: rgba(157, 123, 234, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(157, 123, 234, 0.2);
+    }
+
+    /* Page Content */
+    .page-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 30px 80px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .last-updated {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 40px;
+      padding: 8px 12px;
+      background: var(--violet-light);
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-left: 15px;
+      border-left: 3px solid var(--violet);
+      color: var(--dark);
+    }
+
+    .section h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: var(--violet-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section h3 .badge {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--violet-light);
+      color: var(--violet-dark);
+    }
+
+    .section p {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    th {
+      text-align: left;
+      padding: 12px 15px;
+      background: var(--dark);
+      color: #fff;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+
+    th:last-child {
+      border-radius: 0 8px 0 0;
+    }
+
+    td {
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      color: #444;
+    }
+
+    tr:last-child td:first-child {
+      border-radius: 0 0 0 8px;
+    }
+
+    tr:last-child td:last-child {
+      border-radius: 0 0 8px 0;
+    }
+
+    tr:hover td {
+      background: var(--violet-light);
+    }
+
+    .value {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .value-true {
+      color: var(--green);
+    }
+
+    .value-false {
+      color: var(--red);
+    }
+
+    .value-pref {
+      color: var(--violet);
+      font-style: italic;
+    }
+
+    /* Code */
+    code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    /* Element Cards */
+    .element-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .element-card:hover {
+      border-color: var(--violet);
+    }
+
+    .element-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .element-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .element-detection {
+      font-size: 11px;
+      color: #888;
+      background: #f5f5f5;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* Grid for properties */
+    .props-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .prop {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: #fafafa;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .prop-name {
+      color: #666;
+    }
+
+    .prop-value {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .footer-text a {
+      color: var(--violet);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .page-content {
+        padding: 30px 20px 60px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .props-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .element-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">SCR▌ SPEC</div>
+      <div class="header-badge">Internal Documentation</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Formatting Specification</h1>
+      <p class="page-subtitle">Source of truth for Screenplay Editor formatting rules.</p>
+      <div class="last-updated">Last updated: January 2025</div>
+
+      <!-- GLOBAL SETTINGS -->
+      <div class="section">
+        <h2>Global Settings</h2>
+
+        <table>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Notes</th>
+          </tr>
+          <tr>
+            <td>Font</td>
+            <td class="value">Courier Prime</td>
+            <td>Default. User can change in preferences.</td>
+          </tr>
+          <tr>
+            <td>Font Size</td>
+            <td class="value">12pt</td>
+            <td>Industry standard.</td>
+          </tr>
+          <tr>
+            <td>Line Spacing</td>
+            <td class="value">1.0</td>
+            <td>Single spacing. Never 1.5 or 2.0.</td>
+          </tr>
+          <tr>
+            <td>Page Format</td>
+            <td class="value">US Letter / A4</td>
+            <td>US Letter default. A4 for Europe.</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ELEMENTS -->
+      <div class="section">
+        <h2>Element Types</h2>
+
+        <!-- SCENE HEADING -->
+        <div class="element-card">
+          <div class="element-header">
+            <div class="element-name">SCENE HEADING</div>
+            <div class="element-detection">Starts with INT. / EXT. / INT/EXT / I/E</div>
+          </div>
+          <div class="props-grid">
+            <div class="prop">
+              <span class="prop-name">Indent Left</span>
+              <span class="prop-value">0</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Right</span>
+              <span class="prop-value">0</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Alignment</span>
+              <span class="prop-value">Left</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Bold</span>
+              <span class="prop-value value-pref">Pref (default: false)</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Italic</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Underline</span>
+              <span class="prop-value value-pref">Pref (default: false)</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Case</span>
+              <span class="prop-value">UPPERCASE (forced)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTION -->
+        <div class="element-card">
+          <div class="element-header">
+            <div class="element-name">ACTION</div>
+            <div class="element-detection">Default type / Mixed case text</div>
+          </div>
+          <div class="props-grid">
+            <div class="prop">
+              <span class="prop-name">Indent Left</span>
+              <span class="prop-value">0</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Right</span>
+              <span class="prop-value">0</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Alignment</span>
+              <span class="prop-value">Left</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Bold</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Italic</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Underline</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Case</span>
+              <span class="prop-value">Preserved</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHARACTER -->
+        <div class="element-card">
+          <div class="element-header">
+            <div class="element-name">CHARACTER</div>
+            <div class="element-detection">ALL CAPS, &lt;65 chars, followed by dialogue</div>
+          </div>
+          <div class="props-grid">
+            <div class="prop">
+              <span class="prop-name">Indent Left (US)</span>
+              <span class="prop-value">194pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Left (A4)</span>
+              <span class="prop-value">178pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Right</span>
+              <span class="prop-value">0</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Alignment</span>
+              <span class="prop-value">Left</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Bold</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Italic</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Underline</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Case</span>
+              <span class="prop-value">UPPERCASE (forced)</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Max Length</span>
+              <span class="prop-value">65 characters</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIALOGUE -->
+        <div class="element-card">
+          <div class="element-header">
+            <div class="element-name">DIALOGUE</div>
+            <div class="element-detection">After CHARACTER or PARENTHETICAL</div>
+          </div>
+          <div class="props-grid">
+            <div class="prop">
+              <span class="prop-name">Indent Left (US)</span>
+              <span class="prop-value">101pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Left (A4)</span>
+              <span class="prop-value">93pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Right (US)</span>
+              <span class="prop-value">94pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Right (A4)</span>
+              <span class="prop-value">93pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Alignment</span>
+              <span class="prop-value">Left</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Bold</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Italic</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Underline</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Case</span>
+              <span class="prop-value">Preserved</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PARENTHETICAL -->
+        <div class="element-card">
+          <div class="element-header">
+            <div class="element-name">PARENTHETICAL</div>
+            <div class="element-detection">Text wrapped in (parentheses)</div>
+          </div>
+          <div class="props-grid">
+            <div class="prop">
+              <span class="prop-name">Indent Left (US)</span>
+              <span class="prop-value">151pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Left (A4)</span>
+              <span class="prop-value">136pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Right (US)</span>
+              <span class="prop-value">137pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Right (A4)</span>
+              <span class="prop-value">136pt</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Alignment</span>
+              <span class="prop-value">Left</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Bold</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Italic</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Underline</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Case</span>
+              <span class="prop-value">Preserved</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Format</span>
+              <span class="prop-value">Wrapped in ()</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRANSITION -->
+        <div class="element-card">
+          <div class="element-header">
+            <div class="element-name">TRANSITION</div>
+            <div class="element-detection">CUT TO: / FADE IN / FADE OUT / etc.</div>
+          </div>
+          <div class="props-grid">
+            <div class="prop">
+              <span class="prop-name">Indent Left</span>
+              <span class="prop-value">0</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Indent Right</span>
+              <span class="prop-value">0</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Alignment</span>
+              <span class="prop-value">Right</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Bold</span>
+              <span class="prop-value value-pref">Pref (default: false)</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Italic</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Underline</span>
+              <span class="prop-value value-false">false</span>
+            </div>
+            <div class="prop">
+              <span class="prop-name">Case</span>
+              <span class="prop-value">UPPERCASE (forced)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPACING -->
+      <div class="section">
+        <h2>Element Spacing</h2>
+
+        <table>
+          <tr>
+            <th>After Element</th>
+            <th>Before Element</th>
+            <th>Spacing</th>
+          </tr>
+          <tr>
+            <td>Any</td>
+            <td>SCENE HEADING</td>
+            <td class="value">12pt spacingBefore</td>
+          </tr>
+          <tr>
+            <td>SCENE HEADING</td>
+            <td>Any</td>
+            <td class="value">12pt spacingBefore on next</td>
+          </tr>
+          <tr>
+            <td>DIALOGUE / PARENTHETICAL</td>
+            <td>CHARACTER</td>
+            <td class="value">12pt spacingBefore</td>
+          </tr>
+          <tr>
+            <td>DIALOGUE / PARENTHETICAL</td>
+            <td>ACTION</td>
+            <td class="value">12pt spacingBefore</td>
+          </tr>
+          <tr>
+            <td>ACTION</td>
+            <td>ACTION (not list)</td>
+            <td class="value">12pt spacingBefore</td>
+          </tr>
+          <tr>
+            <td>ACTION (list item -)</td>
+            <td>ACTION (list item -)</td>
+            <td class="value">0 (compact)</td>
+          </tr>
+          <tr>
+            <td>Any</td>
+            <td>TRANSITION</td>
+            <td class="value">12pt spacingBefore</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- RESET BEHAVIOR -->
+      <div class="section">
+        <h2>Format Reset Behavior</h2>
+        <p>When "Format my document" is clicked, the following must happen for each paragraph:</p>
+
+        <table>
+          <tr>
+            <th>Step</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Reset all text styles: <code>setBold(false)</code>, <code>setItalic(false)</code>, <code>setUnderline(false)</code></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Set line spacing: <code>setLineSpacing(1.0)</code></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Detect element type based on content and context</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Apply element-specific attributes (indents, alignment)</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Apply element-specific spacing (spacingBefore)</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- KNOWN ISSUES -->
+      <div class="section">
+        <h2>Known Issues / Bugs to Fix</h2>
+
+        <table>
+          <tr>
+            <th>Issue</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+          <tr>
+            <td>Underline not removed on ACTION</td>
+            <td class="value-false">❌ Open</td>
+            <td>getStyleAttributes() default case missing UNDERLINE=false</td>
+          </tr>
+          <tr>
+            <td>Line spacing 1.5 instead of 1.0</td>
+            <td class="value-false">❌ Open</td>
+            <td>Conflict between setAttributes and setLineSpacing?</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p class="footer-text">Screenplay Editor — Internal Spec — <a href="index.html">Back to site</a></p>
+  </footer>
+</body>
+</html>
