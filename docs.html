@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Internal Documentation — Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      background: var(--dark);
+      padding: 20px 30px;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+    }
+
+    .header-badge {
+      font-size: 11px;
+      color: #666;
+      background: rgba(157, 123, 234, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(157, 123, 234, 0.2);
+    }
+
+    /* Page Content */
+    .page-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 30px 80px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    /* Doc List */
+    .doc-list {
+      list-style: none;
+    }
+
+    .doc-item {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 20px 25px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .doc-item:hover {
+      border-color: var(--violet);
+      transform: translateX(5px);
+    }
+
+    .doc-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .doc-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .doc-description {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .doc-badge {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: var(--violet-light);
+      color: var(--violet-dark);
+    }
+
+    .doc-badge.coming-soon {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .footer-text a {
+      color: var(--violet);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .page-content {
+        padding: 30px 20px 60px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .doc-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">SCR▌ DOCS</div>
+      <div class="header-badge">Internal Documentation</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Internal Documentation</h1>
+      <p class="page-subtitle">Technical specifications for Screenplay Editor.</p>
+
+      <ul class="doc-list">
+        <li>
+          <a href="spec.html" class="doc-item">
+            <div class="doc-info">
+              <span class="doc-name">spec.html</span>
+              <span class="doc-description">Formatting rules for "Format my document"</span>
+            </div>
+            <span class="doc-badge">Formatting Spec</span>
+          </a>
+        </li>
+        <li>
+          <a href="spec-live.html" class="doc-item">
+            <div class="doc-info">
+              <span class="doc-name">spec-live.html</span>
+              <span class="doc-description">Formatting rules for "AI Live Formatting"</span>
+            </div>
+            <span class="doc-badge coming-soon">Coming Soon</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </main>
+
+  <footer>
+    <p class="footer-text">Screenplay Editor — Internal Docs — <a href="index.html">Back to site</a></p>
+  </footer>
+</body>
+</html>
