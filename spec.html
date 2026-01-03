@@ -639,27 +639,27 @@
           <tr>
             <td>Any</td>
             <td>SCENE HEADING</td>
-            <td class="value">12pt spacingBefore</td>
+            <td class="value">Empty paragraph inserted before (not spacingBefore — Google Docs bug)</td>
           </tr>
           <tr>
             <td>SCENE HEADING</td>
             <td>Any</td>
-            <td class="value">12pt spacingBefore on next</td>
+            <td class="value">Empty paragraph inserted before (not spacingBefore — Google Docs bug)</td>
           </tr>
           <tr>
             <td>DIALOGUE / PARENTHETICAL</td>
             <td>CHARACTER</td>
-            <td class="value">12pt spacingBefore</td>
+            <td class="value">Empty paragraph inserted before (not spacingBefore — Google Docs bug)</td>
           </tr>
           <tr>
             <td>DIALOGUE / PARENTHETICAL</td>
             <td>ACTION</td>
-            <td class="value">12pt spacingBefore</td>
+            <td class="value">Empty paragraph inserted before (not spacingBefore — Google Docs bug)</td>
           </tr>
           <tr>
             <td>ACTION</td>
             <td>ACTION (not list)</td>
-            <td class="value">12pt spacingBefore</td>
+            <td class="value">Empty paragraph inserted before (not spacingBefore — Google Docs bug)</td>
           </tr>
           <tr>
             <td>ACTION (list item -)</td>
@@ -669,7 +669,7 @@
           <tr>
             <td>Any</td>
             <td>TRANSITION</td>
-            <td class="value">12pt spacingBefore</td>
+            <td class="value">Empty paragraph inserted before (not spacingBefore — Google Docs bug)</td>
           </tr>
         </table>
       </div>
@@ -702,7 +702,7 @@
           </tr>
           <tr>
             <td>5</td>
-            <td>Apply element-specific spacing (spacingBefore)</td>
+            <td>Insert empty paragraph before elements that need spacing (SCENE HEADING, CHARACTER after DIALOGUE, etc.). Do NOT use <code>setSpacingBefore()</code> — it causes Google Docs to show 'spacing after' on the previous paragraph.</td>
           </tr>
         </table>
       </div>
@@ -723,9 +723,9 @@
             <td>getStyleAttributes() default case missing UNDERLINE=false</td>
           </tr>
           <tr>
-            <td>Line spacing 1.5 instead of 1.0</td>
-            <td class="value-false">❌ Open</td>
-            <td>Conflict between setAttributes and setLineSpacing?</td>
+            <td><s>Spacing after paragraph added</s></td>
+            <td class="value-true">✅ Fixed</td>
+            <td>Fix: Insert empty paragraphs instead of using setSpacingBefore(). Google Docs interprets spacingBefore as spacingAfter on the previous paragraph.</td>
           </tr>
         </table>
       </div>
