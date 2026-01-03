@@ -707,6 +707,29 @@
         </table>
       </div>
 
+      <!-- TRAPS -->
+      <div class="section">
+        <h2>⚠️ Traps — Don't Touch</h2>
+
+        <table>
+          <tr>
+            <th>Never do this</th>
+            <th>Why</th>
+            <th>Do this instead</th>
+          </tr>
+          <tr>
+            <td>Use <code>setSpacingBefore()</code> to add space between elements</td>
+            <td>Google Docs interprets it as spacingAfter on the PREVIOUS paragraph, causing a visual bug and "Remove spacing after" option to appear</td>
+            <td>Insert an empty paragraph with <code>body.insertParagraph(index, '')</code></td>
+          </tr>
+          <tr>
+            <td>Use <code>setAttributes()</code> alone for formatting</td>
+            <td>May not reset all styles properly (underline, spacing)</td>
+            <td>Always call <code>setSpacingAfter(0)</code> and reset styles explicitly after setAttributes</td>
+          </tr>
+        </table>
+      </div>
+
       <!-- KNOWN ISSUES -->
       <div class="section">
         <h2>Known Issues / Bugs to Fix</h2>
