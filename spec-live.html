@@ -539,8 +539,12 @@
             <th>How it's used</th>
           </tr>
           <tr>
-            <td>lastType (previous line type)</td>
-            <td>Stored in cache. Used to detect DIALOGUE (if previous was CHARACTER/PARENTHETICAL)</td>
+            <td>currentContextType (local variable)</td>
+            <td>Detected from REAL previous paragraph via <code>detectLineType()</code>. Used to detect DIALOGUE (if previous was CHARACTER/PARENTHETICAL)</td>
+          </tr>
+          <tr>
+            <td>detectLineType(para)</td>
+            <td>Reads the actual formatting (indentation) of a paragraph to determine its type. Returns CHARACTER, DIALOGUE, or '' (ACTION)</td>
           </tr>
           <tr>
             <td>3 lines before (AI mode only)</td>
@@ -548,9 +552,9 @@
           </tr>
         </table>
 
-        <div class="info-card warning">
-          <h3>Limited context</h3>
-          <p>AI Live Formatting only knows the previous line type. It doesn't analyze the full document like "Format my document" does.</p>
+        <div class="info-card highlight">
+          <h3>Context from Real Document</h3>
+          <p>AI Live Formatting detects context by reading the <strong>actual formatting</strong> of the previous paragraph (indentation values). This prevents the "Ghost Context" bug where stale cached values contaminated formatting.</p>
         </div>
       </div>
 
@@ -675,7 +679,17 @@
             <td>Too slow (400ms + API latency), expensive, rate limits</td>
             <td>Use local Fountain rules, AI only as fallback</td>
           </tr>
+          <tr>
+            <td>Use <code>PropertiesService</code> to track <code>lastType</code> context</td>
+            <td><strong>Ghost Context Bug:</strong> If user wrote dialogue at line 100, then navigates back to line 8, the stored <code>lastType=DIALOGUE</code> contaminates formatting — line 8 becomes DIALOGUE even if it should be ACTION</td>
+            <td>Use <code>detectLineType(prevPara)</code> to read the REAL previous line's formatting from the document itself</td>
+          </tr>
         </table>
+
+        <div class="info-card warning">
+          <h3>Ghost Context Bug (Fixed Jan 2025)</h3>
+          <p>The context for DIALOGUE detection must come from the <strong>actual document structure</strong>, not from a cached property. When the user navigates around the document, the stored <code>lastType</code> becomes stale and can cause incorrect formatting. Solution: <code>detectLineType()</code> reads the real formatting (indentation) of the previous paragraph.</p>
+        </div>
       </div>
 
       <!-- FILES -->
@@ -688,15 +702,15 @@
             <th>Purpose</th>
           </tr>
           <tr>
-            <td><code>AIAutoFormat.gs</code></td>
-            <td>Main logic: checkAndFormatFountain(), applyRealtimeFormat()</td>
+            <td><code>FountainFormat.js</code></td>
+            <td>Main logic: checkAndFormatFountain(), detectLineType(), applyDefaultStyle()</td>
           </tr>
           <tr>
             <td><code>Sidebar.html</code></td>
-            <td>Polling setup: setInterval(checkAndFormatFountain, 400)</td>
+            <td>Polling setup: setInterval(checkAndFormatFountain, 400), fountainPending lock</td>
           </tr>
           <tr>
-            <td><code>Code.gs</code></td>
+            <td><code>Code.js</code></td>
             <td>getStyleAttributes() — shared with "Format my document"</td>
           </tr>
         </table>
