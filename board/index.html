@@ -2784,8 +2784,9 @@
       const urlParams = new URLSearchParams(window.location.search);
       if (!urlParams.has('demo')) return false;
 
-      isDemoMode = true;
-      document.querySelector('.project-title').textContent = 'Pulp Fiction (Demo)';
+      try {
+        isDemoMode = true;
+        document.querySelector('.project-title').textContent = 'Pulp Fiction (Demo)';
 
       // Add demo banner
       const banner = document.createElement('div');
@@ -2814,6 +2815,11 @@
       updateCanvas();
 
       return true;
+      } catch (e) {
+        console.error('Demo load error:', e);
+        alert('Demo error: ' + e.message);
+        return false;
+      }
     }
 
     // ============================================
