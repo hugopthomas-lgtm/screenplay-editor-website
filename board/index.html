@@ -2952,6 +2952,21 @@
       ];
       demoImages.forEach(img => createImageElement(img.src, img.x, img.y, img.width));
 
+      // Create visual connections - narrative lines
+      const demoLines = [
+        // Vincent's ironic death: buying heroin → dies on toilet
+        {x1: 370, y1: 640, x2: 1058, y2: 440, dashed: true, label: "irony"},
+        // Full circle: Opening diner → Return to diner
+        {x1: 220, y1: 270, x2: 1140, y2: 860, dashed: false},
+        // Ezekiel theme: first recitation → redemption
+        {x1: 862, y1: 550, x2: 1395, y2: 865, dashed: true},
+        // Overdose arc: Mia collapses → Mia saved
+        {x1: 200, y1: 860, x2: 625, y2: 865, dashed: false},
+        // The watch obsession: "THE WATCH!" → connects to flashback
+        {x1: 1457, y1: 340, x2: 1500, y2: 240, dashed: true}
+      ];
+      demoLines.forEach(l => createLine(l.x1, l.y1, l.x2, l.y2, l.dashed));
+
       // Set viewport - zoom arrière pour voir l'ensemble
       panX = 100;
       panY = 80;
