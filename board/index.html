@@ -2952,10 +2952,10 @@
       ];
       demoImages.forEach(img => createImageElement(img.src, img.x, img.y, img.width));
 
-      // Set viewport - zoom arrière pour voir l'ensemble
-      panX = 100;
+      // Set viewport - centered view showing everything
+      panX = 280;
       panY = 80;
-      scale = 0.45;
+      scale = 0.44;
       zoomSlider.value = scale;
       zoomValue.textContent = Math.round(scale * 100) + '%';
       updateCanvas();
