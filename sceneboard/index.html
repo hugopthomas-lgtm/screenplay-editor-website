@@ -568,7 +568,7 @@
     <div class="modal">
       <div class="modal-badge">EARLY ACCESS</div>
       <h2>Scene Board</h2>
-      <p class="modal-subtitle">Your visual writing space. Get notified of updates and new features.</p>
+      <p class="modal-subtitle">Your visual writing space.</p>
       <div class="modal-features">
         <div class="modal-feature">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -591,7 +591,6 @@
       </div>
       <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email">
       <button class="btn btn-primary" onclick="submitEmail()">Get Access</button>
-      <div class="modal-skip" onclick="skipModal()">Skip for now</div>
     </div>
   </div>
 
@@ -718,14 +717,13 @@
       localStorage.setItem(STORAGE_KEY, 'true');
       localStorage.setItem('sceneboard_email', email);
 
-      // Close modal
-      document.getElementById('earlyAccessModal').classList.add('hidden');
-    }
-
-    // Skip modal
-    function skipModal() {
-      localStorage.setItem(STORAGE_KEY, 'true');
-      document.getElementById('earlyAccessModal').classList.add('hidden');
+      // Redirect to board immediately
+      const scenes = getScenesParam();
+      if (scenes) {
+        window.location.href = '../board/?scenes=' + encodeURIComponent(scenes);
+      } else {
+        window.location.href = '../board/';
+      }
     }
 
     // Get scenes param from URL (passed from add-on)
