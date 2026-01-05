@@ -196,23 +196,41 @@
       background: var(--dark);
     }
 
-    .screenshot-wrapper img {
-      width: 100%;
-      border-radius: 8px;
-      display: block;
-    }
-
     .screenshot-placeholder {
       width: 100%;
       aspect-ratio: 16/9;
       background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
       border-radius: 8px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: #666;
       font-size: 14px;
+      gap: 20px;
     }
+
+    .screenshot-placeholder .cards-preview {
+      display: flex;
+      gap: 12px;
+    }
+
+    .preview-card {
+      width: 80px;
+      height: 60px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .preview-card.yellow { background: #FCF5A3; }
+    .preview-card.blue { background: #BFDBFE; }
+    .preview-card.green { background: #BBF7D0; }
+    .preview-card.pink { background: #FECDD3; }
 
     /* ============================================
        FEATURES
@@ -225,7 +243,7 @@
 
     .features h2 {
       text-align: center;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 600;
       margin-bottom: 60px;
     }
@@ -253,7 +271,7 @@
     }
 
     .feature h3 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       margin-bottom: 12px;
       letter-spacing: 0.5px;
@@ -348,53 +366,90 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(8px);
+      opacity: 1;
+      transition: opacity 0.3s;
     }
 
     .modal-overlay.hidden {
-      display: none;
+      opacity: 0;
+      pointer-events: none;
     }
 
     .modal {
       background: #1a1a1a;
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 48px;
       max-width: 440px;
       width: 90%;
       text-align: center;
       border: 1px solid #333;
       box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+      transform: translateY(0);
+      transition: transform 0.3s;
     }
 
-    .modal-icon {
-      font-size: 48px;
+    .modal-overlay.hidden .modal {
+      transform: translateY(20px);
+    }
+
+    .modal-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #9D7BEA 0%, #8B6AD4 100%);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
       margin-bottom: 24px;
     }
 
     .modal h2 {
-      font-size: 24px;
-      font-weight: 600;
+      font-size: 28px;
+      font-weight: 700;
       color: #fff;
       margin-bottom: 12px;
     }
 
-    .modal p {
+    .modal-subtitle {
       font-size: 14px;
       color: #888;
       margin-bottom: 32px;
       line-height: 1.6;
     }
 
+    .modal-features {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .modal-feature {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .modal-feature svg {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
     .modal input {
       width: 100%;
       padding: 14px 18px;
-      border-radius: 8px;
-      border: 1px solid #444;
+      border-radius: 10px;
+      border: 1px solid #333;
       background: #0a0a0a;
       color: #fff;
       font-family: inherit;
@@ -409,7 +464,7 @@
     }
 
     .modal input::placeholder {
-      color: #666;
+      color: #555;
     }
 
     .modal .btn {
@@ -418,9 +473,9 @@
     }
 
     .modal-skip {
-      margin-top: 16px;
+      margin-top: 20px;
       font-size: 12px;
-      color: #666;
+      color: #555;
       cursor: pointer;
       transition: color 0.2s;
     }
@@ -436,6 +491,11 @@
       .feature-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 40px 30px;
+      }
+
+      .modal-features {
+        flex-wrap: wrap;
+        gap: 12px;
       }
     }
 
@@ -481,7 +541,7 @@
       }
 
       .features h2 {
-        font-size: 24px;
+        font-size: 22px;
         margin-bottom: 40px;
       }
 
@@ -493,6 +553,11 @@
       .modal {
         padding: 32px 24px;
       }
+
+      .modal-features {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
@@ -501,9 +566,29 @@
   <!-- Early Access Modal -->
   <div id="earlyAccessModal" class="modal-overlay hidden">
     <div class="modal">
-      <div class="modal-icon">🎬</div>
-      <h2>Early Access</h2>
-      <p>Scene Board is in early access. Enter your email to get notified of updates and new features.</p>
+      <div class="modal-badge">EARLY ACCESS</div>
+      <h2>Scene Board</h2>
+      <p class="modal-subtitle">Your visual writing space. Get notified of updates and new features.</p>
+      <div class="modal-features">
+        <div class="modal-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Infinite canvas
+        </div>
+        <div class="modal-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Images & notes
+        </div>
+        <div class="modal-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Export/Import
+        </div>
+      </div>
       <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email">
       <button class="btn btn-primary" onclick="submitEmail()">Get Access</button>
       <div class="modal-skip" onclick="skipModal()">Skip for now</div>
@@ -539,7 +624,13 @@
     <section class="screenshot-section">
       <div class="screenshot-wrapper">
         <div class="screenshot-placeholder">
-          Scene Board Preview
+          <div class="cards-preview">
+            <div class="preview-card yellow">INT. CAFE</div>
+            <div class="preview-card blue">INT. OFFICE</div>
+            <div class="preview-card green">EXT. STREET</div>
+            <div class="preview-card pink">INT. HOME</div>
+          </div>
+          <span>Drag & drop your scenes on an infinite canvas</span>
         </div>
       </div>
     </section>
@@ -556,7 +647,7 @@
 
         <div class="feature">
           <div class="feature-icon">🎯</div>
-          <h3>Drag & Drop Scenes</h3>
+          <h3>Drag & Drop</h3>
           <p>Import scenes from your screenplay and rearrange them visually.</p>
         </div>
 
@@ -567,9 +658,9 @@
         </div>
 
         <div class="feature">
-          <div class="feature-icon">🔗</div>
-          <h3>Connect Everything</h3>
-          <p>Draw connections between scenes to visualize story flow and relationships.</p>
+          <div class="feature-icon">💾</div>
+          <h3>Export & Import</h3>
+          <p>Save your board as JSON. Share with collaborators or backup your work.</p>
         </div>
       </div>
     </section>
@@ -597,7 +688,7 @@
   </footer>
 
   <script>
-    const STORAGE_KEY = 'sceneboard_early_access';
+    const STORAGE_KEY = 'sceneboard_access';
 
     // Check if user has already submitted email
     function hasAccess() {
@@ -617,18 +708,15 @@
 
       if (!email || !email.includes('@')) {
         document.getElementById('emailInput').style.borderColor = '#e53e3e';
+        setTimeout(() => {
+          document.getElementById('emailInput').style.borderColor = '#333';
+        }, 2000);
         return;
       }
 
       // Save to localStorage
       localStorage.setItem(STORAGE_KEY, 'true');
       localStorage.setItem('sceneboard_email', email);
-
-      // Send to Google Sheet (fire and forget)
-      try {
-        const sheetUrl = 'https://script.google.com/macros/s/AKfycbwExample/exec';
-        fetch(sheetUrl + '?email=' + encodeURIComponent(email), { mode: 'no-cors' });
-      } catch (e) {}
 
       // Close modal
       document.getElementById('earlyAccessModal').classList.add('hidden');

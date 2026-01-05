@@ -2682,20 +2682,16 @@
       if (!scenesParam) return false;
 
       try {
-        // Decode base64 JSON
         const decoded = atob(decodeURIComponent(scenesParam));
         const data = JSON.parse(decoded);
 
         if (!data.scenes || data.scenes.length === 0) return false;
 
-        // Update title if provided
         if (data.title) {
           document.querySelector('.project-title').textContent = data.title;
         }
 
-        // Generate cards in a grid
         const CARD_WIDTH = 180;
-        const CARD_HEIGHT = 100;
         const PADDING = 30;
         const COLS = 5;
         const START_X = 100;
@@ -2705,20 +2701,14 @@
           const col = index % COLS;
           const row = Math.floor(index / COLS);
           const x = START_X + col * (CARD_WIDTH + PADDING);
-          const y = START_Y + row * (CARD_HEIGHT + PADDING);
-
-          // Color based on INT/EXT
+          const y = START_Y + row * (130 + PADDING);
           const color = scene.type === 'INT' ? 'blue' : 'green';
-
           createCard(scene.heading, x, y, color, CARD_WIDTH);
         });
 
-        // Center the view
         panX = -50;
         panY = -50;
         updateCanvas();
-
-        // Clear URL params after loading (keep clean URL)
         window.history.replaceState({}, '', window.location.pathname);
 
         return true;
@@ -2736,10 +2726,8 @@
       const urlParams = new URLSearchParams(window.location.search);
       if (!urlParams.has('demo')) return false;
 
-      // Update title
       document.querySelector('.project-title').textContent = 'Pulp Fiction (Demo)';
 
-      // Demo scenes from Pulp Fiction
       const demoScenes = [
         { heading: 'INT. COFFEE SHOP - MORNING', type: 'INT' },
         { heading: 'EXT. STREET - DAY', type: 'EXT' },
@@ -2760,7 +2748,6 @@
       ];
 
       const CARD_WIDTH = 180;
-      const CARD_HEIGHT = 100;
       const PADDING = 30;
       const COLS = 4;
       const START_X = 100;
@@ -2770,24 +2757,19 @@
         const col = index % COLS;
         const row = Math.floor(index / COLS);
         const x = START_X + col * (CARD_WIDTH + PADDING);
-        const y = START_Y + row * (CARD_HEIGHT + PADDING);
+        const y = START_Y + row * (130 + PADDING);
         const color = scene.type === 'INT' ? 'blue' : 'green';
         createCard(scene.heading, x, y, color, CARD_WIDTH);
       });
 
-      // Add some frames
-      createFrame('ACT 1 - Setup', 80, 70, 460, 300);
-      createFrame('ACT 2 - Confrontation', 560, 70, 460, 300);
-      createFrame('ACT 3 - Resolution', 80, 400, 460, 200);
-
-      // Add a text note
-      createTextElement('Drag scenes to rearrange your story structure', 580, 420, 'inter');
+      createFrame('ACT 1 - Setup', 80, 70, 460, 350);
+      createFrame('ACT 2 - Confrontation', 560, 70, 460, 350);
+      createFrame('ACT 3 - Resolution', 80, 450, 460, 200);
+      createTextElement('Drag scenes to rearrange your story structure', 580, 470, 'inter');
 
       panX = -30;
       panY = -30;
       updateCanvas();
-
-      // Clear URL params
       window.history.replaceState({}, '', window.location.pathname);
 
       return true;
@@ -2797,7 +2779,7 @@
     // INIT
     // ============================================
 
-    // Priority: 1. Demo mode 2. URL params (from Google Doc) 3. localStorage 4. Default board
+    // Priority: 1. Demo mode 2. URL params 3. localStorage 4. Default board
     if (!loadDemoBoard()) {
       if (!loadFromUrlParams()) {
         if (!loadFromLocalStorage()) {
