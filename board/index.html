@@ -2806,6 +2806,21 @@
       // Create texts
       demoData.texts.forEach(t => createTextElement(t.content.replace(/\\n/g, '\n'), t.x, t.y, t.font || 'inter', t.fontSize ? (t.fontSize <= 14 ? 'small' : t.fontSize <= 20 ? 'medium' : 'large') : 'medium'));
 
+      // Create images (Visual References)
+      const demoImages = [
+        {src: 'images/bande-a-part.jpg', x: 1380, y: 810, width: 120},
+        {src: 'images/kiss-me-deadly.jpg', x: 1510, y: 810, width: 120},
+        {src: 'images/black-sabbath.jpg', x: 1640, y: 810, width: 120},
+        {src: 'images/deliverance.jpg', x: 1770, y: 810, width: 120},
+        {src: 'images/body-and-soul.jpg', x: 1900, y: 810, width: 120},
+        {src: 'images/fellini.jpg', x: 1380, y: 950, width: 120},
+        {src: 'images/black-mask.png', x: 1510, y: 950, width: 120},
+        {src: 'images/bodyguard.png', x: 1640, y: 950, width: 120},
+        {src: 'images/diner.webp', x: 1770, y: 950, width: 120},
+        {src: 'images/jackrabbit-slims.webp', x: 1900, y: 950, width: 120}
+      ];
+      demoImages.forEach(img => createImageElement(img.src, img.x, img.y, img.width));
+
       // Set viewport
       panX = -50;
       panY = -50;
