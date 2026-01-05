@@ -2796,104 +2796,134 @@
 
       // Full Pulp Fiction demo template - WOW VISUAL
       const demoData = {"frames":[],"cards":[
-        // === PROLOGUE (haut gauche, espacé) ===
-        {"text":"INT. COFFEE SHOP\\nMatin","x":150,"y":200,"width":140,"height":70,"color":"yellow"},
-        {"text":"Pumpkin & Honey Bunny\\nDiscutent hold-up","x":310,"y":188,"width":150,"height":75,"color":"yellow"},
+        // === ALTERNATIVE STRUCTURE FOR ACT 2 (far left, separated) ===
+        {"text":"ALT: Linear opening\\nStart with Butch","x":-750,"y":180,"width":145,"height":70,"color":"orange"},
+        {"text":"The watch story\\nfirst","x":-580,"y":195,"width":130,"height":65,"color":"orange"},
+        {"text":"Butch training\\nmontage?","x":-430,"y":182,"width":135,"height":68,"color":"orange"},
+        {"text":"Fabienne intro\\nearlier","x":-745,"y":275,"width":130,"height":65,"color":"orange"},
+        {"text":"Fight setup\\nmore tension","x":-595,"y":288,"width":135,"height":68,"color":"orange"},
+        {"text":"Marsellus deal\\ndetailed","x":-440,"y":272,"width":130,"height":65,"color":"yellow"},
+        {"text":"Show the fix\\nis real","x":-748,"y":368,"width":125,"height":65,"color":"yellow"},
+        {"text":"Butch's POV\\nonly","x":-600,"y":378,"width":120,"height":60,"color":"yellow"},
+        {"text":"Cut Vincent\\ncrossover?","x":-455,"y":365,"width":135,"height":68,"color":"pink"},
+        {"text":"Esmeralda\\nexpanded","x":-742,"y":458,"width":130,"height":65,"color":"yellow"},
+        {"text":"Her obsession\\nw/ death","x":-590,"y":470,"width":135,"height":68,"color":"yellow"},
+        {"text":"Foreshadow\\nthe crash","x":-435,"y":455,"width":130,"height":65,"color":"green"},
+        {"text":"Longer motel\\nscene","x":-750,"y":550,"width":130,"height":65,"color":"yellow"},
+        {"text":"Blueberry\\npancakes","x":-598,"y":562,"width":125,"height":62,"color":"blue"},
+        {"text":"Pot belly\\nmoment","x":-450,"y":548,"width":125,"height":65,"color":"blue"},
+        {"text":"Watch reveal\\nmore dramatic","x":-745,"y":645,"width":145,"height":68,"color":"green"},
+        {"text":"Sprint back\\nlonger","x":-578,"y":658,"width":125,"height":62,"color":"yellow"},
+        {"text":"Toaster pastry\\nbeat","x":-432,"y":642,"width":130,"height":65,"color":"yellow"},
+        {"text":"KEEP: Toilet\\ndeath","x":-752,"y":740,"width":130,"height":65,"color":"green"},
+        {"text":"Remove\\nirony?","x":-600,"y":752,"width":115,"height":60,"color":"pink"},
+        {"text":"NO - irony\\nis key!","x":-462,"y":738,"width":120,"height":65,"color":"green"},
+        {"text":"Pawn shop\\nextended","x":-748,"y":835,"width":135,"height":65,"color":"pink"},
+        {"text":"Gimp backstory?\\nToo much","x":-590,"y":848,"width":145,"height":68,"color":"pink"},
+        {"text":"Katana choice\\nslower","x":-422,"y":832,"width":130,"height":65,"color":"green"},
+        {"text":"CONCLUSION:\\nKeep non-linear!","x":-600,"y":940,"width":170,"height":72,"color":"green"},
+
+        // === PROLOGUE (top left, spaced) ===
+        {"text":"INT. COFFEE SHOP\\nMorning","x":150,"y":200,"width":140,"height":70,"color":"yellow"},
+        {"text":"Pumpkin & Honey Bunny\\nDiscuss robbery","x":310,"y":188,"width":150,"height":75,"color":"yellow"},
         {"text":"\"I love you Pumpkin\"\\n\"I love you Honey Bunny\"","x":480,"y":205,"width":155,"height":68,"color":"pink"},
-        {"text":"FREEZE\\nArmes sorties","x":160,"y":295,"width":125,"height":65,"color":"green"},
-        {"text":"→ On reviendra...","x":305,"y":302,"width":130,"height":55,"color":"white"},
+        {"text":"FREEZE\\nGuns drawn","x":160,"y":295,"width":125,"height":65,"color":"green"},
+        {"text":"→ We'll be back...","x":305,"y":302,"width":130,"height":55,"color":"white"},
         {"text":"TITLE CARD","x":455,"y":290,"width":120,"height":60,"color":"green"},
 
-        // === ACT 1 - Vincent & Mia (centre gauche, bien espacé) ===
-        {"text":"INT. VOITURE\\nRoyale with Cheese","x":120,"y":520,"width":145,"height":72,"color":"yellow"},
-        {"text":"Massage de pieds\\nC'est sensuel?","x":285,"y":508,"width":145,"height":70,"color":"blue"},
-        {"text":"Tony Rocky Horror\\nBalancé du balcon","x":450,"y":525,"width":150,"height":68,"color":"pink"},
-        {"text":"INT. APPART BRETT\\nBig Kahuna Burger","x":620,"y":512,"width":160,"height":72,"color":"yellow"},
+        // === ACT 1 - Vincent & Mia (center left, well spaced) ===
+        {"text":"INT. CAR\\nRoyale with Cheese","x":120,"y":520,"width":145,"height":72,"color":"yellow"},
+        {"text":"Foot massage\\nIs it sexual?","x":285,"y":508,"width":145,"height":70,"color":"blue"},
+        {"text":"Tony Rocky Horror\\nThrown off balcony","x":450,"y":525,"width":150,"height":68,"color":"pink"},
+        {"text":"INT. BRETT'S APT\\nBig Kahuna Burger","x":620,"y":512,"width":160,"height":72,"color":"yellow"},
         {"text":"EZEKIEL 25:17","x":800,"y":520,"width":125,"height":62,"color":"green"},
-        {"text":"Bar de Marcellus\\nLa mallette brille","x":125,"y":620,"width":150,"height":72,"color":"yellow"},
-        {"text":"Vincent chez Lance\\nAchat héroïne","x":295,"y":608,"width":145,"height":68,"color":"blue"},
-        {"text":"EXT. MAISON MIA\\nVincent arrive","x":460,"y":625,"width":150,"height":70,"color":"yellow"},
-        {"text":"Fox Force Five\\nPilote jamais diffusé","x":630,"y":612,"width":155,"height":68,"color":"purple"},
-        {"text":"JACK RABBIT SLIM'S\\nDécor années 50","x":128,"y":720,"width":165,"height":75,"color":"green"},
+        {"text":"Marsellus' bar\\nBriefcase glows","x":125,"y":620,"width":150,"height":72,"color":"yellow"},
+        {"text":"Vincent at Lance's\\nBuying heroin","x":295,"y":608,"width":145,"height":68,"color":"blue"},
+        {"text":"EXT. MIA'S HOUSE\\nVincent arrives","x":460,"y":625,"width":150,"height":70,"color":"yellow"},
+        {"text":"Fox Force Five\\nUnaired pilot","x":630,"y":612,"width":155,"height":68,"color":"purple"},
+        {"text":"JACK RABBIT SLIM'S\\n50s themed diner","x":128,"y":720,"width":165,"height":75,"color":"green"},
         {"text":"$5 milkshake\\n\"Goddamn!\"","x":315,"y":728,"width":135,"height":65,"color":"yellow"},
         {"text":"TWIST CONTEST","x":470,"y":715,"width":140,"height":68,"color":"green"},
-        {"text":"Vincent & Mia\\ndansent","x":630,"y":725,"width":135,"height":65,"color":"green"},
-        {"text":"OVERDOSE\\nMia s'effondre","x":130,"y":825,"width":145,"height":72,"color":"pink"},
-        {"text":"PANIQUE\\nAppel à Lance","x":295,"y":835,"width":135,"height":65,"color":"pink"},
-        {"text":"Adrénaline shot\\nDroit au coeur","x":450,"y":822,"width":155,"height":72,"color":"pink"},
-        {"text":"STAB!\\nMia se réveille","x":625,"y":832,"width":135,"height":68,"color":"green"},
+        {"text":"Vincent & Mia\\ndancing","x":630,"y":725,"width":135,"height":65,"color":"green"},
+        {"text":"OVERDOSE\\nMia collapses","x":130,"y":825,"width":145,"height":72,"color":"pink"},
+        {"text":"PANIC\\nCall Lance","x":295,"y":835,"width":135,"height":65,"color":"pink"},
+        {"text":"Adrenaline shot\\nStraight to heart","x":450,"y":822,"width":155,"height":72,"color":"pink"},
+        {"text":"STAB!\\nMia wakes up","x":625,"y":832,"width":135,"height":68,"color":"green"},
         {"text":"\"Goodnight\"","x":780,"y":825,"width":110,"height":55,"color":"purple"},
 
-        // === ACT 2 - The Gold Watch (centre droit) ===
-        {"text":"FLASHBACK 1972\\nCapitaine Koons","x":1050,"y":200,"width":160,"height":72,"color":"purple"},
-        {"text":"Histoire de la montre\\n\"Up his ass 5 years\"","x":1235,"y":188,"width":170,"height":75,"color":"purple"},
-        {"text":"Petit Butch\\nreçoit la montre","x":1425,"y":205,"width":150,"height":68,"color":"yellow"},
-        {"text":"Butch s'enfuit\\nIl a pas plongé","x":1055,"y":305,"width":150,"height":70,"color":"yellow"},
+        // === ACT 2 - The Gold Watch (center right) ===
+        {"text":"FLASHBACK 1972\\nCaptain Koons","x":1050,"y":200,"width":160,"height":72,"color":"purple"},
+        {"text":"The watch story\\n\"Up his ass 5 years\"","x":1235,"y":188,"width":170,"height":75,"color":"purple"},
+        {"text":"Young Butch\\nreceives watch","x":1425,"y":205,"width":150,"height":68,"color":"yellow"},
+        {"text":"Butch escapes\\nHe didn't dive","x":1055,"y":305,"width":150,"height":70,"color":"yellow"},
         {"text":"INT. TAXI\\nEsmeralda","x":1225,"y":295,"width":140,"height":68,"color":"yellow"},
-        {"text":"LA MONTRE!\\nOù est-elle?","x":1385,"y":308,"width":145,"height":70,"color":"orange"},
-        {"text":"Vincent sort\\ndes toilettes","x":1058,"y":405,"width":145,"height":68,"color":"pink"},
-        {"text":"BUTCH TUE VINCENT\\n💀","x":1223,"y":395,"width":155,"height":75,"color":"pink"},
-        {"text":"CRASH!\\nButch vs Marcellus","x":1398,"y":408,"width":160,"height":70,"color":"pink"},
+        {"text":"THE WATCH!\\nWhere is it?","x":1385,"y":308,"width":145,"height":70,"color":"orange"},
+        {"text":"Vincent exits\\nbathroom","x":1058,"y":405,"width":145,"height":68,"color":"pink"},
+        {"text":"BUTCH KILLS VINCENT\\n💀","x":1223,"y":395,"width":155,"height":75,"color":"pink"},
+        {"text":"CRASH!\\nButch vs Marsellus","x":1398,"y":408,"width":160,"height":70,"color":"pink"},
         {"text":"Maynard's\\nPawn Shop","x":1060,"y":505,"width":135,"height":68,"color":"pink"},
         {"text":"\"Bring out\\nthe Gimp\"","x":1215,"y":498,"width":130,"height":70,"color":"pink"},
         {"text":"KATANA ⚔️","x":1365,"y":510,"width":115,"height":62,"color":"green"},
-        {"text":"Butch sauve Marcellus\\nZed's dead baby","x":1500,"y":500,"width":175,"height":72,"color":"green"},
+        {"text":"Butch saves Marsellus\\nZed's dead baby","x":1500,"y":500,"width":175,"height":72,"color":"green"},
 
-        // === ACT 3 - Bonnie Situation (en dessous) ===
-        {"text":"RETOUR Appart Brett\\nAprès Ezekiel","x":1055,"y":650,"width":165,"height":72,"color":"yellow"},
-        {"text":"Le 4ème mec\\nRATE TOUT","x":1240,"y":640,"width":145,"height":70,"color":"pink"},
+        // === ACT 3 - Bonnie Situation (below) ===
+        {"text":"BACK TO Brett's apt\\nAfter Ezekiel","x":1055,"y":650,"width":165,"height":72,"color":"yellow"},
+        {"text":"The 4th guy\\nMISSES EVERYTHING","x":1240,"y":640,"width":145,"height":70,"color":"pink"},
         {"text":"MIRACLE\\nDivine intervention","x":1405,"y":655,"width":150,"height":68,"color":"green"},
         {"text":"\"Aw man I shot\\nMarvin in the face\"","x":1058,"y":755,"width":170,"height":75,"color":"pink"},
         {"text":"THE WOLF\\n\"I solve problems\"","x":1248,"y":745,"width":150,"height":72,"color":"green"},
-        {"text":"Monster Joe's\\nNouveaux vêtements","x":1418,"y":760,"width":155,"height":68,"color":"yellow"},
-        {"text":"RETOUR AU DINER\\nFull circle 🔄","x":1060,"y":860,"width":160,"height":72,"color":"green"},
+        {"text":"Monster Joe's\\nNew clothes","x":1418,"y":760,"width":155,"height":68,"color":"yellow"},
+        {"text":"BACK TO DINER\\nFull circle 🔄","x":1060,"y":860,"width":160,"height":72,"color":"green"},
         {"text":"Mexican standoff","x":1240,"y":852,"width":135,"height":62,"color":"pink"},
-        {"text":"EZEKIEL 25:17\\nRédemption","x":1395,"y":865,"width":155,"height":68,"color":"green"},
-        {"text":"Jules les laisse\\npartir","x":1570,"y":855,"width":140,"height":68,"color":"purple"},
+        {"text":"EZEKIEL 25:17\\nRedemption","x":1395,"y":865,"width":155,"height":68,"color":"green"},
+        {"text":"Jules lets them\\ngo","x":1570,"y":855,"width":140,"height":68,"color":"purple"},
 
-        // === PERSONNAGES (en bas, horizontal, espacés) ===
-        {"text":"VINCENT VEGA\\nJohn Travolta\\nHeroin addict\\nMeurt aux toilettes","x":150,"y":1100,"width":200,"height":110,"color":"blue"},
-        {"text":"JULES WINNFIELD\\nSamuel L. Jackson\\nEzekiel 25:17\\nSe retire","x":380,"y":1088,"width":200,"height":110,"color":"blue"},
+        // === CHARACTERS (bottom, horizontal, spaced) ===
+        {"text":"VINCENT VEGA\\nJohn Travolta\\nHeroin addict\\nDies on toilet","x":150,"y":1100,"width":200,"height":110,"color":"blue"},
+        {"text":"JULES WINNFIELD\\nSamuel L. Jackson\\nEzekiel 25:17\\nRetires","x":380,"y":1088,"width":200,"height":110,"color":"blue"},
         {"text":"MIA WALLACE\\nUma Thurman\\nFox Force Five\\nOverdose","x":610,"y":1105,"width":195,"height":105,"color":"blue"},
-        {"text":"BUTCH COOLIDGE\\nBruce Willis\\nLa montre en or\\nKatana","x":835,"y":1092,"width":195,"height":108,"color":"blue"},
+        {"text":"BUTCH COOLIDGE\\nBruce Willis\\nThe gold watch\\nKatana","x":835,"y":1092,"width":195,"height":108,"color":"blue"},
         {"text":"MARSELLUS\\nVing Rhames\\n\"Pretty far from OK\"","x":1060,"y":1100,"width":180,"height":100,"color":"blue"},
         {"text":"THE WOLF\\nHarvey Keitel","x":1270,"y":1108,"width":155,"height":85,"color":"gray"},
         {"text":"LANCE\\nEric Stoltz","x":1455,"y":1098,"width":140,"height":80,"color":"gray"},
 
-        // === BONEYARD (bas gauche) ===
+        // === BONEYARD (bottom left) ===
         {"text":"CUT: Vic Vega\\n= Mr. Blonde?","x":150,"y":1280,"width":160,"height":80,"color":"orange"},
-        {"text":"ALT: Vincent survit?\\nNon - karma","x":335,"y":1295,"width":160,"height":75,"color":"orange"},
-        {"text":"Contenu mallette?\\nMystère = mieux","x":520,"y":1285,"width":155,"height":78,"color":"orange"},
+        {"text":"ALT: Vincent lives?\\nNo - karma","x":335,"y":1295,"width":160,"height":75,"color":"orange"},
+        {"text":"Briefcase contents?\\nMystery = better","x":520,"y":1285,"width":155,"height":78,"color":"orange"},
 
-        // === SOUNDTRACK (bas centre) ===
+        // === SOUNDTRACK (bottom center) ===
         {"text":"🎵 MISIRLOU\\nDick Dale","x":750,"y":1280,"width":140,"height":70,"color":"purple"},
         {"text":"🎵 YOU NEVER CAN TELL\\nChuck Berry","x":910,"y":1290,"width":165,"height":72,"color":"purple"},
         {"text":"🎵 GIRL YOU'LL BE\\nA WOMAN SOON","x":1095,"y":1282,"width":160,"height":75,"color":"purple"},
-        {"text":"🎵 SURF RIDER\\nFin","x":1275,"y":1292,"width":130,"height":65,"color":"purple"}
+        {"text":"🎵 SURF RIDER\\nEnding","x":1275,"y":1292,"width":130,"height":65,"color":"purple"}
       ],"texts":[
-        // TITRE IMPOSANT
+        // BIG TITLE
         {"content":"PULP FICTION","x":100,"y":60,"font":"handwriting","fontSize":72},
         {"content":"Quentin Tarantino, 1994","x":520,"y":95,"font":"inter","fontSize":16},
 
-        // TITRES DE SECTIONS EN HANDWRITING
+        // SECTION TITLES IN HANDWRITING
+        {"content":"Alternative structure for Act 2","x":-750,"y":120,"font":"handwriting","fontSize":28},
         {"content":"PROLOGUE","x":150,"y":160,"font":"handwriting","fontSize":28},
         {"content":"ACT 1 — Vincent & Mia","x":120,"y":475,"font":"handwriting","fontSize":26},
         {"content":"ACT 2 — The Gold Watch","x":1050,"y":155,"font":"handwriting","fontSize":26},
         {"content":"ACT 3 — Bonnie Situation","x":1055,"y":610,"font":"handwriting","fontSize":24},
-        {"content":"PERSONNAGES","x":150,"y":1055,"font":"handwriting","fontSize":28},
+        {"content":"CHARACTERS","x":150,"y":1055,"font":"handwriting","fontSize":28},
         {"content":"BONEYARD","x":150,"y":1245,"font":"handwriting","fontSize":24},
         {"content":"SOUNDTRACK","x":750,"y":1245,"font":"handwriting","fontSize":24},
         {"content":"MOOD BOARD","x":1750,"y":160,"font":"handwriting","fontSize":32},
 
-        // ANNOTATIONS MANUSCRITES
-        {"content":"Scène clé !","x":470,"y":680,"font":"handwriting","fontSize":18},
+        // HANDWRITTEN ANNOTATIONS
+        {"content":"Key scene!","x":470,"y":680,"font":"handwriting","fontSize":18},
         {"content":"← TWIST","x":785,"y":718,"font":"handwriting","fontSize":16},
-        {"content":"Ironie: il meurt aux toilettes","x":1380,"y":390,"font":"handwriting","fontSize":14},
+        {"content":"Irony: dies on toilet","x":1380,"y":390,"font":"handwriting","fontSize":14},
         {"content":"Full circle ↺","x":1240,"y":830,"font":"handwriting","fontSize":16},
-        {"content":"Non-linear = puissance","x":1620,"y":205,"font":"handwriting","fontSize":15},
-        {"content":"La mallette = ???","x":2050,"y":850,"font":"handwriting","fontSize":18},
-        {"content":"RÉDEMPTION","x":1565,"y":890,"font":"handwriting","fontSize":16},
-        {"content":"→ Tarantino signature","x":620,"y":555,"font":"handwriting","fontSize":14}
+        {"content":"Non-linear = power","x":1620,"y":205,"font":"handwriting","fontSize":15},
+        {"content":"The briefcase = ???","x":2050,"y":850,"font":"handwriting","fontSize":18},
+        {"content":"REDEMPTION","x":1565,"y":890,"font":"handwriting","fontSize":16},
+        {"content":"→ Tarantino signature","x":620,"y":555,"font":"handwriting","fontSize":14},
+        {"content":"What if?","x":-680,"y":145,"font":"handwriting","fontSize":16},
+        {"content":"REJECTED →","x":-350,"y":550,"font":"handwriting","fontSize":18}
       ]};
 
       // Create frames
