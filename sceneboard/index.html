@@ -687,55 +687,8 @@
   </footer>
 
   <script>
-    const STORAGE_KEY = 'sceneboard_access';
-
-    // Check if user has already submitted email
-    function hasAccess() {
-      return localStorage.getItem(STORAGE_KEY) === 'true';
-    }
-
-    // Show modal on page load if no access
-    function init() {
-      if (!hasAccess()) {
-        document.getElementById('earlyAccessModal').classList.remove('hidden');
-      }
-    }
-
-    // Submit email
-    function submitEmail() {
-      const email = document.getElementById('emailInput').value.trim();
-
-      if (!email || !email.includes('@')) {
-        document.getElementById('emailInput').style.borderColor = '#e53e3e';
-        setTimeout(() => {
-          document.getElementById('emailInput').style.borderColor = '#333';
-        }, 2000);
-        return;
-      }
-
-      // Send to Google Form
-      const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScT-fnswm_95LE51Q-KPhThffEOCSszcNhZtjfc3mBjlb0FZA/formResponse';
-      const formData = new FormData();
-      formData.append('entry.2144411608', email);
-
-      fetch(formUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-      });
-
-      // Save to localStorage
-      localStorage.setItem(STORAGE_KEY, 'true');
-      localStorage.setItem('sceneboard_email', email);
-
-      // Redirect to board immediately
-      const scenes = getScenesParam();
-      if (scenes) {
-        window.location.href = '../board/?scenes=' + encodeURIComponent(scenes);
-      } else {
-        window.location.href = '../board/';
-      }
-    }
+    // Email collection is now handled by the add-on sidebar
+    // This page is just a landing page - direct access allowed
 
     // Get scenes param from URL (passed from add-on)
     function getScenesParam() {
@@ -743,12 +696,8 @@
       return urlParams.get('scenes');
     }
 
-    // Open board
+    // Open board directly
     function openBoard() {
-      if (!hasAccess()) {
-        document.getElementById('earlyAccessModal').classList.remove('hidden');
-        return;
-      }
       const scenes = getScenesParam();
       if (scenes) {
         window.location.href = '../board/?scenes=' + encodeURIComponent(scenes);
@@ -757,24 +706,16 @@
       }
     }
 
-    // Open demo
+    // Open demo directly
     function openDemo() {
-      if (!hasAccess()) {
-        document.getElementById('earlyAccessModal').classList.remove('hidden');
-        return;
-      }
       window.location.href = '../board/?demo=true';
     }
 
-    // Handle Enter key in email input
-    document.getElementById('emailInput').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        submitEmail();
-      }
-    });
-
-    // Initialize
-    init();
+    // Remove modal on load (no longer needed)
+    (function() {
+      const modal = document.getElementById('earlyAccessModal');
+      if (modal) modal.remove();
+    })();
   </script>
 </body>
 </html>

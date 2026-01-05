@@ -1332,76 +1332,15 @@
 
   <script>
     // ============================================
-    // EARLY ACCESS
+    // EARLY ACCESS - Now handled by add-on sidebar
+    // Modal removed - direct access allowed
     // ============================================
-    
-    function checkEarlyAccess() {
-      // En mode standalone (hors Google Docs), on cache le modal
-      if (typeof google === 'undefined' || !google.script) {
-        hideEarlyAccessModal();
-        return;
-      }
-      
-      // Vérifier si l'utilisateur a déjà donné son mail
-      google.script.run
-        .withSuccessHandler(function(hasAccess) {
-          if (hasAccess) {
-            hideEarlyAccessModal();
-          }
-        })
-        .withFailureHandler(function() {
-          // En cas d'erreur, on laisse passer
-          hideEarlyAccessModal();
-        })
-        .checkSceneBoardAccess();
-    }
-    
-    function submitEarlyAccess() {
-      const email = document.getElementById('earlyAccessEmail').value.trim();
-      const btn = document.getElementById('earlyAccessBtn');
-      
-      if (!email || !email.includes('@')) {
-        document.getElementById('earlyAccessEmail').style.borderColor = '#EF4444';
-        return;
-      }
-      
-      btn.disabled = true;
-      btn.textContent = 'Joining...';
-      
-      // Envoyer l'email via Google Form (embedded submit)
-      const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScT-fnswm_95LE51Q-KPhThffEOCSszcNhZtjfc3mBjlb0FZA/formResponse';
-      const formData = new FormData();
-      formData.append('entry.2144411608', email);
-      
-      // Fire and forget - on ne bloque pas l'utilisateur
-      fetch(formUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-      }).catch(() => {});
-      
-      // Sauvegarder en localStorage qu'on a déjà accès
-      localStorage.setItem('sceneboard_access', 'true');
-      localStorage.setItem('sceneboard_email', email);
-      
-      hideEarlyAccessModal();
-    }
-    
-    function hideEarlyAccessModal() {
+
+    // Remove modal on load (email collection is now in the add-on)
+    (function() {
       const overlay = document.getElementById('earlyAccessOverlay');
-      if (overlay) {
-        overlay.classList.add('hidden');
-        setTimeout(() => overlay.remove(), 300);
-      }
-    }
-    
-    // Enter pour soumettre
-    document.getElementById('earlyAccessEmail').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') submitEarlyAccess();
-    });
-    
-    // Vérifier au chargement
-    checkEarlyAccess();
+      if (overlay) overlay.remove();
+    })();
 
     // ============================================
     // LOCAL STORAGE - SAVE/LOAD
