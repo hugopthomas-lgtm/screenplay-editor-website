@@ -407,6 +407,115 @@
     .color-swatch.gray { background: var(--card-gray); }
 
     /* ============================================
+       NEW CARD MODAL
+       ============================================ */
+    .new-card-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+    }
+
+    .new-card-modal.visible {
+      display: flex;
+    }
+
+    .new-card-modal-content {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px;
+      width: 320px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+    }
+
+    .new-card-modal h3 {
+      margin: 0 0 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .new-card-modal input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    .new-card-modal input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .new-card-modal-colors {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .new-card-modal-colors .color-swatch {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .new-card-modal-colors .color-swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .new-card-modal-colors .color-swatch.selected {
+      border-color: var(--accent);
+    }
+
+    .new-card-modal-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .new-card-modal-buttons button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .new-card-modal-buttons .cancel-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .new-card-modal-buttons .cancel-btn:hover {
+      background: var(--border);
+    }
+
+    .new-card-modal-buttons .create-btn {
+      background: var(--accent);
+      border: none;
+      color: white;
+    }
+
+    .new-card-modal-buttons .create-btn:hover {
+      background: #8B6BD4;
+    }
+
+    /* ============================================
        IMAGE ELEMENT
        ============================================ */
     .canvas-image {
@@ -1293,6 +1402,24 @@
     </div>
   </div>
 
+  <!-- New card modal -->
+  <div class="new-card-modal" id="newCardModal">
+    <div class="new-card-modal-content">
+      <h3>New Scene</h3>
+      <input type="text" id="newCardText" placeholder="Scene description..." autocomplete="off">
+      <div class="new-card-modal-colors">
+        <div class="color-swatch yellow selected" data-color="yellow"></div>
+        <div class="color-swatch pink" data-color="pink"></div>
+        <div class="color-swatch blue" data-color="blue"></div>
+        <div class="color-swatch green" data-color="green"></div>
+      </div>
+      <div class="new-card-modal-buttons">
+        <button class="cancel-btn" onclick="closeNewCardModal()">Cancel</button>
+        <button class="create-btn" onclick="createNewCard()">Create</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Text formatting toolbar -->
   <div class="text-toolbar" id="textToolbar">
     <button class="text-toolbar-btn active" onclick="setTextFont('inter')" data-font="inter">Sans</button>
@@ -1566,17 +1693,46 @@
 
     function reattachEventListeners() {
       document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mousedown', startDrag);
-        card.addEventListener('dblclick', editCardText);
+        card.addEventListener('mousedown', (e) => {
+          if (e.target.closest('.resize-handle')) {
+            startResizeCard(e, card);
+          } else {
+            startDragCard(e);
+          }
+        });
+        card.addEventListener('dblclick', editCard);
+        card.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          showContextMenu(e, card);
+        });
       });
       document.querySelectorAll('.canvas-text').forEach(el => {
-        el.addEventListener('mousedown', startDrag);
+        el.addEventListener('mousedown', (e) => startDragText(e, el));
+        el.addEventListener('dblclick', () => startEditText(el));
       });
       document.querySelectorAll('.canvas-image').forEach(el => {
-        el.addEventListener('mousedown', startDrag);
+        el.addEventListener('mousedown', (e) => startDragImage(e, el));
       });
-      document.querySelectorAll('.canvas-frame').forEach(el => {
-        el.addEventListener('mousedown', startDrag);
+      document.querySelectorAll('.canvas-frame').forEach(frame => {
+        const labelEl = frame.querySelector('.canvas-frame-label');
+        if (labelEl) {
+          labelEl.addEventListener('dblclick', (e) => {
+            e.stopPropagation();
+            const currentLabel = frame.dataset.label;
+            const newLabel = prompt('Frame name:', currentLabel);
+            if (newLabel) {
+              labelEl.textContent = newLabel;
+              frame.dataset.label = newLabel;
+            }
+          });
+        }
+        frame.addEventListener('mousedown', (e) => {
+          if (e.target.closest('.resize-handle')) {
+            startResizeFrame(e, frame);
+          } else if (e.target === frame) {
+            startDragFrame(e, frame);
+          }
+        });
       });
     }
 
@@ -1849,19 +2005,70 @@
       }
     }
     
+    let selectedNewCardColor = 'yellow';
+
     function addCard() {
-      const text = prompt('Nouvelle scène:');
-      if (!text || !text.trim()) return;
+      showNewCardModal();
+    }
+
+    function showNewCardModal() {
+      const modal = document.getElementById('newCardModal');
+      const input = document.getElementById('newCardText');
+      modal.classList.add('visible');
+      input.value = '';
+      input.focus();
+
+      // Reset color selection
+      selectedNewCardColor = 'yellow';
+      modal.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+      modal.querySelector('.color-swatch.yellow').classList.add('selected');
+    }
+
+    function closeNewCardModal() {
+      document.getElementById('newCardModal').classList.remove('visible');
+    }
+
+    function createNewCard() {
+      const text = document.getElementById('newCardText').value.trim();
+      if (!text) return;
 
       saveState();
       const rect = canvasContainer.getBoundingClientRect();
       const centerX = (rect.width / 2 - panX) / scale;
       const centerY = (rect.height / 2 - panY) / scale;
 
-      const card = createCard(text, centerX - 90, centerY - 30);
+      const card = createCard(text, centerX - 90, centerY - 30, selectedNewCardColor);
       card.classList.add('selected');
       updateMinimap();
+      closeNewCardModal();
     }
+
+    // Color selection in new card modal
+    document.getElementById('newCardModal').addEventListener('click', (e) => {
+      const swatch = e.target.closest('.color-swatch');
+      if (swatch) {
+        document.querySelectorAll('#newCardModal .color-swatch').forEach(s => s.classList.remove('selected'));
+        swatch.classList.add('selected');
+        selectedNewCardColor = swatch.dataset.color;
+      }
+    });
+
+    // Enter to create, Escape to close
+    document.getElementById('newCardText').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        createNewCard();
+      } else if (e.key === 'Escape') {
+        closeNewCardModal();
+      }
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('newCardModal').addEventListener('click', (e) => {
+      if (e.target.id === 'newCardModal') {
+        closeNewCardModal();
+      }
+    });
     
     // ============================================
     // MINIMAP
