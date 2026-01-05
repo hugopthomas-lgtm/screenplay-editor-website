@@ -2729,13 +2729,80 @@
     }
 
     // ============================================
+    // DEMO MODE - Load Pulp Fiction demo
+    // ============================================
+
+    function loadDemoBoard() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (!urlParams.has('demo')) return false;
+
+      // Update title
+      document.querySelector('.project-title').textContent = 'Pulp Fiction (Demo)';
+
+      // Demo scenes from Pulp Fiction
+      const demoScenes = [
+        { heading: 'INT. COFFEE SHOP - MORNING', type: 'INT' },
+        { heading: 'EXT. STREET - DAY', type: 'EXT' },
+        { heading: 'INT. 1974 CHEVY NOVA - MORNING', type: 'INT' },
+        { heading: 'INT. BRETT\'S APARTMENT - MORNING', type: 'INT' },
+        { heading: 'INT. MARSELLUS WALLACE\'S CLUB - NIGHT', type: 'INT' },
+        { heading: 'EXT. MARSELLUS WALLACE\'S CLUB - NIGHT', type: 'EXT' },
+        { heading: 'INT. JACK RABBIT SLIM\'S - NIGHT', type: 'INT' },
+        { heading: 'INT. MIA\'S APARTMENT - NIGHT', type: 'INT' },
+        { heading: 'INT. VINCENT\'S DEALER\'S HOUSE - NIGHT', type: 'INT' },
+        { heading: 'INT. BUTCH\'S APARTMENT - MORNING', type: 'INT' },
+        { heading: 'EXT. BOXING ARENA - NIGHT', type: 'EXT' },
+        { heading: 'INT. TAXI CAB - NIGHT', type: 'INT' },
+        { heading: 'INT. MOTEL ROOM - NIGHT', type: 'INT' },
+        { heading: 'EXT. PAWN SHOP - DAY', type: 'EXT' },
+        { heading: 'INT. PAWN SHOP BASEMENT - DAY', type: 'INT' },
+        { heading: 'INT. DINER - MORNING', type: 'INT' },
+      ];
+
+      const CARD_WIDTH = 180;
+      const CARD_HEIGHT = 100;
+      const PADDING = 30;
+      const COLS = 4;
+      const START_X = 100;
+      const START_Y = 100;
+
+      demoScenes.forEach((scene, index) => {
+        const col = index % COLS;
+        const row = Math.floor(index / COLS);
+        const x = START_X + col * (CARD_WIDTH + PADDING);
+        const y = START_Y + row * (CARD_HEIGHT + PADDING);
+        const color = scene.type === 'INT' ? 'blue' : 'green';
+        createCard(scene.heading, x, y, color, CARD_WIDTH);
+      });
+
+      // Add some frames
+      createFrame('ACT 1 - Setup', 80, 70, 460, 300);
+      createFrame('ACT 2 - Confrontation', 560, 70, 460, 300);
+      createFrame('ACT 3 - Resolution', 80, 400, 460, 200);
+
+      // Add a text note
+      createTextElement('Drag scenes to rearrange your story structure', 580, 420, 'inter');
+
+      panX = -30;
+      panY = -30;
+      updateCanvas();
+
+      // Clear URL params
+      window.history.replaceState({}, '', window.location.pathname);
+
+      return true;
+    }
+
+    // ============================================
     // INIT
     // ============================================
 
-    // Priority: 1. URL params (from Google Doc) 2. localStorage 3. Default board
-    if (!loadFromUrlParams()) {
-      if (!loadFromLocalStorage()) {
-        generateDefaultBoard();
+    // Priority: 1. Demo mode 2. URL params (from Google Doc) 3. localStorage 4. Default board
+    if (!loadDemoBoard()) {
+      if (!loadFromUrlParams()) {
+        if (!loadFromLocalStorage()) {
+          generateDefaultBoard();
+        }
       }
     }
     

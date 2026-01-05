@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scene Board — Visual Story Planning | Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="description" content="Scene Board is an infinite canvas for visual screenplay planning. Drag, drop, and organize your scenes. Free for Screenplay Editor users.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.3);
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: 140px 30px 100px;
+      text-align: center;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(157, 123, 234, 0.15);
+      color: var(--violet);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(157, 123, 234, 0.3);
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+      color: #fff;
+    }
+
+    .hero h1 .highlight {
+      color: var(--violet);
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      font-weight: 400;
+      color: #888;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--violet-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #888;
+      border: 1px solid #444;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--violet);
+      color: var(--violet);
+    }
+
+    /* ============================================
+       SCREENSHOT
+       ============================================ */
+    .screenshot-section {
+      padding: 0 30px 80px;
+      background: var(--dark);
+      text-align: center;
+    }
+
+    .screenshot-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+      border: 1px dashed var(--violet);
+      padding: 8px;
+      background: var(--dark);
+    }
+
+    .screenshot-wrapper img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .screenshot-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* ============================================
+       FEATURES
+       ============================================ */
+    .features {
+      padding: 100px 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 60px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .feature {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(157, 123, 234, 0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 28px;
+    }
+
+    .feature h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .feature p {
+      font-size: 13px;
+      font-weight: 400;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       CTA SECTION
+       ============================================ */
+    .cta-section {
+      text-align: center;
+      padding: 100px 30px;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .cta-section h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+      border-top: 1px solid #333;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 22px;
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* ============================================
+       EARLY ACCESS MODAL
+       ============================================ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.hidden {
+      display: none;
+    }
+
+    .modal {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 48px;
+      max-width: 440px;
+      width: 90%;
+      text-align: center;
+      border: 1px solid #333;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-icon {
+      font-size: 48px;
+      margin-bottom: 24px;
+    }
+
+    .modal h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .modal p {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .modal input:focus {
+      border-color: var(--violet);
+    }
+
+    .modal input::placeholder {
+      color: #666;
+    }
+
+    .modal .btn {
+      width: 100%;
+      padding: 14px 24px;
+    }
+
+    .modal-skip {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-skip:hover {
+      color: #888;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 900px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 120px 20px 80px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .features {
+        padding: 60px 20px 80px;
+      }
+
+      .features h2 {
+        font-size: 24px;
+        margin-bottom: 40px;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+
+      .modal {
+        padding: 32px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Early Access Modal -->
+  <div id="earlyAccessModal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-icon">🎬</div>
+      <h2>Early Access</h2>
+      <p>Scene Board is in early access. Enter your email to get notified of updates and new features.</p>
+      <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email">
+      <button class="btn btn-primary" onclick="submitEmail()">Get Access</button>
+      <div class="modal-skip" onclick="skipModal()">Skip for now</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-content">
+      <a href="../index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">|</span></span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-badge">EARLY ACCESS</div>
+        <h1>Scene <span class="highlight">Board</span></h1>
+        <p class="hero-subtitle">Your visual writing space. An infinite canvas to organize, connect, and visualize your screenplay structure.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="openBoard()">Open Scene Board</button>
+          <button class="btn btn-secondary" onclick="openDemo()">Try with demo</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screenshot-section">
+      <div class="screenshot-wrapper">
+        <div class="screenshot-placeholder">
+          Scene Board Preview
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <h2>Everything you need to plan visually</h2>
+
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-icon">🌐</div>
+          <h3>Infinite Canvas</h3>
+          <p>Pan, zoom, and organize without limits. Your story has room to breathe.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <h3>Drag & Drop Scenes</h3>
+          <p>Import scenes from your screenplay and rearrange them visually.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🖼️</div>
+          <h3>Images & Notes</h3>
+          <p>Add reference images, text notes, and frames to group your ideas.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🔗</div>
+          <h3>Connect Everything</h3>
+          <p>Draw connections between scenes to visualize story flow and relationships.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Ready to visualize your story?</h2>
+      <p>Scene Board is free for all Screenplay Editor users.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="openBoard()">Open Scene Board</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR|</div>
+      <nav class="footer-nav">
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+      </nav>
+      <p class="footer-copy">2025 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+
+  <script>
+    const STORAGE_KEY = 'sceneboard_early_access';
+
+    // Check if user has already submitted email
+    function hasAccess() {
+      return localStorage.getItem(STORAGE_KEY) === 'true';
+    }
+
+    // Show modal on page load if no access
+    function init() {
+      if (!hasAccess()) {
+        document.getElementById('earlyAccessModal').classList.remove('hidden');
+      }
+    }
+
+    // Submit email
+    function submitEmail() {
+      const email = document.getElementById('emailInput').value.trim();
+
+      if (!email || !email.includes('@')) {
+        document.getElementById('emailInput').style.borderColor = '#e53e3e';
+        return;
+      }
+
+      // Save to localStorage
+      localStorage.setItem(STORAGE_KEY, 'true');
+      localStorage.setItem('sceneboard_email', email);
+
+      // Send to Google Sheet (fire and forget)
+      try {
+        const sheetUrl = 'https://script.google.com/macros/s/AKfycbwExample/exec';
+        fetch(sheetUrl + '?email=' + encodeURIComponent(email), { mode: 'no-cors' });
+      } catch (e) {}
+
+      // Close modal
+      document.getElementById('earlyAccessModal').classList.add('hidden');
+    }
+
+    // Skip modal
+    function skipModal() {
+      localStorage.setItem(STORAGE_KEY, 'true');
+      document.getElementById('earlyAccessModal').classList.add('hidden');
+    }
+
+    // Open board
+    function openBoard() {
+      if (!hasAccess()) {
+        document.getElementById('earlyAccessModal').classList.remove('hidden');
+        return;
+      }
+      window.location.href = '../board/';
+    }
+
+    // Open demo
+    function openDemo() {
+      if (!hasAccess()) {
+        document.getElementById('earlyAccessModal').classList.remove('hidden');
+        return;
+      }
+      window.location.href = '../board/?demo=true';
+    }
+
+    // Handle Enter key in email input
+    document.getElementById('emailInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        submitEmail();
+      }
+    });
+
+    // Initialize
+    init();
+  </script>
+</body>
+</html>
