@@ -2794,8 +2794,235 @@
       banner.innerHTML = 'Demo mode — changes won\'t be saved. <a href="../board/" style="color:#fff;text-decoration:underline;margin-left:10px">Start fresh</a>';
       document.body.appendChild(banner);
 
-      // Full Pulp Fiction demo template
-      const demoData = {"frames":[{"label":"🎬 PULP FICTION — A Quentin Tarantino Film (1994)","x":100,"y":50,"width":2600,"height":80},{"label":"ACT 1 — SETUP","x":100,"y":180,"width":750,"height":520},{"label":"ACT 2 — CONFRONTATION","x":900,"y":180,"width":750,"height":520},{"label":"ACT 3 — RESOLUTION","x":1700,"y":180,"width":750,"height":520},{"label":"👥 CHARACTERS","x":100,"y":750,"width":1200,"height":450},{"label":"🎨 VISUAL REFERENCES — Films That Inspired Tarantino","x":1350,"y":750,"width":900,"height":450},{"label":"💀 BONEYARD — Cut Ideas & Alternatives","x":100,"y":1250,"width":700,"height":350},{"label":"🎵 SOUNDTRACK MOOD","x":850,"y":1250,"width":500,"height":350},{"label":"📝 THEMES & MOTIFS","x":1400,"y":1250,"width":500,"height":350}],"cards":[{"text":"Diner holdup\\nPumpkin & Honey Bunny","x":130,"y":240,"width":160,"height":80,"color":"yellow"},{"text":"Vincent & Jules\\nRoyale with Cheese talk","x":310,"y":240,"width":160,"height":80,"color":"yellow"},{"text":"Brett's apartment\\nEzekiel 25:17","x":490,"y":240,"width":160,"height":80,"color":"green"},{"text":"Marsellus briefs Butch\\n\"You may feel a slight sting...\"","x":130,"y":340,"width":160,"height":80,"color":"yellow"},{"text":"Vincent buys heroin\\nLance's house","x":310,"y":340,"width":160,"height":80,"color":"blue"},{"text":"Vincent picks up Mia\\nTension builds","x":490,"y":340,"width":160,"height":80,"color":"yellow"},{"text":"Jack Rabbit Slim's\\n🏆 TWIST CONTEST","x":130,"y":440,"width":160,"height":80,"color":"green"},{"text":"Mia's overdose\\n💀 TENSION PEAK","x":310,"y":440,"width":160,"height":80,"color":"pink"},{"text":"Adrenaline shot\\nLance's panic","x":490,"y":440,"width":160,"height":80,"color":"pink"},{"text":"Goodnight on porch\\nSilent understanding","x":310,"y":540,"width":160,"height":80,"color":"purple"},{"text":"Gold watch story\\nCaptain Koons","x":930,"y":240,"width":160,"height":80,"color":"purple"},{"text":"Butch's boxing match\\nDouble-cross","x":1110,"y":240,"width":160,"height":80,"color":"yellow"},{"text":"Butch kills opponent\\nFlees the scene","x":1290,"y":240,"width":160,"height":80,"color":"pink"},{"text":"Cab ride\\nEsmeralda Villalobos","x":930,"y":340,"width":160,"height":80,"color":"yellow"},{"text":"Motel with Fabienne\\n\"Pot belly\" talk","x":1110,"y":340,"width":160,"height":80,"color":"blue"},{"text":"Watch forgotten!\\nBack to apartment","x":1290,"y":340,"width":160,"height":80,"color":"orange"},{"text":"Butch kills Vincent\\n💀 MAJOR TWIST","x":930,"y":440,"width":160,"height":80,"color":"pink"},{"text":"Butch hits Marsellus\\nCar accident","x":1110,"y":440,"width":160,"height":80,"color":"yellow"},{"text":"Pawn shop basement\\nZed & Maynard","x":1290,"y":440,"width":160,"height":80,"color":"pink"},{"text":"Butch saves Marsellus\\n⚔️ KATANA","x":1110,"y":540,"width":160,"height":80,"color":"green"},{"text":"\"We're cool.\"\\nDebt forgiven","x":1290,"y":540,"width":160,"height":80,"color":"purple"},{"text":"The Bonnie Situation\\nMarvin accident","x":1730,"y":240,"width":160,"height":80,"color":"yellow"},{"text":"Jimmie's house\\n☕ Coffee & panic","x":1910,"y":240,"width":160,"height":80,"color":"yellow"},{"text":"The Wolf arrives\\n\"I'm Winston Wolf. I solve problems.\"","x":2090,"y":240,"width":180,"height":80,"color":"green"},{"text":"Clean the car\\n40 minutes","x":1730,"y":340,"width":160,"height":80,"color":"yellow"},{"text":"Monster Joe's\\nNew clothes","x":1910,"y":340,"width":160,"height":80,"color":"yellow"},{"text":"Back to diner\\n🔄 FULL CIRCLE","x":2090,"y":340,"width":160,"height":80,"color":"green"},{"text":"Jules' revelation\\n\"Divine intervention\"","x":1730,"y":440,"width":160,"height":80,"color":"purple"},{"text":"Confrontation\\nPumpkin standoff","x":1910,"y":440,"width":160,"height":80,"color":"pink"},{"text":"Ezekiel speech\\n\"I'm tryin' real hard...\"","x":2090,"y":440,"width":180,"height":80,"color":"green"},{"text":"Jules lets them go\\n🙏 REDEMPTION","x":1910,"y":540,"width":160,"height":80,"color":"purple"},{"text":"VINCENT VEGA\\nJohn Travolta\\n\\nHeroin-addicted hitman\\nCool, detached, vulnerable\\nDies in bathroom","x":130,"y":820,"width":200,"height":140,"color":"blue"},{"text":"JULES WINNFIELD\\nSamuel L. Jackson\\n\\nPhilosopher hitman\\nEzekiel 25:17\\nQuits the life","x":350,"y":820,"width":200,"height":140,"color":"blue"},{"text":"MIA WALLACE\\nUma Thurman\\n\\nBoss's wife\\nFox Force Five\\nDangerous charm","x":570,"y":820,"width":200,"height":140,"color":"blue"},{"text":"BUTCH COOLIDGE\\nBruce Willis\\n\\nBoxer with honor\\nGold watch legacy\\nSurvivor","x":790,"y":820,"width":200,"height":140,"color":"blue"},{"text":"MARSELLUS WALLACE\\nVing Rhames\\n\\nCrime boss\\nMysterious briefcase\\n\"I'm pretty far from OK\"","x":1010,"y":820,"width":200,"height":140,"color":"blue"},{"text":"THE WOLF\\nHarvey Keitel\\n\\n\"I solve problems.\"\\n9 minutes 37 seconds","x":130,"y":980,"width":200,"height":100,"color":"gray"},{"text":"LANCE\\nEric Stoltz\\n\\nVincent's dealer\\nPanic during OD","x":350,"y":980,"width":200,"height":100,"color":"gray"},{"text":"PUMPKIN & HONEY BUNNY\\nTim Roth & Amanda Plummer\\n\\nAmateur robbers\\nFrame the story","x":570,"y":980,"width":200,"height":100,"color":"gray"},{"text":"Alt: Vincent survives?\\nWhat if he didn't go to bathroom?","x":130,"y":1320,"width":180,"height":80,"color":"orange"},{"text":"Cut: Briefcase contents\\nGold? Diamonds? Soul?","x":330,"y":1320,"width":180,"height":80,"color":"orange"},{"text":"Alt: Jules becomes preacher\\nExtended epilogue","x":130,"y":1420,"width":180,"height":80,"color":"orange"},{"text":"Cut: Extended Mia date\\nMore Fox Force Five","x":330,"y":1420,"width":180,"height":80,"color":"orange"},{"text":"Idea: Vic Vega connection?\\n(Mr. Blonde = Vincent's brother)","x":530,"y":1320,"width":180,"height":80,"color":"white"},{"text":"🎵 Misirlou\\nDick Dale\\nOpening surf rock","x":880,"y":1320,"width":150,"height":80,"color":"purple"},{"text":"🎵 You Never Can Tell\\nChuck Berry\\nTwist contest","x":1050,"y":1320,"width":150,"height":80,"color":"purple"},{"text":"🎵 Girl, You'll Be A Woman Soon\\nUrge Overkill\\nOD scene","x":880,"y":1420,"width":150,"height":80,"color":"purple"},{"text":"🎵 Son of a Preacher Man\\nDusty Springfield\\nMia intro","x":1050,"y":1420,"width":150,"height":80,"color":"purple"},{"text":"⏱️ NON-LINEAR\\nTime is fractured\\nDeath before life","x":1430,"y":1320,"width":150,"height":80,"color":"green"},{"text":"🔄 CIRCULAR\\nEnds where it begins\\nDiner bookends","x":1600,"y":1320,"width":150,"height":80,"color":"green"},{"text":"💬 DIALOGUE\\nPop culture refs\\nBig Kahuna Burger","x":1430,"y":1420,"width":150,"height":80,"color":"green"},{"text":"🙏 REDEMPTION\\nJules transforms\\nDivine intervention","x":1600,"y":1420,"width":150,"height":80,"color":"green"}],"texts":[{"content":"PULP FICTION","x":1100,"y":70,"font":"handwriting","fontSize":42},{"content":"Non-linear narrative • Three intersecting stories • LA Crime World","x":1350,"y":85,"font":"inter","fontSize":12},{"content":"Legend: 🟡 Scene  🔵 Character  🟢 Key moment  🟠 Tension  🟣 Iconic  ⬜ Note","x":1900,"y":85,"font":"inter","fontSize":11},{"content":"BAND OF OUTSIDERS\\nGodard 1964\\n→ Dance scene\\n→ Mia's look","x":1380,"y":820,"font":"inter","fontSize":12},{"content":"KISS ME DEADLY\\nAldrich 1955\\n→ Glowing briefcase","x":1550,"y":820,"font":"inter","fontSize":12},{"content":"BLACK SABBATH\\nBava 1963\\n→ Anthology structure","x":1720,"y":820,"font":"inter","fontSize":12},{"content":"DELIVERANCE\\nBoorman 1972\\n→ Basement scene","x":1890,"y":820,"font":"inter","fontSize":12},{"content":"BODY AND SOUL\\nRossen 1947\\n→ Boxing noir","x":2060,"y":820,"font":"inter","fontSize":12},{"content":"8½\\nFellini 1963\\n→ Surreal dance","x":1380,"y":920,"font":"inter","fontSize":12},{"content":"PULP MAGAZINES\\nBlack Mask 1920s\\n→ Literary roots","x":1550,"y":920,"font":"inter","fontSize":12},{"content":"THE BODYGUARD\\nSonny Chiba 1973\\n→ Ezekiel speech","x":1720,"y":920,"font":"inter","fontSize":12},{"content":"1950s DINERS\\nChrome & Neon\\n→ Jack Rabbit Slim's","x":1890,"y":920,"font":"inter","fontSize":12},{"content":"LA NOIR\\n1990s urban\\n→ City atmosphere","x":2060,"y":920,"font":"inter","fontSize":12},{"content":"\"The path of the righteous man is beset on all sides...\"","x":1380,"y":1050,"font":"handwriting","fontSize":18}]};
+      // Full Pulp Fiction demo template - MESSY STYLE
+      const demoData = {"frames":[],"cards":[
+        // === SÉQUENCIER PRINCIPAL (centre, ~100 post-its en bordel) ===
+        // PROLOGUE - Diner
+        {"text":"PROLOGUE\\nDiner - matin","x":120,"y":95,"width":140,"height":70,"color":"yellow"},
+        {"text":"Pumpkin & Honey Bunny\\nPetit-déj","x":275,"y":110,"width":140,"height":70,"color":"yellow"},
+        {"text":"Discussion hold-up\\n\"Garcon! Coffee!\"","x":420,"y":85,"width":150,"height":70,"color":"yellow"},
+        {"text":"\"I love you Pumpkin\"\\n\"I love you Honey Bunny\"","x":580,"y":105,"width":150,"height":70,"color":"pink"},
+        {"text":"FREEZE - Armes sorties\\n→ On reviendra","x":745,"y":90,"width":150,"height":70,"color":"green"},
+
+        // VINCENT & JULES - Voiture
+        {"text":"INT. VOITURE\\nVincent & Jules","x":105,"y":190,"width":140,"height":70,"color":"yellow"},
+        {"text":"Royale with Cheese\\nQuarter Pounder","x":260,"y":205,"width":145,"height":70,"color":"yellow"},
+        {"text":"Le Big Mac\\nLe Whopper","x":420,"y":185,"width":130,"height":70,"color":"yellow"},
+        {"text":"La bière à Amsterdam\\nTu peux fumer","x":565,"y":200,"width":145,"height":70,"color":"yellow"},
+        {"text":"Massage de pieds\\nC'est sensuel?","x":725,"y":180,"width":140,"height":70,"color":"blue"},
+        {"text":"Tony Rocky Horror\\nBalancé du balcon","x":880,"y":195,"width":145,"height":70,"color":"pink"},
+        {"text":"Marcellus a pété\\nles plombs","x":1040,"y":175,"width":140,"height":70,"color":"pink"},
+
+        // Appart Brett
+        {"text":"INT. IMMEUBLE\\nMontée escaliers","x":95,"y":290,"width":140,"height":70,"color":"yellow"},
+        {"text":"On est en avance\\nOn attend","x":250,"y":305,"width":135,"height":70,"color":"yellow"},
+        {"text":"Les flingues\\ndans le coffre","x":400,"y":285,"width":135,"height":70,"color":"yellow"},
+        {"text":"Toc toc\\n\"Vincent!\"","x":550,"y":300,"width":120,"height":70,"color":"yellow"},
+        {"text":"INT. APPART BRETT\\nEntrée cool","x":685,"y":280,"width":145,"height":70,"color":"yellow"},
+        {"text":"Big Kahuna Burger\\n\"Mind if I have some?\"","x":845,"y":295,"width":155,"height":70,"color":"green"},
+        {"text":"Sprite\\n\"Mmmm that IS tasty\"","x":1015,"y":275,"width":140,"height":70,"color":"yellow"},
+        {"text":"\"What does Marcellus\\nWallace look like?\"","x":1170,"y":290,"width":155,"height":70,"color":"pink"},
+        {"text":"\"Does he look\\nlike a bitch?\"","x":1340,"y":270,"width":140,"height":70,"color":"pink"},
+        {"text":"SAY WHAT AGAIN\\nI DARE YOU","x":1495,"y":285,"width":145,"height":70,"color":"pink"},
+        {"text":"EZEKIEL 25:17\\nLe speech complet","x":1655,"y":265,"width":150,"height":70,"color":"green"},
+        {"text":"Exécution Brett\\nBANG BANG BANG","x":1820,"y":280,"width":145,"height":70,"color":"pink"},
+
+        // Titre
+        {"text":"TITLE CARD\\nPULP FICTION","x":115,"y":385,"width":150,"height":70,"color":"green"},
+
+        // Vincent Vega & Marcellus Wife
+        {"text":"VINCENT VEGA &\\nMARCELLUS WALLACE'S WIFE","x":280,"y":400,"width":180,"height":70,"color":"purple"},
+        {"text":"Bar de Marcellus\\nVincent & Jules arrivent","x":475,"y":380,"width":155,"height":70,"color":"yellow"},
+        {"text":"Marcellus & Butch\\n\"You may feel a sting\"","x":645,"y":395,"width":155,"height":70,"color":"yellow"},
+        {"text":"La mallette\\nbrille dorée","x":815,"y":375,"width":140,"height":70,"color":"green"},
+        {"text":"\"I'm prepared to\\nscour the Earth\"","x":970,"y":390,"width":150,"height":70,"color":"pink"},
+
+        // Lance
+        {"text":"EXT. MAISON LANCE\\nQuartier résidentiel","x":105,"y":485,"width":155,"height":70,"color":"yellow"},
+        {"text":"INT. MAISON LANCE\\nAchat héroïne","x":275,"y":500,"width":145,"height":70,"color":"blue"},
+        {"text":"Jody & piercings\\n\"It's my body\"","x":435,"y":480,"width":140,"height":70,"color":"yellow"},
+        {"text":"Vincent achète\\nle madman","x":590,"y":495,"width":135,"height":70,"color":"blue"},
+        {"text":"Vincent se shoote\\nINT. VOITURE","x":740,"y":475,"width":145,"height":70,"color":"blue"},
+
+        // Mia's place
+        {"text":"EXT. MAISON MIA\\nVincent arrive","x":900,"y":490,"width":145,"height":70,"color":"yellow"},
+        {"text":"INT. MAISON MIA\\nInterphone","x":1060,"y":470,"width":140,"height":70,"color":"yellow"},
+        {"text":"Mia observe\\npar caméra","x":1215,"y":485,"width":135,"height":70,"color":"yellow"},
+        {"text":"\"Don't be a...\"\\n(carré, rectangle)","x":1365,"y":465,"width":145,"height":70,"color":"blue"},
+        {"text":"Fox Force Five\\nPilote jamais diffusé","x":1525,"y":480,"width":150,"height":70,"color":"purple"},
+        {"text":"La blague de Mia\\n\"trois tomates...\"","x":1690,"y":460,"width":150,"height":70,"color":"yellow"},
+
+        // Jack Rabbit Slim's
+        {"text":"EXT. JACK RABBIT SLIM'S\\nParking années 50","x":95,"y":580,"width":170,"height":70,"color":"green"},
+        {"text":"INT. JACK RABBIT SLIM'S\\nDécor dingue","x":280,"y":595,"width":165,"height":70,"color":"green"},
+        {"text":"Buddy Holly serveur\\nMarilyn waitress","x":460,"y":575,"width":150,"height":70,"color":"yellow"},
+        {"text":"$5 milkshake\\n\"Goddamn!\"","x":625,"y":590,"width":140,"height":70,"color":"yellow"},
+        {"text":"Douglas Sirk steak\\nDurward Kirby burger","x":780,"y":570,"width":160,"height":70,"color":"yellow"},
+        {"text":"Awkward silences\\n\"Why do we feel...\"","x":955,"y":585,"width":150,"height":70,"color":"blue"},
+        {"text":"TWIST CONTEST\\nAnnonce au micro","x":1120,"y":565,"width":145,"height":70,"color":"green"},
+        {"text":"YOU NEVER CAN TELL\\nChuck Berry","x":1280,"y":580,"width":150,"height":70,"color":"purple"},
+        {"text":"Vincent & Mia\\ndansent le twist","x":1445,"y":560,"width":145,"height":70,"color":"green"},
+        {"text":"ILS GAGNENT\\nLe trophée","x":1605,"y":575,"width":135,"height":70,"color":"green"},
+
+        // Overdose
+        {"text":"INT. VOITURE\\nRetour silencieux","x":1765,"y":555,"width":145,"height":70,"color":"yellow"},
+        {"text":"EXT. MAISON MIA\\nArrivée","x":100,"y":675,"width":135,"height":70,"color":"yellow"},
+        {"text":"\"I'm gonna take\\na piss\"","x":250,"y":690,"width":140,"height":70,"color":"yellow"},
+        {"text":"Vincent - miroir\\nMonologue intérieur","x":405,"y":670,"width":155,"height":70,"color":"blue"},
+        {"text":"\"Don't be a loser\"\\nPas de baiser","x":575,"y":685,"width":145,"height":70,"color":"blue"},
+        {"text":"Mia trouve\\nl'héroïne","x":735,"y":665,"width":130,"height":70,"color":"pink"},
+        {"text":"Mia sniffe\\nPense que c'est coke","x":880,"y":680,"width":150,"height":70,"color":"pink"},
+        {"text":"OVERDOSE\\nMia s'effondre","x":1045,"y":660,"width":140,"height":70,"color":"pink"},
+        {"text":"Vincent trouve Mia\\nPANIQUE","x":1200,"y":675,"width":140,"height":70,"color":"pink"},
+        {"text":"Appel à Lance\\n\"I'm bringing her\"","x":1355,"y":655,"width":150,"height":70,"color":"pink"},
+        {"text":"INT. MAISON LANCE\\nPanique totale","x":1520,"y":670,"width":150,"height":70,"color":"pink"},
+        {"text":"\"You're getting\\nan injection\"","x":1685,"y":650,"width":145,"height":70,"color":"pink"},
+        {"text":"Seringue + adrénaline\\ndroit dans le coeur","x":1845,"y":665,"width":160,"height":70,"color":"pink"},
+        {"text":"STAB\\nMia se réveille","x":110,"y":770,"width":130,"height":70,"color":"green"},
+        {"text":"EXT. MAISON MIA\\nDevant la porte","x":255,"y":785,"width":145,"height":70,"color":"yellow"},
+        {"text":"\"If you're okay...\"\\n\"Then goodnight\"","x":415,"y":765,"width":150,"height":70,"color":"purple"},
+        {"text":"La blague des tomates\\n\"Ketchup\"","x":580,"y":780,"width":150,"height":70,"color":"purple"},
+
+        // THE GOLD WATCH
+        {"text":"THE GOLD WATCH","x":750,"y":760,"width":160,"height":70,"color":"purple"},
+        {"text":"FLASHBACK - 1972\\nBurbank, Californie","x":925,"y":775,"width":160,"height":70,"color":"purple"},
+        {"text":"Petit Butch\\nRegarde TV","x":1100,"y":755,"width":135,"height":70,"color":"yellow"},
+        {"text":"Capitaine Koons\\narrive","x":1250,"y":770,"width":135,"height":70,"color":"yellow"},
+        {"text":"Histoire de la montre\\n5 ans prisonnier","x":1400,"y":750,"width":155,"height":70,"color":"purple"},
+        {"text":"\"Up his ass\"\\n2 ans","x":1570,"y":765,"width":120,"height":70,"color":"yellow"},
+        {"text":"PRÉSENT\\nButch se réveille","x":1705,"y":745,"width":145,"height":70,"color":"yellow"},
+        {"text":"Vestiaires\\nAvant le combat","x":1865,"y":760,"width":140,"height":70,"color":"yellow"},
+
+        // Combat et fuite
+        {"text":"LE COMBAT\\n(off-screen)","x":105,"y":870,"width":140,"height":70,"color":"yellow"},
+        {"text":"Butch s'enfuit\\nIl a pas plongé","x":260,"y":885,"width":145,"height":70,"color":"yellow"},
+        {"text":"Englishman a tué\\nFloyd Wilson","x":420,"y":865,"width":145,"height":70,"color":"pink"},
+        {"text":"INT. TAXI\\nEsmeralda Villalobos","x":580,"y":880,"width":155,"height":70,"color":"yellow"},
+        {"text":"\"What's it feel like\\nto kill a man?\"","x":750,"y":860,"width":155,"height":70,"color":"blue"},
+        {"text":"Butch appelle\\nson bookmaker","x":920,"y":875,"width":145,"height":70,"color":"yellow"},
+        {"text":"INT. MOTEL\\nFabienne dort","x":1080,"y":855,"width":140,"height":70,"color":"yellow"},
+        {"text":"Fabienne et\\nson pot belly","x":1235,"y":870,"width":140,"height":70,"color":"blue"},
+        {"text":"Blueberry pancakes\\nPetit-déj motel","x":1390,"y":850,"width":150,"height":70,"color":"yellow"},
+        {"text":"LA MONTRE\\nOÙ EST LA MONTRE?","x":1555,"y":865,"width":155,"height":70,"color":"orange"},
+        {"text":"Butch doit retourner\\nà son appart","x":1725,"y":845,"width":155,"height":70,"color":"orange"},
+
+        // Retour appart
+        {"text":"EXT. APPART BUTCH\\nReconnaissance","x":100,"y":970,"width":155,"height":70,"color":"yellow"},
+        {"text":"INT. APPART\\nVide, pas de piège","x":270,"y":985,"width":150,"height":70,"color":"yellow"},
+        {"text":"La montre\\nsur le kangourou","x":435,"y":965,"width":145,"height":70,"color":"green"},
+        {"text":"Pop-tarts\\nQui a mis des Pop-tarts?","x":595,"y":980,"width":160,"height":70,"color":"yellow"},
+        {"text":"Flingue silencieux\\nsur le comptoir","x":770,"y":960,"width":155,"height":70,"color":"pink"},
+        {"text":"Vincent sort\\ndes toilettes","x":940,"y":975,"width":140,"height":70,"color":"pink"},
+        {"text":"BUTCH TUE VINCENT\\nBang bang","x":1095,"y":955,"width":150,"height":70,"color":"pink"},
+
+        // Pawn shop
+        {"text":"EXT. RUE\\nButch en voiture","x":1260,"y":970,"width":145,"height":70,"color":"yellow"},
+        {"text":"Marcellus traverse\\nContact visuel","x":1420,"y":950,"width":150,"height":70,"color":"pink"},
+        {"text":"CRASH\\nButch renverse Marcellus","x":1585,"y":965,"width":165,"height":70,"color":"pink"},
+        {"text":"Poursuite à pied\\nButch blessé","x":1765,"y":945,"width":145,"height":70,"color":"yellow"},
+        {"text":"Maynard's shop\\nPawn shop louche","x":100,"y":1065,"width":150,"height":70,"color":"yellow"},
+        {"text":"Maynard assomme\\nButch","x":265,"y":1080,"width":135,"height":70,"color":"pink"},
+        {"text":"Butch & Marcellus\\nattachés","x":415,"y":1060,"width":145,"height":70,"color":"pink"},
+        {"text":"\"Bring out\\nthe Gimp\"","x":575,"y":1075,"width":130,"height":70,"color":"pink"},
+        {"text":"Marcellus emmené\\ndans l'arrière-salle","x":720,"y":1055,"width":160,"height":70,"color":"pink"},
+        {"text":"Butch se libère\\nKO le Gimp","x":895,"y":1070,"width":140,"height":70,"color":"yellow"},
+        {"text":"Choix des armes:\\nMarteau? Batte?","x":1050,"y":1050,"width":150,"height":70,"color":"yellow"},
+        {"text":"Chainsaw?\\nNon...","x":1215,"y":1065,"width":130,"height":70,"color":"yellow"},
+        {"text":"KATANA\\n⚔️","x":1360,"y":1045,"width":110,"height":70,"color":"green"},
+        {"text":"Butch sauve\\nMarcellus","x":1485,"y":1060,"width":140,"height":70,"color":"green"},
+        {"text":"\"Step aside Butch\"\\nMarcellus achève Zed","x":1640,"y":1040,"width":165,"height":70,"color":"pink"},
+        {"text":"\"We're cool\"\\nButch est libre","x":1820,"y":1055,"width":140,"height":70,"color":"purple"},
+        {"text":"Zed's dead baby\\nZed's dead","x":100,"y":1160,"width":145,"height":70,"color":"purple"},
+        {"text":"Butch prend la moto\\nChopper","x":260,"y":1175,"width":145,"height":70,"color":"yellow"},
+
+        // BONNIE SITUATION
+        {"text":"THE BONNIE SITUATION","x":420,"y":1155,"width":175,"height":70,"color":"purple"},
+        {"text":"RETOUR - Appart Brett\\nAprès Ezekiel","x":610,"y":1170,"width":160,"height":70,"color":"yellow"},
+        {"text":"Le 4ème mec\\nsort des toilettes","x":785,"y":1150,"width":150,"height":70,"color":"yellow"},
+        {"text":"Il tire 6 fois\\nRATE TOUT","x":950,"y":1165,"width":145,"height":70,"color":"pink"},
+        {"text":"Vincent & Jules\\nle descendent","x":1110,"y":1145,"width":150,"height":70,"color":"pink"},
+        {"text":"DIVINE INTERVENTION\\nLes balles ont évité","x":1275,"y":1160,"width":170,"height":70,"color":"green"},
+        {"text":"Jules y croit\\nVincent non","x":1460,"y":1140,"width":140,"height":70,"color":"blue"},
+        {"text":"\"I'm retirin'\"\\nJules décide","x":1615,"y":1155,"width":140,"height":70,"color":"purple"},
+        {"text":"INT. VOITURE\\nMarvin à l'arrière","x":1770,"y":1135,"width":150,"height":70,"color":"yellow"},
+        {"text":"\"Do you think God\\ncame down?\"","x":100,"y":1255,"width":155,"height":70,"color":"blue"},
+        {"text":"Vincent se retourne\\nBANG","x":270,"y":1270,"width":140,"height":70,"color":"pink"},
+        {"text":"\"Aw man I shot\\nMarvin in the face\"","x":425,"y":1250,"width":165,"height":70,"color":"pink"},
+        {"text":"Cervelle partout\\ndans la voiture","x":605,"y":1265,"width":150,"height":70,"color":"pink"},
+        {"text":"Appel à Jimmie\\n\"Don't do anything\"","x":770,"y":1245,"width":155,"height":70,"color":"yellow"},
+        {"text":"INT. MAISON JIMMIE\\nBanlieue tranquille","x":940,"y":1260,"width":160,"height":70,"color":"yellow"},
+        {"text":"Jimmie panique\\nBonnie rentre à 9h30","x":1115,"y":1240,"width":155,"height":70,"color":"orange"},
+        {"text":"\"Don't fucking\\nJimmie me Jules\"","x":1285,"y":1255,"width":155,"height":70,"color":"yellow"},
+        {"text":"Gourmet coffee\\nSerious gourmet shit","x":1455,"y":1235,"width":155,"height":70,"color":"yellow"},
+        {"text":"Appel à Marcellus\\nOn a un problème","x":1625,"y":1250,"width":155,"height":70,"color":"yellow"},
+        {"text":"THE WOLF\\narrive en 9 min","x":1795,"y":1230,"width":145,"height":70,"color":"green"},
+        {"text":"\"I'm Winston Wolf\\nI solve problems\"","x":95,"y":1350,"width":160,"height":70,"color":"green"},
+        {"text":"\"Pretty please\\nwith sugar on top\"","x":270,"y":1365,"width":160,"height":70,"color":"green"},
+        {"text":"Nettoyage voiture\\n\"Clean the car\"","x":445,"y":1345,"width":150,"height":70,"color":"yellow"},
+        {"text":"Monster Joe's\\nCasse auto","x":610,"y":1360,"width":140,"height":70,"color":"yellow"},
+        {"text":"Nouveaux vêtements\\nT-shirts UC Santa Cruz","x":765,"y":1340,"width":170,"height":70,"color":"yellow"},
+        {"text":"\"Let's not start\\nsucking each other\"","x":950,"y":1355,"width":165,"height":70,"color":"yellow"},
+
+        // RETOUR AU DINER
+        {"text":"RETOUR AU DINER\\nFull circle","x":1130,"y":1335,"width":155,"height":70,"color":"green"},
+        {"text":"Vincent & Jules\\nPetit-déj","x":1300,"y":1350,"width":140,"height":70,"color":"yellow"},
+        {"text":"Discussion rédemption\\n\"Walk the Earth\"","x":1455,"y":1330,"width":165,"height":70,"color":"purple"},
+        {"text":"\"Like Caine\\nin Kung Fu\"","x":1635,"y":1345,"width":150,"height":70,"color":"purple"},
+        {"text":"\"You'll be\\na bum\"","x":1800,"y":1325,"width":130,"height":70,"color":"yellow"},
+        {"text":"Pumpkin & Honey Bunny\\nhold-up commence","x":90,"y":1450,"width":170,"height":70,"color":"pink"},
+        {"text":"\"EVERYBODY BE COOL\\nTHIS IS A ROBBERY\"","x":275,"y":1465,"width":180,"height":70,"color":"pink"},
+        {"text":"Jules sort\\nson flingue","x":470,"y":1445,"width":135,"height":70,"color":"pink"},
+        {"text":"Pumpkin prend\\nla mallette","x":620,"y":1460,"width":145,"height":70,"color":"pink"},
+        {"text":"Stand-off\\nMexican standoff","x":780,"y":1440,"width":145,"height":70,"color":"pink"},
+        {"text":"\"I'm tryin' real hard\\nto be the shepherd\"","x":940,"y":1455,"width":170,"height":70,"color":"purple"},
+        {"text":"EZEKIEL 25:17\\nVersion complète","x":1125,"y":1435,"width":155,"height":70,"color":"green"},
+        {"text":"\"Go\"\\nJules les laisse partir","x":1295,"y":1450,"width":150,"height":70,"color":"purple"},
+        {"text":"Vincent & Jules\\npartent tranquillement","x":1460,"y":1430,"width":165,"height":70,"color":"yellow"},
+        {"text":"FIN","x":1640,"y":1445,"width":100,"height":70,"color":"green"},
+
+        // === PERSONNAGES (à droite) ===
+        {"text":"VINCENT VEGA\\nJohn Travolta\\nHeroin addict\\nMeurt aux toilettes","x":2050,"y":120,"width":180,"height":110,"color":"blue"},
+        {"text":"JULES WINNFIELD\\nSamuel L. Jackson\\nEzekiel 25:17\\nSe retire du crime","x":2250,"y":135,"width":180,"height":110,"color":"blue"},
+        {"text":"MIA WALLACE\\nUma Thurman\\nFox Force Five\\nOverdose","x":2050,"y":250,"width":180,"height":110,"color":"blue"},
+        {"text":"BUTCH COOLIDGE\\nBruce Willis\\nLa montre en or\\nKatana","x":2250,"y":265,"width":180,"height":110,"color":"blue"},
+        {"text":"MARSELLUS WALLACE\\nVing Rhames\\nLa mallette\\n\"I'm pretty far from OK\"","x":2050,"y":380,"width":180,"height":110,"color":"blue"},
+        {"text":"THE WOLF\\nHarvey Keitel\\n\"I solve problems\"\\n9 minutes 37 secondes","x":2250,"y":395,"width":180,"height":110,"color":"gray"},
+        {"text":"LANCE\\nEric Stoltz\\nDealer\\nAdrenaline shot","x":2050,"y":510,"width":180,"height":100,"color":"gray"},
+        {"text":"JIMMIE\\nQuentin Tarantino\\nGourmet coffee\\nBonnie rentre à 9h30","x":2250,"y":525,"width":180,"height":100,"color":"gray"},
+        {"text":"PUMPKIN\\nTim Roth\\n\"Garçon!\"","x":2050,"y":630,"width":170,"height":90,"color":"gray"},
+        {"text":"HONEY BUNNY\\nAmanda Plummer\\n\"Any of you pricks move...\"","x":2235,"y":645,"width":180,"height":90,"color":"gray"},
+        {"text":"FABIENNE\\nMaria de Medeiros\\nPot belly\\nBlueberry pancakes","x":2050,"y":740,"width":180,"height":100,"color":"gray"},
+        {"text":"BRETT\\n\"W-w-what?\"\\nBig Kahuna Burger","x":2250,"y":755,"width":170,"height":90,"color":"gray"},
+
+        // === NOTES EN BORDEL ===
+        {"text":"Briefcase = ???\\nGold? Diamonds?\\nMarcellus' soul?","x":2080,"y":880,"width":160,"height":90,"color":"white"},
+        {"text":"Non-linear = \\npuissance narrative\\nMort AVANT vie","x":2260,"y":895,"width":160,"height":90,"color":"white"},
+        {"text":"Tarantino dialogue:\\nPop culture obsession\\nMundane + violence","x":2070,"y":990,"width":170,"height":90,"color":"white"},
+        {"text":"THEME:\\nRédemption possible?\\nJules vs Vincent","x":2260,"y":1005,"width":160,"height":90,"color":"white"},
+
+        // === MUSIQUE (en bas à gauche) ===
+        {"text":"🎵 MISIRLOU\\nDick Dale\\nSURF ROCK OPENING","x":95,"y":1560,"width":160,"height":85,"color":"purple"},
+        {"text":"🎵 JUNGLE BOOGIE\\nKool & The Gang\\nVincent & Jules drive","x":270,"y":1575,"width":170,"height":85,"color":"purple"},
+        {"text":"🎵 SON OF A PREACHER MAN\\nDusty Springfield\\nMia's intro","x":455,"y":1555,"width":185,"height":85,"color":"purple"},
+        {"text":"🎵 YOU NEVER CAN TELL\\nChuck Berry\\nTWIST CONTEST","x":655,"y":1570,"width":175,"height":85,"color":"purple"},
+        {"text":"🎵 GIRL, YOU'LL BE A WOMAN\\nUrge Overkill\\nOverdose scene","x":845,"y":1550,"width":190,"height":85,"color":"purple"},
+        {"text":"🎵 BULLWINKLE PT II\\nCenturians\\nAdrenaline shot","x":1050,"y":1565,"width":175,"height":85,"color":"purple"},
+        {"text":"🎵 FLOWERS ON THE WALL\\nStatler Brothers\\nButch in car","x":1240,"y":1545,"width":185,"height":85,"color":"purple"},
+        {"text":"🎵 COMANCHE\\nThe Revels\\nBasement scene","x":1440,"y":1560,"width":160,"height":85,"color":"purple"},
+        {"text":"🎵 SURF RIDER\\nThe Lively Ones\\nFin - walk out","x":1615,"y":1540,"width":165,"height":85,"color":"purple"},
+
+        // === BONEYARD / IDÉES COUPÉES ===
+        {"text":"CUT: Vic Vega\\n= Mr. Blonde\\n(Reservoir Dogs)\\nFrère de Vincent?","x":1820,"y":1555,"width":170,"height":100,"color":"orange"},
+        {"text":"CUT: Plus de\\nFox Force Five\\nbackstory","x":2010,"y":1570,"width":150,"height":90,"color":"orange"},
+        {"text":"ALT: Vincent\\nsurvit?","x":2180,"y":1550,"width":130,"height":80,"color":"orange"},
+        {"text":"IDÉE: Contenu\\nmallette révélé?\\nNon. Mystère = mieux","x":2330,"y":1565,"width":165,"height":95,"color":"orange"}
+      ],"texts":[
+        {"content":"PULP FICTION","x":950,"y":35,"font":"handwriting","fontSize":48},
+        {"content":"Quentin Tarantino, 1994","x":1200,"y":50,"font":"inter","fontSize":14},
+        {"content":"PERSONNAGES","x":2130,"y":85,"font":"handwriting","fontSize":24},
+        {"content":"SOUNDTRACK","x":400,"y":1530,"font":"handwriting","fontSize":22},
+        {"content":"IDÉES / BONEYARD","x":2050,"y":1520,"font":"handwriting","fontSize":20}
+      ]};
 
       // Create frames
       demoData.frames.forEach(f => createFrame(f.label, f.x, f.y, f.width, f.height, f.official || false));
@@ -2806,25 +3033,25 @@
       // Create texts
       demoData.texts.forEach(t => createTextElement(t.content.replace(/\\n/g, '\n'), t.x, t.y, t.font || 'inter', t.fontSize ? (t.fontSize <= 14 ? 'small' : t.fontSize <= 20 ? 'medium' : 'large') : 'medium'));
 
-      // Create images (Visual References)
+      // Create images (scattered around)
       const demoImages = [
-        {src: 'images/bande-a-part.jpg', x: 1380, y: 810, width: 120},
-        {src: 'images/kiss-me-deadly.jpg', x: 1510, y: 810, width: 120},
-        {src: 'images/black-sabbath.jpg', x: 1640, y: 810, width: 120},
-        {src: 'images/deliverance.jpg', x: 1770, y: 810, width: 120},
-        {src: 'images/body-and-soul.jpg', x: 1900, y: 810, width: 120},
-        {src: 'images/fellini.jpg', x: 1380, y: 950, width: 120},
-        {src: 'images/black-mask.png', x: 1510, y: 950, width: 120},
-        {src: 'images/bodyguard.png', x: 1640, y: 950, width: 120},
-        {src: 'images/diner.webp', x: 1770, y: 950, width: 120},
-        {src: 'images/jackrabbit-slims.webp', x: 1900, y: 950, width: 120}
+        {src: 'images/jackrabbit-slims.webp', x: 2050, y: 1100, width: 180},
+        {src: 'images/fellini.jpg', x: 2250, y: 1115, width: 140},
+        {src: 'images/bande-a-part.jpg', x: 2060, y: 1250, width: 130},
+        {src: 'images/kiss-me-deadly.jpg', x: 2210, y: 1265, width: 120},
+        {src: 'images/black-sabbath.jpg', x: 2350, y: 1240, width: 120},
+        {src: 'images/diner.webp', x: 2070, y: 1380, width: 150},
+        {src: 'images/black-mask.png', x: 2240, y: 1395, width: 140},
+        {src: 'images/bodyguard.png', x: 2400, y: 1370, width: 100},
+        {src: 'images/body-and-soul.jpg', x: 2280, y: 1130, width: 110},
+        {src: 'images/deliverance.jpg', x: 2400, y: 1100, width: 100}
       ];
       demoImages.forEach(img => createImageElement(img.src, img.x, img.y, img.width));
 
       // Set viewport
-      panX = -50;
-      panY = -50;
-      scale = 0.5;
+      panX = 0;
+      panY = 0;
+      scale = 0.4;
       zoomSlider.value = scale;
       zoomValue.textContent = Math.round(scale * 100) + '%';
       updateCanvas();
