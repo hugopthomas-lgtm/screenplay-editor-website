@@ -1378,13 +1378,6 @@
         <path d="M10 14L21 3"/>
       </svg>
     </button>
-    <span class="toolbar-divider"></span>
-    <button class="toolbar-btn" title="Undo (Ctrl+Z)" onclick="undo()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 7v6h6"/>
-        <path d="M3 13c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9c-2.12 0-4.07-.74-5.61-1.97"/>
-      </svg>
-    </button>
   </div>
 
   <!-- Context menu for colors -->
@@ -2867,11 +2860,6 @@
           updateMinimap();
           autoSave();
         }
-      }
-      // Ctrl+Z for undo
-      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
-        e.preventDefault();
-        undo();
       }
     });
     
