@@ -713,6 +713,17 @@
         return;
       }
 
+      // Send to Google Form
+      const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScT-fnswm_95LE51Q-KPhThffEOCSszcNhZtjfc3mBjlb0FZA/formResponse';
+      const formData = new FormData();
+      formData.append('entry.2144411608', email);
+
+      fetch(formUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+
       // Save to localStorage
       localStorage.setItem(STORAGE_KEY, 'true');
       localStorage.setItem('sceneboard_email', email);

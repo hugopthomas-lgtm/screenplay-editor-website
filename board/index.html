@@ -2728,6 +2728,12 @@
 
       document.querySelector('.project-title').textContent = 'Pulp Fiction (Demo)';
 
+      // Add demo banner
+      const banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#9D7BEA;color:#fff;text-align:center;padding:8px;font-size:13px;z-index:9999;font-family:JetBrains Mono,monospace';
+      banner.innerHTML = 'Demo mode — changes won\'t be saved. <a href="../board/" style="color:#fff;text-decoration:underline;margin-left:10px">Start fresh</a>';
+      document.body.appendChild(banner);
+
       const demoScenes = [
         { heading: 'INT. COFFEE SHOP - MORNING', type: 'INT' },
         { heading: 'EXT. STREET - DAY', type: 'EXT' },
