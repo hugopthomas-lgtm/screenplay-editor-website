@@ -2911,8 +2911,10 @@
     // INIT
     // ============================================
 
+    const initUrlParams = new URLSearchParams(window.location.search);
+
     // Check for fresh start mode
-    if (urlParams.has('fresh')) {
+    if (initUrlParams.has('fresh')) {
       localStorage.removeItem('sceneBoard');
       generateDefaultBoard();
     }
