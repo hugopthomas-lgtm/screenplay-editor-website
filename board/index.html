@@ -2911,8 +2911,13 @@
     // INIT
     // ============================================
 
+    // Check for fresh start mode
+    if (urlParams.has('fresh')) {
+      localStorage.removeItem('sceneBoard');
+      generateDefaultBoard();
+    }
     // Priority: 1. Demo mode 2. URL params 3. localStorage 4. Default board
-    if (!loadDemoBoard()) {
+    else if (!loadDemoBoard()) {
       if (!loadFromUrlParams()) {
         if (!loadFromLocalStorage()) {
           generateDefaultBoard();
