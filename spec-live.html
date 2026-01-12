@@ -377,7 +377,7 @@
 
       <h1 class="page-title">AI Live Formatting</h1>
       <p class="page-subtitle">Real-time formatting as you write. Source of truth.</p>
-      <div class="last-updated">Last updated: January 2025</div>
+      <div class="last-updated">Last updated: January 12, 2025 (Pruneau 6)</div>
 
       <!-- HOW IT WORKS -->
       <div class="section">
@@ -386,16 +386,16 @@
         <div class="flow">
           <div class="flow-step">User types</div>
           <span class="flow-arrow">→</span>
-          <div class="flow-step">Polling every 400ms</div>
+          <div class="flow-step">Polling every 800ms</div>
           <span class="flow-arrow">→</span>
-          <div class="flow-step">Line changed?</div>
+          <div class="flow-step">Traffic Light OK?</div>
           <span class="flow-arrow">→</span>
-          <div class="flow-step active">Format previous line</div>
+          <div class="flow-step active">Format current + previous</div>
         </div>
 
         <div class="info-card highlight">
-          <h3>Trigger: When you leave a line</h3>
-          <p>Formatting happens when you move to a different paragraph (cursor index changes). While you stay on the same line, nothing happens. This prevents formatting while you're still typing.</p>
+          <h3>Stateless Architecture (Pruneau 6)</h3>
+          <p>The formatter is now <strong>stateless</strong>: no more PropertiesService, no index tracking. Each poll only looks at the current cursor position and the previous paragraph. This eliminates Request Queueing crashes after ~2 minutes of use.</p>
         </div>
 
         <table>
@@ -406,20 +406,66 @@
           </tr>
           <tr>
             <td>Polling interval</td>
-            <td class="value">400ms</td>
-            <td>checkAndFormatFountain() called via setInterval</td>
+            <td class="value">800ms</td>
+            <td>processActiveCursor() called via setInterval</td>
           </tr>
           <tr>
             <td>Scope</td>
-            <td class="value">Single line</td>
-            <td>Only formats the line you just left</td>
+            <td class="value">Current + Previous paragraph</td>
+            <td>Handles "Enter" key context for dialogue continuation</td>
           </tr>
           <tr>
             <td>AI API calls</td>
             <td class="value">None (Fountain mode)</td>
             <td>Classification is local, rule-based</td>
           </tr>
+          <tr>
+            <td>State management</td>
+            <td class="value">Stateless</td>
+            <td>No PropertiesService, no index tracking</td>
+          </tr>
         </table>
+      </div>
+
+      <!-- CLIENT-SIDE ARCHITECTURE -->
+      <div class="section">
+        <h2>Client-Side Architecture</h2>
+
+        <p>The client (Sidebar.html) implements two protection patterns to prevent server overload:</p>
+
+        <div class="info-card highlight">
+          <h3>Traffic Light Pattern</h3>
+          <p><code>fountainPending</code> — If a request is still in flight, skip this polling cycle. Prevents request stacking that caused the "freeze after 2 minutes" bug.</p>
+        </div>
+
+        <div class="info-card warning">
+          <h3>Circuit Breaker Pattern</h3>
+          <p><code>consecutiveErrors</code> — If more than 5 consecutive errors occur, pause one cycle to let the server recover. Resets on success.</p>
+        </div>
+
+        <div class="code-block">
+<span class="keyword">var</span> fountainPending = <span class="keyword">false</span>;  <span class="comment">// Traffic Light</span>
+<span class="keyword">var</span> consecutiveErrors = <span class="number">0</span>;    <span class="comment">// Circuit Breaker</span>
+
+setInterval(<span class="keyword">function</span>() {
+  <span class="keyword">if</span> (fountainPending) <span class="keyword">return</span>;      <span class="comment">// Skip if busy</span>
+  <span class="keyword">if</span> (consecutiveErrors > <span class="number">5</span>) {     <span class="comment">// Cool down</span>
+    consecutiveErrors = <span class="number">0</span>;
+    <span class="keyword">return</span>;
+  }
+  fountainPending = <span class="keyword">true</span>;
+  google.script.run
+    .withSuccessHandler(<span class="keyword">function</span>() {
+      fountainPending = <span class="keyword">false</span>;
+      consecutiveErrors = <span class="number">0</span>;
+    })
+    .withFailureHandler(<span class="keyword">function</span>() {
+      fountainPending = <span class="keyword">false</span>;
+      consecutiveErrors++;
+    })
+    .processActiveCursor();
+}, <span class="number">800</span>);
+        </div>
       </div>
 
       <!-- DETECTION RULES -->
@@ -531,30 +577,57 @@
 
       <!-- CONTEXT -->
       <div class="section">
-        <h2>Context Handling</h2>
+        <h2>Context Handling (Stateless)</h2>
 
         <table>
           <tr>
-            <th>Context</th>
-            <th>How it's used</th>
+            <th>Function</th>
+            <th>Purpose</th>
           </tr>
           <tr>
-            <td>currentContextType (local variable)</td>
-            <td>Detected from REAL previous paragraph via <code>detectLineType()</code>. Used to detect DIALOGUE (if previous was CHARACTER/PARENTHETICAL)</td>
+            <td><code>getSimpleType(para)</code></td>
+            <td>Detects type of an ALREADY formatted paragraph by reading its indentation. Returns CHARACTER (≥170pt), DIALOGUE/PARENTHETICAL (≥80pt), or ACTION</td>
           </tr>
           <tr>
-            <td>detectLineType(para)</td>
-            <td>Reads the actual formatting (indentation) of a paragraph to determine its type. Returns CHARACTER, DIALOGUE, or '' (ACTION)</td>
-          </tr>
-          <tr>
-            <td>3 lines before (AI mode only)</td>
-            <td>Sent to Claude API for context-aware classification</td>
+            <td><code>determineFountainType(text, contextType)</code></td>
+            <td>Determines target type for NEW text based on content patterns and context from previous paragraph</td>
           </tr>
         </table>
 
         <div class="info-card highlight">
-          <h3>Context from Real Document</h3>
-          <p>AI Live Formatting detects context by reading the <strong>actual formatting</strong> of the previous paragraph (indentation values). This prevents the "Ghost Context" bug where stale cached values contaminated formatting.</p>
+          <h3>Indentation Thresholds</h3>
+          <p>Context detection uses indentation values adapted for both US Letter and A4 formats:</p>
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>US Indent</th>
+              <th>A4 Indent</th>
+              <th>Detection Threshold</th>
+            </tr>
+            <tr>
+              <td>CHARACTER</td>
+              <td>194pt</td>
+              <td>178pt</td>
+              <td>≥ 170pt</td>
+            </tr>
+            <tr>
+              <td>PARENTHETICAL</td>
+              <td>151pt</td>
+              <td>136pt</td>
+              <td>≥ 80pt + parentheses</td>
+            </tr>
+            <tr>
+              <td>DIALOGUE</td>
+              <td>101pt</td>
+              <td>93pt</td>
+              <td>≥ 80pt</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="info-card">
+          <h3>Multi-line Dialogue Support</h3>
+          <p>When the previous paragraph is DIALOGUE, the next non-empty line continues as DIALOGUE. This allows natural multi-paragraph dialogue without needing <code>=</code> markers for each line.</p>
         </div>
       </div>
 
@@ -623,7 +696,7 @@
           </tr>
           <tr>
             <td>Trigger</td>
-            <td>Automatic (polling 400ms)</td>
+            <td>Automatic (polling 800ms)</td>
             <td>Manual (button click)</td>
           </tr>
           <tr>
@@ -670,25 +743,30 @@
             <th>Do this instead</th>
           </tr>
           <tr>
-            <td>Format while user is still on the line</td>
-            <td>Disrupts typing, cursor jumps, text changes unexpectedly</td>
-            <td>Only format when currentIndex !== lastParagraphIndex</td>
+            <td>Use <code>PropertiesService</code> for state</td>
+            <td><strong>Request Queueing:</strong> PropertiesService is slow (~200ms). With 400ms polling, requests stack up and crash after ~2 minutes</td>
+            <td>Go stateless — read context from document on each call</td>
+          </tr>
+          <tr>
+            <td>Send requests without traffic control</td>
+            <td>If previous request is still running, new requests pile up → freeze</td>
+            <td>Use <code>fountainPending</code> flag to skip cycles</td>
           </tr>
           <tr>
             <td>Call AI API on every poll</td>
-            <td>Too slow (400ms + API latency), expensive, rate limits</td>
-            <td>Use local Fountain rules, AI only as fallback</td>
+            <td>Too slow (800ms + API latency), expensive, rate limits</td>
+            <td>Use local Fountain rules, AI only for full document format</td>
           </tr>
           <tr>
-            <td>Use <code>PropertiesService</code> to track <code>lastType</code> context</td>
-            <td><strong>Ghost Context Bug:</strong> If user wrote dialogue at line 100, then navigates back to line 8, the stored <code>lastType=DIALOGUE</code> contaminates formatting — line 8 becomes DIALOGUE even if it should be ACTION</td>
-            <td>Use <code>detectLineType(prevPara)</code> to read the REAL previous line's formatting from the document itself</td>
+            <td>Track paragraph index across calls</td>
+            <td><strong>Ghost Context Bug:</strong> Stored index becomes stale when user navigates</td>
+            <td>Use <code>getSimpleType(prevPara)</code> to read REAL formatting</td>
           </tr>
         </table>
 
         <div class="info-card warning">
-          <h3>Ghost Context Bug (Fixed Jan 2025)</h3>
-          <p>The context for DIALOGUE detection must come from the <strong>actual document structure</strong>, not from a cached property. When the user navigates around the document, the stored <code>lastType</code> becomes stale and can cause incorrect formatting. Solution: <code>detectLineType()</code> reads the real formatting (indentation) of the previous paragraph.</p>
+          <h3>Request Queueing Bug (Fixed Pruneau 6)</h3>
+          <p>The old architecture used <code>PropertiesService</code> to track index and context across calls. PropertiesService has ~200ms latency, so with 400ms polling, requests would stack up faster than they could complete. After ~2 minutes, the queue would overflow and freeze the add-on. Solution: <strong>stateless architecture</strong> — no PropertiesService, no index tracking, just read the cursor and previous paragraph on each call.</p>
         </div>
       </div>
 
@@ -703,15 +781,15 @@
           </tr>
           <tr>
             <td><code>FountainFormat.js</code></td>
-            <td>Main logic: checkAndFormatFountain(), detectLineType(), applyDefaultStyle()</td>
+            <td>Server logic: processActiveCursor(), determineFountainType(), getSimpleType(), applyFormatting()</td>
           </tr>
           <tr>
             <td><code>Sidebar.html</code></td>
-            <td>Polling setup: setInterval(checkAndFormatFountain, 400), fountainPending lock</td>
+            <td>Client polling: setInterval(processActiveCursor, 800), fountainPending + consecutiveErrors</td>
           </tr>
           <tr>
             <td><code>Code.js</code></td>
-            <td>getStyleAttributes() — shared with "Format my document"</td>
+            <td>getStyleAttributes(), getIndents() — shared with "Format my document"</td>
           </tr>
         </table>
       </div>
