@@ -226,6 +226,28 @@
         </li>
       </ul>
 
+      <!-- POST-MORTEMS -->
+      <h2 style="font-size: 16px; font-weight: 600; margin-top: 50px; margin-bottom: 20px; padding-left: 15px; border-left: 3px solid var(--violet); color: var(--dark);">Post-Mortems</h2>
+
+      <div style="background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 25px; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <span style="font-size: 15px; font-weight: 600; color: var(--dark);">Crash ScriptProperties — JSON.parse(null)</span>
+          <span style="font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 4px; background: #ffebee; color: #c62828;">Incident</span>
+        </div>
+
+        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Problème initial :</strong> Le stockage <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">ScriptProperties</code> était saturé (limite de 9ko atteinte), empêchant l'ajout de nouveaux emails.</p>
+
+        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Erreur humaine :</strong> Tentative de "vider" la base manuellement en supprimant la propriété ou en effaçant son contenu.</p>
+
+        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Conséquence critique :</strong> La propriété s'est retrouvée à l'état <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">null</code> ou chaîne vide <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">""</code>. Or, le code utilisait <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">JSON.parse()</code>. Comme <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">JSON.parse(null)</code> ou <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">JSON.parse("")</code> provoque une erreur de syntaxe immédiate, l'add-on a crashé silencieusement.</p>
+
+        <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px;">
+          <p style="margin: 0; color: #e65100; font-size: 12px;">C'est comme avoir supprimé l'étagère au lieu d'enlever les livres.</p>
+        </div>
+
+        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 0;"><strong>Solution :</strong> Exécuter un script de maintenance pour réinitialiser explicitement la propriété avec la chaîne <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">"[]"</code> (un tableau JSON vide valide) pour que le code puisse à nouveau lire et écrire dedans.</p>
+      </div>
+
     </div>
   </main>
 
