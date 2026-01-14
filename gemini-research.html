@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Etude de Marche — Adaptations Illustrees pour 4-7 ans</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f8f9fa;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a2e;
+            text-align: center;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            font-style: italic;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #1a1a2e;
+            border-bottom: 3px solid #6c5ce7;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: #6c5ce7;
+        }
+        h4 {
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #34495e;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        .toc {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 2rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .toc h3 {
+            margin-top: 0;
+            color: #1a1a2e;
+        }
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+        .toc a {
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .toc .section-num {
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .key-insight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 1.5rem 0;
+        }
+        .key-insight h4 {
+            color: white;
+            margin-top: 0;
+        }
+        .ocean-blue-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .ocean-blue-box strong {
+            color: #155724;
+        }
+        .saturated-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px 20px;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .saturated-box strong {
+            color: #721c24;
+        }
+        .info-box {
+            background: #e7f1ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px 20px;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        th {
+            background: #6c5ce7;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .verdict-critical {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .verdict-high {
+            color: #20c997;
+            font-weight: bold;
+        }
+        .verdict-medium {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        .verdict-low {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .section-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .section-card h3 {
+            margin-top: 0;
+        }
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-right: 5px;
+        }
+        .tag-critical {
+            background: #d4edda;
+            color: #155724;
+        }
+        .tag-saturated {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .tag-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 2rem 0;
+        }
+        .sources {
+            background: #f1f3f4;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+        }
+        .sources h3 {
+            color: #1a1a2e;
+            margin-top: 0;
+        }
+        .sources ol {
+            margin-bottom: 0;
+        }
+        .sources li {
+            margin-bottom: 0.3rem;
+            word-break: break-word;
+        }
+        .sources a {
+            color: #6c5ce7;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .update-date {
+            text-align: center;
+            color: #999;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="kdp.html" class="back-link">← Retour a la documentation KDP</a>
+
+    <h1>Etude Strategique de Marche</h1>
+    <p class="subtitle">Adaptations Illustrees des Grands Classiques de la Litterature Mondiale pour le Lectorat 4-7 Ans</p>
+
+    <!-- TABLE DES MATIERES -->
+    <div class="toc">
+        <h3>Table des matieres</h3>
+        <ul>
+            <li><span class="section-num">1.</span> <a href="#intro">Introduction et Methodologie</a></li>
+            <li><span class="section-num">2.</span> <a href="#occidentaux">Les Classiques Occidentaux</a></li>
+            <li><span class="section-num">3.</span> <a href="#asiatiques">Les Classiques Asiatiques</a></li>
+            <li><span class="section-num">4.</span> <a href="#orientaux">Classiques Orientaux et Moyen-Orientaux</a></li>
+            <li><span class="section-num">5.</span> <a href="#theatre">Theatre et Histoire</a></li>
+            <li><span class="section-num">6.</span> <a href="#synthese">Synthese et Matrice de Disponibilite</a></li>
+            <li><span class="section-num">7.</span> <a href="#conclusions">Conclusions et Recommandations</a></li>
+        </ul>
+    </div>
+
+    <!-- SECTION 1 -->
+    <h2 id="intro">1. Introduction et Methodologie de l'Analyse</h2>
+
+    <h3>1.1 Contexte et Objectifs</h3>
+    <p>Ce rapport analyse le paysage editorial mondial concernant l'adaptation de classiques litteraires pour la tranche d'age critique des <strong>4 a 7 ans</strong>. Cette periode, charniere entre la petite enfance (0-3 ans) et la lecture autonome (8-12 ans), represente un defi editorial majeur : elle exige une narration visuelle forte, une simplification textuelle qui ne sacrifie pas la substance de l'oeuvre, et une mediation parentale.</p>
+
+    <p>L'objectif est d'identifier les "oceans bleus" : ces oeuvres majeures qui n'ont pas encore trouve leur forme ideale pour le public prescolaire et primaire.</p>
+
+    <h3>1.2 Segmentation du Marche</h3>
+
+    <div class="section-card">
+        <h4>Le segment "Concept & Eveil" (0-4 ans)</h4>
+        <p>Domine par des collections comme <strong>BabyLit</strong> ou <strong>Cozy Classics</strong>. Ce segment utilise le titre du classique comme un marqueur culturel pour les parents, mais vide l'oeuvre de sa narration pour se concentrer sur des concepts basiques (couleurs, chiffres, mots). Pour un enfant de 5 a 7 ans, ces ouvrages sont cognitivement trop pauvres.</p>
+    </div>
+
+    <div class="section-card">
+        <h4>Le segment "Premiere Lecture & Roman Junior" (8-12 ans)</h4>
+        <p>Sature par des collections comme <strong>Classic Starts</strong> ou des adaptations en bandes dessinees et mangas. Ces ouvrages necessitent une competence de lecture acquise et une maturite emotionnelle superieure.</p>
+    </div>
+
+    <div class="key-insight">
+        <h4>Le "Chainon Manquant" (4-7 ans)</h4>
+        <p>C'est ici que se situe l'opportunite. Il existe un deficit notable de veritables albums illustres (picture books) de 32 a 48 pages qui racontent l'histoire complete adaptee a la sensibilite des 4-7 ans, en particulier pour les oeuvres complexes comme Gatsby le Magnifique ou Le Reve dans le pavillon rouge.</p>
+    </div>
+
+    <h3>1.3 Methodologie Multi-Plateformes</h3>
+    <ul>
+        <li><strong>Amazon (US/FR/UK)</strong> — Tendances du marche occidental</li>
+        <li><strong>JD.com / Taobao (Chine)</strong> — Offre domestique chinoise</li>
+        <li><strong>Flipkart (Inde)</strong> — Epopees indiennes</li>
+        <li><strong>Rakuten / Fnac (France)</strong> — Patrimoine francais</li>
+    </ul>
+
+    <!-- SECTION 2 -->
+    <h2 id="occidentaux">2. Les Classiques Occidentaux</h2>
+
+    <p>Le corpus occidental presente une dichotomie frappante. Les titres d'aventure (Robinson, Mousquetaires) sont omnipresents, tandis que les romans psychologiques du XIXe et XXe siecle peinent a trouver une forme narrative adaptee aux 4-7 ans.</p>
+
+    <!-- GATSBY -->
+    <div class="section-card">
+        <h3>2.1 The Great Gatsby (Gatsby le Magnifique)</h3>
+        <span class="tag tag-critical">OCEAN BLEU</span>
+
+        <p>L'analyse revele une situation paradoxale. Bien que le titre jouisse d'une reconnaissance de marque immense, il n'existe <strong>pratiquement aucune adaptation narrative</strong> pour les 4-7 ans.</p>
+
+        <h4>Etat du marche</h4>
+        <ul>
+            <li><strong>BabyLit Party Primer</strong> (Gibbs Smith) — Pour 0-3 ans, enseigne du vocabulaire lie a la fete, evacue totalement l'intrigue</li>
+            <li><strong>Romans graphiques ados</strong> (Grade 8+) — Adaptation de K. Woodman-Maynard chez Candlewick</li>
+            <li><strong>Rien</strong> pour les 4-7 ans en format album narratif</li>
+        </ul>
+
+        <table>
+            <tr><th>Indicateur</th><th>Evaluation</th></tr>
+            <tr><td>Quantite (4-7 ans)</td><td>Tres Faible</td></tr>
+            <tr><td>Leader du Marche</td><td>Gibbs Smith (BabyLit, approche conceptuelle)</td></tr>
+            <tr><td>Disponibilite FR</td><td>Quasi Nulle</td></tr>
+            <tr><td>Opportunite</td><td class="verdict-critical">MASSIVE</td></tr>
+        </table>
+
+        <div class="ocean-blue-box">
+            <strong>Insight Strategique :</strong> Le "gap" est total. Adapter Gatsby pour un enfant de 5 ans necessite de transformer l'histoire en une fable sur la solitude et la grandeur des reves, en evacuant le meurtre et l'adultere. Visuellement, l'epoque Jazz Age est tres attractive.
+        </div>
+    </div>
+
+    <!-- PRIDE AND PREJUDICE -->
+    <div class="section-card">
+        <h3>2.2 Pride and Prejudice (Orgueil et Prejuges)</h3>
+        <span class="tag tag-saturated">SATURE</span>
+
+        <p>Contrairement a Gatsby, l'oeuvre de Jane Austen est massivement investie par l'edition jeunesse, au point de creer une saturation sur le segment "cadeau de naissance".</p>
+
+        <table>
+            <tr><th>Collection</th><th>Editeur</th><th>Tranche d'age</th><th>Approche</th></tr>
+            <tr><td>BabyLit Primer</td><td>Gibbs Smith</td><td>0-3 ans</td><td>Concept (Compter)</td></tr>
+            <tr><td>Cozy Classics</td><td>Chronicle</td><td>0-3 ans</td><td>Concept (12 mots)</td></tr>
+            <tr><td>Lit for Little Hands</td><td>Familius</td><td>3-6 ans</td><td>Narratif Interactif</td></tr>
+            <tr><td>BabyLit Storybook</td><td>Gibbs Smith</td><td>4-8 ans</td><td>Album Narratif</td></tr>
+        </table>
+
+        <div class="saturated-box">
+            <strong>Verdict :</strong> Potentiel faible. Si l'offre en anglais est plethorique, l'offre en francais reste modeste mais le marche est encombre.
+        </div>
+    </div>
+
+    <!-- CRIME ET CHATIMENT -->
+    <div class="section-card">
+        <h3>2.3 Crime et Chatiment (Dostoievski)</h3>
+        <span class="tag tag-critical">OCEAN BLEU</span>
+
+        <p>Ce titre represente l'un des defis les plus audacieux. Les donnees montrent que les editeurs evitent soigneusement ce titre pour la petite enfance.</p>
+
+        <h4>Etat du marche</h4>
+        <ul>
+            <li><strong>Vide quasi total</strong> pour la tranche 4-7 ans</li>
+            <li>Quelques parodies (Dog Man: Crime and Punishment de Dav Pilkey, 7-10 ans)</li>
+            <li>Collection Save the Story (Pushkin) pour les 8-12 ans</li>
+        </ul>
+
+        <div class="ocean-blue-box">
+            <strong>Insight Strategique :</strong> Terrain vierge. Une adaptation pour 4-7 ans pourrait metaphoriser la "tache" de la culpabilite ou le poids d'un secret, rendant l'oeuvre accessible via l'allegorie. Positionnerait la collection comme audacieuse et educative.
+        </div>
+    </div>
+
+    <!-- PROUST -->
+    <div class="section-card">
+        <h3>2.4 A la recherche du temps perdu (Proust)</h3>
+        <span class="tag tag-critical">OCEAN BLEU</span>
+
+        <p>Le marche est domine par l'adaptation en BD de Stephane Heuet, destinee aux adolescents et adultes.</p>
+
+        <div class="ocean-blue-box">
+            <strong>Opportunite :</strong> Absence surprenante d'albums jeunesse focalises sur l'episode de la Madeleine ou les vacances a Combray, alors que ces themes sensoriels sont parfaitement adaptes a l'enfance.
+        </div>
+    </div>
+
+    <!-- LES MISERABLES -->
+    <div class="section-card">
+        <h3>2.5 Les Miserables (Victor Hugo)</h3>
+        <span class="tag tag-saturated">SATURE</span>
+
+        <p>Ce titre est l'un des mieux couverts.</p>
+
+        <ul>
+            <li><strong>En Anglais :</strong> Lit for Little Hands (Familius) — version interactive ou l'enfant peut "soulever la charrette"</li>
+            <li><strong>En Francais :</strong> Sature (Pere Castor, Bibliotheque Rose, Gallimard Jeunesse)</li>
+        </ul>
+
+        <p><strong>Leader du marche :</strong> Familius (US) pour l'interactivite, Pere Castor/Gallimard (FR) pour le texte.</p>
+    </div>
+
+    <!-- ROBINSON -->
+    <div class="section-card">
+        <h3>2.6 Robinson Crusoe</h3>
+        <span class="tag tag-saturated">SATURE</span>
+
+        <p>C'est le titre le plus adapte de la liste. Sur Amazon et Rakuten, on trouve des dizaines de versions.</p>
+
+        <ul>
+            <li><strong>Pere Castor :</strong> Reference incontournable, prescrite a l'ecole</li>
+            <li><strong>Robinson de Peter Sis :</strong> Oeuvre majeure, approche meta-narrative</li>
+        </ul>
+
+        <div class="saturated-box">
+            <strong>Verdict :</strong> Le defi pour une nouvelle collection est de se demarquer visuellement face a des illustrations classiques tres ancrees.
+        </div>
+    </div>
+
+    <!-- MOUSQUETAIRES -->
+    <div class="section-card">
+        <h3>2.7 Les Trois Mousquetaires</h3>
+        <span class="tag tag-medium">MOYEN</span>
+
+        <ul>
+            <li><strong>Pere Castor :</strong> Versions adaptees des 5-6 ans</li>
+            <li><strong>Albums illustres :</strong> Auzou, Piccolia (Mattia Cerato)</li>
+            <li><strong>Audio :</strong> Yoto et Lunii proposent des versions audio</li>
+        </ul>
+
+        <p><strong>Approche :</strong> Les adaptations reussies simplifient l'intrigue politique pour une quete d'objet simple, accent sur "Un pour tous" et l'amitie.</p>
+    </div>
+
+    <!-- NOTRE DAME -->
+    <div class="section-card">
+        <h3>2.8 Notre-Dame de Paris</h3>
+        <span class="tag tag-medium">MOYEN</span>
+
+        <ul>
+            <li><strong>Heritage Disney :</strong> Little Golden Books, Hachette Disney (versionedulcoree)</li>
+            <li><strong>Documentaire :</strong> Mes p'tits docs chez Milan (post-incendie 2019)</li>
+            <li><strong>Pere Castor :</strong> Approche hybride conte/histoire</li>
+        </ul>
+
+        <div class="info-box">
+            <strong>Opportunite :</strong> Il manque une adaptation litteraire fidele (non-Disney) qui raconte l'histoire d'Esmeralda et Quasimodo comme un conte gothique doux.
+        </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <h2 id="asiatiques">3. Les Classiques Asiatiques</h2>
+
+    <p>Cette section revele les ecarts les plus importants entre les marches occidentaux et asiatiques. L'offre occidentale pour les 4-7 ans est lacunaire, a l'exception du Roi Singe.</p>
+
+    <!-- VOYAGE EN OCCIDENT -->
+    <div class="section-card">
+        <h3>3.1 Le Voyage en Occident / Le Roi Singe</h3>
+        <span class="tag tag-medium">MOYEN</span>
+
+        <p>C'est le classique asiatique le plus disponible pour les enfants en Occident.</p>
+
+        <ul>
+            <li><strong>Monkey King d'Ed Young (HarperCollins)</strong> — Reference absolue en qualite artistique (4-8 ans)</li>
+            <li><strong>Pop! Lit for Kids (World Scientific)</strong> — Serie segmentee, illustrations modernes (6-8 ans)</li>
+            <li><strong>Chine :</strong> Milliers de versions Lianhuanhua, souvent trop denses</li>
+        </ul>
+
+        <p><strong>Approche :</strong> Les adaptations se concentrent sur les premiers chapitres (naissance de Sun Wukong, vol des peches, bataille celeste).</p>
+    </div>
+
+    <!-- TROIS ROYAUMES -->
+    <div class="section-card">
+        <h3>3.2 Les Trois Royaumes</h3>
+        <span class="tag tag-critical">OPPORTUNITE</span>
+
+        <p>En dehors de l'Asie, ce titre est tres peu disponible pour les 4-7 ans.</p>
+
+        <ul>
+            <li><strong>Leader :</strong> World Scientific (Pop! Lit for Kids) — pratiquement le seul editeur en anglais</li>
+            <li><strong>Approche :</strong> Serment de fraternite dans le jardin des pechers, ruses de Zhuge Liang</li>
+        </ul>
+    </div>
+
+    <!-- AU BORD DE L'EAU -->
+    <div class="section-card">
+        <h3>3.3 Au Bord de l'Eau</h3>
+        <span class="tag tag-critical">OPPORTUNITE</span>
+
+        <p>Tres faible disponibilite pour les jeunes enfants.</p>
+
+        <div class="info-box">
+            <strong>Problematique :</strong> Les themes de brigandage, corruption et violence sont difficiles a adapter en album "moral" pour les 4-7 ans.
+        </div>
+    </div>
+
+    <!-- REVE PAVILLON ROUGE -->
+    <div class="section-card">
+        <h3>3.4 Le Reve dans le pavillon rouge</h3>
+        <span class="tag tag-critical">OCEAN BLEU MAJEUR</span>
+
+        <p>C'est le titre majeur <strong>le plus sous-represente</strong> de toute l'etude.</p>
+
+        <ul>
+            <li><strong>Occident :</strong> Quasiment inexistant pour les 4-7 ans</li>
+            <li><strong>Chine :</strong> BD pour 6-12 ans, pas d'albums illustres narratifs</li>
+        </ul>
+
+        <div class="ocean-blue-box">
+            <strong>Opportunite critique :</strong> Creer un album centre sur la mythologie de la Pierre et de la Fleur, ou sur la vie dans le jardin de Grande Vue, sans entrer dans la complexite du declin familial, serait une <strong>innovation majeure</strong> sur le marche occidental.
+        </div>
+    </div>
+
+    <!-- GENJI -->
+    <div class="section-card">
+        <h3>3.5 Le Dit du Genji</h3>
+        <span class="tag tag-critical">OCEAN BLEU</span>
+
+        <ul>
+            <li><strong>Tuttle Publishing :</strong> Manga Edition — cible les 10 ans et plus</li>
+            <li><strong>Japon :</strong> Romans avec furigana, pas d'albums 4-7 ans</li>
+            <li><strong>Album illustre :</strong> Aucun en anglais ou francais pour les 5 ans</li>
+        </ul>
+
+        <div class="ocean-blue-box">
+            <strong>Opportunite :</strong> L'aspect "amoureux" et la longueur decouragent l'adaptation, mais une focalisation sur l'enfance du Prince ou sur l'esthetique de la cour Heian serait inedite.
+        </div>
+    </div>
+
+    <!-- MOMOTARO -->
+    <div class="section-card">
+        <h3>3.6 Momotaro (L'Enfant Peche)</h3>
+        <span class="tag tag-saturated">SATURE</span>
+
+        <p>Ce conte folklorique est extremement bien couvert avec des editions bilingues (Tuttle) et des adaptations creatives.</p>
+
+        <p><strong>Qualite :</strong> Le recit est parfaitement calibre pour les 4-7 ans (quete, animaux, victoire sur les monstres) et l'offre actuelle est de bonne qualite.</p>
+    </div>
+
+    <!-- SECTION 4 -->
+    <h2 id="orientaux">4. Classiques Orientaux et Moyen-Orientaux</h2>
+
+    <!-- SHAHNAMEH -->
+    <div class="section-card">
+        <h3>4.1 Shahnameh (Le Livre des Rois)</h3>
+        <span class="tag tag-medium">MOYEN</span>
+
+        <p>Le marche a ete revolutionne par une initiative independante.</p>
+
+        <ul>
+            <li><strong>Leader :</strong> Shahnameh For Kids d'Arsia Rozegar — albums couvrant Zal & Simorgh, The Mighty Rostam (4.6/5 sur Amazon)</li>
+            <li><strong>Versions bilingues :</strong> Reza Nazari (Farsi/Anglais)</li>
+            <li><strong>Disponibilite FR :</strong> Faible — une adaptation francaise de qualite manque</li>
+        </ul>
+
+        <div class="info-box">
+            <strong>Modele a suivre :</strong> L'initiative independante Shahnameh For Kids prouve qu'il existe un marche pour la diaspora et les lecteurs curieux.
+        </div>
+    </div>
+
+    <!-- MILLE ET UNE NUITS -->
+    <div class="section-card">
+        <h3>4.2 Les Mille et Une Nuits</h3>
+        <span class="tag tag-saturated">SATURE</span>
+
+        <p>Le marche est sature d'anthologies (Usborne, Grund, DK) adaptant Aladdin, Ali Baba et Sinbad.</p>
+
+        <div class="info-box">
+            <strong>Opportunite de niche :</strong> Adapter le "recit cadre" (Sheherazade, la conteuse qui sauve sa vie) plutot que les contes imbriques deja connus.
+        </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <h2 id="theatre">5. Theatre et Histoire</h2>
+
+    <!-- CYRANO -->
+    <div class="section-card">
+        <h3>5.1 Cyrano de Bergerac</h3>
+        <span class="tag tag-medium">MOYEN</span>
+
+        <p>C'est un titre ou l'edition francaise excelle.</p>
+
+        <ul>
+            <li><strong>Le Nez de Cyrano (Pere Castor)</strong> — Geraldine Maincent/Thomas Baas, modele d'adaptation pour les 5 ans+</li>
+            <li><strong>Cyrano (Gautier-Languereau)</strong> — Rebecca Dautremer, reference artistique mondiale (6-9 ans)</li>
+        </ul>
+
+        <div class="info-box">
+            <strong>Export :</strong> Le marche anglophone manque d'equivalent natif aussi fort — opportunite d'exportation.
+        </div>
+    </div>
+
+    <!-- MALADE IMAGINAIRE -->
+    <div class="section-card">
+        <h3>5.2 Le Malade Imaginaire</h3>
+        <span class="tag tag-critical">OPPORTUNITE</span>
+
+        <p>Les adaptations narratives pures pour les 4-7 ans sont rares.</p>
+
+        <ul>
+            <li><strong>Milan :</strong> Approche documentaire (explique la piece et son contexte)</li>
+            <li><strong>Format :</strong> Souvent des "livrets" scolaires plutot que de beaux albums</li>
+        </ul>
+    </div>
+
+    <!-- HAMLET -->
+    <div class="section-card">
+        <h3>5.3 Hamlet</h3>
+        <span class="tag tag-critical">OPPORTUNITE</span>
+
+        <p>Tres difficile de trouver un album "Hamlet" pour les 4-7 ans qui ne soit pas dans un recueil.</p>
+
+        <ul>
+            <li><strong>Usborne/Orchard :</strong> Inclus dans des anthologies Shakespeare</li>
+            <li><strong>Approches detournees :</strong> Livres qui utilisent l'univers de Shakespeare pour raconter une autre histoire</li>
+        </ul>
+
+        <div class="info-box">
+            <strong>Insight :</strong> Adapter Hamlet pour un enfant de 5 ans demande une reecriture radicale (focalisation sur le fantome du pere ou l'amitie trahie) que peu d'editeurs osent tenter.
+        </div>
+    </div>
+
+    <!-- APOLLO / EXPLORATEURS -->
+    <div class="section-card">
+        <h3>5.4 Histoire et Exploration</h3>
+
+        <h4>Apollo 11</h4>
+        <p>Marche riche. <strong>Moonshot</strong> de Brian Floca est un standard (6+). <strong>Bok's Giant Leap</strong> offre une approche poetique pour les plus jeunes.</p>
+
+        <h4>Explorateurs (Colomb, Magellan)</h4>
+        <p>Figures traitees avec prudence. <strong>Encounter</strong> de Jane Yolen (point de vue indigene) est un classique moderne. Les series documentaires (Mes p'tits docs Histoire) dominent pour les 4-7 ans.</p>
+    </div>
+
+    <!-- SECTION 6 -->
+    <h2 id="synthese">6. Synthese et Matrice de Disponibilite</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Categorie</th>
+                <th>Titre</th>
+                <th>Saturation</th>
+                <th>Dispo EN</th>
+                <th>Dispo FR</th>
+                <th>Potentiel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Occident</td>
+                <td>Great Gatsby</td>
+                <td>Tres Faible</td>
+                <td>Elevee (Board)</td>
+                <td>Nulle</td>
+                <td class="verdict-critical">CRITIQUE</td>
+            </tr>
+            <tr>
+                <td>Occident</td>
+                <td>Crime & Punishment</td>
+                <td>Quasi Nulle</td>
+                <td>Faible</td>
+                <td>Nulle</td>
+                <td class="verdict-critical">CRITIQUE</td>
+            </tr>
+            <tr>
+                <td>Occident</td>
+                <td>Proust</td>
+                <td>Nulle</td>
+                <td>Faible</td>
+                <td>Nulle</td>
+                <td class="verdict-critical">CRITIQUE</td>
+            </tr>
+            <tr>
+                <td>Occident</td>
+                <td>Pride & Prejudice</td>
+                <td>Tres Elevee</td>
+                <td>Elevee</td>
+                <td>Moyenne</td>
+                <td class="verdict-low">Faible</td>
+            </tr>
+            <tr>
+                <td>Occident</td>
+                <td>Les Miserables</td>
+                <td>Elevee</td>
+                <td>Elevee</td>
+                <td>Elevee</td>
+                <td class="verdict-medium">Moyen</td>
+            </tr>
+            <tr>
+                <td>Occident</td>
+                <td>Robinson Crusoe</td>
+                <td>Saturee</td>
+                <td>Elevee</td>
+                <td>Elevee</td>
+                <td class="verdict-low">Faible</td>
+            </tr>
+            <tr>
+                <td>Asie</td>
+                <td>Journey to the West</td>
+                <td>Elevee</td>
+                <td>Elevee</td>
+                <td>Moyenne</td>
+                <td class="verdict-medium">Moyen</td>
+            </tr>
+            <tr>
+                <td>Asie</td>
+                <td>Dream of Red Chamber</td>
+                <td>Nulle</td>
+                <td>Nulle</td>
+                <td>Nulle</td>
+                <td class="verdict-critical">CRITIQUE</td>
+            </tr>
+            <tr>
+                <td>Asie</td>
+                <td>Tale of Genji</td>
+                <td>Tres Faible</td>
+                <td>Faible</td>
+                <td>Nulle</td>
+                <td class="verdict-high">Eleve</td>
+            </tr>
+            <tr>
+                <td>Asie</td>
+                <td>3 Kingdoms</td>
+                <td>Faible</td>
+                <td>Moyenne</td>
+                <td>Faible</td>
+                <td class="verdict-high">Eleve</td>
+            </tr>
+            <tr>
+                <td>Orient</td>
+                <td>Shahnameh</td>
+                <td>Moyenne</td>
+                <td>Moyenne</td>
+                <td>Faible</td>
+                <td class="verdict-medium">Moyen</td>
+            </tr>
+            <tr>
+                <td>Theatre</td>
+                <td>Cyrano</td>
+                <td>Moyenne</td>
+                <td>Faible</td>
+                <td>Elevee</td>
+                <td class="verdict-medium">Moyen</td>
+            </tr>
+            <tr>
+                <td>Theatre</td>
+                <td>Malade Imaginaire</td>
+                <td>Faible</td>
+                <td>Nulle</td>
+                <td>Moyenne</td>
+                <td class="verdict-medium">Moyen</td>
+            </tr>
+            <tr>
+                <td>Theatre</td>
+                <td>Hamlet</td>
+                <td>Faible</td>
+                <td>Faible</td>
+                <td>Nulle</td>
+                <td class="verdict-high">Eleve</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- SECTION 7 -->
+    <h2 id="conclusions">7. Conclusions et Recommandations Strategiques</h2>
+
+    <div class="key-insight">
+        <h4>Axe 1 : Investir les "Oceans Bleus" Asiatiques et Russes</h4>
+        <p>Le marche souffre d'un vide flagrant concernant <strong>Le Reve dans le pavillon rouge</strong> et <strong>Crime et Chatiment</strong>. Une adaptation reussie positionnerait la collection comme audacieuse et educative.</p>
+    </div>
+
+    <div class="key-insight">
+        <h4>Axe 2 : Differenciation par le Format Narratif</h4>
+        <p>Le marche est encombre de "livres concepts" (0-3 ans) et de romans simplifies (8-12 ans). Le creneau de l'<strong>album narratif complet</strong> (32-48 pages, texte riche mais accessible, illustrations pleine page) est paradoxalement peu occupe pour des titres comme Gatsby ou Genji.</p>
+    </div>
+
+    <div class="key-insight">
+        <h4>Axe 3 : Strategie Linguistique Croisee</h4>
+        <p><strong>En France :</strong> Valeur ajoutee sur les titres inedits (Shahnameh, Classiques Chinois) ou approche visuelle moderne.<br>
+        <strong>A l'International :</strong> Les titres francais (Cyrano, Moliere) sont des produits d'exportation exotiques pour le marche anglophone.</p>
+    </div>
+
+    <hr>
+
+    <div class="section-card">
+        <h3>Conclusion</h3>
+        <p>La viabilite de la collection repose sur sa capacite a <strong>adapter narrativement les oeuvres "impossibles"</strong> (Gatsby, Red Chamber) tout en proposant une <strong>esthetique distincte</strong> pour les oeuvres saturees.</p>
+
+        <p><strong>Titres prioritaires a fort potentiel :</strong></p>
+        <ol>
+            <li>Le Reve dans le pavillon rouge</li>
+            <li>Gatsby le Magnifique</li>
+            <li>Crime et Chatiment</li>
+            <li>A la recherche du temps perdu</li>
+            <li>Le Dit du Genji</li>
+            <li>Hamlet</li>
+        </ol>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="sources">
+        <h3>Sources</h3>
+        <ol>
+            <li>Spring 2025 Children's Preview: Publishers D-H — <a href="https://www.publishersweekly.com/pw/by-topic/new-titles/childrens-announcements/article/96982-spring-2025-children-s-preview-publishers-d-h.html">publishersweekly.com</a></li>
+            <li>classics Archives — <a href="https://redeemedreader.com/tag/classics/">redeemedreader.com</a></li>
+            <li>14 Graphic Novel Adaptations of Beloved Prose Titles — <a href="https://www.slj.com/story/14-graphic-novel-adaptations-of-beloved-prose-titles-for-young-readers">slj.com</a></li>
+            <li>Pride & Prejudice: A BabyLit Counting Primer — <a href="https://www.goodreads.com/book/show/11231465-pride-prejudice">goodreads.com</a></li>
+            <li>Cozy Classics Series — <a href="https://www.barnesandnoble.com/w/pride-and-prejudice-jack-wang/1129820790">barnesandnoble.com</a></li>
+            <li>Lit for Little Hands: Pride and Prejudice — <a href="https://www.barnesandnoble.com/w/lit-for-little-hands-jane-austen/1136964624">barnesandnoble.com</a></li>
+            <li>In Search of Lost Time (Stephane Heuet) — <a href="https://www.allenandunwin.com/browse/book/Marcel-Proust,-illustrated-by-Stephane-Heuet-and-translated-by-Arthur-Goldhammer-In-Search-of-Lost-Time-9781805334811">allenandunwin.com</a></li>
+            <li>Lit for Little Hands: Les Miserables — <a href="https://store.abramsbooks.com/products/lit-for-little-hands-les-miserables">abramsbooks.com</a></li>
+            <li>Robinson (Peter Sis) — <a href="https://www.opalivres.fr/la-collection/des-4-ans/robinson-%E2%99%A5/">opalivres.fr</a></li>
+            <li>Monkey King (Ed Young) — <a href="https://www.publishersweekly.com/9780060279196">publishersweekly.com</a></li>
+            <li>Pop! Lit for Kids — <a href="https://worldscientificedu.com/pop-lit-for-kids/">worldscientificedu.com</a></li>
+            <li>Dream of the Red Chamber | Chinese books for young readers — <a href="https://chinesebooksforyoungreaders.wordpress.com/tag/dream-of-the-red-chamber/">wordpress.com</a></li>
+            <li>Tale of Genji: The Manga Edition — <a href="https://tuttlepublishing.com/japan/tale-of-genji-the-manga-edition">tuttlepublishing.com</a></li>
+            <li>Shahnameh For Kids — <a href="https://shahnamehforkids.com/">shahnamehforkids.com</a></li>
+            <li>Le nez de Cyrano — <a href="https://www.fnac.com/a10857080/Thomas-Baas-Le-nez-de-Cyrano">fnac.com</a></li>
+        </ol>
+    </div>
+
+    <p class="update-date">Recherche effectuee par Gemini Deep Research — Janvier 2025</p>
+
+</body>
+</html>
