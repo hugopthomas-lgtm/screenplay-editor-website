@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Catalogue — Pouvoir Magique Editions</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f8f9fa;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a2e;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        th {
+            background: #6c5ce7;
+            color: white;
+            font-weight: 600;
+        }
+        th.book-title {
+            text-align: left;
+            min-width: 200px;
+        }
+        td.book-title {
+            text-align: left;
+            font-weight: 500;
+        }
+        .category-row {
+            background: #34495e;
+            color: white;
+            font-weight: 600;
+            text-align: left !important;
+        }
+        .category-row td {
+            text-align: left;
+            padding: 12px 15px;
+        }
+        tr:hover:not(.category-row) {
+            background: #f8f9fa;
+        }
+        .done {
+            color: #27ae60;
+            font-size: 1.2rem;
+        }
+        .todo {
+            color: #ddd;
+        }
+        .ocean-bleu {
+            background: #e8f4fd;
+        }
+        .saturated {
+            background: #fff5f5;
+        }
+        .legend {
+            display: flex;
+            gap: 30px;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .legend-color.ocean { background: #e8f4fd; border: 1px solid #b8daff; }
+        .legend-color.saturated { background: #fff5f5; border: 1px solid #f5c6cb; }
+        .legend-icon {
+            font-size: 1.2rem;
+        }
+        .stats {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6c5ce7;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .update-date {
+            text-align: center;
+            color: #999;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="kdp.html" class="back-link">← Retour a la documentation KDP</a>
+
+    <h1>Catalogue — Livres x Langues</h1>
+    <p class="subtitle">Suivi de production — Mes Tout Premiers Classiques</p>
+
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-icon done">✓</span>
+            <span>Publie</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color ocean"></div>
+            <span>Ocean bleu (peu de concurrence)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color saturated"></div>
+            <span>Marche sature</span>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-number">21</div>
+            <div class="stat-label">Livres prevus</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">10</div>
+            <div class="stat-label">Langues</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">210</div>
+            <div class="stat-label">Editions totales</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">6</div>
+            <div class="stat-label">Publiees</div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="book-title">Titre</th>
+                <th>🇫🇷</th>
+                <th>🇬🇧</th>
+                <th>🇩🇪</th>
+                <th>🇪🇸</th>
+                <th>🇮🇹</th>
+                <th>🇵🇹</th>
+                <th>🇳🇱</th>
+                <th>🇯🇵</th>
+                <th>🇵🇱</th>
+                <th>🇸🇪</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- CLASSIQUES LITTERAIRES -->
+            <tr class="category-row">
+                <td colspan="11">CLASSIQUES LITTERAIRES</td>
+            </tr>
+            <tr>
+                <td class="book-title">Guerre et Paix</td>
+                <td><span class="done">✓</span></td>
+                <td><span class="done">✓</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Walden</td>
+                <td><span class="done">✓</span></td>
+                <td><span class="done">✓</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Le Comte de Monte-Cristo</td>
+                <td><span class="done">✓</span></td>
+                <td><span class="done">✓</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr class="ocean-bleu">
+                <td class="book-title">Gatsby le Magnifique</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr class="ocean-bleu">
+                <td class="book-title">A la recherche du temps perdu</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Don Quichotte</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Les Trois Mousquetaires</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr class="ocean-bleu">
+                <td class="book-title">Crime et Chatiment</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Notre-Dame de Paris</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Les Miserables</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr class="saturated">
+                <td class="book-title">Orgueil et Prejuges</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr class="saturated">
+                <td class="book-title">Robinson Crusoe</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+
+            <!-- THEATRE -->
+            <tr class="category-row">
+                <td colspan="11">THEATRE</td>
+            </tr>
+            <tr class="ocean-bleu">
+                <td class="book-title">Hamlet</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Cyrano de Bergerac</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr class="ocean-bleu">
+                <td class="book-title">Le Malade Imaginaire</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+
+            <!-- MYTHOLOGIE GRECQUE -->
+            <tr class="category-row">
+                <td colspan="11">MYTHOLOGIE GRECQUE</td>
+            </tr>
+            <tr>
+                <td class="book-title">L'Odyssee</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Les 12 travaux d'Hercule</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Thesee et le Minotaure</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+
+            <!-- GRANDES AVENTURES -->
+            <tr class="category-row">
+                <td colspan="11">GRANDES AVENTURES</td>
+            </tr>
+            <tr>
+                <td class="book-title">Magellan</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">La Mission Apollo</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+            <tr>
+                <td class="book-title">Christophe Colomb</td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+                <td><span class="todo">○</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="update-date">Derniere mise a jour : Janvier 2025</p>
+
+</body>
+</html>
