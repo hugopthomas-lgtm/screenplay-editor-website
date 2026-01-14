@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Mode d'emploi KDP — Mes Tout Premiers Classiques</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #fafafa;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a2e;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        h2 {
+            font-size: 1.4rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1a1a2e;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 0.3rem;
+        }
+        h3 {
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #34495e;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .error {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+        .checklist li::before {
+            content: "☐ ";
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 2rem 0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="kdp.html" class="back-link">← Retour a la documentation KDP</a>
+
+    <h1>Mode d'emploi KDP</h1>
+    <p class="subtitle">Mes Tout Premiers Classiques — Pouvoir Magique Editions</p>
+
+    <h2>1. Fichiers a preparer</h2>
+
+    <h3>Interieur du livre (PDF)</h3>
+    <p>Export Canva avec l'option <strong>"Crop marks and bleed"</strong> cochee. Aucun probleme constate cote KDP.</p>
+
+    <h3>Couverture (PDF)</h3>
+
+    <div class="error">
+        <strong>Erreur a eviter :</strong> Ne PAS exporter avec "Crop marks and bleed" depuis Canva. KDP refuse les fichiers avec les reperes de coupe (les petites fleches dans les coins).
+    </div>
+
+    <div class="tip">
+        <strong>Bonne methode :</strong> Creer le design Canva directement aux dimensions totales fournies par KDP (qui incluent deja les 3,175 mm de fond perdu de chaque cote). Puis exporter en PDF <strong>sans</strong> cocher l'option bleed/crop. Le fichier final doit etre "plein pot" aux bonnes dimensions, sans marques.
+    </div>
+
+    <p>En resume : KDP veut le fond perdu <strong>integre</strong> dans le fichier, mais <strong>pas</strong> les marques visuelles de coupe.</p>
+
+    <hr>
+
+    <h2>2. Creation du livre dans Canva</h2>
+
+    <h3>Format</h3>
+    <p>Creer l'album au format <code>21,59 x 21,59 cm</code> (format carre standard KDP)</p>
+
+    <h3>Fonds et mise en page</h3>
+    <ul>
+        <li><strong>Fond toujours plus etendu que la page</strong> — chaque illustration de fond doit deborder pour eviter les liseres blancs a l'impression</li>
+        <li><strong>Varier les mises en page</strong> — les images qui ne prennent pas toute la page sont appreciees</li>
+        <li><strong>Environ 3 doubles pages par livre</strong> — pour creer des moments forts visuellement</li>
+        <li><strong>Finir sur une double page</strong> — c'est la marque de fabrique de la collection</li>
+    </ul>
+
+    <h3>Texte</h3>
+    <ul>
+        <li><strong>Hauteur constante</strong> — ecrire le texte toujours a la meme hauteur sur chaque page, sauf exception justifiee (composition particuliere)</li>
+        <li><strong>Pas de guillemets</strong> — meme pour les dialogues</li>
+    </ul>
+
+    <hr>
+
+    <h2>3. Generation des images (Midjourney)</h2>
+
+    <h3>Visages et expressions</h3>
+    <div class="tip">
+        <strong>Utiliser Nanobanana</strong> pour les visages, afin que les expressions varient d'une illustration a l'autre (eviter le syndrome "meme tete partout").
+    </div>
+
+    <h3>Couverture</h3>
+    <div class="tip">
+        <strong>Titre genere par ChatGPT Image</strong> — utiliser la generation d'image de ChatGPT pour creer le titre de couverture (meilleur rendu typographique).
+    </div>
+
+    <hr>
+
+    <h2>4. Parametres KDP</h2>
+    <p><em>A completer...</em></p>
+
+    <hr>
+
+    <h2>5. Checklist pre-publication</h2>
+    <ul class="checklist">
+        <li>Couverture aux dimensions exactes KDP (avec bleed integre, sans crop marks)</li>
+        <li>Interieur exporte avec bleed</li>
+        <li>Verifier l'apercu KDP page par page</li>
+        <li><em>A completer...</em></li>
+    </ul>
+
+    <hr>
+
+    <p><em>Derniere mise a jour : Janvier 2025</em></p>
+
+</body>
+</html>
