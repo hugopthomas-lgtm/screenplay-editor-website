@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Stratégie PR — Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+      --green: #34C759;
+      --orange: #FF9500;
+      --blue: #007AFF;
+      --red: #FF3B30;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* Header */
+    .header {
+      background: var(--dark);
+      padding: 40px 30px;
+      text-align: center;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .header h1 {
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .header .subtitle {
+      color: var(--violet);
+      font-size: 14px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 30px;
+    }
+
+    /* Summary Section */
+    .summary-section {
+      background: var(--violet-light);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 40px;
+      border-left: 4px solid var(--violet);
+    }
+
+    .summary-section h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .key-points {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .key-point {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .key-point h4 {
+      font-size: 12px;
+      color: var(--violet);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .key-point p {
+      font-size: 13px;
+      color: #444;
+    }
+
+    /* Canonical Phrase */
+    .canonical {
+      background: var(--dark);
+      color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .canonical .label {
+      font-size: 11px;
+      color: var(--violet);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .canonical .phrase {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* Phase Sections */
+    .phase {
+      margin-bottom: 40px;
+    }
+
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .phase-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .phase-1 .phase-number { background: var(--orange); }
+    .phase-2 .phase-number { background: var(--blue); }
+    .phase-3 .phase-number { background: var(--green); }
+
+    .phase-title h3 {
+      font-size: 16px;
+      color: var(--dark);
+    }
+
+    .phase-title .objective {
+      font-size: 12px;
+      color: #888;
+    }
+
+    /* Target Tables */
+    .targets-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    .targets-table th {
+      background: var(--dark);
+      color: #fff;
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .targets-table th:first-child { border-radius: 8px 0 0 0; }
+    .targets-table th:last-child { border-radius: 0 8px 0 0; }
+
+    .targets-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    .targets-table tr:hover td {
+      background: var(--violet-light);
+    }
+
+    .targets-table a {
+      color: var(--violet);
+      text-decoration: none;
+    }
+
+    .targets-table a:hover {
+      text-decoration: underline;
+    }
+
+    .lang-tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .lang-en {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .lang-fr {
+      background: #fce4ec;
+      color: #c2185b;
+    }
+
+    /* Press Kit */
+    .press-kit {
+      background: #fff;
+      border: 2px solid var(--violet);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+
+    .press-kit h2 {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .kit-items {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .kit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 15px;
+      background: var(--violet-light);
+      border-radius: 8px;
+    }
+
+    .kit-item .icon {
+      font-size: 24px;
+    }
+
+    .kit-item h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .kit-item p {
+      font-size: 11px;
+      color: #666;
+    }
+
+    /* Timeline */
+    .timeline {
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 40px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .timeline h2 {
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .timeline-items {
+      display: flex;
+      gap: 20px;
+    }
+
+    .timeline-item {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 20px;
+      border-left: 3px solid var(--violet);
+    }
+
+    .timeline-item .week {
+      font-size: 11px;
+      color: var(--violet);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item .action {
+      font-size: 13px;
+      color: #fff;
+    }
+
+    /* Checklist */
+    .checklist {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid #eee;
+    }
+
+    .checklist h2 {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .check-item:last-child {
+      border-bottom: none;
+    }
+
+    .check-box {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--violet);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .check-item.done .check-box {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .check-item.done .check-box::after {
+      content: "✓";
+      color: #fff;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .check-content h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 3px;
+    }
+
+    .check-content p {
+      font-size: 11px;
+      color: #888;
+    }
+
+    /* Arguments */
+    .arguments {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .argument {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #eee;
+      text-align: center;
+    }
+
+    .argument .icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .argument h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+
+    .argument p {
+      font-size: 11px;
+      color: #666;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .footer-text a {
+      color: var(--violet);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .key-points,
+      .kit-items,
+      .arguments {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-items {
+        flex-direction: column;
+      }
+
+      .targets-table {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Strategie PR & Penetration de Marche</h1>
+    <div class="subtitle">Screenplay Editor — Document Interne</div>
+  </div>
+
+  <div class="container">
+
+    <!-- Résumé -->
+    <div class="summary-section">
+      <h2>Resume Strategique</h2>
+      <div class="key-points">
+        <div class="key-point">
+          <h4>Positionnement</h4>
+          <p>Pas "un autre logiciel de scenario", mais une <strong>rupture technologique</strong> : formatage pro directement dans Google Docs.</p>
+        </div>
+        <div class="key-point">
+          <h4>Differenciation</h4>
+          <p><strong>Vraie gratuite</strong> (pas de watermark, pas de limite de projets) + collaboration native + donnees sur votre Drive.</p>
+        </div>
+        <div class="key-point">
+          <h4>Cibles Prioritaires</h4>
+          <p>Etudiants, cineastes independants, createurs de contenu, scenaristes BD — tous ceux qui ne veulent pas payer $250/an.</p>
+        </div>
+        <div class="key-point">
+          <h4>Argument Massue</h4>
+          <p><strong>Souverainete des donnees</strong> : contrairement aux SaaS, vos scripts restent sur votre Drive personnel.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phrase Canonique -->
+    <div class="canonical">
+      <div class="label">Phrase Canonique — A repeter partout</div>
+      <div class="phrase">"Screenplay Editor is a Google Docs add-on that formats screenplays to industry standards directly inside Docs"</div>
+    </div>
+
+    <!-- Arguments Clés -->
+    <div class="arguments">
+      <div class="argument">
+        <div class="icon">💰</div>
+        <h4>100% Gratuit</h4>
+        <p>Pas de watermark, pas de limite de projets, pas d'abonnement cache</p>
+      </div>
+      <div class="argument">
+        <div class="icon">🔒</div>
+        <h4>Vos Donnees</h4>
+        <p>"Your data, your Drive, your property" — rien sur nos serveurs</p>
+      </div>
+      <div class="argument">
+        <div class="icon">👥</div>
+        <h4>Collaboration Native</h4>
+        <p>Google Docs = temps reel, commentaires, suggestions, partage</p>
+      </div>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div class="phase phase-1">
+      <div class="phase-header">
+        <div class="phase-number">1</div>
+        <div class="phase-title">
+          <h3>Validation — Communautes</h3>
+          <div class="objective">Objectif : Feedback + premiers adopteurs + preuve sociale</div>
+        </div>
+      </div>
+
+      <table class="targets-table">
+        <tr>
+          <th>Cible</th>
+          <th>Contact</th>
+          <th>Angle d'approche</th>
+        </tr>
+        <tr>
+          <td><strong>r/Screenwriting</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td>Post Reddit (Flair "Resource")</td>
+          <td>"Developpeur inde cherche feedback" — transparence, demander de l'aide pour ameliorer</td>
+        </tr>
+        <tr>
+          <td><strong>Young Screenwriters</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td>DM Admin / Canal #resources</td>
+          <td>"Pour les etudiants fauches" — communaute jeune, projets de groupe</td>
+        </tr>
+        <tr>
+          <td><strong>Script Hive</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td>Canal #software</td>
+          <td>"Copier les Maitres" — analysez vos scripts preferes directement dans Drive</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase phase-2">
+      <div class="phase-header">
+        <div class="phase-number">2</div>
+        <div class="phase-title">
+          <h3>Credibilite — Blogs</h3>
+          <div class="objective">Objectif : Mentions dans articles "Best Free Screenwriting Software 2026"</div>
+        </div>
+      </div>
+
+      <table class="targets-table">
+        <tr>
+          <th>Cible</th>
+          <th>Contact</th>
+          <th>Angle d'approche</th>
+        </tr>
+        <tr>
+          <td><strong>Script Reader Pro</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td><a href="mailto:hello@scriptreaderpro.com">hello@scriptreaderpro.com</a></td>
+          <td>"Le Tueur de Trelby" — vraie gratuite + collaboration cloud, ce qui manque aux outils open source</td>
+        </tr>
+        <tr>
+          <td><strong>Laper Blog</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td><a href="mailto:support@laper.ai">support@laper.ai</a></td>
+          <td>"Candidat Truly Free" — mise a jour de leur comparatif, contrairement a Celtx limite</td>
+        </tr>
+        <tr>
+          <td><strong>NoFilmSchool</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td><a href="mailto:editor@nofilmschool.com">editor@nofilmschool.com</a></td>
+          <td>"Filmmaker qui code" — histoire personnelle (Cannes, Netflix) + outil gratuit</td>
+        </tr>
+        <tr>
+          <td><strong>Save The Cat</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td>Formulaire Contact Site</td>
+          <td>"Les Beats en Temps Reel" — garder le plan visible pendant l'ecriture via Google Docs</td>
+        </tr>
+        <tr>
+          <td><strong>NYFA Resources</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td>admissions@nyfa.edu</td>
+          <td>"Kit de Survie Etudiant" — ajouter a leur liste Budget Filmmaking</td>
+        </tr>
+        <tr>
+          <td><strong>Artisans de la Fiction</strong> <span class="lang-tag lang-fr">FR</span></td>
+          <td><a href="mailto:contact@artisansdelafiction.com">contact@artisansdelafiction.com</a></td>
+          <td>"L'Outil Invisible" — l'outil qui disparait pour laisser place a l'histoire</td>
+        </tr>
+        <tr>
+          <td><strong>Cite Europeenne des Scenaristes</strong> <span class="lang-tag lang-fr">FR</span></td>
+          <td>Email Asso</td>
+          <td>"Accessibilite & Diversite" — abaisser la barriere a l'entree du metier</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase phase-3">
+      <div class="phase-header">
+        <div class="phase-number">3</div>
+        <div class="phase-title">
+          <h3>Viralite — Influenceurs</h3>
+          <div class="objective">Objectif : Demos video YouTube/TikTok/Instagram</div>
+        </div>
+      </div>
+
+      <table class="targets-table">
+        <tr>
+          <th>Cible</th>
+          <th>Contact</th>
+          <th>Angle d'approche</th>
+        </tr>
+        <tr>
+          <td><strong>Gian Carlo Stigliano</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td><a href="mailto:carlostigsdp@gmail.com">carlostigsdp@gmail.com</a></td>
+          <td>"Budget Filmmaking : Save $250" — alternative gratuite pour freelances en periode creuse</td>
+        </tr>
+        <tr>
+          <td><strong>Matteo Bertoli</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td><a href="mailto:matteo@matteobertoli.me">matteo@matteobertoli.me</a></td>
+          <td>"Workflow Minimaliste" — script sur le cloud, sans logiciel lourd</td>
+        </tr>
+        <tr>
+          <td><strong>Demoiselles d'Horreur</strong> <span class="lang-tag lang-fr">FR</span></td>
+          <td><a href="mailto:demoisellesdhorreur@socialveins.in">demoisellesdhorreur@socialveins.in</a></td>
+          <td>"Democratiser l'Horreur" — professionnaliser les scripts sans barriere financiere</td>
+        </tr>
+        <tr>
+          <td><strong>Nicolas Curcio</strong> <span class="lang-tag lang-fr">FR</span></td>
+          <td>DM Instagram</td>
+          <td>"Validation Pro" (Sony, Universal) — l'outil a recommander aux debutants</td>
+        </tr>
+        <tr>
+          <td><strong>Valentine Ctl</strong> <span class="lang-tag lang-fr">FR</span></td>
+          <td>DM Instagram @valentinectl_auteur</td>
+          <td>"De Wattpad au Scenario" — pont pour jeunes auteurs vers le format pro</td>
+        </tr>
+        <tr>
+          <td><strong>Luc Forsyth</strong> <span class="lang-tag lang-en">EN</span></td>
+          <td>Via site perso</td>
+          <td>"Documentary Scripting" — collaboration pour voix-off et scripts A/V</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Press Kit -->
+    <div class="press-kit">
+      <h2>Press Kit a Preparer</h2>
+      <div class="kit-items">
+        <div class="kit-item">
+          <div class="icon">🎬</div>
+          <div>
+            <h4>GIF "Wow" (5 sec)</h4>
+            <p>Auto-completion d'un nom de personnage ou passage automatique INT. → Action</p>
+          </div>
+        </div>
+        <div class="kit-item">
+          <div class="icon">⚡</div>
+          <div>
+            <h4>Comparatif Visuel</h4>
+            <p>Split-screen : "Word (le chaos)" vs "Screenplay Editor (l'ordre)"</p>
+          </div>
+        </div>
+        <div class="kit-item">
+          <div class="icon">🎓</div>
+          <div>
+            <h4>PDF Etudiant</h4>
+            <p>"Pourquoi payer $250 quand on peut ecrire gratuitement ?"</p>
+          </div>
+        </div>
+        <div class="kit-item">
+          <div class="icon">📸</div>
+          <div>
+            <h4>Screenshots HD</h4>
+            <p>Sidebar avec les elements de formatage, avant/apres</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+      <h2>Sequencage</h2>
+      <div class="timeline-items">
+        <div class="timeline-item">
+          <div class="week">Semaine 1</div>
+          <div class="action">Post Reddit + Discord → recolte feedback et premiers users</div>
+        </div>
+        <div class="timeline-item">
+          <div class="week">Semaine 2</div>
+          <div class="action">Email blogs avec "deja utilise dans des ecoles en Californie"</div>
+        </div>
+        <div class="timeline-item">
+          <div class="week">Semaine 3</div>
+          <div class="action">Contact influenceurs avec mentions blogs comme preuve</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checklist -->
+    <div class="checklist">
+      <h2>Actions Immediates</h2>
+
+      <div class="check-item done">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <h4>Commentaire r/Screenwriting</h4>
+          <p>Poste sur le thread "Good screenwriting program that's free"</p>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <h4>Email Jeffrey Kimmich (LPS Hayward)</h4>
+          <p>Ecole adoptante — whitelist + support</p>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <h4>Rejoindre Discord Young Screenwriters</h4>
+          <p>Poster dans #resources apres contribution organique</p>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <h4>Creer GIF demo (5 sec)</h4>
+          <p>Screen recording de l'auto-completion Character</p>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <h4>Email Script Reader Pro</h4>
+          <p>Pitch pour inclusion dans leur comparatif 2026</p>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <h4>Email NoFilmSchool</h4>
+          <p>Angle "filmmaker qui code" — histoire Cannes/Netflix</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <p class="footer-text">Screenplay Editor — Internal Docs — <a href="docs.html">Back to docs</a></p>
+  </footer>
+
+</body>
+</html>
