@@ -2,26 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://screenplayeditor.app/</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-01-15</lastmod>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/about.html</loc>
-    <lastmod>2025-12-31</lastmod>
+    <loc>https://screenplayeditor.app/about</loc>
+    <lastmod>2026-01-15</lastmod>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/support.html</loc>
-    <lastmod>2025-12-31</lastmod>
+    <loc>https://screenplayeditor.app/support</loc>
+    <lastmod>2026-01-15</lastmod>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/privacy.html</loc>
-    <lastmod>2025-12-31</lastmod>
+    <loc>https://screenplayeditor.app/privacy</loc>
+    <lastmod>2026-01-15</lastmod>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/terms.html</loc>
-    <lastmod>2025-12-31</lastmod>
+    <loc>https://screenplayeditor.app/terms</loc>
+    <lastmod>2026-01-15</lastmod>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/alternative.html</loc>
-    <lastmod>2025-12-31</lastmod>
+    <loc>https://screenplayeditor.app/alternative</loc>
+    <lastmod>2026-01-15</lastmod>
+  </url>
+  <url>
+    <loc>https://screenplayeditor.app/free-google-docs-screenplay-template</loc>
+    <lastmod>2026-01-15</lastmod>
+  </url>
+  <url>
+    <loc>https://screenplayeditor.app/resources/how-to-write-screenplay-google-docs</loc>
+    <lastmod>2026-01-15</lastmod>
+  </url>
+  <url>
+    <loc>https://screenplayeditor.app/resources/short-film-screenplay-template</loc>
+    <lastmod>2026-01-15</lastmod>
+  </url>
+  <url>
+    <loc>https://screenplayeditor.app/resources/horror-screenplay-template</loc>
+    <lastmod>2026-01-15</lastmod>
+  </url>
+  <url>
+    <loc>https://screenplayeditor.app/resources/how-to-get-your-short-film-read-by-producers</loc>
+    <lastmod>2026-01-15</lastmod>
   </url>
 </urlset>
