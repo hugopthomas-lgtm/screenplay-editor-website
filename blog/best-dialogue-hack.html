@@ -164,10 +164,18 @@
     }
 
     /* Article Images */
+    .article-hero-wrapper {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
     .article-hero {
+      max-width: 350px;
       width: 100%;
       border-radius: 12px;
-      margin-bottom: 40px;
+      border: 2px dashed var(--violet);
+      padding: 8px;
+      background: var(--violet-light);
     }
 
     .article-figure {
@@ -179,11 +187,13 @@
       max-width: 500px;
       width: 100%;
       border-radius: 8px;
+      border: 2px dashed var(--violet);
+      padding: 8px;
+      background: var(--violet-light);
     }
 
     .article-figure.document img {
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-      border: 1px solid #e0e0e0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .article-figure figcaption {
@@ -314,7 +324,9 @@
     <div class="article-date">January 15, 2026</div>
     <h1 class="article-title">The Best Dialogue Hack I Know (After 10 Years of Getting It Wrong)</h1>
 
-    <img src="images/hero.jpg" alt="Hugo Thomas writing with post-its" class="article-hero">
+    <div class="article-hero-wrapper">
+      <img src="images/hero.jpg" alt="Hugo Thomas writing with post-its" class="article-hero">
+    </div>
 
     <div class="article-content">
       <p>For about a decade, I had this assumption that the people around me weren't interesting enough for movies. Not in a dismissive way toward them... more like a form of self-deprecation, I guess. My own life and circle felt too ordinary, too unremarkable, and I had this idea that real storytelling required reaching beyond all of that to find something actually worthy of the screen.</p>
