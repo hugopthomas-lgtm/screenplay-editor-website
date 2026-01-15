@@ -25,7 +25,11 @@
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background: #fafafa;
+      background-color: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.08) 1px, transparent 1px);
+      background-size: 20px 20px;
       color: var(--dark);
       line-height: 1.6;
       font-size: 15px;
@@ -42,7 +46,7 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(248, 246, 252, 0.95);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid #eee;
       z-index: 100;
@@ -58,20 +62,46 @@
     }
 
     .logo {
-      font-family: 'JetBrains Mono', monospace;
+      position: relative;
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--dark);
+      cursor: pointer;
     }
 
     .logo .cursor {
       color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     .header-nav a {
       margin-left: 30px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       color: #666;
       transition: color 0.2s;
@@ -317,7 +347,8 @@
   <header>
     <div class="header-content">
       <a href="../index.html" class="logo">
-        SCR<span class="cursor">|</span>
+        <span class="mark">SCR<span class="cursor">|</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
       </a>
       <nav class="header-nav">
         <a href="../index.html#features">Features</a>
