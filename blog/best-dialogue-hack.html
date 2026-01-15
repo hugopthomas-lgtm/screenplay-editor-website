@@ -163,6 +163,37 @@
       color: var(--dark);
     }
 
+    /* Article Images */
+    .article-hero {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+
+    .article-figure {
+      margin: 32px 0;
+      text-align: center;
+    }
+
+    .article-figure img {
+      max-width: 500px;
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .article-figure.document img {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e0e0e0;
+    }
+
+    .article-figure figcaption {
+      font-size: 12px;
+      color: #888;
+      font-style: italic;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
     /* Back link */
     .back-link {
       display: inline-block;
@@ -283,6 +314,8 @@
     <div class="article-date">January 15, 2026</div>
     <h1 class="article-title">The Best Dialogue Hack I Know (After 10 Years of Getting It Wrong)</h1>
 
+    <img src="images/hero.jpg" alt="Hugo Thomas writing with post-its" class="article-hero">
+
     <div class="article-content">
       <p>For about a decade, I had this assumption that the people around me weren't interesting enough for movies. Not in a dismissive way toward them... more like a form of self-deprecation, I guess. My own life and circle felt too ordinary, too unremarkable, and I had this idea that real storytelling required reaching beyond all of that to find something actually worthy of the screen.</p>
 
@@ -301,6 +334,11 @@
       <p>I used to think that "voice" was primarily about language. Surface-level stuff, you know, like the particular way someone phrases things or their verbal tics. But it's actually much deeper than that... it's everything behind the words. The whole psychological architecture that determines what a person would say in any given situation. Hard to explain, but you feel it when it's missing.</p>
 
       <p>The problem with fictional characters (even the ones you know intimately) is that you don't actually know them well enough. Take Nate Fisher from Six Feet Under. Probably one of the fictional people I know best in the world after watching every episode multiple times. But when I try to write based on him, what do I actually have to work with? Something like "good family man, upright, a bit tortured, tries to do the right thing." And that's... basically it. That's caricature, not character.</p>
+
+      <figure class="article-figure">
+        <img src="images/nate-fisher.jpg" alt="Nate Fisher from Six Feet Under">
+        <figcaption>Nate Fisher (Peter Krause) in Six Feet Under. I've watched every episode. Still not enough.</figcaption>
+      </figure>
 
       <p>Fiction never goes deep enough because you're working from a surface impression of someone who was already invented by someone else. A copy of a copy. A photo of a photo. Real people, on the other hand, you know the stuff that never made it to any screen. The contradictions that wouldn't fit neatly into a character arc. The weird specific details that no writer would think to invent because they're too particular, too strange, too real.</p>
 
@@ -333,6 +371,11 @@
       <p>And suddenly it was obvious.</p>
 
       <p>The letter would be sentimental on the surface, ostensibly about her daughters and her love for them, but actually entirely about herself. Fake generosity masking total self-absorption. Making herself the hero of her own departure, even in the moment of abandoning her family. That's just... who she is.</p>
+
+      <figure class="article-figure document">
+        <img src="images/letter.png" alt="Screenshot of the letter">
+        <figcaption>The letter. Every sentence about her daughters is actually about herself.</figcaption>
+      </figure>
 
       <p>I wrote the whole thing rapidly, no hesitation. And it ended up being the emotional climax of the entire piece.</p>
 
