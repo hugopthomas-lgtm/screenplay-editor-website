@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Most People Can't Give You Useful Feedback (Even When They're Qualified) — Screenplay Editor</title>
+  <meta name="description" content="Why friends and family give useless feedback, how to guide non-industry readers, and where real notes actually come from.">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+      --gray-500: #737373;
+      --gray-600: #525252;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      position: relative;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Article Container */
+    .article-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 60px 30px 100px;
+    }
+
+    .article-date {
+      font-size: 12px;
+      color: var(--violet);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .article-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 40px;
+      line-height: 1.3;
+    }
+
+    /* Article Content */
+    .article-content p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .article-content h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-top: 48px;
+      margin-bottom: 20px;
+    }
+
+    .article-content em {
+      font-style: italic;
+    }
+
+    .article-content strong {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Pull Quotes */
+    .pull-quote {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 16px 0 0 0;
+      text-align: center;
+    }
+
+    .pull-quote p {
+      font-size: 24px;
+      font-style: italic;
+      color: var(--violet);
+      line-height: 1.5;
+      border-left: 3px solid var(--violet);
+      padding-left: 24px;
+      text-align: left;
+      margin-bottom: 0;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      margin-top: 50px;
+      padding: 14px 24px;
+      background: var(--violet-light);
+      color: var(--violet);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 22px;
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .article-container {
+        padding: 40px 20px 80px;
+      }
+
+      .article-title {
+        font-size: 1.6rem;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html#features">Features</a>
+        <a href="../blog.html" class="highlight">Blog</a>
+        <a href="../resources/index.html">Resources</a>
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a> / <a href="../blog.html">Blog</a> / <span>Why Feedback Is Hard</span>
+      </div>
+    </div>
+  </div>
+
+  <article class="article-container">
+    <div class="article-date">January 16, 2026</div>
+    <h1 class="article-title">Why Most People Can't Give You Useful Feedback (Even When They're Qualified)</h1>
+
+    <div class="article-content">
+      <p>When my parents watched Juniors, my second feature, the first one I directed alone, they said "it was good."</p>
+
+      <p>That's it. That's what I got.</p>
+
+      <p>Years of them reading drafts, being supportive, visiting the set. And at the end, sitting in their living room watching the finished film on their TV, that was the verdict. "It was good."</p>
+
+      <p>I remember asking them: "That's it? You have nothing else to say?" And they just kind of looked at me. Yeah, it was good. What else did I want?</p>
+
+      <p>For someone like me who can talk about a film for hours, who loves dissecting every choice and asking why this scene works and that one doesn't... the silence was almost violent. I kept pushing. "Is something wrong? Is there a problem with it?" But no. They genuinely thought they'd given me a compliment. They watched it, they liked it, end of story.</p>
+
+      <h2>The gap between consuming and creating</h2>
+
+      <p>The thing is, they're not wrong. They're not being lazy or dismissive. They just have no idea what it's like on this side.</p>
+
+      <p>When you make something, you put so much into it. So many ideas, so much analysis, so many tiny decisions that you want to talk about, that you're dying to have someone engage with. But they've never been in our shoes. They don't understand the insecurity, the way you're constantly trying to read between the lines of what people say. Trying to figure out if they really mean it or if they're just being polite. That whole psychological dance that happens when you share your work. They can't imagine it because they've never lived it.</p>
+
+      <blockquote class="pull-quote">
+        <p>They can't imagine it because they've never lived it.</p>
+      </blockquote>
+
+      <h2>The brother and sister-in-law problem</h2>
+
+      <p>I have this other example that's maybe even more telling. My brother and his wife are both agrégés, that's the highest teaching certification in France, in English and French literature respectively. They literally read and analyze texts for a living. Dissertations on Flaubert, close readings of Joyce, the whole thing.</p>
+
+      <p>So when I started writing short stories, I was excited to share with them. Finally, people who would really engage with the work, you know?</p>
+
+      <p>And every single time, it's the same thing. "Yeah it was great!" And then twenty minutes about typos and grammar mistakes.</p>
+
+      <p>Every. Single. Time.</p>
+
+      <p>These are people who can write academic papers about subtext and narrative structure, but somehow when their brother shows them a story, all they see is a misplaced comma. It's almost impressive how consistent it is. I stopped showing them anything eventually. Some people just don't have it in them to engage with work critically, even when it's literally their job. Weird but true.</p>
+
+      <h2>Guiding the civilians</h2>
+
+      <p>So now I have a sort of protocol for when I share work with people outside the industry.</p>
+
+      <p>First thing I do: I ask for kindness. Explicitly. I tell them this matters to me, that I've worked hard on it, and that I need them to be thoughtful about how they respond. Some people find that weird, but I don't care anymore. It's necessary.</p>
+
+      <p>Then I tell them: "I don't care about typos. At all. Skip them entirely." That eliminates maybe 80% of useless feedback right there.</p>
+
+      <p>And I ask open questions. Stuff you can't answer with yes or no. "What moment stuck with you the most?" or "Where did you zone out, even for a second?" or "What did you expect to happen at the end?"</p>
+
+      <p>The one I use most is probably: "Was there anything that felt false, even if you can't explain why?" Because often people sense something's off but they don't dare say it, or they don't know how to articulate it. But if you give them permission to not have a justification, suddenly they'll talk.</p>
+
+      <p>Another good one is asking which character they liked best and why. Not "did you like the protagonist?", that's a yes/no question in disguise. But "who was your favorite?" People always have an answer to that, and what they say next tells you a lot about what's working in your script. Or not.</p>
+
+      <p>Does any of this actually work? Honestly, I'm not sure. Sometimes I get something useful. Sometimes I get "it was good" anyway. I don't know.</p>
+
+      <h2>Who actually gives good feedback</h2>
+
+      <p>The people who know how to give real feedback are almost always people who work in the industry. And usually writers themselves.</p>
+
+      <p>It makes sense when you think about it. They understand the psychology of feedback because they've been on the receiving end. They know you need to be reassured first, that you need someone to acknowledge what's working before diving into what isn't. They know how to be both honest and kind, how to go step by step, how to make their notes feel like a conversation rather than a verdict.</p>
+
+      <p>They do unto others what they wish had been done unto them. Or something like that.</p>
+
+      <blockquote class="pull-quote">
+        <p>They do unto others what they wish had been done unto them.</p>
+      </blockquote>
+
+      <h2>The producer revelation</h2>
+
+      <p>I've kind of made my peace with all of this. Friends and family will never give me what I'm looking for, and that's fine. It's not their job.</p>
+
+      <p>The real feedback, the kind that actually makes your work better, comes from people who have skin in the game. Producers, mostly. Not because they're smarter or more sensitive, but because they're putting money on the line. When someone's investing in your film, suddenly they have opinions. Lots of them. And those opinions come from a place of genuine engagement. They need this thing to work as much as you do.</p>
+
+      <p>That's probably the most underrated part of finding a good producer, actually. Everyone talks about financing and connections and all that. But the feedback relationship? That's huge. A good producer is basically your first real audience, except they can't just say "it was nice" and move on. They have to dig in. They have to tell you where it's not working and why. They have to care.</p>
+
+      <blockquote class="pull-quote">
+        <p>The real feedback comes from people who have skin in the game.</p>
+      </blockquote>
+
+      <p>So yeah. I guide non-industry people with open questions when I can, I ask for kindness upfront, I tell them to skip the typos, and sometimes I get something useful out of it. But I've stopped expecting much. The real work happens elsewhere. With people who are in it with you.</p>
+    </div>
+
+    <a href="../blog.html" class="back-link">← Back to Blog</a>
+  </article>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR|</div>
+      <nav class="footer-nav">
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+        <a href="../blog.html">Blog</a>
+      </nav>
+      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+</body>
+</html>
