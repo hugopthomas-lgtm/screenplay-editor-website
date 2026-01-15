@@ -136,6 +136,48 @@
       line-height: 1.7;
     }
 
+    /* Author Section */
+    .author-section {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      margin-bottom: 50px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .author-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .author-info h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .author-role {
+      font-size: 13px;
+      color: var(--violet);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .author-bio {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    .author-bio em {
+      font-style: italic;
+    }
+
     /* Article List */
     .article-list {
       list-style: none;
@@ -280,7 +322,18 @@
 
   <main class="blog-container">
     <h1 class="page-title">Blog</h1>
-    <p class="page-subtitle">Thoughts on screenwriting, dialogue, and the craft of storytelling.</p>
+    <p class="page-subtitle">Thoughts on cinema, screenwriting, and the art of storytelling. By a French weirdo director.</p>
+
+    <div class="author-section">
+      <img src="hugoweird.png" alt="Hugo Thomas" class="author-photo">
+      <div class="author-info">
+        <h2>Hugo Thomas</h2>
+        <div class="author-role">Writer & Director</div>
+        <p class="author-bio">French filmmaker. My first feature <em>Willy 1er</em> premiered at Cannes, <em>Juniors</em> screened worldwide — both on Netflix. My shorts won awards at Clermont-Ferrand. I built Screenplay Editor because Final Draft felt stuck in the 90s.</p>
+      </div>
+    </div>
+
+    <h2 style="font-size: 1rem; font-weight: 600; color: var(--gray-500); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px;">Articles</h2>
 
     <ul class="article-list">
       <li class="article-item">
