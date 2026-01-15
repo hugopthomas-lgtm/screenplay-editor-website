@@ -72,6 +72,12 @@
 
     .logo .cursor {
       color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     .logo .full-name {
@@ -341,15 +347,16 @@
   <header>
     <div class="header-content">
       <a href="../index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">|</span></span>
+        <span class="mark">SCR<span class="cursor">▌</span></span>
         <span class="full-name">SCREENPLAY EDITOR</span>
       </a>
       <nav class="header-nav">
         <a href="../index.html#features">Features</a>
+        <a href="../sceneboard/index.html">Scene Board</a>
+        <a href="../resources/index.html">Resources</a>
         <a href="../blog.html">Blog</a>
         <a href="../about.html">About</a>
         <a href="../support.html">Support</a>
-        <a href="../privacy.html">Privacy</a>
       </nav>
     </div>
   </header>
