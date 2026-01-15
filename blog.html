@@ -25,11 +25,11 @@
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background-color: #fafafa;
+      background: #fafafa;
       background-image:
-        linear-gradient(rgba(157, 123, 234, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.08) 1px, transparent 1px);
-      background-size: 20px 20px;
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
       color: var(--dark);
       line-height: 1.6;
       font-size: 15px;
@@ -72,7 +72,6 @@
 
     .logo .cursor {
       color: var(--violet);
-      animation: blink 1s step-end infinite;
     }
 
     .logo .full-name {
@@ -92,11 +91,6 @@
 
     .logo:hover .full-name {
       opacity: 1;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
     }
 
     .header-nav a {
