@@ -115,36 +115,94 @@
       color: var(--violet);
     }
 
-    /* Main Content */
-    .blog-container {
-      max-width: 700px;
+    /* Two Column Layout */
+    .blog-layout {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 40px 30px 60px;
+      padding: 50px 30px 80px;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Left Column - Author */
+    .author-column {
+      position: sticky;
+      top: 100px;
+    }
+
+    .author-card {
+      padding: 24px;
+      background: var(--violet-light);
+      border-radius: 12px;
+      border: 1px dashed var(--violet);
+      text-align: center;
+    }
+
+    .author-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+    }
+
+    .author-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .author-role {
+      font-size: 12px;
+      color: var(--violet);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .author-bio {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .author-bio em {
+      font-style: italic;
+    }
+
+    /* Right Column - Articles */
+    .articles-column {
+      min-width: 0;
     }
 
     .page-title {
       font-size: 2rem;
       font-weight: 700;
       color: var(--dark);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .page-subtitle {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--gray-500);
-      margin-bottom: 32px;
+      margin-bottom: 40px;
       line-height: 1.7;
+      padding-bottom: 30px;
+      border-bottom: 1px dashed var(--violet);
     }
 
     /* Article List */
     .article-list {
       list-style: none;
-      margin-bottom: 40px;
     }
 
     .article-item {
+      padding: 24px 0;
       border-bottom: 1px dashed var(--violet);
-      padding: 20px 0;
     }
 
     .article-item:first-child {
@@ -153,7 +211,6 @@
 
     .article-item:last-child {
       border-bottom: none;
-      padding-bottom: 0;
     }
 
     .article-tag {
@@ -166,21 +223,22 @@
       background: var(--violet-light);
       padding: 4px 10px;
       border-radius: 4px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .article-date {
       font-size: 12px;
       color: var(--gray-500);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .article-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--dark);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       transition: color 0.2s;
+      line-height: 1.4;
     }
 
     .article-item a:hover .article-title {
@@ -190,40 +248,7 @@
     .article-description {
       font-size: 14px;
       color: var(--gray-600);
-      line-height: 1.6;
-    }
-
-    /* Author Section */
-    .author-section {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      padding: 20px;
-      background: var(--violet-light);
-      border-radius: 10px;
-      border: 1px dashed var(--violet);
-    }
-
-    .author-photo {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .author-info {
-      font-size: 14px;
-      color: var(--gray-600);
-      line-height: 1.6;
-    }
-
-    .author-info strong {
-      color: var(--dark);
-    }
-
-    .author-info em {
-      font-style: italic;
+      line-height: 1.7;
     }
 
     /* Footer */
@@ -274,6 +299,48 @@
     }
 
     /* Responsive */
+    @media (max-width: 800px) {
+      .blog-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 24px 60px;
+      }
+
+      .author-column {
+        position: static;
+      }
+
+      .author-card {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-align: left;
+        padding: 20px;
+      }
+
+      .author-photo {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 0;
+      }
+
+      .author-name {
+        font-size: 15px;
+      }
+
+      .author-role {
+        margin-bottom: 8px;
+      }
+
+      .author-bio {
+        font-size: 12px;
+      }
+
+      .page-title {
+        font-size: 1.75rem;
+      }
+    }
+
     @media (max-width: 600px) {
       .header-content {
         padding: 15px 20px;
@@ -284,12 +351,13 @@
         font-size: 12px;
       }
 
-      .blog-container {
-        padding: 40px 20px 80px;
+      .author-card {
+        flex-direction: column;
+        text-align: center;
       }
 
-      .page-title {
-        font-size: 1.8rem;
+      .author-photo {
+        margin-bottom: 12px;
       }
 
       .footer-nav a {
@@ -324,26 +392,30 @@
     </div>
   </div>
 
-  <main class="blog-container">
-    <h1 class="page-title">Blog</h1>
-    <p class="page-subtitle">A French screenwriter figuring things out in public.</p>
-
-    <ul class="article-list">
-      <li class="article-item">
-        <a href="blog/best-dialogue-hack.html">
-          <div class="article-tag">Dialogue</div>
-          <div class="article-date">January 15, 2026</div>
-          <h2 class="article-title">The Best Dialogue Hack I Know (After 10 Years of Getting It Wrong)</h2>
-          <p class="article-description">Why I stopped inventing characters and started copying real people instead.</p>
-        </a>
-      </li>
-    </ul>
-
-    <div class="author-section">
-      <img src="hugoweird.png" alt="Hugo Thomas" class="author-photo">
-      <div class="author-info">
-        <strong>Hugo Thomas</strong> — French filmmaker. Two feature films on Netflix: <em>Willy 1er</em> (Cannes), <em>Juniors</em> (awards worldwide). Creator of Screenplay Editor.
+  <main class="blog-layout">
+    <aside class="author-column">
+      <div class="author-card">
+        <img src="hugoweird.png" alt="Hugo Thomas" class="author-photo">
+        <div class="author-name">Hugo Thomas</div>
+        <div class="author-role">Writer & Director</div>
+        <p class="author-bio">French filmmaker. Two features on Netflix: <em>Willy 1er</em> (Cannes), <em>Juniors</em> (awards worldwide). Creator of Screenplay Editor.</p>
       </div>
+    </aside>
+
+    <div class="articles-column">
+      <h1 class="page-title">Blog</h1>
+      <p class="page-subtitle">A French screenwriter figuring things out in public.</p>
+
+      <ul class="article-list">
+        <li class="article-item">
+          <a href="blog/best-dialogue-hack.html">
+            <div class="article-tag">Dialogue</div>
+            <div class="article-date">January 15, 2026</div>
+            <h2 class="article-title">The Best Dialogue Hack I Know (After 10 Years of Getting It Wrong)</h2>
+            <p class="article-description">Why I stopped inventing characters and started copying real people instead.</p>
+          </a>
+        </li>
+      </ul>
     </div>
   </main>
 
