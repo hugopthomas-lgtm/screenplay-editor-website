@@ -139,26 +139,27 @@
     /* Author Section */
     .author-section {
       display: flex;
-      gap: 16px;
+      gap: 24px;
       align-items: center;
-      margin-bottom: 24px;
-      padding: 16px 20px;
+      margin-bottom: 40px;
+      padding: 24px;
       background: var(--violet-light);
-      border-radius: 10px;
+      border-radius: 12px;
+      border: 1px dashed var(--violet);
     }
 
     .author-photo {
-      width: 56px;
-      height: 56px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
     }
 
     .author-info {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--gray-600);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .author-info strong {
@@ -171,20 +172,15 @@
 
     /* Articles Section */
     .articles-section {
-      margin-top: 40px;
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px dashed var(--violet);
     }
 
     .section-header {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: var(--dark);
-      margin-bottom: 8px;
-    }
-
-    .section-divider {
-      height: 3px;
-      width: 50px;
-      background: var(--violet);
       margin-bottom: 32px;
     }
 
@@ -337,13 +333,12 @@
     <div class="author-section">
       <img src="hugoweird.png" alt="Hugo Thomas" class="author-photo">
       <div class="author-info">
-        <strong>Hugo Thomas</strong> — French filmmaker. <em>Willy 1er</em> (Cannes), <em>Juniors</em> (Netflix). Awards at Clermont-Ferrand. Creator of Screenplay Editor.
+        <strong>Hugo Thomas</strong> — French filmmaker. Two feature films on Netflix: <em>Willy 1er</em> (Cannes), <em>Juniors</em> (awards worldwide). Creator of Screenplay Editor.
       </div>
     </div>
 
     <div class="articles-section">
       <h2 class="section-header">Articles</h2>
-      <div class="section-divider"></div>
     </div>
 
     <ul class="article-list">
