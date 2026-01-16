@@ -218,6 +218,45 @@
       line-height: 1.5;
     }
 
+    /* Poster Grid */
+    .poster-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin: 32px 0;
+      padding: 16px;
+      background: var(--violet-light);
+      border-radius: 12px;
+      border: 1px dashed var(--violet);
+    }
+
+    .poster-grid img {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      border-radius: 4px;
+      transition: transform 0.2s;
+    }
+
+    .poster-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .poster-grid-caption {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      font-style: italic;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .poster-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     /* Pull Quotes */
     .pull-quote {
       max-width: 500px;
@@ -373,6 +412,16 @@
       <p>I remember asking them: "That's it? You have nothing else to say?" And they just kind of looked at me. Yeah, it was good. What else did I want? I don't know, mom. A reason to live? Validation that the last three years weren't a complete waste? Just spitballing here.</p>
 
       <p>For someone like me who can talk about a film for hours, who loves dissecting every choice and asking why this scene works and that one doesn't... the silence was almost violent. I kept pushing. "Is something wrong? Is there a problem with it?" But no. They genuinely thought they'd given me a compliment. They watched it, they liked it, end of story. They probably used more words to describe dinner.</p>
+
+      <div class="poster-grid">
+        <img src="good-will-hunting.jpg" alt="Good Will Hunting">
+        <img src="good-place.jpg" alt="The Good Place">
+        <img src="good-omens.jpg" alt="Good Omens">
+        <img src="good-year.jpg" alt="A Good Year">
+        <img src="good-italian.jpg" alt="It Was Good">
+        <img src="good-person.jpg" alt="A Good Person">
+        <div class="poster-grid-caption">It was good.</div>
+      </div>
 
       <h2>The gap between consuming and creating (or: why I need therapy)</h2>
 
