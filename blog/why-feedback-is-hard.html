@@ -218,6 +218,21 @@
       line-height: 1.5;
     }
 
+    /* Floating poster */
+    .poster-float {
+      float: right;
+      margin: 0 0 20px 24px;
+      max-width: 140px;
+    }
+
+    .poster-float img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px dashed var(--violet);
+      padding: 4px;
+      background: var(--violet-light);
+    }
+
     /* Poster Grid */
     .poster-grid {
       display: grid;
@@ -413,11 +428,11 @@
 
       <p>For someone like me who can talk about a film for hours, who loves dissecting every choice and asking why this scene works and that one doesn't... the silence was almost violent. I kept pushing. "Is something wrong? Is there a problem with it?" But no. They genuinely thought they'd given me a compliment. They watched it, they liked it, end of story. They probably used more words to describe dinner.</p>
 
-      <figure class="article-figure">
-        <img src="good-italian.jpg" alt="Good">
-      </figure>
-
       <h2>The gap between consuming and creating (or: why I need therapy)</h2>
+
+      <div class="poster-float">
+        <img src="good-movie.jpg" alt="Good">
+      </div>
 
       <p>The thing is, they're not wrong. They're not being lazy or dismissive. They just have no idea what it's like on this side. They've never stared at a blank page wondering if they're a fraud. Must be nice.</p>
 
