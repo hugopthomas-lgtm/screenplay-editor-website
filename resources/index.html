@@ -70,6 +70,12 @@
 
     .logo .cursor {
       color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     .logo .full-name {
@@ -121,28 +127,24 @@
     .breadcrumb-content {
       max-width: 1100px;
       margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    }
+
+    .breadcrumb {
       font-size: 13px;
+      color: #888;
     }
 
-    .breadcrumb-content a {
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
       color: var(--violet);
-      transition: opacity 0.2s;
     }
 
-    .breadcrumb-content a:hover {
-      opacity: 0.8;
-    }
-
-    .breadcrumb-content .separator {
-      color: #555;
-    }
-
-    .breadcrumb-content .current {
-      color: #fff;
-      font-weight: 600;
+    .breadcrumb span {
+      color: var(--violet);
     }
 
     /* Page Content */
@@ -401,9 +403,9 @@
 
   <div class="breadcrumb-bar">
     <div class="breadcrumb-content">
-      <a href="../index.html">Home</a>
-      <span class="separator">→</span>
-      <span class="current">Resources</span>
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a> / <span>Resources</span>
+      </div>
     </div>
   </div>
 
