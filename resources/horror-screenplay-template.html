@@ -53,38 +53,64 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(248, 246, 252, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--gray-200);
+      border-bottom: 1px solid #eee;
       z-index: 100;
     }
 
     .header-content {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 16px 32px;
+      padding: 18px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 18px;
+      position: relative;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
       color: var(--dark);
+      cursor: pointer;
     }
 
     .logo .cursor {
       color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
     }
 
     .header-nav a {
-      margin-left: 32px;
-      font-size: 14px;
+      margin-left: 30px;
+      font-size: 13px;
       font-weight: 500;
-      color: var(--gray-600);
+      color: #666;
       transition: color 0.2s;
     }
 
@@ -96,9 +122,43 @@
       color: var(--violet);
     }
 
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
     /* Hero Section - Dark */
     .hero {
-      padding: 140px 32px 80px;
+      padding: 80px 32px 80px;
       background: var(--dark);
       background-image:
         linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
@@ -425,7 +485,8 @@
   <header>
     <div class="header-content">
       <a href="../index.html" class="logo">
-        SCR<span class="cursor">▌</span>
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
       </a>
       <nav class="header-nav">
         <a href="../index.html#features">Features</a>
@@ -436,6 +497,14 @@
       </nav>
     </div>
   </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a> / <a href="index.html">Resources</a> / <span>Horror Template</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Hero -->
   <section class="hero">
