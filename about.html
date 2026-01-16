@@ -115,11 +115,45 @@
       color: var(--violet);
     }
 
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
     /* Main Content */
     .about-container {
       max-width: 1000px;
       margin: 0 auto;
-      padding: 140px 40px 100px;
+      padding: 60px 40px 100px;
       display: grid;
       grid-template-columns: 320px 1fr;
       gap: 80px;
@@ -262,7 +296,11 @@
       .about-container {
         grid-template-columns: 1fr;
         gap: 40px;
-        padding: 120px 24px 80px;
+        padding: 40px 24px 80px;
+      }
+
+      .breadcrumb-bar {
+        padding: 14px 20px;
       }
 
       .photo-section {
@@ -317,6 +355,14 @@
       </nav>
     </div>
   </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / <span>About</span>
+      </div>
+    </div>
+  </div>
 
   <main class="about-container">
     <div class="photo-section">
