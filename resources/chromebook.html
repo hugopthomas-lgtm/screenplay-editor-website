@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Write a Screenplay on Chromebook (Free) — Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="description" content="Learn how to write professional, industry-standard screenplays on your Chromebook for free using Google Docs and Screenplay Editor.">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 50px 32px 40px;
+      background: linear-gradient(180deg, var(--violet-light) 0%, #fff 100%);
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--dark);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 580px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+
+    .hero-icon {
+      margin-top: 24px;
+      margin-bottom: -20px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .hero-icon img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+
+    .hero-icon .plus {
+      font-size: 24px;
+      color: var(--gray-400);
+    }
+
+    /* Section Base */
+    section {
+      padding: 60px 32px;
+    }
+
+    .section-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .section-text {
+      font-size: 16px;
+      color: var(--gray-600);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .section-text:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+    .bg-dark .section-text { color: var(--gray-400); }
+
+    /* Problem Cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .problem-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .problem-card-icon {
+      width: 40px;
+      height: 40px;
+      background: #fee2e2;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .problem-card-icon i {
+      width: 20px;
+      height: 20px;
+      color: #ef4444;
+    }
+
+    .problem-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .problem-card p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Advantage Cards */
+    .advantage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .advantage-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .advantage-card:hover {
+      border-color: var(--violet);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(157, 123, 234, 0.12);
+    }
+
+    .advantage-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--violet-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .advantage-card-icon i {
+      width: 24px;
+      height: 24px;
+      color: var(--violet);
+    }
+
+    .advantage-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .advantage-card p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Warning Box */
+    .warning-box {
+      background: #fff8e8;
+      border: 1px solid #f0e0c0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+
+    .warning-box h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .warning-box h3 i {
+      width: 20px;
+      height: 20px;
+      color: #f59e0b;
+    }
+
+    .warning-box p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    .warning-box code {
+      background: rgba(0,0,0,0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+
+    /* Feature List */
+    .feature-list {
+      margin-top: 28px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .feature-item:last-child {
+      border-bottom: none;
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      background: #e8f5e9;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-icon i {
+      width: 18px;
+      height: 18px;
+      color: #43a047;
+    }
+
+    .feature-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .feature-item p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Steps Section */
+    .steps-container {
+      margin-top: 28px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .step-content h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    .step-content code {
+      background: var(--gray-100);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+
+    /* Tips Grid */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .tip-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .tip-card-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(157, 123, 234, 0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .tip-card-icon i {
+      width: 20px;
+      height: 20px;
+      color: var(--violet);
+    }
+
+    .tip-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .tip-card p {
+      font-size: 14px;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 80px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .cta-button i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cta-button.primary {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button.primary:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-button.secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .cta-button.secondary:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    /* Screenshot */
+    .screenshot-container {
+      margin-top: 48px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .screenshot-container img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 32px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 24px;
+    }
+
+    .footer-nav {
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .problem-grid,
+      .advantage-grid,
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 12px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html#features">Features</a>
+        <a href="../blog.html" class="highlight">Blog</a>
+        <a href="index.html">Resources</a>
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a> / <a href="index.html">Resources</a> / <span>How to Write on Chromebook</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="laptop"></i>
+      Chromebook Guide
+    </div>
+    <h1>How to Write a Screenplay on Chromebook</h1>
+    <p class="hero-subtitle">
+      You don't need Final Draft. You don't need expensive software. Here's how to write professional, industry-standard screenplays on your Chromebook for free.
+    </p>
+    <div class="hero-icon">
+      <img src="../google-docs.webp" alt="Google Docs">
+      <span class="plus">+</span>
+      <img src="../favicon.png" alt="Screenplay Editor" style="border-radius: 8px;">
+    </div>
+  </section>
+
+  <!-- Intro Section -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <p class="section-text">
+        Chromebooks are everywhere. Schools, libraries, coffee shops. They're affordable, they boot in seconds, and they're perfect for writing. There's just one problem: most screenwriting software doesn't run on ChromeOS.
+      </p>
+      <p class="section-text">
+        Final Draft? Windows and Mac only. Fade In? Same story. Movie Magic Screenwriter? Forget it. If you're a student, a teacher, or just a writer on a budget, you've probably felt stuck.
+      </p>
+      <p class="section-text">
+        The good news? You can write professional screenplays on Chromebook, right now, for free. You just need Google Docs and the right add-on.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Problem -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="x-circle"></i>
+        The Problem
+      </span>
+      <h2 class="section-title">Why most screenwriting software doesn't work on Chromebook</h2>
+      <p class="section-intro">
+        ChromeOS runs web apps, not traditional desktop software. That rules out most of the big names.
+      </p>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-card-icon">
+            <i data-lucide="ban"></i>
+          </div>
+          <div>
+            <h3>Final Draft</h3>
+            <p>Industry standard, $250 price tag, and absolutely no Chromebook support. Windows and Mac only.</p>
+          </div>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-card-icon">
+            <i data-lucide="ban"></i>
+          </div>
+          <div>
+            <h3>Fade In</h3>
+            <p>Great alternative to Final Draft, but still a desktop app. Won't run on ChromeOS.</p>
+          </div>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-card-icon">
+            <i data-lucide="ban"></i>
+          </div>
+          <div>
+            <h3>Movie Magic Screenwriter</h3>
+            <p>Another desktop-only option. No web version, no Chromebook support.</p>
+          </div>
+        </div>
+
+        <div class="problem-card">
+          <div class="problem-card-icon">
+            <i data-lucide="credit-card"></i>
+          </div>
+          <div>
+            <h3>Browser alternatives</h3>
+            <p>WriterDuet and Arc Studio work in browsers and have free tiers, but with limitations. Full features require a subscription.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Google Docs Advantage -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="check-circle"></i>
+        The Solution
+      </span>
+      <h2 class="section-title">The Google Docs advantage</h2>
+      <p class="section-intro">
+        Google Docs is already on your Chromebook. It's free, it's reliable, and it's actually great for writing screenplays.
+      </p>
+
+      <div class="advantage-grid">
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <i data-lucide="dollar-sign"></i>
+          </div>
+          <h3>Completely free</h3>
+          <p>No subscription, no license fees, no hidden costs. Just open your browser and start writing.</p>
+        </div>
+
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <i data-lucide="cloud"></i>
+          </div>
+          <h3>Cloud-native</h3>
+          <p>Your scripts save automatically to Google Drive. No lost files, no manual backups, no "where did I put that?"</p>
+        </div>
+
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <i data-lucide="users"></i>
+          </div>
+          <h3>Real-time collaboration</h3>
+          <p>Write with your co-writer in the same document. See their changes instantly. Leave comments. No more emailing drafts.</p>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <h3><i data-lucide="alert-triangle"></i> But there's a catch</h3>
+        <p>
+          Google Docs doesn't know what a screenplay looks like. You'd have to manually set margins for every element—scene headings, character names, dialogue, parentheticals—every single time. That's hours of tedious formatting instead of actual writing. Unless you automate it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Hard Way -->
+  <section class="bg-violet">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="ruler"></i>
+        The Hard Way
+      </span>
+      <h2 class="section-title">Formatting a screenplay manually</h2>
+      <p class="section-intro">
+        Here's what you'd have to do for every single element in your script:
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon" style="background: #fee2e2;">
+            <i data-lucide="type" style="color: #ef4444;"></i>
+          </div>
+          <div>
+            <h4>Scene headings</h4>
+            <p>Courier 12pt, ALL CAPS, left margin at 1.5 inches. Reset the ruler every time.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon" style="background: #fee2e2;">
+            <i data-lucide="user" style="color: #ef4444;"></i>
+          </div>
+          <div>
+            <h4>Character names</h4>
+            <p>Centered, ALL CAPS, indented 2.2 inches from the left margin. Drag the ruler again.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon" style="background: #fee2e2;">
+            <i data-lucide="message-square" style="color: #ef4444;"></i>
+          </div>
+          <div>
+            <h4>Dialogue</h4>
+            <p>Different margins than character names. More ruler dragging.</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon" style="background: #fee2e2;">
+            <i data-lucide="parentheses" style="color: #ef4444;"></i>
+          </div>
+          <div>
+            <h4>Parentheticals</h4>
+            <p>Yet another set of margins. You get the idea.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-text" style="margin-top: 28px; text-align: center; font-weight: 500;">
+        You'd spend more time fighting with formatting than actually writing your screenplay.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Easy Way -->
+  <section class="cta-section bg-dark">
+    <span class="section-label">
+      <i data-lucide="zap"></i>
+      The Easy Way
+    </span>
+    <h2 class="section-title">Screenplay Editor for Google Docs</h2>
+    <p class="section-intro">
+      A free add-on that handles all the formatting automatically. Click a button, get perfect screenplay formatting. Works natively on Chromebook.
+    </p>
+
+    <div class="feature-list" style="max-width: 600px; margin: 32px auto 0; text-align: left;">
+      <div class="feature-item" style="border-color: rgba(255,255,255,0.1);">
+        <div class="feature-icon" style="background: rgba(157, 123, 234, 0.2);">
+          <i data-lucide="check" style="color: var(--violet);"></i>
+        </div>
+        <div>
+          <h4>One-click formatting</h4>
+          <p style="color: var(--gray-400);">Scene headings, action, character, dialogue, parentheticals, transitions—all formatted instantly.</p>
+        </div>
+      </div>
+
+      <div class="feature-item" style="border-color: rgba(255,255,255,0.1);">
+        <div class="feature-icon" style="background: rgba(157, 123, 234, 0.2);">
+          <i data-lucide="check" style="color: var(--violet);"></i>
+        </div>
+        <div>
+          <h4>Industry standard</h4>
+          <p style="color: var(--gray-400);">Correct margins, Courier font, proper spacing. Your PDF meets industry formatting standards — proper margins, Courier font, correct spacing.</p>
+        </div>
+      </div>
+
+      <div class="feature-item" style="border-color: rgba(255,255,255,0.1);">
+        <div class="feature-icon" style="background: rgba(157, 123, 234, 0.2);">
+          <i data-lucide="check" style="color: var(--violet);"></i>
+        </div>
+        <div>
+          <h4>Runs on Chromebook</h4>
+          <p style="color: var(--gray-400);">It's a Google Docs add-on. If you can open Docs, you can use Screenplay Editor.</p>
+        </div>
+      </div>
+
+      <div class="feature-item" style="border-bottom: none;">
+        <div class="feature-icon" style="background: rgba(157, 123, 234, 0.2);">
+          <i data-lucide="check" style="color: var(--violet);"></i>
+        </div>
+        <div>
+          <h4>PDF & FDX export</h4>
+          <p style="color: var(--gray-400);">Export your finished screenplay as PDF or Final Draft format with one click.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screenshot-container">
+      <img src="../screenshot.png" alt="Screenplay Editor running on Google Docs">
+    </div>
+  </section>
+
+  <!-- How to Get Started -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="play"></i>
+        Get Started
+      </span>
+      <h2 class="section-title">How to install (2 minutes)</h2>
+      <p class="section-intro">
+        Six steps. No technical knowledge required.
+      </p>
+
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Open Google Docs</h3>
+            <p>Go to <code>docs.google.com</code> on your Chromebook. Create a new document or open an existing one.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Open the add-ons menu</h3>
+            <p>Click <code>Extensions → Add-ons → Get add-ons</code> in the menu bar.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Search for Screenplay Editor</h3>
+            <p>Type "Screenplay Editor" in the search bar. It's the one with the purple icon.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Install it</h3>
+            <p>Click the add-on, then click "Install". Grant the permissions it asks for (it needs to format your document).</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Open the sidebar</h3>
+            <p>Go to <code>Extensions → Screenplay Editor → Open Sidebar</code>. You'll see buttons for every screenplay element.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3>Start writing</h3>
+            <p>Type your text, click a button to format it. Or use keyboard shortcuts once you learn them. That's it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section class="bg-dark">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="lightbulb"></i>
+        Pro Tips
+      </span>
+      <h2 class="section-title">Tips for writing on Chromebook</h2>
+      <p class="section-intro">
+        Get the most out of your Chromebook writing setup.
+      </p>
+
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-icon">
+            <i data-lucide="keyboard"></i>
+          </div>
+          <h3>Learn the shortcuts</h3>
+          <p>Once you know the keyboard shortcuts, you'll never touch your mouse. Formatting becomes instant.</p>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card-icon">
+            <i data-lucide="wifi-off"></i>
+          </div>
+          <h3>Enable offline mode</h3>
+          <p>Google Docs works offline. Enable it in settings and keep writing even without internet.</p>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card-icon">
+            <i data-lucide="save"></i>
+          </div>
+          <h3>Auto-save is your friend</h3>
+          <p>Everything saves automatically to Google Drive. No more lost work because you forgot to hit save.</p>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card-icon">
+            <i data-lucide="users"></i>
+          </div>
+          <h3>Collaborate in real-time</h3>
+          <p>Share your script with co-writers. Everyone can edit simultaneously. No version control nightmares.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-section bg-violet" style="background: var(--violet-light);">
+    <h2 class="section-title" style="color: var(--dark);">Start writing today</h2>
+    <p class="section-intro" style="color: var(--gray-600);">
+      Screenplay Editor is free, works on any Chromebook, and installs in seconds. No credit card required. No account to create. Just install and write.
+    </p>
+
+    <div class="cta-buttons">
+      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button primary">
+        <i data-lucide="download"></i>
+        Install from Google Workspace Marketplace
+      </a>
+      <a href="../index.html#features" class="cta-button secondary" style="background: #fff; color: var(--dark); border-color: var(--gray-200);">
+        <i data-lucide="arrow-right"></i>
+        See all features
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR▌</div>
+      <nav class="footer-nav">
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+        <a href="index.html">Resources</a>
+      </nav>
+      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
