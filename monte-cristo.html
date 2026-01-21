@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Comte de Monte-Cristo — Layout</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #f8f6f1 0%, #ebe7df 100%);
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 40px 20px;
+    }
+
+    .header {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hint {
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .double-hint {
+      color: #e74c3c;
+      font-size: 12px;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .legend-color {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+    }
+
+    .legend-label {
+      color: #555;
+    }
+
+    .spreads-container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding-left: 60px;
+    }
+
+    .spread {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .spread-number {
+      position: absolute;
+      left: -48px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #2a2a2a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: Georgia, serif;
+    }
+
+    .spread-number.double {
+      background: #e74c3c;
+    }
+
+    .book {
+      display: flex;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      border-radius: 6px;
+      align-items: stretch;
+    }
+
+    .spine {
+      width: 4px;
+      background: linear-gradient(90deg, #d4d0c8 0%, #a89f8f 50%, #d4d0c8 100%);
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+
+    .page {
+      width: 200px;
+      min-height: 280px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.08);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .page.left {
+      border-radius: 6px 0 0 6px;
+    }
+
+    .page.right {
+      border-radius: 0 6px 6px 0;
+    }
+
+    .page.expanded {
+      width: 320px;
+      min-height: auto;
+    }
+
+    .page.double-page {
+      border: 3px solid #e74c3c;
+    }
+
+    .page.empty {
+      background: #fafafa;
+      border: 1px dashed #ddd;
+      justify-content: center;
+      align-items: center;
+      color: #ccc;
+      font-size: 12px;
+      font-style: italic;
+      cursor: default;
+    }
+
+    .page-num {
+      position: absolute;
+      top: 8px;
+      font-size: 11px;
+      opacity: 0.7;
+      font-family: Georgia, serif;
+      font-weight: 600;
+    }
+
+    .page.left .page-num { left: 12px; }
+    .page.right .page-num { right: 12px; }
+
+    .page-type {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.12);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .double-badge {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: #e74c3c;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .page-desc {
+      margin-top: 28px;
+      padding: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      font-size: 10px;
+      font-style: italic;
+      text-align: center;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .page-text {
+      flex: 1;
+      font-size: 9px;
+      line-height: 1.5;
+      overflow: hidden;
+      font-family: Georgia, serif;
+      white-space: pre-wrap;
+      padding: 4px;
+    }
+
+    .page.expanded .page-text {
+      font-size: 11px;
+      overflow: visible;
+    }
+
+    .page-text.no-text {
+      text-align: center;
+      opacity: 0.4;
+    }
+
+    .expand-hint {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8px;
+      opacity: 0.6;
+      background: rgba(0,0,0,0.1);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+
+    .page.double-page .expand-hint {
+      bottom: 28px;
+    }
+
+    .stats {
+      max-width: 600px;
+      margin: 40px auto 0;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .stats h3 {
+      font-family: Georgia, serif;
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+    }
+
+    .stat-item {
+      padding: 10px;
+      background: #f8f6f1;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+      font-family: Georgia, serif;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-top: 2px;
+    }
+
+    /* Types de pages */
+    .type-TITRE { background: #ffffff; color: #1a1a1a; border: 2px solid #1a1a1a; }
+    .type-IMG-PLEINE { background: linear-gradient(135deg, #4a90a4 0%, #2d5a6b 100%); color: #ffffff; }
+    .type-IMG-PLEINE-SOMBRE { background: linear-gradient(135deg, #2a3a4a 0%, #1a2530 100%); color: #ffffff; }
+    .type-IMG-PLEINE-ROUGE { background: linear-gradient(135deg, #8b3a3a 0%, #5c2020 100%); color: #ffffff; }
+    .type-IMG-SANS-TEXTE { background: linear-gradient(135deg, #6b8f71 0%, #3d5a42 100%); color: #ffffff; }
+    .type-GRIS-ILLUS { background: #d4cfc4; color: #2a2a2a; }
+    .type-GRIS-DOODLE { background: #e8e4dc; color: #2a2a2a; }
+    .type-GRIS-TEXTE { background: #f0ece4; color: #2a2a2a; }
+    .type-NOIR-TEXTE { background: #0f1419; color: #f5f5f0; }
+    .type-SKETCH { background: #f8f8f6; color: #1a1a1a; border: 2px dashed #888; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Le Comte de Monte-Cristo</h1>
+    <p class="subtitle">Plan de layout complet · 48 pages · 25 spreads</p>
+    <p class="hint">Cliquer sur une page pour voir le texte complet</p>
+    <p class="double-hint">🔴 = Double page (image continue sur les 2 pages)</p>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background:#ffffff;border:2px solid #1a1a1a"></div>
+        <span class="legend-label">Titre</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background:linear-gradient(135deg, #4a90a4 0%, #2d5a6b 100%)"></div>
+        <span class="legend-label">Image + Texte</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background:linear-gradient(135deg, #6b8f71 0%, #3d5a42 100%)"></div>
+        <span class="legend-label">Image seule</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background:#d4cfc4"></div>
+        <span class="legend-label">Gris + Illus</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background:#e8e4dc"></div>
+        <span class="legend-label">Gris + Doodle</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background:#f0ece4"></div>
+        <span class="legend-label">Gris + Texte</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background:#0f1419"></div>
+        <span class="legend-label">Noir + Texte</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background:#f8f8f6;border:2px dashed #888"></div>
+        <span class="legend-label">Croquis</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="spreads-container" id="spreads"></div>
+
+  <div class="stats">
+    <h3>Résumé des types de pages</h3>
+    <div class="stats-grid" id="stats"></div>
+  </div>
+
+  <script>
+    const pageTypes = {
+      'TITRE': 'Titre',
+      'IMG-PLEINE': 'Image + Texte',
+      'IMG-PLEINE-SOMBRE': 'Image sombre',
+      'IMG-PLEINE-ROUGE': 'Image rouge',
+      'IMG-SANS-TEXTE': 'Image seule',
+      'GRIS-ILLUS': 'Gris + Illus',
+      'GRIS-DOODLE': 'Gris + Doodle',
+      'GRIS-TEXTE': 'Gris + Texte',
+      'NOIR-TEXTE': 'Noir + Texte',
+      'SKETCH': 'Croquis'
+    };
+
+    const pages = [
+      { num: 1, type: 'TITRE', text: `LE COMTE DE MONTE-CRISTO\nD'après Alexandre Dumas\n\nTexte et illustrations de Hugo Thomas\n\n© 2026 Hugo Thomas / Pouvoir Magique Editions\nTous droits réservés`, desc: 'Page de titre' },
+      { num: 2, type: 'IMG-PLEINE', text: `Voici Edmond Dantès ! C'est un jeune marin de dix-neuf ans. Son bateau vient de rentrer au port de Marseille.`, desc: 'Edmond court sur les quais, souriant' },
+      { num: 3, type: 'GRIS-ILLUS', text: `Vite ! Edmond court sur les quais. Son cœur bat très fort. Il court pour retrouver Mercédès, son amoureuse. Quel bonheur ! Demain, ils vont se fiancer. Edmond sourit :\n\nRien ne pourra jamais nous séparer !`, desc: 'Edmond et Mercédès s\'enlacent, splash bleu' },
+      { num: 4, type: 'GRIS-DOODLE', text: `Mais attention... Dans l'ombre, trois hommes observent Edmond avec des yeux méchants. Le premier est jaloux de son amour. Le deuxième est jaloux de son travail. Le troisième a peur de lui.\n\nChut... Ils complotent et s'apprêtent à écrire une lettre au Roi pour dire qu'Edmond est son ennemi. Mais c'est un mensonge ! Edmond ne sait rien. Il est innocent. Mais le piège est prêt.`, desc: '3 silhouettes noires au trait' },
+      { num: 5, type: 'IMG-PLEINE', text: `Le lendemain, c'est la fête des fiançailles d'Edmond et Mercédès ! Tout le monde rit, tout le monde danse. Soudain... Des soldats entrent en cassant la porte.`, desc: 'Mercédès au centre, soldats autour' },
+      { num: 6, type: 'IMG-PLEINE', text: `Ils attrapent Edmond et l'arrêtent de force !\n\nMais qu'est-ce que j'ai fait ? Je n'ai rien fait !\n\nLes soldats prennent Edmond de force et l'emmènent loin, très loin sur la mer, jusqu'à une prison noire et effrayante : le Château d'If.`, desc: 'Edmond entouré de soldats, choqué' },
+      { num: 7, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Château d\'If, mer agitée, ciel dramatique orange/gris' },
+      { num: 8, type: 'IMG-PLEINE-SOMBRE', text: `La lourde porte du cachot se referme sur Edmond. Il se retrouve tout seul, dans le noir.`, desc: 'Edmond en larmes derrière barreaux verts' },
+      { num: 9, type: 'IMG-PLEINE-SOMBRE', text: `Edmond est effondré. Il a froid, il mange de la mauvaise soupe et dort par terre. Après quelques temps, il commence même à oublier le visage de son amoureuse.`, desc: 'Edmond recroquevillé au sol' },
+      { num: 10, type: 'IMG-PLEINE', text: `Quelques mois passent. Puis un an. Puis dix ans...`, desc: 'Prison enneigée, mer, barreaux' },
+      { num: 11, type: 'IMG-PLEINE-SOMBRE', text: `Quatorze ans s'écoulent. Edmond est toujours là, dans le noir.`, desc: 'Edmond adulte avec barbe, mur sombre' },
+      { num: 12, type: 'IMG-PLEINE-SOMBRE', text: `Un jour, il entend un bruit étrange dans le mur. On dirait que quelqu'un creuse !\n\nIl attrape un morceau de métal et creuse lui aussi. Une pierre tombe. Un vieil homme apparaît : l'Abbé Faria, un autre prisonnier. Il voulait creuser vers la mer, mais il s'est trompé de chemin.`, desc: 'Cellule sombre, lumière de fenêtre' },
+      { num: 13, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Visage de Faria dans le trou du mur' },
+      { num: 14, type: 'NOIR-TEXTE', text: `Edmond et Faria deviennent les meilleurs amis du monde. Chaque nuit, Edmond passe par le trou pour retrouver le vieil homme. Faria est très savant.\n\nIl apprend tout à Edmond : les mathématiques, l'histoire, les langues. Ensemble, ils comprennent qui a écrit la fausse lettre : Fernand, Danglars et Villefort !`, desc: 'Fond noir, doodles de souris' },
+      { num: 15, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Faria et Edmond avec bougie, cadre vignette' },
+      { num: 16, type: 'GRIS-DOODLE', text: `Mais Faria est vieux et fatigué. Juste avant de mourir, il murmure un secret à l'oreille d'Edmond :\n\nÉcoute bien... Sur l'île de Monte-Cristo, il y a un trésor caché. Un trésor immense, oublié depuis des siècles. Si tu sors d'ici, il sera pour toi.`, desc: 'Doodle coffre au trésor dans grotte' },
+      { num: 17, type: 'IMG-PLEINE-SOMBRE', text: `Faria meurt dans les bras d'Edmond, qui pleure son ami. Mais il a une idée folle pour s'échapper ! Les gardiens vont jeter le corps du vieil homme à la mer. Alors, Edmond sort le corps du sac... et il se cache à l'intérieur !`, desc: 'Sac de toile, mur de prison' },
+      { num: 18, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Gardiens jettent le sac de la falaise' },
+      { num: 19, type: 'GRIS-DOODLE', text: `Les gardiens soulèvent le sac. Ils marchent jusqu'au bord de la falaise. Edmond retient son souffle. Un, deux, trois... Les gardiens lancent le sac dans le vide !\n\nL'eau glacée frappe Edmond. Il coule vers le fond !\nVite !`, desc: 'Doodle sac qui coule avec éclaboussures' },
+      { num: 20, type: 'IMG-PLEINE-SOMBRE', text: `Il sort son couteau. Il déchire le sac. Il nage, il nage de toutes ses forces vers la surface.`, desc: 'Edmond nage sous l\'eau vers la lumière' },
+      { num: 21, type: 'IMG-PLEINE-SOMBRE', text: `Edmond sort la tête de l'eau. Il respire ! Au-dessus de lui, les étoiles brillent. Il est enfin libre !`, desc: 'Edmond émerge, ciel étoilé' },
+      { num: 22, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Carte ancienne de l\'île Monte-Cristo' },
+      { num: 23, type: 'IMG-PLEINE', text: `Au matin, des pêcheurs le trouvent. Personne ne le reconnaît avec sa barbe longue et épaisse. Mais lui n'a pas oublié le secret de Faria. Dès qu'il le peut, il prend un bateau pour se rendre sur l'île de Monte-Cristo.`, desc: 'Edmond barbu à la barre d\'un bateau' },
+      { num: 24, type: 'IMG-PLEINE-SOMBRE', text: `Il entre dans une grotte et cherche partout. Il creuse, il creuse encore... Et s'il n'y avait pas de trésor ? Et si Faria s'était trompé ?\n\nSoudain, sa pelle tape dans du métal. Edmond creuse plus vite. Il dégage la terre et découvre un coffre !`, desc: 'Edmond avec torche dans grotte sombre' },
+      { num: 25, type: 'IMG-PLEINE-SOMBRE', text: `Il ouvre le couvercle. Oh ! Ça brille ! C'est plein d'or ! Des diamants, des rubis gros comme des œufs, des colliers, des couronnes !`, desc: 'Edmond devant coffre ouvert, émerveillé' },
+      { num: 26, type: 'IMG-PLEINE-SOMBRE', text: `Edmond reste là, à genoux, sans bouger. Il n'arrive pas à y croire.`, desc: 'Nature morte du trésor (DOUBLE PAGE gauche)' },
+      { num: 27, type: 'IMG-PLEINE-SOMBRE', text: `Il est devenu l'homme le plus riche du monde.`, desc: 'Nature morte du trésor (DOUBLE PAGE droite)' },
+      { num: 28, type: 'IMG-PLEINE-ROUGE', text: `Maintenant qu'Edmond a de l'argent, il veut la vérité. Il engage des hommes pour enquêter sur ceux qui l'ont fait mettre en prison.\n\nSes hommes cherchent partout. Ils retrouvent des témoins. Ils fouillent des archives. Et petit à petit, Edmond apprend tout. Chaque mensonge. Chaque secret. Chaque crime de ses ennemis.`, desc: 'Fond rouge, documents avec X rouges' },
+      { num: 29, type: 'IMG-PLEINE', text: `Edmond s'achète un titre de comte et des habits de prince. Il met un grand chapeau noir et une cape élégante. Il retourne en France avec un nouveau nom :\n\nLe Comte de Monte-Cristo.`, desc: 'Comte de dos, haut-de-forme, cape' },
+      { num: 30, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Portrait profil du Comte, regard dur' },
+      { num: 31, type: 'IMG-PLEINE', text: `Le Comte arrive à Paris. Personne ne sait d'où il vient. Personne ne sait qui il est vraiment.`, desc: 'Paris avec Notre-Dame, calèche' },
+      { num: 32, type: 'IMG-PLEINE-SOMBRE', text: `Il achète la plus belle maison de la ville. Il organise des fêtes magnifiques. Tout le monde veut le rencontrer.`, desc: 'Manoir illuminé la nuit, invités' },
+      { num: 33, type: 'IMG-PLEINE', text: `Les trois hommes qui ont détruit Edmond viennent chez lui. Villefort, devenu le juge le plus puissant de Paris. Fernand, devenu général. Danglars, devenu banquier.\n\nIls serrent la main du Comte. Ils rient avec lui. Ils boivent son vin. Ils ne le reconnaissent pas.`, desc: 'Les 3 méchants en gros plan' },
+      { num: 34, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Le Comte bras croisés, sourire mystérieux' },
+      { num: 35, type: 'GRIS-ILLUS', text: `Le Comte les regarde en souriant. Eux ne voient qu'un homme charmant. Ils ne savent pas qu'il va les piéger.\n\nUn jour, le Comte invite Villefort à dîner. Au dessert, il lui raconte l'histoire d'un jeune homme innocent, jeté en prison à cause d'un mensonge. Villefort devient tout blanc. Comment peut-il savoir tout cela ? Le comte sourit.\n\nJe sais tout, monsieur le juge.`, desc: 'Villefort effrayé, splash vert' },
+      { num: 36, type: 'GRIS-ILLUS', text: `Le lendemain, au tribunal, le Comte laisse entrer une Princesse. Elle pointe Fernand du doigt devant tout le monde :\n\nCet homme a trahi mon père et m'a vendue comme esclave !\n\nHumilié, Fernand court se cacher chez lui. Mais c'est trop tard : sa femme et son fils, dégoûtés, ont déjà fait leurs valises.`, desc: 'Fernand horrifié, splash rouge' },
+      { num: 37, type: 'GRIS-ILLUS', text: `Enfin, le Comte tend un piège à Danglars. Il fait courir une fausse rumeur sur la bourse. Le banquier mise tout... et il perd tout. Quand il court ouvrir son grand coffre-fort pour vérifier ce qu'il lui reste, il pousse un cri terrible :\n\nVide ! Il est vide !\n\nLes trois méchants, qui riaient autrefois, ne rient plus du tout. Le Comte les regarde perdre tout ce qu'ils ont, un par un.`, desc: 'Danglars désespéré, splash jaune/or' },
+      { num: 38, type: 'IMG-PLEINE', text: `Le comte regarde ses ennemis tomber, un à un. Mais il lui reste une dernière personne à voir : Mercédès, son amoureuse. Quand elle le voit entrer, elle le reconnaît tout de suite.`, desc: 'Comte de dos dans rue de Paris' },
+      { num: 39, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Mercédès vieillie, cheveux gris, regard triste' },
+      { num: 40, type: 'GRIS-DOODLE', text: `Elle s'approche pour le prendre dans ses bras, mais le Comte recule. Une larme coule sur sa joue. Pour punir les méchants, il a dû devenir méchant lui aussi. Son cœur est devenu dur comme de la pierre. Il n'y a plus de place pour l'amour.\n\nIls se regardent une dernière fois. Ils savent que c'est fini. Le gentil Edmond est resté dans sa prison pour toujours. Le Comte tourne les talons et s'en va.`, desc: 'Doodle cœur en pierre' },
+      { num: 41, type: 'IMG-PLEINE', text: `Le Comte a fini sa mission. Les méchants sont punis. Pourtant, il ne se sent pas plus joyeux. Il comprend que la vengeance ne peut pas réparer le passé. Elle ne lui rendra pas ses années perdues, ni son amour perdu.`, desc: 'Comte sur banc, feuilles d\'automne' },
+      { num: 42, type: 'SKETCH', text: `—`, desc: 'FLASHBACK : jeune Edmond et Mercédès souriants' },
+      { num: 43, type: 'IMG-PLEINE', text: `Alors, avant de partir, il fait une dernière bonne action. Il offre son trésor à un jeune ami courageux, qui a toute la vie devant lui. Il lui confie son secret :\n\nDans la vie, toute la sagesse est là : Attendre et Espérer.`, desc: 'Comte donne coffre à un jeune garçon' },
+      { num: 44, type: 'IMG-SANS-TEXTE', text: `—`, desc: 'Navire sur mer (DOUBLE PAGE gauche)' },
+      { num: 45, type: 'IMG-PLEINE', text: `Le cœur enfin apaisé, le Comte monte sur son navire. Il déploie les voiles blanches et s'éloigne vers le large. Bientôt, il n'est plus qu'un petit point à l'horizon.\n\nEdmond Dantès est enfin libre.`, desc: 'Coucher de soleil sur mer (DOUBLE PAGE droite)' },
+      { num: 46, type: 'GRIS-TEXTE', text: `À propos de ce livre\n\nLe Comte de Monte-Cristo a été écrit par Alexandre Dumas en 1844. C'est l'un des romans d'aventure les plus célèbres au monde : plus de 1 000 pages, des trahisons, un trésor, une évasion impossible et une vengeance qui dure des années. L'intrigue est d'ailleurs inspirée d'un fait divers réel : l'histoire de Pierre Picaud, un cordonnier faussement accusé d'espionnage.\n\nDumas était un personnage incroyable. Petit-fils d'une esclave et d'un marquis, il est devenu l'écrivain le plus populaire de France. Il a écrit plus de 300 œuvres, dépensé des fortunes, construit un château qu'il a appelé "Monte-Cristo", et fait la fête tous les soirs. Il dictait parfois plusieurs romans en même temps à différents secrétaires. On ne sait pas quand il dormait. Il est mort ruiné.\n\nÀ l'époque, les romans paraissaient en feuilleton dans les journaux, un chapitre par semaine. Les gens attendaient la suite comme on attend aujourd'hui le prochain épisode d'une série.`, desc: 'Texte À propos' },
+      { num: 47, type: 'GRIS-TEXTE', text: `Edmond Dantès n'a pas existé, mais le Château d'If, lui, est bien réel. C'est une forteresse sur une île au large de Marseille. On peut encore la visiter aujourd'hui. On y montre "la cellule d'Edmond Dantès" et le tunnel vers la cellule de Faria. Le roman est devenu plus réel que la réalité !\n\nSi un jour vous lisez le vrai Comte de Monte-Cristo (et on vous le souhaite !), vous retrouverez tout ce qui est dans ce livre, plus des dizaines d'autres personnages, des empoisonnements, des duels, et des rebondissements qu'on n'a pas eu la place de raconter. Prévoyez du temps.\n\nEn attendant, n'oubliez pas : attendre et espérer.`, desc: 'Suite À propos' },
+      { num: 48, type: 'GRIS-TEXTE', text: `Dans la même collection\n\nWalden ou La Vie dans les Bois\nd'après Henry David Thoreau\n\nGuerre et Paix\nd'après Léon Tolstoï\n\n—\n\nPouvoir Magique Éditions\n\nTexte : Hugo Thomas · Illustrations : Hugo Thomas\nD'après l'œuvre d'Alexandre Dumas, Le Comte de Monte-Cristo (1844).\n© Pouvoir Magique Éditions, 2025.`, desc: 'Collection + mentions légales' }
+    ];
+
+    const doublePageSpreads = [[26, 27], [44, 45]];
+
+    function isDoubleSpread(leftNum, rightNum) {
+      return doublePageSpreads.some(([l, r]) => l === leftNum && r === rightNum);
+    }
+
+    function createPage(page, position, isDouble) {
+      const isNoText = page.text === '—';
+      const div = document.createElement('div');
+      div.className = `page ${position} type-${page.type}${isDouble ? ' double-page' : ''}`;
+
+      div.innerHTML = `
+        <div class="page-num">${page.num}</div>
+        <div class="page-type">${pageTypes[page.type]}</div>
+        ${isDouble ? '<div class="double-badge">DOUBLE PAGE</div>' : ''}
+        <div class="page-desc">${page.desc}</div>
+        <div class="page-text${isNoText ? ' no-text' : ''}">${isNoText ? '(pas de texte)' : page.text}</div>
+        ${!isNoText && page.text.length > 150 ? '<div class="expand-hint">Cliquer pour voir tout</div>' : ''}
+      `;
+
+      div.addEventListener('click', () => {
+        div.classList.toggle('expanded');
+      });
+
+      return div;
+    }
+
+    function createEmptyPage(position) {
+      const div = document.createElement('div');
+      div.className = `page ${position} empty`;
+      div.textContent = '(vide)';
+      return div;
+    }
+
+    function createSpread(leftPage, rightPage, spreadNum, isDouble) {
+      const spread = document.createElement('div');
+      spread.className = 'spread';
+
+      const numDiv = document.createElement('div');
+      numDiv.className = `spread-number${isDouble ? ' double' : ''}`;
+      numDiv.textContent = spreadNum;
+      spread.appendChild(numDiv);
+
+      const book = document.createElement('div');
+      book.className = 'book';
+
+      if (leftPage) {
+        book.appendChild(createPage(leftPage, 'left', isDouble));
+      } else {
+        book.appendChild(createEmptyPage('left'));
+      }
+
+      const spine = document.createElement('div');
+      spine.className = 'spine';
+      book.appendChild(spine);
+
+      if (rightPage) {
+        book.appendChild(createPage(rightPage, 'right', isDouble));
+      } else {
+        book.appendChild(createEmptyPage('right'));
+      }
+
+      spread.appendChild(book);
+      return spread;
+    }
+
+    // Build spreads
+    const container = document.getElementById('spreads');
+
+    // Spread 1: empty + page 1
+    container.appendChild(createSpread(null, pages[0], 1, false));
+
+    // Spreads 2-24: pages 2-3, 4-5, etc.
+    for (let i = 1; i < pages.length - 1; i += 2) {
+      const leftPage = pages[i];
+      const rightPage = pages[i + 1];
+      const isDouble = isDoubleSpread(leftPage.num, rightPage.num);
+      container.appendChild(createSpread(leftPage, rightPage, Math.floor(i/2) + 2, isDouble));
+    }
+
+    // Spread final: page 48 + empty
+    container.appendChild(createSpread(pages[pages.length - 1], null, 25, false));
+
+    // Stats
+    const typeCounts = {};
+    pages.forEach(p => {
+      const baseType = p.type.replace('-SOMBRE', '').replace('-ROUGE', '');
+      typeCounts[baseType] = (typeCounts[baseType] || 0) + 1;
+    });
+
+    const statsGrid = document.getElementById('stats');
+    Object.entries(typeCounts).forEach(([key, value]) => {
+      const item = document.createElement('div');
+      item.className = 'stat-item';
+      item.innerHTML = `
+        <div class="stat-value">${value}</div>
+        <div class="stat-label">${key}</div>
+      `;
+      statsGrid.appendChild(item);
+    });
+  </script>
+</body>
+</html>
