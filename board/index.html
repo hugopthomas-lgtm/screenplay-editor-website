@@ -4,13 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scene Board - Screenplay Editor</title>
+  <link rel="icon" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; overflow: hidden; }
-    iframe { width: 100%; height: 100%; border: none; }
+    html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', sans-serif; }
+
+    .header {
+      height: 52px;
+      background: white;
+      border-bottom: 1px solid #E5E7EB;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #6366F1, #8B5CF6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1F2937;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #6B7280;
+      padding-left: 16px;
+      border-left: 1px solid #E5E7EB;
+    }
+
+    .back-link {
+      margin-left: auto;
+      font-size: 13px;
+      color: #6366F1;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .back-link:hover {
+      background: #EEF2FF;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100% - 52px);
+      border: none;
+    }
   </style>
 </head>
 <body>
+  <header class="header">
+    <div class="logo">SE</div>
+    <span class="title">Scene Board</span>
+    <span class="subtitle">Organize your screenplay visually</span>
+    <a href="https://screenplayeditor.app" class="back-link">← Back to Screenplay Editor</a>
+  </header>
   <iframe src="https://www.tldraw.com/" allow="clipboard-read; clipboard-write"></iframe>
 </body>
 </html>
