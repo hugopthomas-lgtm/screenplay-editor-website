@@ -567,34 +567,16 @@
 </head>
 
 <body>
-  <!-- Early Access Modal -->
-  <div id="earlyAccessModal" class="modal-overlay hidden">
+  <!-- Choice Modal - shown when coming from add-on with scenes -->
+  <div id="choiceModal" class="modal-overlay hidden">
     <div class="modal">
-      <div class="modal-badge">BETA</div>
-      <h2>Scene Board</h2>
-      <p class="modal-subtitle">Your visual writing space.</p>
-      <div class="modal-features">
-        <div class="modal-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          Infinite canvas
-        </div>
-        <div class="modal-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          Images & notes
-        </div>
-        <div class="modal-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          Export/Import
-        </div>
+      <div class="modal-badge">SCENE BOARD</div>
+      <h2>Import your scenes?</h2>
+      <p class="modal-subtitle">We found <span id="sceneCount">0</span> scenes in your screenplay. Would you like to create cards for each one?</p>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <button class="btn btn-primary" onclick="openWithScenes()">Yes, create cards</button>
+        <button class="btn btn-secondary" onclick="openFresh()">No, start fresh</button>
       </div>
-      <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email">
-      <button class="btn btn-primary" onclick="submitEmail()">Get Immediate Access</button>
     </div>
   </div>
 
@@ -693,34 +675,64 @@
   </footer>
 
   <script>
-    // Email collection is now handled by the add-on sidebar
-    // This page is just a landing page - direct access allowed
-
     // Get scenes param from URL (passed from add-on)
     function getScenesParam() {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get('scenes');
     }
 
-    // Open board directly
-    function openBoard() {
-      const scenes = getScenesParam();
-      if (scenes) {
-        window.location.href = '../board/?scenes=' + encodeURIComponent(scenes);
-      } else {
-        window.location.href = '../board/?fresh=true';
+    // Count scenes from encoded data
+    function countScenes(encoded) {
+      try {
+        const decoded = JSON.parse(atob(encoded));
+        return Array.isArray(decoded) ? decoded.length : 0;
+      } catch (e) {
+        return 0;
       }
     }
 
-    // Open demo directly
+    // Open board with scenes
+    function openWithScenes() {
+      const scenes = getScenesParam();
+      window.location.href = '../board/?scenes=' + encodeURIComponent(scenes);
+    }
+
+    // Open board fresh (no scenes)
+    function openFresh() {
+      window.location.href = '../board/';
+    }
+
+    // Open board (from page buttons)
+    function openBoard() {
+      const scenes = getScenesParam();
+      if (scenes) {
+        // If we have scenes, show the choice modal
+        showChoiceModal();
+      } else {
+        window.location.href = '../board/';
+      }
+    }
+
+    // Open demo
     function openDemo() {
       window.location.href = '../board/?demo=true';
     }
 
-    // Remove modal on load (no longer needed)
+    // Show choice modal
+    function showChoiceModal() {
+      const modal = document.getElementById('choiceModal');
+      const scenes = getScenesParam();
+      const count = countScenes(scenes);
+      document.getElementById('sceneCount').textContent = count;
+      modal.classList.remove('hidden');
+    }
+
+    // On page load, check if we have scenes and show modal
     (function() {
-      const modal = document.getElementById('earlyAccessModal');
-      if (modal) modal.remove();
+      const scenes = getScenesParam();
+      if (scenes) {
+        showChoiceModal();
+      }
     })();
   </script>
 </body>
