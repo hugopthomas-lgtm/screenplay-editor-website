@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Freemium — Documentation interne</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--gray-50);
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 32px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--gray-500);
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--violet);
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--gray-700);
+    }
+
+    .highlight {
+      background: var(--violet-light);
+      border-left: 3px solid var(--violet);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+
+    .highlight p {
+      margin: 0;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .page-limits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .limit-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .limit-card.recommended {
+      border-color: var(--violet);
+      background: var(--violet-light);
+    }
+
+    .limit-number {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .limit-label {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-top: 4px;
+    }
+
+    .limit-card.recommended .limit-label {
+      color: var(--violet-dark);
+      font-weight: 600;
+    }
+
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .feature-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .feature-tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .feature-tag.painkiller {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .feature-tag.pro {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .feature-tag.vision {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .feature-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .feature-description {
+      color: var(--gray-600);
+      margin-bottom: 16px;
+    }
+
+    .feature-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feature-bullets li {
+      padding: 8px 0;
+      padding-left: 24px;
+      position: relative;
+      color: var(--gray-700);
+      font-size: 14px;
+    }
+
+    .feature-bullets li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--violet);
+    }
+
+    .option-note {
+      background: var(--gray-100);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    .option-note strong {
+      color: var(--dark);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--gray-200);
+      margin: 48px 0;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--gray-500);
+      font-size: 13px;
+      margin-top: 48px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="badge">Documentation interne</div>
+    <h1>Screenplay Editor</h1>
+    <p class="subtitle">Roadmap monétisation — Janvier 2026</p>
+
+    <h2>Modèle économique</h2>
+
+    <h3>Freemium avec limite de pages</h3>
+
+    <p>Le formatage est la valeur. Gate la valeur.</p>
+
+    <div class="highlight">
+      <p>L'utilisateur peut tout tester sans friction, mais doit payer pour les vrais projets (longs métrages, séries).</p>
+    </div>
+
+    <div class="page-limits">
+      <div class="limit-card">
+        <div class="limit-number">10</div>
+        <div class="limit-label">pages — agressif</div>
+      </div>
+      <div class="limit-card recommended">
+        <div class="limit-number">20-30</div>
+        <div class="limit-label">pages — sweet spot</div>
+      </div>
+      <div class="limit-card">
+        <div class="limit-number">50</div>
+        <div class="limit-label">pages — généreux</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2>Features Premium</h2>
+
+    <!-- Format My Document -->
+    <div class="feature-card">
+      <div class="feature-header">
+        <span class="feature-tag painkiller">Pain-killer</span>
+        <h3 class="feature-title">Format My Document</h3>
+      </div>
+      <p class="feature-description">
+        Un clic → tout le document est reformaté proprement. La feature qui transforme l'outil d'écriture en outil de production.
+      </p>
+      <ul class="feature-bullets">
+        <li>Importer un script mal formaté et le nettoyer instantanément</li>
+        <li>Convertir un premier jet écrit dans Word</li>
+        <li>Cible : assistants réal, directeurs de prod, script doctors</li>
+      </ul>
+      <div class="option-note">
+        <strong>Option possible :</strong> one-shot à 0.99€ par document
+      </div>
+    </div>
+
+    <!-- CONT'D Automatique -->
+    <div class="feature-card">
+      <div class="feature-header">
+        <span class="feature-tag pro">Pro</span>
+        <h3 class="feature-title">CONT'D Automatique</h3>
+      </div>
+      <p class="feature-description">
+        Gestion automatique des "(CONT'D)" quand un personnage parle sur plusieurs pages. Standard de l'industrie, absent de Google Docs natif.
+      </p>
+      <ul class="feature-bullets">
+        <li>Détection automatique des dialogues coupés par un saut de page</li>
+        <li>Ajout/suppression dynamique selon le contexte</li>
+        <li>Respecte les conventions US et FR</li>
+      </ul>
+    </div>
+
+    <!-- AI Film Screenshots -->
+    <div class="feature-card">
+      <div class="feature-header">
+        <span class="feature-tag vision">Vision</span>
+        <h3 class="feature-title">AI Film Screenshots Generator</h3>
+      </div>
+      <p class="feature-description">
+        Générer des images de "captures d'écran" de ton film à partir du scénario. Pour les dossiers de prod, les pitchs, la préviz.
+      </p>
+      <ul class="feature-bullets">
+        <li>Sélectionner une scène → générer une image cinématographique</li>
+        <li>Style visuel personnalisable (références réalisateurs, LUTs, époques)</li>
+        <li>Export en planche contact / mood board</li>
+        <li>Intégration directe dans le document ou export séparé</li>
+      </ul>
+    </div>
+
+    <p class="footer-note">Document interne — Ne pas diffuser</p>
+
+  </div>
+</body>
+</html>
