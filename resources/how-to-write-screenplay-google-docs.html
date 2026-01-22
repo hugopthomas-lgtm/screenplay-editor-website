@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How to Write a Screenplay in Google Docs (2026) — Screenplay Editor</title>
+  <title>How to Write a Screenplay in Google Docs (Step-by-Step Guide for Beginners) | Screenplay Editor</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../favicon.png">
-  <meta name="description" content="Learn how to write and format a professional screenplay in Google Docs. Complete guide with formatting tips, margins, and the tools you need.">
+  <meta name="description" content="Learn how to write a properly formatted screenplay in Google Docs: structure, formatting rules, common mistakes, and a free template for beginners.">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * {
@@ -161,7 +161,7 @@
 
     /* Hero Section */
     .hero {
-      padding: 50px 32px 0;
+      padding: 50px 32px 40px;
       background: linear-gradient(180deg, var(--violet-light) 0%, #fff 100%);
       text-align: center;
     }
@@ -187,22 +187,28 @@
     }
 
     .hero h1 {
-      font-size: 48px;
+      font-size: 42px;
       font-weight: 700;
       line-height: 1.15;
       margin-bottom: 20px;
       color: var(--dark);
-      max-width: 700px;
+      max-width: 800px;
       margin-left: auto;
       margin-right: auto;
     }
 
     .hero-subtitle {
-      font-size: 18px;
+      font-size: 17px;
       color: var(--gray-600);
-      max-width: 540px;
-      margin: 0 auto 28px;
+      max-width: 640px;
+      margin: 0 auto 16px;
       line-height: 1.7;
+    }
+
+    .last-updated {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 20px;
     }
 
     .hero-icon {
@@ -215,65 +221,28 @@
       height: auto;
     }
 
-    .hero-scroll {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--violet);
-      font-weight: 500;
-      font-size: 14px;
-    }
-
-    .hero-scroll i {
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(6px); }
-      60% { transform: translateY(3px); }
-    }
-
     /* Section Base */
     section {
-      padding: 40px 32px;
+      padding: 50px 32px;
     }
 
     .section-inner {
-      max-width: 900px;
+      max-width: 800px;
       margin: 0 auto;
     }
 
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--violet);
-      margin-bottom: 16px;
-    }
-
-    .section-label i {
-      width: 18px;
-      height: 18px;
-    }
-
     .section-title {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       color: var(--dark);
     }
 
     .section-intro {
-      font-size: 17px;
+      font-size: 16px;
       color: var(--gray-600);
-      max-width: 600px;
       line-height: 1.7;
+      margin-bottom: 24px;
     }
 
     /* Alternating backgrounds */
@@ -290,277 +259,62 @@
     .bg-dark * { color: #fff; }
     .bg-dark .section-intro { color: var(--gray-400); }
 
-    /* Why Google Docs Section */
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 32px;
-    }
-
-    .why-card {
-      background: #fff;
-      border: 1px solid var(--gray-200);
-      border-radius: 16px;
-      padding: 28px;
-      transition: all 0.2s;
-    }
-
-    .why-card:hover {
-      border-color: var(--violet);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(157, 123, 234, 0.12);
-    }
-
-    .why-card-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--violet-light);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* Content Styles */
+    .content-text {
+      font-size: 16px;
+      color: var(--gray-700);
+      line-height: 1.8;
       margin-bottom: 16px;
     }
 
-    .why-card-icon i {
-      width: 24px;
-      height: 24px;
-      color: var(--violet);
+    .content-text strong {
+      color: var(--dark);
     }
 
-    .why-card h3 {
-      font-size: 17px;
+    .content-list {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+
+    .content-list li {
+      font-size: 15px;
+      color: var(--gray-700);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .content-list li strong {
+      color: var(--dark);
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: var(--violet-light);
+      border: 1px solid var(--violet-soft);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .highlight-box.warning {
+      background: #fff8e8;
+      border-color: #f0e0c0;
+    }
+
+    .highlight-box h3 {
+      font-size: 16px;
       font-weight: 600;
       margin-bottom: 8px;
+      color: var(--dark);
     }
 
-    .why-card p {
-      font-size: 14px;
+    .highlight-box p {
+      font-size: 15px;
       color: var(--gray-600);
       line-height: 1.6;
     }
 
-    /* Checklist Section */
-    .checklist {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .checklist-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      background: #fff;
-      border: 1px solid var(--gray-200);
-      border-radius: 12px;
-      padding: 20px;
-    }
-
-    .checklist-icon {
-      width: 28px;
-      height: 28px;
-      background: #e8f5e9;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .checklist-icon i {
-      width: 16px;
-      height: 16px;
-      color: #43a047;
-    }
-
-    .checklist-item h4 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .checklist-item p {
-      font-size: 13px;
-      color: var(--gray-500);
-    }
-
-    /* Document Setup Section */
-    .setup-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin-top: 28px;
-      align-items: start;
-    }
-
-    .setup-card {
-      background: #fff;
-      border: 1px solid var(--gray-200);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    .setup-card-header {
-      background: var(--violet-light);
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .setup-card-header i {
-      width: 20px;
-      height: 20px;
-      color: var(--violet);
-    }
-
-    .setup-card-header h3 {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .setup-card-body {
-      padding: 24px;
-    }
-
-    .setup-table {
-      width: 100%;
-      font-size: 14px;
-    }
-
-    .setup-table tr {
-      border-bottom: 1px solid var(--gray-100);
-    }
-
-    .setup-table tr:last-child {
-      border-bottom: none;
-    }
-
-    .setup-table td {
-      padding: 12px 0;
-    }
-
-    .setup-table td:first-child {
-      color: var(--gray-500);
-    }
-
-    .setup-table td:last-child {
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      text-align: right;
-    }
-
-    .setup-note {
-      background: var(--gray-50);
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--gray-600);
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .setup-note i {
-      width: 16px;
-      height: 16px;
-      color: var(--violet);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    /* Screenplay Examples */
-    .screenplay-block {
-      background: #fffef8;
-      border: 1px solid #e8e4d4;
-      border-radius: 12px;
-      overflow: hidden;
-      margin: 32px 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .screenplay-header {
-      background: #f8f6f0;
-      padding: 12px 20px;
-      border-bottom: 1px solid #e8e4d4;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .screenplay-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--gray-500);
-    }
-
-    .screenplay-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .screenplay-dots span {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--gray-300);
-    }
-
-    .screenplay-dots span:nth-child(1) { background: #ff5f56; }
-    .screenplay-dots span:nth-child(2) { background: #ffbd2e; }
-    .screenplay-dots span:nth-child(3) { background: #27ca40; }
-
-    .screenplay-content {
-      padding: 32px 48px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 13px;
-      line-height: 1.5;
-      color: #222;
-    }
-
-    .screenplay-content .scene-heading {
-      font-weight: bold;
-      margin-bottom: 16px;
-    }
-
-    .screenplay-content .action {
-      margin-bottom: 16px;
-      max-width: 480px;
-    }
-
-    .screenplay-content .character {
-      margin-left: 180px;
-      margin-bottom: 0;
-      font-weight: bold;
-    }
-
-    .screenplay-content .parenthetical {
-      margin-left: 140px;
-      font-style: italic;
-      margin-bottom: 0;
-    }
-
-    .screenplay-content .dialogue {
-      margin-left: 100px;
-      margin-right: 140px;
-      margin-bottom: 16px;
-    }
-
-    .screenplay-content .transition {
-      text-align: right;
-      margin-top: 16px;
-    }
-
-    /* Elements Grid */
+    /* Formatting Elements Grid */
     .elements-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -571,75 +325,241 @@
     .element-card {
       background: #fff;
       border: 1px solid var(--gray-200);
-      border-radius: 16px;
-      padding: 24px;
-      transition: all 0.2s;
-    }
-
-    .element-card:hover {
-      border-color: var(--violet);
-    }
-
-    .element-tag {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      background: var(--violet-light);
-      color: var(--violet);
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-bottom: 12px;
+      border-radius: 12px;
+      padding: 20px;
     }
 
     .element-card h3 {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       margin-bottom: 8px;
+      color: var(--dark);
     }
 
     .element-card p {
       font-size: 14px;
       color: var(--gray-600);
       line-height: 1.6;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .element-example {
       background: #fffef8;
       border: 1px solid #e8e4d4;
-      border-radius: 8px;
-      padding: 14px 16px;
+      border-radius: 6px;
+      padding: 12px 14px;
       font-family: 'Courier New', Courier, monospace;
       font-size: 12px;
       color: #333;
     }
 
+    /* Steps */
+    .steps-list {
+      counter-reset: step;
+      margin: 28px 0;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .step-item:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .step-content p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    .step-content code {
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+
+    /* Mistakes List */
+    .mistakes-list {
+      margin: 24px 0;
+    }
+
+    .mistake-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .mistake-item:last-child {
+      border-bottom: none;
+    }
+
+    .mistake-icon {
+      width: 24px;
+      height: 24px;
+      background: #fee2e2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mistake-icon i {
+      width: 14px;
+      height: 14px;
+      color: #dc2626;
+    }
+
+    .mistake-text {
+      font-size: 15px;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* Template Section */
+    .template-box {
+      background: #fff;
+      border: 2px solid var(--violet);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    .template-box h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .template-features {
+      text-align: left;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .template-features li {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-bottom: 8px;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .template-features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--violet);
+      font-weight: 600;
+    }
+
+    .template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--violet);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 16px;
+      transition: all 0.2s;
+    }
+
+    .template-btn:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .template-btn i {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Feature List */
+    .feature-list {
+      margin: 20px 0;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .feature-check {
+      width: 20px;
+      height: 20px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .feature-check i {
+      width: 12px;
+      height: 12px;
+      color: #43a047;
+    }
+
+    .feature-text {
+      font-size: 15px;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+
     /* CTA Section */
     .cta-section {
       text-align: center;
-      padding: 100px 32px;
+      padding: 80px 32px;
     }
 
     .cta-section .section-title {
-      font-size: 36px;
+      font-size: 32px;
       margin-bottom: 12px;
       color: #fff;
     }
 
     .cta-section .section-intro {
       max-width: 480px;
-      margin: 0 auto 32px;
+      margin: 0 auto 28px;
       color: var(--gray-400);
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
     }
 
     .cta-button {
@@ -651,140 +571,18 @@
       font-size: 15px;
       font-weight: 600;
       transition: all 0.2s;
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
     }
 
     .cta-button i {
       width: 18px;
       height: 18px;
-    }
-
-    .cta-button.primary {
-      background: var(--violet);
-      color: #fff;
-    }
-
-    .cta-button.primary:hover {
-      background: var(--violet-dark);
-      transform: translateY(-2px);
-    }
-
-    .cta-button.secondary {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .cta-button.secondary:hover {
-      background: rgba(255,255,255,0.15);
-      border-color: rgba(255,255,255,0.3);
-    }
-
-    /* Screenshot */
-    .screenshot-container {
-      margin-top: 60px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .screenshot-container img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    }
-
-    /* Steps Section */
-    .steps-container {
-      margin-top: 28px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 32px;
-      padding: 32px 0;
-      border-bottom: 1px solid var(--gray-200);
-    }
-
-    .step:last-child {
-      border-bottom: none;
-    }
-
-    .step-number {
-      width: 56px;
-      height: 56px;
-      background: var(--violet);
-      color: #fff;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      font-weight: 700;
-    }
-
-    .step-content h3 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .step-content p {
-      font-size: 15px;
-      color: var(--gray-600);
-      line-height: 1.7;
-    }
-
-    .step-content code {
-      background: var(--gray-100);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-    }
-
-    /* Export Section */
-    .export-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 28px;
-    }
-
-    .export-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 28px;
-    }
-
-    .export-card-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(157, 123, 234, 0.2);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    .export-card-icon i {
-      width: 24px;
-      height: 24px;
-      color: var(--violet);
-    }
-
-    .export-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .export-card p {
-      font-size: 14px;
-      color: var(--gray-400);
-      line-height: 1.6;
     }
 
     /* FAQ Section */
@@ -794,7 +592,7 @@
 
     .faq-item {
       border-bottom: 1px solid var(--gray-200);
-      padding: 28px 0;
+      padding: 24px 0;
     }
 
     .faq-item:first-child {
@@ -802,58 +600,27 @@
     }
 
     .faq-question {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .faq-question i {
-      width: 20px;
-      height: 20px;
-      color: var(--violet);
-      flex-shrink: 0;
-      margin-top: 2px;
+      margin-bottom: 10px;
+      color: var(--dark);
     }
 
     .faq-answer {
       font-size: 15px;
       color: var(--gray-600);
       line-height: 1.7;
-      padding-left: 32px;
     }
 
-    /* Masterpieces Section */
-    .masterpieces-grid {
-      display: flex;
-      gap: 32px;
-      justify-content: center;
-      margin-top: 28px;
+    /* Internal Link */
+    .internal-link {
+      color: var(--violet);
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
-    .masterpiece-card {
-      text-align: center;
-      max-width: 200px;
-    }
-
-    .masterpiece-card img {
-      width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      margin-bottom: 16px;
-    }
-
-    .masterpiece-card h4 {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .masterpiece-card p {
-      font-size: 11px;
-      color: var(--gray-500);
+    .internal-link:hover {
+      color: var(--violet-dark);
     }
 
     /* Footer */
@@ -901,42 +668,16 @@
     /* Responsive */
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 32px;
+        font-size: 28px;
       }
 
-      .why-grid,
-      .checklist,
-      .setup-container,
-      .elements-grid,
-      .export-grid {
+      .elements-grid {
         grid-template-columns: 1fr;
       }
 
-      .step {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .screenplay-content {
-        padding: 24px;
-      }
-
-      .screenplay-content .character {
-        margin-left: 60px;
-      }
-
-      .screenplay-content .parenthetical {
-        margin-left: 40px;
-      }
-
-      .screenplay-content .dialogue {
-        margin-left: 20px;
-        margin-right: 20px;
-      }
-
-      .cta-buttons {
+      .step-item {
         flex-direction: column;
-        align-items: center;
+        gap: 12px;
       }
 
       .footer-nav a {
@@ -951,7 +692,7 @@
   <header>
     <div class="header-content">
       <a href="../index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="mark">SCR<span class="cursor">|</span></span>
         <span class="full-name">SCREENPLAY EDITOR</span>
       </a>
       <nav class="header-nav">
@@ -967,7 +708,7 @@
   <div class="breadcrumb-bar">
     <div class="breadcrumb-content">
       <div class="breadcrumb">
-        <a href="../index.html">Home</a> / <a href="index.html">Resources</a> / <span>How to Write a Screenplay</span>
+        <a href="../index.html">Home</a> / <a href="index.html">Resources</a> / <span>How to Write a Screenplay in Google Docs</span>
       </div>
     </div>
   </div>
@@ -976,512 +717,404 @@
   <section class="hero">
     <div class="hero-badge">
       <i data-lucide="book-open"></i>
-      Complete Guide
+      Beginner's Guide
     </div>
-    <h1>How to Write a Screenplay in Google Docs (2026 Guide)</h1>
+    <h1>How to Write a Screenplay in Google Docs (Step-by-Step Guide for Beginners)</h1>
     <p class="hero-subtitle">
-      No expensive software. No steep learning curve. Just you, Google Docs, and everything you need to write a properly formatted script.
+      This guide covers everything you need to write a properly formatted screenplay in Google Docs: the essential formatting rules, a step-by-step workflow, common mistakes to avoid, and a free template to get started.
     </p>
+    <p class="last-updated">Last updated: January 22, 2026</p>
     <div class="hero-icon">
       <img src="../google-docs.webp" alt="Google Docs">
     </div>
   </section>
 
-  <!-- Masterpieces Referenced -->
-  <section class="bg-gray" style="padding-top: 16px; padding-bottom: 24px;">
-    <div class="section-inner" style="text-align: center;">
-      <span class="section-label">
-        <i data-lucide="award"></i>
-        Reference Material
-      </span>
-      <h2 class="section-title">Masterpieces Referenced in This Guide</h2>
-      <p class="section-intro" style="margin-left: auto; margin-right: auto;">
-        The examples in this guide were drawn from some of cinema's most influential works. We encourage you to study these films closely.
-      </p>
-
-      <div class="masterpieces-grid">
-        <div class="masterpiece-card">
-          <img src="../sushi.jpg" alt="Dead Sushi movie poster">
-          <h4>Dead Sushi</h4>
-          <p>Noboru Iguchi, 2012</p>
-        </div>
-        <div class="masterpiece-card">
-          <img src="../cannibals.jpg" alt="Cannibal Women in the Avocado Jungle of Death movie poster">
-          <h4>Cannibal Women in the Avocado Jungle of Death</h4>
-          <p>J.F. Lawton, 1989</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Google Docs -->
-  <section id="why" class="bg-white">
-    <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="sparkles"></i>
-        Why Google Docs?
-      </span>
-      <h2 class="section-title">You don't need Final Draft. Seriously.</h2>
-      <p class="section-intro">
-        For years, screenwriters thought they needed $250 software to write scripts. They didn't. Here's why Google Docs is actually great for screenwriting.
-      </p>
-
-      <div class="why-grid">
-        <div class="why-card">
-          <div class="why-card-icon">
-            <i data-lucide="sparkles"></i>
-          </div>
-          <h3>It's simple</h3>
-          <p>You know Google Docs. No obscure features designed to justify a $250 price tag. The only thing you actually need for a screenplay is the right margins. That's it.</p>
-        </div>
-
-        <div class="why-card">
-          <div class="why-card-icon">
-            <i data-lucide="users"></i>
-          </div>
-          <h3>It's collaborative</h3>
-          <p>Write with your co-writer in the same document. Leave comments. Track changes. No more emailing drafts back and forth.</p>
-        </div>
-
-        <div class="why-card">
-          <div class="why-card-icon">
-            <i data-lucide="cloud"></i>
-          </div>
-          <h3>It's online</h3>
-          <p>It's online. No software to download, no fear of losing files, no more sending yourself backups 'just in case'. It's just there.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Document Setup -->
+  <!-- Can You Write a Screenplay in Google Docs? -->
   <section class="bg-white">
     <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="settings"></i>
-        Step 1
-      </span>
-      <h2 class="section-title">Set up your document</h2>
-      <p class="section-intro">
-        Screenplay formatting isn't arbitrary. One page equals roughly one minute of screen time. That only works if your margins and fonts are correct.
+      <h2 class="section-title">Can You Write a Screenplay in Google Docs?</h2>
+
+      <p class="content-text">
+        <strong>Yes, you can write a screenplay in Google Docs.</strong> Many screenwriters use it, especially beginners and those working on indie projects. It's free, accessible from any device, and makes collaboration effortless.
       </p>
 
-      <div class="setup-container">
-        <div class="setup-card">
-          <div class="setup-card-header">
-            <i data-lucide="move"></i>
-            <h3>Page Margins</h3>
-          </div>
-          <div class="setup-card-body">
-            <table class="setup-table">
-              <tr>
-                <td>Top margin</td>
-                <td>1 inch</td>
-              </tr>
-              <tr>
-                <td>Bottom margin</td>
-                <td>1 inch</td>
-              </tr>
-              <tr>
-                <td>Left margin</td>
-                <td>1.5 inches</td>
-              </tr>
-              <tr>
-                <td>Right margin</td>
-                <td>1 inch</td>
-              </tr>
-            </table>
-            <div class="setup-note">
-              <i data-lucide="info"></i>
-              <span>The wider left margin is for binding. Yes, people still print scripts. A lot.</span>
-            </div>
-          </div>
-        </div>
+      <p class="content-text">
+        People choose Google Docs for screenwriting because:
+      </p>
 
-        <div class="setup-card">
-          <div class="setup-card-header">
-            <i data-lucide="type"></i>
-            <h3>Typography</h3>
-          </div>
-          <div class="setup-card-body">
-            <table class="setup-table">
-              <tr>
-                <td>Font</td>
-                <td>Courier</td>
-              </tr>
-              <tr>
-                <td>Size</td>
-                <td>12pt</td>
-              </tr>
-              <tr>
-                <td>Line spacing</td>
-                <td>Single</td>
-              </tr>
-              <tr>
-                <td>Paper size</td>
-                <td>US Letter</td>
-              </tr>
-            </table>
-            <div class="setup-note">
-              <i data-lucide="info"></i>
-              <span>Courier, not Courier New. The monospaced font is essential for timing.</span>
-            </div>
-          </div>
-        </div>
+      <ul class="content-list">
+        <li><strong>It's free</strong> — no $250 software required</li>
+        <li><strong>It's familiar</strong> — you already know how to use it</li>
+        <li><strong>It's collaborative</strong> — write with co-writers in real-time, leave comments, track changes</li>
+        <li><strong>It's cloud-based</strong> — your work is automatically saved and accessible anywhere</li>
+      </ul>
+
+      <div class="highlight-box warning">
+        <h3>The limitation you should know about</h3>
+        <p>
+          Google Docs wasn't built for screenplay formatting. It doesn't understand scene headings, character names, or dialogue blocks. You'll need to manually set margins and indentation for each element — or use an add-on that handles the formatting for you.
+        </p>
       </div>
+
+      <p class="content-text">
+        The formatting is what makes screenwriting in Google Docs tricky. But once you understand the rules (or use the right tools), it works perfectly well.
+      </p>
     </div>
   </section>
 
-  <!-- Formatting Elements -->
-  <section class="bg-violet">
+  <!-- Screenplay Formatting Rules -->
+  <section class="bg-gray">
     <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="layers"></i>
-        Formatting basics
-      </span>
-      <h2 class="section-title">The six screenplay elements</h2>
-      <p class="section-intro">
-        Every screenplay is built from six building blocks. Master these and you can write anything.
+      <h2 class="section-title">Screenplay Formatting Rules (Quick Overview)</h2>
+
+      <p class="content-text">
+        Every screenplay uses the same six basic elements. Understanding these is essential before you start writing.
       </p>
 
-      <!-- Full Example First -->
-      <p style="font-size: 14px; color: var(--gray-500); margin-bottom: 16px; margin-top: 32px;">
-        Let's look at how these elements work together, using a scene from the acclaimed 1978 masterpiece <em>Attack of the Killer Tomatoes</em>.
-      </p>
-      <div class="screenplay-block">
-        <div class="screenplay-header">
-          <span class="screenplay-label">Attack of the Killer Tomatoes (1978)</span>
-          <div class="screenplay-dots">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-        <div class="screenplay-content">
-          <div class="scene-heading">INT. SUPERMARKET - PRODUCE SECTION - NIGHT</div>
-          <div class="action">Fluorescent lights flicker. A single TOMATO rolls off the display. Then another. MASON (40s, store manager, seen things) freezes mid-mop.</div>
-          <div class="character">MASON</div>
-          <div class="parenthetical">(whispering)</div>
-          <div class="dialogue">Not again. Not the tomatoes.</div>
-          <div class="action">Behind him, a thousand tiny red shapes begin to move.</div>
-          <div class="transition">CUT TO:</div>
-        </div>
-      </div>
-
-      <!-- Elements Grid -->
-      <p style="font-size: 14px; color: var(--gray-500); margin-bottom: 24px; margin-top: 40px;">
-        Here's each element broken down, with examples drawn from some of cinema's most influential works.
-      </p>
       <div class="elements-grid">
         <div class="element-card">
-          <span class="element-tag">Scene Heading</span>
-          <h3>Where and when</h3>
-          <p>Always uppercase. INT. or EXT., location, time of day. That's it. Keep it simple.</p>
-          <div class="element-example">EXT. AVOCADO JUNGLE - DAY</div>
-          <p style="font-size: 11px; color: var(--gray-400); margin-top: 8px; margin-bottom: 0;">From the landmark 1989 film <em>Cannibal Women in the Avocado Jungle of Death</em></p>
+          <h3>Scene Headings (Sluglines)</h3>
+          <p>Tell us where and when the scene takes place. Always uppercase.</p>
+          <div class="element-example">INT. COFFEE SHOP - DAY</div>
         </div>
 
         <div class="element-card">
-          <span class="element-tag">Action</span>
-          <h3>What we see and hear</h3>
-          <p>Present tense. Visual. If the camera can't see it, don't write it. No internal thoughts.</p>
-          <div class="element-example">The giant moussaka quivers menacingly.</div>
-          <p style="font-size: 11px; color: var(--gray-400); margin-top: 8px; margin-bottom: 0;">From the critically acclaimed <em>Attack of the Giant Moussaka</em> (1999)</p>
+          <h3>Action Lines</h3>
+          <p>Describe what we see and hear. Present tense, visual, concise.</p>
+          <div class="element-example">Sarah sets down her coffee and stares at the door.</div>
         </div>
 
         <div class="element-card">
-          <span class="element-tag">Character</span>
-          <h3>Who's talking</h3>
-          <p>Uppercase, centered. The first time a character appears, their name gets CAPS in action too.</p>
-          <div class="element-example" style="text-align: center;">DR. KURTZ</div>
-          <p style="font-size: 11px; color: var(--gray-400); margin-top: 8px; margin-bottom: 0;">The legendary feminist icon from <em>Cannibal Women</em></p>
+          <h3>Character Names</h3>
+          <p>Appear above dialogue, centered and uppercase.</p>
+          <div class="element-example" style="text-align: center;">SARAH</div>
         </div>
 
         <div class="element-card">
-          <span class="element-tag">Dialogue</span>
-          <h3>What they say</h3>
-          <p>Indented, under the character name. Keep it tight. People in movies talk faster than in life.</p>
-          <div class="element-example" style="padding-left: 24px;">The sushi is... moving.</div>
-          <p style="font-size: 11px; color: var(--gray-400); margin-top: 8px; margin-bottom: 0;">From Noboru Iguchi's visionary <em>Dead Sushi</em> (2012)</p>
+          <h3>Dialogue</h3>
+          <p>What the character says. Indented, under the character name.</p>
+          <div class="element-example" style="padding-left: 20px;">I've been waiting for you.</div>
         </div>
 
         <div class="element-card">
-          <span class="element-tag">Parenthetical</span>
-          <h3>How they say it</h3>
-          <p>Brief direction between character and dialogue. Use sparingly. Actors hate being told how to act.</p>
-          <div class="element-example" style="padding-left: 16px; font-style: italic;">(under her breath)</div>
+          <h3>Parentheticals (Optional)</h3>
+          <p>Brief direction on how a line is delivered. Use sparingly.</p>
+          <div class="element-example" style="padding-left: 16px; font-style: italic;">(whispering)</div>
         </div>
 
         <div class="element-card">
-          <span class="element-tag">Transition</span>
-          <h3>Scene change</h3>
-          <p>CUT TO:, FADE OUT:, etc. Right-aligned. Modern scripts rarely use these. The cut is implied.</p>
+          <h3>Transitions (Optional)</h3>
+          <p>Scene changes like CUT TO: or FADE OUT:. Right-aligned. Modern scripts rarely use them.</p>
           <div class="element-example" style="text-align: right;">CUT TO:</div>
         </div>
       </div>
+
+      <div class="highlight-box" style="margin-top: 32px;">
+        <h3>Why formatting matters</h3>
+        <p>
+          Proper screenplay formatting isn't arbitrary. One correctly formatted page equals roughly one minute of screen time. This helps everyone — writers, producers, directors — estimate a film's length at a glance.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Manual Formatting -->
+  <!-- Step-by-Step -->
   <section class="bg-white">
     <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="ruler"></i>
-        Step 2
-      </span>
-      <h2 class="section-title">Format each element manually</h2>
-      <p class="section-intro">
-        Here's exactly how to set up each screenplay element in Google Docs using the ruler and indentation tools.
-      </p>
-      <p style="font-size: 15px; color: var(--gray-600); margin-top: 20px; margin-bottom: 32px;">
-        First, make sure the ruler is visible: go to <strong>View → Show ruler</strong>.
+      <h2 class="section-title">Step-by-Step: Writing a Screenplay in Google Docs</h2>
+
+      <p class="content-text">
+        Here's how to actually write a screenplay in Google Docs, from setup to export.
       </p>
 
-      <div class="elements-grid">
-        <div class="element-card">
-          <span class="element-tag">Scene Heading & Action</span>
-          <h3>The easy ones</h3>
-          <p>These sit on the left margin — no special setup needed.</p>
-          <ul style="font-size: 14px; color: var(--gray-600); margin: 0; padding-left: 20px;">
-            <li>Left indent: <strong>0"</strong> (aligned with the 1.5" page margin)</li>
-            <li>Format: ALL CAPS for scene headings, normal case for action</li>
-          </ul>
-        </div>
-
-        <div class="element-card">
-          <span class="element-tag">Character Name</span>
-          <h3>Near the center</h3>
-          <p>The character name sits near the center of the page.</p>
-          <ul style="font-size: 14px; color: var(--gray-600); margin: 0; padding-left: 20px;">
-            <li>Drag the Left Indent marker to <strong>2.2 inches</strong></li>
-            <li>This equals 3.7" from the left edge of the paper</li>
-            <li>Format: ALL CAPS</li>
-          </ul>
-        </div>
-
-        <div class="element-card">
-          <span class="element-tag">Dialogue</span>
-          <h3>Indented, but less</h3>
-          <p>Dialogue is indented but not as much as the character name.</p>
-          <ul style="font-size: 14px; color: var(--gray-600); margin: 0; padding-left: 20px;">
-            <li>Drag the Left Indent marker to <strong>1 inch</strong></li>
-            <li>This equals 2.5" from the left edge of the paper</li>
-            <li>Keep normal case</li>
-          </ul>
-        </div>
-
-        <div class="element-card">
-          <span class="element-tag">Parenthetical</span>
-          <h3>Between character and dialogue</h3>
-          <p>Parentheticals sit between character name and dialogue indentation.</p>
-          <ul style="font-size: 14px; color: var(--gray-600); margin: 0; padding-left: 20px;">
-            <li>Drag the Left Indent marker to <strong>1.6 inches</strong></li>
-            <li>This equals 3.1" from the left edge of the paper</li>
-            <li>Wrap in parentheses: (whispering)</li>
-          </ul>
-        </div>
-
-        <div class="element-card" style="grid-column: span 2;">
-          <span class="element-tag">Transition</span>
-          <h3>Right-aligned</h3>
-          <p>Transitions are the only element that goes to the right.</p>
-          <ul style="font-size: 14px; color: var(--gray-600); margin: 0; padding-left: 20px;">
-            <li>Click the <strong>Right Align</strong> button or press <code>Ctrl+Shift+R</code> (Cmd+Shift+R on Mac)</li>
-            <li>Format: ALL CAPS</li>
-          </ul>
-        </div>
-      </div>
-
-      <div style="background: #fff8e8; border: 1px solid #f0e0c0; border-radius: 12px; padding: 24px; margin-top: 32px; text-align: center;">
-        <span class="section-label" style="margin-bottom: 12px;">
-          <i data-lucide="alert-triangle"></i>
-          The problem
-        </span>
-        <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">This is tedious</h3>
-        <p style="font-size: 15px; color: var(--gray-600); max-width: 540px; margin: 0 auto;">
-          Every time you write dialogue, you need to adjust the indent. Every character name, adjust again. Every action line, reset. You'll spend more time dragging the ruler than actually writing.
-        </p>
-        <p style="font-size: 15px; color: var(--gray-700); margin-top: 16px; margin-bottom: 0; font-weight: 500;">
-          That's why most people give up and use an add-on.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Screenplay Editor CTA -->
-  <section class="cta-section bg-dark">
-    <span class="section-label">
-      <i data-lucide="zap"></i>
-      The Easy Way
-    </span>
-    <h2 class="section-title">Skip the formatting headaches</h2>
-    <p class="section-intro">
-      Screenplay Editor is a free Google Docs add-on that auto-formats as you write. No buttons to click, no menus to learn. Just write. Your screenplay formats itself in real-time.
-    </p>
-
-    <div class="cta-buttons">
-      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button primary">
-        <i data-lucide="download"></i>
-        Get Screenplay Editor — Free
-      </a>
-      <a href="../index.html#features" class="cta-button secondary">
-        <i data-lucide="arrow-right"></i>
-        See all features
-      </a>
-    </div>
-
-    <div class="screenshot-container">
-      <img src="../screenshot.png" alt="Screenplay Editor running in Google Docs">
-    </div>
-  </section>
-
-  <!-- How to Use -->
-  <section class="bg-gray">
-    <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="zap"></i>
-        The easy way
-      </span>
-      <h2 class="section-title">Use Screenplay Editor</h2>
-      <p class="section-intro">
-        Skip the ruler headaches. Screenplay Editor auto-formats everything as you write.
-      </p>
-
-      <div class="steps-container">
-        <div class="step">
+      <div class="steps-list">
+        <div class="step-item">
           <div class="step-number">1</div>
           <div class="step-content">
-            <h3>Install the add-on</h3>
-            <p>Open Google Docs. Go to <code>Extensions → Add-ons → Get add-ons</code>. Search for "Screenplay Editor" and install. Takes about 10 seconds.</p>
+            <h3>Start from a template (or set up your document)</h3>
+            <p>
+              The fastest way to start is with a <a href="../free-google-docs-screenplay-template.html" class="internal-link">free screenplay template</a> that has margins and fonts already configured. If you're setting up manually: use Courier 12pt font, 1-inch margins (except 1.5 inches on the left for binding), and US Letter paper size.
+            </p>
           </div>
         </div>
 
-        <div class="step">
+        <div class="step-item">
           <div class="step-number">2</div>
           <div class="step-content">
-            <h3>Open the sidebar</h3>
-            <p>Go to <code>Extensions → Screenplay Editor → Open Sidebar</code>. You'll see buttons for every screenplay element: Scene Heading, Action, Character, Dialogue, and more.</p>
+            <h3>Set up consistent styles (or use an add-on)</h3>
+            <p>
+              Each screenplay element needs specific indentation. Scene headings and action sit on the left margin. Character names are indented about 2.2 inches. Dialogue is indented about 1 inch. You can set these manually using the ruler, or use a formatting add-on that handles this automatically.
+            </p>
           </div>
         </div>
 
-        <div class="step">
+        <div class="step-item">
           <div class="step-number">3</div>
           <div class="step-content">
-            <h3>Write your scene</h3>
-            <p>Type your text, click a button to format it. Or learn the keyboard shortcuts and never touch your mouse. The add-on remembers your characters, tracks your scenes, and keeps everything consistent.</p>
+            <h3>Write scene headings correctly</h3>
+            <p>
+              Every scene starts with a scene heading: <code>INT.</code> or <code>EXT.</code> (interior or exterior), followed by the location, then time of day. All uppercase. Example: <code>INT. APARTMENT - NIGHT</code>
+            </p>
           </div>
         </div>
 
-        <div class="step">
+        <div class="step-item">
           <div class="step-number">4</div>
           <div class="step-content">
-            <h3>Export when ready</h3>
-            <p>Finished draft? Export to PDF for sharing, or .fdx if you need Final Draft compatibility. Both options save directly to your Google Drive.</p>
+            <h3>Write action and dialogue with proper spacing</h3>
+            <p>
+              Action lines describe what happens (present tense, what we see and hear). When a character speaks, put their name in uppercase on its own line, then the dialogue below. Leave a blank line between different elements.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Keep formatting consistent while revising</h3>
+            <p>
+              This is where Google Docs gets tricky. Copy-pasting can break indentation. Revising scenes can drift your formatting. Check your margins periodically, or use a tool that maintains consistency automatically.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3>Export properly when you're done</h3>
+            <p>
+              When your draft is ready, export to PDF for sharing. Go to <code>File → Download → PDF Document</code>. PDF preserves your formatting exactly as you see it, regardless of what device opens it.
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Export -->
-  <section class="bg-dark">
+  <!-- Common Mistakes -->
+  <section class="bg-gray">
     <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="share"></i>
-        Exporting
-      </span>
-      <h2 class="section-title">Get your script out of Docs</h2>
-      <p class="section-intro">
-        Nobody reads scripts in Google Docs. Here's how to export to the formats producers, agents, and contests actually want.
+      <h2 class="section-title">Common Mistakes Beginners Make in Google Docs</h2>
+
+      <p class="content-text">
+        These are the formatting problems that trip up most people writing screenplays in Google Docs:
       </p>
 
-      <div class="export-grid">
-        <div class="export-card">
-          <div class="export-card-icon">
-            <i data-lucide="file-text"></i>
+      <div class="mistakes-list">
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
           </div>
-          <h3>PDF Export</h3>
-          <p>The universal format. Everyone accepts PDF. Your formatting stays exactly as you wrote it, no matter what device opens it.</p>
+          <div class="mistake-text">
+            <strong>Manual formatting drift</strong> — You start with correct margins, but after 20 pages of adjusting the ruler back and forth, things get inconsistent.
+          </div>
         </div>
 
-        <div class="export-card">
-          <div class="export-card-icon">
-            <i data-lucide="file-code"></i>
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
           </div>
-          <h3>.FDX Export</h3>
-          <p>Final Draft's format. If production needs it, or your collaborator uses Final Draft, export to .fdx. All your elements stay properly tagged.</p>
+          <div class="mistake-text">
+            <strong>Copy-paste breaking indentation</strong> — Pasting text from another document (or even another part of your script) often brings unwanted formatting with it.
+          </div>
+        </div>
+
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
+          </div>
+          <div class="mistake-text">
+            <strong>Inconsistent spacing</strong> — Too much space between elements, not enough space, or spacing that varies throughout the script.
+          </div>
+        </div>
+
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
+          </div>
+          <div class="mistake-text">
+            <strong>Collaboration formatting conflicts</strong> — When multiple writers work on the same document, formatting can get messy fast, especially if everyone's making manual adjustments.
+          </div>
+        </div>
+
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
+          </div>
+          <div class="mistake-text">
+            <strong>Exporting inconsistent PDFs</strong> — Your script looks fine in Google Docs but the PDF has weird page breaks, shifted margins, or font rendering issues.
+          </div>
         </div>
       </div>
+
+      <p class="content-text" style="margin-top: 24px;">
+        These problems aren't dealbreakers — they're just things to watch out for. Using a template and checking your formatting periodically helps. Using a dedicated formatting add-on eliminates most of them entirely.
+      </p>
     </div>
+  </section>
+
+  <!-- Free Template -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <h2 class="section-title">Free Screenplay Template for Google Docs</h2>
+
+      <p class="content-text">
+        The fastest way to start writing is with a pre-formatted template. We offer a free Google Docs screenplay template with everything set up correctly.
+      </p>
+
+      <div class="template-box">
+        <h3>Free Screenplay Template</h3>
+        <p style="color: var(--gray-600); font-size: 15px; margin-bottom: 16px;">
+          Ready to use — just make a copy and start writing.
+        </p>
+        <ul class="template-features">
+          <li>Correct margins (1.5" left, 1" right/top/bottom)</li>
+          <li>Courier 12pt font pre-configured</li>
+          <li>US Letter page size</li>
+          <li>Sample scene to show proper formatting</li>
+          <li>Works with any Google account</li>
+          <li>No software to install</li>
+        </ul>
+        <a href="../free-google-docs-screenplay-template.html" class="template-btn">
+          <i data-lucide="file-text"></i>
+          Get the Free Template
+        </a>
+      </div>
+
+      <p class="content-text">
+        We also have specialized templates for <a href="short-film-screenplay-template.html" class="internal-link">short films</a>, <a href="tv-pilot-screenplay-template.html" class="internal-link">TV pilots</a>, and <a href="horror-screenplay-template.html" class="internal-link">horror screenplays</a> if you're working on a specific format.
+      </p>
+    </div>
+  </section>
+
+  <!-- How Screenplay Editor Helps -->
+  <section class="bg-violet">
+    <div class="section-inner">
+      <h2 class="section-title">How Screenplay Editor Helps (Without Getting in the Way)</h2>
+
+      <p class="content-text">
+        Screenplay Editor is a free Google Docs add-on that handles formatting automatically. It's not a replacement for Google Docs — it works inside it.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>Auto-formats as you write</strong> — Type a scene heading, it formats it. Type dialogue, it indents correctly. No buttons to click.
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>Remembers your characters</strong> — Start typing a name and it auto-completes, keeping spelling consistent.
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>Tracks scene numbers</strong> — Automatically numbers your scenes if you need it for production.
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>Exports to PDF and .fdx</strong> — Download a properly formatted PDF, or export to Final Draft format if production needs it.
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>Works with Google Docs collaboration</strong> — Multiple writers, same document, formatting stays consistent.
+          </div>
+        </div>
+      </div>
+
+      <p class="content-text" style="margin-top: 24px;">
+        The add-on is free to install and use. It runs inside Google Docs, so you keep all the benefits of cloud storage and collaboration.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section bg-dark">
+    <h2 class="section-title">Ready to start writing?</h2>
+    <p class="section-intro">
+      Install Screenplay Editor and write your first scene in minutes. Free forever.
+    </p>
+    <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">
+      <i data-lucide="download"></i>
+      Install Screenplay Editor — Free
+    </a>
   </section>
 
   <!-- FAQ -->
   <section class="bg-white">
     <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="help-circle"></i>
-        FAQ
-      </span>
-      <h2 class="section-title">Quick answers</h2>
+      <h2 class="section-title">Frequently Asked Questions</h2>
 
       <div class="faq-grid">
         <div class="faq-item">
-          <div class="faq-question">
-            <i data-lucide="message-circle"></i>
-            <span>Can I really write a whole feature in Google Docs?</span>
-          </div>
-          <p class="faq-answer">Absolutely. Google Docs handles long documents just fine. I've seen 120-page scripts written entirely in Docs without any performance issues. With Screenplay Editor handling the formatting, it's genuinely a solid option.</p>
+          <div class="faq-question">Is Google Docs good for screenwriting?</div>
+          <p class="faq-answer">
+            Google Docs works well for screenwriting, especially for beginners and collaborative projects. The main challenge is formatting — Google Docs doesn't have built-in screenplay styles. Using a template or formatting add-on solves this.
+          </p>
         </div>
 
         <div class="faq-item">
-          <div class="faq-question">
-            <i data-lucide="message-circle"></i>
-            <span>Will producers think my script is unprofessional?</span>
-          </div>
-          <p class="faq-answer">Nobody can tell what software you used by looking at a PDF. If your formatting is correct (which Screenplay Editor guarantees), your script will look identical to one written in Final Draft. Readers care about your story, not your tools.</p>
+          <div class="faq-question">What font should I use for a screenplay?</div>
+          <p class="faq-answer">
+            Use Courier, 12-point size. This monospaced font is the industry standard because it creates consistent timing: one properly formatted page equals roughly one minute of screen time. Google Docs includes Courier in its font options.
+          </p>
         </div>
 
         <div class="faq-item">
-          <div class="faq-question">
-            <i data-lucide="message-circle"></i>
-            <span>Can I collaborate with a co-writer?</span>
-          </div>
-          <p class="faq-answer">This is where Google Docs genuinely shines. Multiple writers, same document, real-time. Leave comments, suggest edits, see who wrote what. It's collaborative writing without the version control nightmare.</p>
+          <div class="faq-question">Do I need Final Draft to write a screenplay?</div>
+          <p class="faq-answer">
+            No. Final Draft is popular in the industry, but it's not required. What matters is that your script is formatted correctly. A properly formatted PDF from Google Docs looks identical to one from Final Draft.
+          </p>
         </div>
 
         <div class="faq-item">
-          <div class="faq-question">
-            <i data-lucide="message-circle"></i>
-            <span>What if I already have a script in Final Draft format?</span>
-          </div>
-          <p class="faq-answer">There are online tools that convert .fdx to plain text. Paste that into Google Docs, then use Screenplay Editor to reformat the elements. Not instant, but doable. Going the other way (Docs to .fdx) is built right into the add-on.</p>
+          <div class="faq-question">How long should a screenplay be?</div>
+          <p class="faq-answer">
+            Feature films typically run 90-120 pages. Short films are usually 5-40 pages. TV pilots are 30 pages (half-hour) or 60 pages (hour-long). One page equals approximately one minute of screen time.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Can I collaborate with others in Google Docs?</div>
+          <p class="faq-answer">
+            Yes, and this is one of Google Docs' biggest strengths. Multiple writers can work on the same document simultaneously, leave comments, suggest edits, and see each other's changes in real-time.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Can I write a whole feature-length script in Google Docs?</div>
+          <p class="faq-answer">
+            Absolutely. Google Docs handles long documents without performance issues. Many professional screenwriters have written 120+ page scripts entirely in Google Docs.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Final CTA -->
-  <section class="cta-section bg-dark">
-    <h2 class="section-title">Ready to write?</h2>
-    <p class="section-intro">
-      Stop researching. Start writing. Your screenplay is waiting.
-    </p>
-
-    <div class="cta-buttons">
-      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button primary">
-        <i data-lucide="download"></i>
-        Get Screenplay Editor — Free
-      </a>
-      <a href="../free-google-docs-screenplay-template.html" class="cta-button secondary">
-        <i data-lucide="file-text"></i>
-        Or grab a template
-      </a>
-    </div>
-  </section>
-
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">SCR▌</div>
+      <div class="footer-logo">SCR|</div>
       <nav class="footer-nav">
         <a href="../about.html">About</a>
         <a href="../support.html">Support</a>
@@ -1489,7 +1122,7 @@
         <a href="../terms.html">Terms of Service</a>
         <a href="index.html">Resources</a>
       </nav>
-      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+      <p class="footer-copy">2025 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
 
