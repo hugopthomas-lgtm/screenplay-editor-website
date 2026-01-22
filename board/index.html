@@ -1,14 +1,3139 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/board/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>board-app</title>
-    <script type="module" crossorigin src="/board/assets/index-7XQquKrr.js"></script>
-    <link rel="stylesheet" crossorigin href="/board/assets/index-DPRj9xjO.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scene Board — Visual Writing Space | Screenplay Editor</title>
+  <meta name="description" content="Organize your screenplay visually. Infinite canvas for scenes, images, notes and connections. Free visual writing tool for screenwriters.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #FFFFFF;
+      --bg-subtle: #F8F8FC;
+      --card-bg: #FCF5A3;
+      --card-border: #E8DC82;
+      --card-shadow: rgba(0, 0, 0, 0.03);
+      --text: #2D2A3E;
+      --text-secondary: #6E6B7B;
+      --text-tertiary: #9997A3;
+      --accent: #6366F1;
+      --accent-soft: #EEF2FF;
+      --accent-hover: #4F46E5;
+      --border: #E9E9EC;
+      --white: #FFFFFF;
+      
+      /* Card colors */
+      --card-yellow: #FCF5A3;
+      --card-pink: #FECDD3;
+      --card-blue: #BFDBFE;
+      --card-green: #BBF7D0;
+      --card-purple: #DDD6FE;
+      --card-orange: #FED7AA;
+      --card-white: #FFFFFF;
+      --card-gray: #E5E7EB;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      overflow: hidden;
+      height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ============================================
+       TOPBAR
+       ============================================ */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+      gap: 16px;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-right: 16px;
+      border-right: 1px solid var(--border);
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .project-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .topbar-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: none;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary {
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border);
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .save-status {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      padding: 6px 12px;
+      background: var(--bg-subtle);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .save-status.saving {
+      color: var(--accent);
+    }
+
+    .save-status.saved {
+      color: #10B981;
+    }
+
+    /* ============================================
+       ZOOM CONTROLS
+       ============================================ */
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 6px 12px;
+      box-shadow: 0 1px 3px var(--card-shadow);
+    }
+
+    .zoom-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .zoom-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text);
+    }
+
+    .zoom-slider {
+      width: 120px;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    .zoom-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      box-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
+    }
+
+    .zoom-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    .zoom-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    .zoom-value {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .zoom-reset {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .zoom-reset:hover {
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       CANVAS
+       ============================================ */
+    .canvas-container {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      background: var(--bg);
+      cursor: grab;
+    }
+
+    .canvas-container:active {
+      cursor: grabbing;
+    }
+
+    .canvas-container.mode-line,
+    .canvas-container.mode-line:active,
+    .canvas-container.mode-connect,
+    .canvas-container.mode-connect:active {
+      cursor: crosshair !important;
+    }
+
+    .canvas {
+      position: absolute;
+      width: 8000px;
+      height: 8000px;
+      transform-origin: 0 0;
+      background: var(--bg);
+    }
+
+    /* ============================================
+       CARD
+       ============================================ */
+    .card {
+      position: absolute;
+      min-width: 120px;
+      min-height: 60px;
+      width: 160px;
+      padding: 14px 16px;
+      background: var(--card-yellow);
+      border: none;
+      border-radius: 4px;
+      cursor: grab;
+      user-select: none;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:active, .card.dragging {
+      cursor: grabbing;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      transform: scale(1.02);
+      z-index: 1000;
+    }
+
+    .card.selected {
+      box-shadow: 0 0 0 2px var(--accent), 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-text {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.45;
+      color: var(--text);
+      text-align: left;
+      word-wrap: break-word;
+      overflow: hidden;
+    }
+
+    .card .resize-handle {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 14px;
+      height: 14px;
+      cursor: se-resize;
+      opacity: 0;
+      transition: opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card:hover .resize-handle,
+    .card.selected .resize-handle {
+      opacity: 0.5;
+    }
+
+    .card .resize-handle:hover {
+      opacity: 1;
+    }
+
+    /* ============================================
+       CONTEXT MENU (COLOR PICKER)
+       ============================================ */
+    .context-menu {
+      position: fixed;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      z-index: 2000;
+      display: none;
+    }
+
+    .context-menu.visible {
+      display: block;
+    }
+
+    .context-menu-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 8px 8px;
+    }
+
+    .color-picker {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .color-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .color-swatch.selected {
+      border-color: var(--accent);
+    }
+
+    .color-swatch.yellow { background: var(--card-yellow); }
+    .color-swatch.pink { background: var(--card-pink); }
+    .color-swatch.blue { background: var(--card-blue); }
+    .color-swatch.green { background: var(--card-green); }
+    .color-swatch.purple { background: var(--card-purple); }
+    .color-swatch.orange { background: var(--card-orange); }
+    .color-swatch.white { background: var(--card-white); border: 1px solid var(--border); }
+    .color-swatch.gray { background: var(--card-gray); }
+
+    /* ============================================
+       NEW CARD MODAL
+       ============================================ */
+    .new-card-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+    }
+
+    .new-card-modal.visible {
+      display: flex;
+    }
+
+    .new-card-modal-content {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px;
+      width: 320px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+    }
+
+    .new-card-modal h3 {
+      margin: 0 0 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .new-card-modal input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    .new-card-modal input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .new-card-modal-colors {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .new-card-modal-colors .color-swatch {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .new-card-modal-colors .color-swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .new-card-modal-colors .color-swatch.selected {
+      border-color: var(--accent);
+    }
+
+    .new-card-modal-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .new-card-modal-buttons button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .new-card-modal-buttons .cancel-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .new-card-modal-buttons .cancel-btn:hover {
+      background: var(--border);
+    }
+
+    .new-card-modal-buttons .create-btn {
+      background: var(--accent);
+      border: none;
+      color: white;
+    }
+
+    .new-card-modal-buttons .create-btn:hover {
+      background: #8B6BD4;
+    }
+
+    /* ============================================
+       IMAGE ELEMENT
+       ============================================ */
+    .canvas-image {
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+
+    .canvas-image:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .canvas-image:active, .canvas-image.dragging {
+      cursor: grabbing;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+      transform: scale(1.01);
+      z-index: 1000;
+    }
+
+    .canvas-image.selected {
+      box-shadow: 0 0 0 2px var(--accent), 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .canvas-image img {
+      display: block;
+      max-width: 300px;
+      max-height: 300px;
+      pointer-events: none;
+    }
+
+    .canvas-image .resize-handle {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 16px;
+      height: 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: se-resize;
+      opacity: 0;
+      transition: opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas-image:hover .resize-handle,
+    .canvas-image.selected .resize-handle {
+      opacity: 1;
+    }
+
+    .resize-handle svg {
+      width: 10px;
+      height: 10px;
+      color: var(--text-tertiary);
+    }
+
+    /* ============================================
+       FREE TEXT
+       ============================================ */
+    .canvas-text {
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.15s ease;
+      min-width: 20px;
+    }
+
+    .canvas-text:hover {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .canvas-text:active, .canvas-text.dragging {
+      cursor: grabbing;
+    }
+
+    .canvas-text.selected {
+      background: var(--accent-soft);
+    }
+
+    .canvas-text.editing {
+      cursor: text;
+      background: var(--white);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .canvas-text-content {
+      outline: none;
+      min-width: 50px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .canvas-text.font-inter .canvas-text-content {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .canvas-text.font-handwriting .canvas-text-content {
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* Text size variants */
+    .canvas-text.size-small .canvas-text-content {
+      font-size: 12px;
+    }
+    .canvas-text.size-small.font-handwriting .canvas-text-content {
+      font-size: 18px;
+    }
+
+    .canvas-text.size-large .canvas-text-content {
+      font-size: 20px;
+    }
+    .canvas-text.size-large.font-handwriting .canvas-text-content {
+      font-size: 32px;
+    }
+
+    /* Text toolbar */
+    .text-toolbar {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+    }
+
+    .text-toolbar.visible {
+      display: flex;
+    }
+
+    .text-toolbar-btn {
+      height: 28px;
+      padding: 0 10px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .text-toolbar-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text);
+    }
+
+    .text-toolbar-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .text-toolbar-btn.font-preview-handwriting {
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+    }
+
+    /* Size slider in toolbar */
+    .text-size-slider {
+      width: 80px;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--border);
+      border-radius: 2px;
+      outline: none;
+      margin: 0 8px;
+    }
+
+    .text-size-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .text-size-value {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      min-width: 30px;
+    }
+
+    /* ============================================
+       LINES (SIMPLE LINES)
+       ============================================ */
+    .canvas-line {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .canvas-line line {
+      stroke: var(--text-tertiary);
+      stroke-width: 2;
+      stroke-linecap: round;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .canvas-line line:hover {
+      stroke: var(--accent);
+    }
+
+    .canvas-line.selected line {
+      stroke: var(--accent);
+    }
+
+    .canvas-line.dashed line {
+      stroke-dasharray: 8 4;
+    }
+
+    .canvas-line .line-handle {
+      fill: var(--white);
+      stroke: var(--accent);
+      stroke-width: 2;
+      cursor: move;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .canvas-line:hover .line-handle,
+    .canvas-line.selected .line-handle {
+      opacity: 1;
+    }
+
+    /* Arrow markers */
+    .arrow-marker {
+      fill: var(--text-tertiary);
+    }
+
+    .canvas-line:hover .arrow-marker,
+    .canvas-line.selected .arrow-marker {
+      fill: var(--accent);
+    }
+
+    /* ============================================
+       FLOATING TOOLBAR
+       ============================================ */
+    .toolbar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      z-index: 1000;
+    }
+
+    .toolbar-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+    }
+
+    .toolbar-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text);
+    }
+
+    .toolbar-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .toolbar-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .toolbar-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    /* ============================================
+       MINIMAP
+       ============================================ */
+    .minimap {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 180px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      z-index: 1000;
+      transition: width 0.2s ease;
+    }
+
+    .minimap.collapsed {
+      width: auto;
+    }
+
+    .minimap.collapsed .minimap-content {
+      display: none;
+    }
+
+    .minimap-header {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .minimap-header:hover {
+      background: var(--bg-subtle);
+    }
+
+    .minimap.collapsed .minimap-header {
+      border-bottom: none;
+    }
+
+    .minimap-toggle {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-tertiary);
+      transition: transform 0.2s ease;
+    }
+
+    .minimap.collapsed .minimap-toggle {
+      transform: rotate(180deg);
+    }
+
+    .minimap-content {
+      width: 100%;
+      height: 100px;
+      position: relative;
+      background: var(--bg-subtle);
+    }
+
+    .minimap-dot {
+      position: absolute;
+      border-radius: 1px;
+    }
+
+    .minimap-dot.dot-card {
+      background: #D4C870;
+    }
+
+    .minimap-dot.dot-image {
+      background: #7BA8C8;
+    }
+
+    .minimap-dot.dot-text {
+      background: #A87BC8;
+    }
+
+    .minimap-viewport {
+      position: absolute;
+      border: 2px solid var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* ============================================
+       FRAMES (CADRES)
+       ============================================ */
+    .canvas-frame {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.02);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      cursor: grab;
+      user-select: none;
+      min-width: 200px;
+      min-height: 150px;
+    }
+
+    .canvas-frame:hover {
+      border-color: var(--text-tertiary);
+    }
+
+    .canvas-frame.selected {
+      border-color: var(--accent);
+      border-style: solid;
+    }
+
+    .canvas-frame.dragging {
+      cursor: grabbing;
+      opacity: 0.9;
+    }
+
+    .canvas-frame.official {
+      background: rgba(99, 102, 241, 0.04);
+      border-color: var(--accent);
+      border-style: solid;
+    }
+
+    .canvas-frame-label {
+      position: absolute;
+      top: -28px;
+      left: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      background: var(--white);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: text;
+    }
+
+    .canvas-frame.official .canvas-frame-label {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .canvas-frame .resize-handle {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 16px;
+      height: 16px;
+      cursor: se-resize;
+      opacity: 0;
+      transition: opacity 0.2s;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas-frame:hover .resize-handle,
+    .canvas-frame.selected .resize-handle {
+      opacity: 1;
+    }
+
+    /* ============================================
+       CONNECTIONS (FILS)
+       ============================================ */
+    .connections-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .connection {
+      fill: none;
+      stroke: var(--text-tertiary);
+      stroke-width: 2;
+      stroke-linecap: round;
+      opacity: 0.5;
+      transition: opacity 0.2s, stroke 0.2s;
+    }
+
+    .connection:hover {
+      opacity: 1;
+      stroke: var(--accent);
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .connection.selected {
+      stroke: var(--accent);
+      opacity: 1;
+    }
+
+    .connection-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+    }
+
+    .canvas-frame:hover .connection-dot,
+    .card:hover .connection-dot,
+    .canvas-image:hover .connection-dot,
+    .canvas-text:hover .connection-dot {
+      opacity: 1;
+      pointer-events: auto;
+      cursor: crosshair;
+    }
+
+    /* ============================================
+       EARLY ACCESS MODAL
+       ============================================ */
+    .early-access-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .early-access-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .early-access-modal {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 48px;
+      max-width: 440px;
+      width: 90%;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    .early-access-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .early-access-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .early-access-subtitle {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .early-access-input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .early-access-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .early-access-btn {
+      width: 100%;
+      padding: 14px 24px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .early-access-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .early-access-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .early-access-note {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 16px;
+    }
+
+    .early-access-features {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .early-access-feature {
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .early-access-feature svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent);
+    }
+
+    /* ============================================
+       KEYBOARD HINTS
+       ============================================ */
+    .hints {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 1000;
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    .hint kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .minimap, .hints {
+        display: none;
+      }
+      
+      .zoom-slider {
+        width: 80px;
+      }
+      
+      .topbar-brand {
+        border: none;
+        padding-right: 0;
+      }
+      
+      .project-title {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Early Access Modal -->
+  <div class="early-access-overlay hidden" id="earlyAccessOverlay">
+    <div class="early-access-modal">
+      <div class="early-access-badge">✨ Early Access</div>
+      <h1 class="early-access-title">Scene Board</h1>
+      <p class="early-access-subtitle">
+        Your visual writing space. Organize scenes, pin images, connect ideas — on an infinite canvas.
+      </p>
+      <div class="early-access-features">
+        <div class="early-access-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Infinite canvas
+        </div>
+        <div class="early-access-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Images & notes
+        </div>
+        <div class="early-access-feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Connections
+        </div>
+      </div>
+      <input type="email" class="early-access-input" id="earlyAccessEmail" placeholder="your@email.com" />
+      <button class="early-access-btn" id="earlyAccessBtn" onclick="submitEarlyAccess()">
+        Get Early Access
+      </button>
+      <p class="early-access-note">
+        Your feedback will shape what we build next.
+      </p>
+    </div>
+  </div>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="logo">SE</div>
+      <span class="project-title">Pulp Fiction</span>
+    </div>
+    
+    <div class="topbar-center">
+      <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomOut()" title="Zoom out">−</button>
+        <input type="range" class="zoom-slider" id="zoomSlider" min="15" max="200" value="100" oninput="setZoom(this.value)">
+        <span class="zoom-value" id="zoomValue">100%</span>
+        <button class="zoom-btn" onclick="zoomIn()" title="Zoom in">+</button>
+        <span class="zoom-reset" onclick="resetView()">Reset</span>
+      </div>
+    </div>
+    
+    <div class="topbar-actions">
+      <button class="btn btn-secondary" onclick="exportBoard()" title="Download your board as JSON">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Export
+      </button>
+      <button class="btn btn-secondary" onclick="document.getElementById('importInput').click()" title="Import a board from JSON">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Import
+      </button>
+      <input type="file" id="importInput" accept=".json" style="display: none;" onchange="importBoard(event)">
+      <span class="save-status" id="saveStatus">Saved</span>
+    </div>
+  </header>
+
+  <!-- Canvas -->
+  <div class="canvas-container" id="canvasContainer">
+    <div class="canvas" id="canvas">
+      <svg class="connections-layer" id="connectionsLayer"></svg>
+    </div>
+  </div>
+
+  <!-- Floating Toolbar -->
+  <div class="toolbar">
+    <button class="toolbar-btn active" title="Select (V)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
+      </svg>
+    </button>
+    <span class="toolbar-divider"></span>
+    <button class="toolbar-btn" title="Add scene (N)" onclick="addCard()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <line x1="12" y1="8" x2="12" y2="16"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+      </svg>
+    </button>
+    <button class="toolbar-btn" title="Add text (T)" onclick="addText()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="4 7 4 4 20 4 20 7"/>
+        <line x1="9" y1="20" x2="15" y2="20"/>
+        <line x1="12" y1="4" x2="12" y2="20"/>
+      </svg>
+    </button>
+    <button class="toolbar-btn" title="Add image (I)" onclick="triggerImageUpload()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+    </button>
+    <span class="toolbar-divider"></span>
+    <button class="toolbar-btn" title="Add frame (F)" onclick="addFrame()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/>
+      </svg>
+    </button>
+    <button class="toolbar-btn" title="Connect (C)" onclick="toggleConnectMode()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <path d="M15 3h6v6"/>
+        <path d="M10 14L21 3"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Context menu for colors -->
+  <div class="context-menu" id="contextMenu">
+    <div class="context-menu-label">Color</div>
+    <div class="color-picker">
+      <div class="color-swatch yellow" data-color="yellow" onclick="setCardColor('yellow')"></div>
+      <div class="color-swatch pink" data-color="pink" onclick="setCardColor('pink')"></div>
+      <div class="color-swatch blue" data-color="blue" onclick="setCardColor('blue')"></div>
+      <div class="color-swatch green" data-color="green" onclick="setCardColor('green')"></div>
+      <div class="color-swatch purple" data-color="purple" onclick="setCardColor('purple')"></div>
+      <div class="color-swatch orange" data-color="orange" onclick="setCardColor('orange')"></div>
+      <div class="color-swatch white" data-color="white" onclick="setCardColor('white')"></div>
+      <div class="color-swatch gray" data-color="gray" onclick="setCardColor('gray')"></div>
+    </div>
+  </div>
+
+  <!-- New card modal -->
+  <div class="new-card-modal" id="newCardModal">
+    <div class="new-card-modal-content">
+      <h3>New Scene</h3>
+      <input type="text" id="newCardText" placeholder="Scene description..." autocomplete="off">
+      <div class="new-card-modal-colors">
+        <div class="color-swatch yellow selected" data-color="yellow"></div>
+        <div class="color-swatch pink" data-color="pink"></div>
+        <div class="color-swatch blue" data-color="blue"></div>
+        <div class="color-swatch green" data-color="green"></div>
+      </div>
+      <div class="new-card-modal-buttons">
+        <button class="cancel-btn" onclick="closeNewCardModal()">Cancel</button>
+        <button class="create-btn" onclick="createNewCard()">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Text formatting toolbar -->
+  <div class="text-toolbar" id="textToolbar">
+    <button class="text-toolbar-btn active" onclick="setTextFont('inter')" data-font="inter">Sans</button>
+    <button class="text-toolbar-btn font-preview-handwriting" onclick="setTextFont('handwriting')" data-font="handwriting">Hand</button>
+    <span class="toolbar-divider" style="height: 16px;"></span>
+    <input type="range" class="text-size-slider" id="textSizeSlider" min="10" max="48" value="14" oninput="setTextSizeValue(this.value)">
+    <span class="text-size-value" id="textSizeValue">14px</span>
+  </div>
+  
+  <!-- Hidden file input -->
+  <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+
+  <!-- Minimap -->
+  <div class="minimap" id="minimap">
+    <div class="minimap-header" onclick="toggleMinimap()">
+      <span>Overview</span>
+      <div class="minimap-toggle">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </div>
+    <div class="minimap-content" id="minimapContent">
+      <div class="minimap-viewport" id="minimapViewport"></div>
+    </div>
+  </div>
+
+  <!-- Hints -->
+  <div class="hints">
+    <div class="hint"><kbd>N</kbd> Scene</div>
+    <div class="hint"><kbd>T</kbd> Text</div>
+    <div class="hint"><kbd>I</kbd> Image</div>
+    <div class="hint"><kbd>F</kbd> Frame</div>
+    <div class="hint"><kbd>C</kbd> Connect</div>
+    <div class="hint"><kbd>Del</kbd> Delete</div>
+  </div>
+
+  <script>
+    // ============================================
+    // EARLY ACCESS - Now handled by add-on sidebar
+    // Modal removed - direct access allowed
+    // ============================================
+
+    // Remove modal on load (email collection is now in the add-on)
+    (function() {
+      const overlay = document.getElementById('earlyAccessOverlay');
+      if (overlay) overlay.remove();
+    })();
+
+    // ============================================
+    // LOCAL STORAGE - SAVE/LOAD
+    // ============================================
+    
+    const STORAGE_KEY = 'sceneboard_data';
+    let saveTimeout = null;
+    
+    function saveToLocalStorage() {
+      const saveStatus = document.getElementById('saveStatus');
+      saveStatus.textContent = 'Saving...';
+      saveStatus.className = 'save-status saving';
+      
+      const data = gatherBoardData();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      
+      setTimeout(() => {
+        saveStatus.textContent = 'Saved';
+        saveStatus.className = 'save-status saved';
+      }, 500);
+    }
+    
+    function autoSave() {
+      if (isDemoMode) return; // Don't save in demo mode
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(saveToLocalStorage, 1500);
+    }
+    
+    function gatherBoardData() {
+      const data = {
+        version: 1,
+        viewport: { panX, panY, scale },
+        cards: [],
+        texts: [],
+        images: [],
+        frames: [],
+        connections: []
+      };
+      
+      // Cards
+      document.querySelectorAll('.card').forEach(card => {
+        data.cards.push({
+          text: card.querySelector('.card-text').textContent,
+          x: parseFloat(card.style.left),
+          y: parseFloat(card.style.top),
+          width: card.offsetWidth,
+          height: card.offsetHeight,
+          color: card.dataset.color || 'yellow'
+        });
+      });
+      
+      // Texts
+      document.querySelectorAll('.canvas-text').forEach(t => {
+        data.texts.push({
+          content: t.querySelector('.canvas-text-content').textContent,
+          x: parseFloat(t.style.left),
+          y: parseFloat(t.style.top),
+          font: t.dataset.font || 'inter',
+          fontSize: t.dataset.fontSizePx || null
+        });
+      });
+      
+      // Images (base64)
+      document.querySelectorAll('.canvas-image').forEach(img => {
+        const imgEl = img.querySelector('img');
+        data.images.push({
+          src: imgEl.src,
+          x: parseFloat(img.style.left),
+          y: parseFloat(img.style.top),
+          width: imgEl.style.maxWidth ? parseInt(imgEl.style.maxWidth) : null
+        });
+      });
+      
+      // Frames
+      document.querySelectorAll('.canvas-frame').forEach(f => {
+        data.frames.push({
+          label: f.dataset.label,
+          x: parseFloat(f.style.left),
+          y: parseFloat(f.style.top),
+          width: f.offsetWidth,
+          height: f.offsetHeight,
+          official: f.classList.contains('official')
+        });
+      });
+      
+      // Connections (on stocke les indices)
+      // Note: simplified - on recréera les connexions manuellement pour l'instant
+      
+      return data;
+    }
+    
+    function loadFromLocalStorage() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return false;
+      
+      try {
+        const data = JSON.parse(saved);
+        restoreBoardData(data);
+        return true;
+      } catch (e) {
+        console.error('Failed to load board:', e);
+        return false;
+      }
+    }
+    
+    function restoreBoardData(data) {
+      // Clear current content
+      document.querySelectorAll('.card, .canvas-text, .canvas-image, .canvas-frame').forEach(el => el.remove());
+      connections = [];
+      renderConnections();
+      
+      // Restore viewport
+      if (data.viewport) {
+        panX = data.viewport.panX || 0;
+        panY = data.viewport.panY || 0;
+        scale = data.viewport.scale || 1;
+        updateCanvas();
+      }
+      
+      // Restore cards
+      (data.cards || []).forEach(c => {
+        createCard(c.text, c.x, c.y, c.color || 'yellow', c.width || 160, c.height);
+      });
+      
+      // Restore texts
+      (data.texts || []).forEach(t => {
+        const el = createTextElement(t.content, t.x, t.y, t.font || 'inter');
+        if (t.fontSize) {
+          el.querySelector('.canvas-text-content').style.fontSize = t.fontSize + 'px';
+        }
+      });
+      
+      // Restore images
+      (data.images || []).forEach(img => {
+        createImageElement(img.src, img.x, img.y, img.width);
+      });
+      
+      // Restore frames
+      (data.frames || []).forEach(f => {
+        createFrame(f.label, f.x, f.y, f.width, f.height, f.official);
+      });
+      
+      updateMinimap();
+    }
+    
+    function exportBoard() {
+      const data = gatherBoardData();
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'sceneboard-' + new Date().toISOString().slice(0, 10) + '.json';
+      a.click();
+      
+      URL.revokeObjectURL(url);
+    }
+    
+    function importBoard(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          restoreBoardData(data);
+          saveToLocalStorage();
+        } catch (err) {
+          alert('Invalid file format');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    // ============================================
+    // DATA
+    // ============================================
+    
+    const defaultScenes = [
+      "Scene 1", "Scene 2", "Scene 3"
+    ];
+    
+    // ============================================
+    // STATE
+    // ============================================
+
+    let scale = 1;
+    let panX = 0;
+    let panY = 0;
+    let isDraggingCanvas = false;
+    let isDraggingCard = false;
+    let dragStartX, dragStartY;
+    let activeCard = null;
+    let cardStartX, cardStartY;
+    let isDemoMode = false;
+
+    // Undo history
+    let undoHistory = [];
+    const MAX_HISTORY = 50;
+
+    function saveState() {
+      const state = canvas.innerHTML;
+      if (undoHistory.length === 0 || undoHistory[undoHistory.length - 1] !== state) {
+        undoHistory.push(state);
+        if (undoHistory.length > MAX_HISTORY) {
+          undoHistory.shift();
+        }
+      }
+    }
+
+    function undo() {
+      if (undoHistory.length > 1) {
+        undoHistory.pop(); // Remove current state
+        const previousState = undoHistory[undoHistory.length - 1];
+        canvas.innerHTML = previousState;
+        reattachEventListeners();
+        autoSave();
+      }
+    }
+
+    function reattachEventListeners() {
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mousedown', (e) => {
+          if (e.target.closest('.resize-handle')) {
+            startResizeCard(e, card);
+          } else {
+            startDragCard(e);
+          }
+        });
+        card.addEventListener('dblclick', editCard);
+        card.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          showContextMenu(e, card);
+        });
+      });
+      document.querySelectorAll('.canvas-text').forEach(el => {
+        el.addEventListener('mousedown', (e) => startDragText(e, el));
+        el.addEventListener('dblclick', () => startEditText(el));
+      });
+      document.querySelectorAll('.canvas-image').forEach(el => {
+        el.addEventListener('mousedown', (e) => startDragImage(e, el));
+      });
+      document.querySelectorAll('.canvas-frame').forEach(frame => {
+        const labelEl = frame.querySelector('.canvas-frame-label');
+        if (labelEl) {
+          labelEl.addEventListener('dblclick', (e) => {
+            e.stopPropagation();
+            const currentLabel = frame.dataset.label;
+            const newLabel = prompt('Frame name:', currentLabel);
+            if (newLabel) {
+              labelEl.textContent = newLabel;
+              frame.dataset.label = newLabel;
+            }
+          });
+        }
+        frame.addEventListener('mousedown', (e) => {
+          if (e.target.closest('.resize-handle')) {
+            startResizeFrame(e, frame);
+          } else if (e.target === frame) {
+            startDragFrame(e, frame);
+          }
+        });
+      });
+    }
+
+    const canvas = document.getElementById('canvas');
+    const canvasContainer = document.getElementById('canvasContainer');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const zoomValue = document.getElementById('zoomValue');
+    
+    // ============================================
+    // CARDS
+    // ============================================
+    
+    const cardColors = {
+      yellow: 'var(--card-yellow)',
+      pink: 'var(--card-pink)',
+      blue: 'var(--card-blue)',
+      green: 'var(--card-green)',
+      purple: 'var(--card-purple)',
+      orange: 'var(--card-orange)',
+      white: 'var(--card-white)',
+      gray: 'var(--card-gray)'
+    };
+    
+    function createCard(text, x, y, color = 'yellow', width = 160, height = null) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.color = color;
+      card.innerHTML = `
+        <span class="card-text">${text}</span>
+        <div class="resize-handle">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 22 22 12 22"/>
+          </svg>
+        </div>
+      `;
+      card.style.left = x + 'px';
+      card.style.top = y + 'px';
+      card.style.width = width + 'px';
+      if (height) card.style.height = height + 'px';
+      card.style.background = cardColors[color];
+      
+      card.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.resize-handle')) {
+          startResizeCard(e, card);
+        } else {
+          startDragCard(e);
+        }
+      });
+      card.addEventListener('dblclick', editCard);
+      card.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        showContextMenu(e, card);
+      });
+      
+      canvas.appendChild(card);
+      return card;
+    }
+    
+    // Card resize
+    let isResizingCard = false;
+    let resizingCard = null;
+    let cardResizeStartW, cardResizeStartH, cardResizeStartX, cardResizeStartY;
+    
+    function startResizeCard(e, card) {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      isResizingCard = true;
+      resizingCard = card;
+      cardResizeStartW = card.offsetWidth;
+      cardResizeStartH = card.offsetHeight;
+      cardResizeStartX = e.clientX;
+      cardResizeStartY = e.clientY;
+      
+      selectElement(card);
+    }
+    
+    // Context menu for colors
+    let contextMenuTarget = null;
+    
+    function showContextMenu(e, element) {
+      contextMenuTarget = element;
+      const menu = document.getElementById('contextMenu');
+      menu.style.left = e.clientX + 'px';
+      menu.style.top = e.clientY + 'px';
+      menu.classList.add('visible');
+      
+      // Highlight current color
+      const currentColor = element.dataset.color || 'yellow';
+      menu.querySelectorAll('.color-swatch').forEach(s => {
+        s.classList.toggle('selected', s.dataset.color === currentColor);
+      });
+    }
+    
+    function hideContextMenu() {
+      document.getElementById('contextMenu').classList.remove('visible');
+      contextMenuTarget = null;
+    }
+    
+    function setCardColor(color) {
+      if (contextMenuTarget) {
+        contextMenuTarget.style.background = cardColors[color];
+        contextMenuTarget.dataset.color = color;
+      }
+      hideContextMenu();
+    }
+    
+    // Hide context menu on click elsewhere
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.context-menu')) {
+        hideContextMenu();
+      }
+    });
+    
+    function generateCards() {
+      // Ne génère plus automatiquement les scènes de démo
+      // On charge depuis localStorage ou on commence vide
+      panX = -100;
+      panY = -100;
+      updateCanvas();
+    }
+    
+    function generateDefaultBoard() {
+      // Créer quelques post-its d'exemple pour un nouveau board
+      createCard('Your first scene', 300, 250, 'yellow');
+      createCard('Another scene', 490, 250, 'blue');
+      createCard('Drag me around!', 680, 250, 'pink');
+      
+      // Créer un texte d'aide
+      createTextElement('Press N to add scenes, T for text, I for images, F for frames', 300, 180, 'inter');
+      
+      panX = -100;
+      panY = -100;
+      updateCanvas();
+      saveToLocalStorage();
+    }
+    
+    // ============================================
+    // ZOOM
+    // ============================================
+    
+    function updateCanvas() {
+      canvas.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      const percent = Math.round(scale * 100);
+      zoomValue.textContent = percent + '%';
+      zoomSlider.value = percent;
+      updateMinimap();
+    }
+    
+    function setZoom(percent) {
+      const rect = canvasContainer.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const canvasX = (centerX - panX) / scale;
+      const canvasY = (centerY - panY) / scale;
+      
+      scale = percent / 100;
+      
+      panX = centerX - canvasX * scale;
+      panY = centerY - canvasY * scale;
+      
+      updateCanvas();
+    }
+    
+    function zoomIn() {
+      setZoom(Math.min(200, Math.round(scale * 100) + 15));
+    }
+    
+    function zoomOut() {
+      setZoom(Math.max(15, Math.round(scale * 100) - 15));
+    }
+    
+    function resetView() {
+      scale = 1;
+      panX = -100;
+      panY = -100;
+      updateCanvas();
+    }
+    
+    // Wheel zoom
+    canvasContainer.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      
+      const rect = canvasContainer.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      
+      const canvasX = (mouseX - panX) / scale;
+      const canvasY = (mouseY - panY) / scale;
+      
+      const delta = e.deltaY > 0 ? 0.92 : 1.08;
+      scale = Math.max(0.15, Math.min(2, scale * delta));
+      
+      panX = mouseX - canvasX * scale;
+      panY = mouseY - canvasY * scale;
+      
+      updateCanvas();
+    }, { passive: false });
+    
+    // ============================================
+    // PAN
+    // ============================================
+    
+    canvasContainer.addEventListener('mousedown', (e) => {
+      // Ne pas pan si on est en mode connect
+      if (connectMode) return;
+      if (e.target.closest('.card')) return;
+      
+      isDraggingCanvas = true;
+      dragStartX = e.clientX - panX;
+      dragStartY = e.clientY - panY;
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if (isDraggingCanvas) {
+        panX = e.clientX - dragStartX;
+        panY = e.clientY - dragStartY;
+        updateCanvas();
+      }
+      
+      if (isDraggingCard && activeCard) {
+        const x = (e.clientX - panX) / scale - cardStartX;
+        const y = (e.clientY - panY) / scale - cardStartY;
+        activeCard.style.left = x + 'px';
+        activeCard.style.top = y + 'px';
+        renderConnections();
+      }
+    });
+    
+    document.addEventListener('mouseup', () => {
+      isDraggingCanvas = false;
+      if (activeCard) activeCard.classList.remove('dragging');
+      isDraggingCard = false;
+      activeCard = null;
+      updateMinimap();
+    });
+    
+    // ============================================
+    // CARD DRAG
+    // ============================================
+    
+    function startDragCard(e) {
+      e.stopPropagation();
+      
+      const card = e.target.closest('.card');
+      if (!card) return;
+      
+      document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      
+      isDraggingCard = true;
+      activeCard = card;
+      card.classList.add('dragging');
+      
+      cardStartX = (e.clientX - panX) / scale - parseFloat(card.style.left);
+      cardStartY = (e.clientY - panY) / scale - parseFloat(card.style.top);
+    }
+    
+    // ============================================
+    // EDIT & ADD
+    // ============================================
+    
+    function editCard(e) {
+      const card = e.target.closest('.card');
+      const textEl = card.querySelector('.card-text');
+      const newText = prompt('Modifier la scène:', textEl.textContent);
+      if (newText !== null && newText.trim()) {
+        textEl.textContent = newText;
+      }
+    }
+    
+    let selectedNewCardColor = 'yellow';
+
+    function addCard() {
+      showNewCardModal();
+    }
+
+    function showNewCardModal() {
+      const modal = document.getElementById('newCardModal');
+      const input = document.getElementById('newCardText');
+      modal.classList.add('visible');
+      input.value = '';
+      input.focus();
+
+      // Reset color selection
+      selectedNewCardColor = 'yellow';
+      modal.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+      modal.querySelector('.color-swatch.yellow').classList.add('selected');
+    }
+
+    function closeNewCardModal() {
+      document.getElementById('newCardModal').classList.remove('visible');
+    }
+
+    function createNewCard() {
+      const text = document.getElementById('newCardText').value.trim();
+      if (!text) return;
+
+      saveState();
+      const rect = canvasContainer.getBoundingClientRect();
+      const centerX = (rect.width / 2 - panX) / scale;
+      const centerY = (rect.height / 2 - panY) / scale;
+
+      const card = createCard(text, centerX - 90, centerY - 30, selectedNewCardColor);
+      card.classList.add('selected');
+      updateMinimap();
+      closeNewCardModal();
+    }
+
+    // Color selection in new card modal
+    document.getElementById('newCardModal').addEventListener('click', (e) => {
+      const swatch = e.target.closest('.color-swatch');
+      if (swatch) {
+        document.querySelectorAll('#newCardModal .color-swatch').forEach(s => s.classList.remove('selected'));
+        swatch.classList.add('selected');
+        selectedNewCardColor = swatch.dataset.color;
+      }
+    });
+
+    // Enter to create, Escape to close
+    document.getElementById('newCardText').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        createNewCard();
+      } else if (e.key === 'Escape') {
+        closeNewCardModal();
+      }
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('newCardModal').addEventListener('click', (e) => {
+      if (e.target.id === 'newCardModal') {
+        closeNewCardModal();
+      }
+    });
+    
+    // ============================================
+    // MINIMAP
+    // ============================================
+    
+    function toggleMinimap() {
+      document.getElementById('minimap').classList.toggle('collapsed');
+    }
+    
+    function updateMinimap() {
+      const minimapContent = document.getElementById('minimapContent');
+      const minimapViewport = document.getElementById('minimapViewport');
+      
+      if (!minimapContent || document.getElementById('minimap').classList.contains('collapsed')) return;
+      
+      // Collecter tous les éléments
+      const cards = document.querySelectorAll('.card');
+      const images = document.querySelectorAll('.canvas-image');
+      const texts = document.querySelectorAll('.canvas-text');
+      
+      const allElements = [];
+      
+      cards.forEach(c => {
+        allElements.push({
+          el: c,
+          type: 'card',
+          x: parseFloat(c.style.left),
+          y: parseFloat(c.style.top),
+          w: 160,
+          h: 50
+        });
+      });
+      
+      images.forEach(img => {
+        const imgEl = img.querySelector('img');
+        allElements.push({
+          el: img,
+          type: 'image',
+          x: parseFloat(img.style.left),
+          y: parseFloat(img.style.top),
+          w: imgEl ? imgEl.offsetWidth || 100 : 100,
+          h: imgEl ? imgEl.offsetHeight || 100 : 100
+        });
+      });
+      
+      texts.forEach(t => {
+        allElements.push({
+          el: t,
+          type: 'text',
+          x: parseFloat(t.style.left),
+          y: parseFloat(t.style.top),
+          w: t.offsetWidth || 50,
+          h: t.offsetHeight || 20
+        });
+      });
+      
+      if (allElements.length === 0) return;
+      
+      // Calculer les bounds
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      
+      allElements.forEach(item => {
+        minX = Math.min(minX, item.x);
+        minY = Math.min(minY, item.y);
+        maxX = Math.max(maxX, item.x + item.w);
+        maxY = Math.max(maxY, item.y + item.h);
+      });
+      
+      const padding = 100;
+      minX -= padding;
+      minY -= padding;
+      maxX += padding;
+      maxY += padding;
+      
+      const contentWidth = maxX - minX;
+      const contentHeight = maxY - minY;
+      
+      const minimapWidth = 180;
+      const minimapHeight = 100;
+      const ratio = Math.min(minimapWidth / contentWidth, minimapHeight / contentHeight);
+      
+      // Nettoyer les anciens dots
+      minimapContent.querySelectorAll('.minimap-dot').forEach(d => d.remove());
+      
+      // Créer les dots
+      allElements.forEach(item => {
+        const dot = document.createElement('div');
+        dot.className = `minimap-dot dot-${item.type}`;
+        dot.style.left = ((item.x - minX) * ratio) + 'px';
+        dot.style.top = ((item.y - minY) * ratio) + 'px';
+        dot.style.width = Math.max(4, item.w * ratio) + 'px';
+        dot.style.height = Math.max(3, item.h * ratio) + 'px';
+        minimapContent.appendChild(dot);
+      });
+      
+      // Viewport
+      const containerRect = canvasContainer.getBoundingClientRect();
+      const viewLeft = (-panX / scale - minX) * ratio;
+      const viewTop = (-panY / scale - minY) * ratio;
+      const viewWidth = (containerRect.width / scale) * ratio;
+      const viewHeight = (containerRect.height / scale) * ratio;
+      
+      minimapViewport.style.left = Math.max(0, viewLeft) + 'px';
+      minimapViewport.style.top = Math.max(0, viewTop) + 'px';
+      minimapViewport.style.width = Math.min(viewWidth, minimapWidth) + 'px';
+      minimapViewport.style.height = Math.min(viewHeight, minimapHeight) + 'px';
+    }
+    
+    // ============================================
+    // FRAMES (CADRES)
+    // ============================================
+    
+    function addFrame(isOfficial = false) {
+      const rect = canvasContainer.getBoundingClientRect();
+      const centerX = (rect.width / 2 - panX) / scale;
+      const centerY = (rect.height / 2 - panY) / scale;
+
+      const label = isOfficial ? 'SCRIPT OFFICIEL' : prompt('Nom du cadre:', 'ACTE 1');
+      if (label === null) return;
+
+      saveState();
+      createFrame(label, centerX - 200, centerY - 100, 400, 250, isOfficial);
+      updateMinimap();
+    }
+    
+    function createFrame(label, x, y, w, h, isOfficial = false) {
+      const frame = document.createElement('div');
+      frame.className = `canvas-frame${isOfficial ? ' official' : ''}`;
+      frame.style.left = x + 'px';
+      frame.style.top = y + 'px';
+      frame.style.width = w + 'px';
+      frame.style.height = h + 'px';
+      frame.dataset.label = label;
+      
+      const labelEl = document.createElement('div');
+      labelEl.className = 'canvas-frame-label';
+      labelEl.textContent = label;
+      labelEl.addEventListener('dblclick', (e) => {
+        e.stopPropagation();
+        const newLabel = prompt('Nom du cadre:', label);
+        if (newLabel) {
+          labelEl.textContent = newLabel;
+          frame.dataset.label = newLabel;
+        }
+      });
+      
+      const resizeHandle = document.createElement('div');
+      resizeHandle.className = 'resize-handle';
+      resizeHandle.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22 12 22 22 12 22"/>
+      </svg>`;
+      
+      frame.appendChild(labelEl);
+      frame.appendChild(resizeHandle);
+      
+      frame.addEventListener('mousedown', (e) => {
+        if (e.target === resizeHandle || e.target.closest('.resize-handle')) {
+          startResizeFrame(e, frame);
+        } else if (e.target === frame) {
+          startDragFrame(e, frame);
+        }
+      });
+      
+      // Insert at beginning so frames are behind other elements
+      canvas.insertBefore(frame, canvas.firstChild.nextSibling);
+      
+      return frame;
+    }
+    
+    let isDraggingFrame = false;
+    let draggedFrame = null;
+    let frameStartX, frameStartY;
+    
+    function startDragFrame(e, frame) {
+      e.stopPropagation();
+      selectElement(frame);
+      
+      isDraggingFrame = true;
+      draggedFrame = frame;
+      frame.classList.add('dragging');
+      
+      frameStartX = (e.clientX - panX) / scale - parseFloat(frame.style.left);
+      frameStartY = (e.clientY - panY) / scale - parseFloat(frame.style.top);
+    }
+    
+    let isResizingFrame = false;
+    let resizingFrame = null;
+    let frameResizeStartW, frameResizeStartH, frameResizeStartX, frameResizeStartY;
+    
+    function startResizeFrame(e, frame) {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      isResizingFrame = true;
+      resizingFrame = frame;
+      frameResizeStartW = frame.offsetWidth;
+      frameResizeStartH = frame.offsetHeight;
+      frameResizeStartX = e.clientX;
+      frameResizeStartY = e.clientY;
+    }
+    
+    // ============================================
+    // CONNECTIONS (FILS)
+    // ============================================
+    
+    let connections = [];
+    let connectMode = false;
+    let connectStart = null;
+    
+    function toggleConnectMode() {
+      connectMode = !connectMode;
+      const btn = document.querySelector('.toolbar-btn[title="Connect (C)"]');
+      btn.classList.toggle('active', connectMode);
+      canvasContainer.classList.toggle('mode-connect', connectMode);
+      
+      if (!connectMode) {
+        connectStart = null;
+      }
+    }
+    
+    function getConnectionPoints(el1, el2) {
+      // Get bounds of both elements
+      const x1 = parseFloat(el1.style.left);
+      const y1 = parseFloat(el1.style.top);
+      const w1 = el1.offsetWidth;
+      const h1 = el1.offsetHeight;
+      
+      const x2 = parseFloat(el2.style.left);
+      const y2 = parseFloat(el2.style.top);
+      const w2 = el2.offsetWidth;
+      const h2 = el2.offsetHeight;
+      
+      // Centers
+      const cx1 = x1 + w1 / 2;
+      const cy1 = y1 + h1 / 2;
+      const cx2 = x2 + w2 / 2;
+      const cy2 = y2 + h2 / 2;
+      
+      // Determine best anchor points based on relative position
+      // Padding from edge
+      const pad = 8;
+      
+      let start = { x: cx1, y: cy1 };
+      let end = { x: cx2, y: cy2 };
+      
+      // For element 1: which side faces element 2?
+      const dx = cx2 - cx1;
+      const dy = cy2 - cy1;
+      
+      if (Math.abs(dx) > Math.abs(dy)) {
+        // Horizontal relationship
+        if (dx > 0) {
+          // el2 is to the right
+          start = { x: x1 + w1 - pad, y: cy1 };
+          end = { x: x2 + pad, y: cy2 };
+        } else {
+          // el2 is to the left
+          start = { x: x1 + pad, y: cy1 };
+          end = { x: x2 + w2 - pad, y: cy2 };
+        }
+      } else {
+        // Vertical relationship
+        if (dy > 0) {
+          // el2 is below
+          start = { x: cx1, y: y1 + h1 - pad };
+          end = { x: cx2, y: y2 + pad };
+        } else {
+          // el2 is above
+          start = { x: cx1, y: y1 + pad };
+          end = { x: cx2, y: y2 + h2 - pad };
+        }
+      }
+      
+      return { start, end };
+    }
+    
+    function createConnection(el1, el2) {
+      const conn = { from: el1, to: el2, id: Date.now() };
+      connections.push(conn);
+      renderConnections();
+      return conn;
+    }
+    
+    function renderConnections() {
+      const svg = document.getElementById('connectionsLayer');
+      svg.innerHTML = '';
+      
+      connections.forEach(conn => {
+        if (!conn.from.parentNode || !conn.to.parentNode) {
+          // Element was deleted
+          return;
+        }
+        
+        const { start, end } = getConnectionPoints(conn.from, conn.to);
+        
+        // Courbe de Bézier douce
+        const dx = end.x - start.x;
+        const dy = end.y - start.y;
+        
+        // Control points pour une courbe naturelle
+        let ctrl1x, ctrl1y, ctrl2x, ctrl2y;
+        
+        if (Math.abs(dx) > Math.abs(dy)) {
+          // Connexion horizontale
+          ctrl1x = start.x + dx * 0.5;
+          ctrl1y = start.y;
+          ctrl2x = end.x - dx * 0.5;
+          ctrl2y = end.y;
+        } else {
+          // Connexion verticale
+          ctrl1x = start.x;
+          ctrl1y = start.y + dy * 0.5;
+          ctrl2x = end.x;
+          ctrl2y = end.y - dy * 0.5;
+        }
+        
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M ${start.x} ${start.y} C ${ctrl1x} ${ctrl1y}, ${ctrl2x} ${ctrl2y}, ${end.x} ${end.y}`);
+        path.setAttribute('class', 'connection');
+        path.dataset.connId = conn.id;
+        
+        path.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (confirm('Supprimer cette connexion ?')) {
+            connections = connections.filter(c => c.id !== conn.id);
+            renderConnections();
+          }
+        });
+        
+        svg.appendChild(path);
+      });
+    }
+    
+    // Handle connect mode clicks
+    canvas.addEventListener('click', (e) => {
+      if (!connectMode) return;
+      
+      const target = e.target.closest('.card, .canvas-image, .canvas-text, .canvas-frame');
+      if (!target) return;
+      
+      if (!connectStart) {
+        connectStart = target;
+        target.style.outline = '2px solid var(--accent)';
+      } else {
+        if (target !== connectStart) {
+          createConnection(connectStart, target);
+        }
+        connectStart.style.outline = '';
+        connectStart = null;
+      }
+    });
+
+    // ============================================
+    // FREE TEXT
+    // ============================================
+    
+    let activeTextElement = null;
+    let currentTextFont = 'inter';
+    let currentTextSize = 'medium';
+    
+    function addText() {
+      saveState();
+      const rect = canvasContainer.getBoundingClientRect();
+      const centerX = (rect.width / 2 - panX) / scale;
+      const centerY = (rect.height / 2 - panY) / scale;
+
+      const textEl = createTextElement('Double-click to edit', centerX - 50, centerY - 15);
+      selectElement(textEl);
+
+      // Auto edit mode
+      setTimeout(() => {
+        startEditText(textEl);
+        const content = textEl.querySelector('.canvas-text-content');
+        content.focus();
+        document.execCommand('selectAll', false, null);
+      }, 50);
+    }
+    
+    function createTextElement(text, x, y, font = 'inter', size = 'medium') {
+      const container = document.createElement('div');
+      container.className = `canvas-text font-${font} size-${size}`;
+      container.style.left = x + 'px';
+      container.style.top = y + 'px';
+      container.dataset.font = font;
+      container.dataset.size = size;
+      
+      const content = document.createElement('div');
+      content.className = 'canvas-text-content';
+      content.textContent = text;
+      
+      container.appendChild(content);
+      
+      // Events
+      container.addEventListener('mousedown', (e) => {
+        if (!container.classList.contains('editing')) {
+          startDragText(e, container);
+        }
+      });
+      
+      container.addEventListener('dblclick', () => {
+        startEditText(container);
+      });
+      
+      canvas.appendChild(container);
+      return container;
+    }
+    
+    function startEditText(container) {
+      // Deselect others
+      document.querySelectorAll('.canvas-text.editing').forEach(el => stopEditText(el));
+      
+      container.classList.add('editing');
+      const content = container.querySelector('.canvas-text-content');
+      content.contentEditable = true;
+      content.focus();
+      
+      activeTextElement = container;
+      showTextToolbar();
+      updateTextToolbar();
+      
+      // Stop editing on click outside
+      const stopEdit = (e) => {
+        if (!container.contains(e.target) && !document.getElementById('textToolbar').contains(e.target)) {
+          stopEditText(container);
+          document.removeEventListener('mousedown', stopEdit);
+        }
+      };
+      setTimeout(() => document.addEventListener('mousedown', stopEdit), 10);
+    }
+    
+    function stopEditText(container) {
+      container.classList.remove('editing');
+      const content = container.querySelector('.canvas-text-content');
+      content.contentEditable = false;
+      
+      // Remove if empty
+      if (!content.textContent.trim()) {
+        container.remove();
+      }
+      
+      if (activeTextElement === container) {
+        activeTextElement = null;
+        hideTextToolbar();
+      }
+    }
+    
+    function showTextToolbar() {
+      document.getElementById('textToolbar').classList.add('visible');
+    }
+    
+    function hideTextToolbar() {
+      document.getElementById('textToolbar').classList.remove('visible');
+    }
+    
+    function updateTextToolbar() {
+      if (!activeTextElement) return;
+      
+      const font = activeTextElement.dataset.font;
+      const size = activeTextElement.dataset.size;
+      
+      document.querySelectorAll('.text-toolbar-btn[data-font]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.font === font);
+      });
+      
+      document.querySelectorAll('.text-toolbar-btn[data-size]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.size === size);
+      });
+    }
+    
+    function setTextFont(font) {
+      if (!activeTextElement) return;
+      
+      activeTextElement.classList.remove('font-inter', 'font-handwriting');
+      activeTextElement.classList.add(`font-${font}`);
+      activeTextElement.dataset.font = font;
+      updateTextToolbar();
+    }
+    
+    function setTextSize(size) {
+      if (!activeTextElement) return;
+      
+      activeTextElement.classList.remove('size-small', 'size-medium', 'size-large');
+      if (size !== 'medium') {
+        activeTextElement.classList.add(`size-${size}`);
+      }
+      activeTextElement.dataset.size = size;
+      updateTextToolbar();
+    }
+    
+    function setTextSizeValue(px) {
+      if (!activeTextElement) return;
+      
+      const content = activeTextElement.querySelector('.canvas-text-content');
+      content.style.fontSize = px + 'px';
+      activeTextElement.dataset.fontSizePx = px;
+      document.getElementById('textSizeValue').textContent = px + 'px';
+    }
+    
+    // ============================================
+    // LINES (SIMPLE LINES)
+    // ============================================
+    
+    let lineMode = false;
+    let lineStart = null;
+    let lines = [];
+    let tempLine = null;
+    
+    function toggleLineMode() {
+      lineMode = !lineMode;
+      const btn = document.querySelector('.toolbar-btn[title="Add line (L)"]');
+      btn.classList.toggle('active', lineMode);
+      canvasContainer.classList.toggle('mode-line', lineMode);
+      
+      if (!lineMode && tempLine) {
+        tempLine.remove();
+        tempLine = null;
+        lineStart = null;
+      }
+    }
+    
+    function createLine(x1, y1, x2, y2, dashed = false, arrow = false) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.classList.add('canvas-line');
+      if (dashed) svg.classList.add('dashed');
+      svg.style.position = 'absolute';
+      svg.style.left = '0';
+      svg.style.top = '0';
+      svg.style.width = '8000px';
+      svg.style.height = '8000px';
+      svg.style.pointerEvents = 'none';
+      svg.style.overflow = 'visible';
+      
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.style.pointerEvents = 'auto';
+      
+      svg.appendChild(line);
+      
+      // Click to select/delete
+      line.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (confirm('Supprimer cette ligne ?')) {
+          svg.remove();
+          lines = lines.filter(l => l !== svg);
+        }
+      });
+      
+      canvas.appendChild(svg);
+      lines.push(svg);
+      return svg;
+    }
+    
+    // Line drawing on canvas click
+    canvasContainer.addEventListener('click', (e) => {
+      if (!lineMode) return;
+      if (e.target.closest('.card, .canvas-image, .canvas-text, .canvas-frame, .toolbar, .topbar')) return;
+      
+      const x = (e.clientX - canvasContainer.getBoundingClientRect().left - panX) / scale;
+      const y = (e.clientY - canvasContainer.getBoundingClientRect().top - panY) / scale;
+      
+      if (!lineStart) {
+        lineStart = { x, y };
+      } else {
+        createLine(lineStart.x, lineStart.y, x, y);
+        lineStart = null;
+      }
+    });
+    
+    // Drag text
+    let isDraggingText = false;
+    let draggedText = null;
+    let textStartX, textStartY;
+    
+    function startDragText(e, container) {
+      e.stopPropagation();
+      
+      selectElement(container);
+      
+      isDraggingText = true;
+      draggedText = container;
+      container.classList.add('dragging');
+      
+      textStartX = (e.clientX - panX) / scale - parseFloat(container.style.left);
+      textStartY = (e.clientY - panY) / scale - parseFloat(container.style.top);
+    }
+    
+    function selectElement(el) {
+      document.querySelectorAll('.card.selected, .canvas-image.selected, .canvas-text.selected').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    // ============================================
+    // IMAGE UPLOAD
+    // ============================================
+    
+    function triggerImageUpload() {
+      document.getElementById('imageInput').click();
+    }
+    
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const rect = canvasContainer.getBoundingClientRect();
+        const centerX = (rect.width / 2 - panX) / scale;
+        const centerY = (rect.height / 2 - panY) / scale;
+        
+        createImageElement(e.target.result, centerX - 100, centerY - 100);
+        updateMinimap();
+      };
+      reader.readAsDataURL(file);
+      
+      // Reset input pour permettre de réuploader la même image
+      event.target.value = '';
+    }
+    
+    function createImageElement(src, x, y, width = null) {
+      const container = document.createElement('div');
+      container.className = 'canvas-image';
+      container.style.left = x + 'px';
+      container.style.top = y + 'px';
+      
+      const img = document.createElement('img');
+      img.src = src;
+      img.draggable = false;
+      if (width) {
+        img.style.maxWidth = width + 'px';
+        img.style.maxHeight = width + 'px';
+      }
+      
+      const resizeHandle = document.createElement('div');
+      resizeHandle.className = 'resize-handle';
+      resizeHandle.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="22 12 22 22 12 22"/>
+        <polyline points="16 6 22 6 22 12"/>
+      </svg>`;
+      
+      container.appendChild(img);
+      container.appendChild(resizeHandle);
+      
+      // Drag
+      container.addEventListener('mousedown', (e) => {
+        if (e.target === resizeHandle || e.target.closest('.resize-handle')) {
+          startResizeImage(e, container, img);
+        } else {
+          startDragImage(e, container);
+        }
+      });
+      
+      canvas.appendChild(container);
+      
+      // Sélectionner
+      document.querySelectorAll('.card.selected, .canvas-image.selected').forEach(el => el.classList.remove('selected'));
+      container.classList.add('selected');
+      
+      return container;
+    }
+    
+    let isDraggingImage = false;
+    let activeImage = null;
+    let imageStartX, imageStartY;
+    
+    function startDragImage(e, container) {
+      e.stopPropagation();
+      
+      document.querySelectorAll('.card.selected, .canvas-image.selected').forEach(el => el.classList.remove('selected'));
+      container.classList.add('selected');
+      
+      isDraggingImage = true;
+      activeImage = container;
+      container.classList.add('dragging');
+      
+      imageStartX = (e.clientX - panX) / scale - parseFloat(container.style.left);
+      imageStartY = (e.clientY - panY) / scale - parseFloat(container.style.top);
+    }
+    
+    // Resize
+    let isResizing = false;
+    let resizeImage = null;
+    let resizeStartWidth, resizeStartX;
+    
+    function startResizeImage(e, container, img) {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      isResizing = true;
+      resizeImage = { container, img };
+      resizeStartWidth = img.offsetWidth;
+      resizeStartX = e.clientX;
+    }
+    
+    // Ajouter au mousemove global
+    const originalMouseMove = document.onmousemove;
+    document.addEventListener('mousemove', (e) => {
+      if (isDraggingImage && activeImage) {
+        const x = (e.clientX - panX) / scale - imageStartX;
+        const y = (e.clientY - panY) / scale - imageStartY;
+        activeImage.style.left = x + 'px';
+        activeImage.style.top = y + 'px';
+        renderConnections();
+      }
+      
+      if (isResizing && resizeImage) {
+        const delta = e.clientX - resizeStartX;
+        const newWidth = Math.max(50, resizeStartWidth + delta / scale);
+        resizeImage.img.style.maxWidth = newWidth + 'px';
+        resizeImage.img.style.maxHeight = newWidth + 'px';
+      }
+      
+      if (isResizingCard && resizingCard) {
+        const deltaX = (e.clientX - cardResizeStartX) / scale;
+        const deltaY = (e.clientY - cardResizeStartY) / scale;
+        resizingCard.style.width = Math.max(120, cardResizeStartW + deltaX) + 'px';
+        resizingCard.style.height = Math.max(60, cardResizeStartH + deltaY) + 'px';
+      }
+      
+      if (isDraggingText && draggedText) {
+        const x = (e.clientX - panX) / scale - textStartX;
+        const y = (e.clientY - panY) / scale - textStartY;
+        draggedText.style.left = x + 'px';
+        draggedText.style.top = y + 'px';
+        renderConnections();
+      }
+      
+      if (isDraggingFrame && draggedFrame) {
+        const x = (e.clientX - panX) / scale - frameStartX;
+        const y = (e.clientY - panY) / scale - frameStartY;
+        draggedFrame.style.left = x + 'px';
+        draggedFrame.style.top = y + 'px';
+        renderConnections();
+      }
+      
+      if (isResizingFrame && resizingFrame) {
+        const deltaX = (e.clientX - frameResizeStartX) / scale;
+        const deltaY = (e.clientY - frameResizeStartY) / scale;
+        resizingFrame.style.width = Math.max(200, frameResizeStartW + deltaX) + 'px';
+        resizingFrame.style.height = Math.max(150, frameResizeStartH + deltaY) + 'px';
+      }
+    });
+    
+    document.addEventListener('mouseup', () => {
+      if (activeImage) activeImage.classList.remove('dragging');
+      isDraggingImage = false;
+      activeImage = null;
+      isResizing = false;
+      resizeImage = null;
+      
+      if (draggedText) draggedText.classList.remove('dragging');
+      isDraggingText = false;
+      draggedText = null;
+      
+      if (draggedFrame) draggedFrame.classList.remove('dragging');
+      isDraggingFrame = false;
+      draggedFrame = null;
+      isResizingFrame = false;
+      resizingFrame = null;
+      
+      isResizingCard = false;
+      resizingCard = null;
+      
+      updateMinimap();
+    });
+
+    // ============================================
+    // KEYBOARD
+    // ============================================
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.target.contentEditable === 'true' || e.target.tagName === 'INPUT') return;
+      
+      if (e.key === '=' || e.key === '+') zoomIn();
+      if (e.key === '-') zoomOut();
+      if (e.key === '0') resetView();
+      if (e.key === 'n' || e.key === 'N') addCard();
+      if (e.key === 't' || e.key === 'T') addText();
+      if (e.key === 'i' || e.key === 'I') triggerImageUpload();
+      if (e.key === 'f' || e.key === 'F') addFrame();
+      if (e.key === 'c' || e.key === 'C') toggleConnectMode();
+      if (e.key === 'Escape') {
+        if (connectMode) toggleConnectMode();
+        hideContextMenu();
+      }
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+        const selected = document.querySelector('.card.selected, .canvas-image.selected, .canvas-text.selected:not(.editing), .canvas-frame.selected');
+        if (selected) {
+          saveState();
+          // Remove connections linked to this element
+          connections = connections.filter(c => c.from !== selected && c.to !== selected);
+          renderConnections();
+          selected.remove();
+          updateMinimap();
+          autoSave();
+        }
+      }
+    });
+    
+    // ============================================
+    // URL PARAMS - Load scenes from Google Doc
+    // ============================================
+
+    function loadFromUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const scenesParam = urlParams.get('scenes');
+
+      if (!scenesParam) return false;
+
+      try {
+        const decoded = atob(decodeURIComponent(scenesParam));
+        const data = JSON.parse(decoded);
+
+        if (!data.scenes || data.scenes.length === 0) return false;
+
+        if (data.title) {
+          document.querySelector('.project-title').textContent = data.title;
+        }
+
+        const CARD_WIDTH = 180;
+        const PADDING = 30;
+        const COLS = 5;
+        const START_X = 100;
+        const START_Y = 100;
+
+        data.scenes.forEach((scene, index) => {
+          const col = index % COLS;
+          const row = Math.floor(index / COLS);
+          const x = START_X + col * (CARD_WIDTH + PADDING);
+          const y = START_Y + row * (130 + PADDING);
+          const color = scene.type === 'INT' ? 'blue' : 'green';
+          createCard(scene.heading, x, y, color, CARD_WIDTH);
+        });
+
+        panX = -50;
+        panY = -50;
+        updateCanvas();
+        window.history.replaceState({}, '', window.location.pathname);
+
+        return true;
+      } catch (e) {
+        console.error('Error loading scenes from URL:', e);
+        return false;
+      }
+    }
+
+    // ============================================
+    // DEMO MODE - Load Pulp Fiction demo
+    // ============================================
+
+    function loadDemoBoard() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (!urlParams.has('demo')) return false;
+
+      try {
+        isDemoMode = true;
+        document.querySelector('.project-title').textContent = 'Pulp Fiction (Demo)';
+
+      // Add demo banner
+      const banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;top:56px;left:0;right:0;background:#9D7BEA;color:#fff;text-align:center;padding:8px;font-size:13px;z-index:100;font-family:JetBrains Mono,monospace';
+      banner.innerHTML = 'Demo mode — changes won\'t be saved. <a href="../board/" style="color:#fff;text-decoration:underline;margin-left:10px">Start fresh</a>';
+      document.body.appendChild(banner);
+
+      // Full Pulp Fiction demo template - WOW VISUAL
+      const demoData = {"frames":[],"cards":[
+        // === ALTERNATIVE STRUCTURE FOR ACT 2 (far left, separated) ===
+        {"text":"ALT: Linear opening\\nStart with Butch","x":-750,"y":180,"width":145,"height":70,"color":"gray"},
+        {"text":"The watch story\\nfirst","x":-580,"y":195,"width":130,"height":65,"color":"gray"},
+        {"text":"Butch training\\nmontage?","x":-430,"y":182,"width":135,"height":68,"color":"gray"},
+        {"text":"Fabienne intro\\nearlier","x":-745,"y":275,"width":130,"height":65,"color":"gray"},
+        {"text":"Fight setup\\nmore tension","x":-595,"y":288,"width":135,"height":68,"color":"gray"},
+        {"text":"Marsellus deal\\ndetailed","x":-440,"y":272,"width":130,"height":65,"color":"gray"},
+        {"text":"Show the fix\\nis real","x":-748,"y":368,"width":125,"height":65,"color":"gray"},
+        {"text":"Butch's POV\\nonly","x":-600,"y":378,"width":120,"height":60,"color":"gray"},
+        {"text":"Cut Vincent\\ncrossover?","x":-455,"y":365,"width":135,"height":68,"color":"gray"},
+        {"text":"Esmeralda\\nexpanded","x":-742,"y":458,"width":130,"height":65,"color":"gray"},
+        {"text":"Her obsession\\nw/ death","x":-590,"y":470,"width":135,"height":68,"color":"gray"},
+        {"text":"Foreshadow\\nthe crash","x":-435,"y":455,"width":130,"height":65,"color":"gray"},
+        {"text":"Longer motel\\nscene","x":-750,"y":550,"width":130,"height":65,"color":"gray"},
+        {"text":"Blueberry\\npancakes","x":-598,"y":562,"width":125,"height":62,"color":"gray"},
+        {"text":"Pot belly\\nmoment","x":-450,"y":548,"width":125,"height":65,"color":"gray"},
+        {"text":"Watch reveal\\nmore dramatic","x":-745,"y":645,"width":145,"height":68,"color":"gray"},
+        {"text":"Sprint back\\nlonger","x":-578,"y":658,"width":125,"height":62,"color":"gray"},
+        {"text":"Toaster pastry\\nbeat","x":-432,"y":642,"width":130,"height":65,"color":"gray"},
+        {"text":"KEEP: Toilet\\ndeath","x":-752,"y":740,"width":130,"height":65,"color":"gray"},
+        {"text":"Remove\\nirony?","x":-600,"y":752,"width":115,"height":60,"color":"gray"},
+        {"text":"NO - irony\\nis key!","x":-462,"y":738,"width":120,"height":65,"color":"gray"},
+        {"text":"Pawn shop\\nextended","x":-748,"y":835,"width":135,"height":65,"color":"gray"},
+        {"text":"Gimp backstory?\\nToo much","x":-590,"y":848,"width":145,"height":68,"color":"gray"},
+        {"text":"Katana choice\\nslower","x":-422,"y":832,"width":130,"height":65,"color":"gray"},
+        {"text":"CONCLUSION:\\nKeep non-linear!","x":-600,"y":940,"width":170,"height":72,"color":"gray"},
+
+        // === PROLOGUE (top left, spaced) ===
+        {"text":"INT. COFFEE SHOP\\nMorning","x":150,"y":200,"width":140,"height":70,"color":"yellow"},
+        {"text":"Pumpkin & Honey Bunny\\nDiscuss robbery","x":310,"y":188,"width":150,"height":75,"color":"yellow"},
+        {"text":"\"I love you Pumpkin\"\\n\"I love you Honey Bunny\"","x":480,"y":205,"width":195,"height":68,"color":"pink"},
+        {"text":"FREEZE\\nGuns drawn","x":160,"y":295,"width":125,"height":65,"color":"green"},
+        {"text":"→ We'll be back...","x":305,"y":302,"width":130,"height":55,"color":"white"},
+        {"text":"TITLE CARD","x":455,"y":290,"width":120,"height":60,"color":"green"},
+
+        // === ACT 1 - Vincent & Mia (center left, well spaced) ===
+        {"text":"INT. CAR\\nRoyale with Cheese","x":120,"y":520,"width":145,"height":72,"color":"yellow"},
+        {"text":"Foot massage\\nIs it sexual?","x":285,"y":508,"width":145,"height":70,"color":"blue"},
+        {"text":"Tony Rocky Horror\\nThrown off balcony","x":450,"y":525,"width":150,"height":68,"color":"pink"},
+        {"text":"INT. BRETT'S APT\\nBig Kahuna Burger","x":620,"y":512,"width":160,"height":72,"color":"yellow"},
+        {"text":"EZEKIEL 25:17","x":800,"y":520,"width":125,"height":62,"color":"green"},
+        {"text":"Marsellus' bar\\nBriefcase glows","x":125,"y":620,"width":150,"height":72,"color":"yellow"},
+        {"text":"Vincent at Lance's\\nBuying heroin","x":295,"y":608,"width":145,"height":68,"color":"blue"},
+        {"text":"EXT. MIA'S HOUSE\\nVincent arrives","x":460,"y":625,"width":150,"height":70,"color":"yellow"},
+        {"text":"Fox Force Five\\nUnaired pilot","x":630,"y":612,"width":155,"height":68,"color":"purple"},
+        {"text":"JACK RABBIT SLIM'S\\n50s themed diner","x":128,"y":720,"width":165,"height":75,"color":"green"},
+        {"text":"$5 milkshake\\n\"Goddamn!\"","x":315,"y":728,"width":135,"height":65,"color":"yellow"},
+        {"text":"TWIST CONTEST","x":470,"y":715,"width":140,"height":68,"color":"green"},
+        {"text":"Vincent & Mia\\ndancing","x":630,"y":725,"width":135,"height":65,"color":"green"},
+        {"text":"OVERDOSE\\nMia collapses","x":130,"y":825,"width":145,"height":72,"color":"pink"},
+        {"text":"PANIC\\nCall Lance","x":295,"y":835,"width":135,"height":65,"color":"pink"},
+        {"text":"Adrenaline shot\\nStraight to heart","x":450,"y":822,"width":155,"height":72,"color":"pink"},
+        {"text":"STAB!\\nMia wakes up","x":625,"y":832,"width":135,"height":68,"color":"green"},
+        {"text":"\"Goodnight\"","x":780,"y":825,"width":110,"height":55,"color":"purple"},
+
+        // === ACT 2 - The Gold Watch (center right) ===
+        {"text":"FLASHBACK 1972\\nCaptain Koons","x":1050,"y":200,"width":160,"height":72,"color":"purple"},
+        {"text":"The watch story\\n\"Up his ass 5 years\"","x":1235,"y":188,"width":170,"height":75,"color":"purple"},
+        {"text":"Young Butch\\nreceives watch","x":1425,"y":205,"width":150,"height":68,"color":"yellow"},
+        {"text":"Butch escapes\\nHe didn't dive","x":1055,"y":305,"width":150,"height":70,"color":"yellow"},
+        {"text":"INT. TAXI\\nEsmeralda","x":1225,"y":295,"width":140,"height":68,"color":"yellow"},
+        {"text":"THE WATCH!\\nWhere is it?","x":1385,"y":308,"width":145,"height":70,"color":"orange"},
+        {"text":"Vincent exits\\nbathroom","x":1058,"y":405,"width":145,"height":68,"color":"pink"},
+        {"text":"BUTCH KILLS VINCENT\\n💀","x":1223,"y":395,"width":155,"height":75,"color":"pink"},
+        {"text":"CRASH!\\nButch vs Marsellus","x":1398,"y":408,"width":160,"height":70,"color":"pink"},
+        {"text":"Maynard's\\nPawn Shop","x":1060,"y":505,"width":135,"height":68,"color":"pink"},
+        {"text":"\"Bring out\\nthe Gimp\"","x":1215,"y":498,"width":130,"height":70,"color":"pink"},
+        {"text":"KATANA ⚔️","x":1365,"y":510,"width":115,"height":62,"color":"green"},
+        {"text":"Butch saves Marsellus\\nZed's dead baby","x":1500,"y":500,"width":175,"height":72,"color":"green"},
+
+        // === ACT 3 - Bonnie Situation (below) ===
+        {"text":"BACK TO Brett's apt\\nAfter Ezekiel","x":1055,"y":650,"width":165,"height":72,"color":"yellow"},
+        {"text":"The 4th guy\\nMISSES EVERYTHING","x":1240,"y":640,"width":145,"height":70,"color":"pink"},
+        {"text":"MIRACLE\\nDivine intervention","x":1405,"y":655,"width":150,"height":68,"color":"green"},
+        {"text":"\"Aw man I shot\\nMarvin in the face\"","x":1058,"y":755,"width":170,"height":75,"color":"pink"},
+        {"text":"THE WOLF\\n\"I solve problems\"","x":1248,"y":745,"width":150,"height":72,"color":"green"},
+        {"text":"Monster Joe's\\nNew clothes","x":1418,"y":760,"width":155,"height":68,"color":"yellow"},
+        {"text":"BACK TO DINER\\nFull circle 🔄","x":1060,"y":860,"width":160,"height":72,"color":"green"},
+        {"text":"Mexican standoff","x":1240,"y":852,"width":135,"height":62,"color":"pink"},
+        {"text":"EZEKIEL 25:17\\nRedemption","x":1395,"y":865,"width":155,"height":68,"color":"green"},
+        {"text":"Jules lets them\\ngo","x":1570,"y":855,"width":140,"height":68,"color":"purple"},
+
+        // === CHARACTERS (bottom, horizontal, spaced) ===
+        {"text":"VINCENT VEGA\\nJohn Travolta\\nHeroin addict\\nDies on toilet","x":150,"y":1100,"width":200,"height":110,"color":"blue"},
+        {"text":"JULES WINNFIELD\\nSamuel L. Jackson\\nEzekiel 25:17\\nRetires","x":380,"y":1088,"width":200,"height":110,"color":"blue"},
+        {"text":"MIA WALLACE\\nUma Thurman\\nFox Force Five\\nOverdose","x":610,"y":1105,"width":195,"height":105,"color":"blue"},
+        {"text":"BUTCH COOLIDGE\\nBruce Willis\\nThe gold watch\\nKatana","x":835,"y":1092,"width":195,"height":108,"color":"blue"},
+        {"text":"MARSELLUS\\nVing Rhames\\n\"Pretty far from OK\"","x":1060,"y":1100,"width":180,"height":100,"color":"blue"},
+        {"text":"THE WOLF\\nHarvey Keitel","x":1270,"y":1108,"width":155,"height":85,"color":"gray"},
+        {"text":"LANCE\\nEric Stoltz","x":1455,"y":1098,"width":140,"height":80,"color":"gray"},
+
+        // === BONEYARD (bottom left) ===
+        {"text":"CUT: Vic Vega\\n= Mr. Blonde?","x":150,"y":1280,"width":160,"height":80,"color":"orange"},
+        {"text":"ALT: Vincent lives?\\nNo - karma","x":335,"y":1295,"width":160,"height":75,"color":"orange"},
+        {"text":"Briefcase contents?\\nMystery = better","x":520,"y":1285,"width":155,"height":78,"color":"orange"},
+
+        // === SOUNDTRACK (bottom center) ===
+        {"text":"🎵 MISIRLOU\\nDick Dale","x":750,"y":1280,"width":140,"height":70,"color":"purple"},
+        {"text":"🎵 YOU NEVER CAN TELL\\nChuck Berry","x":910,"y":1290,"width":165,"height":72,"color":"purple"},
+        {"text":"🎵 GIRL YOU'LL BE\\nA WOMAN SOON","x":1095,"y":1282,"width":160,"height":75,"color":"purple"},
+        {"text":"🎵 SURF RIDER\\nEnding","x":1275,"y":1292,"width":130,"height":65,"color":"purple"}
+      ],"texts":[
+        // BIG TITLE
+        {"content":"PULP FICTION","x":100,"y":60,"font":"handwriting","fontSize":72},
+        {"content":"Quentin Tarantino, 1994","x":520,"y":95,"font":"inter","fontSize":16},
+
+        // SECTION TITLES IN HANDWRITING
+        {"content":"Alternative structure for Act 2","x":-750,"y":120,"font":"handwriting","fontSize":28},
+        {"content":"PROLOGUE","x":150,"y":160,"font":"handwriting","fontSize":28},
+        {"content":"ACT 1 — Vincent & Mia","x":120,"y":475,"font":"handwriting","fontSize":26},
+        {"content":"ACT 2 — The Gold Watch","x":1050,"y":155,"font":"handwriting","fontSize":26},
+        {"content":"ACT 3 — Bonnie Situation","x":1055,"y":610,"font":"handwriting","fontSize":24},
+        {"content":"CHARACTERS","x":150,"y":1055,"font":"handwriting","fontSize":28},
+        {"content":"BONEYARD","x":150,"y":1245,"font":"handwriting","fontSize":24},
+        {"content":"SOUNDTRACK","x":750,"y":1245,"font":"handwriting","fontSize":24},
+        {"content":"MOOD BOARD","x":1750,"y":160,"font":"handwriting","fontSize":32},
+
+        // HANDWRITTEN ANNOTATIONS
+        {"content":"Key scene!","x":470,"y":680,"font":"handwriting","fontSize":18},
+        {"content":"← TWIST","x":785,"y":718,"font":"handwriting","fontSize":16},
+        {"content":"Irony: dies on toilet","x":1380,"y":390,"font":"handwriting","fontSize":14},
+        {"content":"Full circle ↺","x":1240,"y":830,"font":"handwriting","fontSize":16},
+        {"content":"Non-linear = power","x":1620,"y":205,"font":"handwriting","fontSize":15},
+        {"content":"The briefcase = ???","x":2050,"y":850,"font":"handwriting","fontSize":18},
+        {"content":"REDEMPTION","x":1565,"y":890,"font":"handwriting","fontSize":16},
+        {"content":"→ Tarantino signature","x":620,"y":555,"font":"handwriting","fontSize":14},
+        {"content":"What if?","x":-680,"y":145,"font":"handwriting","fontSize":16},
+        {"content":"REJECTED →","x":-260,"y":550,"font":"handwriting","fontSize":18}
+      ]};
+
+      // Create frames
+      demoData.frames.forEach(f => createFrame(f.label, f.x, f.y, f.width, f.height, f.official || false));
+
+      // Create cards
+      demoData.cards.forEach(c => createCard(c.text.replace(/\\n/g, '\n'), c.x, c.y, c.color, c.width, c.height));
+
+      // Create texts
+      demoData.texts.forEach(t => createTextElement(t.content.replace(/\\n/g, '\n'), t.x, t.y, t.font || 'inter', t.fontSize ? (t.fontSize <= 14 ? 'small' : t.fontSize <= 20 ? 'medium' : 'large') : 'medium'));
+
+      // Create images - MOOD BOARD (grandes, qui débordent et se chevauchent)
+      const demoImages = [
+        // HERO IMAGE - Jack Rabbit Slim's très grande
+        {src: 'images/jackrabbit-slims.webp', x: 1720, y: 200, width: 450},
+        // Autres images grandes avec chevauchement
+        {src: 'images/diner.webp', x: 2150, y: 180, width: 320},
+        {src: 'images/bande-a-part.jpg', x: 1750, y: 580, width: 280},
+        {src: 'images/kiss-me-deadly.jpg', x: 2050, y: 520, width: 250},
+        {src: 'images/black-sabbath.jpg', x: 1760, y: 820, width: 250},
+        {src: 'images/black-mask.png', x: 2000, y: 780, width: 280},
+        {src: 'images/bodyguard.png', x: 2270, y: 720, width: 230},
+        // Images below Alternative Structure section
+        {src: 'images/body-and-soul.jpg', x: -720, y: 1020, width: 200},
+        {src: 'images/deliverance.jpg', x: -480, y: 1040, width: 180}
+      ];
+      demoImages.forEach(img => createImageElement(img.src, img.x, img.y, img.width));
+
+      // Set viewport - centered view showing everything
+      panX = 420;
+      panY = 80;
+      scale = 0.42;
+      zoomSlider.value = scale;
+      zoomValue.textContent = Math.round(scale * 100) + '%';
+      updateCanvas();
+
+      return true;
+      } catch (e) {
+        console.error('Demo load error:', e);
+        alert('Demo error: ' + e.message);
+        return false;
+      }
+    }
+
+    // ============================================
+    // INIT
+    // ============================================
+
+    const initUrlParams = new URLSearchParams(window.location.search);
+
+    // Check for fresh start mode
+    if (initUrlParams.has('fresh')) {
+      localStorage.removeItem('sceneBoard');
+      generateDefaultBoard();
+    }
+    // Priority: 1. Demo mode 2. URL params 3. localStorage 4. Default board
+    else if (!loadDemoBoard()) {
+      if (!loadFromUrlParams()) {
+        if (!loadFromLocalStorage()) {
+          generateDefaultBoard();
+        }
+      }
+    }
+
+    // Save initial state for undo
+    saveState();
+
+    // Auto-save quand on modifie des éléments
+    // On observe les changements sur le canvas
+    const observer = new MutationObserver(() => {
+      autoSave();
+    });
+    observer.observe(canvas, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+    
+    // Save quand on ferme la page
+    window.addEventListener('beforeunload', saveToLocalStorage);
+  </script>
+</body>
 </html>
