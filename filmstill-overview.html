@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>FilmStill — Product Overview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #f5c542;
+      --accent-dark: #d4a830;
+      --dark: #1a1a1a;
+      --gray: #666;
+      --gray-light: #999;
+      --border: #eee;
+      --bg-alt: #fafafa;
+      --red: #e74c3c;
+      --blue: #3498db;
+      --green: #2e7d32;
+      --violet: #9b59b6;
+      --orange: #e67e22;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 32px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .header h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .header .tagline {
+      font-size: 20px;
+      color: var(--accent-dark);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .header .subtitle {
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-dark);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border-left: 4px solid var(--accent);
+      padding: 24px 28px;
+      border-radius: 0 12px 12px 0;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--dark);
+    }
+
+    /* Two columns */
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .column-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .column-box h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .column-box.problem {
+      border-left: 4px solid var(--red);
+    }
+
+    .column-box.solution {
+      border-left: 4px solid var(--green);
+    }
+
+    .column-box p, .column-box li {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+
+    .column-box ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .column-box li::before {
+      content: "→ ";
+      color: var(--accent-dark);
+    }
+
+    /* Target list */
+    .target-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .target-item {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--dark);
+    }
+
+    /* Feature cards */
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .feature-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .tag.killer { background: #fce4e4; color: var(--red); }
+    .tag.core { background: #e3f2fd; color: var(--blue); }
+    .tag.pro { background: #fef9e7; color: var(--accent-dark); }
+    .tag.moat { background: #f3e5f5; color: var(--violet); }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+
+    /* Grid 2x2 */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-item {
+      background: var(--bg-alt);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .grid-item h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .grid-item p {
+      font-size: 12px;
+      color: var(--gray-light);
+      margin: 0;
+    }
+
+    /* Table */
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 600;
+      color: var(--dark);
+      padding: 12px;
+      border-bottom: 2px solid var(--border);
+      background: var(--bg-alt);
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--gray);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr.highlight td {
+      background: #fffbeb;
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .table-note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    /* Pricing columns */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .pricing-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .pricing-card.recommended {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(245, 197, 66, 0.2);
+    }
+
+    .pricing-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .pricing-card .price {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+
+    .pricing-card .price span {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--gray);
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      text-align: left;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    .pricing-card li {
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-card li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-notes {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    /* Stack boxes */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stack-box {
+      background: var(--bg-alt);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .stack-box h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .stack-box p {
+      font-size: 13px;
+      color: var(--gray);
+      margin: 0;
+    }
+
+    /* Risk items */
+    .risk-item {
+      border-left: 4px solid var(--orange);
+      background: #fff9f5;
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: var(--dark);
+    }
+
+    /* Verdict box */
+    .verdict-box {
+      background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+      border-left: 4px solid var(--green);
+      padding: 24px 28px;
+      border-radius: 0 12px 12px 0;
+      font-size: 16px;
+      color: var(--dark);
+    }
+
+    .verdict-box strong {
+      color: var(--green);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray-light);
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .container { padding: 40px 20px; }
+      .header h1 { font-size: 32px; }
+      .two-columns, .grid-2x2, .pricing-grid, .stack-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="header">
+      <h1>FilmStill</h1>
+      <div class="tagline">See your script.</div>
+      <div class="subtitle">Product Overview — Janvier 2026</div>
+    </header>
+
+    <!-- PITCH -->
+    <section class="section">
+      <div class="section-title">Pitch</div>
+      <div class="highlight-box">
+        Générer des captures d'écran photoréalistes de films qui n'existent pas encore — à partir d'un scénario ou d'une simple description de scène.
+      </div>
+    </section>
+
+    <!-- PROBLÈME & SOLUTION -->
+    <section class="section">
+      <div class="section-title">Problème & Solution</div>
+      <div class="two-columns">
+        <div class="column-box problem">
+          <h3>Problème</h3>
+          <p>Pitcher un film sans images = vendre une maison sans photos.</p>
+          <ul>
+            <li>Illustrateur : cher, lent</li>
+            <li>Références films existants : imprécis</li>
+            <li>Midjourney solo : courbe d'apprentissage, résultats incohérents</li>
+          </ul>
+        </div>
+        <div class="column-box solution">
+          <h3>Solution</h3>
+          <p>Générer en quelques clics des images qui ressemblent à des captures de film — bon cadrage, bonne lumière, bon grain.</p>
+          <p>En langage naturel, sans expertise technique.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIBLE -->
+    <section class="section">
+      <div class="section-title">Cible</div>
+      <div class="target-list">
+        <span class="target-item">Scénaristes</span>
+        <span class="target-item">Réalisateurs</span>
+        <span class="target-item">Producteurs</span>
+        <span class="target-item">Showrunners</span>
+        <span class="target-item">Écoles de cinéma</span>
+        <span class="target-item">Agences pub/créa</span>
+      </div>
+    </section>
+
+    <!-- FONCTIONNALITÉS -->
+    <section class="section">
+      <div class="section-title">Fonctionnalités</div>
+
+      <div class="feature-card">
+        <div class="feature-header">
+          <span class="tag killer">Killer Feature</span>
+          <span class="feature-title">Upload de script PDF</span>
+        </div>
+        <p>L'utilisateur uploade son scénario. L'IA parse les didascalies et génère une image par scène clé. Le producteur voit le film en 30 secondes.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-header">
+          <span class="tag core">Core</span>
+          <span class="feature-title">Paramètres cinématographiques complets</span>
+        </div>
+        <div class="grid-2x2">
+          <div class="grid-item">
+            <h4>Caméra</h4>
+            <p>Plans (ECU → Establishing), Angles, Focales (14mm → 200mm), Aspect ratios</p>
+          </div>
+          <div class="grid-item">
+            <h4>Lumière</h4>
+            <p>Heure (aube → nuit), Météo, Style (naturel, chiaroscuro, néon), Mood</p>
+          </div>
+          <div class="grid-item">
+            <h4>Film Stock</h4>
+            <p>Digital (ARRI, RED), Pellicule (35mm, 16mm, 8mm), Vintage (Technicolor, VHS)</p>
+          </div>
+          <div class="grid-item">
+            <h4>Style visuel</h4>
+            <p>30+ réalisateurs, 6 DPs, Genres, Époques</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-header">
+          <span class="tag core">Core</span>
+          <span class="feature-title">Cohérence des personnages</span>
+        </div>
+        <p>Upload photos de référence. LoRAs entraînés à la volée en backend. Jusqu'à 4 personnages par projet.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-header">
+          <span class="tag pro">Pro</span>
+          <span class="feature-title">Export Shot List</span>
+        </div>
+        <p>Métadonnées techniques exportables (Excel/PDF). "Scène 12 — INT. NUIT — 35mm — Plan américain". Outil de dépouillement, pas juste d'illustration.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-header">
+          <span class="tag moat">Moat</span>
+          <span class="feature-title">Sauce secrète défendable</span>
+        </div>
+        <p>Prompts propriétaires (jamais exposés). Post-traitement réel : grain film, aberrations chromatiques, halation ajoutés par-dessus l'image. Non copiable, non visible.</p>
+      </div>
+    </section>
+
+    <!-- POSITIONNEMENT CONCURRENTIEL -->
+    <section class="section">
+      <div class="section-title">Positionnement concurrentiel</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Concurrent</th>
+              <th>Ce qu'il fait</th>
+              <th>Limite</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Midjourney / DALL-E</td>
+              <td>Génération généraliste</td>
+              <td>Expertise prompting requise, pas de cohérence personnages</td>
+            </tr>
+            <tr>
+              <td>Storyboarder.ai / Katalist</td>
+              <td>Storyboards</td>
+              <td>Dessins techniques, pas photoréalisme</td>
+            </tr>
+            <tr>
+              <td>Flim.ai</td>
+              <td>Base de données films</td>
+              <td>Recherche seulement, pas de génération</td>
+            </tr>
+            <tr>
+              <td>FilmFaceAI</td>
+              <td>Face-swap films existants</td>
+              <td>Pas de création originale</td>
+            </tr>
+            <tr class="highlight">
+              <td><strong>FilmStill</strong></td>
+              <td>Screenshots de films qui n'existent pas</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Aucun concurrent direct sur le use case script PDF → film stills automatiques.</p>
+    </section>
+
+    <!-- BUSINESS MODEL -->
+    <section class="section">
+      <div class="section-title">Business Model</div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Free</h3>
+          <div class="price">0€</div>
+          <ul>
+            <li>5 images/mois</li>
+            <li>Watermark</li>
+            <li>1 personnage</li>
+          </ul>
+        </div>
+        <div class="pricing-card recommended">
+          <h3>Pro</h3>
+          <div class="price">15€<span>/mois</span></div>
+          <ul>
+            <li>100 images/mois</li>
+            <li>Tous paramètres</li>
+            <li>4 personnages</li>
+            <li>Export shot list</li>
+            <li>Upload script</li>
+          </ul>
+        </div>
+        <div class="pricing-card">
+          <h3>Studio</h3>
+          <div class="price">50€<span>/mois</span></div>
+          <ul>
+            <li>Illimité</li>
+            <li>Multi-users</li>
+            <li>API</li>
+            <li>Haute résolution</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pricing-notes">
+        <p><strong>Upsell possible :</strong> "Pack Film" forfait unique ~200€</p>
+        <p><strong>Intégration écosystème :</strong> fait partie de la Suite Filmmaker Tools (25€/mois)</p>
+      </div>
+    </section>
+
+    <!-- STACK TECHNIQUE -->
+    <section class="section">
+      <div class="section-title">Stack technique</div>
+      <div class="stack-grid">
+        <div class="stack-box">
+          <h4>Génération</h4>
+          <p>API Midjourney (proxy) ou Replicate (Flux, SDXL). Abstraction backend pour switcher.</p>
+        </div>
+        <div class="stack-box">
+          <h4>Cohérence personnages</h4>
+          <p>LoRAs via Replicate/modal.com, ou IP-Adapter/InstantID</p>
+        </div>
+        <div class="stack-box">
+          <h4>Post-traitement</h4>
+          <p>Pipeline Python (Pillow, OpenCV) pour grain, aberrations, halation</p>
+        </div>
+        <div class="stack-box">
+          <h4>Parsing script</h4>
+          <p>pdfplumber + Claude API pour identifier didascalies/personnages/décors</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RISQUES -->
+    <section class="section">
+      <div class="section-title">Risques</div>
+      <div class="risk-item">Dépendance APIs génération (Midjourney pas d'API officielle)</div>
+      <div class="risk-item">Légalité "styles réalisateurs" (noms de réalisateurs vivants)</div>
+      <div class="risk-item">Qualité cohérence personnages (LoRAs rapides imparfaits)</div>
+      <div class="risk-item">Marché de niche (mais fort pouvoir d'achat)</div>
+    </section>
+
+    <!-- VERDICT -->
+    <section class="section">
+      <div class="section-title">Verdict</div>
+      <div class="verdict-box">
+        <strong>Go.</strong> Marché de niche à fort pouvoir d'achat. Aucun concurrent direct. Clé = exécution UI pro + vraie sauce secrète technique.
+      </div>
+    </section>
+
+    <footer class="footer">
+      Document interne — Janvier 2026<br>
+      FilmStill — Filmmaker Tools
+    </footer>
+
+  </div>
+</body>
+</html>
