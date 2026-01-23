@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Keep With Next — Technical Documentation</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    a {
+      color: var(--violet);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background: var(--dark);
+      padding: 20px 30px;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+    }
+
+    .header-badge {
+      font-size: 11px;
+      color: #666;
+      background: rgba(157, 123, 234, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(157, 123, 234, 0.2);
+    }
+
+    /* Page Content */
+    .page-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 30px 80px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 40px;
+      margin-bottom: 15px;
+      color: var(--dark);
+      border-bottom: 2px solid var(--violet);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    p {
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    /* Code blocks */
+    pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+    }
+
+    .comment { color: #6a9955; }
+    .keyword { color: #569cd6; }
+    .string { color: #ce9178; }
+    .function { color: #dcdcaa; }
+    .variable { color: #9cdcfe; }
+
+    /* Alert boxes */
+    .alert {
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .alert-warning {
+      background: #fff3e0;
+      border-left: 4px solid #ff9800;
+      color: #e65100;
+    }
+
+    .alert-info {
+      background: var(--violet-light);
+      border-left: 4px solid var(--violet);
+      color: var(--violet-dark);
+    }
+
+    .alert-danger {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+      color: #c62828;
+    }
+
+    ul {
+      margin-bottom: 15px;
+      padding-left: 25px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #444;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .footer-text a {
+      color: var(--violet);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .page-content {
+        padding: 30px 20px 60px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      pre {
+        font-size: 11px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="docs.html" class="logo">SCR| DOCS</a>
+      <div class="header-badge">Technical Archive</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Keep With Next</h1>
+      <p class="page-subtitle">Implementation technique pour "Lier au paragraphe suivant" via Google Docs API</p>
+
+      <div class="alert alert-danger">
+        <strong>Feature desactivee</strong> — Cette fonctionnalite necessite le scope <code>https://www.googleapis.com/auth/documents</code> (acces complet aux documents). Le scope actuel <code>documents.currentonly</code> ne permet pas d'utiliser l'API Docs Advanced.
+      </div>
+
+      <h2>Contexte</h2>
+      <p>Google Docs supporte l'option "Keep with next" (garder avec le suivant) qui empeche un saut de page entre deux paragraphes. Cette option est accessible via Format > Line & paragraph spacing > Keep with next.</p>
+
+      <p>Probleme : <strong>DocumentApp ne fournit pas de methode <code>setKeepWithNext()</code></strong>. Il faut passer par l'API REST Google Docs.</p>
+
+      <h2>Solution technique</h2>
+      <p>La seule methode fiable utilise les <strong>NamedRanges</strong> comme "balises GPS" pour obtenir les indices exacts :</p>
+
+      <ol>
+        <li>Creer un NamedRange sur la selection (via DocumentApp)</li>
+        <li><code>saveAndClose()</code> pour persister la balise cote serveur</li>
+        <li>Utiliser <code>Docs.Documents.get()</code> pour recuperer les indices</li>
+        <li><code>batchUpdate</code> pour appliquer le style ET supprimer la balise</li>
+      </ol>
+
+      <h2>Code complet</h2>
+
+      <h3>appsscript.json</h3>
+      <pre><code>{
+  <span class="string">"timeZone"</span>: <span class="string">"Europe/Paris"</span>,
+  <span class="string">"exceptionLogging"</span>: <span class="string">"STACKDRIVER"</span>,
+  <span class="string">"runtimeVersion"</span>: <span class="string">"V8"</span>,
+  <span class="string">"dependencies"</span>: {
+    <span class="string">"enabledAdvancedServices"</span>: [{
+      <span class="string">"userSymbol"</span>: <span class="string">"Docs"</span>,
+      <span class="string">"serviceId"</span>: <span class="string">"docs"</span>,
+      <span class="string">"version"</span>: <span class="string">"v1"</span>
+    }]
+  },
+  <span class="string">"oauthScopes"</span>: [
+    <span class="string">"https://www.googleapis.com/auth/documents"</span>,
+    <span class="string">"https://www.googleapis.com/auth/drive.file"</span>,
+    <span class="string">"https://www.googleapis.com/auth/script.container.ui"</span>
+  ]
+}</code></pre>
+
+      <div class="alert alert-warning">
+        <strong>Attention :</strong> Le scope <code>documents</code> (sans <code>.currentonly</code>) est requis. Cela declenchera une nouvelle demande d'autorisation pour tous les utilisateurs existants.
+      </div>
+
+      <h3>Code.js</h3>
+      <pre><code><span class="comment">/**
+ * Applique "Keep With Next" via les NamedRanges.
+ * Methode 100% fiable qui resiste aux Tableaux, Images, Suggestions et Smart Chips.
+ */</span>
+<span class="keyword">function</span> <span class="function">keepWithNext</span>() {
+  <span class="keyword">var</span> <span class="variable">doc</span> = DocumentApp.getActiveDocument();
+  <span class="keyword">var</span> <span class="variable">selection</span> = <span class="variable">doc</span>.getSelection();
+  <span class="keyword">var</span> <span class="variable">docId</span> = <span class="variable">doc</span>.getId();
+
+  <span class="keyword">if</span> (!<span class="variable">selection</span>) {
+    <span class="keyword">return</span> { success: <span class="keyword">false</span>, message: <span class="string">'Please select a paragraph'</span> };
+  }
+
+  <span class="comment">// 1. Poser une balise (NamedRange) sur la selection</span>
+  <span class="keyword">var</span> <span class="variable">rangeBuilder</span> = <span class="variable">doc</span>.newRange();
+  <span class="keyword">var</span> <span class="variable">elements</span> = <span class="variable">selection</span>.getRangeElements();
+  <span class="keyword">var</span> <span class="variable">firstElement</span> = <span class="variable">elements</span>[0].getElement();
+
+  <span class="keyword">if</span> (<span class="variable">firstElement</span>.getType() === DocumentApp.ElementType.TEXT) {
+    <span class="variable">firstElement</span> = <span class="variable">firstElement</span>.getParent();
+  }
+  <span class="variable">rangeBuilder</span>.addElement(<span class="variable">firstElement</span>);
+
+  <span class="keyword">var</span> <span class="variable">uniqueName</span> = <span class="string">'TEMP_KWN_'</span> + <span class="keyword">new</span> Date().getTime();
+  <span class="variable">doc</span>.addNamedRange(<span class="variable">uniqueName</span>, <span class="variable">rangeBuilder</span>.build());
+
+  <span class="comment">// 2. Sauvegarder pour que l'API voie la balise</span>
+  <span class="variable">doc</span>.saveAndClose();
+
+  <span class="keyword">try</span> {
+    <span class="comment">// 3. Recuperer les infos via l'API Avancee</span>
+    <span class="keyword">var</span> <span class="variable">result</span> = Docs.Documents.get(<span class="variable">docId</span>, { fields: <span class="string">"namedRanges"</span> });
+
+    <span class="keyword">var</span> <span class="variable">myRangeData</span> = <span class="variable">result</span>.namedRanges[<span class="variable">uniqueName</span>];
+    <span class="keyword">if</span> (!<span class="variable">myRangeData</span> || !<span class="variable">myRangeData</span>.namedRanges || <span class="variable">myRangeData</span>.namedRanges.length === 0) {
+      <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Marker not found"</span>);
+    }
+
+    <span class="comment">// Recuperer l'ID technique et les index</span>
+    <span class="keyword">var</span> <span class="variable">rangeInternalId</span> = <span class="variable">myRangeData</span>.namedRanges[0].namedRangeId;
+    <span class="keyword">var</span> <span class="variable">startIndex</span> = <span class="variable">myRangeData</span>.namedRanges[0].ranges[0].startIndex;
+    <span class="keyword">var</span> <span class="variable">endIndex</span> = <span class="variable">myRangeData</span>.namedRanges[0].ranges[0].endIndex;
+
+    <span class="comment">// 4. BATCH UPDATE : appliquer le style ET supprimer la balise</span>
+    Docs.Documents.batchUpdate({
+      requests: [
+        {
+          updateParagraphStyle: {
+            range: { startIndex: <span class="variable">startIndex</span>, endIndex: <span class="variable">endIndex</span> },
+            paragraphStyle: { keepWithNext: <span class="keyword">true</span> },
+            fields: <span class="string">"keepWithNext"</span>
+          }
+        },
+        {
+          deleteNamedRange: {
+            namedRangeId: <span class="variable">rangeInternalId</span>
+          }
+        }
+      ]
+    }, <span class="variable">docId</span>);
+
+    <span class="keyword">return</span> { success: <span class="keyword">true</span>, message: <span class="string">'1 paragraph linked'</span> };
+
+  } <span class="keyword">catch</span> (e) {
+    <span class="keyword">return</span> { success: <span class="keyword">false</span>, message: <span class="string">'Error: '</span> + e.message };
+  }
+}</code></pre>
+
+      <h2>Pourquoi cette approche ?</h2>
+
+      <h3>Approches qui NE FONCTIONNENT PAS</h3>
+      <ul>
+        <li><code>paragraph.setKeepWithNext(true)</code> — <strong>N'existe pas</strong> dans DocumentApp (contrairement a ce que certains AI affirment)</li>
+        <li>Calcul mathematique des indices — Echoue avec les images, tableaux, Smart Chips, suggestions</li>
+        <li>Comparaison d'objets <code>child === targetElement</code> — References differentes meme pour le meme paragraphe</li>
+      </ul>
+
+      <h3>Pourquoi NamedRanges fonctionne</h3>
+      <ul>
+        <li>Google Docs calcule lui-meme les indices exacts</li>
+        <li>Resiste a tous les types de contenu (images, tableaux, chips, etc.)</li>
+        <li>L'API retourne les coordonnees precises de la balise</li>
+      </ul>
+
+      <h2>Limitation</h2>
+      <div class="alert alert-info">
+        <strong>UX Impact :</strong> <code>saveAndClose()</code> ferme temporairement le document. L'utilisateur peut voir un bref "flash" de rechargement. Le scroll position peut etre perdu.
+      </div>
+
+      <h2>Alternative future</h2>
+      <p>Si Google ajoute un jour <code>Paragraph.setKeepWithNext()</code> a DocumentApp, cette approche ne sera plus necessaire. En attendant, c'est la seule methode fiable.</p>
+
+    </div>
+  </main>
+
+  <footer>
+    <p class="footer-text">Screenplay Editor — Technical Archive — <a href="docs.html">Back to docs</a></p>
+  </footer>
+</body>
+</html>
