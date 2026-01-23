@@ -1,1185 +1,709 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Film Still Generator — See Your Script</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fff;
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: #f5c542;
-        }
-
-        nav {
-            display: flex;
-            gap: 35px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #666;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: #1a1a1a;
-        }
-
-        main {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 50px;
-            font-size: 1.1rem;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            background: #e8f5e9;
-            color: #2e7d32;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border-radius: 20px;
-            margin-left: 10px;
-        }
-
-        /* Section styling */
-        .generator-section {
-            background: #fafafa;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 35px;
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #999;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e0e0e0;
-        }
-
-        label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .label-hint {
-            font-weight: 400;
-            color: #888;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 100px;
-            transition: border-color 0.2s;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #f5c542;
-        }
-
-        textarea::placeholder {
-            color: #aaa;
-        }
-
-        /* Options grid */
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        @media (max-width: 800px) {
-            .options-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 500px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .option-group {
-            flex: 1;
-        }
-
-        select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            background: #fff;
-            cursor: pointer;
-        }
-
-        select:focus {
-            outline: none;
-            border-color: #f5c542;
-        }
-
-        /* Buttons */
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background: #1a1a2e;
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background: #2a2a4e;
-        }
-
-        .btn-secondary {
-            background: #fff;
-            color: #1a1a2e;
-            border: 1px solid #ddd;
-        }
-
-        .btn-secondary:hover {
-            border-color: #1a1a2e;
-        }
-
-        .btn-success {
-            background: #f5c542;
-            color: #1a1a1a;
-        }
-
-        .btn-success:hover {
-            background: #e5b532;
-        }
-
-        .btn-large {
-            width: 100%;
-            padding: 18px;
-            font-size: 1rem;
-        }
-
-        /* Characters */
-        .characters-grid {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .character-slot {
-            width: 80px;
-            height: 100px;
-            border: 2px dashed #ddd;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .character-slot:hover {
-            border-color: #f5c542;
-            background: #fffdf5;
-        }
-
-        .character-slot.filled {
-            border-style: solid;
-            border-color: #ddd;
-        }
-
-        .character-slot img {
-            width: 100%;
-            height: 70px;
-            object-fit: cover;
-        }
-
-        .character-slot .char-name {
-            font-size: 0.7rem;
-            color: #666;
-            padding: 5px;
-            text-align: center;
-            width: 100%;
-            background: #f5f5f5;
-        }
-
-        .character-slot .add-icon {
-            font-size: 1.5rem;
-            color: #ccc;
-        }
-
-        .character-slot .add-label {
-            font-size: 0.7rem;
-            color: #999;
-            margin-top: 5px;
-        }
-
-        .character-slot .remove-btn {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 18px;
-            height: 18px;
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            font-size: 0.7rem;
-            cursor: pointer;
-            display: none;
-        }
-
-        .character-slot.filled:hover .remove-btn {
-            display: block;
-        }
-
-        /* Prompt result */
-        .prompt-section {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-            display: none;
-        }
-
-        .prompt-section.visible {
-            display: block;
-        }
-
-        .prompt-comparison {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 20px;
-            align-items: start;
-            margin-bottom: 25px;
-        }
-
-        @media (max-width: 700px) {
-            .prompt-comparison {
-                grid-template-columns: 1fr;
-            }
-            .prompt-arrow {
-                transform: rotate(90deg);
-            }
-        }
-
-        .prompt-box {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 15px;
-        }
-
-        .prompt-box-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #999;
-            margin-bottom: 10px;
-        }
-
-        .prompt-box-content {
-            font-size: 0.9rem;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .prompt-box.enhanced {
-            border-color: #f5c542;
-            background: #fffdf5;
-        }
-
-        .prompt-box.enhanced .prompt-box-content {
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 0.85rem;
-        }
-
-        .prompt-arrow {
-            color: #f5c542;
-            font-size: 1.5rem;
-            align-self: center;
-        }
-
-        .prompt-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
-        /* Result */
-        .result-section {
-            display: none;
-        }
-
-        .result-section.visible {
-            display: block;
-        }
-
-        .result-image {
-            width: 100%;
-            border-radius: 8px;
-            background: #f0f0f0;
-            aspect-ratio: 2.39/1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 0.9rem;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .result-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .result-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
-        /* Loading */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .loading.visible {
-            display: block;
-        }
-
-        .spinner {
-            width: 36px;
-            height: 36px;
-            border: 3px solid #eee;
-            border-top-color: #f5c542;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 15px;
-        }
-
-        .loading p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .hidden-input {
-            display: none;
-        }
-
-        /* Collapsible sections */
-        .collapsible-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            padding: 10px 0;
-        }
-
-        .collapsible-header h3 {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .collapsible-toggle {
-            color: #999;
-            font-size: 0.85rem;
-        }
-
-        .collapsible-content {
-            display: none;
-            padding-top: 15px;
-        }
-
-        .collapsible-content.open {
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film Still — See Your Script | Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="description" content="Generate photorealistic stills from your screenplay. AI-powered image generation for filmmakers.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --yellow: #f5c542;
+      --yellow-dark: #e5b532;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    /* ============================================
+       BREADCRUMB
+       ============================================ */
+    .breadcrumb {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 12px 30px;
+      margin-top: 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb .separator {
+      margin: 0 10px;
+      color: #ccc;
+    }
+
+    .breadcrumb .current {
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: 80px 30px 60px;
+      text-align: center;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(245, 197, 66, 0.4);
+      background-image:
+        linear-gradient(rgba(245, 197, 66, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 197, 66, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-logo {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .hero-logo span {
+      color: var(--yellow);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245, 197, 66, 0.15);
+      color: var(--yellow);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(245, 197, 66, 0.3);
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .hero-tagline {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--yellow);
+      margin-bottom: 15px;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: #888;
+      max-width: 550px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       MAIN CONTENT
+       ============================================ */
+    .main-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 50px 30px 80px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #999;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e0e0;
+    }
+
+    /* Generator Section */
+    .generator-section {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .label-hint {
+      font-weight: 400;
+      color: #888;
+      font-size: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      resize: vertical;
+      min-height: 100px;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--yellow);
+    }
+
+    textarea::placeholder {
+      color: #aaa;
+    }
+
+    /* Options grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .option-group {
+      flex: 1;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--yellow);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--dark);
+    }
+
+    .btn-primary:hover {
+      background: var(--yellow-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-large {
+      width: 100%;
+      padding: 18px;
+      font-size: 14px;
+    }
+
+    /* Characters */
+    .characters-grid {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .character-slot {
+      width: 80px;
+      height: 100px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .character-slot:hover {
+      border-color: var(--yellow);
+      background: #fffdf5;
+    }
+
+    .character-slot .add-icon {
+      font-size: 24px;
+      color: #ccc;
+    }
+
+    .character-slot .add-label {
+      font-size: 10px;
+      color: #999;
+      margin-top: 5px;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(245, 197, 66, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 197, 66, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--yellow);
+      margin-bottom: 22px;
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    .footer-copy a {
+      color: var(--violet);
+    }
+
+    /* ============================================
+       COMING SOON OVERLAY (Frosted Glass)
+       ============================================ */
+    .coming-soon-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(26, 26, 26, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coming-soon-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 50px 60px;
+      text-align: center;
+      max-width: 480px;
+      margin: 20px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    }
+
+    .coming-soon-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .coming-soon-card h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .coming-soon-card p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 30px;
+      line-height: 1.7;
+    }
+
+    .coming-soon-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 25px;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: var(--violet);
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--violet-dark);
+      text-decoration: underline;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 800px) {
+      .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 60px 20px 50px;
+      }
+
+      .hero-logo {
+        font-size: 32px;
+      }
+
+      .hero h1 {
+        font-size: 22px;
+      }
+
+      .main-content {
+        padding: 40px 20px 60px;
+      }
+
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .coming-soon-card {
+        padding: 40px 30px;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <div class="logo">FILM<span>STILL</span></div>
-        <nav>
-            <a href="#">Features</a>
-            <a href="#">Pricing</a>
-            <a href="#">About</a>
-        </nav>
-    </header>
+  <!-- COMING SOON OVERLAY -->
+  <div class="coming-soon-overlay">
+    <div class="coming-soon-card">
+      <div class="coming-soon-icon">🎬</div>
+      <div class="coming-soon-badge">COMING SOON</div>
+      <h2>Film Still is brewing</h2>
+      <p>AI-powered image generation for filmmakers. Generate photorealistic stills from your screenplay for pitches, mood boards, and pre-visualization.</p>
+      <a href="../index.html" class="back-link">← Back to Screenplay Editor</a>
+    </div>
+  </div>
 
-    <main>
-        <h1>See your script. <span class="badge">Beta</span></h1>
-        <p class="subtitle">Generate photorealistic stills from your screenplay. Perfect for pitches, mood boards, and pre-visualization.</p>
+  <header>
+    <div class="header-content">
+      <a href="../index.html" class="logo">SCR<span class="cursor">▌</span></a>
+      <nav class="header-nav">
+        <a href="../index.html#features">Features</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../resources/index.html">Resources</a>
+        <a href="../about.html">About</a>
+      </nav>
+    </div>
+  </header>
 
-        <!-- SECTION 1: Scene Description -->
-        <div class="generator-section">
-            <div class="section-title">Your Scene</div>
+  <div class="breadcrumb">
+    <div class="breadcrumb-content">
+      <a href="../index.html">Screenplay Editor</a>
+      <span class="separator">/</span>
+      <span class="current">Film Still</span>
+    </div>
+  </div>
 
-            <label for="scene-input">
-                Describe what we see
-                <span class="label-hint">— Write naturally, like a script action line</span>
-            </label>
-            <textarea id="scene-input" placeholder="Marie, 35, sits alone at a kitchen table. A single lamp casts harsh shadows across her face. She stares at an old photograph, tears running down her cheeks. The remains of dinner sit untouched, gone cold."></textarea>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-logo">FILM<span>STILL</span></div>
+        <div class="hero-badge">BETA</div>
+        <h1>See your script.</h1>
+        <p class="hero-tagline">AI-powered stills for filmmakers</p>
+        <p class="hero-subtitle">Generate photorealistic images from your screenplay. Perfect for pitches, mood boards, and pre-visualization.</p>
+      </div>
+    </section>
+
+    <div class="main-content">
+      <!-- SECTION 1: Scene Description -->
+      <div class="generator-section">
+        <div class="section-title">Your Scene</div>
+        <label>
+          Describe what we see
+          <span class="label-hint">— Write naturally, like a script action line</span>
+        </label>
+        <textarea placeholder="Marie, 35, sits alone at a kitchen table. A single lamp casts harsh shadows across her face. She stares at an old photograph, tears running down her cheeks."></textarea>
+      </div>
+
+      <!-- SECTION 2: Camera & Lens -->
+      <div class="generator-section">
+        <div class="section-title">Camera</div>
+        <div class="options-grid">
+          <div class="option-group">
+            <label>Shot Type</label>
+            <select>
+              <option value="medium-shot" selected>Medium Shot (MS)</option>
+              <option value="close-up">Close-Up (CU)</option>
+              <option value="wide-shot">Wide Shot</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Lens</label>
+            <select>
+              <option value="35mm" selected>35mm — Standard</option>
+              <option value="50mm">50mm — Normal</option>
+              <option value="85mm">85mm — Portrait</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Aspect Ratio</label>
+            <select>
+              <option value="2.39:1">2.39:1 — Cinemascope</option>
+              <option value="16:9">16:9 — HD</option>
+              <option value="4:3">4:3 — Classic</option>
+            </select>
+          </div>
         </div>
+      </div>
 
-        <!-- SECTION 2: Camera & Lens -->
-        <div class="generator-section">
-            <div class="section-title">Camera</div>
-
-            <div class="options-grid">
-                <div class="option-group">
-                    <label for="shot-type">Shot Type</label>
-                    <select id="shot-type">
-                        <optgroup label="Close Shots">
-                            <option value="extreme-close-up">Extreme Close-Up (ECU)</option>
-                            <option value="close-up">Close-Up (CU)</option>
-                            <option value="medium-close-up">Medium Close-Up (MCU)</option>
-                        </optgroup>
-                        <optgroup label="Medium Shots">
-                            <option value="medium-shot" selected>Medium Shot (MS)</option>
-                            <option value="american-shot">American Shot / Cowboy (3/4)</option>
-                            <option value="medium-long-shot">Medium Long Shot (MLS)</option>
-                        </optgroup>
-                        <optgroup label="Wide Shots">
-                            <option value="full-shot">Full Shot</option>
-                            <option value="long-shot">Long Shot (LS)</option>
-                            <option value="extreme-long-shot">Extreme Long Shot (ELS)</option>
-                            <option value="establishing-shot">Establishing Shot</option>
-                        </optgroup>
-                        <optgroup label="Special">
-                            <option value="over-the-shoulder">Over the Shoulder (OTS)</option>
-                            <option value="two-shot">Two Shot</option>
-                            <option value="pov">POV Shot</option>
-                            <option value="dutch-angle">Dutch Angle</option>
-                            <option value="birds-eye">Bird's Eye View</option>
-                            <option value="low-angle">Low Angle</option>
-                            <option value="high-angle">High Angle</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="lens">Lens</label>
-                    <select id="lens">
-                        <optgroup label="Wide Angle">
-                            <option value="14mm">14mm — Ultra Wide</option>
-                            <option value="18mm">18mm — Wide</option>
-                            <option value="24mm">24mm — Wide</option>
-                            <option value="28mm">28mm — Moderate Wide</option>
-                        </optgroup>
-                        <optgroup label="Standard">
-                            <option value="35mm" selected>35mm — Standard</option>
-                            <option value="50mm">50mm — Normal</option>
-                        </optgroup>
-                        <optgroup label="Telephoto">
-                            <option value="85mm">85mm — Portrait</option>
-                            <option value="100mm">100mm — Telephoto</option>
-                            <option value="135mm">135mm — Telephoto</option>
-                            <option value="200mm">200mm — Long Telephoto</option>
-                        </optgroup>
-                        <optgroup label="Special">
-                            <option value="fisheye">Fisheye</option>
-                            <option value="anamorphic">Anamorphic</option>
-                            <option value="tilt-shift">Tilt-Shift</option>
-                            <option value="macro">Macro</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="aspect-ratio">Aspect Ratio</label>
-                    <select id="aspect-ratio">
-                        <option value="2.39:1">2.39:1 — Cinémascope / Anamorphic</option>
-                        <option value="2.35:1">2.35:1 — Panavision</option>
-                        <option value="1.85:1">1.85:1 — American Widescreen</option>
-                        <option value="16:9">16:9 — HD / Streaming</option>
-                        <option value="1.66:1">1.66:1 — European Widescreen</option>
-                        <option value="4:3">4:3 — Academy / Classic TV</option>
-                        <option value="1:1">1:1 — Square</option>
-                        <option value="9:16">9:16 — Vertical / Mobile</option>
-                    </select>
-                </div>
-            </div>
+      <!-- SECTION 3: Lighting -->
+      <div class="generator-section">
+        <div class="section-title">Lighting</div>
+        <div class="options-grid">
+          <div class="option-group">
+            <label>Time of Day</label>
+            <select>
+              <option value="night" selected>Night</option>
+              <option value="golden-hour">Golden Hour</option>
+              <option value="midday">Midday</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Lighting Style</label>
+            <select>
+              <option value="natural" selected>Natural Light</option>
+              <option value="chiaroscuro">Chiaroscuro</option>
+              <option value="neon">Neon</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Mood</label>
+            <select>
+              <option value="dramatic">Dramatic</option>
+              <option value="intimate">Intimate</option>
+              <option value="tense">Tense</option>
+            </select>
+          </div>
         </div>
+      </div>
 
-        <!-- SECTION 3: Lighting & Time -->
-        <div class="generator-section">
-            <div class="section-title">Lighting</div>
-
-            <div class="options-grid">
-                <div class="option-group">
-                    <label for="time-of-day">Time of Day</label>
-                    <select id="time-of-day">
-                        <optgroup label="Daylight">
-                            <option value="dawn">Dawn — First light</option>
-                            <option value="golden-hour-morning">Golden Hour (Morning)</option>
-                            <option value="morning">Morning</option>
-                            <option value="midday">Midday — Harsh sun</option>
-                            <option value="afternoon">Afternoon</option>
-                            <option value="golden-hour-evening">Golden Hour (Evening)</option>
-                            <option value="dusk">Dusk — Blue hour</option>
-                        </optgroup>
-                        <optgroup label="Night">
-                            <option value="night" selected>Night</option>
-                            <option value="moonlit">Moonlit Night</option>
-                            <option value="deep-night">Deep Night — Very dark</option>
-                        </optgroup>
-                        <optgroup label="Interior">
-                            <option value="interior-day">Interior — Day</option>
-                            <option value="interior-night">Interior — Night</option>
-                        </optgroup>
-                        <optgroup label="Weather">
-                            <option value="overcast">Overcast — Soft diffused</option>
-                            <option value="fog">Fog</option>
-                            <option value="rain">Rain</option>
-                            <option value="storm">Storm</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="lighting-style">Lighting Style</label>
-                    <select id="lighting-style">
-                        <optgroup label="Naturalistic">
-                            <option value="natural" selected>Natural Light</option>
-                            <option value="available">Available Light Only</option>
-                            <option value="practical">Practical Lights (lamps, candles)</option>
-                        </optgroup>
-                        <optgroup label="Dramatic">
-                            <option value="chiaroscuro">Chiaroscuro — High contrast</option>
-                            <option value="rembrandt">Rembrandt Lighting</option>
-                            <option value="silhouette">Silhouette</option>
-                            <option value="backlit">Backlit / Rim Light</option>
-                        </optgroup>
-                        <optgroup label="Stylized">
-                            <option value="neon">Neon / Urban</option>
-                            <option value="fluorescent">Fluorescent — Sickly green</option>
-                            <option value="tungsten">Tungsten — Warm orange</option>
-                            <option value="mixed-color">Mixed Color Temperature</option>
-                        </optgroup>
-                        <optgroup label="Soft">
-                            <option value="soft-diffused">Soft Diffused</option>
-                            <option value="flat">Flat — Even lighting</option>
-                            <option value="bounce">Bounce Light</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="mood">Mood</label>
-                    <select id="mood">
-                        <option value="dramatic">Dramatic</option>
-                        <option value="intimate">Intimate</option>
-                        <option value="tense">Tense / Suspenseful</option>
-                        <option value="melancholic">Melancholic</option>
-                        <option value="hopeful">Hopeful</option>
-                        <option value="joyful">Joyful</option>
-                        <option value="mysterious">Mysterious</option>
-                        <option value="eerie">Eerie / Unsettling</option>
-                        <option value="romantic">Romantic</option>
-                        <option value="nostalgic">Nostalgic</option>
-                        <option value="raw">Raw / Gritty</option>
-                        <option value="dreamlike">Dreamlike</option>
-                    </select>
-                </div>
-            </div>
+      <!-- SECTION 4: Style -->
+      <div class="generator-section">
+        <div class="section-title">Style</div>
+        <div class="options-grid">
+          <div class="option-group">
+            <label>Film Stock</label>
+            <select>
+              <option value="arri-alexa" selected>ARRI Alexa</option>
+              <option value="kodak-5219">Kodak 35mm</option>
+              <option value="16mm">16mm Film</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Director Style</label>
+            <select>
+              <option value="none">None</option>
+              <option value="villeneuve">Denis Villeneuve</option>
+              <option value="fincher">David Fincher</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Genre</label>
+            <select>
+              <option value="drama" selected>Drama</option>
+              <option value="thriller">Thriller</option>
+              <option value="horror">Horror</option>
+            </select>
+          </div>
         </div>
+      </div>
 
-        <!-- SECTION 4: Film Stock & Era -->
-        <div class="generator-section">
-            <div class="section-title">Film Stock & Era</div>
-
-            <div class="options-grid">
-                <div class="option-group">
-                    <label for="film-stock">Camera / Film Stock</label>
-                    <select id="film-stock">
-                        <optgroup label="Digital Cinema">
-                            <option value="arri-alexa" selected>ARRI Alexa — Clean, cinematic</option>
-                            <option value="red-komodo">RED Komodo — Sharp, digital</option>
-                            <option value="sony-venice">Sony Venice — Natural skin tones</option>
-                            <option value="blackmagic">Blackmagic — Indie digital</option>
-                        </optgroup>
-                        <optgroup label="35mm Film">
-                            <option value="kodak-5219">Kodak Vision3 500T — Warm, versatile</option>
-                            <option value="kodak-5207">Kodak Vision3 250D — Daylight, saturated</option>
-                            <option value="fuji-eterna">Fuji Eterna — Cool, subtle</option>
-                        </optgroup>
-                        <optgroup label="16mm Film">
-                            <option value="16mm-kodak">16mm Kodak — Grainy, indie</option>
-                            <option value="super-16">Super 16 — Documentary feel</option>
-                        </optgroup>
-                        <optgroup label="Vintage">
-                            <option value="8mm">8mm — Home movie look</option>
-                            <option value="technicolor">Technicolor — Saturated, 1950s</option>
-                            <option value="1970s-film">1970s Film — Faded, grainy</option>
-                            <option value="1920s-silent">1920s Silent Era — B&W, scratchy</option>
-                            <option value="noir-bw">Film Noir B&W</option>
-                        </optgroup>
-                        <optgroup label="Alternative">
-                            <option value="vhs">VHS — Analog distortion</option>
-                            <option value="dv-cam">DV Cam — Early 2000s digital</option>
-                            <option value="iphone">iPhone / Smartphone</option>
-                            <option value="security-cam">Security Camera</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="color-grade">Color Grade</label>
-                    <select id="color-grade">
-                        <optgroup label="Neutral">
-                            <option value="neutral" selected>Neutral — Balanced</option>
-                            <option value="natural">Natural — True to life</option>
-                        </optgroup>
-                        <optgroup label="Warm">
-                            <option value="warm-orange">Warm Orange</option>
-                            <option value="golden">Golden</option>
-                            <option value="sepia">Sepia</option>
-                        </optgroup>
-                        <optgroup label="Cool">
-                            <option value="cool-blue">Cool Blue</option>
-                            <option value="teal">Teal</option>
-                            <option value="desaturated-cold">Desaturated Cold</option>
-                        </optgroup>
-                        <optgroup label="Stylized">
-                            <option value="teal-orange">Teal & Orange — Blockbuster</option>
-                            <option value="bleach-bypass">Bleach Bypass — Muted, high contrast</option>
-                            <option value="cross-process">Cross-Processed</option>
-                            <option value="high-saturation">High Saturation</option>
-                            <option value="desaturated">Desaturated</option>
-                            <option value="monochrome">Monochrome / B&W</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="era">Era / Period</label>
-                    <select id="era">
-                        <option value="contemporary" selected>Contemporary</option>
-                        <option value="2000s">2000s</option>
-                        <option value="1990s">1990s</option>
-                        <option value="1980s">1980s</option>
-                        <option value="1970s">1970s</option>
-                        <option value="1960s">1960s</option>
-                        <option value="1950s">1950s</option>
-                        <option value="1940s">1940s — Noir era</option>
-                        <option value="1920s-30s">1920s-30s — Golden age</option>
-                        <option value="silent-era">Silent Era</option>
-                        <option value="victorian">Victorian</option>
-                        <option value="medieval">Medieval</option>
-                        <option value="ancient">Ancient</option>
-                        <option value="future">Near Future</option>
-                        <option value="sci-fi">Sci-Fi Future</option>
-                    </select>
-                </div>
-            </div>
+      <!-- SECTION 5: Characters -->
+      <div class="generator-section">
+        <div class="section-title">Characters (Optional)</div>
+        <label>
+          Keep faces consistent
+          <span class="label-hint">— Upload reference photos</span>
+        </label>
+        <div class="characters-grid">
+          <div class="character-slot">
+            <div class="add-icon">+</div>
+            <div class="add-label">Add</div>
+          </div>
         </div>
+      </div>
 
-        <!-- SECTION 5: Director Inspiration -->
-        <div class="generator-section">
-            <div class="section-title">Visual Inspiration</div>
+      <!-- Generate Button -->
+      <button class="btn btn-primary btn-large">Generate Film Still →</button>
+    </div>
+  </main>
 
-            <div class="options-grid">
-                <div class="option-group">
-                    <label for="director">Director / Cinematographer Style</label>
-                    <select id="director">
-                        <option value="none">None — Neutral style</option>
-                        <optgroup label="American">
-                            <option value="spielberg">Steven Spielberg</option>
-                            <option value="kubrick">Stanley Kubrick</option>
-                            <option value="fincher">David Fincher</option>
-                            <option value="nolan">Christopher Nolan</option>
-                            <option value="tarantino">Quentin Tarantino</option>
-                            <option value="coppola">Francis Ford Coppola</option>
-                            <option value="scorsese">Martin Scorsese</option>
-                            <option value="terrence-malick">Terrence Malick</option>
-                            <option value="coen-brothers">Coen Brothers</option>
-                            <option value="wes-anderson">Wes Anderson</option>
-                            <option value="lynch">David Lynch</option>
-                            <option value="ari-aster">Ari Aster</option>
-                            <option value="jordan-peele">Jordan Peele</option>
-                            <option value="sofia-coppola">Sofia Coppola</option>
-                            <option value="greta-gerwig">Greta Gerwig</option>
-                        </optgroup>
-                        <optgroup label="European">
-                            <option value="villeneuve">Denis Villeneuve</option>
-                            <option value="dardenne">Dardenne Brothers</option>
-                            <option value="haneke">Michael Haneke</option>
-                            <option value="trier">Lars von Trier</option>
-                            <option value="kaurismaki">Aki Kaurismäki</option>
-                            <option value="sorrentino">Paolo Sorrentino</option>
-                            <option value="almodovar">Pedro Almodóvar</option>
-                            <option value="audiard">Jacques Audiard</option>
-                            <option value="kechiche">Abdellatif Kechiche</option>
-                        </optgroup>
-                        <optgroup label="Asian">
-                            <option value="wong-kar-wai">Wong Kar-wai</option>
-                            <option value="park-chan-wook">Park Chan-wook</option>
-                            <option value="bong-joon-ho">Bong Joon-ho</option>
-                            <option value="kurosawa">Akira Kurosawa</option>
-                            <option value="ozu">Yasujiro Ozu</option>
-                            <option value="hirokazu">Hirokazu Kore-eda</option>
-                        </optgroup>
-                        <optgroup label="Cinematographers">
-                            <option value="deakins">Roger Deakins</option>
-                            <option value="lubezki">Emmanuel Lubezki</option>
-                            <option value="richardson">Robert Richardson</option>
-                            <option value="kaminski">Janusz Kamiński</option>
-                            <option value="hoytema">Hoyte van Hoytema</option>
-                            <option value="delbonnel">Bruno Delbonnel</option>
-                        </optgroup>
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="genre">Genre</label>
-                    <select id="genre">
-                        <option value="drama" selected>Drama</option>
-                        <option value="thriller">Thriller</option>
-                        <option value="horror">Horror</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="romance">Romance</option>
-                        <option value="action">Action</option>
-                        <option value="sci-fi">Science Fiction</option>
-                        <option value="fantasy">Fantasy</option>
-                        <option value="western">Western</option>
-                        <option value="noir">Film Noir</option>
-                        <option value="documentary">Documentary</option>
-                        <option value="animation">Animation (stylized)</option>
-                    </select>
-                </div>
-
-                <div class="option-group">
-                    <label for="location">Location Type</label>
-                    <select id="location">
-                        <option value="auto">Auto-detect from description</option>
-                        <optgroup label="Interior">
-                            <option value="apartment">Apartment</option>
-                            <option value="house">House</option>
-                            <option value="office">Office</option>
-                            <option value="restaurant">Restaurant / Bar</option>
-                            <option value="hospital">Hospital</option>
-                            <option value="warehouse">Warehouse / Industrial</option>
-                        </optgroup>
-                        <optgroup label="Exterior">
-                            <option value="city-street">City Street</option>
-                            <option value="suburb">Suburb</option>
-                            <option value="countryside">Countryside</option>
-                            <option value="beach">Beach</option>
-                            <option value="forest">Forest</option>
-                            <option value="desert">Desert</option>
-                            <option value="mountains">Mountains</option>
-                        </optgroup>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECTION 6: Characters -->
-        <div class="generator-section">
-            <div class="section-title">Character References (Optional)</div>
-
-            <label>
-                Keep faces consistent across images
-                <span class="label-hint">— Upload reference photos for your characters</span>
-            </label>
-            <div class="characters-grid" id="characters-grid">
-                <div class="character-slot" onclick="addCharacter()">
-                    <div class="add-icon">+</div>
-                    <div class="add-label">Add character</div>
-                </div>
-            </div>
-            <input type="file" id="character-upload" class="hidden-input" accept="image/*" onchange="handleCharacterUpload(event)">
-        </div>
-
-        <!-- Generate Button -->
-        <button class="btn btn-primary btn-large" onclick="generatePrompt()">Generate Film Still →</button>
-
-        <!-- Prompt Result -->
-        <div class="prompt-section" id="prompt-section">
-            <div class="prompt-comparison">
-                <div class="prompt-box">
-                    <div class="prompt-box-label">Your description</div>
-                    <div class="prompt-box-content" id="original-description"></div>
-                </div>
-
-                <div class="prompt-arrow">→</div>
-
-                <div class="prompt-box enhanced">
-                    <div class="prompt-box-label">Cinematic prompt</div>
-                    <div class="prompt-box-content" id="enhanced-prompt"></div>
-                </div>
-            </div>
-
-            <div class="prompt-actions">
-                <button class="btn btn-success" onclick="sendToGenerate()">Generate Image →</button>
-            </div>
-        </div>
-
-        <div class="loading" id="loading-prompt">
-            <div class="spinner"></div>
-            <p>Crafting your cinematic prompt...</p>
-        </div>
-
-        <!-- Result -->
-        <div class="result-section" id="result-section">
-            <div class="result-image" id="result-image">
-                <span>Generating...</span>
-            </div>
-            <div class="result-actions">
-                <button class="btn btn-secondary" onclick="regenerate()">Regenerate</button>
-                <button class="btn btn-primary" onclick="downloadImage()">Download</button>
-            </div>
-        </div>
-
-        <div class="loading" id="loading-image">
-            <div class="spinner"></div>
-            <p>Creating your film still...</p>
-        </div>
-    </main>
-
-    <script>
-        let characters = [];
-        let currentDisplayPrompt = '';
-        let currentRequestData = null;
-
-        // Display labels (what users see - NO secret sauce)
-        const displayLabels = {
-            shotType: {
-                'extreme-close-up': 'extreme close-up',
-                'close-up': 'close-up',
-                'medium-close-up': 'medium close-up',
-                'medium-shot': 'medium shot',
-                'american-shot': 'american shot',
-                'medium-long-shot': 'medium long shot',
-                'full-shot': 'full shot',
-                'long-shot': 'long shot',
-                'extreme-long-shot': 'extreme long shot',
-                'establishing-shot': 'establishing shot',
-                'over-the-shoulder': 'over the shoulder',
-                'two-shot': 'two shot',
-                'pov': 'POV',
-                'dutch-angle': 'dutch angle',
-                'birds-eye': 'bird\'s eye view',
-                'low-angle': 'low angle',
-                'high-angle': 'high angle'
-            },
-            timeOfDay: {
-                'dawn': 'dawn',
-                'golden-hour-morning': 'golden hour',
-                'morning': 'morning',
-                'midday': 'midday',
-                'afternoon': 'afternoon',
-                'golden-hour-evening': 'golden hour',
-                'dusk': 'dusk',
-                'night': 'night',
-                'moonlit': 'moonlit night',
-                'deep-night': 'deep night',
-                'interior-day': 'interior day',
-                'interior-night': 'interior night',
-                'overcast': 'overcast',
-                'fog': 'fog',
-                'rain': 'rain',
-                'storm': 'storm'
-            },
-            mood: {
-                'dramatic': 'dramatic',
-                'intimate': 'intimate',
-                'tense': 'tense',
-                'melancholic': 'melancholic',
-                'hopeful': 'hopeful',
-                'joyful': 'joyful',
-                'mysterious': 'mysterious',
-                'eerie': 'eerie',
-                'romantic': 'romantic',
-                'nostalgic': 'nostalgic',
-                'raw': 'raw',
-                'dreamlike': 'dreamlike'
-            },
-            filmStock: {
-                'arri-alexa': 'digital cinema',
-                'red-komodo': 'digital',
-                'sony-venice': 'digital cinema',
-                'blackmagic': 'digital',
-                'kodak-5219': '35mm film',
-                'kodak-5207': '35mm film',
-                'fuji-eterna': '35mm film',
-                '16mm-kodak': '16mm film',
-                'super-16': '16mm film',
-                '8mm': '8mm film',
-                'technicolor': 'technicolor',
-                '1970s-film': '1970s film',
-                '1920s-silent': '1920s silent film',
-                'noir-bw': 'black and white',
-                'vhs': 'VHS',
-                'dv-cam': 'DV cam',
-                'iphone': 'smartphone',
-                'security-cam': 'security camera'
-            }
-        };
-
-        function generatePrompt() {
-            const description = document.getElementById('scene-input').value.trim();
-
-            if (!description) {
-                alert('Please describe your scene first');
-                return;
-            }
-
-            document.getElementById('loading-prompt').classList.add('visible');
-            document.getElementById('prompt-section').classList.remove('visible');
-
-            setTimeout(() => {
-                // Get all values
-                const shotType = document.getElementById('shot-type').value;
-                const lens = document.getElementById('lens').value;
-                const aspectRatio = document.getElementById('aspect-ratio').value;
-                const timeOfDay = document.getElementById('time-of-day').value;
-                const lightingStyle = document.getElementById('lighting-style').value;
-                const mood = document.getElementById('mood').value;
-                const filmStock = document.getElementById('film-stock').value;
-                const colorGrade = document.getElementById('color-grade').value;
-                const era = document.getElementById('era').value;
-                const director = document.getElementById('director').value;
-                const genre = document.getElementById('genre').value;
-                const location = document.getElementById('location').value;
-
-                // BUILD DISPLAY PROMPT (simplified, no secrets)
-                let displayParts = ['Film still'];
-                displayParts.push(displayLabels.shotType[shotType] || shotType);
-                displayParts.push(lens + ' lens');
-                displayParts.push(description);
-                displayParts.push(displayLabels.timeOfDay[timeOfDay] || timeOfDay);
-                displayParts.push(displayLabels.mood[mood] || mood);
-                displayParts.push(displayLabels.filmStock[filmStock] || filmStock);
-
-                if (director !== 'none') {
-                    displayParts.push('inspired by ' + document.getElementById('director').options[document.getElementById('director').selectedIndex].text);
-                }
-
-                const displayPrompt = displayParts.join(', ') + ' --ar ' + aspectRatio;
-
-                // STORE ALL DATA FOR SERVER (server will add secret sauce)
-                currentRequestData = {
-                    description,
-                    shotType,
-                    lens,
-                    aspectRatio,
-                    timeOfDay,
-                    lightingStyle,
-                    mood,
-                    filmStock,
-                    colorGrade,
-                    era,
-                    director,
-                    genre,
-                    location,
-                    characters: characters.map(c => ({ name: c.name, imageData: c.image }))
-                };
-
-                currentDisplayPrompt = displayPrompt;
-
-                document.getElementById('original-description').textContent = description;
-                document.getElementById('enhanced-prompt').textContent = displayPrompt;
-
-                document.getElementById('loading-prompt').classList.remove('visible');
-                document.getElementById('prompt-section').classList.add('visible');
-            }, 800);
-        }
-
-        async function sendToGenerate() {
-            document.getElementById('loading-image').classList.add('visible');
-            document.getElementById('result-section').classList.remove('visible');
-
-            /*
-            ================================================================
-            SERVER-SIDE: This is where your secret sauce lives
-            ================================================================
-
-            Your backend receives currentRequestData and builds the REAL prompt:
-
-            function buildSecretPrompt(data) {
-                // Your secret sauce - quality boosters, negative prompts, etc.
-                const secretSauce = "YOUR SECRET INGREDIENTS";
-
-                // Map all the values to optimized prompt terms
-                const shotTerms = { ... };
-                const lightingTerms = { ... };
-                // etc.
-
-                const fullPrompt = `Film still, ${shotTerms[data.shotType]}, ...
-                    ${secretSauce} --ar ${arMap[data.aspectRatio]} --v 6.1`;
-
-                return fullPrompt;
-            }
-
-            ================================================================
-            */
-
-            try {
-                // Replace with your API endpoint
-                // const response = await fetch('/api/generate', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(currentRequestData)
-                // });
-                // const data = await response.json();
-
-                // Placeholder
-                setTimeout(() => {
-                    document.getElementById('loading-image').classList.remove('visible');
-                    document.getElementById('result-section').classList.add('visible');
-                    document.getElementById('result-image').innerHTML = '<span>Connect your backend to generate images</span>';
-                }, 2000);
-
-            } catch (error) {
-                alert('Generation failed');
-                document.getElementById('loading-image').classList.remove('visible');
-            }
-        }
-
-        function regenerate() {
-            sendToGenerate();
-        }
-
-        function downloadImage() {
-            alert('Download available once connected');
-        }
-
-        // Character management
-        function addCharacter() {
-            if (characters.length >= 4) {
-                alert('Maximum 4 characters');
-                return;
-            }
-            document.getElementById('character-upload').click();
-        }
-
-        function handleCharacterUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const name = prompt('Character name:') || 'Character';
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                characters.push({ name, image: e.target.result });
-                renderCharacters();
-            };
-            reader.readAsDataURL(file);
-            event.target.value = '';
-        }
-
-        function removeCharacter(index) {
-            characters.splice(index, 1);
-            renderCharacters();
-        }
-
-        function renderCharacters() {
-            const grid = document.getElementById('characters-grid');
-            let html = '';
-
-            characters.forEach((char, index) => {
-                html += `
-                    <div class="character-slot filled">
-                        <button class="remove-btn" onclick="removeCharacter(${index})">×</button>
-                        <img src="${char.image}" alt="${char.name}">
-                        <div class="char-name">${char.name}</div>
-                    </div>
-                `;
-            });
-
-            if (characters.length < 4) {
-                html += `
-                    <div class="character-slot" onclick="addCharacter()">
-                        <div class="add-icon">+</div>
-                        <div class="add-label">Add character</div>
-                    </div>
-                `;
-            }
-
-            grid.innerHTML = html;
-        }
-    </script>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">FILMSTILL</div>
+      <nav class="footer-nav">
+        <a href="../index.html">Screenplay Editor</a>
+        <a href="../about.html">About</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy</a>
+      </nav>
+      <p class="footer-copy">Part of the <a href="../index.html">Screenplay Editor</a> ecosystem</p>
+    </div>
+  </footer>
 </body>
 </html>
