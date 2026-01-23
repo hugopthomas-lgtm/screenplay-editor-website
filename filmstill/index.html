@@ -6,6 +6,7 @@
   <title>Film Still — See Your Script | Screenplay Editor</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <meta name="description" content="Generate photorealistic stills from your screenplay. AI-powered image generation for filmmakers.">
   <style>
     * {
@@ -17,8 +18,7 @@
     :root {
       --violet: #9D7BEA;
       --violet-dark: #8B6AD4;
-      --yellow: #f5c542;
-      --yellow-dark: #e5b532;
+      --violet-light: #f8f6fc;
       --dark: #1a1a1a;
     }
 
@@ -113,7 +113,7 @@
     }
 
     .breadcrumb .current {
-      color: var(--yellow);
+      color: var(--violet);
       font-weight: 600;
     }
 
@@ -126,10 +126,10 @@
       background: var(--dark);
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid rgba(245, 197, 66, 0.4);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
       background-image:
-        linear-gradient(rgba(245, 197, 66, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245, 197, 66, 0.04) 1px, transparent 1px);
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
@@ -149,20 +149,20 @@
     }
 
     .hero-logo span {
-      color: var(--yellow);
+      color: var(--violet);
     }
 
     .hero-badge {
       display: inline-block;
-      background: rgba(245, 197, 66, 0.15);
-      color: var(--yellow);
+      background: rgba(157, 123, 234, 0.15);
+      color: var(--violet);
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 1px;
       margin-bottom: 25px;
-      border: 1px solid rgba(245, 197, 66, 0.3);
+      border: 1px solid rgba(157, 123, 234, 0.3);
     }
 
     .hero h1 {
@@ -176,7 +176,7 @@
     .hero-tagline {
       font-size: 18px;
       font-weight: 600;
-      color: var(--yellow);
+      color: var(--violet);
       margin-bottom: 15px;
     }
 
@@ -252,7 +252,7 @@
 
     textarea:focus {
       outline: none;
-      border-color: var(--yellow);
+      border-color: var(--violet);
     }
 
     textarea::placeholder {
@@ -283,7 +283,7 @@
 
     select:focus {
       outline: none;
-      border-color: var(--yellow);
+      border-color: var(--violet);
     }
 
     /* Buttons */
@@ -299,12 +299,12 @@
     }
 
     .btn-primary {
-      background: var(--yellow);
-      color: var(--dark);
+      background: var(--violet);
+      color: #fff;
     }
 
     .btn-primary:hover {
-      background: var(--yellow-dark);
+      background: var(--violet-dark);
       transform: translateY(-1px);
     }
 
@@ -336,8 +336,8 @@
     }
 
     .character-slot:hover {
-      border-color: var(--yellow);
-      background: #fffdf5;
+      border-color: var(--violet);
+      background: var(--violet-light);
     }
 
     .character-slot .add-icon {
@@ -359,8 +359,8 @@
       color: #fff;
       padding: 50px 30px;
       background-image:
-        linear-gradient(rgba(245, 197, 66, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245, 197, 66, 0.04) 1px, transparent 1px);
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
@@ -374,7 +374,7 @@
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 1px;
-      color: var(--yellow);
+      color: var(--violet);
       margin-bottom: 22px;
     }
 
@@ -412,9 +412,9 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(26, 26, 26, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(6px) saturate(120%);
+      -webkit-backdrop-filter: blur(6px) saturate(120%);
       z-index: 200;
       display: flex;
       align-items: center;
@@ -422,18 +422,20 @@
     }
 
     .coming-soon-card {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 16px;
       padding: 50px 60px;
       text-align: center;
       max-width: 480px;
       margin: 20px;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(157, 123, 234, 0.2);
     }
 
     .coming-soon-icon {
-      font-size: 48px;
+      font-size: 56px;
       margin-bottom: 20px;
+      color: var(--violet);
     }
 
     .coming-soon-card h2 {
@@ -452,8 +454,8 @@
 
     .coming-soon-badge {
       display: inline-block;
-      background: var(--yellow);
-      color: var(--dark);
+      background: var(--violet);
+      color: #fff;
       padding: 8px 20px;
       border-radius: 20px;
       font-size: 11px;
@@ -530,7 +532,7 @@
   <!-- COMING SOON OVERLAY -->
   <div class="coming-soon-overlay">
     <div class="coming-soon-card">
-      <div class="coming-soon-icon">🎬</div>
+      <div class="coming-soon-icon"><i class="ti ti-movie"></i></div>
       <div class="coming-soon-badge">COMING SOON</div>
       <h2>Film Still is brewing</h2>
       <p>AI-powered image generation for filmmakers. Generate photorealistic stills from your screenplay for pitches, mood boards, and pre-visualization.</p>
