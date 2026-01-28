@@ -307,26 +307,42 @@
         </li>
       </ul>
 
-      <!-- POST-MORTEMS -->
-      <h2 style="font-size: 16px; font-weight: 600; margin-top: 50px; margin-bottom: 20px; padding-left: 15px; border-left: 3px solid var(--violet); color: var(--dark);">Post-Mortems</h2>
+      <!-- MAINTENANCE -->
+      <h2 style="font-size: 16px; font-weight: 600; margin-top: 50px; margin-bottom: 20px; padding-left: 15px; border-left: 3px solid var(--violet); color: var(--dark);">Maintenance</h2>
 
       <div style="background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 25px; margin-bottom: 15px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-          <span style="font-size: 15px; font-weight: 600; color: var(--dark);">Crash ScriptProperties — JSON.parse(null)</span>
-          <span style="font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 4px; background: #ffebee; color: #c62828;">Incident</span>
+          <span style="font-size: 15px; font-weight: 600; color: var(--dark);">Système de collecte des emails</span>
+          <span style="font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 4px; background: #e8f5e9; color: #2e7d32;">Runbook</span>
         </div>
 
-        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Problème initial :</strong> Le stockage <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">ScriptProperties</code> était saturé (limite de 9ko atteinte), empêchant l'ajout de nouveaux emails.</p>
+        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Contexte :</strong> L'add-on collecte les emails des utilisateurs lors de leur première activation. Ces emails sont stockés dans <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">ScriptProperties</code> sous la clé <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">emails</code> au format JSON : un tableau d'objets <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">{email, date}</code>.</p>
 
-        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Erreur humaine :</strong> Tentative de "vider" la base manuellement en supprimant la propriété ou en effaçant son contenu.</p>
+        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Limite :</strong> ScriptProperties a une limite de ~9 Ko. Quand elle est atteinte, les nouveaux emails ne peuvent plus être enregistrés. Il faut donc vider périodiquement.</p>
 
-        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Conséquence critique :</strong> La propriété s'est retrouvée à l'état <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">null</code> ou chaîne vide <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">""</code>. Or, le code utilisait <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">JSON.parse()</code>. Comme <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">JSON.parse(null)</code> ou <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">JSON.parse("")</code> provoque une erreur de syntaxe immédiate, l'add-on a crashé silencieusement.</p>
+        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 15px;"><strong>Fichier :</strong> <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">Code.js</code> — fonctions <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">saveUserEmail()</code>, <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">getEmails()</code>, <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">clearEmails()</code></p>
 
-        <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px;">
-          <p style="margin: 0; color: #e65100; font-size: 12px;">C'est comme avoir supprimé l'étagère au lieu d'enlever les livres.</p>
+        <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px;">
+          <p style="margin: 0; color: #1565c0; font-size: 12px; font-weight: 600;">Procédure de maintenance</p>
+          <ol style="margin: 10px 0 0 0; padding-left: 20px; color: #1565c0; font-size: 12px;">
+            <li>Ouvrir l'éditeur Apps Script</li>
+            <li>Exécuter <code style="background: rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px;">getEmails()</code> → copier les emails depuis les Logs</li>
+            <li>Exécuter <code style="background: rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px;">clearEmails()</code> → réinitialise à <code style="background: rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px;">"[]"</code></li>
+          </ol>
         </div>
 
-        <p style="font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 0;"><strong>Solution :</strong> Exécuter un script de maintenance pour réinitialiser explicitement la propriété avec la chaîne <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 12px;">"[]"</code> (un tableau JSON vide valide) pour que le code puisse à nouveau lire et écrire dedans.</p>
+        <div style="background: #ffebee; border-left: 4px solid #c62828; padding: 12px 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px;">
+          <p style="margin: 0; color: #c62828; font-size: 12px; font-weight: 600;">Ne JAMAIS faire</p>
+          <ul style="margin: 10px 0 0 0; padding-left: 20px; color: #c62828; font-size: 12px;">
+            <li>Supprimer la propriété <code style="background: rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px;">emails</code> manuellement</li>
+            <li>Mettre la valeur à <code style="background: rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px;">null</code> ou <code style="background: rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px;">""</code></li>
+          </ul>
+          <p style="margin: 10px 0 0 0; color: #c62828; font-size: 12px;">→ Provoque <code style="background: rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px;">JSON.parse(null)</code> = crash silencieux de l'add-on</p>
+        </div>
+
+        <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px 15px; border-radius: 0 8px 8px 0;">
+          <p style="margin: 0; color: #e65100; font-size: 12px;">La propriété doit TOUJOURS contenir un JSON valide. Minimum : <code style="background: rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px;">"[]"</code> (tableau vide).</p>
+        </div>
       </div>
 
     </div>
