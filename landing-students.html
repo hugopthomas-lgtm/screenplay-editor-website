@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Editor for Film Students — Free Professional Formatting</title>
+  <meta name="description" content="Stop paying $250 for Final Draft. Screenplay Editor brings industry-standard formatting to Google Docs — free for every student.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-glow: rgba(157, 123, 234, 0.15);
+      --dark: #1a1a1a;
+      --darker: #111;
+      --gray: #888;
+      --light-gray: #bbb;
+    }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--darker);
+      color: #fff;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(17, 17, 17, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.2);
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 1000px; margin: 0 auto; padding: 16px 30px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { font-size: 16px; font-weight: 700; letter-spacing: 1px; }
+    .logo .cursor { color: var(--violet); }
+    .header-nav a { margin-left: 28px; font-size: 13px; font-weight: 500; color: var(--gray); transition: color 0.2s; }
+    .header-nav a:hover { color: var(--violet); }
+
+    /* Hero */
+    .hero {
+      padding: 160px 30px 100px;
+      text-align: center;
+      position: relative;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+      background: linear-gradient(transparent, var(--darker));
+    }
+    .hero-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--violet); border: 1px solid rgba(157, 123, 234, 0.3);
+      padding: 8px 18px; border-radius: 100px; margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: 42px; font-weight: 700; line-height: 1.15;
+      margin-bottom: 24px; letter-spacing: -1px;
+    }
+    .hero h1 .strike {
+      text-decoration: line-through; color: var(--gray); font-weight: 400;
+    }
+    .hero h1 .highlight { color: var(--violet); }
+
+    .hero-sub {
+      font-size: 16px; color: var(--gray); max-width: 500px;
+      margin: 0 auto 40px; line-height: 1.7;
+    }
+
+    .cta {
+      display: inline-block; background: var(--violet); color: #fff;
+      padding: 16px 36px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cta:hover { background: var(--violet-dark); transform: translateY(-2px); }
+    .cta-note { margin-top: 14px; font-size: 12px; color: #555; }
+
+    /* Proof */
+    .proof {
+      padding: 80px 30px;
+      text-align: center;
+      border-top: 1px solid rgba(157, 123, 234, 0.1);
+    }
+    .proof-inner { max-width: 800px; margin: 0 auto; }
+    .proof h2 { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--violet); margin-bottom: 40px; }
+    .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .proof-item .number { font-size: 36px; font-weight: 700; color: #fff; }
+    .proof-item .label { font-size: 12px; color: var(--gray); margin-top: 6px; }
+
+    /* Pain Points */
+    .pain {
+      padding: 80px 30px;
+      background: var(--dark);
+      border-top: 1px solid rgba(157, 123, 234, 0.1);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.1);
+    }
+    .pain-inner { max-width: 700px; margin: 0 auto; }
+    .pain h2 { font-size: 22px; font-weight: 700; margin-bottom: 40px; text-align: center; }
+    .pain-list { display: grid; gap: 20px; }
+    .pain-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .pain-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .pain-item h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .pain-item p { font-size: 13px; color: var(--gray); }
+
+    /* Comparison */
+    .compare {
+      padding: 80px 30px;
+    }
+    .compare-inner { max-width: 600px; margin: 0 auto; }
+    .compare h2 { font-size: 22px; font-weight: 700; margin-bottom: 40px; text-align: center; }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      text-align: left; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      padding: 12px 16px; border-bottom: 2px solid rgba(157, 123, 234, 0.3); color: var(--light-gray);
+    }
+    .compare-table td {
+      padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; color: var(--gray);
+    }
+    .compare-table td:first-child { color: #fff; font-weight: 500; }
+    .compare-table .win { color: var(--violet); font-weight: 600; }
+
+    /* Features */
+    .features {
+      padding: 80px 30px;
+      background: var(--dark);
+      border-top: 1px solid rgba(157, 123, 234, 0.1);
+    }
+    .features-inner { max-width: 800px; margin: 0 auto; }
+    .features h2 { font-size: 22px; font-weight: 700; margin-bottom: 40px; text-align: center; }
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .feature-card {
+      padding: 24px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .feature-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .feature-card p { font-size: 13px; color: var(--gray); }
+
+    /* CTA bottom */
+    .cta-bottom {
+      padding: 100px 30px;
+      text-align: center;
+      border-top: 1px solid rgba(157, 123, 234, 0.1);
+    }
+    .cta-bottom h2 { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+    .cta-bottom p { font-size: 14px; color: var(--gray); margin-bottom: 30px; }
+
+    /* Footer */
+    footer {
+      padding: 40px 30px; text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-nav { margin-bottom: 16px; }
+    .footer-nav a { color: #555; margin: 0 12px; font-size: 12px; font-weight: 500; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-copy { font-size: 11px; color: #333; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 130px 20px 70px; }
+      .hero h1 { font-size: 28px; }
+      .proof-grid { grid-template-columns: 1fr; gap: 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .header-nav a { margin-left: 16px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">SCR<span class="cursor">▌</span></a>
+      <nav class="header-nav">
+        <a href="index.html#features">Features</a>
+        <a href="about.html">About</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="badge">For Film Students</div>
+        <h1>Your school says buy <span class="strike">Final Draft</span>.<br>You don't have to.</h1>
+        <p class="hero-sub">
+          Screenplay Editor brings industry-standard formatting to Google Docs. 
+          Free. No install. No proprietary files. Just open a Doc and write.
+        </p>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta">Get it free →</a>
+        <p class="cta-note">Google Workspace Marketplace · 2 clicks to install</p>
+      </div>
+    </section>
+
+    <section class="proof">
+      <div class="proof-inner">
+        <h2>Already used in classrooms</h2>
+        <div class="proof-grid">
+          <div class="proof-item">
+            <div class="number">5,000+</div>
+            <div class="label">Users</div>
+          </div>
+          <div class="proof-item">
+            <div class="number">5 ★</div>
+            <div class="label">Marketplace rating</div>
+          </div>
+          <div class="proof-item">
+            <div class="number">$0</div>
+            <div class="label">Forever</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pain">
+      <div class="pain-inner">
+        <h2>Sound familiar?</h2>
+        <div class="pain-list">
+          <div class="pain-item">
+            <span class="pain-icon">💸</span>
+            <div>
+              <h3>$250 for Final Draft</h3>
+              <p>That's a month of groceries. And you still have to buy textbooks.</p>
+            </div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-icon">💻</span>
+            <div>
+              <h3>Desktop-only software</h3>
+              <p>Can't work on your script from the library computer or your Chromebook.</p>
+            </div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-icon">🤝</span>
+            <div>
+              <h3>Sharing is a nightmare</h3>
+              <p>Email .fdx files back and forth with your writing partner? It's 2026.</p>
+            </div>
+          </div>
+          <div class="pain-item">
+            <span class="pain-icon">📁</span>
+            <div>
+              <h3>Proprietary file formats</h3>
+              <p>Your work is locked in a format only one software can read.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="compare">
+      <div class="compare-inner">
+        <h2>The honest comparison</h2>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Final Draft</th>
+              <th>Screenplay Editor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Price</td>
+              <td>$249.99</td>
+              <td class="win">Free</td>
+            </tr>
+            <tr>
+              <td>Platform</td>
+              <td>Mac/Windows</td>
+              <td class="win">Any browser</td>
+            </tr>
+            <tr>
+              <td>Real-time collab</td>
+              <td>No</td>
+              <td class="win">Built-in</td>
+            </tr>
+            <tr>
+              <td>Cloud saves</td>
+              <td>Manual</td>
+              <td class="win">Automatic</td>
+            </tr>
+            <tr>
+              <td>Export to PDF</td>
+              <td>Yes</td>
+              <td class="win">Yes</td>
+            </tr>
+            <tr>
+              <td>Export to .fdx</td>
+              <td>Yes</td>
+              <td class="win">Yes</td>
+            </tr>
+            <tr>
+              <td>Learning curve</td>
+              <td>Steep</td>
+              <td class="win">You know Google Docs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="features-inner">
+        <h2>Built for how you actually work</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>⌨️ One-click formatting</h3>
+            <p>Scene headings, action, character, dialogue, parentheticals — all industry-standard.</p>
+          </div>
+          <div class="feature-card">
+            <h3>👥 Write with your partner</h3>
+            <p>It's Google Docs. Share the link. Write together. See changes live.</p>
+          </div>
+          <div class="feature-card">
+            <h3>📱 Works everywhere</h3>
+            <p>Library computer, laptop, tablet, Chromebook. If it has a browser, you're good.</p>
+          </div>
+          <div class="feature-card">
+            <h3>📄 Export when ready</h3>
+            <p>PDF for submission. .fdx if your professor insists on Final Draft format.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-bottom">
+      <h2>Your script matters more than your software.</h2>
+      <p>Install in 2 clicks. Start writing in 30 seconds.</p>
+      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta">Install Screenplay Editor — Free →</a>
+    </section>
+  </main>
+
+  <footer>
+    <nav class="footer-nav">
+      <a href="about.html">About</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+    <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+  </footer>
+
+</body>
+</html>
