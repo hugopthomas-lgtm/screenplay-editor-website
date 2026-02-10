@@ -320,6 +320,99 @@
       </ul>
     </div>
 
+    <hr>
+
+    <h2>Stratégie de prix (Février 2026)</h2>
+
+    <p><strong>Date :</strong> 10 février 2026<br>
+    <strong>Statut :</strong> Décision prise, à implémenter pour mars 2026</p>
+
+    <h3>Décision</h3>
+
+    <div class="highlight">
+      <p><strong>Prix : $3/mois, facturé annuellement uniquement ($36/an)</strong></p>
+    </div>
+
+    <p>Pas de $2.99. Pas d'option mensuelle. Un prix rond, honnête, cohérent avec le positionnement de l'outil.</p>
+
+    <h3>Inspiration : YAMM (Yet Another Mail Merge)</h3>
+
+    <p>En prospectant des écoles de cinéma pour Screenplay Editor via YAMM, j'ai réalisé que leur modèle de pricing correspondait exactement à ce dont j'avais besoin.</p>
+
+    <p>YAMM propose trois tiers Individual :</p>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px;">
+      <tr style="background: var(--gray-100);">
+        <th style="padding: 12px 16px; text-align: left; border: 1px solid var(--gray-200);">Plan</th>
+        <th style="padding: 12px 16px; text-align: left; border: 1px solid var(--gray-200);">Prix</th>
+        <th style="padding: 12px 16px; text-align: left; border: 1px solid var(--gray-200);">Limite</th>
+      </tr>
+      <tr>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">Free</td>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">$0</td>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">20 destinataires/jour</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">Pro gmail.com</td>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">$3/mois ($36/an)</td>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">400 destinataires/jour</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">Pro Google Workspace</td>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">$5/mois ($60/an)</td>
+        <td style="padding: 12px 16px; border: 1px solid var(--gray-200);">1 500 destinataires/jour</td>
+      </tr>
+    </table>
+
+    <p>Points clés observés :</p>
+    <ul style="margin: 16px 0 16px 24px; color: var(--gray-700);">
+      <li>Facturation annuelle uniquement, pas d'option mensuelle</li>
+      <li>Prix affiché HT ($36), mais avec TVA le total monte à 43,20€ (TVA 20%)</li>
+      <li>Paiement via Stripe</li>
+      <li>Le passage de $0 à $3 semble anodin, mais avec la TVA et l'engagement annuel, on arrive à un vrai montant</li>
+    </ul>
+
+    <p><em>(Voir screenshots ci-dessous : page pricing, page billing, et page checkout avec TVA)</em></p>
+
+    <!-- SCREENSHOTS YAMM -->
+    <div class="screenshots" style="margin: 32px 0; display: flex; flex-direction: column; gap: 24px;">
+      <figure style="margin: 0;">
+        <img src="yamm-pricing.png" alt="YAMM Pricing Page" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--gray-200);">
+        <figcaption style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">Page pricing YAMM — 3 tiers Individual</figcaption>
+      </figure>
+      <figure style="margin: 0;">
+        <img src="yamm-billing.png" alt="YAMM Billing Page" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--gray-200);">
+        <figcaption style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">Page billing — $3/mois facturé annuellement</figcaption>
+      </figure>
+    </div>
+
+    <h3>Pourquoi l'annuel-only est parfait pour Screenplay Editor</h3>
+
+    <p>Les scénaristes n'écrivent pas en continu. Ils ont l'impression d'écrire tout le temps, mais en réalité un projet de scénario a des phases actives et des phases creuses. Avec un abonnement mensuel, un utilisateur se dirait "je n'écris pas ce mois-ci, je me désabonne" puis devrait se réabonner 3 mois plus tard. Résultat : friction, churn, revenus imprévisibles.</p>
+
+    <p>Avec l'annuel :</p>
+    <ul style="margin: 16px 0 16px 24px; color: var(--gray-700);">
+      <li>L'utilisateur paie une fois et oublie</li>
+      <li>Il retrouve l'outil quand il reprend l'écriture, sans friction</li>
+      <li>Pas de "décision de réachat" à chaque mois creux</li>
+      <li>Revenus prévisibles côté business</li>
+    </ul>
+
+    <h3>Pourquoi $3 et pas $2.99</h3>
+
+    <p>Le prix psychologique en .99 est un artifice marketing qui ne correspond pas au positionnement de Screenplay Editor. $3 rond = outil pro, transparent, pas de manipulation. C'est cohérent avec la communauté des scénaristes qui est un milieu créatif et pas un marché de grande consommation.</p>
+
+    <h3>Prochaines étapes</h3>
+
+    <ul style="margin: 16px 0 16px 24px; color: var(--gray-700);">
+      <li>Intégrer Stripe pour le paiement</li>
+      <li>Définir les features du tier gratuit vs. payant</li>
+      <li>Implémenter le paywall dans le add-on</li>
+      <li>Lancement freemium prévu pour mars 2026</li>
+    </ul>
+
+    <hr>
+
     <p class="footer-note">Document interne — Ne pas diffuser</p>
 
   </div>
