@@ -155,6 +155,50 @@
       50% { opacity: 0; }
     }
 
+    /* Social Proof Bar */
+    .social-proof-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .social-proof-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .social-proof-icon {
+      flex-shrink: 0;
+    }
+
+    .social-proof-rating {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .social-proof-stars {
+      font-size: 16px;
+      color: #f5b731;
+      letter-spacing: 1px;
+    }
+
+    .social-proof-divider {
+      width: 1px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .social-proof-text {
+      font-size: 13px;
+      color: #999;
+      font-weight: 500;
+    }
+
     .hero h1 {
       font-size: 32px;
       font-weight: 600;
@@ -370,6 +414,22 @@
         font-size: 24px;
       }
 
+      .social-proof-bar {
+        gap: 10px;
+      }
+
+      .social-proof-divider {
+        display: none;
+      }
+
+      .social-proof-text {
+        font-size: 12px;
+      }
+
+      .social-proof-rating {
+        font-size: 17px;
+      }
+
       .hero-tagline {
         font-size: 16px;
       }
@@ -412,7 +472,7 @@
         <a href="blog.html" class="highlight">Blog</a>
         <a href="resources/index.html">Resources</a>
         <a href="about.html">About</a>
-        <a href="/compare/">Compare</a>
+        <a href="compare/index.html">Compare</a>
         <a href="support.html">Support</a>
       </nav>
     </div>
@@ -424,6 +484,19 @@
         <div class="hero-logo-stacked">
           <span class="line1">SCR<span class="cursor">██</span>NPLAY</span>
           <span class="line2"><span class="cursor">█</span>DITOR</span>
+        </div>
+        <div class="social-proof-bar">
+          <div class="social-proof-item">
+            <svg class="social-proof-icon" viewBox="0 0 24 24" width="28" height="28" fill="none">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="social-proof-rating">5.0</span>
+            <span class="social-proof-stars">★★★★★</span>
+          </div>
+          <span class="social-proof-divider"></span>
+          <span class="social-proof-text">14 reviews on Google Workspace Marketplace</span>
+          <span class="social-proof-divider"></span>
+          <span class="social-proof-text">6,000+ users</span>
         </div>
         <h1>What if Google Docs became the best screenwriting software?</h1>
         <p class="hero-tagline">The simplest. The most practical. The safest.</p>
@@ -486,7 +559,7 @@
       <p>Screenplay Editor is free and installs in seconds.</p>
       <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">Install from Google Workspace Marketplace</a>
       <p style="margin-top: 20px;">
-        <a href="/compare/" style="color: #888; text-decoration: underline;">See how Screenplay Editor compares to other tools →</a>
+        <a href="compare/index.html" style="color: #888; text-decoration: underline;">See how Screenplay Editor compares to other tools →</a>
       </p>
     </section>
   </main>
@@ -496,7 +569,7 @@
       <div class="footer-logo">SCR▌</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
-        <a href="/compare/">Compare</a>
+        <a href="compare/index.html">Compare</a>
         <a href="support.html">Support</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms of Service</a>
