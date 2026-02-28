@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TV Pilot Screenplay Template for Google Docs — Screenplay Editor</title>
+  <title>TV Pilot Screenplay Template | Free Google Docs Format | Screenplay Editor</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../favicon.png">
-  <meta name="description" content="Free TV pilot screenplay template for Google Docs. Professional formatting for hour-long dramas and half-hour comedies with act break guidance.">
+  <meta name="description" content="Free TV pilot screenplay template for Google Docs. Formatted opening from Succession (2018). Setup world, characters, and conflict in minutes.">
+  <link rel="canonical" href="https://screenplayeditor.app/resources/tv-pilot-screenplay-template">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * {
@@ -28,8 +29,6 @@
       --gray-500: #737373;
       --gray-600: #525252;
       --gray-700: #404040;
-      --tv-blue: #2563eb;
-      --tv-blue-light: #eff6ff;
     }
 
     body {
@@ -161,31 +160,39 @@
       color: var(--violet);
     }
 
-    /* Hero Section */
+    /* Hero Section - Dark */
     .hero {
       padding: 80px 32px 80px;
-      background: linear-gradient(180deg, var(--tv-blue-light) 0%, #fff 100%);
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
       text-align: center;
+    }
+
+    .hero * {
+      color: #fff;
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #fff;
-      border: 1px solid var(--gray-200);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
       padding: 8px 16px;
       border-radius: 100px;
       font-size: 13px;
       font-weight: 500;
-      color: var(--gray-600);
+      color: var(--gray-400);
       margin-bottom: 24px;
     }
 
     .hero-badge i {
       width: 16px;
       height: 16px;
-      color: var(--tv-blue);
+      color: var(--violet);
     }
 
     .hero h1 {
@@ -193,15 +200,15 @@
       font-weight: 700;
       line-height: 1.15;
       margin-bottom: 20px;
-      color: var(--dark);
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
+      font-style: italic;
     }
 
     .hero-subtitle {
       font-size: 18px;
-      color: var(--gray-600);
+      color: var(--gray-400);
       max-width: 540px;
       margin: 0 auto 40px;
       line-height: 1.7;
@@ -230,6 +237,12 @@
       height: 20px;
     }
 
+    .hero-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
     /* Section Base */
     section {
       padding: 80px 32px;
@@ -243,9 +256,9 @@
     .section-label {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1.5px;
@@ -254,8 +267,8 @@
     }
 
     .section-label i {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
     }
 
     .section-title {
@@ -268,89 +281,27 @@
     .section-intro {
       font-size: 17px;
       color: var(--gray-600);
-      max-width: 600px;
-      line-height: 1.7;
+      max-width: 700px;
+      line-height: 1.8;
+    }
+
+    .section-intro + .section-intro {
+      margin-top: 20px;
     }
 
     /* Alternating backgrounds */
     .bg-white { background: #fff; }
     .bg-gray { background: var(--gray-50); }
     .bg-violet { background: var(--violet-light); }
-    .bg-blue { background: var(--tv-blue-light); }
     .bg-dark {
       background: var(--dark);
       background-image:
-        linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
       background-size: 40px 40px;
     }
     .bg-dark * { color: #fff; }
     .bg-dark .section-intro { color: var(--gray-400); }
-
-    /* Format Cards */
-    .format-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 48px;
-    }
-
-    .format-card {
-      background: #fff;
-      border: 1px solid var(--gray-200);
-      border-radius: 16px;
-      padding: 28px;
-      transition: all 0.2s;
-    }
-
-    .format-card:hover {
-      border-color: var(--tv-blue);
-      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
-    }
-
-    .format-card-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .format-card-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--tv-blue-light);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .format-card-icon i {
-      width: 24px;
-      height: 24px;
-      color: var(--tv-blue);
-    }
-
-    .format-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .format-card-meta {
-      font-size: 13px;
-      color: var(--gray-500);
-      margin-bottom: 12px;
-      padding: 8px 12px;
-      background: var(--gray-50);
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .format-card p {
-      font-size: 14px;
-      color: var(--gray-600);
-      line-height: 1.7;
-    }
 
     /* Checklist */
     .checklist {
@@ -398,172 +349,32 @@
       color: var(--gray-500);
     }
 
-    /* Tips Grid */
-    .tips-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 48px;
-    }
-
-    .tip-card {
-      background: #fff;
-      border: 1px solid var(--gray-200);
-      border-radius: 16px;
-      padding: 28px;
-      transition: all 0.2s;
-    }
-
-    .tip-card:hover {
-      border-color: var(--violet);
-    }
-
-    .tip-card-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .tip-card-header i {
-      width: 20px;
-      height: 20px;
-      color: var(--tv-blue);
-    }
-
-    .tip-card h3 {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .tip-card p {
-      font-size: 14px;
-      color: var(--gray-600);
-      line-height: 1.7;
-    }
-
-    /* Screenplay Block */
-    .screenplay-block {
-      background: #fffef8;
-      border: 1px solid #e8e4d4;
+    /* Film Section */
+    .film-image {
+      width: 100%;
+      max-width: 500px;
       border-radius: 12px;
-      overflow: hidden;
-      margin: 32px 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 32px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
 
-    .screenplay-header {
-      background: #f8f6f0;
-      padding: 12px 20px;
-      border-bottom: 1px solid #e8e4d4;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .film-content {
+      max-width: 700px;
     }
 
-    .screenplay-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--gray-500);
-    }
-
-    .screenplay-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .screenplay-dots span {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
-    .screenplay-dots span:nth-child(1) { background: #ff5f56; }
-    .screenplay-dots span:nth-child(2) { background: #ffbd2e; }
-    .screenplay-dots span:nth-child(3) { background: #27ca40; }
-
-    .screenplay-content {
-      padding: 32px 48px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 13px;
-      line-height: 1.5;
-      color: #222;
-    }
-
-    .screenplay-content .act-break {
-      text-align: center;
-      font-weight: bold;
-      margin: 24px 0;
-      padding: 12px;
-      background: var(--gray-100);
-      border-radius: 4px;
-    }
-
-    .screenplay-content .scene-heading {
-      font-weight: bold;
-      margin-bottom: 16px;
-    }
-
-    .screenplay-content .action {
-      margin-bottom: 16px;
-      max-width: 480px;
-    }
-
-    .screenplay-content .character {
-      margin-left: 180px;
-      margin-bottom: 0;
-      font-weight: bold;
-    }
-
-    .screenplay-content .dialogue {
-      margin-left: 100px;
-      margin-right: 140px;
-      margin-bottom: 16px;
-    }
-
-    /* Steps */
-    .steps-container {
-      margin-top: 48px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 32px;
-      padding: 32px 0;
-      border-bottom: 1px solid var(--gray-200);
-    }
-
-    .step:last-child {
-      border-bottom: none;
-    }
-
-    .step-number {
-      width: 56px;
-      height: 56px;
-      background: var(--violet);
-      color: #fff;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      font-weight: 700;
-    }
-
-    .step-content h3 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .step-content p {
-      font-size: 15px;
+    .film-content p {
+      font-size: 17px;
+      line-height: 1.8;
       color: var(--gray-600);
-      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .film-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .film-content strong {
+      color: var(--dark);
     }
 
     /* CTA Section */
@@ -584,48 +395,27 @@
       color: var(--gray-400);
     }
 
-    .cta-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
     .cta-button {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 16px 28px;
-      border-radius: 10px;
+      padding: 16px 32px;
+      border-radius: 12px;
       font-size: 15px;
       font-weight: 600;
       transition: all 0.2s;
-    }
-
-    .cta-button i {
-      width: 18px;
-      height: 18px;
-    }
-
-    .cta-button.primary {
       background: var(--violet);
       color: #fff;
     }
 
-    .cta-button.primary:hover {
+    .cta-button:hover {
       background: var(--violet-dark);
       transform: translateY(-2px);
     }
 
-    .cta-button.secondary {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .cta-button.secondary:hover {
-      background: rgba(255,255,255,0.15);
-      border-color: rgba(255,255,255,0.3);
+    .cta-button i {
+      width: 20px;
+      height: 20px;
     }
 
     /* Footer */
@@ -680,28 +470,16 @@
         font-size: 16px;
       }
 
-      .format-grid,
-      .tips-grid,
       .checklist {
         grid-template-columns: 1fr;
       }
 
-      .step {
-        grid-template-columns: 1fr;
-        gap: 16px;
+      .section-title {
+        font-size: 26px;
       }
 
-      .screenplay-content {
-        padding: 24px;
-      }
-
-      .screenplay-content .character {
-        margin-left: 60px;
-      }
-
-      .screenplay-content .dialogue {
-        margin-left: 20px;
-        margin-right: 20px;
+      .cta-section .section-title {
+        font-size: 28px;
       }
     }
   </style>
@@ -711,7 +489,7 @@
   <header>
     <div class="header-content">
       <a href="../index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="mark">SCR<span class="cursor">&#9612;</span></span>
         <span class="full-name">SCREENPLAY EDITOR</span>
       </a>
       <nav class="header-nav">
@@ -737,259 +515,128 @@
   <section class="hero">
     <div class="hero-badge">
       <i data-lucide="tv"></i>
-      TV Template
+      Free Template
     </div>
-    <h1>TV Pilot Screenplay Template</h1>
+    <h1>Who gets the keys to the kingdom?</h1>
     <p class="hero-subtitle">
-      A free Google Docs template for hour-long dramas and half-hour comedies. Professional formatting with act break structure.
+      A TV pilot screenplay template for Google Docs. Properly formatted. Ready to launch your series.
     </p>
     <a href="../free-google-docs-screenplay-template.html" class="hero-cta">
       <i data-lucide="download"></i>
-      Get the Template
+      Get the template (free)
     </a>
+    <p class="hero-note">Opens in Google Docs. Make a copy and start writing.</p>
   </section>
 
-  <!-- Formats -->
-  <section class="bg-gray">
-    <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="layout-template"></i>
-        Choose Your Format
-      </span>
-      <h2 class="section-title">Hour Drama or Half-Hour Comedy</h2>
-      <p class="section-intro">
-        TV pilots follow different structures depending on runtime and genre. Choose the format that fits your show.
-      </p>
-
-      <div class="format-grid">
-        <div class="format-card">
-          <div class="format-card-header">
-            <div class="format-card-icon"><i data-lucide="clock"></i></div>
-            <h3>Hour-Long Drama</h3>
-          </div>
-          <div class="format-card-meta">55-65 pages • 5 acts + teaser</div>
-          <p>For prestige dramas, procedurals, and streaming series. Five-act structure with commercial break opportunities. Includes teaser (cold open) and tag options.</p>
-        </div>
-        <div class="format-card">
-          <div class="format-card-header">
-            <div class="format-card-icon"><i data-lucide="smile"></i></div>
-            <h3>Half-Hour Comedy</h3>
-          </div>
-          <div class="format-card-meta">28-35 pages • 2-3 acts</div>
-          <p>For single-cam and multi-cam comedies. Simpler structure with A/B storylines. Multi-cam format includes stage directions for live audience shows.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What's Included -->
+  <!-- Why this template? -->
   <section class="bg-white">
     <div class="section-inner">
       <span class="section-label">
-        <i data-lucide="package"></i>
-        What's Included
+        <i data-lucide="help-circle"></i>
+        Why this template?
       </span>
-      <h2 class="section-title">Everything for Your TV Pilot</h2>
+      <h2 class="section-title">A pilot sells a hundred episodes.</h2>
       <p class="section-intro">
-        Industry-standard TV formatting with act breaks, teasers, and episode structure.
+        A pilot is not a first episode. It's a business proposition. You're asking a network or a streamer to commit years and millions of dollars based on sixty pages. Those pages need to prove that your world is deep enough to sustain a hundred hours of television. That your characters are complicated enough to keep evolving. That your central conflict is an engine, not a one-time event.
       </p>
+      <p class="section-intro">
+        The best pilots set up everything without explaining anything. They drop you into a world already in motion and trust you to catch up. Every character introduction is a thesis statement. Every scene establishes a dynamic that will pay off in season three. The pilot doesn't just start the story -- it contains the DNA of every story the show will ever tell.
+      </p>
+      <p class="section-intro">
+        This template gives you the format. Act breaks, scene headings, ensemble dialogue -- all set to industry standard. You bring the world. The margins are already correct.
+      </p>
+    </div>
+  </section>
+
+  <!-- What's inside -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="package"></i>
+        What's inside
+      </span>
+      <h2 class="section-title">Everything You Need</h2>
 
       <div class="checklist">
         <div class="checklist-item">
           <div class="checklist-icon"><i data-lucide="check"></i></div>
           <div>
-            <h4>Act Break Formatting</h4>
-            <p>Clear act labels and page breaks</p>
+            <h4>Industry-standard format</h4>
+            <p>Courier 12pt, correct margins</p>
           </div>
         </div>
         <div class="checklist-item">
           <div class="checklist-icon"><i data-lucide="check"></i></div>
           <div>
-            <h4>Teaser Structure</h4>
-            <p>Cold open / teaser section template</p>
+            <h4>Pre-built scene structure</h4>
+            <p>Adapt or delete as needed</p>
           </div>
         </div>
         <div class="checklist-item">
           <div class="checklist-icon"><i data-lucide="check"></i></div>
           <div>
-            <h4>Episode Title Page</h4>
-            <p>Show name, episode title, draft info</p>
+            <h4>Character and dialogue formatting</h4>
+            <p>Ready to go</p>
           </div>
         </div>
         <div class="checklist-item">
           <div class="checklist-icon"><i data-lucide="check"></i></div>
           <div>
-            <h4>Professional Margins</h4>
-            <p>1.5" left, 1" right, top, and bottom</p>
-          </div>
-        </div>
-        <div class="checklist-item">
-          <div class="checklist-icon"><i data-lucide="check"></i></div>
-          <div>
-            <h4>Scene Numbering</h4>
-            <p>Production-ready scene numbers</p>
-          </div>
-        </div>
-        <div class="checklist-item">
-          <div class="checklist-icon"><i data-lucide="check"></i></div>
-          <div>
-            <h4>Character List</h4>
-            <p>Cast breakdown page template</p>
+            <h4>Works with Screenplay Editor</h4>
+            <p>One-click auto-formatting</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Example -->
-  <section class="bg-gray">
-    <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="file-text"></i>
-        Example
-      </span>
-      <h2 class="section-title">TV Format in Action</h2>
-      <p class="section-intro">
-        Here's how a TV pilot looks with proper act breaks and teaser structure.
-      </p>
-
-      <div class="screenplay-block">
-        <div class="screenplay-header">
-          <span class="screenplay-label">TV Pilot Format</span>
-          <div class="screenplay-dots">
-            <span></span><span></span><span></span>
-          </div>
-        </div>
-        <div class="screenplay-content">
-          <div class="act-break">TEASER</div>
-          <div class="scene-heading">INT. POLICE STATION - BULLPEN - NIGHT</div>
-          <div class="action">The station is nearly empty. A single desk lamp illuminates DETECTIVE CHEN (40s), hunched over a case file. Coffee cups everywhere.</div>
-          <div class="action">Her phone BUZZES. She checks it. Her face goes pale.</div>
-          <div class="character">CHEN</div>
-          <div class="dialogue">No. Not again.</div>
-          <div class="action">She grabs her jacket and runs.</div>
-          <div class="act-break">END OF TEASER</div>
-          <div class="act-break">ACT ONE</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tips -->
-  <section class="bg-violet">
-    <div class="section-inner">
-      <span class="section-label">
-        <i data-lucide="lightbulb"></i>
-        TV Writing Tips
-      </span>
-      <h2 class="section-title">Sell Your Series</h2>
-      <p class="section-intro">
-        A pilot isn't just the first episode. It's a proof of concept for 100 more.
-      </p>
-
-      <div class="tips-grid">
-        <div class="tip-card">
-          <div class="tip-card-header">
-            <i data-lucide="repeat"></i>
-            <h3>Show the Engine</h3>
-          </div>
-          <p>Your pilot must demonstrate what happens every week. What's the repeatable story engine? A cop solves cases. A family navigates chaos. Make the format clear.</p>
-        </div>
-        <div class="tip-card">
-          <div class="tip-card-header">
-            <i data-lucide="sparkles"></i>
-            <h3>Nail the Teaser</h3>
-          </div>
-          <p>The first 3-5 pages determine whether anyone reads the rest. Hook readers immediately. Establish tone, world, and stakes before the first act break.</p>
-        </div>
-        <div class="tip-card">
-          <div class="tip-card-header">
-            <i data-lucide="users"></i>
-            <h3>Ensemble Introductions</h3>
-          </div>
-          <p>TV is about characters we want to spend years with. Give each major character a memorable introduction that reveals who they are under pressure.</p>
-        </div>
-        <div class="tip-card">
-          <div class="tip-card-header">
-            <i data-lucide="git-branch"></i>
-            <h3>A-Story Meets B-Story</h3>
-          </div>
-          <p>Most TV episodes juggle multiple storylines. Your pilot should establish at least two plot threads that intersect by the end. Show you can handle complexity.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How to Use -->
+  <!-- The film behind the template -->
   <section class="bg-white">
     <div class="section-inner">
       <span class="section-label">
-        <i data-lucide="list-ordered"></i>
-        How to Use
+        <i data-lucide="film"></i>
+        The film behind the template
       </span>
-      <h2 class="section-title">Get Started in 4 Steps</h2>
-      <p class="section-intro">
-        From template to finished pilot script.
-      </p>
+      <h2 class="section-title">Succession (2018)</h2>
+      <img src="../succession.webp" alt="Succession (2018) - The Roy Family" class="film-image">
+      <div class="film-content">
+        <p>
+          This template is built around the opening of <strong>Succession</strong> (2018), created by Jesse Armstrong. The pilot begins in darkness. Logan Roy, media mogul, billionaire patriarch, wakes up disoriented in the middle of the night. He doesn't know where he is. He urinates on the carpet of his own bedroom. No dialogue. No exposition. Just a man who built an empire, alone in the dark, losing control of his own body.
+        </p>
+        <p>
+          Then the family breakfast. And Armstrong does something extraordinary -- he introduces an entire ensemble in a single scene. Kendall performing confidence he doesn't feel. Shiv keeping her distance. Roman deflecting with jokes. Connor hovering at the edges. Each character enters with a specific energy, a specific relationship to Logan, a specific wound they'll spend four seasons trying to hide.
+        </p>
+        <p>
+          That's the masterclass. The opening tells you everything through behavior, not words. Logan's vulnerability is the secret the entire show is built on -- a dying king who won't name an heir. The breakfast scene doesn't explain the family dynamics. It performs them. The audience reads the room the way you read a room at a real family dinner. Who sits where. Who speaks first. Who gets interrupted. Who laughs at the joke and who doesn't.
+        </p>
+        <p>
+          Succession ran for four seasons and won the Emmy for Outstanding Drama Series twice. Armstrong's pilot script became a template for a new generation of prestige television -- shows built on power, family, and the gap between public performance and private desperation. The pilot works because it promises exactly what the series delivers: a family that has everything except the one thing they actually want.
+        </p>
+        <p>
+          <strong>That's how you open a series. That's what this template gives you the space to build.</strong>
+        </p>
 
-      <div class="steps-container">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3>Open the Template</h3>
-            <p>Click the button below to open the template in Google Docs. You'll see TV-specific formatting with act breaks and teaser structure.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3>Choose Your Format</h3>
-            <p>Delete the format you don't need (hour drama or half-hour comedy). Keep the structure that matches your show's runtime and genre.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h3>Fill in Your Show</h3>
-            <p>Replace the sample content with your series. Update the title page with your show name, episode title, and contact information.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h3>Install Screenplay Editor (Optional)</h3>
-            <p>For automatic formatting, keyboard shortcuts, and export options, install our free Google Docs add-on. It makes TV formatting consistent.</p>
-          </div>
-        </div>
+        <!-- SCENE PLACEHOLDER: Succession (2018) - Opening: Logan Roy wakes up disoriented in the middle of the night in his darkened bedroom, stumbles around confused, and urinates on the carpet. Then the family breakfast scene at the Roy compound where the entire ensemble is introduced — Kendall arrives performing confidence, Roman cracks jokes, Shiv maintains distance, Connor lingers at the edges — and the power dynamics of the Roy family are revealed through behavior and subtext as Logan's 80th birthday and the question of succession hang over everything. The formatted scene text will be added here manually. -->
+
       </div>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="bg-dark cta-section">
-    <span class="section-label">
-      <i data-lucide="rocket"></i>
-      Ready to Write
-    </span>
-    <h2 class="section-title">Start Your TV Pilot Today</h2>
+    <h2 class="section-title">Start writing.</h2>
     <p class="section-intro">
-      Professional TV formatting, act break structure, zero setup time.
+      The template is free. The empire is yours.
     </p>
-    <div class="cta-buttons">
-      <a href="../free-google-docs-screenplay-template.html" class="cta-button primary">
-        <i data-lucide="download"></i>
-        Get the Template
-      </a>
-      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary">
-        <i data-lucide="plus"></i>
-        Install Screenplay Editor
-      </a>
-    </div>
+    <a href="../free-google-docs-screenplay-template.html" class="cta-button">
+      <i data-lucide="download"></i>
+      Get the template (free)
+    </a>
   </section>
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">SCR▌</div>
+      <div class="footer-logo">SCR&#9612;</div>
       <nav class="footer-nav">
         <a href="../about.html">About</a>
         <a href="/compare/">Compare</a>
@@ -998,7 +645,7 @@
         <a href="../terms.html">Terms of Service</a>
         <a href="index.html">Resources</a>
       </nav>
-      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+      <p class="footer-copy">&copy; 2025 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
 

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Editor vs Highland — Honest Comparison | Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="description" content="Screenplay Editor vs Highland 2: features, platform, collaboration. Compare the free Google Docs add-on with the elegant Mac-only writing app.">
+  <meta name="keywords" content="Screenplay Editor vs Highland, Highland 2 alternative, free screenwriting software, screenplay formatting Google Docs, Highland comparison">
+  <link rel="canonical" href="https://screenplayeditor.app/compare/screenplay-editor-vs-highland">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+      --green: #34C759;
+      --red: #FF3B30;
+      --orange: #FF9500;
+    }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 1100px; margin: 0 auto; padding: 18px 30px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      position: relative; font-size: 16px; font-weight: 700;
+      letter-spacing: 1px; color: var(--dark); cursor: pointer;
+    }
+    .logo .cursor { color: var(--violet); }
+    .logo .full-name {
+      position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.2s;
+    }
+    .logo:hover .mark { opacity: 0; }
+    .logo:hover .full-name { opacity: 1; }
+    .header-nav a {
+      margin-left: 30px; font-size: 13px; font-weight: 500;
+      color: #666; transition: color 0.2s;
+    }
+    .header-nav a:hover { color: var(--violet); }
+
+    /* Breadcrumb */
+    .breadcrumb-bar {
+      margin-top: 60px; background: var(--dark); padding: 14px 30px;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .breadcrumb-content {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 12px; font-size: 13px;
+    }
+    .breadcrumb-content a { color: var(--violet); transition: opacity 0.2s; }
+    .breadcrumb-content a:hover { opacity: 0.8; }
+    .breadcrumb-content .separator { color: #555; }
+    .breadcrumb-content .current { color: #fff; font-weight: 600; }
+
+    /* Content */
+    .page-content {
+      max-width: 900px; margin: 0 auto; padding: 50px 30px 80px;
+    }
+    .page-title {
+      font-size: 28px; font-weight: 700; margin-bottom: 8px; color: var(--dark);
+    }
+    .last-updated {
+      font-size: 13px; color: #888; margin-bottom: 30px;
+    }
+    .page-content h2 {
+      font-size: 16px; font-weight: 600; margin-top: 50px; margin-bottom: 15px;
+      padding-left: 15px; border-left: 3px solid var(--violet); color: var(--dark);
+    }
+    .page-content p {
+      margin-bottom: 18px; color: #444; font-size: 14px; line-height: 1.7;
+    }
+    .page-content a { color: var(--violet); }
+    .page-content a:hover { text-decoration: underline; }
+
+    /* Summary card */
+    .summary-card {
+      background: var(--violet-light); border-radius: 12px; padding: 30px;
+      margin-bottom: 40px; border-left: 4px solid var(--violet); text-align: center;
+    }
+    .summary-card p {
+      font-size: 15px; color: #5a4a7a; font-weight: 500; line-height: 1.6;
+    }
+
+    /* Comparison table */
+    .comparison-table {
+      width: 100%; border-collapse: collapse; margin: 30px 0; font-size: 13px;
+    }
+    .comparison-table th {
+      background: var(--dark); color: #fff; padding: 14px 16px;
+      text-align: left; font-weight: 600; font-size: 12px;
+    }
+    .comparison-table th:first-child { border-radius: 8px 0 0 0; }
+    .comparison-table th:last-child { border-radius: 0 8px 0 0; }
+    .comparison-table td {
+      padding: 14px 16px; border-bottom: 1px solid #eee; color: #444;
+      vertical-align: top;
+    }
+    .comparison-table tr:hover td { background: var(--violet-light); }
+    .comparison-table .feature-name { font-weight: 600; color: var(--dark); white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 600; }
+    .no { color: var(--red); font-weight: 600; }
+    .partial { color: var(--orange); font-weight: 600; }
+
+    /* Winner box */
+    .winner-box {
+      background: var(--dark); border-radius: 12px; padding: 30px; margin: 30px 0;
+      text-align: center;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .winner-box h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .winner-box p { font-size: 14px; color: #aaa; margin-bottom: 20px; }
+    .winner-box .cta-button {
+      display: inline-block; background: var(--violet); color: #fff;
+      padding: 14px 28px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .winner-box .cta-button:hover {
+      background: var(--violet-dark); transform: translateY(-1px); text-decoration: none;
+    }
+
+    /* Prose list */
+    .prose-list { margin: 12px 0 18px; padding-left: 20px; }
+    .prose-list li {
+      font-size: 14px; color: #444; line-height: 1.7; margin-bottom: 8px;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block; margin-top: 30px; font-size: 13px;
+      color: var(--violet); font-weight: 500;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* Footer */
+    footer {
+      background: var(--dark); color: #fff; padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .footer-content { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .footer-logo { font-size: 16px; font-weight: 700; letter-spacing: 1px; color: var(--violet); margin-bottom: 22px; }
+    .footer-nav { margin-bottom: 22px; }
+    .footer-nav a { color: #888; margin: 0 14px; font-size: 12px; font-weight: 500; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-copy { font-size: 11px; color: #555; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .comparison-table { font-size: 11px; }
+      .comparison-table th, .comparison-table td { padding: 10px 12px; }
+    }
+    @media (max-width: 600px) {
+      .header-content { padding: 15px 20px; }
+      .header-nav a { margin-left: 18px; font-size: 12px; }
+      .breadcrumb-bar { padding: 15px 20px; }
+      .page-content { padding: 40px 20px 60px; }
+      .page-title { font-size: 22px; }
+      .footer-nav a { display: block; margin: 10px 0; }
+    }
+  </style>
+
+  <!-- Structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Screenplay Editor vs Highland — Honest Comparison",
+    "description": "Screenplay Editor vs Highland 2: features, platform, collaboration. Compare the free Google Docs add-on with the elegant Mac-only writing app.",
+    "author": {
+      "@type": "Person",
+      "name": "Hugo Thomas",
+      "url": "https://screenplayeditor.app/about"
+    },
+    "datePublished": "2026-02-28",
+    "dateModified": "2026-02-28",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Screenplay Editor"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/#features">Features</a>
+        <a href="/blog">Blog</a>
+        <a href="/resources/">Resources</a>
+        <a href="/about">About</a>
+        <a href="/compare/">Compare</a>
+        <a href="/support">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="/">Home</a>
+      <span class="separator">→</span>
+      <a href="/compare/">Compare</a>
+      <span class="separator">→</span>
+      <span class="current">Screenplay Editor vs Highland</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Screenplay Editor vs Highland</h1>
+      <p class="last-updated">Last updated: February 2026</p>
+
+      <div class="summary-card">
+        <p>Highland is beautiful, minimal, and thoughtfully designed by John August. It's a great writing app. But it's Mac-only and built for solo writers. If you need cross-platform access or real-time collaboration, it's not the tool.</p>
+      </div>
+
+      <p>
+        Highland 2 is a screenwriting and writing app for Mac created by screenwriter John August (<em>Big Fish</em>, <em>Charlie's Angels</em>). It uses the Fountain markup language under the hood but hides it behind a clean, distraction-free interface. It's genuinely well-made software.
+      </p>
+      <p>
+        Screenplay Editor takes a different approach: it lives inside Google Docs. You don't download anything. You don't switch apps. You format your screenplay where you already write. Different philosophies, different trade-offs.
+      </p>
+
+      <!-- Feature comparison -->
+      <h2>Feature-by-Feature Comparison</h2>
+
+      <table class="comparison-table">
+        <tr>
+          <th>Feature</th>
+          <th>Screenplay Editor</th>
+          <th>Highland</th>
+        </tr>
+        <tr>
+          <td class="feature-name">Price</td>
+          <td><span class="yes">Free</span></td>
+          <td>Free basic / $49.99 Pro</td>
+        </tr>
+        <tr>
+          <td class="feature-name">Platform</td>
+          <td>Web (Google Docs)</td>
+          <td><span class="partial">Mac only</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Real-time Collaboration</td>
+          <td><span class="yes">✓ Built into Google Docs</span></td>
+          <td><span class="no">No</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">File Format</td>
+          <td>Google Docs</td>
+          <td>Fountain (.fountain)</td>
+        </tr>
+        <tr>
+          <td class="feature-name">PDF Export</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">.fdx Export</td>
+          <td><span class="partial">Coming soon</span></td>
+          <td><span class="yes">✓</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Auto-format</td>
+          <td><span class="yes">✓ One-click</span></td>
+          <td><span class="yes">✓ Fountain-based</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Character Management</td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="partial">Basic autocomplete</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Works Offline</td>
+          <td><span class="partial">Limited (Google Docs offline)</span></td>
+          <td><span class="yes">✓ Fully offline</span></td>
+        </tr>
+        <tr>
+          <td class="feature-name">Learning Curve</td>
+          <td><span class="yes">None — click buttons</span></td>
+          <td><span class="yes">Low — clean interface</span></td>
+        </tr>
+      </table>
+
+      <!-- When to choose Highland -->
+      <h2>When to Choose Highland</h2>
+      <p>
+        Highland is a great app for a specific kind of writer. Here's when it makes sense.
+      </p>
+      <ul class="prose-list">
+        <li>You're on a Mac and want a beautiful, native writing experience</li>
+        <li>You like minimalist, distraction-free design</li>
+        <li>You write alone and don't need real-time collaboration</li>
+        <li>You want a standalone app that's not tied to any cloud platform</li>
+        <li>You also write prose — Highland handles novels and articles too</li>
+      </ul>
+
+      <!-- When to choose Screenplay Editor -->
+      <h2>When to Choose Screenplay Editor</h2>
+      <p>
+        Screenplay Editor is the better fit if your workflow needs are different.
+      </p>
+      <ul class="prose-list">
+        <li>You're not on a Mac — you use Windows, Linux, or Chromebook</li>
+        <li>You collaborate with a co-writer in real time</li>
+        <li>You want free — no $50 upgrade needed for full features</li>
+        <li>You prefer working inside Google Docs, not switching to a new app</li>
+        <li>You want your scripts stored in Google Drive and accessible anywhere</li>
+      </ul>
+
+      <div class="winner-box">
+        <h3>Write screenplays in Google Docs</h3>
+        <p>Free. Cross-platform. Collaborative. Installs in seconds.</p>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button" rel="noopener">Install Screenplay Editor — Free</a>
+      </div>
+
+      <a href="/compare/" class="back-link">See how all screenwriting tools compare →</a>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR▌</div>
+      <nav class="footer-nav">
+        <a href="/about">About</a>
+        <a href="/compare/">Compare</a>
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+        <a href="/blog">Blog</a>
+      </nav>
+      <p class="footer-copy">© 2026 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+</body>
+</html>

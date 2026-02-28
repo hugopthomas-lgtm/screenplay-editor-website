@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+Disallow: /previsionnel.html
+Disallow: /spec.html
+Disallow: /spec-live.html
+Disallow: /docs.html
+Disallow: /golden-master.html
+Disallow: /keep-with-next.html
+Disallow: /kdp.html
+Disallow: /catalogue-kdp.html
+Disallow: /documentation-kdp.html
+Disallow: /mode-emploi-kdp.html
+Disallow: /monte-cristo.html
+Disallow: /gemini-research.html
+Disallow: /strategie-pr.html
+Disallow: /filmmaker-ecosystem.html
+Disallow: /filmstill-overview.html
+Disallow: /freemium.html
+Disallow: /board/
+
+Sitemap: https://screenplayeditor.app/sitemap.xml
