@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scene Board — Kanban</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#F8F8FC;--col-bg:#FFFFFF;--border:#E9E9EC;
+    --text:#2D2A3E;--text2:#6E6B7B;--text3:#9997A3;
+    --accent:#6366F1;--accent-hover:#4F46E5;--accent-soft:#EEF2FF;
+    --yellow:#FCF5A3;--pink:#FECDD3;--blue:#BFDBFE;--green:#BBF7D0;
+    --purple:#DDD6FE;--orange:#FED7AA;--white:#FFFFFF;--gray:#E5E7EB;
+    --drop:#DDD6FE;
+  }
+  html,body{height:100%;overflow:hidden;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text)}
+
+  /* ── Header ── */
+  .header{height:52px;display:flex;align-items:center;gap:12px;padding:0 20px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0}
+  .logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#6366F1,#8B5CF6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0}
+  .project-title{font-size:16px;font-weight:600;border:none;background:none;color:var(--text);outline:none;min-width:100px;padding:4px 8px;border-radius:6px}
+  .project-title:hover{background:var(--accent-soft)}
+  .project-title:focus{background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}
+  .header-spacer{flex:1}
+  .header-btn{height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text);font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+  .header-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .header-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .header-btn.primary:hover{background:var(--accent-hover)}
+  .header-btn svg{width:16px;height:16px}
+  input[type=file]{display:none}
+
+  /* ── Board ── */
+  .board{display:flex;gap:16px;padding:16px;height:calc(100% - 52px);overflow-x:auto;overflow-y:hidden;align-items:flex-start}
+
+  /* ── Column ── */
+  .column{min-width:280px;max-width:320px;width:280px;background:var(--col-bg);border-radius:12px;border:1px solid var(--border);display:flex;flex-direction:column;max-height:100%;flex-shrink:0}
+  .col-header{display:flex;align-items:center;padding:12px 14px;gap:8px;border-bottom:1px solid var(--border)}
+  .col-title{font-size:14px;font-weight:600;flex:1;border:none;background:none;color:var(--text);outline:none;padding:2px 6px;border-radius:4px;cursor:default}
+  .col-title:focus{background:var(--accent-soft);cursor:text;box-shadow:0 0 0 2px var(--accent)}
+  .col-count{font-size:12px;color:var(--text3);font-weight:500;background:var(--bg);padding:2px 8px;border-radius:10px}
+  .col-delete{width:24px;height:24px;border:none;background:none;color:var(--text3);cursor:pointer;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:0;transition:opacity .15s}
+  .col-header:hover .col-delete{opacity:1}
+  .col-delete:hover{color:#EF4444;background:#FEE2E2}
+  .col-cards{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:6px;min-height:60px}
+  .col-cards::-webkit-scrollbar{width:4px}
+  .col-cards::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+  .col-add{padding:8px;border-top:1px solid var(--border)}
+  .col-add-btn{width:100%;padding:8px;border:1px dashed var(--border);border-radius:8px;background:none;color:var(--text3);font-size:13px;cursor:pointer;transition:all .15s}
+  .col-add-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+  /* ── Add Column ── */
+  .add-column{min-width:280px;width:280px;flex-shrink:0}
+  .add-col-btn{width:100%;padding:14px;border:2px dashed var(--border);border-radius:12px;background:none;color:var(--text3);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s}
+  .add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+  /* ── Card ── */
+  .card{background:var(--yellow);border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.5;cursor:grab;user-select:none;position:relative;border:1px solid rgba(0,0,0,.06);transition:box-shadow .15s,transform .15s;word-break:break-word;white-space:pre-wrap;min-height:36px}
+  .card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .card.dragging{opacity:.4}
+  .card.drag-clone{box-shadow:0 8px 24px rgba(0,0,0,.18);transform:scale(1.02);cursor:grabbing;position:fixed;z-index:9999;pointer-events:none;transition:none}
+  .card-delete{position:absolute;top:4px;right:6px;width:20px;height:20px;border:none;background:rgba(0,0,0,.08);color:rgba(0,0,0,.4);cursor:pointer;border-radius:4px;font-size:12px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s}
+  .card:hover .card-delete{opacity:1}
+  .card-delete:hover{background:rgba(239,68,68,.2);color:#EF4444}
+  .card[contenteditable=true]{cursor:text;outline:none;box-shadow:0 0 0 2px var(--accent)}
+  .card-text{pointer-events:none}
+  .card[contenteditable=true] .card-text{pointer-events:auto}
+
+  /* ── Drop Placeholder ── */
+  .drop-placeholder{height:4px;border-radius:4px;background:var(--accent);margin:2px 0;transition:height .1s;flex-shrink:0}
+
+  /* ── Color Menu ── */
+  .color-menu{position:fixed;z-index:10000;background:#fff;border-radius:10px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;box-shadow:0 4px 20px rgba(0,0,0,.15);border:1px solid var(--border)}
+  .color-swatch{width:28px;height:28px;border-radius:6px;border:2px solid transparent;cursor:pointer;transition:transform .1s}
+  .color-swatch:hover{transform:scale(1.15)}
+  .color-swatch.active{border-color:var(--accent)}
+
+  /* ── Toast ── */
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:10001;opacity:0;transition:opacity .3s;pointer-events:none}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">SB</div>
+  <input class="project-title" id="projectTitle" value="Untitled Project" spellcheck="false">
+  <div class="header-spacer"></div>
+  <button class="header-btn primary" onclick="addCardToFirstColumn()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    New card
+  </button>
+  <button class="header-btn" onclick="exportJSON()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Export
+  </button>
+  <label class="header-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    Import
+    <input type="file" accept=".json" onchange="importJSON(event)">
+  </label>
+</div>
+
+<div class="board" id="board"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const COLORS = {yellow:'#FCF5A3',pink:'#FECDD3',blue:'#BFDBFE',green:'#BBF7D0',purple:'#DDD6FE',orange:'#FED7AA',white:'#FFFFFF',gray:'#E5E7EB'};
+const STORAGE_KEY = 'kanban_data';
+let state = {title:'Untitled Project',columns:[]};
+
+// ── Persistence ──
+function save(){
+  state.title = document.getElementById('projectTitle').value;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function load(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    try{ state = JSON.parse(raw); }catch(e){ console.error(e); }
+  }
+}
+
+// ── Init ──
+function init(){
+  const params = new URLSearchParams(location.search);
+  if(params.get('demo') === 'true'){
+    state = getDemoData();
+    save();
+  } else if(params.has('scenes')){
+    try{
+      const scenes = JSON.parse(decodeURIComponent(params.get('scenes')));
+      importScenes(scenes);
+      save();
+    }catch(e){ console.error('Invalid scenes param', e); }
+  } else {
+    load();
+    if(!state.columns.length){
+      state.columns = [
+        {id:uid(),title:'Act 1',cards:[]},
+        {id:uid(),title:'Act 2A',cards:[]},
+        {id:uid(),title:'Act 2B',cards:[]},
+        {id:uid(),title:'Act 3',cards:[]},
+      ];
+      save();
+    }
+  }
+  document.getElementById('projectTitle').value = state.title;
+  render();
+}
+
+function importScenes(scenes){
+  state.title = 'Imported Scenes';
+  state.columns = [
+    {id:uid(),title:'Act 1',cards:[]},
+    {id:uid(),title:'Act 2A',cards:[]},
+    {id:uid(),title:'Act 2B',cards:[]},
+    {id:uid(),title:'Act 3',cards:[]},
+  ];
+  scenes.forEach((s,i)=>{
+    const colIdx = Math.min(Math.floor(i / Math.ceil(scenes.length / 4)), 3);
+    state.columns[colIdx].cards.push({id:uid(),text:s.text||s,color:s.color||'yellow'});
+  });
+}
+
+// ── UID ──
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+
+// ── Render ──
+function render(){
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  state.columns.forEach((col)=>{
+    board.appendChild(createColumnEl(col));
+  });
+  // Add-column button
+  const addCol = document.createElement('div');
+  addCol.className = 'add-column';
+  addCol.innerHTML = '<button class="add-col-btn" onclick="addColumn()">+ Add column</button>';
+  board.appendChild(addCol);
+}
+
+function createColumnEl(col){
+  const el = document.createElement('div');
+  el.className = 'column';
+  el.dataset.colId = col.id;
+
+  // Header
+  const header = document.createElement('div');
+  header.className = 'col-header';
+  const title = document.createElement('input');
+  title.className = 'col-title';
+  title.value = col.title;
+  title.readOnly = true;
+  title.spellcheck = false;
+  title.addEventListener('dblclick', ()=>{ title.readOnly = false; title.focus(); title.select(); });
+  title.addEventListener('blur', ()=>{ title.readOnly = true; col.title = title.value; save(); });
+  title.addEventListener('keydown', e=>{ if(e.key==='Enter'){title.blur();} });
+  const count = document.createElement('span');
+  count.className = 'col-count';
+  count.textContent = col.cards.length;
+  const del = document.createElement('button');
+  del.className = 'col-delete';
+  del.innerHTML = '&times;';
+  del.title = 'Delete column';
+  del.onclick = ()=>{
+    if(col.cards.length && !confirm('Delete column "'+col.title+'" and its '+col.cards.length+' cards?')) return;
+    state.columns = state.columns.filter(c=>c.id!==col.id);
+    save(); render();
+  };
+  header.append(title, count, del);
+
+  // Cards container
+  const cards = document.createElement('div');
+  cards.className = 'col-cards';
+  cards.dataset.colId = col.id;
+  col.cards.forEach(card=>{ cards.appendChild(createCardEl(card, col)); });
+
+  // Drop zone events
+  cards.addEventListener('dragover', handleDragOver);
+  cards.addEventListener('dragleave', handleDragLeave);
+  cards.addEventListener('drop', handleDrop);
+
+  // Add card button
+  const addDiv = document.createElement('div');
+  addDiv.className = 'col-add';
+  const addBtn = document.createElement('button');
+  addBtn.className = 'col-add-btn';
+  addBtn.textContent = '+ Add a card';
+  addBtn.onclick = ()=> addCard(col.id);
+  addDiv.appendChild(addBtn);
+
+  el.append(header, cards, addDiv);
+  return el;
+}
+
+function createCardEl(card, col){
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.draggable = true;
+  el.dataset.cardId = card.id;
+  el.dataset.colId = col.id;
+  el.style.background = COLORS[card.color] || COLORS.yellow;
+
+  const text = document.createElement('div');
+  text.className = 'card-text';
+  text.textContent = card.text;
+  el.appendChild(text);
+
+  const del = document.createElement('button');
+  del.className = 'card-delete';
+  del.innerHTML = '&times;';
+  del.onclick = (e)=>{
+    e.stopPropagation();
+    col.cards = col.cards.filter(c=>c.id!==card.id);
+    save(); render();
+  };
+  el.appendChild(del);
+
+  // Drag
+  el.addEventListener('dragstart', handleDragStart);
+  el.addEventListener('dragend', handleDragEnd);
+
+  // Double-click to edit
+  el.addEventListener('dblclick', ()=> startEditCard(el, card));
+
+  // Right-click for color
+  el.addEventListener('contextmenu', (e)=>{
+    e.preventDefault();
+    showColorMenu(e, card);
+  });
+
+  return el;
+}
+
+// ── Card editing ──
+function startEditCard(el, card){
+  el.draggable = false;
+  el.contentEditable = true;
+  const textEl = el.querySelector('.card-text');
+  textEl.style.pointerEvents = 'auto';
+  // Place cursor at end
+  const range = document.createRange();
+  range.selectNodeContents(textEl);
+  range.collapse(false);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  el.focus();
+  const finish = ()=>{
+    el.contentEditable = false;
+    el.draggable = true;
+    textEl.style.pointerEvents = '';
+    card.text = textEl.textContent;
+    save();
+  };
+  el.addEventListener('blur', finish, {once:true});
+  el.addEventListener('keydown', (e)=>{
+    if(e.key==='Escape'||(!e.shiftKey&&e.key==='Enter')){ e.preventDefault(); el.blur(); }
+  });
+}
+
+// ── Drag & Drop ──
+let dragData = null;
+let dragClone = null;
+
+function handleDragStart(e){
+  const el = e.currentTarget;
+  dragData = {cardId:el.dataset.cardId, colId:el.dataset.colId};
+  el.classList.add('dragging');
+  // Create visual clone
+  dragClone = el.cloneNode(true);
+  dragClone.classList.remove('dragging');
+  dragClone.classList.add('drag-clone');
+  dragClone.style.width = el.offsetWidth+'px';
+  document.body.appendChild(dragClone);
+  // Use transparent drag image
+  const blank = document.createElement('canvas');
+  blank.width = 1; blank.height = 1;
+  e.dataTransfer.setDragImage(blank, 0, 0);
+  e.dataTransfer.effectAllowed = 'move';
+  // Track mouse for clone
+  document.addEventListener('dragover', moveClone);
+}
+
+function moveClone(e){
+  if(!dragClone) return;
+  dragClone.style.left = (e.clientX - dragClone.offsetWidth/2)+'px';
+  dragClone.style.top = (e.clientY - 20)+'px';
+}
+
+function handleDragEnd(e){
+  e.currentTarget.classList.remove('dragging');
+  document.addEventListener('dragover', moveClone);
+  if(dragClone){ dragClone.remove(); dragClone = null; }
+  removePlaceholders();
+  dragData = null;
+}
+
+function handleDragOver(e){
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  if(!dragData) return;
+  const container = e.currentTarget;
+  removePlaceholders();
+  const placeholder = document.createElement('div');
+  placeholder.className = 'drop-placeholder';
+  const afterEl = getDragAfterElement(container, e.clientY);
+  if(!afterEl){
+    container.appendChild(placeholder);
+  } else {
+    container.insertBefore(placeholder, afterEl);
+  }
+}
+
+function handleDragLeave(e){
+  if(!e.currentTarget.contains(e.relatedTarget)){
+    removePlaceholders();
+  }
+}
+
+function handleDrop(e){
+  e.preventDefault();
+  if(!dragData) return;
+  const targetColId = e.currentTarget.dataset.colId;
+  const {cardId, colId: sourceColId} = dragData;
+
+  // Find source
+  const srcCol = state.columns.find(c=>c.id===sourceColId);
+  const cardIdx = srcCol.cards.findIndex(c=>c.id===cardId);
+  if(cardIdx===-1) return;
+  const [card] = srcCol.cards.splice(cardIdx, 1);
+
+  // Find insert position
+  const targetCol = state.columns.find(c=>c.id===targetColId);
+  const afterEl = getDragAfterElement(e.currentTarget, e.clientY);
+  if(!afterEl){
+    targetCol.cards.push(card);
+  } else {
+    const afterIdx = targetCol.cards.findIndex(c=>c.id===afterEl.dataset.cardId);
+    if(afterIdx===-1) targetCol.cards.push(card);
+    else targetCol.cards.splice(afterIdx, 0, card);
+  }
+
+  removePlaceholders();
+  dragData = null;
+  if(dragClone){ dragClone.remove(); dragClone = null; }
+  save();
+  render();
+}
+
+function getDragAfterElement(container, y){
+  const cards = [...container.querySelectorAll('.card:not(.dragging)')];
+  let closest = {offset:Number.POSITIVE_INFINITY, element:null};
+  cards.forEach(child=>{
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height/2;
+    if(offset<0 && offset>-closest.offset*1){
+      // We want the first element whose midpoint is below y
+    }
+    if(offset<0 && Math.abs(offset)<closest.offset){
+      closest = {offset:Math.abs(offset), element:child};
+    }
+  });
+  return closest.element;
+}
+
+function removePlaceholders(){
+  document.querySelectorAll('.drop-placeholder').forEach(p=>p.remove());
+}
+
+// ── Color Menu ──
+let colorMenuEl = null;
+function showColorMenu(e, card){
+  closeColorMenu();
+  const menu = document.createElement('div');
+  menu.className = 'color-menu';
+  Object.entries(COLORS).forEach(([name, hex])=>{
+    const swatch = document.createElement('div');
+    swatch.className = 'color-swatch' + (card.color===name?' active':'');
+    swatch.style.background = hex;
+    swatch.title = name;
+    swatch.onclick = ()=>{
+      card.color = name;
+      save(); render();
+      closeColorMenu();
+    };
+    menu.appendChild(swatch);
+  });
+  menu.style.left = Math.min(e.clientX, window.innerWidth - 160)+'px';
+  menu.style.top = Math.min(e.clientY, window.innerHeight - 100)+'px';
+  document.body.appendChild(menu);
+  colorMenuEl = menu;
+  setTimeout(()=> document.addEventListener('click', closeColorMenu, {once:true}), 0);
+}
+function closeColorMenu(){
+  if(colorMenuEl){ colorMenuEl.remove(); colorMenuEl=null; }
+}
+
+// ── Actions ──
+function addCard(colId){
+  const col = state.columns.find(c=>c.id===colId);
+  if(!col) return;
+  const card = {id:uid(), text:'', color:'yellow'};
+  col.cards.push(card);
+  save(); render();
+  // Focus the new card for editing
+  const cardEl = document.querySelector(`[data-card-id="${card.id}"]`);
+  if(cardEl) startEditCard(cardEl, card);
+}
+
+function addCardToFirstColumn(){
+  if(!state.columns.length) return;
+  addCard(state.columns[0].id);
+}
+
+function addColumn(){
+  state.columns.push({id:uid(), title:'New Column', cards:[]});
+  save(); render();
+  // Focus the new column title
+  const cols = document.querySelectorAll('.col-title');
+  const last = cols[cols.length-1];
+  if(last){ last.readOnly=false; last.focus(); last.select(); }
+}
+
+// ── Project title ──
+document.getElementById('projectTitle').addEventListener('input', save);
+
+// ── Export / Import ──
+function exportJSON(){
+  save();
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (state.title||'kanban')+'.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Exported!');
+}
+
+function importJSON(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev)=>{
+    try{
+      const data = JSON.parse(ev.target.result);
+      if(!data.columns) throw new Error('Invalid format');
+      state = data;
+      save();
+      document.getElementById('projectTitle').value = state.title||'Untitled';
+      render();
+      toast('Imported!');
+    }catch(err){ toast('Invalid JSON file'); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+// ── Toast ──
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2000);
+}
+
+// ── Demo Data: Pulp Fiction ──
+function getDemoData(){
+  return {
+    title:'Pulp Fiction (Demo)',
+    columns:[
+      {id:uid(),title:'Prologue',cards:[
+        {id:uid(),text:'INT. COFFEE SHOP - MORNING\nPumpkin & Honey Bunny discuss robbery plans',color:'yellow'},
+        {id:uid(),text:'"I love you Pumpkin"\n"I love you Honey Bunny"',color:'pink'},
+        {id:uid(),text:'FREEZE — Guns drawn\nRobbery begins',color:'green'},
+        {id:uid(),text:'TITLE CARD\nPULP FICTION',color:'green'},
+      ]},
+      {id:uid(),title:'Act 1 — Vincent & Mia',cards:[
+        {id:uid(),text:'INT. CAR\nRoyale with Cheese debate',color:'yellow'},
+        {id:uid(),text:'Foot massage discussion\nIs it sexual?',color:'blue'},
+        {id:uid(),text:'Tony Rocky Horror\nThrown off a balcony for a foot massage',color:'pink'},
+        {id:uid(),text:'INT. BRETT\'S APT\nBig Kahuna Burger\n"Mmm, that IS a tasty burger"',color:'yellow'},
+        {id:uid(),text:'EZEKIEL 25:17\n"And I will strike down upon thee..."',color:'green'},
+        {id:uid(),text:'Marsellus\' bar\nBriefcase glows golden',color:'yellow'},
+        {id:uid(),text:'Vincent at Lance\'s\nBuying heroin',color:'blue'},
+        {id:uid(),text:'JACK RABBIT SLIM\'S\n50s themed diner\n$5 milkshake — "Goddamn!"',color:'green'},
+        {id:uid(),text:'TWIST CONTEST\nVincent & Mia dancing',color:'green'},
+        {id:uid(),text:'OVERDOSE\nMia snorts Vincent\'s heroin\nAdrenaline shot straight to the heart',color:'pink'},
+        {id:uid(),text:'"Don\'t be a...\nThree tomatoes walking..."\nGoodnight.',color:'purple'},
+      ]},
+      {id:uid(),title:'Act 2 — The Gold Watch',cards:[
+        {id:uid(),text:'FLASHBACK 1972\nCaptain Koons delivers the gold watch\n"Five long years, up his ass"',color:'purple'},
+        {id:uid(),text:'Butch escapes\nHe didn\'t dive — won the fight',color:'yellow'},
+        {id:uid(),text:'INT. TAXI\nEsmeralda Villalobos',color:'yellow'},
+        {id:uid(),text:'THE WATCH!\nFabienne forgot it\n"It\'s not a motorcycle, it\'s a chopper baby"',color:'orange'},
+        {id:uid(),text:'Vincent exits bathroom\nBUTCH KILLS VINCENT',color:'pink'},
+        {id:uid(),text:'CRASH!\nButch runs into Marsellus',color:'pink'},
+        {id:uid(),text:'Maynard\'s Pawn Shop\n"Bring out the Gimp"',color:'pink'},
+        {id:uid(),text:'KATANA\nButch saves Marsellus\n"Zed\'s dead, baby. Zed\'s dead."',color:'green'},
+      ]},
+      {id:uid(),title:'Act 3 — The Bonnie Situation',cards:[
+        {id:uid(),text:'BACK TO Brett\'s apt\nAfter Ezekiel\nThe 4th guy — misses EVERYTHING',color:'yellow'},
+        {id:uid(),text:'MIRACLE\nDivine intervention?\nJules wants to walk the earth',color:'green'},
+        {id:uid(),text:'"Aw man, I shot Marvin in the face"',color:'pink'},
+        {id:uid(),text:'THE WOLF\nWinston Wolf arrives\n"I solve problems"',color:'green'},
+        {id:uid(),text:'Monster Joe\'s\nNew clothes — dorky t-shirts',color:'yellow'},
+        {id:uid(),text:'BACK TO DINER\nFull circle',color:'green'},
+        {id:uid(),text:'Mexican standoff\nJules recites Ezekiel one last time',color:'pink'},
+        {id:uid(),text:'REDEMPTION\nJules lets them go\nWalks out with Vincent',color:'purple'},
+      ]},
+    ]
+  };
+}
+
+// Boot
+init();
+</script>
+</body>
+</html>
