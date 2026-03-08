@@ -1470,6 +1470,7 @@
     let saveTimeout = null;
     
     function saveToLocalStorage() {
+      if (isDemoMode) return;
       const saveStatus = document.getElementById('saveStatus');
       saveStatus.textContent = 'Saving...';
       saveStatus.className = 'save-status saving';
