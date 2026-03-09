@@ -103,6 +103,13 @@
   .theme-toggle{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:16px}
   .theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
 
+  /* ── Sync indicator ── */
+  .sync-status{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:4px;margin-right:4px}
+  .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text3)}
+  .sync-dot.synced{background:#22c55e}
+  .sync-dot.syncing{background:#f59e0b;animation:pulse .8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
   /* ── Scrollbar global ── */
   ::-webkit-scrollbar{width:6px;height:6px}
   ::-webkit-scrollbar-track{background:transparent}
@@ -118,6 +125,15 @@
   <div class="logo">SB</div>
   <input class="project-title" id="projectTitle" value="Untitled Project" spellcheck="false">
   <div class="header-spacer"></div>
+  <div class="sync-status" id="syncStatus"><span class="sync-dot" id="syncDot"></span><span id="syncLabel"></span></div>
+  <button class="header-btn" onclick="newProject()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+    New
+  </button>
+  <button class="header-btn" onclick="syncBoard()" id="syncBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+    Sync
+  </button>
   <button class="header-btn primary" onclick="addCardToFirstColumn()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     New card
@@ -510,6 +526,83 @@ function addColumn(){
   const last = cols[cols.length-1];
   if(last){ last.readOnly=false; last.focus(); last.select(); }
 }
+
+// ── New Project ──
+function newProject(){
+  if(!confirm('Start a new project? Current board will be cleared.')) return;
+  state = {title:'Untitled Project', columns:[
+    {id:uid(),title:'Act 1',cards:[]},
+    {id:uid(),title:'Act 2A',cards:[]},
+    {id:uid(),title:'Act 2B',cards:[]},
+    {id:uid(),title:'Act 3',cards:[]},
+  ]};
+  localStorage.removeItem('kanban_sync_id');
+  save();
+  document.getElementById('projectTitle').value = state.title;
+  updateSyncStatus('none');
+  render();
+}
+
+// ── Sync ──
+const SYNC_API = 'https://screenplay-editor-api.hugopthomas.workers.dev/board/sync/';
+
+function getSyncId(){
+  let id = localStorage.getItem('kanban_sync_id');
+  if(!id){
+    id = uid()+uid();
+    localStorage.setItem('kanban_sync_id', id);
+  }
+  return id;
+}
+
+async function syncBoard(){
+  const syncId = getSyncId();
+  updateSyncStatus('syncing');
+  try{
+    // Try to load remote first
+    const res = await fetch(SYNC_API + syncId);
+    if(res.ok){
+      const remote = await res.json();
+      // If remote exists and is newer or local is fresh demo, ask
+      const useRemote = confirm('A synced version exists in the cloud.\n\nOK = Load from cloud\nCancel = Overwrite cloud with current board');
+      if(useRemote){
+        state = remote;
+        save();
+        document.getElementById('projectTitle').value = state.title;
+        render();
+        updateSyncStatus('synced');
+        toast('Loaded from cloud');
+        return;
+      }
+    }
+    // Save to cloud
+    save();
+    await fetch(SYNC_API + syncId, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(state)
+    });
+    updateSyncStatus('synced');
+    toast('Synced to cloud');
+  }catch(e){
+    console.error('Sync error', e);
+    updateSyncStatus('error');
+    toast('Sync failed');
+  }
+}
+
+function updateSyncStatus(status){
+  const dot = document.getElementById('syncDot');
+  const label = document.getElementById('syncLabel');
+  dot.className = 'sync-dot';
+  if(status==='synced'){ dot.classList.add('synced'); label.textContent='synced'; }
+  else if(status==='syncing'){ dot.classList.add('syncing'); label.textContent='syncing...'; }
+  else if(status==='error'){ label.textContent='error'; }
+  else { label.textContent=''; }
+}
+
+// Auto-sync on save if sync ID exists
+const _origSave = save;
 
 // ── Project title ──
 document.getElementById('projectTitle').addEventListener('input', save);
