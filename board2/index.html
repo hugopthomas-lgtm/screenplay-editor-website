@@ -110,6 +110,27 @@
   .sync-dot.syncing{background:#f59e0b;animation:pulse .8s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
+  /* ── Welcome overlay ── */
+  .welcome-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+  .welcome-card{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:32px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+  .welcome-logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;margin-bottom:16px}
+  .welcome-title{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
+  .welcome-sub{font-size:13px;color:#888;margin-bottom:28px}
+  .welcome-options{display:flex;flex-direction:column;gap:10px}
+  .welcome-opt{display:flex;align-items:center;gap:14px;padding:16px;border-radius:12px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;transition:all .2s;text-align:left}
+  .welcome-opt:hover{border-color:#9D7BEA;background:rgba(157,123,234,.04)}
+  .welcome-opt.primary{border:2px solid #9D7BEA;background:rgba(157,123,234,.06)}
+  .welcome-opt.primary:hover{background:rgba(157,123,234,.12)}
+  .welcome-opt.disabled{opacity:.4;pointer-events:none}
+  .welcome-opt-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .welcome-opt-icon.violet{background:rgba(157,123,234,.12);color:#9D7BEA}
+  .welcome-opt-icon.yellow{background:rgba(234,179,8,.12);color:#ca8a04}
+  .welcome-opt-icon.gray{background:rgba(0,0,0,.06);color:#888}
+  .welcome-opt-text{flex:1}
+  .welcome-opt-title{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:#1a1a1a}
+  .welcome-opt-desc{font-size:11px;color:#888;margin-top:2px}
+  .welcome-opt .welcome-opt-badge{font-size:9px;background:#9D7BEA;color:#fff;padding:2px 8px;border-radius:10px;font-weight:600;letter-spacing:.3px}
+
   /* ── Scrollbar global ── */
   ::-webkit-scrollbar{width:6px;height:6px}
   ::-webkit-scrollbar-track{background:transparent}
@@ -153,6 +174,38 @@
 <div class="board" id="board"></div>
 <div class="toast" id="toast"></div>
 
+<div class="welcome-overlay" id="welcomeOverlay" style="display:none">
+  <div class="welcome-card">
+    <div class="welcome-logo">SB</div>
+    <div class="welcome-title">Scene Board</div>
+    <div class="welcome-sub">Organize your screenplay visually</div>
+    <div class="welcome-options">
+      <div class="welcome-opt primary" id="welcome-import" onclick="welcomeChoice('import')">
+        <div class="welcome-opt-icon violet">&#8645;</div>
+        <div class="welcome-opt-text">
+          <div class="welcome-opt-title">Import my script</div>
+          <div class="welcome-opt-desc">Sync scenes from your Google Doc</div>
+        </div>
+        <span class="welcome-opt-badge">RECOMMENDED</span>
+      </div>
+      <div class="welcome-opt" onclick="welcomeChoice('demo')">
+        <div class="welcome-opt-icon yellow">&#9733;</div>
+        <div class="welcome-opt-text">
+          <div class="welcome-opt-title">See Pulp Fiction demo</div>
+          <div class="welcome-opt-desc">Explore a full breakdown of Tarantino's classic</div>
+        </div>
+      </div>
+      <div class="welcome-opt" onclick="welcomeChoice('empty')">
+        <div class="welcome-opt-icon gray">&#43;</div>
+        <div class="welcome-opt-text">
+          <div class="welcome-opt-title">Start blank</div>
+          <div class="welcome-opt-desc">Empty board with Act 1, 2A, 2B, 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const COLORS = {yellow:'#FFF9DB',pink:'#FFE4E8',blue:'#DBEAFE',green:'#DCFCE7',purple:'#EDE9FE',orange:'#FFEDD5',white:'#FFFFFF',gray:'#F3F4F6'};
 const SWATCH_COLORS = {yellow:'#E8D44D',pink:'#E8707E',blue:'#60A5FA',green:'#4ADE80',purple:'#A78BFA',orange:'#FB923C',white:'#D4D4D4',gray:'#9CA3AF'};
@@ -174,8 +227,8 @@ function load(){
 // ── Theme ──
 function initTheme(){
   const saved = localStorage.getItem('kanban_theme');
-  if(saved === 'light') applyTheme('light');
-  else applyTheme('dark');
+  if(saved === 'dark') applyTheme('dark');
+  else applyTheme('light');
 }
 function toggleTheme(){
   const isLight = document.body.classList.contains('light-mode');
@@ -193,24 +246,57 @@ function applyTheme(theme){
 }
 
 // ── Init ──
+let _pendingScenes = null;
+
 function init(){
   initTheme();
   const params = new URLSearchParams(location.search);
+
+  // Check for scenes in URL
   if(params.has('scenes')){
-    try{
-      const scenes = JSON.parse(decodeURIComponent(params.get('scenes')));
-      importScenes(scenes);
-      save();
-    }catch(e){ console.error('Invalid scenes param', e); }
-  } else {
-    load();
-    if(!state.columns.length){
-      state = getDemoData();
-      save();
-    }
+    try{ _pendingScenes = JSON.parse(decodeURIComponent(params.get('scenes'))); }catch(e){}
   }
+
+  // If saved data exists, load it directly
+  load();
+  if(state.columns.length){
+    document.getElementById('projectTitle').value = state.title;
+    render();
+    return;
+  }
+
+  // First visit: show welcome overlay
+  const overlay = document.getElementById('welcomeOverlay');
+  overlay.style.display = 'flex';
+
+  // Disable import option if no scenes available
+  if(!_pendingScenes || !_pendingScenes.length){
+    const importOpt = document.getElementById('welcome-import');
+    importOpt.classList.add('disabled');
+    importOpt.querySelector('.welcome-opt-desc').textContent = 'Open Scene Board from the sidebar to import';
+    importOpt.querySelector('.welcome-opt-badge').style.display = 'none';
+  }
+}
+
+function welcomeChoice(choice){
+  document.getElementById('welcomeOverlay').style.display = 'none';
+  if(choice === 'import' && _pendingScenes && _pendingScenes.length){
+    importScenes(_pendingScenes);
+  } else if(choice === 'demo'){
+    state = getDemoData();
+  } else {
+    state = {title:'Untitled Project', columns:[
+      {id:uid(),title:'Act 1',cards:[]},
+      {id:uid(),title:'Act 2A',cards:[]},
+      {id:uid(),title:'Act 2B',cards:[]},
+      {id:uid(),title:'Act 3',cards:[]},
+    ]};
+  }
+  save();
   document.getElementById('projectTitle').value = state.title;
   render();
+  // Clean URL params
+  if(history.replaceState) history.replaceState(null, '', location.pathname);
 }
 
 function importScenes(scenes){
