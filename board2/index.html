@@ -11,8 +11,8 @@
     --bg:#1a1a1a;--col-bg:#242424;--border:#333;
     --text:#e8e8e8;--text2:#999;--text3:#666;
     --accent:#9D7BEA;--accent-hover:#8B6AD4;--accent-soft:rgba(157,123,234,.1);
-    --yellow:#4a4530;--pink:#4a3035;--blue:#2a3545;--green:#2a4530;
-    --purple:#3a2d50;--orange:#4a3a25;--white:#3a3a3a;--gray:#333;
+    --yellow:#FFF9DB;--pink:#FFE4E8;--blue:#DBEAFE;--green:#DCFCE7;
+    --purple:#EDE9FE;--orange:#FFEDD5;--white:#FFFFFF;--gray:#F3F4F6;
     --drop:#9D7BEA;
   }
   html,body{height:100%;overflow:hidden;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text)}
@@ -56,7 +56,7 @@
   .add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 
   /* ── Card ── */
-  .card{background:var(--yellow);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;cursor:grab;user-select:none;position:relative;border:1px solid rgba(255,255,255,.06);transition:box-shadow .2s,transform .2s;word-break:break-word;white-space:pre-wrap;min-height:36px;color:#e8e8e8}
+  .card{background:var(--yellow);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;cursor:grab;user-select:none;position:relative;border:1px solid rgba(0,0,0,.06);transition:box-shadow .2s,transform .2s;word-break:break-word;white-space:pre-wrap;min-height:36px;color:#2D2A3E;overflow:hidden}
   .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.3)}
   .card.dragging{opacity:.4}
   .card.drag-clone{box-shadow:0 12px 32px rgba(0,0,0,.5);transform:scale(1.02);cursor:grabbing;position:fixed;z-index:9999;pointer-events:none;transition:none}
@@ -91,7 +91,6 @@
   body.light-mode{background:var(--bg);color:var(--text)}
   body.light-mode .header{background:rgba(255,255,255,.95)}
   body.light-mode .board{background-image:linear-gradient(rgba(157,123,234,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(157,123,234,.04) 1px,transparent 1px)}
-  body.light-mode .card{color:#2D2A3E;border-color:rgba(0,0,0,.06)}
   body.light-mode .card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
   body.light-mode .card.drag-clone{box-shadow:0 8px 24px rgba(0,0,0,.18)}
   body.light-mode .card-delete{background:rgba(0,0,0,.06);color:rgba(0,0,0,.4)}
@@ -139,10 +138,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const DARK_COLORS = {yellow:'#4a4530',pink:'#4a3035',blue:'#2a3545',green:'#2a4530',purple:'#3a2d50',orange:'#4a3a25',white:'#3a3a3a',gray:'#333333'};
-const LIGHT_COLORS = {yellow:'#FFF9DB',pink:'#FFE4E8',blue:'#DBEAFE',green:'#DCFCE7',purple:'#EDE9FE',orange:'#FFEDD5',white:'#FFFFFF',gray:'#F3F4F6'};
+const COLORS = {yellow:'#FFF9DB',pink:'#FFE4E8',blue:'#DBEAFE',green:'#DCFCE7',purple:'#EDE9FE',orange:'#FFEDD5',white:'#FFFFFF',gray:'#F3F4F6'};
 const SWATCH_COLORS = {yellow:'#E8D44D',pink:'#E8707E',blue:'#60A5FA',green:'#4ADE80',purple:'#A78BFA',orange:'#FB923C',white:'#D4D4D4',gray:'#9CA3AF'};
-let COLORS = DARK_COLORS;
 const STORAGE_KEY = 'kanban_data';
 let state = {title:'Untitled Project',columns:[]};
 
@@ -167,17 +164,14 @@ function initTheme(){
 function toggleTheme(){
   const isLight = document.body.classList.contains('light-mode');
   applyTheme(isLight ? 'dark' : 'light');
-  render(); // re-render cards with correct colors
 }
 function applyTheme(theme){
   if(theme === 'light'){
     document.body.classList.add('light-mode');
-    COLORS = LIGHT_COLORS;
-    document.getElementById('themeToggle').innerHTML = '&#9728;'; // sun
+    document.getElementById('themeToggle').innerHTML = '&#9728;';
   } else {
     document.body.classList.remove('light-mode');
-    COLORS = DARK_COLORS;
-    document.getElementById('themeToggle').innerHTML = '&#9790;'; // moon
+    document.getElementById('themeToggle').innerHTML = '&#9790;';
   }
   localStorage.setItem('kanban_theme', theme);
 }
