@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Screenplay Editor — Projects</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1a1a1a;--surface:#242424;--border:#333;
+  --text:#e8e8e8;--text2:#999;--text3:#666;
+  --accent:#9D7BEA;--accent-hover:#8B6AD4;--accent-soft:rgba(157,123,234,.1);
+  --blue:#60A5FA;--blue-soft:rgba(96,165,250,.12);
+  --red:#EF4444;--red-soft:rgba(239,68,68,.1);
+}
+html,body{height:100%;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+/* ── Header ── */
+.header{height:52px;display:flex;align-items:center;gap:12px;padding:0 20px;background:rgba(26,26,26,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;flex-shrink:0;letter-spacing:-.5px}
+.header-title{font-size:14px;font-weight:600;color:var(--text)}
+.header-spacer{flex:1}
+.header-email{font-size:12px;color:var(--text2)}
+.header-btn{height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s}
+.header-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── Loading / centered view ── */
+.centered{height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Auth card ── */
+.auth-wrap{height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;max-width:400px;width:100%;padding:32px;text-align:center}
+.auth-logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;margin-bottom:16px}
+.auth-title{font-size:18px;font-weight:700;margin-bottom:6px}
+.auth-sub{font-size:12px;color:var(--text2);margin-bottom:24px}
+.auth-input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;margin-bottom:12px}
+.auth-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(157,123,234,.15)}
+.auth-btn{width:100%;padding:12px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s}
+.auth-btn:hover{background:var(--accent-hover)}
+.auth-btn:disabled{opacity:.5;cursor:default}
+.auth-error{color:var(--red);font-size:11px;margin-top:8px;min-height:16px}
+
+/* ── Dashboard content ── */
+.content{max-width:960px;margin:0 auto;padding:32px 20px}
+.content-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.content-title{font-size:18px;font-weight:700}
+.btn-new{height:38px;padding:0 18px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .2s}
+.btn-new:hover{background:var(--accent-hover)}
+.btn-new svg{width:16px;height:16px}
+
+/* ── Project grid ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s;position:relative}
+.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.3px;text-transform:uppercase}
+.badge.sceneboard{background:var(--accent-soft);color:var(--accent)}
+.badge.moodboard{background:var(--blue-soft);color:var(--blue)}
+.card-menu{width:28px;height:28px;border:none;background:transparent;color:var(--text3);cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .15s}
+.card-menu:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.card-title{font-size:14px;font-weight:600;margin-bottom:6px;word-break:break-word}
+.card-date{font-size:11px;color:var(--text3)}
+
+/* ── Dropdown menu ── */
+.dropdown{position:absolute;top:44px;right:12px;background:#2a2a2a;border:1px solid var(--border);border-radius:10px;padding:4px;min-width:140px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:100}
+.dropdown-item{display:block;width:100%;padding:8px 12px;border:none;background:none;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;border-radius:6px;text-align:left;transition:background .15s}
+.dropdown-item:hover{background:rgba(255,255,255,.08)}
+.dropdown-item.danger{color:var(--red)}
+.dropdown-item.danger:hover{background:var(--red-soft)}
+
+/* ── Empty state ── */
+.empty{text-align:center;padding:60px 20px}
+.empty-icon{font-size:48px;margin-bottom:16px;opacity:.3}
+.empty-text{font-size:14px;color:var(--text2);margin-bottom:24px}
+.empty-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-empty{height:42px;padding:0 20px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s}
+.btn-empty:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.btn-empty svg{width:18px;height:18px}
+
+/* ── Modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;max-width:440px;width:100%;padding:28px}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:20px}
+.modal-label{font-size:11px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.modal-input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;margin-bottom:16px}
+.modal-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(157,123,234,.15)}
+.type-picker{display:flex;gap:10px;margin-bottom:20px}
+.type-opt{flex:1;padding:16px 12px;border-radius:12px;border:2px solid var(--border);background:transparent;color:var(--text);cursor:pointer;text-align:center;transition:all .2s;font-family:'JetBrains Mono',monospace}
+.type-opt:hover{border-color:var(--text3)}
+.type-opt.active{border-color:var(--accent);background:var(--accent-soft)}
+.type-opt-icon{font-size:24px;margin-bottom:6px}
+.type-opt-label{font-size:12px;font-weight:600}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end}
+.modal-cancel{height:38px;padding:0 18px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;transition:all .2s}
+.modal-cancel:hover{border-color:var(--text);color:var(--text)}
+.modal-confirm{height:38px;padding:0 18px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s}
+.modal-confirm:hover{background:var(--accent-hover)}
+.modal-confirm:disabled{opacity:.5;cursor:default}
+
+/* ── Rename modal ── */
+.rename-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:4px}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:8px;font-size:12px;z-index:10001;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE = 'https://screenplay-editor-api.hugopthomas.workers.dev';
+let authToken = localStorage.getItem('sb_token') || null;
+let authUser = null;
+let projects = [];
+let openMenuId = null;
+
+// ═══════════════════════════════════════════════
+// API
+// ═══════════════════════════════════════════════
+async function apiFetch(path, method, body) {
+  const opts = { method: method || 'GET', headers: { 'Content-Type': 'application/json' } };
+  if (authToken) opts.headers['Authorization'] = 'Bearer ' + authToken;
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(API_BASE + path, opts);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'API error ' + res.status);
+  }
+  return res.json();
+}
+
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+function render(view, data) {
+  const app = document.getElementById('app');
+
+  if (view === 'loading') {
+    app.innerHTML = `
+      <div class="centered">
+        <div class="logo" style="width:48px;height:48px;font-size:16px;border-radius:12px">SE</div>
+        <div class="spinner"></div>
+      </div>`;
+    return;
+  }
+
+  if (view === 'login') {
+    app.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <div class="auth-logo">SE</div>
+          <div class="auth-title">Sign in</div>
+          <div class="auth-sub">Screenplay Editor — Projects</div>
+          <div id="authStep1">
+            <input class="auth-input" id="authEmail" type="email" placeholder="your@email.com" autocomplete="email">
+            <button class="auth-btn" id="authSendBtn">Send login code</button>
+            <div class="auth-error" id="authError1"></div>
+          </div>
+          <div id="authStep2" style="display:none">
+            <p style="font-size:12px;color:var(--text2);margin-bottom:12px">Enter the 6-digit code sent to <strong id="authEmailLabel"></strong></p>
+            <input class="auth-input" id="authCode" type="text" placeholder="000000" maxlength="6" autocomplete="one-time-code" style="text-align:center;font-size:20px;letter-spacing:8px">
+            <button class="auth-btn" id="authVerifyBtn">Verify</button>
+            <div class="auth-error" id="authError2"></div>
+          </div>
+        </div>
+      </div>`;
+    // Bind events
+    setTimeout(() => {
+      const emailInput = document.getElementById('authEmail');
+      const sendBtn = document.getElementById('authSendBtn');
+      emailInput.focus();
+      emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') authSendCode(); });
+      sendBtn.addEventListener('click', authSendCode);
+    }, 50);
+    return;
+  }
+
+  if (view === 'dashboard') {
+    let html = `
+      <div class="header">
+        <div class="logo">SE</div>
+        <span class="header-title">Screenplay Editor</span>
+        <div class="header-spacer"></div>
+        <span class="header-email">${escapeHtml(authUser.email)}</span>
+        <button class="header-btn" id="signOutBtn">Sign out</button>
+      </div>
+      <div class="content">
+        <div class="content-header">
+          <span class="content-title">My Projects</span>
+          <button class="btn-new" id="newProjectBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Project
+          </button>
+        </div>`;
+
+    if (!projects.length) {
+      html += `
+        <div class="empty">
+          <div class="empty-icon">&#128203;</div>
+          <div class="empty-text">No projects yet. Create your first one!</div>
+          <div class="empty-actions">
+            <button class="btn-empty" data-type="sceneboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Scene Board
+            </button>
+            <button class="btn-empty" data-type="moodboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="8" cy="8" r="2"/><path d="M2 15l5-5 4 4 3-3 8 8"/></svg>
+              Mood Board
+            </button>
+          </div>
+        </div>`;
+    } else {
+      html += '<div class="grid">';
+      projects.forEach(p => {
+        const type = p.type || 'sceneboard';
+        const badge = type === 'moodboard' ? 'moodboard' : 'sceneboard';
+        const badgeLabel = type === 'moodboard' ? 'Mood Board' : 'Scene Board';
+        const d = new Date(p.updatedAt);
+        const dateStr = formatDate(d);
+        html += `
+          <div class="card" data-id="${p.id}" data-type="${type}">
+            <div class="card-top">
+              <span class="badge ${badge}">${badgeLabel}</span>
+              <button class="card-menu" data-menu="${p.id}" title="Options">&#8942;</button>
+            </div>
+            <div class="card-title">${escapeHtml(p.title)}</div>
+            <div class="card-date">Updated ${dateStr}</div>
+          </div>`;
+      });
+      html += '</div>';
+    }
+
+    html += '</div>';
+    app.innerHTML = html;
+
+    // Bind events
+    document.getElementById('signOutBtn').addEventListener('click', logout);
+    document.getElementById('newProjectBtn').addEventListener('click', () => showNewProjectModal());
+
+    // Card clicks
+    document.querySelectorAll('.card[data-id]').forEach(card => {
+      card.addEventListener('click', e => {
+        if (e.target.closest('.card-menu') || e.target.closest('.dropdown')) return;
+        openProject(card.dataset.id, card.dataset.type);
+      });
+    });
+
+    // Menu buttons
+    document.querySelectorAll('.card-menu[data-menu]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        toggleMenu(btn.dataset.menu);
+      });
+    });
+
+    // Empty state buttons
+    document.querySelectorAll('.btn-empty[data-type]').forEach(btn => {
+      btn.addEventListener('click', () => showNewProjectModal(btn.dataset.type));
+    });
+
+    // Close menus on outside click
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.card-menu') && !e.target.closest('.dropdown')) {
+        closeMenus();
+      }
+    });
+
+    return;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function formatDate(d) {
+  const now = new Date();
+  const diffMs = now - d;
+  const diffMin = Math.floor(diffMs / 60000);
+  if (diffMin < 1) return 'just now';
+  if (diffMin < 60) return diffMin + 'm ago';
+  const diffH = Math.floor(diffMin / 60);
+  if (diffH < 24) return diffH + 'h ago';
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// ═══════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════
+async function authSendCode() {
+  const email = document.getElementById('authEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('authError1').textContent = 'Enter a valid email';
+    return;
+  }
+  const btn = document.getElementById('authSendBtn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  document.getElementById('authError1').textContent = '';
+  try {
+    await apiFetch('/auth/send-magic-link', 'POST', { email });
+    document.getElementById('authStep1').style.display = 'none';
+    document.getElementById('authStep2').style.display = '';
+    document.getElementById('authEmailLabel').textContent = email;
+    const codeInput = document.getElementById('authCode');
+    setTimeout(() => codeInput.focus(), 100);
+    codeInput.addEventListener('keydown', e => { if (e.key === 'Enter') authVerifyCode(); });
+    document.getElementById('authVerifyBtn').addEventListener('click', authVerifyCode);
+  } catch (e) {
+    document.getElementById('authError1').textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Send login code';
+  }
+}
+
+async function authVerifyCode() {
+  const email = document.getElementById('authEmail').value.trim();
+  const code = document.getElementById('authCode').value.trim();
+  if (!code || code.length < 6) {
+    document.getElementById('authError2').textContent = 'Enter the 6-digit code';
+    return;
+  }
+  const btn = document.getElementById('authVerifyBtn');
+  btn.disabled = true; btn.textContent = 'Verifying...';
+  document.getElementById('authError2').textContent = '';
+  try {
+    const data = await apiFetch('/auth/verify', 'POST', { email, code });
+    authToken = data.token;
+    authUser = data.user;
+    localStorage.setItem('sb_token', authToken);
+    await loadProjects();
+    render('dashboard');
+  } catch (e) {
+    document.getElementById('authError2').textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Verify';
+  }
+}
+
+async function logout() {
+  if (authToken) {
+    try { await apiFetch('/auth/logout', 'POST'); } catch (e) {}
+  }
+  authToken = null;
+  authUser = null;
+  projects = [];
+  localStorage.removeItem('sb_token');
+  render('login');
+}
+
+// ═══════════════════════════════════════════════
+// PROJECTS
+// ═══════════════════════════════════════════════
+async function loadProjects() {
+  const data = await apiFetch('/projects');
+  projects = data.projects || [];
+}
+
+function openProject(id, type) {
+  if (type === 'moodboard') {
+    window.location.href = '../board/?projectId=' + id;
+  } else {
+    window.location.href = '../board2/?projectId=' + id;
+  }
+}
+
+// ── Card menu ──
+function toggleMenu(projectId) {
+  const existing = document.querySelector('.dropdown');
+  if (existing) {
+    const wasOpen = existing.dataset.for === projectId;
+    existing.remove();
+    if (wasOpen) return;
+  }
+  const card = document.querySelector(`.card[data-id="${projectId}"]`);
+  if (!card) return;
+  const dd = document.createElement('div');
+  dd.className = 'dropdown';
+  dd.dataset.for = projectId;
+  dd.innerHTML = `
+    <button class="dropdown-item" data-action="rename">Rename</button>
+    <button class="dropdown-item danger" data-action="delete">Delete</button>
+  `;
+  dd.querySelector('[data-action="rename"]').addEventListener('click', e => {
+    e.stopPropagation();
+    closeMenus();
+    showRenameModal(projectId);
+  });
+  dd.querySelector('[data-action="delete"]').addEventListener('click', e => {
+    e.stopPropagation();
+    closeMenus();
+    deleteProject(projectId);
+  });
+  card.appendChild(dd);
+}
+
+function closeMenus() {
+  document.querySelectorAll('.dropdown').forEach(d => d.remove());
+}
+
+// ── New project modal ──
+function showNewProjectModal(preselect) {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+
+  let selectedType = preselect || 'sceneboard';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = `
+    <div class="modal-title">New Project</div>
+    <div class="modal-label">Title</div>
+    <input class="modal-input" id="newTitle" type="text" placeholder="My Project" autofocus>
+    <div class="modal-label">Type</div>
+    <div class="type-picker">
+      <button class="type-opt ${selectedType === 'sceneboard' ? 'active' : ''}" data-t="sceneboard">
+        <div class="type-opt-icon">&#9638;</div>
+        <div class="type-opt-label">Scene Board</div>
+      </button>
+      <button class="type-opt ${selectedType === 'moodboard' ? 'active' : ''}" data-t="moodboard">
+        <div class="type-opt-icon">&#9641;</div>
+        <div class="type-opt-label">Mood Board</div>
+      </button>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" id="modalCancel">Cancel</button>
+      <button class="modal-confirm" id="modalCreate">Create</button>
+    </div>
+  `;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  // Type picker
+  modal.querySelectorAll('.type-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.querySelectorAll('.type-opt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedType = btn.dataset.t;
+    });
+  });
+
+  const titleInput = modal.querySelector('#newTitle');
+  setTimeout(() => titleInput.focus(), 50);
+
+  modal.querySelector('#modalCancel').addEventListener('click', () => overlay.remove());
+  modal.querySelector('#modalCreate').addEventListener('click', async () => {
+    const title = titleInput.value.trim() || 'Untitled Project';
+    const btn = modal.querySelector('#modalCreate');
+    btn.disabled = true; btn.textContent = 'Creating...';
+    try {
+      const data = await apiFetch('/projects', 'POST', { title, type: selectedType });
+      overlay.remove();
+      openProject(data.project.id, selectedType);
+    } catch (e) {
+      toast('Error: ' + e.message);
+      btn.disabled = false; btn.textContent = 'Create';
+    }
+  });
+
+  titleInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') modal.querySelector('#modalCreate').click();
+  });
+}
+
+// ── Rename modal ──
+function showRenameModal(projectId) {
+  const project = projects.find(p => p.id === projectId);
+  if (!project) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = `
+    <div class="modal-title">Rename Project</div>
+    <input class="modal-input" id="renameInput" type="text" value="${escapeHtml(project.title)}">
+    <div class="rename-actions">
+      <button class="modal-cancel" id="renameCancel">Cancel</button>
+      <button class="modal-confirm" id="renameSave">Save</button>
+    </div>
+  `;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  const input = modal.querySelector('#renameInput');
+  setTimeout(() => { input.focus(); input.select(); }, 50);
+
+  modal.querySelector('#renameCancel').addEventListener('click', () => overlay.remove());
+  modal.querySelector('#renameSave').addEventListener('click', async () => {
+    const title = input.value.trim();
+    if (!title) return;
+    const btn = modal.querySelector('#renameSave');
+    btn.disabled = true; btn.textContent = 'Saving...';
+    try {
+      await apiFetch('/projects/' + projectId, 'PATCH', { title });
+      project.title = title;
+      overlay.remove();
+      render('dashboard');
+      toast('Renamed');
+    } catch (e) {
+      toast('Error: ' + e.message);
+      btn.disabled = false; btn.textContent = 'Save';
+    }
+  });
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') modal.querySelector('#renameSave').click();
+  });
+}
+
+// ── Delete project ──
+async function deleteProject(projectId) {
+  const project = projects.find(p => p.id === projectId);
+  if (!project) return;
+  if (!confirm('Delete "' + project.title + '"? This cannot be undone.')) return;
+  try {
+    await apiFetch('/projects/' + projectId, 'DELETE');
+    projects = projects.filter(p => p.id !== projectId);
+    render('dashboard');
+    toast('Deleted');
+  } catch (e) {
+    toast('Error: ' + e.message);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+async function init() {
+  render('loading');
+  if (!authToken) {
+    render('login');
+    return;
+  }
+  try {
+    const data = await apiFetch('/auth/me');
+    authUser = { email: data.email, isPro: data.isPro };
+    await loadProjects();
+    render('dashboard');
+  } catch (e) {
+    authToken = null;
+    localStorage.removeItem('sb_token');
+    render('login');
+  }
+}
+
+init();
+</script>
+</body>
+</html>

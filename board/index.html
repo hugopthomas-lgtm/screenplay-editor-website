@@ -159,6 +159,29 @@
       color: #10B981;
     }
 
+    .back-link {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      white-space: nowrap;
+      padding-right: 12px;
+      border-right: 1px solid var(--border);
+      transition: color .15s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .cloud-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .cloud-dot.synced { background: #10B981; }
+    .cloud-dot.saving { background: #F59E0B; animation: cpulse .8s infinite; }
+    .cloud-dot.error { background: #EF4444; }
+    @keyframes cpulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
     /* ============================================
        ZOOM CONTROLS
        ============================================ */
@@ -1292,6 +1315,7 @@
   </div>
   <!-- Topbar -->
   <header class="topbar">
+    <a id="backToProjects" href="../app/" class="back-link" style="display:none">&larr; Projects</a>
     <div class="topbar-brand">
       <div class="logo">SE</div>
       <span class="project-title">Mood Board</span>
@@ -1326,6 +1350,7 @@
       </button>
       <input type="file" id="importInput" accept=".json" style="display: none;" onchange="importBoard(event)">
       <span class="save-status" id="saveStatus">Saved</span>
+      <span id="cloudStatus" style="display:none;font-size:12px;color:var(--text-tertiary)"><span class="cloud-dot synced" id="cloudDot"></span><span id="cloudLabel">saved</span></span>
     </div>
   </header>
 
@@ -1463,9 +1488,70 @@
     })();
 
     // ============================================
+    // AUTH + CLOUD SYNC
+    // ============================================
+
+    const API_BASE = 'https://screenplay-editor-api.hugopthomas.workers.dev';
+    let authToken = localStorage.getItem('sb_token') || null;
+    let authUser = null;
+    let currentProjectId = null;
+    let cloudSyncTimer = null;
+
+    async function apiFetch(path, method, body) {
+      const opts = { method: method || 'GET', headers: { 'Content-Type': 'application/json' } };
+      if (authToken) opts.headers['Authorization'] = 'Bearer ' + authToken;
+      if (body) opts.body = JSON.stringify(body);
+      const res = await fetch(API_BASE + path, opts);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'API error ' + res.status);
+      }
+      return res.json();
+    }
+
+    async function checkAuth() {
+      if (!authToken) return;
+      try {
+        const data = await apiFetch('/auth/me');
+        authUser = { email: data.email, isPro: data.isPro };
+      } catch (e) {
+        authToken = null;
+        authUser = null;
+        localStorage.removeItem('sb_token');
+      }
+    }
+
+    function updateCloudStatus(status) {
+      const wrap = document.getElementById('cloudStatus');
+      const dot = document.getElementById('cloudDot');
+      const label = document.getElementById('cloudLabel');
+      if (!wrap || !currentProjectId) { if (wrap) wrap.style.display = 'none'; return; }
+      wrap.style.display = '';
+      dot.className = 'cloud-dot';
+      if (status === 'synced') { dot.classList.add('synced'); label.textContent = 'saved'; }
+      else if (status === 'saving') { dot.classList.add('saving'); label.textContent = 'saving...'; }
+      else if (status === 'error') { dot.classList.add('error'); label.textContent = 'error'; }
+    }
+
+    function scheduleCloudSave(data) {
+      if (!currentProjectId || !authToken) return;
+      if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
+      updateCloudStatus('saving');
+      cloudSyncTimer = setTimeout(async () => {
+        try {
+          await apiFetch('/projects/' + currentProjectId + '/board', 'PUT', data);
+          updateCloudStatus('synced');
+        } catch (e) {
+          console.error('Cloud save error', e);
+          updateCloudStatus('error');
+        }
+      }, 2000);
+    }
+
+    // ============================================
     // LOCAL STORAGE - SAVE/LOAD
     // ============================================
-    
+
     const STORAGE_KEY = 'sceneboard_data';
     let saveTimeout = null;
     
@@ -1474,10 +1560,11 @@
       const saveStatus = document.getElementById('saveStatus');
       saveStatus.textContent = 'Saving...';
       saveStatus.className = 'save-status saving';
-      
+
       const data = gatherBoardData();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      
+      scheduleCloudSave(data);
+
       setTimeout(() => {
         saveStatus.textContent = 'Saved';
         saveStatus.className = 'save-status saved';
@@ -3107,34 +3194,63 @@
     // INIT
     // ============================================
 
-    const initUrlParams = new URLSearchParams(window.location.search);
+    (async function init() {
+      // Check auth first
+      await checkAuth();
 
-    // Check for fresh start mode
-    if (initUrlParams.has('fresh')) {
-      localStorage.removeItem('sceneBoard');
-      generateDefaultBoard();
-    }
-    // Priority: 1. Demo mode 2. URL params 3. localStorage 4. Default board
-    else if (!loadDemoBoard()) {
-      if (!loadFromUrlParams()) {
-        if (!loadFromLocalStorage()) {
-          generateDefaultBoard();
+      // Show back link if authenticated
+      const backLink = document.getElementById('backToProjects');
+      if (backLink && authUser) backLink.style.display = '';
+
+      const initUrlParams = new URLSearchParams(window.location.search);
+
+      // If projectId in URL and authenticated, load from cloud
+      if (initUrlParams.has('projectId') && authToken && authUser) {
+        const pid = initUrlParams.get('projectId');
+        try {
+          const boardData = await apiFetch('/projects/' + pid + '/board');
+          if (boardData && (boardData.cards || boardData.texts || boardData.images || boardData.frames)) {
+            restoreBoardData(boardData);
+            currentProjectId = pid;
+            updateCloudStatus('synced');
+          } else {
+            // Empty project — keep default board but link to cloud
+            currentProjectId = pid;
+            generateDefaultBoard();
+          }
+        } catch (e) {
+          console.error('Cloud load error:', e);
+          // Fallback to local
+          if (!loadFromLocalStorage()) generateDefaultBoard();
+        }
+        if (history.replaceState) history.replaceState(null, '', location.pathname);
+      }
+      // Check for fresh start mode
+      else if (initUrlParams.has('fresh')) {
+        localStorage.removeItem('sceneBoard');
+        generateDefaultBoard();
+      }
+      // Priority: 1. Demo mode 2. URL params 3. localStorage 4. Default board
+      else if (!loadDemoBoard()) {
+        if (!loadFromUrlParams()) {
+          if (!loadFromLocalStorage()) {
+            generateDefaultBoard();
+          }
         }
       }
-    }
 
-    // Save initial state for undo
-    saveState();
+      // Save initial state for undo
+      saveState();
 
-    // Auto-save quand on modifie des éléments
-    // On observe les changements sur le canvas
-    const observer = new MutationObserver(() => {
-      autoSave();
-    });
-    observer.observe(canvas, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
-    
-    // Save quand on ferme la page
-    window.addEventListener('beforeunload', saveToLocalStorage);
+      // Auto-save quand on modifie des éléments
+      const observer = new MutationObserver(() => {
+        autoSave();
+      });
+      observer.observe(canvas, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+
+      // Save quand on ferme la page
+      window.addEventListener('beforeunload', saveToLocalStorage);
+    })();
   </script>
 </body>
 </html>
