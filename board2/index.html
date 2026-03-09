@@ -4,26 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scene Board — Kanban</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --bg:#F8F8FC;--col-bg:#FFFFFF;--border:#E9E9EC;
-    --text:#2D2A3E;--text2:#6E6B7B;--text3:#9997A3;
-    --accent:#6366F1;--accent-hover:#4F46E5;--accent-soft:#EEF2FF;
-    --yellow:#FCF5A3;--pink:#FECDD3;--blue:#BFDBFE;--green:#BBF7D0;
-    --purple:#DDD6FE;--orange:#FED7AA;--white:#FFFFFF;--gray:#E5E7EB;
-    --drop:#DDD6FE;
+    --bg:#1a1a1a;--col-bg:#242424;--border:#333;
+    --text:#e8e8e8;--text2:#999;--text3:#666;
+    --accent:#9D7BEA;--accent-hover:#8B6AD4;--accent-soft:rgba(157,123,234,.1);
+    --yellow:#4a4530;--pink:#4a3035;--blue:#2a3545;--green:#2a4530;
+    --purple:#3a2d50;--orange:#4a3a25;--white:#3a3a3a;--gray:#333;
+    --drop:#9D7BEA;
   }
-  html,body{height:100%;overflow:hidden;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text)}
+  html,body{height:100%;overflow:hidden;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text)}
 
   /* ── Header ── */
-  .header{height:52px;display:flex;align-items:center;gap:12px;padding:0 20px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0}
-  .logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#6366F1,#8B5CF6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0}
-  .project-title{font-size:16px;font-weight:600;border:none;background:none;color:var(--text);outline:none;min-width:100px;padding:4px 8px;border-radius:6px}
+  .header{height:52px;display:flex;align-items:center;gap:12px;padding:0 20px;background:rgba(26,26,26,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:10}
+  .logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;flex-shrink:0;letter-spacing:-.5px}
+  .project-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;border:none;background:none;color:var(--text);outline:none;min-width:100px;padding:4px 8px;border-radius:6px}
   .project-title:hover{background:var(--accent-soft)}
   .project-title:focus{background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}
   .header-spacer{flex:1}
-  .header-btn{height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text);font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+  .header-btn{height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s}
   .header-btn:hover{border-color:var(--accent);color:var(--accent)}
   .header-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
   .header-btn.primary:hover{background:var(--accent-hover)}
@@ -31,37 +32,37 @@
   input[type=file]{display:none}
 
   /* ── Board ── */
-  .board{display:flex;gap:16px;padding:16px;height:calc(100% - 52px);overflow-x:auto;overflow-y:hidden;align-items:flex-start}
+  .board{display:flex;gap:16px;padding:16px;height:calc(100% - 52px);overflow-x:auto;overflow-y:hidden;align-items:flex-start;background-image:linear-gradient(rgba(157,123,234,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(157,123,234,.03) 1px,transparent 1px);background-size:60px 60px}
 
   /* ── Column ── */
   .column{min-width:280px;max-width:320px;width:280px;background:var(--col-bg);border-radius:12px;border:1px solid var(--border);display:flex;flex-direction:column;max-height:100%;flex-shrink:0}
   .col-header{display:flex;align-items:center;padding:12px 14px;gap:8px;border-bottom:1px solid var(--border)}
-  .col-title{font-size:14px;font-weight:600;flex:1;border:none;background:none;color:var(--text);outline:none;padding:2px 6px;border-radius:4px;cursor:default}
+  .col-title{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;flex:1;border:none;background:none;color:var(--text);outline:none;padding:2px 6px;border-radius:4px;cursor:default}
   .col-title:focus{background:var(--accent-soft);cursor:text;box-shadow:0 0 0 2px var(--accent)}
-  .col-count{font-size:12px;color:var(--text3);font-weight:500;background:var(--bg);padding:2px 8px;border-radius:10px}
+  .col-count{font-size:11px;color:var(--text3);font-weight:500;background:rgba(255,255,255,.06);padding:2px 8px;border-radius:10px}
   .col-delete{width:24px;height:24px;border:none;background:none;color:var(--text3);cursor:pointer;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:0;transition:opacity .15s}
   .col-header:hover .col-delete{opacity:1}
-  .col-delete:hover{color:#EF4444;background:#FEE2E2}
+  .col-delete:hover{color:#EF4444;background:rgba(239,68,68,.15)}
   .col-cards{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:6px;min-height:60px}
   .col-cards::-webkit-scrollbar{width:4px}
   .col-cards::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
   .col-add{padding:8px;border-top:1px solid var(--border)}
-  .col-add-btn{width:100%;padding:8px;border:1px dashed var(--border);border-radius:8px;background:none;color:var(--text3);font-size:13px;cursor:pointer;transition:all .15s}
+  .col-add-btn{width:100%;padding:8px;border:1px dashed var(--border);border-radius:8px;background:none;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;transition:all .2s}
   .col-add-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 
   /* ── Add Column ── */
   .add-column{min-width:280px;width:280px;flex-shrink:0}
-  .add-col-btn{width:100%;padding:14px;border:2px dashed var(--border);border-radius:12px;background:none;color:var(--text3);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s}
+  .add-col-btn{width:100%;padding:14px;border:2px dashed var(--border);border-radius:12px;background:none;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
   .add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 
   /* ── Card ── */
-  .card{background:var(--yellow);border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.5;cursor:grab;user-select:none;position:relative;border:1px solid rgba(0,0,0,.06);transition:box-shadow .15s,transform .15s;word-break:break-word;white-space:pre-wrap;min-height:36px}
-  .card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .card{background:var(--yellow);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;cursor:grab;user-select:none;position:relative;border:1px solid rgba(255,255,255,.06);transition:box-shadow .2s,transform .2s;word-break:break-word;white-space:pre-wrap;min-height:36px;color:#e8e8e8}
+  .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.3)}
   .card.dragging{opacity:.4}
-  .card.drag-clone{box-shadow:0 8px 24px rgba(0,0,0,.18);transform:scale(1.02);cursor:grabbing;position:fixed;z-index:9999;pointer-events:none;transition:none}
-  .card-delete{position:absolute;top:4px;right:6px;width:20px;height:20px;border:none;background:rgba(0,0,0,.08);color:rgba(0,0,0,.4);cursor:pointer;border-radius:4px;font-size:12px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s}
+  .card.drag-clone{box-shadow:0 12px 32px rgba(0,0,0,.5);transform:scale(1.02);cursor:grabbing;position:fixed;z-index:9999;pointer-events:none;transition:none}
+  .card-delete{position:absolute;top:4px;right:6px;width:20px;height:20px;border:none;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;border-radius:4px;font-size:12px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s}
   .card:hover .card-delete{opacity:1}
-  .card-delete:hover{background:rgba(239,68,68,.2);color:#EF4444}
+  .card-delete:hover{background:rgba(239,68,68,.3);color:#EF4444}
   .card[contenteditable=true]{cursor:text;outline:none;box-shadow:0 0 0 2px var(--accent)}
   .card-text{pointer-events:none}
   .card[contenteditable=true] .card-text{pointer-events:auto}
@@ -70,14 +71,20 @@
   .drop-placeholder{height:4px;border-radius:4px;background:var(--accent);margin:2px 0;transition:height .1s;flex-shrink:0}
 
   /* ── Color Menu ── */
-  .color-menu{position:fixed;z-index:10000;background:#fff;border-radius:10px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;box-shadow:0 4px 20px rgba(0,0,0,.15);border:1px solid var(--border)}
+  .color-menu{position:fixed;z-index:10000;background:#2a2a2a;border-radius:10px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;box-shadow:0 8px 32px rgba(0,0,0,.4);border:1px solid var(--border)}
   .color-swatch{width:28px;height:28px;border-radius:6px;border:2px solid transparent;cursor:pointer;transition:transform .1s}
   .color-swatch:hover{transform:scale(1.15)}
   .color-swatch.active{border-color:var(--accent)}
 
   /* ── Toast ── */
-  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;z-index:10001;opacity:0;transition:opacity .3s;pointer-events:none}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;z-index:10001;opacity:0;transition:opacity .3s;pointer-events:none}
   .toast.show{opacity:1}
+
+  /* ── Scrollbar global ── */
+  ::-webkit-scrollbar{width:6px;height:6px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#444;border-radius:3px}
+  ::-webkit-scrollbar-thumb:hover{background:#555}
 </style>
 </head>
 <body>
@@ -105,7 +112,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const COLORS = {yellow:'#FCF5A3',pink:'#FECDD3',blue:'#BFDBFE',green:'#BBF7D0',purple:'#DDD6FE',orange:'#FED7AA',white:'#FFFFFF',gray:'#E5E7EB'};
+const COLORS = {yellow:'#4a4530',pink:'#4a3035',blue:'#2a3545',green:'#2a4530',purple:'#3a2d50',orange:'#4a3a25',white:'#3a3a3a',gray:'#333333'};
+const SWATCH_COLORS = {yellow:'#8B8040',pink:'#8B4050',blue:'#40608B',green:'#408B50',purple:'#6B4FA0',orange:'#8B6530',white:'#666666',gray:'#555555'};
 const STORAGE_KEY = 'kanban_data';
 let state = {title:'Untitled Project',columns:[]};
 
@@ -418,7 +426,7 @@ function showColorMenu(e, card){
   Object.entries(COLORS).forEach(([name, hex])=>{
     const swatch = document.createElement('div');
     swatch.className = 'color-swatch' + (card.color===name?' active':'');
-    swatch.style.background = hex;
+    swatch.style.background = SWATCH_COLORS[name] || hex;
     swatch.title = name;
     swatch.onclick = ()=>{
       card.color = name;
