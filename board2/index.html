@@ -568,6 +568,9 @@ function createCardEl(card, col){
   const expand = document.createElement('button');
   expand.className = 'card-expand';
   expand.innerHTML = '&#9654; détails';
+  // Disable drag when hovering expand so click works
+  expand.onmouseenter = ()=>{ el.draggable = false; };
+  expand.onmouseleave = ()=>{ el.draggable = true; };
   expand.onclick = (e)=>{
     e.stopPropagation();
     el.classList.toggle('expanded');
