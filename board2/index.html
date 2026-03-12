@@ -248,13 +248,27 @@ function applyTheme(theme){
 // ── Init ──
 let _pendingScenes = null;
 
-function init(){
+async function init(){
   initTheme();
   const params = new URLSearchParams(location.search);
 
-  // Check for scenes in URL
+  // Check for scenes in URL (legacy)
   if(params.has('scenes')){
     try{ _pendingScenes = JSON.parse(decodeURIComponent(params.get('scenes'))); }catch(e){}
+  }
+
+  // Check for scenes via sync API (avoids URL length limits)
+  if(!_pendingScenes && params.has('sync')){
+    try{
+      const r = await fetch(SYNC_API + encodeURIComponent(params.get('sync')));
+      if(r.ok){
+        const data = await r.json();
+        if(data.scenes && data.scenes.length) _pendingScenes = data.scenes;
+        if(data.title) document.getElementById('projectTitle').value = data.title;
+      }
+    }catch(e){}
+    // Clean URL
+    history.replaceState({}, '', location.pathname);
   }
 
   // If saved data exists, load it directly
