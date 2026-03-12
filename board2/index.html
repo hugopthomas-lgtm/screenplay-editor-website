@@ -271,7 +271,19 @@ async function init(){
     history.replaceState({}, '', location.pathname);
   }
 
-  // If saved data exists, load it directly
+  // If coming from sidebar with fresh scenes, import them directly
+  if(_pendingScenes && _pendingScenes.length){
+    const syncTitle = document.getElementById('projectTitle').value;
+    importScenes(_pendingScenes);
+    if(syncTitle) state.title = syncTitle;
+    document.getElementById('projectTitle').value = state.title;
+    save();
+    render();
+    _pendingScenes = null;
+    return;
+  }
+
+  // Otherwise load saved data
   load();
   if(state.columns.length){
     document.getElementById('projectTitle').value = state.title;
@@ -321,9 +333,12 @@ function importScenes(scenes){
     {id:uid(),title:'Act 2B',cards:[]},
     {id:uid(),title:'Act 3',cards:[]},
   ];
+  const typeColors = {INT:'yellow',EXT:'blue','INT/EXT':'green'};
   scenes.forEach((s,i)=>{
     const colIdx = Math.min(Math.floor(i / Math.ceil(scenes.length / 4)), 3);
-    state.columns[colIdx].cards.push({id:uid(),text:s.text||s,color:s.color||'yellow'});
+    const text = s.heading ? (s.heading + (s.body ? '\n' + s.body : '')) : (s.text || s);
+    const color = s.type ? (typeColors[s.type] || 'purple') : (s.color || 'yellow');
+    state.columns[colIdx].cards.push({id:uid(),text:text,color:color});
   });
 }
 
