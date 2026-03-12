@@ -56,7 +56,7 @@
   .add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 
   /* ── Card ── */
-  .card{background:var(--yellow);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;cursor:grab;user-select:none;position:relative;border:1px solid rgba(0,0,0,.06);transition:box-shadow .2s,transform .2s;word-break:break-word;white-space:pre-wrap;min-height:36px;color:#2D2A3E;overflow:hidden}
+  .card{background:var(--yellow);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.5;cursor:grab;user-select:none;position:relative;border:1px solid rgba(0,0,0,.06);transition:box-shadow .2s,transform .2s;word-break:break-word;min-height:36px;color:#2D2A3E;overflow:hidden}
   .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.3)}
   .card.dragging{opacity:.4}
   .card.drag-clone{box-shadow:0 12px 32px rgba(0,0,0,.5);transform:scale(1.02);cursor:grabbing;position:fixed;z-index:9999;pointer-events:none;transition:none}
@@ -64,8 +64,25 @@
   .card:hover .card-delete{opacity:1}
   .card-delete:hover{background:rgba(239,68,68,.3);color:#EF4444}
   .card[contenteditable=true]{cursor:text;outline:none;box-shadow:0 0 0 2px var(--accent)}
-  .card-text{pointer-events:none}
+  .card-text{pointer-events:none;white-space:pre-wrap}
   .card[contenteditable=true] .card-text{pointer-events:auto}
+
+  /* ── Card heading + body ── */
+  .card-heading{font-weight:600;font-size:11px;display:flex;align-items:center;gap:6px}
+  .card-body{font-size:11px;color:rgba(45,42,62,.6);margin-top:6px;line-height:1.5;max-height:0;overflow:hidden;transition:max-height .25s ease;white-space:pre-wrap}
+  .card.expanded .card-body{max-height:300px}
+  .card-body:empty{display:none}
+  .card-expand{display:inline-block;margin-top:4px;font-size:10px;color:rgba(45,42,62,.35);cursor:pointer;user-select:none}
+  .card-expand:hover{color:rgba(45,42,62,.6)}
+
+  /* ── Time of day indicator ── */
+  .time-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1)}
+  .time-dot.jour{background:#FBBF24}
+  .time-dot.nuit{background:#3B82F6}
+  .time-dot.soir{background:#F97316}
+  .time-dot.matin{background:#93C5FD}
+  .time-dot.aube{background:#FDA4AF}
+  .time-dot.unknown{background:#D1D5DB}
 
   /* ── Drop Placeholder ── */
   .drop-placeholder{height:4px;border-radius:4px;background:var(--accent);margin:2px 0;transition:height .1s;flex-shrink:0}
@@ -325,6 +342,16 @@ function welcomeChoice(choice){
   if(history.replaceState) history.replaceState(null, '', location.pathname);
 }
 
+function parseTimeOfDay(heading){
+  const h = (heading||'').toUpperCase();
+  if(/\bNUIT\b|\bNIGHT\b/i.test(h)) return 'nuit';
+  if(/\bSOIR\b|\bEVENING\b/i.test(h)) return 'soir';
+  if(/\bMATIN\b|\bMORNING\b/i.test(h)) return 'matin';
+  if(/\bAUBE\b|\bDAWN\b/i.test(h)) return 'aube';
+  if(/\bJOUR\b|\bDAY\b/i.test(h)) return 'jour';
+  return 'unknown';
+}
+
 function importScenes(scenes){
   state.title = 'Imported Scenes';
   state.columns = [
@@ -336,9 +363,11 @@ function importScenes(scenes){
   const typeColors = {INT:'yellow',EXT:'blue','INT/EXT':'green'};
   scenes.forEach((s,i)=>{
     const colIdx = Math.min(Math.floor(i / Math.ceil(scenes.length / 4)), 3);
-    const text = s.heading ? (s.heading + (s.body ? '\n' + s.body : '')) : (s.text || s);
+    const heading = s.heading || s.text || (typeof s === 'string' ? s : '');
+    const body = s.body ? s.body.slice(0, 240) : '';
     const color = s.type ? (typeColors[s.type] || 'purple') : (s.color || 'yellow');
-    state.columns[colIdx].cards.push({id:uid(),text:text,color:color});
+    const time = parseTimeOfDay(heading);
+    state.columns[colIdx].cards.push({id:uid(), text:heading, body:body, time:time, color:color});
   });
 }
 
@@ -421,10 +450,37 @@ function createCardEl(card, col){
   el.dataset.colId = col.id;
   el.style.background = COLORS[card.color] || COLORS.yellow;
 
-  const text = document.createElement('div');
-  text.className = 'card-text';
-  text.textContent = card.text;
-  el.appendChild(text);
+  // Heading row with time-of-day dot
+  const heading = document.createElement('div');
+  heading.className = 'card-heading';
+  if(card.time && card.time !== 'unknown'){
+    const dot = document.createElement('span');
+    dot.className = 'time-dot ' + card.time;
+    heading.appendChild(dot);
+  }
+  const headingText = document.createElement('span');
+  headingText.className = 'card-text';
+  headingText.textContent = card.text;
+  heading.appendChild(headingText);
+  el.appendChild(heading);
+
+  // Body (expandable)
+  if(card.body){
+    const body = document.createElement('div');
+    body.className = 'card-body';
+    body.textContent = card.body;
+    el.appendChild(body);
+
+    const expand = document.createElement('span');
+    expand.className = 'card-expand';
+    expand.textContent = '▸ voir plus';
+    expand.onclick = (e)=>{
+      e.stopPropagation();
+      const isExpanded = el.classList.toggle('expanded');
+      expand.textContent = isExpanded ? '▾ réduire' : '▸ voir plus';
+    };
+    el.appendChild(expand);
+  }
 
   const del = document.createElement('button');
   del.className = 'card-delete';
@@ -455,8 +511,8 @@ function createCardEl(card, col){
 // ── Card editing ──
 function startEditCard(el, card){
   el.draggable = false;
-  el.contentEditable = true;
   const textEl = el.querySelector('.card-text');
+  textEl.contentEditable = true;
   textEl.style.pointerEvents = 'auto';
   // Place cursor at end
   const range = document.createRange();
@@ -465,17 +521,17 @@ function startEditCard(el, card){
   const sel = window.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
-  el.focus();
+  textEl.focus();
   const finish = ()=>{
-    el.contentEditable = false;
+    textEl.contentEditable = false;
     el.draggable = true;
     textEl.style.pointerEvents = '';
     card.text = textEl.textContent;
     save();
   };
-  el.addEventListener('blur', finish, {once:true});
-  el.addEventListener('keydown', (e)=>{
-    if(e.key==='Escape'||(!e.shiftKey&&e.key==='Enter')){ e.preventDefault(); el.blur(); }
+  textEl.addEventListener('blur', finish, {once:true});
+  textEl.addEventListener('keydown', (e)=>{
+    if(e.key==='Escape'||(!e.shiftKey&&e.key==='Enter')){ e.preventDefault(); textEl.blur(); }
   });
 }
 
