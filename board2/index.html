@@ -77,9 +77,9 @@
   .board-legend .legend-group{display:flex;align-items:center;gap:4px}
   .board-legend .legend-swatch{width:10px;height:10px;border-radius:3px;border:1px solid rgba(0,0,0,.08)}
   .board-legend .legend-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
-  .card-body{font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;white-space:pre-wrap;max-height:0;overflow:hidden;transition:max-height .25s ease}
-  .card-expand-label{display:inline-block;margin-top:5px;font-size:10px;font-weight:500;color:rgba(45,42,62,.45);cursor:pointer;pointer-events:auto;position:relative;z-index:5}
-  .card-expand-label:hover{color:rgba(45,42,62,.7)}
+  .card-body{display:block !important;font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;white-space:pre-wrap;max-height:0;overflow:hidden;transition:max-height .25s ease-out;pointer-events:none}
+  .card-expand-label{display:inline-block;margin-top:5px;font-size:10px;font-weight:bold;color:#555;cursor:pointer !important;pointer-events:auto !important;position:relative;z-index:10}
+  .card-expand-label:hover{color:#000;text-decoration:underline}
 
   /* ── Time of day indicator ── */
   .time-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1)}
@@ -169,7 +169,7 @@
   <div class="logo">SB</div>
   <input class="project-title" id="projectTitle" value="Untitled Project" spellcheck="false">
   <div class="header-spacer"></div>
-  <span style="font-size:10px;color:#9CA3AF">v21</span>
+  <span style="font-size:10px;color:#9CA3AF">v22</span>
   <div class="sync-status" id="syncStatus"><span class="sync-dot" id="syncDot"></span><span id="syncLabel"></span></div>
   <button class="header-btn" onclick="newProject()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
@@ -587,17 +587,18 @@ function createCardEl(card, col){
     lbl.className = 'card-expand-label';
     lbl.textContent = '▸ détails';
     lbl.onclick = function(e){
+      e.preventDefault();
       e.stopPropagation();
-      var label = e.currentTarget;
-      var card = label.closest('.card');
+      alert('CLICK OK');
+      var card = e.currentTarget.closest('.card');
       var body = card.querySelector('.card-body');
-      console.log('expand click, scrollHeight:', body.scrollHeight, 'current maxHeight:', body.style.maxHeight);
-      if(body.style.maxHeight && body.style.maxHeight !== '0px'){
+      var isExpanded = body.style.maxHeight && body.style.maxHeight !== '0px';
+      if(isExpanded){
         body.style.maxHeight = '0px';
-        label.textContent = '▸ détails';
+        e.currentTarget.textContent = '▸ détails';
       } else {
         body.style.maxHeight = body.scrollHeight + 'px';
-        label.textContent = '▾ réduire';
+        e.currentTarget.textContent = '▾ réduire';
       }
     };
     el.appendChild(lbl);
