@@ -77,13 +77,7 @@
   .board-legend .legend-group{display:flex;align-items:center;gap:4px}
   .board-legend .legend-swatch{width:10px;height:10px;border-radius:3px;border:1px solid rgba(0,0,0,.08)}
   .board-legend .legend-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
-  .card-toggle{display:none}
-  .card-expand-label{display:inline-block;margin-top:5px;font-size:10px;font-weight:500;color:rgba(45,42,62,.45);cursor:pointer;user-select:none;pointer-events:auto}
-  .card-expand-label:hover{color:rgba(45,42,62,.7)}
-  .card-expand-label::before{content:'▸ '}
-  .card-toggle:checked ~ .card-expand-label::before{content:'▾ '}
-  .card-body{font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;white-space:pre-wrap;max-height:0;overflow:hidden;transition:max-height .25s ease;pointer-events:auto}
-  .card-toggle:checked ~ .card-body{max-height:300px}
+  .card-body{font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;white-space:pre-wrap}
 
   /* ── Time of day indicator ── */
   .time-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1)}
@@ -173,7 +167,7 @@
   <div class="logo">SB</div>
   <input class="project-title" id="projectTitle" value="Untitled Project" spellcheck="false">
   <div class="header-spacer"></div>
-  <span style="font-size:10px;color:#9CA3AF">v17</span>
+  <span style="font-size:10px;color:#9CA3AF">v18</span>
   <div class="sync-status" id="syncStatus"><span class="sync-dot" id="syncDot"></span><span id="syncLabel"></span></div>
   <button class="header-btn" onclick="newProject()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
@@ -580,20 +574,9 @@ function createCardEl(card, col){
   text.textContent = card.text;
   el.appendChild(text);
 
-  // Expandable body — checkbox hack (pure CSS, no JS)
+  // Body text — always visible
   const bodyText = card.body || card._rawHeading || '';
   if(bodyText){
-    const cbId = 'cb_' + card.id;
-    const cb = document.createElement('input');
-    cb.type = 'checkbox';
-    cb.className = 'card-toggle';
-    cb.id = cbId;
-    el.appendChild(cb);
-    const lbl = document.createElement('label');
-    lbl.className = 'card-expand-label';
-    lbl.htmlFor = cbId;
-    lbl.textContent = 'détails';
-    el.appendChild(lbl);
     const bodyEl = document.createElement('div');
     bodyEl.className = 'card-body';
     bodyEl.textContent = bodyText;
