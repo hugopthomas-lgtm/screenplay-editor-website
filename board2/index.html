@@ -74,11 +74,13 @@
   .board-legend .legend-group{display:flex;align-items:center;gap:4px}
   .board-legend .legend-swatch{width:10px;height:10px;border-radius:3px;border:1px solid rgba(0,0,0,.08)}
   .board-legend .legend-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
-  .card-body{font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;max-height:0;overflow:hidden;transition:max-height .25s ease;white-space:pre-wrap}
-  .card.expanded .card-body{max-height:300px}
-  .card-body:empty{display:none}
-  .card-expand{display:inline-block;margin-top:5px;padding:0;font-size:10px;font-weight:500;color:rgba(45,42,62,.45);cursor:pointer;user-select:none;background:none;border:none;font-family:inherit}
-  .card-expand:hover{color:rgba(45,42,62,.7)}
+  .card-details{margin-top:6px}
+  .card-details summary{font-size:10px;font-weight:500;color:rgba(45,42,62,.45);cursor:pointer;user-select:none;list-style:none;outline:none}
+  .card-details summary::-webkit-details-marker{display:none}
+  .card-details summary::before{content:'▸ '}
+  .card-details[open] summary::before{content:'▾ '}
+  .card-details summary:hover{color:rgba(45,42,62,.7)}
+  .card-body{font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;white-space:pre-wrap}
 
   /* ── Time of day indicator ── */
   .time-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1)}
@@ -558,21 +560,20 @@ function createCardEl(card, col){
   text.textContent = card.text;
   el.appendChild(text);
 
-  // Expandable body
+  // Expandable body — native <details>/<summary>
   const bodyText = card.body || card._rawHeading || '';
-  const body = document.createElement('div');
-  body.className = 'card-body';
-  body.textContent = bodyText || '—';
-  el.appendChild(body);
-
-  // Click to toggle expand — track drag to avoid toggling after drag
-  let didDrag = false;
-  el.addEventListener('dragstart', ()=>{ didDrag = true; });
-  el.addEventListener('click', (e)=>{
-    if(didDrag){ didDrag = false; return; }
-    if(e.target.closest('.card-delete')) return;
-    el.classList.toggle('expanded');
-  });
+  if(bodyText){
+    const details = document.createElement('details');
+    details.className = 'card-details';
+    const summary = document.createElement('summary');
+    summary.textContent = 'détails';
+    summary.draggable = false;
+    const bodyEl = document.createElement('div');
+    bodyEl.className = 'card-body';
+    bodyEl.textContent = bodyText;
+    details.append(summary, bodyEl);
+    el.appendChild(details);
+  }
 
   const del = document.createElement('button');
   del.className = 'card-delete';
