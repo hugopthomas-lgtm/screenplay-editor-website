@@ -565,18 +565,14 @@ function createCardEl(card, col){
   body.textContent = bodyText || '—';
   el.appendChild(body);
 
-  const expand = document.createElement('button');
-  expand.className = 'card-expand';
-  expand.innerHTML = '&#9654; détails';
-  // Disable drag when hovering expand so click works
-  expand.onmouseenter = ()=>{ el.draggable = false; };
-  expand.onmouseleave = ()=>{ el.draggable = true; };
-  expand.onclick = (e)=>{
-    e.stopPropagation();
+  // Click to toggle expand — track drag to avoid toggling after drag
+  let didDrag = false;
+  el.addEventListener('dragstart', ()=>{ didDrag = true; });
+  el.addEventListener('click', (e)=>{
+    if(didDrag){ didDrag = false; return; }
+    if(e.target.closest('.card-delete')) return;
     el.classList.toggle('expanded');
-    expand.innerHTML = el.classList.contains('expanded') ? '&#9660; réduire' : '&#9654; détails';
-  };
-  el.appendChild(expand);
+  });
 
   const del = document.createElement('button');
   del.className = 'card-delete';
