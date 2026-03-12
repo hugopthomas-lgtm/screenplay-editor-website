@@ -77,9 +77,7 @@
   .board-legend .legend-group{display:flex;align-items:center;gap:4px}
   .board-legend .legend-swatch{width:10px;height:10px;border-radius:3px;border:1px solid rgba(0,0,0,.08)}
   .board-legend .legend-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
-  .card-body{display:block;font-size:11px;color:#555;margin-top:0;padding-top:0;line-height:1.5;white-space:pre-wrap;max-height:0;overflow:hidden;transition:max-height .3s ease-out}
-  .card-expand-label{display:block;cursor:pointer;color:#666;font-size:10px;margin-top:4px;padding:2px 0;user-select:none;border-top:1px dotted rgba(0,0,0,.1)}
-  .card-expand-label:hover{color:#000;text-decoration:underline}
+  .card-long{font-size:9px;color:rgba(45,42,62,.4);margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 
   /* ── Time of day indicator ── */
   .time-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1)}
@@ -169,7 +167,7 @@
   <div class="logo">SB</div>
   <input class="project-title" id="projectTitle" value="Untitled Project" spellcheck="false">
   <div class="header-spacer"></div>
-  <span style="font-size:10px;color:#9CA3AF">v23</span>
+  <span style="font-size:10px;color:#9CA3AF">v24</span>
   <div class="sync-status" id="syncStatus"><span class="sync-dot" id="syncDot"></span><span id="syncLabel"></span></div>
   <button class="header-btn" onclick="newProject()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
@@ -576,17 +574,13 @@ function createCardEl(card, col){
   text.textContent = card.text;
   el.appendChild(text);
 
-  // Expandable body
-  const bodyText = card.body || card._rawHeading || '';
-  if(bodyText){
-    const bodyEl = document.createElement('div');
-    bodyEl.className = 'card-body';
-    bodyEl.textContent = bodyText;
-    el.appendChild(bodyEl);
-    const lbl = document.createElement('span');
-    lbl.className = 'card-expand-label';
-    lbl.textContent = '▸ détails';
-    el.appendChild(lbl);
+  // Long summary (140 chars, tiny text, always visible)
+  const longText = card.body || card._rawHeading || '';
+  if(longText){
+    const longEl = document.createElement('div');
+    longEl.className = 'card-long';
+    longEl.textContent = longText.slice(0, 140);
+    el.appendChild(longEl);
   }
 
   const del = document.createElement('button');
@@ -969,25 +963,6 @@ function getDemoData(){
 }
 
 // Boot
-// ── Event delegation for card expand ──
-document.addEventListener('click', function(e){
-  var label = e.target.closest('.card-expand-label');
-  if(!label) return;
-  e.preventDefault();
-  e.stopPropagation();
-  var card = label.closest('.card');
-  var body = card.querySelector('.card-body');
-  if(!body.style.maxHeight || body.style.maxHeight === '0px'){
-    body.style.maxHeight = body.scrollHeight + 'px';
-    body.style.marginTop = '8px';
-    label.textContent = '▾ réduire';
-  } else {
-    body.style.maxHeight = '0px';
-    body.style.marginTop = '0px';
-    label.textContent = '▸ détails';
-  }
-});
-
 init();
 </script>
 </body>
