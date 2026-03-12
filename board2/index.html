@@ -68,8 +68,13 @@
   .card[contenteditable=true] .card-text{pointer-events:auto}
 
   /* ── Card heading + body ── */
-  .card-heading{font-weight:600;font-size:11px;display:flex;align-items:center;gap:6px}
-  .card-body{font-size:11px;color:rgba(45,42,62,.6);margin-top:6px;line-height:1.5;max-height:0;overflow:hidden;transition:max-height .25s ease;white-space:pre-wrap}
+  .card-tags{display:flex;align-items:center;gap:5px;margin-bottom:6px}
+  .card-type-badge{font-size:9px;font-weight:700;letter-spacing:.5px;padding:1px 5px;border-radius:3px;color:rgba(0,0,0,.6)}
+  .card-type-INT{background:rgba(0,0,0,.08)}
+  .card-type-EXT{background:rgba(59,130,246,.2);color:#1e40af}
+  .card-type-INTEXT{background:rgba(16,185,129,.2);color:#065f46}
+  .card-location{font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:rgba(45,42,62,.4);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .card-body{font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;max-height:0;overflow:hidden;transition:max-height .25s ease;white-space:pre-wrap}
   .card.expanded .card-body{max-height:300px}
   .card-body:empty{display:none}
   .card-expand{display:inline-block;margin-top:4px;font-size:10px;color:rgba(45,42,62,.35);cursor:pointer;user-select:none}
@@ -342,14 +347,39 @@ function welcomeChoice(choice){
   if(history.replaceState) history.replaceState(null, '', location.pathname);
 }
 
-function parseTimeOfDay(heading){
-  const h = (heading||'').toUpperCase();
-  if(/\bNUIT\b|\bNIGHT\b/i.test(h)) return 'nuit';
-  if(/\bSOIR\b|\bEVENING\b/i.test(h)) return 'soir';
-  if(/\bMATIN\b|\bMORNING\b/i.test(h)) return 'matin';
-  if(/\bAUBE\b|\bDAWN\b/i.test(h)) return 'aube';
-  if(/\bJOUR\b|\bDAY\b/i.test(h)) return 'jour';
-  return 'unknown';
+function parseHeading(heading){
+  const h = (heading||'').trim();
+  // Extract type (INT, EXT, INT/EXT)
+  let type = '';
+  const tm = h.match(/^(INT\/EXT|I\/E|INT|EXT)\.?\s*/i);
+  if(tm) type = tm[1].toUpperCase().replace('I/E','INT/EXT');
+  // Remove type prefix
+  let rest = tm ? h.slice(tm[0].length) : h;
+  // Extract time of day after last " - "
+  let time = 'unknown';
+  const dashIdx = rest.lastIndexOf(' - ');
+  let location = rest;
+  if(dashIdx > -1){
+    const after = rest.slice(dashIdx+3).trim().toUpperCase();
+    if(/\bNUIT\b|\bNIGHT\b/.test(after)) time = 'nuit';
+    else if(/\bSOIR\b|\bEVENING\b/.test(after)) time = 'soir';
+    else if(/\bMATIN\b|\bMORNING\b/.test(after)) time = 'matin';
+    else if(/\bAUBE\b|\bDAWN\b/.test(after)) time = 'aube';
+    else if(/\bJOUR\b|\bDAY\b/.test(after)) time = 'jour';
+    if(time !== 'unknown') location = rest.slice(0, dashIdx).trim();
+    else location = rest;
+  }
+  // Clean location: remove trailing dots/dashes
+  location = location.replace(/^[.\s-]+|[.\s-]+$/g,'').trim();
+  return {type, location, time};
+}
+
+function makeSummary(body, maxLen){
+  if(!body) return '';
+  // First line or up to maxLen chars
+  const first = body.split('\n')[0].trim();
+  if(first.length <= maxLen) return first;
+  return first.slice(0, maxLen-1) + '…';
 }
 
 function importScenes(scenes){
@@ -364,10 +394,19 @@ function importScenes(scenes){
   scenes.forEach((s,i)=>{
     const colIdx = Math.min(Math.floor(i / Math.ceil(scenes.length / 4)), 3);
     const heading = s.heading || s.text || (typeof s === 'string' ? s : '');
+    const parsed = parseHeading(heading);
+    const color = parsed.type ? (typeColors[parsed.type] || 'purple') : (s.color || 'yellow');
+    const summary = makeSummary(s.body, 60);
     const body = s.body ? s.body.slice(0, 240) : '';
-    const color = s.type ? (typeColors[s.type] || 'purple') : (s.color || 'yellow');
-    const time = parseTimeOfDay(heading);
-    state.columns[colIdx].cards.push({id:uid(), text:heading, body:body, time:time, color:color});
+    state.columns[colIdx].cards.push({
+      id:uid(),
+      text: summary || heading,
+      location: parsed.location,
+      type: parsed.type,
+      time: parsed.time,
+      body: body,
+      color: color
+    });
   });
 }
 
@@ -450,21 +489,40 @@ function createCardEl(card, col){
   el.dataset.colId = col.id;
   el.style.background = COLORS[card.color] || COLORS.yellow;
 
-  // Heading row with time-of-day dot
-  const heading = document.createElement('div');
-  heading.className = 'card-heading';
-  if(card.time && card.time !== 'unknown'){
-    const dot = document.createElement('span');
-    dot.className = 'time-dot ' + card.time;
-    heading.appendChild(dot);
+  // Tags row: type badge + time dot
+  if(card.type || (card.time && card.time !== 'unknown')){
+    const tags = document.createElement('div');
+    tags.className = 'card-tags';
+    if(card.type){
+      const badge = document.createElement('span');
+      badge.className = 'card-type-badge card-type-' + card.type.replace('/','');
+      badge.textContent = card.type;
+      tags.appendChild(badge);
+    }
+    if(card.time && card.time !== 'unknown'){
+      const dot = document.createElement('span');
+      dot.className = 'time-dot ' + card.time;
+      dot.title = card.time.charAt(0).toUpperCase() + card.time.slice(1);
+      tags.appendChild(dot);
+    }
+    el.appendChild(tags);
   }
-  const headingText = document.createElement('span');
-  headingText.className = 'card-text';
-  headingText.textContent = card.text;
-  heading.appendChild(headingText);
-  el.appendChild(heading);
 
-  // Body (expandable)
+  // Location line
+  if(card.location){
+    const loc = document.createElement('div');
+    loc.className = 'card-location';
+    loc.textContent = card.location;
+    el.appendChild(loc);
+  }
+
+  // Summary (1-line, replaces heading as main text)
+  const text = document.createElement('div');
+  text.className = 'card-text';
+  text.textContent = card.text;
+  el.appendChild(text);
+
+  // Expandable body (240 chars)
   if(card.body){
     const body = document.createElement('div');
     body.className = 'card-body';
