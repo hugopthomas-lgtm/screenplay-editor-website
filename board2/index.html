@@ -362,35 +362,43 @@ function parseHeading(heading){
   const h = (heading||'').trim();
   // Extract type (INT, EXT, INT/EXT)
   let type = '';
-  const tm = h.match(/^(INT\/EXT|I\/E|INT|EXT)\.?\s*/i);
+  const tm = h.match(/^(INT\/EXT|I\/E|INT|EXT)[.\s/]*\s*/i);
   if(tm) type = tm[1].toUpperCase().replace('I/E','INT/EXT');
   // Remove type prefix
   let rest = tm ? h.slice(tm[0].length) : h;
-  // Extract time of day after last " - "
+  // Extract time of day after last dash (handles " - ", " – ", " — ")
   let time = 'unknown';
-  const dashIdx = rest.lastIndexOf(' - ');
+  const dashMatch = rest.match(/\s+[-–—]\s+([^-–—]+)$/);
   let location = rest;
-  if(dashIdx > -1){
-    const after = rest.slice(dashIdx+3).trim().toUpperCase();
+  if(dashMatch){
+    const after = dashMatch[1].trim().toUpperCase();
     if(/\bNUIT\b|\bNIGHT\b/.test(after)) time = 'nuit';
     else if(/\bSOIR\b|\bEVENING\b/.test(after)) time = 'soir';
     else if(/\bMATIN\b|\bMORNING\b/.test(after)) time = 'matin';
     else if(/\bAUBE\b|\bDAWN\b/.test(after)) time = 'aube';
     else if(/\bJOUR\b|\bDAY\b/.test(after)) time = 'jour';
-    if(time !== 'unknown') location = rest.slice(0, dashIdx).trim();
-    else location = rest;
+    if(time !== 'unknown') location = rest.slice(0, rest.length - dashMatch[0].length).trim();
   }
-  // Clean location: remove trailing dots/dashes
-  location = location.replace(/^[.\s-]+|[.\s-]+$/g,'').trim();
+  // Also check whole heading for time keywords if not found after dash
+  if(time === 'unknown'){
+    const u = rest.toUpperCase();
+    if(/\bNUIT\b|\bNIGHT\b/.test(u)) time = 'nuit';
+    else if(/\bSOIR\b|\bEVENING\b/.test(u)) time = 'soir';
+    else if(/\bMATIN\b|\bMORNING\b/.test(u)) time = 'matin';
+    else if(/\bAUBE\b|\bDAWN\b/.test(u)) time = 'aube';
+    else if(/\bJOUR\b|\bDAY\b/.test(u)) time = 'jour';
+  }
+  // Clean location: remove trailing dots/dashes and time keywords
+  location = location.replace(/\s*[-–—]\s*(JOUR|NUIT|SOIR|MATIN|AUBE|DAY|NIGHT|EVENING|MORNING|DAWN)\s*$/i,'');
+  location = location.replace(/^[.\s-–—]+|[.\s-–—]+$/g,'').trim();
   return {type, location, time};
 }
 
-function makeSummary(body, maxLen){
+function makeFallbackSummary(body){
   if(!body) return '';
-  // First line or up to maxLen chars
-  const first = body.split('\n')[0].trim();
-  if(first.length <= maxLen) return first;
-  return first.slice(0, maxLen-1) + '…';
+  const first = body.split('\n').map(l=>l.trim()).filter(Boolean)[0] || '';
+  if(first.length <= 50) return first;
+  return first.slice(0, 49) + '…';
 }
 
 function importScenes(scenes){
@@ -407,7 +415,7 @@ function importScenes(scenes){
     const heading = s.heading || s.text || (typeof s === 'string' ? s : '');
     const parsed = parseHeading(heading);
     const color = parsed.type ? (typeColors[parsed.type] || 'purple') : (s.color || 'yellow');
-    const summary = makeSummary(s.body, 60);
+    const summary = s.summary || makeFallbackSummary(s.body);
     const body = s.body ? s.body.slice(0, 240) : '';
     state.columns[colIdx].cards.push({
       id:uid(),
@@ -533,12 +541,14 @@ function createCardEl(card, col){
     const expand = document.createElement('span');
     expand.className = 'card-expand';
     expand.textContent = '▸ voir plus';
-    expand.onclick = (e)=>{
-      e.stopPropagation();
+    el.appendChild(expand);
+
+    // Click anywhere on card to toggle expand
+    el.addEventListener('click', (e)=>{
+      if(e.target.closest('.card-delete')) return;
       const isExpanded = el.classList.toggle('expanded');
       expand.textContent = isExpanded ? '▾ réduire' : '▸ voir plus';
-    };
-    el.appendChild(expand);
+    });
   }
 
   const del = document.createElement('button');
