@@ -502,13 +502,12 @@ function createCardEl(card, col){
   el.dataset.colId = col.id;
   el.style.background = COLORS[card.color] || COLORS.yellow;
 
-  // Time dot only (color of card already indicates INT/EXT)
-  if(card.time && card.time !== 'unknown'){
-    const dot = document.createElement('span');
-    dot.className = 'time-dot ' + card.time;
-    dot.title = card.time.charAt(0).toUpperCase() + card.time.slice(1);
-    el.appendChild(dot);
-  }
+  // Time dot (always visible — grey if unknown)
+  const dot = document.createElement('span');
+  const t = card.time || 'unknown';
+  dot.className = 'time-dot ' + t;
+  dot.title = t === 'unknown' ? 'Non spécifié' : t.charAt(0).toUpperCase() + t.slice(1);
+  el.appendChild(dot);
 
   // Location line
   if(card.location){
