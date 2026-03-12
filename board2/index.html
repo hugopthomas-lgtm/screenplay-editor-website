@@ -242,7 +242,7 @@
 <script>
 const COLORS = {yellow:'#FFF9DB',pink:'#FFE4E8',blue:'#DBEAFE',green:'#DCFCE7',purple:'#EDE9FE',orange:'#FFEDD5',white:'#FFFFFF',gray:'#F3F4F6'};
 const SWATCH_COLORS = {yellow:'#E8D44D',pink:'#E8707E',blue:'#60A5FA',green:'#4ADE80',purple:'#A78BFA',orange:'#FB923C',white:'#D4D4D4',gray:'#9CA3AF'};
-const STORAGE_KEY = 'kanban_data';
+let STORAGE_KEY = 'kanban_data';
 let state = {title:'Untitled Project',columns:[]};
 
 // ── Persistence ──
@@ -285,6 +285,10 @@ async function init(){
   initTheme();
   const params = new URLSearchParams(location.search);
 
+  // Use docId-specific localStorage key
+  const docId = params.get('docId');
+  if(docId) STORAGE_KEY = 'kanban_' + docId;
+
   // Check for scenes in URL (legacy)
   if(params.has('scenes')){
     try{ _pendingScenes = JSON.parse(decodeURIComponent(params.get('scenes'))); }catch(e){}
@@ -300,8 +304,8 @@ async function init(){
         if(data.title) document.getElementById('projectTitle').value = data.title;
       }
     }catch(e){}
-    // Clean URL
-    history.replaceState({}, '', location.pathname);
+    // Clean URL but keep docId
+    history.replaceState({}, '', location.pathname + (docId ? '?docId=' + encodeURIComponent(docId) : ''));
   }
 
   // If coming from sidebar with fresh scenes, import them directly
