@@ -67,17 +67,17 @@
   .card:hover .card-delete{opacity:1}
   .card-delete:hover{background:rgba(239,68,68,.3);color:#EF4444}
   .card[contenteditable=true]{cursor:text;outline:none;box-shadow:0 0 0 2px var(--accent)}
-  .card-text{pointer-events:none;white-space:pre-wrap;overflow:hidden;text-overflow:ellipsis}
+  .card-text{pointer-events:none;white-space:pre-wrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;font-weight:600;color:#1a1a2e}
   .card[contenteditable=true] .card-text{pointer-events:auto}
 
   /* ── Card heading + body ── */
   .card .time-dot{position:absolute;top:8px;right:8px}
-  .card-location{font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:rgba(45,42,62,.4);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .card-location{font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:rgba(30,30,50,.55);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .board-legend{display:flex;align-items:center;gap:16px;padding:6px 20px;font-size:11px;color:#9CA3AF;border-bottom:1px solid rgba(0,0,0,.06);background:rgba(0,0,0,.01);flex-shrink:0}
   .board-legend .legend-group{display:flex;align-items:center;gap:4px}
   .board-legend .legend-swatch{width:10px;height:10px;border-radius:3px;border:1px solid rgba(0,0,0,.08)}
   .board-legend .legend-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
-  .card-long{font-size:9px;color:rgba(45,42,62,.4);margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .card-long{font-size:10px;color:rgba(30,30,50,.5);margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 
   /* ── Time of day indicator ── */
   .time-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1)}
@@ -167,7 +167,7 @@
   <div class="logo">SB</div>
   <input class="project-title" id="projectTitle" value="Untitled Project" spellcheck="false">
   <div class="header-spacer"></div>
-  <span style="font-size:10px;color:#9CA3AF">v24</span>
+  <span style="font-size:10px;color:#9CA3AF">v25</span>
   <div class="sync-status" id="syncStatus"><span class="sync-dot" id="syncDot"></span><span id="syncLabel"></span></div>
   <button class="header-btn" onclick="newProject()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
