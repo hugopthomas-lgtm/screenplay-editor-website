@@ -407,23 +407,13 @@ function fetchAISummaries(scenes){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({scenes:scenes})
   }).then(r=>r.json()).then(data=>{
-    if(!data.summaries||!data.summaries.length) return;
-    let idx=0;
+    if((!data.short||!data.short.length)&&(!data.long||!data.long.length)) return;
     state.columns.forEach(col=>{
       col.cards.forEach(card=>{
-        if(data.summaries[idx] && card._sceneIdx===idx){
-          card.text=data.summaries[idx];
-        }
-        idx++;
-      });
-    });
-    // Re-count idx by iterating all cards in order
-    let i=0;
-    state.columns.forEach(col=>{
-      col.cards.forEach(card=>{
-        if(typeof card._sceneIdx==='number' && data.summaries[card._sceneIdx]){
-          card.text=data.summaries[card._sceneIdx];
-        }
+        const idx = card._sceneIdx;
+        if(typeof idx !== 'number') return;
+        if(data.short && data.short[idx]) card.text = data.short[idx];
+        if(data.long && data.long[idx]) card.body = data.long[idx];
       });
     });
     save(); render();
