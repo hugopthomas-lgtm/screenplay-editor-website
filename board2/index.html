@@ -68,12 +68,12 @@
   .card[contenteditable=true] .card-text{pointer-events:auto}
 
   /* ── Card heading + body ── */
-  .card-tags{display:flex;align-items:center;gap:5px;margin-bottom:6px}
-  .card-type-badge{font-size:9px;font-weight:700;letter-spacing:.5px;padding:1px 5px;border-radius:3px;color:rgba(0,0,0,.6)}
-  .card-type-INT{background:rgba(0,0,0,.08)}
-  .card-type-EXT{background:rgba(59,130,246,.2);color:#1e40af}
-  .card-type-INTEXT{background:rgba(16,185,129,.2);color:#065f46}
+  .card .time-dot{position:absolute;top:8px;right:8px}
   .card-location{font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:rgba(45,42,62,.4);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .board-legend{display:flex;align-items:center;gap:16px;padding:6px 20px;font-size:11px;color:#9CA3AF;border-bottom:1px solid rgba(0,0,0,.06);background:rgba(0,0,0,.01);flex-shrink:0}
+  .board-legend .legend-group{display:flex;align-items:center;gap:4px}
+  .board-legend .legend-swatch{width:10px;height:10px;border-radius:3px;border:1px solid rgba(0,0,0,.08)}
+  .board-legend .legend-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
   .card-body{font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;max-height:0;overflow:hidden;transition:max-height .25s ease;white-space:pre-wrap}
   .card.expanded .card-body{max-height:300px}
   .card-body:empty{display:none}
@@ -193,6 +193,17 @@
   <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">&#9790;</button>
 </div>
 
+<div class="board-legend" id="boardLegend" style="display:none">
+  <span class="legend-group"><span class="legend-swatch" style="background:var(--yellow)"></span> INT</span>
+  <span class="legend-group"><span class="legend-swatch" style="background:var(--blue)"></span> EXT</span>
+  <span class="legend-group"><span class="legend-swatch" style="background:var(--green)"></span> INT/EXT</span>
+  <span style="margin-left:8px;opacity:.3">|</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#FBBF24"></span> Jour</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#3B82F6"></span> Nuit</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#F97316"></span> Soir</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#93C5FD"></span> Matin</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#FDA4AF"></span> Aube</span>
+</div>
 <div class="board" id="board"></div>
 <div class="toast" id="toast"></div>
 
@@ -408,6 +419,8 @@ function importScenes(scenes){
       color: color
     });
   });
+  const legend = document.getElementById('boardLegend');
+  if(legend) legend.style.display = '';
 }
 
 // ── UID ──
@@ -489,23 +502,12 @@ function createCardEl(card, col){
   el.dataset.colId = col.id;
   el.style.background = COLORS[card.color] || COLORS.yellow;
 
-  // Tags row: type badge + time dot
-  if(card.type || (card.time && card.time !== 'unknown')){
-    const tags = document.createElement('div');
-    tags.className = 'card-tags';
-    if(card.type){
-      const badge = document.createElement('span');
-      badge.className = 'card-type-badge card-type-' + card.type.replace('/','');
-      badge.textContent = card.type;
-      tags.appendChild(badge);
-    }
-    if(card.time && card.time !== 'unknown'){
-      const dot = document.createElement('span');
-      dot.className = 'time-dot ' + card.time;
-      dot.title = card.time.charAt(0).toUpperCase() + card.time.slice(1);
-      tags.appendChild(dot);
-    }
-    el.appendChild(tags);
+  // Time dot only (color of card already indicates INT/EXT)
+  if(card.time && card.time !== 'unknown'){
+    const dot = document.createElement('span');
+    dot.className = 'time-dot ' + card.time;
+    dot.title = card.time.charAt(0).toUpperCase() + card.time.slice(1);
+    el.appendChild(dot);
   }
 
   // Location line
