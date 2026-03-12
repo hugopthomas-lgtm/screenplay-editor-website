@@ -447,6 +447,7 @@ function importScenes(scenes){
       type: parsed.type,
       time: parsed.time,
       body: body,
+      _rawHeading: heading,
       color: color,
       _sceneIdx: i
     });
@@ -557,26 +558,22 @@ function createCardEl(card, col){
   text.textContent = card.text;
   el.appendChild(text);
 
-  // Expandable body (240 chars)
-  if(card.body){
-    const body = document.createElement('div');
-    body.className = 'card-body';
-    body.textContent = card.body;
-    el.appendChild(body);
+  // Expandable body
+  const bodyText = card.body || card._rawHeading || '';
+  const body = document.createElement('div');
+  body.className = 'card-body';
+  body.textContent = bodyText || '—';
+  el.appendChild(body);
 
-    const expand = document.createElement('div');
-    expand.className = 'card-expand';
-    expand.textContent = '▸ détails';
-    expand.setAttribute('draggable','false');
-    expand.addEventListener('mousedown', function(e){
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      e.preventDefault();
-      var isExpanded = el.classList.toggle('expanded');
-      expand.textContent = isExpanded ? '▾ réduire' : '▸ détails';
-    }, true);
-    el.appendChild(expand);
-  }
+  const expand = document.createElement('button');
+  expand.className = 'card-expand';
+  expand.innerHTML = '&#9654; détails';
+  expand.onclick = (e)=>{
+    e.stopPropagation();
+    el.classList.toggle('expanded');
+    expand.innerHTML = el.classList.contains('expanded') ? '&#9660; réduire' : '&#9654; détails';
+  };
+  el.appendChild(expand);
 
   const del = document.createElement('button');
   del.className = 'card-delete';
