@@ -77,8 +77,8 @@
   .card-body{font-size:11px;color:rgba(45,42,62,.55);margin-top:6px;line-height:1.5;max-height:0;overflow:hidden;transition:max-height .25s ease;white-space:pre-wrap}
   .card.expanded .card-body{max-height:300px}
   .card-body:empty{display:none}
-  .card-expand{display:inline-block;margin-top:4px;font-size:10px;color:rgba(45,42,62,.35);cursor:pointer;user-select:none}
-  .card-expand:hover{color:rgba(45,42,62,.6)}
+  .card-expand{display:inline-block;margin-top:5px;font-size:10px;font-weight:500;color:rgba(45,42,62,.45);cursor:pointer;user-select:none}
+  .card-expand:hover{color:rgba(45,42,62,.7)}
 
   /* ── Time of day indicator ── */
   .time-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1)}
@@ -395,10 +395,39 @@ function parseHeading(heading){
 }
 
 function makeFallbackSummary(body){
-  if(!body) return '';
-  const first = body.split('\n').map(l=>l.trim()).filter(Boolean)[0] || '';
-  if(first.length <= 50) return first;
-  return first.slice(0, 49) + '…';
+  if(!body) return '…';
+  return '…';
+}
+
+// Fetch AI summaries and update cards
+function fetchAISummaries(scenes){
+  const API='https://screenplay-editor-api.hugopthomas.workers.dev';
+  fetch(API+'/board/summarize',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({scenes:scenes})
+  }).then(r=>r.json()).then(data=>{
+    if(!data.summaries||!data.summaries.length) return;
+    let idx=0;
+    state.columns.forEach(col=>{
+      col.cards.forEach(card=>{
+        if(data.summaries[idx] && card._sceneIdx===idx){
+          card.text=data.summaries[idx];
+        }
+        idx++;
+      });
+    });
+    // Re-count idx by iterating all cards in order
+    let i=0;
+    state.columns.forEach(col=>{
+      col.cards.forEach(card=>{
+        if(typeof card._sceneIdx==='number' && data.summaries[card._sceneIdx]){
+          card.text=data.summaries[card._sceneIdx];
+        }
+      });
+    });
+    save(); render();
+  }).catch(()=>{});
 }
 
 function importScenes(scenes){
@@ -424,11 +453,14 @@ function importScenes(scenes){
       type: parsed.type,
       time: parsed.time,
       body: body,
-      color: color
+      color: color,
+      _sceneIdx: i
     });
   });
   const legend = document.getElementById('boardLegend');
   if(legend) legend.style.display = '';
+  // Fetch AI summaries asynchronously
+  fetchAISummaries(scenes);
 }
 
 // ── UID ──
@@ -540,14 +572,18 @@ function createCardEl(card, col){
 
     const expand = document.createElement('span');
     expand.className = 'card-expand';
-    expand.textContent = '▸ voir plus';
+    expand.textContent = '▸ détails';
     el.appendChild(expand);
 
-    // Click anywhere on card to toggle expand
-    el.addEventListener('click', (e)=>{
+    // Toggle expand on tap/click (use pointerup to avoid drag conflict)
+    let dragMoved = false;
+    el.addEventListener('pointerdown', ()=>{ dragMoved = false; });
+    el.addEventListener('pointermove', ()=>{ dragMoved = true; });
+    el.addEventListener('pointerup', (e)=>{
+      if(dragMoved) return;
       if(e.target.closest('.card-delete')) return;
       const isExpanded = el.classList.toggle('expanded');
-      expand.textContent = isExpanded ? '▾ réduire' : '▸ voir plus';
+      expand.textContent = isExpanded ? '▾ réduire' : '▸ détails';
     });
   }
 
