@@ -560,16 +560,17 @@ function createCardEl(card, col){
     body.textContent = card.body;
     el.appendChild(body);
 
-    const expand = document.createElement('button');
+    const expand = document.createElement('div');
     expand.className = 'card-expand';
     expand.textContent = '▸ détails';
-    expand.draggable = false;
-    expand.onclick = function(e){
+    expand.setAttribute('draggable','false');
+    expand.addEventListener('mousedown', function(e){
       e.stopPropagation();
+      e.stopImmediatePropagation();
       e.preventDefault();
       var isExpanded = el.classList.toggle('expanded');
       expand.textContent = isExpanded ? '▾ réduire' : '▸ détails';
-    };
+    }, true);
     el.appendChild(expand);
   }
 
