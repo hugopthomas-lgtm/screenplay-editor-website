@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — Form Appender</title>
+  <meta name="description" content="Terms of service for Form Appender, the free Google Forms add-on that appends responses to Google Docs.">
+  <link rel="canonical" href="https://screenplayeditor.app/form-appender/terms">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="icon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --purple: #7B68AE;
+      --purple-dark: #5C4D8A;
+      --purple-light: #f5f3fa;
+      --dark: #202124;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafafa;
+      color: #202124;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(245, 243, 250, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--purple);
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--purple);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .breadcrumb-content a {
+      color: var(--purple);
+      transition: opacity 0.2s;
+    }
+
+    .breadcrumb-content a:hover {
+      opacity: 0.8;
+    }
+
+    .breadcrumb-content .separator {
+      color: #555;
+    }
+
+    .breadcrumb-content .current {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Page Content */
+    .page-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 30px 80px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .last-updated {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .page-content > p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .page-content h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      padding-left: 15px;
+      border-left: 3px solid var(--purple);
+      color: var(--dark);
+    }
+
+    .page-content h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .page-content p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .page-content ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    .page-content li {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .page-content a {
+      color: var(--purple);
+    }
+
+    .page-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 22px;
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .breadcrumb-bar {
+        padding: 14px 20px;
+      }
+
+      .page-content {
+        padding: 40px 20px 60px;
+      }
+
+      .page-title {
+        font-size: 26px;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Form Appender</a>
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="index.html">Home</a>
+      <span class="separator">&rarr;</span>
+      <span class="current">Terms of Service</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Terms of Service</h1>
+      <p class="last-updated">Last updated: March 2026</p>
+
+      <p>
+        These Terms of Service ("Terms") govern your use of Form Appender, a Google Forms add-on
+        that automatically appends form responses to Google Docs. By installing or using Form Appender, you agree to these Terms.
+      </p>
+
+      <h2>1. Description of Service</h2>
+      <p>
+        Form Appender is a free Google Forms add-on that appends form submission responses to
+        Google Docs in a Drive folder of your choice. The add-on supports three output formats
+        (bullets, vertical table, horizontal table) and operates within Google Forms, Google Docs,
+        and Google Drive.
+      </p>
+
+      <h2>2. Pricing</h2>
+      <p>
+        Form Appender is entirely free. There is no paid plan, no subscription, and no in-app purchases.
+      </p>
+
+      <h2>3. Acceptance of Terms</h2>
+      <p>
+        By installing, accessing, or using Form Appender, you acknowledge that you have read,
+        understood, and agree to be bound by these Terms. If you do not agree to these Terms,
+        do not install or use the add-on.
+      </p>
+
+      <h2>4. Use of the Service</h2>
+      <p>You agree to:</p>
+      <ul>
+        <li>Use Form Appender only for lawful purposes</li>
+        <li>Use Form Appender in compliance with Google's Terms of Service and Acceptable Use Policy</li>
+        <li>Not attempt to reverse engineer, modify, or create derivative works of the add-on</li>
+        <li>Not use the add-on to infringe on any third party's intellectual property rights</li>
+      </ul>
+
+      <h2>5. Intellectual Property</h2>
+      <h3>Your Content</h3>
+      <p>
+        You retain all rights to the content you create and manage using Form Appender. Your forms,
+        documents, and data remain entirely yours.
+      </p>
+
+      <h3>Our Software</h3>
+      <p>
+        Form Appender and its original code, features, and functionality are owned by the
+        developer and are protected by copyright and other intellectual property laws.
+      </p>
+
+      <h2>6. Data & Privacy</h2>
+      <p>
+        Form Appender processes data entirely within your Google account using Google Apps Script.
+        No data is sent to external servers, collected, or shared with third parties.
+        For full details, see our <a href="privacy.html">Privacy Policy</a>.
+      </p>
+
+      <h2>7. Disclaimer of Warranties</h2>
+      <p>
+        Form Appender is provided "as is" and "as available" without warranties of any kind,
+        either express or implied, including but not limited to implied warranties of
+        merchantability, fitness for a particular purpose, or non-infringement.
+      </p>
+      <p>We do not warrant that:</p>
+      <ul>
+        <li>The add-on will meet your specific requirements</li>
+        <li>The add-on will be uninterrupted, timely, secure, or error-free</li>
+        <li>Any errors in the add-on will be corrected</li>
+      </ul>
+
+      <h2>8. Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by applicable law, Form Appender and its developer
+        shall not be liable for any indirect, incidental, special, consequential, or
+        punitive damages, or any loss of profits, data, or goodwill, resulting from:
+      </p>
+      <ul>
+        <li>Your use or inability to use the add-on</li>
+        <li>Any unauthorized access to or alteration of your documents</li>
+        <li>Any bugs, viruses, or errors in the add-on</li>
+        <li>Any other matter relating to the add-on</li>
+      </ul>
+
+      <h2>9. Indemnification</h2>
+      <p>
+        You agree to indemnify and hold harmless Form Appender and its developer from any
+        claims, damages, losses, or expenses arising from your use of the add-on or your
+        violation of these Terms.
+      </p>
+
+      <h2>10. Modifications to the Service</h2>
+      <p>
+        We reserve the right to modify, suspend, or discontinue Form Appender at any time,
+        with or without notice. We shall not be liable to you or any third party for any
+        modification, suspension, or discontinuation of the service.
+      </p>
+
+      <h2>11. Changes to Terms</h2>
+      <p>
+        We may revise these Terms from time to time. The most current version will always
+        be available on this page. By continuing to use Form Appender after revisions become
+        effective, you agree to be bound by the revised Terms.
+      </p>
+
+      <h2>12. Termination</h2>
+      <p>
+        You may stop using Form Appender at any time by uninstalling the add-on from your
+        Google account. We may terminate or suspend your access to the add-on at any time,
+        without prior notice, for conduct that we believe violates these Terms or is
+        harmful to other users or us.
+      </p>
+
+      <h2>13. Governing Law</h2>
+      <p>
+        These Terms shall be governed by and construed in accordance with the laws of France,
+        without regard to its conflict of law provisions.
+      </p>
+
+      <h2>14. Contact</h2>
+      <p>
+        If you have any questions about these Terms, please contact us at:
+        <a href="mailto:hugopthomas@gmail.com">hugopthomas@gmail.com</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Form Appender</div>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Form Appender. Made by Hugo Thomas.</p>
+    </div>
+  </footer>
+</body>
+</html>
