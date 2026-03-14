@@ -250,6 +250,13 @@
 </div>
 
 <script>
+// ── Board session tracking ──
+const _boardStartTime = Date.now();
+window.addEventListener('beforeunload', function(){
+  const duration = (Date.now() - _boardStartTime) / 1000;
+  if(duration > 5) navigator.sendBeacon('https://screenplay-editor-api.hugopthomas.workers.dev/board/ping', JSON.stringify({duration:duration}));
+});
+
 const COLORS = {yellow:'#FFF9DB',pink:'#FFE4E8',blue:'#DBEAFE',green:'#DCFCE7',purple:'#EDE9FE',orange:'#FFEDD5',white:'#FFFFFF',gray:'#F3F4F6'};
 const SWATCH_COLORS = {yellow:'#E8D44D',pink:'#E8707E',blue:'#60A5FA',green:'#4ADE80',purple:'#A78BFA',orange:'#FB923C',white:'#D4D4D4',gray:'#9CA3AF'};
 let STORAGE_KEY = 'kanban_data';
