@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — Form Appender</title>
+  <meta name="description" content="Get help with Form Appender. Find answers to common questions about auto-appending Google Forms responses to Google Docs.">
+  <link rel="canonical" href="https://screenplayeditor.app/form-appender/support">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="icon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --purple: #7B68AE;
+      --purple-dark: #5C4D8A;
+      --purple-light: #EDE8F5;
+      --dark: #202124;
+      --gray: #5f6368;
+      --light: #f8f9fa;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 249, 250, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e8eaed;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .logo span { color: var(--purple); }
+
+    .header-nav a {
+      margin-left: 24px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--purple);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 24px;
+      margin-top: 56px;
+    }
+
+    .breadcrumb-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .breadcrumb-content a {
+      color: var(--purple);
+      transition: opacity 0.2s;
+    }
+
+    .breadcrumb-content a:hover {
+      opacity: 0.8;
+    }
+
+    .breadcrumb-content .separator {
+      color: #555;
+    }
+
+    .breadcrumb-content .current {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Page Content */
+    .page-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 50px 24px 80px;
+    }
+
+    .page-title {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--dark);
+    }
+
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--gray);
+      margin-bottom: 40px;
+    }
+
+    /* Intro Card */
+    .intro-card {
+      background: var(--purple-light);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 48px;
+      border-left: 4px solid var(--purple);
+    }
+
+    .intro-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .intro-card p {
+      font-size: 14px;
+      color: var(--purple-dark);
+      line-height: 1.7;
+    }
+
+    .intro-card code {
+      background: rgba(123, 104, 174, 0.15);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: monospace;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin-bottom: 48px;
+    }
+
+    .faq-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-left: 14px;
+      border-left: 3px solid var(--purple);
+      color: var(--dark);
+    }
+
+    .faq-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid #e8eaed;
+      border-radius: 10px;
+      padding: 22px;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--purple);
+    }
+
+    .faq-item h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .faq-item p {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .contact-section h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .contact-section p {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .contact-email:hover {
+      background: var(--purple-dark);
+    }
+
+    .contact-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* Report Section */
+    .report-section {
+      margin-bottom: 48px;
+    }
+
+    .report-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      padding-left: 14px;
+      border-left: 3px solid var(--purple);
+      color: var(--dark);
+    }
+
+    .report-section p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 14px;
+    }
+
+    .report-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .report-item {
+      background: #fff;
+      border: 1px solid #e8eaed;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .report-item::before {
+      content: "\2192";
+      color: var(--purple);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 13px;
+      color: var(--gray);
+      border-top: 1px solid #e8eaed;
+    }
+
+    .footer a {
+      color: var(--purple);
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 14px 16px;
+      }
+
+      .header-nav a {
+        margin-left: 14px;
+        font-size: 12px;
+      }
+
+      .page-content {
+        padding: 36px 16px 60px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .intro-card {
+        padding: 22px;
+      }
+
+      .report-list {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-section {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <img src="icon.png" alt="Form Appender icon">
+        <span>Form Appender</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="index.html">Home</a>
+      <span class="separator">&rarr;</span>
+      <span class="current">Support</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Support</h1>
+      <p class="page-subtitle">Need help with Form Appender? Start here.</p>
+
+      <div class="intro-card">
+        <h2>Getting Started</h2>
+        <p>
+          After installing from the Google Workspace Marketplace, open any Google Form, go to
+          <code>Add-ons &rarr; Form Appender &rarr; Configure</code>.
+          Pick a folder, map a question, choose your format, and activate the trigger. Every new response will be automatically appended to the right Google Doc.
+        </p>
+      </div>
+
+      <div class="faq-section">
+        <h2>FAQ</h2>
+        <div class="faq-grid">
+
+          <div class="faq-item">
+            <h3>How do I set up Form Appender?</h3>
+            <p>Open your Google Form, go to Add-ons, select Form Appender, and click Configure. Pick a Drive folder containing your target Docs, map one form question to select the document, choose which fields to include, and activate the trigger.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What are the output formats?</h3>
+            <p>Three options: <strong>Bullets</strong> (clean bulleted list per submission), <strong>Vertical table</strong> (one table per submission with question-answer rows), or <strong>Horizontal table</strong> (one growing table with a row per submission).</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How does the doc-picker question work?</h3>
+            <p>One of your form questions must be a multiple choice or dropdown. Form Appender populates it with the names of Google Docs from your selected folder. The respondent's choice determines which Doc the response is appended to.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can I choose which questions are appended?</h3>
+            <p>Yes. During configuration, you can select or deselect individual form questions. Only the ones you check will appear in the output.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is Form Appender free?</h3>
+            <p>Yes, Form Appender is completely free. No premium tier, no limits, no ads.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is my data private?</h3>
+            <p>Absolutely. All processing happens within your Google account. No data is sent to external servers, no data is collected, no tracking.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can I use it with multiple forms?</h3>
+            <p>Yes. Install and configure Form Appender independently on each Google Form. Each form can target a different folder and have its own settings.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What happens if I delete a target Doc?</h3>
+            <p>If a target Doc no longer exists, the response for that submission won't be appended. Other submissions going to other Docs are not affected.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Does it work with existing responses?</h3>
+            <p>Form Appender processes new submissions after the trigger is activated. It does not retroactively process responses submitted before setup.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I stop or remove Form Appender?</h3>
+            <p>Go to Add-ons &rarr; Form Appender &rarr; Configure, and deactivate the trigger. To fully remove it, uninstall the add-on from your Google Form's Add-ons menu.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <h2>Contact</h2>
+        <p>Question, bug report, or suggestion?</p>
+        <a href="mailto:hugopthomas@gmail.com" class="contact-email">hugopthomas@gmail.com</a>
+        <p class="contact-note">We typically respond within 48 hours.</p>
+      </div>
+
+      <div class="report-section">
+        <h2>Reporting a Problem</h2>
+        <p>If something isn't working as expected, please include:</p>
+        <div class="report-list">
+          <div class="report-item">What happened</div>
+          <div class="report-item">What you expected</div>
+          <div class="report-item">Your browser &amp; OS</div>
+          <div class="report-item">The output format you selected</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="footer">
+    <p><a href="index.html">Home</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="mailto:hugopthomas@gmail.com">Contact</a></p>
+    <p style="margin-top:8px;">Form Appender &copy; 2026 Hugo Thomas</p>
+  </div>
+
+</body>
+</html>
