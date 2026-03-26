@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — MailBouncer for Gmail</title>
+  <meta name="description" content="Terms of service for MailBouncer, the inbox bouncer for Gmail.">
+  <link rel="canonical" href="https://screenplayeditor.app/mailbouncer/terms">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue: #2563EB;
+      --blue-dark: #1D4ED8;
+      --blue-light: #EFF6FF;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(239, 246, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px; margin: 0 auto; padding: 18px 30px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .logo { font-size: 16px; font-weight: 700; letter-spacing: 1px; color: var(--dark); }
+    .logo .accent { color: var(--blue); }
+
+    .header-nav a {
+      margin-left: 30px; font-size: 13px; font-weight: 500; color: #666; transition: color 0.2s;
+    }
+    .header-nav a:hover, .header-nav a.highlight { color: var(--blue); }
+
+    .breadcrumb-bar {
+      background: var(--dark); padding: 14px 30px; margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 12px; font-size: 13px;
+    }
+    .breadcrumb-content a { color: var(--blue); transition: opacity 0.2s; }
+    .breadcrumb-content a:hover { opacity: 0.8; }
+    .breadcrumb-content .separator { color: #555; }
+    .breadcrumb-content .current { color: #fff; font-weight: 600; }
+
+    .page-content { max-width: 800px; margin: 0 auto; padding: 50px 30px 80px; }
+
+    .page-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+    .last-updated { font-size: 13px; color: #888; margin-bottom: 40px; }
+
+    .page-content h2 {
+      font-size: 16px; font-weight: 600; margin-top: 35px; margin-bottom: 15px;
+      padding-left: 15px; border-left: 3px solid var(--blue); color: var(--dark);
+    }
+
+    .page-content p {
+      font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 15px;
+    }
+
+    .page-content a { color: var(--blue); }
+    .page-content a:hover { text-decoration: underline; }
+
+    .contact-card {
+      background: var(--dark); border-radius: 12px; padding: 30px; text-align: center; margin-top: 50px;
+      background-image:
+        linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .contact-card h2 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 12px; border: none; padding: 0; }
+    .contact-card p { font-size: 14px; color: #888; margin-bottom: 0; }
+    .contact-card a { color: var(--blue); }
+    .contact-card a:hover { text-decoration: underline; }
+
+    footer {
+      background: var(--dark); color: #fff; padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .footer-content { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .footer-logo { font-size: 16px; font-weight: 700; letter-spacing: 1px; color: var(--blue); margin-bottom: 22px; }
+    .footer-nav { margin-bottom: 22px; }
+    .footer-nav a { color: #888; margin: 0 14px; font-size: 12px; font-weight: 500; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-copy { font-size: 11px; color: #555; }
+
+    @media (max-width: 600px) {
+      .header-content { padding: 15px 20px; }
+      .header-nav a { margin-left: 18px; font-size: 12px; }
+      .breadcrumb-bar { padding: 14px 20px; }
+      .page-content { padding: 40px 20px 60px; }
+      .page-title { font-size: 26px; }
+      .footer-nav a { display: block; margin: 10px 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="terms.html" class="logo">MAIL<span class="accent">BOUNCER</span></a>
+      <nav class="header-nav">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html" class="highlight">Terms</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="terms.html">MailBouncer</a>
+      <span class="separator">&rarr;</span>
+      <span class="current">Terms of Service</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Terms of Service</h1>
+      <p class="last-updated">Last updated: March 2026</p>
+
+      <h2>1. Acceptance of Terms</h2>
+      <p>
+        By installing or using MailBouncer ("the Add-on"), you agree to these Terms of Service.
+        If you do not agree, please uninstall the Add-on.
+      </p>
+
+      <h2>2. Description of Service</h2>
+      <p>
+        MailBouncer is a Google Workspace Add-on for Gmail that automatically screens unknown senders,
+        categorizes newsletters and receipts, and helps you manage your inbox. The Add-on runs within
+        Google's infrastructure using Google Apps Script.
+      </p>
+
+      <h2>3. Account Requirements</h2>
+      <p>
+        You must have a Google account with Gmail to use MailBouncer. By using the Add-on, you authorize
+        it to access your Gmail account as described in our <a href="privacy.html">Privacy Policy</a>.
+      </p>
+
+      <h2>4. How It Works</h2>
+      <p>
+        MailBouncer creates Gmail labels to organize your email. It uses a time-driven trigger (once per hour)
+        to automatically process new incoming emails. Emails from unknown senders are moved out of your inbox
+        and labeled for your review. You can approve or block senders at any time.
+      </p>
+      <p>
+        The Add-on categorizes emails based on sender addresses, subject lines, and email metadata.
+        No email body content is read for categorization purposes.
+      </p>
+
+      <h2>5. User Responsibilities</h2>
+      <p>
+        You are responsible for reviewing your Screener queue regularly to avoid missing important emails.
+        MailBouncer uses heuristics to categorize emails and may occasionally miscategorize a message.
+        The Add-on is provided as a productivity tool, not a security or anti-spam solution.
+      </p>
+
+      <h2>6. Intellectual Property</h2>
+      <p>
+        MailBouncer and its code, design, and branding are the property of Hugo Thomas.
+        You may not copy, modify, distribute, or reverse-engineer any part of the Add-on.
+      </p>
+
+      <h2>7. Disclaimer of Warranties</h2>
+      <p>
+        MailBouncer is provided "as is" without warranties of any kind. We do not guarantee that the
+        Add-on will be error-free, uninterrupted, or compatible with all email configurations.
+        We are not responsible for emails that are incorrectly categorized, missed, or delayed.
+      </p>
+
+      <h2>8. Limitation of Liability</h2>
+      <p>
+        To the maximum extent permitted by law, Hugo Thomas shall not be liable for any indirect,
+        incidental, or consequential damages arising from the use of MailBouncer, including but not
+        limited to missed emails, miscategorized messages, or data loss.
+      </p>
+
+      <h2>9. Modifications</h2>
+      <p>
+        We reserve the right to modify these Terms at any time. Continued use of the Add-on after
+        changes constitutes acceptance of the new Terms.
+      </p>
+
+      <h2>10. Termination</h2>
+      <p>
+        You may stop using MailBouncer at any time by uninstalling the Add-on. We may terminate or
+        suspend access to the Add-on without prior notice for conduct that violates these Terms.
+      </p>
+
+      <h2>11. Governing Law</h2>
+      <p>
+        These Terms shall be governed by and construed in accordance with the laws of France,
+        without regard to its conflict of law provisions.
+      </p>
+
+      <div class="contact-card">
+        <h2>Questions?</h2>
+        <p>Contact us at <a href="mailto:hugopthomas@gmail.com">hugopthomas@gmail.com</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">MAIL<span style="color:var(--blue)">BOUNCER</span></div>
+      <nav class="footer-nav">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="support.html">Support</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 MailBouncer. Your inbox bouncer.</p>
+    </div>
+  </footer>
+</body>
+</html>
