@@ -56,10 +56,8 @@
   .add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 
   /* ── Card ── */
-  .card{display:flex;flex-direction:column;background:var(--yellow);border-radius:8px;padding:8px 10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:13px;line-height:1.4;cursor:default;user-select:none;position:relative;border:1px solid rgba(0,0,0,.08);transition:box-shadow .2s,transform .2s;word-break:break-word;min-height:36px;color:#1a1a2e}
-  .card-grip{position:absolute;top:4px;left:6px;cursor:grab;color:rgba(0,0,0,.15);font-size:14px;line-height:1;user-select:none;opacity:0;transition:opacity .15s}
-  .card:hover .card-grip{opacity:1}
-  .card-grip:active{cursor:grabbing}
+  .card{display:flex;flex-direction:column;background:var(--yellow);border-radius:8px;padding:8px 10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:13px;line-height:1.4;cursor:grab;user-select:none;position:relative;border:1px solid rgba(0,0,0,.08);transition:box-shadow .2s,transform .2s;word-break:break-word;min-height:36px;color:#1a1a2e}
+  .card:active{cursor:grabbing}
   .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.3)}
   .card.dragging{opacity:.4}
   .card.drag-clone{box-shadow:0 12px 32px rgba(0,0,0,.5);transform:scale(1.02);cursor:grabbing;position:fixed;z-index:9999;pointer-events:none;transition:none}
@@ -569,23 +567,14 @@ function createCardEl(card, col){
   el.dataset.cardId = card.id;
   el.dataset.colId = col.id;
   el.style.background = COLORS[card.color] || COLORS.yellow;
-
-  // Drag handle — only this part is draggable
-  const grip = document.createElement('div');
-  grip.className = 'card-grip';
-  grip.draggable = true;
-  grip.innerHTML = '⠿';
-  grip.addEventListener('dragstart', (e)=>{
+  el.draggable = true;
+  el.addEventListener('dragstart', (e)=>{
     e.dataTransfer.effectAllowed = 'move';
-    // Patch currentTarget to point to card element
-    Object.defineProperty(e, 'currentTarget', {get:()=>el});
     handleDragStart(e);
   });
-  grip.addEventListener('dragend', (e)=>{
-    Object.defineProperty(e, 'currentTarget', {get:()=>el});
+  el.addEventListener('dragend', (e)=>{
     handleDragEnd(e);
   });
-  el.appendChild(grip);
 
   // Time dot (always visible — grey if unknown)
   const dot = document.createElement('span');
@@ -594,15 +583,7 @@ function createCardEl(card, col){
   dot.title = t === 'unknown' ? 'Non spécifié' : t.charAt(0).toUpperCase() + t.slice(1);
   el.appendChild(dot);
 
-  // Location line
-  if(card.location){
-    const loc = document.createElement('div');
-    loc.className = 'card-location';
-    loc.textContent = card.location;
-    el.appendChild(loc);
-  }
-
-  // Summary (1-line, replaces heading as main text)
+  // Summary (1-line, main text)
   const text = document.createElement('div');
   text.className = 'card-text';
   text.textContent = card.text;
