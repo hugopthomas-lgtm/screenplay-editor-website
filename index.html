@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Screenplay Editor — Professional Screenplay Formatting for Google Docs</title>
+  <title>Screenplay Editor - Professional Screenplay Formatting for Google Docs</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="description" content="Screenplay Editor is a Google Docs add-on for professional screenplay formatting. Write in industry-standard format directly in your browser.">
+  <meta name="description" content="Screenplay Editor turns Google Docs into professional screenwriting software. Same formatting as Final Draft. Real-time collaboration. $5/month.">
   <link rel="canonical" href="https://screenplayeditor.app/">
-  <meta property="og:title" content="Screenplay Editor — Write Screenplays in Google Docs">
-  <meta property="og:description" content="Professional screenplay formatting directly in Google Docs. Free add-on with auto-format, character management, and PDF export.">
+  <meta property="og:title" content="Screenplay Editor - Google Docs is now the best screenwriting software">
+  <meta property="og:description" content="Same formatting as Final Draft. Real-time collaboration. $5/month.">
   <meta property="og:image" content="https://screenplayeditor.app/screenshot.png">
   <meta property="og:url" content="https://screenplayeditor.app/">
   <meta property="og:type" content="website">
@@ -23,16 +23,16 @@
     "operatingSystem": "Web",
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "5",
       "priceCurrency": "USD"
     },
-    "description": "Professional screenplay formatting add-on for Google Docs. Auto-format, character management, and PDF export.",
+    "description": "Professional screenplay formatting for Google Docs. Same formatting as Final Draft. Real-time collaboration.",
     "screenshot": "https://screenplayeditor.app/screenshot.png",
     "url": "https://screenplayeditor.app",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "ratingCount": "15",
+      "ratingCount": "16",
       "bestRating": "5"
     }
   }
@@ -48,11 +48,16 @@
       --violet: #9D7BEA;
       --violet-dark: #8B6AD4;
       --dark: #1a1a1a;
+      --coral: #e85d5d;
     }
 
     body {
       font-family: 'JetBrains Mono', monospace;
       background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
       color: #1a1a1a;
       line-height: 1.6;
       font-size: 15px;
@@ -138,29 +143,30 @@
        HERO
        ============================================ */
     .hero {
-      padding: 120px 30px 90px;
+      padding: 120px 30px 80px;
       text-align: center;
       background: var(--dark);
       position: relative;
       overflow: hidden;
       border-bottom: 1px solid rgba(157, 123, 234, 0.4);
-      background-image: 
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.08) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
     .hero-inner {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
 
+
     .hero-logo-stacked {
       font-weight: 700;
       letter-spacing: 3px;
-      margin-bottom: 25px;
+      margin-bottom: 35px;
     }
 
     .hero-logo-stacked .line1 {
@@ -185,74 +191,36 @@
       50% { opacity: 0; }
     }
 
-    /* Social Proof Bar */
-    .social-proof-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
-
-    .social-proof-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .social-proof-icon {
-      flex-shrink: 0;
-    }
-
-    .social-proof-rating {
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .social-proof-stars {
-      font-size: 16px;
-      color: #f5b731;
-      letter-spacing: 1px;
-    }
-
-    .social-proof-divider {
-      width: 1px;
-      height: 22px;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .social-proof-text {
-      font-size: 13px;
-      color: #999;
-      font-weight: 500;
-    }
 
     .hero h1 {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 600;
       line-height: 1.3;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       letter-spacing: -0.5px;
       color: #fff;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .hero-tagline {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--violet);
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
-    }
 
     .hero-subtitle {
       font-size: 16px;
       font-weight: 400;
       color: #888;
-      max-width: 600px;
-      margin: 0 auto 40px;
-      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto 35px;
+      line-height: 1.5;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 20px;
     }
 
     .cta-button {
@@ -271,71 +239,350 @@
       transform: translateY(-1px);
     }
 
-    .cta-note {
-      margin-top: 14px;
-      font-size: 12px;
-      color: #666;
+    .cta-secondary {
+      font-size: 13px;
+      color: #888;
+      font-weight: 500;
+      transition: color 0.2s;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .cta-secondary:hover {
+      color: var(--violet);
+    }
+
+    .hero-proof {
+      font-size: 16px;
+      font-weight: 500;
+      color: #999;
+      margin-bottom: 10px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-proof span {
+      color: #f5b731;
     }
 
     .hero-screenshot {
-      margin-top: 30px;
       max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: -10px auto 0;
     }
 
     .hero-screenshot img {
       width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
-      border: 1px dashed var(--violet);
-      padding: 8px;
-      background: var(--dark);
+    }
+
+
+    /* ============================================
+       FINAL DRAFT PUNCH
+       ============================================ */
+    .punch {
+      padding: 50px 30px 40px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .punch p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #999;
+    }
+
+    .punch .punch-price {
+      color: var(--coral);
+      font-weight: 600;
+    }
+
+    .punch p {
+      position: relative;
+      z-index: 1;
+    }
+
+    .punch-bandage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-15deg);
+      width: 250px;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* ============================================
-       FEATURES
+       FEATURES (alternating blocks)
        ============================================ */
     .features {
-      padding: 80px 30px 100px;
-      max-width: 1100px;
+      padding: 20px 30px 40px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
-    .features h2 {
+    .feature-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 50px;
+    }
+
+    .feature-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .feature-block.reverse .feature-text {
+      order: 2;
+    }
+
+    .feature-block.reverse .feature-image {
+      order: 1;
+    }
+
+    .feature-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 10px;
+    }
+
+    .feature-text h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--dark);
+    }
+
+    .feature-text p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .feature-image {
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-image img {
+      width: 100%;
+      border-radius: 0;
+    }
+
+    .feature-image.large img {
+      width: 130%;
+      max-width: none;
+    }
+
+    .feature-image.medium img {
+      width: 85%;
+    }
+
+    .feature-image.small img {
+      width: 75%;
+    }
+
+    /* ============================================
+       SOCIAL PROOF (testimonial)
+       ============================================ */
+    .reviews {
+      padding: 40px 30px;
+      background: #f3f0fa;
+    }
+
+    .reviews-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .reviews-title {
       text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 24px;
+    }
+
+    .reviews-track-wrapper {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .reviews-track-wrapper::before,
+    .reviews-track-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 60px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .reviews-track-wrapper::before {
+      left: 0;
+      background: linear-gradient(to right, #f3f0fa, transparent);
+    }
+
+    .reviews-track-wrapper::after {
+      right: 0;
+      background: linear-gradient(to left, #f3f0fa, transparent);
+    }
+
+    .reviews-track {
+      display: flex;
+      gap: 16px;
+      animation: scroll-reviews 25s linear infinite;
+      width: max-content;
+    }
+
+    .reviews-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll-reviews {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .review-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      min-width: 280px;
+      max-width: 320px;
+      flex-shrink: 0;
+    }
+
+    .review-stars {
+      color: #f5b731;
+      font-size: 12px;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .review-text {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .review-author {
+      font-size: 11px;
+      font-weight: 600;
+      color: #999;
+    }
+
+    /* ============================================
+       COLLABORATION
+       ============================================ */
+    .collab {
+      padding: 20px 30px 0;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .collab-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .collab h2 {
       font-size: 24px;
       font-weight: 600;
-      margin-bottom: 60px;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 50px 40px;
-    }
-
-    .feature {
-      text-align: center;
-    }
-
-    .feature-icon {
-      font-size: 32px;
       margin-bottom: 16px;
+      color: var(--dark);
     }
 
-    .feature h3 {
+    .collab p {
       font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      letter-spacing: 0.5px;
+      color: #666;
+      line-height: 1.7;
     }
 
-    .feature p {
-      font-size: 13px;
-      font-weight: 400;
+    .collab-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 10px;
+    }
+
+    .collab-image img {
+      width: 100%;
+    }
+
+    /* ============================================
+       SCROLL ANIMATIONS
+       ============================================ */
+    .scroll-float {
+      will-change: transform;
+    }
+
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+    /* ============================================
+       PRIVACY
+       ============================================ */
+    .privacy-section {
+      padding: 10px 30px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .privacy-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .privacy-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 10px;
+    }
+
+    .privacy-section h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--dark);
+    }
+
+    .privacy-section p {
+      font-size: 14px;
       color: #666;
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    .privacy-image img {
+      width: 95%;
     }
 
     /* ============================================
@@ -343,13 +590,13 @@
        ============================================ */
     .cta-section {
       text-align: center;
-      padding: 80px 30px 100px;
+      padding: 60px 30px 70px;
       background: var(--dark);
       position: relative;
       overflow: hidden;
-      background-image: 
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.08) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
@@ -364,6 +611,10 @@
       font-size: 14px;
       color: #888;
       margin-bottom: 30px;
+    }
+
+    .cta-section .hero-ctas {
+      margin-bottom: 0;
     }
 
     /* ============================================
@@ -413,10 +664,28 @@
     /* ============================================
        RESPONSIVE
        ============================================ */
-    @media (max-width: 900px) {
-      .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px 30px;
+    @media (max-width: 800px) {
+      .feature-block {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .feature-block.reverse .feature-text {
+        order: 1;
+      }
+
+      .feature-block.reverse .feature-image {
+        order: 2;
+      }
+
+      .collab-inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .privacy-inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
       }
     }
 
@@ -441,45 +710,36 @@
       }
 
       .hero h1 {
-        font-size: 24px;
-      }
-
-      .social-proof-bar {
-        gap: 10px;
-      }
-
-      .social-proof-divider {
-        display: none;
-      }
-
-      .social-proof-text {
-        font-size: 12px;
-      }
-
-      .social-proof-rating {
-        font-size: 17px;
-      }
-
-      .hero-tagline {
-        font-size: 16px;
+        font-size: 22px;
       }
 
       .hero-subtitle {
-        font-size: 14px;
+        font-size: 13px;
       }
 
-      .feature-grid {
-        grid-template-columns: 1fr;
-        gap: 35px;
+      .hero-ctas {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .punch p {
+        font-size: 15px;
+      }
+
+      .feature-text h3 {
+        font-size: 19px;
+      }
+
+      .testimonial blockquote {
+        font-size: 18px;
+      }
+
+      .collab h2 {
+        font-size: 20px;
       }
 
       .features {
-        padding: 60px 20px 80px;
-      }
-
-      .features h2 {
-        font-size: 20px;
-        margin-bottom: 40px;
+        padding: 30px 20px 60px;
       }
 
       .footer-nav a {
@@ -494,7 +754,7 @@
   <header>
     <div class="header-content">
       <a href="index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="mark">SCR<span class="cursor">&#9612;</span></span>
         <span class="full-name">SCREENPLAY EDITOR</span>
       </a>
       <nav class="header-nav">
@@ -509,94 +769,220 @@
   </header>
 
   <main>
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-inner">
         <div class="hero-logo-stacked">
-          <span class="line1">SCR<span class="cursor">██</span>NPLAY</span>
-          <span class="line2"><span class="cursor">█</span>DITOR</span>
+          <span class="line1">SCR<span class="cursor">&#9608;&#9608;</span>NPLAY</span>
+          <span class="line2"><span class="cursor">&#9608;</span>DITOR</span>
         </div>
-        <div class="social-proof-bar">
-          <div class="social-proof-item">
-            <svg class="social-proof-icon" viewBox="0 0 24 24" width="28" height="28" fill="none">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="social-proof-rating">4.9</span>
-            <span class="social-proof-stars">★★★★★</span>
-          </div>
-          <span class="social-proof-divider"></span>
-          <span class="social-proof-text">15 reviews on Google Workspace Marketplace</span>
-          <span class="social-proof-divider"></span>
-          <span class="social-proof-text">9,000+ users</span>
+
+        <h1>Google Docs is now the best<br>screenwriting software.</h1>
+        <p class="hero-subtitle">Same formatting as Final Draft.&nbsp;Real-time collaboration.&nbsp;$5/month.</p>
+
+        <div class="hero-ctas">
+          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank">Install Chrome Extension</a>
+          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Or get the Google Docs add-on</a>
         </div>
-        <h1>What if Google Docs became the best screenwriting software?</h1>
-        <p class="hero-tagline">The simplest. The most practical. The safest.</p>
-        <p class="hero-subtitle">
-          Auto-formats as you write. Visualize your story with AI-powered Scene Board. Store your cut ideas in the Boneyard. Collaborate in real-time. Version history. Always saved. Accessible anywhere.
-        </p>
-        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">Get it free</a>
-        <p class="cta-note">Available on Google Workspace Marketplace</p>
-        
+
+        <p class="hero-proof">9,000+ writers <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.9 stars, 16 reviews</p>
+
         <div class="hero-screenshot">
-          <img src="demo.gif" alt="Screenplay Editor in action - Google Docs with screenplay formatting sidebar">
+          <img src="hero-screenshot.png" alt="Screenplay Editor in Google Docs">
         </div>
       </div>
     </section>
 
+    <!-- FINAL DRAFT PUNCH -->
+    <section class="punch scroll-fade">
+      <p>
+        <span class="punch-price">Final Draft costs $249.99.</span> It doesn't do collaboration. It doesn't run in your browser. It hasn't changed in 20 years. We built something better, inside the tool you already use.
+      </p>
+      <img src="bandage.png" alt="" class="punch-bandage">
+    </section>
+
+    <!-- FEATURES -->
     <section id="features" class="features">
-      <h2>Everything you need to write</h2>
 
-      <div class="feature-grid">
-        <div class="feature">
-          <div class="feature-icon">⌨️</div>
-          <h3>Smart Formatting</h3>
-          <p>Scene headings, action, character, dialogue, parentheticals. All formatted automatically with one click.</p>
+      <div class="feature-block scroll-fade">
+        <div class="feature-text">
+          <div class="feature-label">WRITE</div>
+          <h3>You write. It formats.</h3>
+          <p>Type INT. or EXT. and scene headings format themselves. Press Tab for characters, Enter for dialogue. Paste a messy draft, hit Format My Document, and watch it snap into place in seconds. Manual or auto mode, your call.</p>
         </div>
-
-        <div class="feature">
-          <div class="feature-icon">👥</div>
-          <h3>Character Management</h3>
-          <p>Keep track of your characters. See who's in your script at a glance.</p>
+        <div class="feature-image large scroll-float" data-rotation="3">
+          <img src="feature-write.png" alt="Screenplay Editor formatting in action">
         </div>
+      </div>
 
-        <div class="feature">
-          <div class="feature-icon">📄</div>
-          <h3>Industry-Standard Export</h3>
-          <p>Export to PDF or .fdx format. Your script, ready for production or any other software.</p>
+      <div class="feature-block reverse scroll-fade">
+        <div class="feature-text">
+          <div class="feature-label">STUDIO</div>
+          <h3>More than a formatter.</h3>
+          <p>Scene Board: every scene on a card. Drag, drop, restructure. Your script updates itself. AI Table Read: hear your screenplay out loud with a different AI voice for each character. Screenplay Preview: see your script as a real printed page while you write.</p>
         </div>
-
-        <div class="feature">
-          <div class="feature-icon">☁️</div>
-          <h3>Always in Sync</h3>
-          <p>It's Google Docs. Collaborate in real-time, access from anywhere, never lose your work.</p>
+        <div class="feature-image medium scroll-float" data-rotation="-3">
+          <img src="feature-studio.png" alt="Screenplay Editor Scene Board and studio features">
         </div>
+      </div>
 
-        <div class="feature">
-          <div class="feature-icon">🔒</div>
-          <h3>Private by Design</h3>
-          <p>Your scripts stay yours. No external servers, no data collection. Everything stays in your Google account.</p>
+      <div class="feature-block scroll-fade">
+        <div class="feature-text">
+          <div class="feature-label">SHIP</div>
+          <h3>From draft to production.</h3>
+          <p>Production Breakdown: AI-powered scene-by-scene breakdown. Cast, props, wardrobe, SFX, everything extracted in one click. Export to Final Draft in industry-standard .fdx format, ready to send.</p>
         </div>
+        <div class="feature-image small scroll-float" data-rotation="3">
+          <img src="feature-ship.png" alt="Screenplay Editor export and production tools">
+        </div>
+      </div>
 
-        <a href="sceneboard/index.html" class="feature" style="text-decoration: none; color: inherit;">
-          <div class="feature-icon">🎬</div>
-          <h3>Scene Board</h3>
-          <p>Visualize your story structure on an infinite canvas. Drag, connect, and organize your scenes.</p>
-        </a>
+    </section>
+
+
+    <!-- REVIEWS -->
+    <section class="reviews scroll-fade">
+      <div class="reviews-inner">
+        <div class="reviews-title">Google Workspace Marketplace Reviews</div>
+        <div class="reviews-track-wrapper">
+          <div class="reviews-track">
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"Just try it, there's no going back."</div>
+              <div class="review-author">Pierre R.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"No need to pay lots of money for lousy commercial software. Thanks for developing this!"</div>
+              <div class="review-author">Theo L.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"I was looking for a Screenplay Formatter alternative after it stopped working. This is so much better. Finally something reliable."</div>
+              <div class="review-author">Elodie K.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"Clean and modern. Much better than the usual outdated scriptwriting tools."</div>
+              <div class="review-author">Guillaume T.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"Easily one of the smoothest tools I've tried. If you're doing any screenwriting in Google Docs, this is it."</div>
+              <div class="review-author">Marielle G.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"A must-have for anyone writing scripts in Google Docs! The live formatting saves a ton of time."</div>
+              <div class="review-author">Louay K.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"Just try it, there's no going back."</div>
+              <div class="review-author">Pierre R.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"No need to pay lots of money for lousy commercial software. Thanks for developing this!"</div>
+              <div class="review-author">Theo L.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"I was looking for a Screenplay Formatter alternative after it stopped working. This is so much better. Finally something reliable."</div>
+              <div class="review-author">Elodie K.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"Clean and modern. Much better than the usual outdated scriptwriting tools."</div>
+              <div class="review-author">Guillaume T.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"Easily one of the smoothest tools I've tried. If you're doing any screenwriting in Google Docs, this is it."</div>
+              <div class="review-author">Marielle G.</div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <div class="review-text">"A must-have for anyone writing scripts in Google Docs! The live formatting saves a ton of time."</div>
+              <div class="review-author">Louay K.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- COLLABORATION -->
+    <section class="collab">
+      <div class="collab-inner">
+        <div class="collab-text scroll-fade">
+          <div class="collab-label">COLLABORATE</div>
+          <h2>Write together.<br>In real time.</h2>
+          <p>The thing Final Draft never figured out. Comments, suggestions, live co-writing. Two writers, one script, zero version conflicts. Everything Google Docs already does, now with professional screenplay formatting.</p>
+        </div>
+        <div class="collab-image scroll-float">
+          <img src="feature-collab.png" alt="Real-time collaboration">
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PRIVACY -->
+    <section class="privacy-section scroll-fade">
+      <div class="privacy-inner">
+        <div class="privacy-image scroll-float" data-rotation="-2">
+          <img src="feature-privacy.png" alt="Your scripts are safe">
+        </div>
+        <div>
+          <div class="privacy-label">PRIVATE</div>
+          <h2>Your scripts stay yours.</h2>
+          <p>Everything lives in your Google Drive. We never read, store, or access your content.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
     <section class="cta-section">
       <h2>Start writing today</h2>
-      <p>Screenplay Editor installs in seconds. Start free, upgrade when you're ready.</p>
-      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">Install from Google Workspace Marketplace</a>
-      <p style="margin-top: 20px;">
-        <a href="compare/index.html" style="color: #888; text-decoration: underline;">See how Screenplay Editor compares to other tools →</a>
-      </p>
+      <p>Screenplay Editor installs in seconds. Start free, $5/month when you're ready.</p>
+      <div class="hero-ctas">
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank">Install Chrome Extension</a>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Or get the Google Docs add-on</a>
+      </div>
     </section>
   </main>
 
+  <script>
+    // Fade in elements on scroll
+    const faders = document.querySelectorAll('.scroll-fade');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    faders.forEach(el => fadeObserver.observe(el));
+
+    // Parallax float: images drift gently as you scroll
+    const floatEls = document.querySelectorAll('.scroll-float');
+
+    window.addEventListener('scroll', () => {
+      floatEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const viewH = window.innerHeight;
+        const center = rect.top + rect.height / 2;
+        const offset = (center - viewH / 2) * 0.05;
+        const baseRotation = el.dataset.rotation || '0';
+        el.style.transform = `translateY(${offset}px) rotate(${baseRotation}deg)`;
+      });
+    }, { passive: true });
+  </script>
+
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">SCR▌</div>
+      <div class="footer-logo">SCR&#9612;</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="compare/index.html">Compare</a>
@@ -605,7 +991,7 @@
         <a href="terms.html">Terms of Service</a>
         <a href="free-google-docs-screenplay-template.html">Free Template</a>
       </nav>
-      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
 </body>
