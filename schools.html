@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Editor for Schools - Free Screenwriting Tools for the Classroom</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="description" content="Professional screenplay formatting inside Google Docs. Free for schools. No new software, no IT department, no budget needed.">
+  <link rel="canonical" href="https://screenplayeditor.app/schools.html">
+  <meta property="og:title" content="Screenplay Editor for Schools - Free Screenwriting Tools for the Classroom">
+  <meta property="og:description" content="Professional screenplay formatting inside Google Docs. Free for schools.">
+  <meta property="og:image" content="https://screenplayeditor.app/screenshot.png">
+  <meta property="og:url" content="https://screenplayeditor.app/schools.html">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --dark: #1a1a1a;
+    }
+
+    html {
+      background: var(--dark);
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      position: relative;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover { color: var(--violet); }
+    .header-nav a.highlight { color: var(--violet); }
+
+    /* BREADCRUMB */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 12px 30px;
+      padding-top: 68px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .breadcrumb a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover { color: #fff; }
+
+    /* HERO */
+    .hero {
+      background: var(--dark);
+      padding: 60px 30px 50px;
+      text-align: center;
+    }
+
+    .hero-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--violet);
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* SECTIONS */
+    .section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 50px 30px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 10px;
+    }
+
+    .section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 40px;
+      color: var(--dark);
+    }
+
+    /* FEATURE GRID (cards) */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px;
+      padding: 28px;
+      transition: box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 8px 32px rgba(157, 123, 234, 0.12);
+    }
+
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .feature-card .card-icon {
+      font-size: 20px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    /* FEATURE BLOCKS (alternating image+text) */
+    .feature-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    .feature-block:last-child { margin-bottom: 0; }
+    .feature-block.reverse .feature-text { order: 2; }
+    .feature-block.reverse .feature-image { order: 1; }
+
+    .feature-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 10px;
+    }
+
+    .feature-text h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .feature-text p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .feature-image {
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-image img {
+      width: 100%;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-image.large { width: 110%; }
+    .feature-image.medium { width: 90%; margin: 0 auto; }
+    .feature-image.small { width: 75%; margin: 0 auto; }
+
+    /* STEPS */
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: block;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--violet);
+      margin-bottom: 12px;
+    }
+
+    .step h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .step p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* CTA / FORM SECTION */
+    .cta-section {
+      background: var(--dark);
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--violet);
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      background: var(--violet);
+      border: none;
+      border-radius: 100px;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: var(--violet-dark);
+      transform: translateY(-1px);
+    }
+
+    .marketplace-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      transition: color 0.2s;
+    }
+
+    .marketplace-link:hover {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 30px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .footer-nav a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover { color: rgba(255,255,255,0.8); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 24px; }
+      .hero-subtitle { font-size: 14px; }
+      .feature-block { grid-template-columns: 1fr; gap: 30px; }
+      .feature-block.reverse .feature-text { order: 1; }
+      .feature-block.reverse .feature-image { order: 2; }
+      .feature-image.large, .feature-image.medium, .feature-image.small { width: 100%; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .header-nav { gap: 14px; }
+      .header-nav a { font-size: 11px; }
+    }
+
+    /* SCROLL FADE */
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .scroll-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">&#9612;</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html#features">Features</a>
+        <a href="schools.html" class="highlight">Schools</a>
+        <a href="blog.html">Blog</a>
+        <a href="resources/index.html">Resources</a>
+        <a href="about.html">About</a>
+        <a href="compare/index.html">Compare</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / <span>Schools</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Screenwriting tools for your classroom.</h1>
+        <p class="hero-subtitle">Professional screenplay formatting inside Google Docs. No new software. No IT department.</p>
+      </div>
+    </section>
+
+    <!-- WHY TEACHERS -->
+    <section id="features" class="features" style="max-width: 1000px; margin: 0 auto; padding: 20px 30px 20px;">
+
+      <div class="feature-block scroll-fade">
+        <div class="feature-text">
+          <div class="feature-label">COLLABORATE</div>
+          <h3>The whole class in one script.</h3>
+          <p>Co-writing, comments, suggestions, live edits. Group projects finally work. It's Google Docs. It just works.</p>
+        </div>
+        <div class="feature-image scroll-float" data-rotation="3">
+          <img src="feature-collab.png" alt="Real-time collaboration with walkie-talkies">
+        </div>
+      </div>
+
+      <div class="feature-block reverse scroll-fade">
+        <div class="feature-text">
+          <div class="feature-label">LEARN</div>
+          <h3>Learn the craft by using it.</h3>
+          <p>Scene Heading, Action, Character, Dialogue. Every element is visible, labeled, one click away. Students learn screenplay structure by writing. The formatting follows.</p>
+        </div>
+        <div class="feature-image scroll-float" data-rotation="-3" style="justify-content: flex-start;">
+          <img src="feature-write.png" alt="Screenplay formatting in action">
+        </div>
+      </div>
+
+      <div class="feature-block scroll-fade">
+        <div class="feature-text">
+          <div class="feature-label">SHIP</div>
+          <h3>From draft to portfolio.</h3>
+          <p>Export to PDF or Final Draft .fdx. Ready for submissions, festivals, or class presentations. Professional output from day one.</p>
+        </div>
+        <div class="feature-image small scroll-float" data-rotation="3" style="width: 60%;">
+          <img src="feature-ship.png" alt="Export to PDF and Final Draft">
+        </div>
+      </div>
+
+      <div class="feature-grid scroll-fade" style="margin-top: 10px;">
+        <div class="feature-card">
+          <span class="card-icon">&#9889;</span>
+          <h3>Nothing to install</h3>
+          <p>Runs inside Google Docs. No downloads, no admin rights. Chromebook-ready.</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">&#128274;</span>
+          <h3>Privacy-first</h3>
+          <p>Scripts stay in each student's Google Drive. We never access any content. FERPA-friendly by design.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section scroll-fade" style="padding-top: 20px;">
+      <div class="section-label">SETUP</div>
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>Teacher installs</h3>
+          <p>Install Screenplay Editor from the Google Workspace Marketplace. Takes 30 seconds.</p>
+        </div>
+        <div class="step">
+          <h3>Students open a doc</h3>
+          <p>Any Google Doc. They open the sidebar and start writing. No accounts, no sign-ups.</p>
+        </div>
+        <div class="step">
+          <h3>Scripts format themselves</h3>
+          <p>Type a scene heading, it formats. Type a character name, it formats. Students focus on the story.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="scroll-fade" style="text-align: center; padding: 30px 30px 10px;">
+      <p style="font-size: 14px; color: #888; max-width: 420px; margin: 0 auto; line-height: 1.8;">Flexible pricing for schools. Let's find what works for your class.</p>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>Get access for your class</h2>
+        <p>Tell us about your program and we'll set you up.</p>
+        <form method="POST" action="https://screenplayeditor.app/api/schools">
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="school">School name</label>
+              <input type="text" id="school" name="school" placeholder="Lincoln High School" required>
+            </div>
+            <div class="form-group">
+              <label for="students">Number of students</label>
+              <input type="number" id="students" name="students" placeholder="30" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="jane@school.edu" required>
+          </div>
+          <button type="submit" class="submit-btn">Request access</button>
+        </form>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="marketplace-link" target="_blank">Already using Google Workspace? Install directly from the Marketplace</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const faders = document.querySelectorAll('.scroll-fade');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    faders.forEach(el => fadeObserver.observe(el));
+
+    const floatEls = document.querySelectorAll('.scroll-float');
+    window.addEventListener('scroll', () => {
+      floatEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const viewH = window.innerHeight;
+        const center = rect.top + rect.height / 2;
+        const offset = (center - viewH / 2) * 0.05;
+        const baseRotation = el.dataset.rotation || '0';
+        el.style.transform = `translateY(${offset}px) rotate(${baseRotation}deg)`;
+      });
+    }, { passive: true });
+  </script>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR&#9612;</div>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="schools.html">Schools</a>
+        <a href="compare/index.html">Compare</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+</body>
+</html>
