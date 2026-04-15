@@ -441,74 +441,106 @@
     <div class="page-content">
       
       <h1 class="page-title">Privacy Policy</h1>
-      <p class="last-updated">Last updated: December 2025</p>
+      <p class="last-updated">Last updated: April 2026</p>
 
       <div class="summary-card">
-        <p>Screenplay Editor does not collect, store, or transmit any personal data to external servers. All data stays within your Google account.</p>
+        <p>Screenplay Editor is a screenwriting tool for Google Docs. Your scripts stay in your Google Drive. We collect minimal data to operate the service.</p>
       </div>
 
       <div class="section">
-        <h2>Information We Access</h2>
-        <p>To provide its functionality, Screenplay Editor requires access to:</p>
-        
+        <h2>Data We Collect</h2>
+        <p>Screenplay Editor collects the following data:</p>
+
         <div class="access-grid">
           <div class="access-card">
-            <h3>1. Current Google Document</h3>
-            <p>We access the content of your open document to apply screenplay formatting and analyze script structure.</p>
-            <div class="scope"><strong>Scope:</strong> Limited to the document you have open. We cannot access other documents.</div>
+            <h3>1. Email Address</h3>
+            <p>Your Google account email is collected when you first use the extension or add-on, to create your account, manage your subscription, and communicate with you about the service.</p>
+            <div class="scope"><strong>Source:</strong> Google OAuth (Chrome extension) or Google Apps Script session (add-on).</div>
           </div>
 
           <div class="access-card">
-            <h3>2. Google Drive (Export)</h3>
-            <p>When you export, we create PDF or Fountain files in your Drive.</p>
-            <div class="scope"><strong>Scope:</strong> We only create new files. We don't read, modify, or delete other files.</div>
+            <h3>2. Usage Analytics</h3>
+            <p>We collect anonymous usage events (e.g., which features you use, session duration) to improve the product. These events are associated with an anonymous identifier, not your email.</p>
+            <div class="scope"><strong>Examples:</strong> sidebar opened, document formatted, export used.</div>
           </div>
 
           <div class="access-card">
-            <h3>3. User Interface</h3>
-            <p>We display a sidebar within Google Docs. This is a standard add-on capability.</p>
-            <div class="scope"><strong>Scope:</strong> Standard Google Workspace add-on behavior.</div>
+            <h3>3. Document Content (AI Features Only)</h3>
+            <p>If you use AI-powered features (Script Doctor, synonyms), portions of your script are sent to our server to process your request. This content is not stored after processing.</p>
+            <div class="scope"><strong>Scope:</strong> Only sent when you explicitly use an AI feature. Never sent otherwise.</div>
           </div>
         </div>
       </div>
 
       <div class="section">
-        <h2>Information We Store</h2>
-        
-        <h3>User Preferences</h3>
-        <p>Settings like formatting options are stored via Google's PropertiesService, within Google's infrastructure, associated with your account, not accessible to us.</p>
+        <h2>How We Process Your Data</h2>
+        <p>Your email address is used to manage trial periods, verify subscription status, and send service-related communications. We do not send marketing emails.</p>
+        <p>Usage analytics are aggregated daily to understand which features are used and improve the product. Individual sessions are not reviewed.</p>
+        <p>AI requests are forwarded to third-party language model providers (Anthropic) for processing. Your script content is not stored by us or by the AI provider beyond the request.</p>
+      </div>
 
-        <h3>Document-Specific Data</h3>
-        <p>Info like your character list is stored in the document's properties. This data travels with the document and is only accessible to users with document access.</p>
+      <div class="section">
+        <h2>Data We Access</h2>
+        <p>To provide its functionality, Screenplay Editor requires access to:</p>
+
+        <div class="access-grid">
+          <div class="access-card">
+            <h3>Current Google Document</h3>
+            <p>We access the content of your open document to apply screenplay formatting. This access is limited to the document you have open.</p>
+          </div>
+
+          <div class="access-card">
+            <h3>Google Drive (Export)</h3>
+            <p>When you export, we create PDF or Fountain files in your Drive. We only create new files. We don't read, modify, or delete other files.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>How We Store Your Data</h2>
+
+        <h3>On Our Servers</h3>
+        <p>Email addresses and aggregated analytics are stored on Cloudflare Workers KV, a secure cloud infrastructure. Data is retained for 90 days for analytics, and indefinitely for account management (email, subscription status).</p>
+
+        <h3>Within Google</h3>
+        <p>User preferences (formatting options, theme) are stored via Google's PropertiesService, within Google's infrastructure, associated with your account. Document-specific data (character list, scene metadata) is stored in the document's own properties.</p>
+      </div>
+
+      <div class="section">
+        <h2>Data Sharing</h2>
+        <p>We do not sell, rent, or share your personal data with third parties for marketing purposes. Your data is shared only with:</p>
+        <div class="access-grid">
+          <div class="access-card">
+            <h3>Stripe</h3>
+            <p>Processes Pro subscription payments. We do not store your credit card information. Stripe handles payment data under its own <a href="https://stripe.com/privacy" target="_blank" rel="noopener">privacy policy</a>.</p>
+          </div>
+          <div class="access-card">
+            <h3>Anthropic</h3>
+            <p>Processes AI feature requests (Script Doctor, synonyms). Script excerpts are sent only when you use these features and are not retained.</p>
+          </div>
+          <div class="access-card">
+            <h3>Cloudflare</h3>
+            <p>Hosts our backend API and stores account and analytics data. Data is processed under Cloudflare's <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">privacy policy</a>.</p>
+          </div>
+        </div>
       </div>
 
       <div class="section">
         <h2>What We Don't Collect</h2>
         <div class="no-collect">
           <div class="no-collect-grid">
-            <div class="no-collect-item">Document content to external servers</div>
-            <div class="no-collect-item">Your scripts outside Google</div>
-            <div class="no-collect-item">Personal info (name, email)</div>
-            <div class="no-collect-item">Analytics or tracking</div>
-            <div class="no-collect-item">Third-party data sharing</div>
-            <div class="no-collect-item">Advertising data</div>
+            <div class="no-collect-item">Your scripts (unless you use AI features)</div>
+            <div class="no-collect-item">Browsing history</div>
+            <div class="no-collect-item">Advertising or tracking data</div>
+            <div class="no-collect-item">Data from other Google Docs</div>
           </div>
         </div>
       </div>
 
       <div class="section">
-        <h2>Data Security & Retention</h2>
-        <p>All data remains within Google's infrastructure, protected by Google's security. We don't operate external servers, so we can't be a point of data breach.</p>
-        <p>To delete all data, simply uninstall the add-on from your Google account.</p>
-      </div>
-
-      <div class="section">
-        <h2>Payment Processing</h2>
-        <p>
-          Pro subscription payments are processed by <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a>.
-          We do not store your credit card information. Stripe collects the data necessary to process
-          your payment in accordance with its own <a href="https://stripe.com/privacy" target="_blank" rel="noopener">privacy policy</a>.
-        </p>
+        <h2>Data Retention & Deletion</h2>
+        <p>Usage analytics are retained for 90 days, then automatically deleted. Email addresses and account data are retained as long as you use the service.</p>
+        <p>To delete all your data, uninstall the add-on or extension and contact us at <a href="mailto:hugothomas@hotmail.fr">hugothomas@hotmail.fr</a> to request deletion of your email from our servers.</p>
       </div>
 
       <div class="section">
@@ -535,7 +567,7 @@
         <a href="terms.html">Terms of Service</a>
         <a href="free-google-docs-screenplay-template.html">Free Template</a>
       </nav>
-      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+      <p class="footer-copy">© 2026 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
 </body>
