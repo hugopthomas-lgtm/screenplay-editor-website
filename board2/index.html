@@ -438,34 +438,88 @@ function makeFallbackSummary(body){
   return '…';
 }
 
-const aiPhrases=[
-  'Reading between the lines…',
-  'Summarizing every scene…',
-  'Finding the story beats…',
-  'Extracting the essentials…',
-  'Building your overview…',
-];
+// ── Language detection & i18n ──
+let boardLang = 'en';
+const boardI18n = {
+  en: {
+    splashTitle: 'Reading your screenplay.',
+    splashSub: 'We\'re parsing every scene, extracting locations and characters, and summarizing each one into a single line for your board.',
+    aiPhrases: ['Reading between the lines…','Summarizing every scene…','Finding the story beats…','Extracting the essentials…','Building your overview…'],
+    done: 'Done.',
+    dawn: 'Dawn', morning: 'Morning', day: 'Day', evening: 'Evening', night: 'Night',
+    act1: 'Act 1', act2a: 'Act 2A', act2b: 'Act 2B', act3: 'Act 3',
+    welcomeTitle: 'Scene Board', welcomeSub: 'Organize your screenplay visually',
+    importTitle: 'Import my script', importDesc: 'Sync scenes from your Google Doc',
+    demoTitle: 'See Pulp Fiction demo', demoDesc: 'Explore a full breakdown of Tarantino\'s classic',
+    blankTitle: 'Start blank', blankDesc: 'Empty board with Act 1, 2A, 2B, 3',
+  },
+  fr: {
+    splashTitle: 'Lecture de votre scénario.',
+    splashSub: 'On parcourt chaque scène, on extrait les décors et les personnages, et on résume chacune en une phrase pour votre board.',
+    aiPhrases: ['Un script doctor analyse votre histoire…','Résumé de chaque scène en cours…','On cherche les temps forts…','Consultation dramaturgique…','Le comité de lecture est réuni…'],
+    done: 'C\'est prêt.',
+    dawn: 'Aube', morning: 'Matin', day: 'Jour', evening: 'Soir', night: 'Nuit',
+    act1: 'Acte 1', act2a: 'Acte 2A', act2b: 'Acte 2B', act3: 'Acte 3',
+    welcomeTitle: 'Scene Board', welcomeSub: 'Visualisez votre scénario',
+    importTitle: 'Importer mon scénario', importDesc: 'Synchroniser les scènes depuis Google Docs',
+    demoTitle: 'Voir la démo Pulp Fiction', demoDesc: 'Un découpage complet du classique de Tarantino',
+    blankTitle: 'Commencer vide', blankDesc: 'Board vierge avec Acte 1, 2A, 2B, 3',
+  }
+};
+function detectBoardLang(scenes){
+  if(!scenes||!scenes.length) return 'en';
+  const all = scenes.map(s=>(s.heading||s.text||'')+' '+(s.body||'')).join(' ').toUpperCase();
+  // Detect via time-of-day words and common screenplay words unique to each language
+  const frWords = (all.match(/\bJOUR\b|\bNUIT\b|\bSOIR\b|\bMATIN\b|\bAUBE\b|\bCONTINU\b|\bPLUS TARD\b|\bFLASH-BACK\b/g)||[]).length;
+  const enWords = (all.match(/\bDAY\b|\bNIGHT\b|\bEVENING\b|\bMORNING\b|\bDAWN\b|\bCONTINUOUS\b|\bLATER\b|\bFLASHBACK\b/g)||[]).length;
+  return frWords > enWords ? 'fr' : 'en';
+}
+function t(key){ return (boardI18n[boardLang]||boardI18n.en)[key] || boardI18n.en[key]; }
+function getAiPhrase(){ const p = t('aiPhrases'); return p[Math.floor(Math.random()*p.length)]; }
+function updateBoardLabels(){
+  // Update legend
+  const legendLabels = document.querySelectorAll('.board-legend .legend-group');
+  const timeLabels = [null, null, null, null, null, t('dawn'), t('morning'), t('day'), t('evening'), t('night')];
+  // Legend has: INT, EXT, INT/EXT, |, Dawn, Morning, Day, Evening, Night
+  let timeIdx = 0;
+  const timeKeys = ['dawn','morning','day','evening','night'];
+  legendLabels.forEach(function(el){
+    const text = el.textContent.trim();
+    // Check if it's a time-of-day label (not INT/EXT/INT/EXT)
+    if(!/^(INT|EXT)/.test(text)){
+      if(timeIdx < timeKeys.length){
+        const span = el.lastElementChild || el;
+        if(span.tagName !== 'SPAN' || span.classList.contains('legend-dot')){
+          el.childNodes.forEach(function(n){ if(n.nodeType === 3) n.textContent = ' '+t(timeKeys[timeIdx]); });
+        }
+        timeIdx++;
+      }
+    }
+  });
+}
 
 function fetchAISummaries(scenes){
   const API='https://screenplay-editor-api.hugopthomas.workers.dev';
+  // Detect language from scene headings
+  boardLang = detectBoardLang(scenes);
+  updateBoardLabels();
+
   const splash = document.getElementById('loadingSplash');
   const splashStep = document.getElementById('loadingSplashStep');
-  // Show full-screen splash during AI summarization
   if(splash){
     splash.style.display = 'flex';
     splash.classList.remove('fade-out');
-    document.querySelector('.loading-splash-title').textContent = 'Reading your screenplay.';
-    document.querySelector('.loading-splash-sub').textContent = 'We\'re parsing every scene, extracting locations and characters, and summarizing each one into a single line for your board.';
-    splashStep.textContent = aiPhrases[Math.floor(Math.random()*aiPhrases.length)];
+    document.querySelector('.loading-splash-title').textContent = t('splashTitle');
+    document.querySelector('.loading-splash-sub').textContent = t('splashSub');
+    splashStep.textContent = getAiPhrase();
   }
-  // Rotate phrases
   let _phraseInterval = setInterval(function(){
-    if(splashStep) splashStep.textContent = aiPhrases[Math.floor(Math.random()*aiPhrases.length)];
+    if(splashStep) splashStep.textContent = getAiPhrase();
   }, 3000);
   fetch(API+'/board/summarize',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({scenes:scenes})
+    body:JSON.stringify({scenes:scenes, lang:boardLang})
   }).then(r=>r.json()).then(data=>{
     clearInterval(_phraseInterval);
     if((!data.short||!data.short.length)&&(!data.long||!data.long.length)){
@@ -480,7 +534,7 @@ function fetchAISummaries(scenes){
       });
     });
     save(); render();
-    if(splashStep) splashStep.textContent = 'Done.';
+    if(splashStep) splashStep.textContent = t('done');
     setTimeout(function(){ _hideSplash(splash); }, 600);
   }).catch(()=>{ clearInterval(_phraseInterval); _hideSplash(splash); });
 }
@@ -491,12 +545,14 @@ function _hideSplash(el){
 }
 
 function importScenes(scenes){
+  // Detect language before building columns
+  boardLang = detectBoardLang(scenes);
   state.title = 'Imported Scenes';
   state.columns = [
-    {id:uid(),title:'Act 1',cards:[]},
-    {id:uid(),title:'Act 2A',cards:[]},
-    {id:uid(),title:'Act 2B',cards:[]},
-    {id:uid(),title:'Act 3',cards:[]},
+    {id:uid(),title:t('act1'),cards:[]},
+    {id:uid(),title:t('act2a'),cards:[]},
+    {id:uid(),title:t('act2b'),cards:[]},
+    {id:uid(),title:t('act3'),cards:[]},
   ];
   const typeColors = {INT:'yellow',EXT:'blue','INT/EXT':'green'};
   scenes.forEach((s,i)=>{
