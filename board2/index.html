@@ -330,14 +330,8 @@ async function init(){
 
   // Check for scenes via sync API (avoids URL length limits)
   if(!_pendingScenes && params.has('sync')){
-    // Show loading splash
-    const splash = document.getElementById('loadingSplash');
-    splash.style.display = 'flex';
-    const splashStep = document.getElementById('loadingSplashStep');
-    splashStep.textContent = 'Fetching document...';
     try{
       const r = await fetch(SYNC_API + encodeURIComponent(params.get('sync')));
-      splashStep.textContent = 'Parsing scenes...';
       if(r.ok){
         const data = await r.json();
         if(data.scenes && data.scenes.length) _pendingScenes = data.scenes;
@@ -349,10 +343,8 @@ async function init(){
   }
 
   // If coming from sidebar with fresh scenes, import them directly
+  // importScenes() will show the loading splash during AI summarization
   if(_pendingScenes && _pendingScenes.length){
-    const splash = document.getElementById('loadingSplash');
-    const splashStep = document.getElementById('loadingSplashStep');
-    if(splash.style.display === 'flex') splashStep.textContent = 'Building your board...';
     const syncTitle = document.getElementById('projectTitle').value;
     importScenes(_pendingScenes);
     if(syncTitle) state.title = syncTitle;
@@ -360,11 +352,6 @@ async function init(){
     save();
     render();
     _pendingScenes = null;
-    // Fade out splash
-    if(splash.style.display === 'flex'){
-      setTimeout(function(){ splash.classList.add('fade-out'); }, 400);
-      setTimeout(function(){ splash.style.display = 'none'; splash.classList.remove('fade-out'); }, 900);
-    }
     return;
   }
 
@@ -452,31 +439,38 @@ function makeFallbackSummary(body){
 }
 
 const aiPhrases=[
-  'Un script doctor analyse votre histoire…',
-  'Haiku lit entre les lignes…',
-  'Votre scénario passe sur le divan…',
-  'Un haiku par scène, c\'est le deal…',
-  'Consultation dramaturgique en cours…',
-  'On prend des notes dans la marge…',
-  'Pitch express de chaque scène…',
-  'Le comité de lecture est réuni…',
-  'Résumé façon post-it…',
-  'On cherche le sous-texte…',
+  'Reading between the lines…',
+  'Summarizing every scene…',
+  'Finding the story beats…',
+  'Extracting the essentials…',
+  'Building your overview…',
 ];
 
 function fetchAISummaries(scenes){
   const API='https://screenplay-editor-api.hugopthomas.workers.dev';
-  const wrap = document.getElementById('aiProgress');
-  const label = document.getElementById('aiLabel');
-  if(wrap) wrap.classList.add('active');
-  if(label) label.textContent = aiPhrases[Math.floor(Math.random()*aiPhrases.length)];
+  const splash = document.getElementById('loadingSplash');
+  const splashStep = document.getElementById('loadingSplashStep');
+  // Show full-screen splash during AI summarization
+  if(splash){
+    splash.style.display = 'flex';
+    splash.classList.remove('fade-out');
+    document.querySelector('.loading-splash-title').textContent = 'Reading your screenplay.';
+    document.querySelector('.loading-splash-sub').textContent = 'We\'re parsing every scene, extracting locations and characters, and summarizing each one into a single line for your board.';
+    splashStep.textContent = aiPhrases[Math.floor(Math.random()*aiPhrases.length)];
+  }
+  // Rotate phrases
+  let _phraseInterval = setInterval(function(){
+    if(splashStep) splashStep.textContent = aiPhrases[Math.floor(Math.random()*aiPhrases.length)];
+  }, 3000);
   fetch(API+'/board/summarize',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({scenes:scenes})
   }).then(r=>r.json()).then(data=>{
-    if(wrap) wrap.classList.remove('active');
-    if((!data.short||!data.short.length)&&(!data.long||!data.long.length)) return;
+    clearInterval(_phraseInterval);
+    if((!data.short||!data.short.length)&&(!data.long||!data.long.length)){
+      _hideSplash(splash); return;
+    }
     state.columns.forEach(col=>{
       col.cards.forEach(card=>{
         const idx = card._sceneIdx;
@@ -486,7 +480,14 @@ function fetchAISummaries(scenes){
       });
     });
     save(); render();
-  }).catch(()=>{ if(wrap) wrap.classList.remove('active'); });
+    if(splashStep) splashStep.textContent = 'Done.';
+    setTimeout(function(){ _hideSplash(splash); }, 600);
+  }).catch(()=>{ clearInterval(_phraseInterval); _hideSplash(splash); });
+}
+function _hideSplash(el){
+  if(!el) return;
+  el.classList.add('fade-out');
+  setTimeout(function(){ el.style.display='none'; el.classList.remove('fade-out'); }, 500);
 }
 
 function importScenes(scenes){
