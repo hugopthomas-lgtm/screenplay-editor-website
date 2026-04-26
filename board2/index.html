@@ -138,6 +138,17 @@
   .sync-dot.syncing{background:#f59e0b;animation:pulse .8s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
+  /* ── Loading splash ── */
+  .loading-splash{position:fixed;inset:0;background:var(--bg);z-index:10001;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0;transition:opacity .5s;padding:20px}
+  .loading-splash.fade-out{opacity:0;pointer-events:none}
+  .loading-splash-icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;margin-bottom:24px;animation:splash-breathe 2s ease-in-out infinite}
+  @keyframes splash-breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(157,123,234,0)}50%{transform:scale(1.05);box-shadow:0 0 30px 8px rgba(157,123,234,.2)}}
+  .loading-splash-title{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;text-align:center}
+  .loading-splash-sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:13px;color:var(--text3);text-align:center;max-width:320px;line-height:1.6;margin-bottom:32px}
+  .loading-splash-bar{width:200px;height:3px;background:rgba(157,123,234,.12);border-radius:3px;overflow:hidden}
+  .loading-splash-bar-inner{height:100%;width:30%;background:linear-gradient(90deg,#9D7BEA,#7C5DC4);border-radius:3px;animation:ai-slide 1.8s ease-in-out infinite}
+  .loading-splash-step{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);margin-top:14px;opacity:.7;animation:ai-pulse 2s ease-in-out infinite;text-align:center}
+
   /* ── Welcome overlay ── */
   .welcome-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
   .welcome-card{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:32px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)}
@@ -174,7 +185,7 @@
   <div class="logo">SB</div>
   <input class="project-title" id="projectTitle" value="Untitled Project" spellcheck="false">
   <div class="header-spacer"></div>
-  <span style="font-size:12px;color:#9CA3AF">v30</span>
+  <span style="font-size:12px;color:#9CA3AF">v31</span>
   <div class="sync-status" id="syncStatus"><span class="sync-dot" id="syncDot"></span><span id="syncLabel"></span></div>
   <button class="header-btn" onclick="newProject()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
@@ -214,6 +225,14 @@
 <div class="ai-progress-wrap" id="aiProgress"><div class="ai-progress-label" id="aiLabel"></div><div class="ai-progress"><div class="ai-progress-bar"></div></div></div>
 <div class="board" id="board"></div>
 <div class="toast" id="toast"></div>
+
+<div class="loading-splash" id="loadingSplash" style="display:none">
+  <div class="loading-splash-icon">SB</div>
+  <div class="loading-splash-title">Reading your screenplay.</div>
+  <div class="loading-splash-sub">We're parsing every scene, extracting locations and characters, and building your board from scratch. This takes a few seconds.</div>
+  <div class="loading-splash-bar"><div class="loading-splash-bar-inner"></div></div>
+  <div class="loading-splash-step" id="loadingSplashStep">Fetching document...</div>
+</div>
 
 <div class="welcome-overlay" id="welcomeOverlay" style="display:none">
   <div class="welcome-card">
@@ -311,8 +330,14 @@ async function init(){
 
   // Check for scenes via sync API (avoids URL length limits)
   if(!_pendingScenes && params.has('sync')){
+    // Show loading splash
+    const splash = document.getElementById('loadingSplash');
+    splash.style.display = 'flex';
+    const splashStep = document.getElementById('loadingSplashStep');
+    splashStep.textContent = 'Fetching document...';
     try{
       const r = await fetch(SYNC_API + encodeURIComponent(params.get('sync')));
+      splashStep.textContent = 'Parsing scenes...';
       if(r.ok){
         const data = await r.json();
         if(data.scenes && data.scenes.length) _pendingScenes = data.scenes;
@@ -325,6 +350,9 @@ async function init(){
 
   // If coming from sidebar with fresh scenes, import them directly
   if(_pendingScenes && _pendingScenes.length){
+    const splash = document.getElementById('loadingSplash');
+    const splashStep = document.getElementById('loadingSplashStep');
+    if(splash.style.display === 'flex') splashStep.textContent = 'Building your board...';
     const syncTitle = document.getElementById('projectTitle').value;
     importScenes(_pendingScenes);
     if(syncTitle) state.title = syncTitle;
@@ -332,6 +360,11 @@ async function init(){
     save();
     render();
     _pendingScenes = null;
+    // Fade out splash
+    if(splash.style.display === 'flex'){
+      setTimeout(function(){ splash.classList.add('fade-out'); }, 400);
+      setTimeout(function(){ splash.style.display = 'none'; splash.classList.remove('fade-out'); }, 900);
+    }
     return;
   }
 
