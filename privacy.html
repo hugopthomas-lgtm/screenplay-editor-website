@@ -465,9 +465,9 @@
           </div>
 
           <div class="access-card">
-            <h3>3. Document Content (AI Features Only)</h3>
-            <p>If you use AI-powered features (Script Doctor, synonyms), portions of your script are sent to our server to process your request. This content is not stored after processing.</p>
-            <div class="scope"><strong>Scope:</strong> Only sent when you explicitly use an AI feature. Never sent otherwise.</div>
+            <h3>3. Document Content (On-Demand Features)</h3>
+            <p>If you use AI-powered features (Script Doctor, synonyms, Production Breakdown), portions of your script are sent to our server to process your request. If you use Table Read (text-to-speech), dialogue lines are sent to generate audio. This content is not stored after processing.</p>
+            <div class="scope"><strong>Scope:</strong> Only sent when you explicitly use one of these features. Never sent otherwise.</div>
           </div>
         </div>
       </div>
@@ -476,7 +476,7 @@
         <h2>How We Process Your Data</h2>
         <p>Your email address is used to manage trial periods, verify subscription status, and send service-related communications. We do not send marketing emails.</p>
         <p>Usage analytics are aggregated daily to understand which features are used and improve the product. Individual sessions are not reviewed.</p>
-        <p>AI requests are forwarded to third-party language model providers (Anthropic) for processing. Your script content is not stored by us or by the AI provider beyond the request.</p>
+        <p>AI requests (Script Doctor, synonyms, Production Breakdown) are forwarded to Anthropic for processing. Table Read audio is generated via ElevenLabs or OpenAI. Your script content is not stored by us or by these providers beyond the request.</p>
       </div>
 
       <div class="section">
@@ -522,7 +522,11 @@
           </div>
           <div class="access-card">
             <h3>Anthropic</h3>
-            <p>Processes AI feature requests (Script Doctor, synonyms). Script excerpts are sent only when you use these features and are not retained.</p>
+            <p>Processes AI feature requests (Script Doctor, synonyms, Production Breakdown). Script excerpts are sent only when you use these features and are not retained.</p>
+          </div>
+          <div class="access-card">
+            <h3>ElevenLabs / OpenAI</h3>
+            <p>Generates audio for the Table Read feature. Dialogue lines are sent only when you use Table Read and are not retained by these providers beyond the request.</p>
           </div>
           <div class="access-card">
             <h3>Cloudflare</h3>
