@@ -608,7 +608,7 @@
       <div class="cta-inner">
         <h2>Get access for your class</h2>
         <p>Tell us about your program and we'll set you up.</p>
-        <form method="POST" action="https://screenplayeditor.app/api/schools">
+        <form id="school-form" method="POST" action="mailto:hugopthomas@gmail.com" enctype="text/plain">
           <div class="form-group">
             <label for="name">Your name</label>
             <input type="text" id="name" name="name" placeholder="Jane Smith" required>
@@ -666,6 +666,24 @@
         el.style.transform = `translateY(${offset}px) rotate(${baseRotation}deg)`;
       });
     }, { passive: true });
+
+    document.getElementById('school-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const school = document.getElementById('school').value.trim();
+      const students = document.getElementById('students').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = encodeURIComponent('School access request: ' + school);
+      const body = encodeURIComponent(
+        'Hi,\n\nI\'d like to request access for my class.\n\n' +
+        'Name: ' + name + '\n' +
+        'School: ' + school + '\n' +
+        'Students: ' + students + '\n' +
+        'Contact email: ' + email + '\n\n' +
+        'Thanks!'
+      );
+      window.location.href = 'mailto:hugopthomas@gmail.com?subject=' + subject + '&body=' + body;
+    });
   </script>
 
   <footer>
