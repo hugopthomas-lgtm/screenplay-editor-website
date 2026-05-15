@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Format in Google Docs: Complete Guide for 2026 | Screenplay Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="description" content="Master screenplay format in Google Docs. Exact margins, indentation, font specs, and step-by-step setup. The industry standard, simplified for 2026.">
+  <link rel="canonical" href="https://screenplayeditor.app/resources/screenplay-format-google-docs">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 50px 32px 40px;
+      background: linear-gradient(180deg, var(--violet-light) 0%, #fff 100%);
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--dark);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 640px;
+      margin: 0 auto 16px;
+      line-height: 1.7;
+    }
+
+    .last-updated {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 20px;
+    }
+
+    .hero-icon {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .hero-icon img {
+      width: 56px;
+      height: auto;
+    }
+
+    /* Section Base */
+    section {
+      padding: 50px 32px;
+    }
+
+    .section-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 16px;
+      color: var(--gray-600);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Content Styles */
+    .content-text {
+      font-size: 16px;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .content-text strong {
+      color: var(--dark);
+    }
+
+    .content-list {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+
+    .content-list li {
+      font-size: 15px;
+      color: var(--gray-700);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .content-list li strong {
+      color: var(--dark);
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: var(--violet-light);
+      border: 1px solid var(--violet-soft);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .highlight-box.warning {
+      background: #fff8e8;
+      border-color: #f0e0c0;
+    }
+
+    .highlight-box h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .highlight-box p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Formatting Elements Grid */
+    .elements-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .element-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .element-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .element-card p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .element-example {
+      background: #fffef8;
+      border: 1px solid #e8e4d4;
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      color: #333;
+    }
+
+    /* Steps */
+    .steps-list {
+      counter-reset: step;
+      margin: 28px 0;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .step-item:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .step-content p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    .step-content code {
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+
+    /* Mistakes List */
+    .mistakes-list {
+      margin: 24px 0;
+    }
+
+    .mistake-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .mistake-item:last-child {
+      border-bottom: none;
+    }
+
+    .mistake-icon {
+      width: 24px;
+      height: 24px;
+      background: #fee2e2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mistake-icon i {
+      width: 14px;
+      height: 14px;
+      color: #dc2626;
+    }
+
+    .mistake-text {
+      font-size: 15px;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* Template Section */
+    .template-box {
+      background: #fff;
+      border: 2px solid var(--violet);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    .template-box h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .template-features {
+      text-align: left;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .template-features li {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-bottom: 8px;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .template-features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--violet);
+      font-weight: 600;
+    }
+
+    .template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--violet);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 16px;
+      transition: all 0.2s;
+    }
+
+    .template-btn:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .template-btn i {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Feature List */
+    .feature-list {
+      margin: 20px 0;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .feature-check {
+      width: 20px;
+      height: 20px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .feature-check i {
+      width: 12px;
+      height: 12px;
+      color: #43a047;
+    }
+
+    .feature-text {
+      font-size: 15px;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 80px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 28px;
+      color: var(--gray-400);
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-button i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cta-button-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .cta-button-outline:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+
+    .bg-dark .cta-subtitle {
+      font-size: 13px;
+      color: var(--gray-400);
+      margin: 0;
+    }
+
+    /* FAQ Section */
+    .faq-grid {
+      margin-top: 28px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--gray-200);
+      padding: 24px 0;
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .faq-question {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .faq-answer {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* Internal Link */
+    .internal-link {
+      color: var(--violet);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .internal-link:hover {
+      color: var(--violet-dark);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 32px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 24px;
+    }
+
+    .footer-nav {
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .elements-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step-item {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 12px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">|</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html#features">Features</a>
+        <a href="../blog.html" class="highlight">Blog</a>
+        <a href="index.html">Resources</a>
+        <a href="../about.html">About</a>
+        <a href="/compare/">Compare</a>
+        <a href="../support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a> / <a href="index.html">Resources</a> / <span>Screenplay Format in Google Docs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="file-text"></i>
+      Complete Format Guide
+    </div>
+    <h1>Screenplay Format in Google Docs: Complete Guide for 2026</h1>
+    <p class="hero-subtitle">
+      Standard screenplay format follows precise rules: Courier 12pt, 1-inch margins, specific indentation for every element. This guide breaks down each spec and shows you how to apply them in Google Docs in under ten minutes.
+    </p>
+    <p class="last-updated">Last updated: May 15, 2026</p>
+    <div class="hero-icon">
+      <img src="../google-docs.webp" alt="Google Docs">
+    </div>
+  </section>
+
+  <!-- What Is Standard Screenplay Format -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <h2 class="section-title">What Is Standard Screenplay Format?</h2>
+
+      <p class="content-text">
+        <strong>Standard screenplay format is the set of typographic conventions used in the film and TV industry since the 1930s.</strong> It standardizes how scripts look on the page so that one correctly formatted page equals roughly one minute of screen time. Every studio reader, producer, and script coordinator expects this format, and a script that doesn't follow it signals an amateur, often before the reader reaches page two.
+      </p>
+
+      <p class="content-text">
+        The format is built around six elements (scene headings, action, character names, dialogue, parentheticals, transitions) governed by a strict typographic spec:
+      </p>
+
+      <ul class="content-list">
+        <li><strong>Courier 12pt</strong> monospaced font, single-spaced lines</li>
+        <li><strong>1-inch margins</strong> on the top, bottom, and right; 1.5 inches on the left to accommodate three-hole binding</li>
+        <li><strong>US Letter paper size</strong> (8.5 x 11 inches), even outside the United States</li>
+        <li><strong>Specific indentation per element</strong>: scene headings and action flush left, character names indented 3.7 inches, dialogue indented 2.5 inches</li>
+        <li><strong>A blank line</strong> between every element, no first-line indents, and page breaks only where the script logically demands them</li>
+      </ul>
+
+      <div class="highlight-box">
+        <h3>Why format matters more than you think</h3>
+        <p>
+          Screenplay format is the only universally accepted way to estimate runtime, calculate budgets, and break a script down for production. A correctly formatted 110-page script will run roughly 110 minutes on screen. A 110-page document that ignores the format could be anywhere from 70 to 180 minutes. Producers, directors, and AD departments rely on this 1-to-1 ratio to plan everything from shoot days to crew calls.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Six Elements of Screenplay Format -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <h2 class="section-title">The Six Elements of Screenplay Format</h2>
+
+      <p class="content-text">
+        Every line of a screenplay belongs to one of six elements. Each has its own typographic rule and its own indentation. Together they create the visual rhythm that makes a script feel like a script.
+      </p>
+
+      <div class="elements-grid">
+        <div class="element-card">
+          <h3>Scene Headings (Sluglines)</h3>
+          <p>Open every scene. Format: INT. or EXT., location, time of day. All uppercase, flush left at the 1.5-inch margin.</p>
+          <div class="element-example">INT. COFFEE SHOP - DAY</div>
+        </div>
+
+        <div class="element-card">
+          <h3>Action Lines</h3>
+          <p>Describe what we see and hear. Present tense, third person, no internal thoughts. Flush left, sentence case.</p>
+          <div class="element-example">Sarah sets down her coffee and stares at the door.</div>
+        </div>
+
+        <div class="element-card">
+          <h3>Character Names</h3>
+          <p>Above dialogue. All uppercase. Indented 3.7 inches from the left page edge, which puts them roughly centered.</p>
+          <div class="element-example" style="text-align: center;">SARAH</div>
+        </div>
+
+        <div class="element-card">
+          <h3>Dialogue</h3>
+          <p>What the character says. Sentence case. Indented 2.5 inches from the left page edge. No quote marks.</p>
+          <div class="element-example" style="padding-left: 20px;">I've been waiting for you.</div>
+        </div>
+
+        <div class="element-card">
+          <h3>Parentheticals</h3>
+          <p>Optional. Brief direction on delivery, mid-line. Italic, lowercase, in parentheses, indented 3.1 inches. Use sparingly.</p>
+          <div class="element-example" style="padding-left: 16px; font-style: italic;">(whispering)</div>
+        </div>
+
+        <div class="element-card">
+          <h3>Transitions</h3>
+          <p>Optional. Scene shifts like CUT TO: or FADE OUT:. All uppercase, right-aligned at 7.5 inches. Modern scripts use them sparingly.</p>
+          <div class="element-example" style="text-align: right;">CUT TO:</div>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="margin-top: 32px;">
+        <h3>Exact indentation values, in inches</h3>
+        <p>
+          Scene heading and action: 0 (flush left at the 1.5-inch left margin). Character name: 3.7. Parenthetical: 3.1. Dialogue: 2.5. Transition: right-aligned at 7.5. These are the values Final Draft, Highland, and Fade In all use, and the values Screenplay Editor applies automatically when you tag a paragraph as a given element.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Set Up Screenplay Format in Google Docs -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <h2 class="section-title">How to Set Up Screenplay Format in Google Docs</h2>
+
+      <p class="content-text">
+        Configuring correct screenplay format in Google Docs takes about ten minutes the first time. Once your styles are set, save the document as a template and reuse it for every new script.
+      </p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Set font to Courier 12pt</h3>
+            <p>
+              Open <code>Format > Text > Font</code>. Pick Courier New from the dropdown. If it isn't in your recent fonts, click <code>More fonts</code> at the top of the menu and add it. Set the size to 12 from the toolbar. Courier is mandatory: it's monospaced, so every character takes the same horizontal space, which is what makes the one-page-per-minute ratio work.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Configure margins (1.5 left, 1 elsewhere)</h3>
+            <p>
+              Open <code>File > Page setup</code>. Set top, bottom, and right margins to 1 inch. Set the left margin to 1.5 inches. Confirm the page size is Letter (8.5 x 11 in). Click <code>Set as default</code> if you want every new document to start with these margins.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Set up paragraph styles per element</h3>
+            <p>
+              Google Docs has no built-in screenplay styles, so you create your own. Type a sample line for each element, highlight it, set the correct indentation using the ruler (scene heading: 0, dialogue: 2.5 in, parenthetical: 3.1 in, character name: 3.7 in, transition: right-aligned at 7.5 in), then go to <code>Format > Paragraph styles > Normal text > Update Normal text to match</code>. Repeat for Heading 1, Heading 2, etc., binding each style to one element. After that, switching elements is one click.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Write scene headings correctly</h3>
+            <p>
+              Every scene starts with <code>INT.</code> (interior) or <code>EXT.</code> (exterior), followed by the location, then a hyphen, then the time of day. All uppercase, on one line. Example: <code>INT. APARTMENT - NIGHT</code>. Use DAY, NIGHT, MORNING, EVENING, CONTINUOUS, or LATER. Avoid creative variants like AFTERNOON-ISH; readers parse the slugline at a glance and expect the standard tokens.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Format dialogue blocks</h3>
+            <p>
+              A dialogue block is three paragraphs: the character name (uppercase, indented 3.7 in), an optional parenthetical (italic, indented 3.1 in), and the dialogue itself (indented 2.5 in). Leave a blank line before and after the entire block. If two characters speak back-to-back, put a blank line between their blocks.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3>Export to PDF preserving the format</h3>
+            <p>
+              When the draft is ready, go to <code>File > Download > PDF Document</code>. PDF locks the format in place: anyone opening the file sees exactly what you wrote, regardless of their font installs, device, or Google Docs version. PDF is also the only format most contests, agents, and managers accept. Do not send a .docx; the format will drift in another reader's Word version.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Format Mistakes -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <h2 class="section-title">Common Screenplay Format Mistakes</h2>
+
+      <p class="content-text">
+        Most format errors aren't from ignorance, they're from drift. Your script starts clean and slowly degrades as you revise, copy-paste, and collaborate. These are the five that show up most often.
+      </p>
+
+      <div class="mistakes-list">
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
+          </div>
+          <div class="mistake-text">
+            <strong>Wrong font or font size.</strong> The script reads like a novel because it's in Arial 11 or Times New Roman 12. Anything other than Courier 12 breaks the page-per-minute ratio and signals an amateur in the first three seconds.
+          </div>
+        </div>
+
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
+          </div>
+          <div class="mistake-text">
+            <strong>Inconsistent character name indentation.</strong> Some character names sit at 3.7 inches, others at 4, others at the left margin. Usually the result of pasting from another document. The visual rhythm of the dialogue becomes impossible to follow.
+          </div>
+        </div>
+
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
+          </div>
+          <div class="mistake-text">
+            <strong>Scene headings that aren't uppercase.</strong> The slugline reads "Int. apartment - night" instead of "INT. APARTMENT - NIGHT". Readers scan scripts for the uppercase blocks. Lowercase sluglines break that scan.
+          </div>
+        </div>
+
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
+          </div>
+          <div class="mistake-text">
+            <strong>Parentheticals doing the writer's job.</strong> "(angrily)" before every line of an argument is amateur. Parentheticals exist for the rare moment when the delivery is genuinely non-obvious. If you use them often, the dialogue itself needs work.
+          </div>
+        </div>
+
+        <div class="mistake-item">
+          <div class="mistake-icon">
+            <i data-lucide="x"></i>
+          </div>
+          <div class="mistake-text">
+            <strong>Page breaks in the wrong place.</strong> A scene heading at the bottom of a page with no content below it, or a dialogue line split across two pages. In Google Docs you can force a manual break (Ctrl/Cmd + Enter) before the break point, or use an add-on that prevents these breaks automatically.
+          </div>
+        </div>
+      </div>
+
+      <p class="content-text" style="margin-top: 24px;">
+        None of these are fatal on their own. But if a reader sees two or three in the first five pages, they'll assume the writer is unfamiliar with the craft and lower their expectations for everything that follows.
+      </p>
+    </div>
+  </section>
+
+  <!-- Free Screenplay Format Template -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <h2 class="section-title">Free Screenplay Format Template</h2>
+
+      <p class="content-text">
+        If you'd rather skip the setup, start from our <a href="../free-google-docs-screenplay-template.html" class="internal-link">free screenplay format template</a>. Every spec on this page is already applied, so you open the document and start writing.
+      </p>
+
+      <ul class="content-list">
+        <li><strong>Courier 12pt</strong> set as the default font for the entire document</li>
+        <li><strong>1-inch margins</strong> on the top, bottom, right; 1.5-inch left margin (binding spec)</li>
+        <li><strong>US Letter</strong> paper size, single-spaced</li>
+        <li><strong>Pre-configured paragraph styles</strong> for scene heading, action, character, dialogue, parenthetical, and transition</li>
+        <li><strong>One sample scene</strong> already written, showing each element in context, ready to delete or adapt</li>
+      </ul>
+
+      <p class="content-text">
+        Specialized templates are also available for <a href="short-film-screenplay-template.html" class="internal-link">short films</a>, <a href="tv-pilot-screenplay-template.html" class="internal-link">TV pilots</a>, and <a href="horror-screenplay-template.html" class="internal-link">horror screenplays</a>, each tuned for the format conventions of its genre.
+      </p>
+    </div>
+  </section>
+
+  <!-- Auto-Format with Screenplay Editor -->
+  <section class="bg-violet">
+    <div class="section-inner">
+      <h2 class="section-title">Auto-Format with Screenplay Editor</h2>
+
+      <p class="content-text">
+        If you'd rather not configure styles by hand, Screenplay Editor applies every spec on this page automatically. Install it once and your script stays in standard format as you type.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>Automatic element detection.</strong> The add-on recognizes when you're writing a scene heading, character name, dialogue, or action, and applies the correct indentation, font, and casing in real time.
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>One-key element switching.</strong> Press Tab to cycle through scene heading, action, character, parenthetical, and dialogue. No menu diving, no manual indentation.
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>Character autocomplete.</strong> After you introduce a character once, the add-on suggests the name when you start typing it again. Spelling stays consistent across 120 pages.
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>PDF and Final Draft (.fdx) export.</strong> Export to industry-standard formats with one click. The .fdx opens directly in Final Draft, WriterDuet, Fade In, and most production tools.
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-check">
+            <i data-lucide="check"></i>
+          </div>
+          <div class="feature-text">
+            <strong>Real-time collaboration.</strong> The add-on layers on top of Google Docs' native co-editing, so two writers can work on the same script simultaneously without breaking the format.
+          </div>
+        </div>
+      </div>
+
+      <p class="content-text" style="margin-top: 24px;">
+        The Chrome extension and Workspace add-on are both free at the base tier. Every formatting feature on this list works free; Pro unlocks advanced exports, character analytics, and AI tools.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section bg-dark">
+    <h2 class="section-title">Start writing</h2>
+    <p class="section-intro">
+      Stop fighting the formatting. Install the extension and let it handle the indents while you write.
+    </p>
+    <div class="cta-stack">
+      <div class="cta-block">
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank" rel="noopener">
+          <i data-lucide="chrome"></i>
+          Install the Chrome extension
+        </a>
+        <p class="cta-subtitle">Recommended, fastest formatting</p>
+      </div>
+      <div class="cta-block">
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button-outline" target="_blank" rel="noopener">
+          Get the Workspace add-on
+        </a>
+        <p class="cta-subtitle">Works in any browser</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-question">What is the standard screenplay format?</div>
+          <p class="faq-answer">
+            Standard screenplay format is the set of typographic conventions used in the film and TV industry: Courier 12pt font, 1-inch margins (1.5 on the left), US Letter paper, and specific indentation values per element (scene heading flush left, character name at 3.7 inches, dialogue at 2.5 inches). One correctly formatted page equals roughly one minute of screen time.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">What font and size should a screenplay use?</div>
+          <p class="faq-answer">
+            Courier or Courier New, 12 points, regular weight. Courier is the only acceptable industry font because it's monospaced: every character takes the same width, which is what creates the predictable page-to-minute ratio. Modern variants like Courier Prime are sometimes used, but Courier 12 remains the safest default.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">What are the correct margins for a screenplay?</div>
+          <p class="faq-answer">
+            1 inch on the top, bottom, and right edges. 1.5 inches on the left to accommodate three-hole binding. US Letter page size (8.5 x 11 inches), even when writing outside the United States. These values produce roughly 55 to 58 lines per page when paired with Courier 12.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Does Google Docs have a built-in screenplay format?</div>
+          <p class="faq-answer">
+            No. Google Docs does not ship with a native screenplay template or style preset. You can configure the format manually with paragraph styles and the ruler, start from a template, or install an add-on that applies the format automatically.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">How do I export a properly formatted screenplay PDF from Google Docs?</div>
+          <p class="faq-answer">
+            Go to File, then Download, then PDF Document. PDF locks the format in place: anyone opening the file sees what you wrote regardless of their font installs or device. Never send a .docx for submission, since the format will drift when the recipient opens it in a different Word version or font setup.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Is screenplay format different for TV scripts and films?</div>
+          <p class="faq-answer">
+            The core typographic spec is identical: Courier 12, same margins, same element indentation. The differences are structural. TV pilots use act breaks (typically four acts plus a teaser for hour-long, two acts for half-hour). Single-camera scripts look like films. Multi-camera scripts use double-spaced dialogue and capitalized stage directions. Feature films use no act breaks at all, since the structure is implicit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR|</div>
+      <nav class="footer-nav">
+        <a href="../about.html">About</a>
+        <a href="/compare/">Compare</a>
+        <a href="../support.html">Support</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+        <a href="index.html">Resources</a>
+      </nav>
+      <p class="footer-copy">2025 Screenplay Editor. Made for screenwriters.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
