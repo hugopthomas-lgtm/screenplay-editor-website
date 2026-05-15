@@ -586,6 +586,45 @@
       height: 18px;
     }
 
+    .cta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cta-button-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .cta-button-outline:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+
+    .bg-dark .cta-subtitle {
+      font-size: 13px;
+      color: var(--gray-400);
+      margin: 0;
+    }
+
     /* FAQ Section */
     .faq-grid {
       margin-top: 28px;
@@ -725,7 +764,7 @@
     <p class="hero-subtitle">
       Google Docs works for screenwriting — but formatting is the hard part. This guide is for beginners who want to learn the correct format without expensive software.
     </p>
-    <p class="last-updated">Last updated: January 22, 2026</p>
+    <p class="last-updated">Last updated: May 15, 2026</p>
     <div class="hero-icon">
       <img src="../google-docs.webp" alt="Google Docs">
     </div>
@@ -1046,10 +1085,21 @@
     <p class="section-intro">
       Use the free template to start immediately, or install the add-on for automatic formatting.
     </p>
-    <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">
-      <i data-lucide="download"></i>
-      Get the Free Add-on
-    </a>
+    <div class="cta-stack">
+      <div class="cta-block">
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank" rel="noopener">
+          <i data-lucide="chrome"></i>
+          Install the Chrome extension
+        </a>
+        <p class="cta-subtitle">Recommended, fastest formatting</p>
+      </div>
+      <div class="cta-block">
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button-outline" target="_blank" rel="noopener">
+          Get the Workspace add-on
+        </a>
+        <p class="cta-subtitle">Works in any browser</p>
+      </div>
+    </div>
   </section>
 
   <!-- FAQ -->
