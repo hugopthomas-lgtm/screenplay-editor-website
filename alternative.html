@@ -141,6 +141,16 @@
       transform: translateY(-1px);
     }
 
+    .cta-pair { display: flex; flex-direction: column; gap: 18px; align-items: center; margin-top: 8px; }
+    .cta-pair-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .cta-button-outline {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+      border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s;
+      background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.25);
+    }
+    .cta-button-outline:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.5); text-decoration: none; }
+    .cta-pair-subtitle { font-size: 13px; color: #888; margin: 0; }
+
     /* Sections */
     .section {
       padding: 60px 30px;
@@ -366,7 +376,7 @@
         <p class="hero-subtitle">
           You're not alone. The original Screenplay Formatter shut down, leaving over a million screenwriters without their favorite tool.
         </p>
-        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">Try Screenplay Editor — it's free</a>
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button">Try Screenplay Editor — it's free</a>
       </div>
     </section>
 
@@ -410,7 +420,16 @@
     <section class="cta-section">
       <h2>Ready to write again?</h2>
       <p>Install in seconds. Your scripts stay in Google Docs, right where they belong.</p>
-      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">Get it free on Google Workspace Marketplace</a>
+      <div class="cta-pair">
+        <div class="cta-pair-item">
+          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank" rel="noopener">Install the Chrome extension</a>
+          <p class="cta-pair-subtitle">Recommended, fastest formatting</p>
+        </div>
+        <div class="cta-pair-item">
+          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button-outline" target="_blank" rel="noopener">Get the Workspace add-on</a>
+          <p class="cta-pair-subtitle">Works in any browser</p>
+        </div>
+      </div>
     </section>
   </main>
 

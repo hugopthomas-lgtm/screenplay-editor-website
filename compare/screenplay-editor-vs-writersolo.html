@@ -144,6 +144,15 @@
     .winner-box .cta-button:hover {
       background: var(--violet-dark); transform: translateY(-1px); text-decoration: none;
     }
+    .winner-box .cta-pair { display: flex; flex-direction: column; gap: 18px; align-items: center; margin-top: 8px; }
+    .winner-box .cta-pair-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .winner-box .cta-button-outline {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px;
+      border-radius: 10px; font-size: 14px; font-weight: 500; transition: all 0.2s;
+      background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.25);
+    }
+    .winner-box .cta-button-outline:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.5); text-decoration: none; }
+    .winner-box .cta-pair-subtitle { font-size: 13px; color: #888; margin: 0; }
 
     /* Prose list */
     .prose-list { margin: 12px 0 18px; padding-left: 20px; }
@@ -345,7 +354,16 @@
       <div class="winner-box">
         <h3>Your scripts. Your Google Drive.</h3>
         <p>Write screenplays where you already work. Free forever.</p>
-        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button" rel="noopener">Install Screenplay Editor — Free</a>
+        <div class="cta-pair">
+          <div class="cta-pair-item">
+            <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank" rel="noopener">Install the Chrome extension</a>
+            <p class="cta-pair-subtitle">No download. Works in your browser.</p>
+          </div>
+          <div class="cta-pair-item">
+            <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button-outline" target="_blank" rel="noopener">Get the Workspace add-on</a>
+            <p class="cta-pair-subtitle">Works in any browser.</p>
+          </div>
+        </div>
       </div>
 
       <a href="/compare/" class="back-link">See how all screenwriting tools compare →</a>

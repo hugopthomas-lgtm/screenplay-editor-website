@@ -27,6 +27,11 @@
     .cta { display: inline-block; background: var(--violet); color: #fff; padding: 16px 36px; border-radius: 8px; font-size: 14px; font-weight: 600; transition: background 0.2s, transform 0.2s; }
     .cta:hover { background: var(--violet-dark); transform: translateY(-2px); }
     .cta-note { margin-top: 14px; font-size: 12px; color: #555; }
+    .cta-pair { display: flex; flex-direction: column; gap: 22px; align-items: center; }
+    .cta-pair-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .cta-outline { display: inline-block; background: transparent; color: #fff; padding: 14px 32px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.25); }
+    .cta-outline:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.5); }
+    .cta-pair-subtitle { font-size: 12px; color: #777; margin: 0; }
 
     .section { padding: 80px 30px; }
     .section-dark { background: var(--dark); border-top: 1px solid rgba(157,123,234,0.1); border-bottom: 1px solid rgba(157,123,234,0.1); }
@@ -73,7 +78,7 @@
           You don't need to learn new software. You don't need to buy anything. 
           Open Google Docs, install Screenplay Editor, and start your first screenplay.
         </p>
-        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta">Start writing — it's free →</a>
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta">Start writing — it's free →</a>
         <p class="cta-note">No experience needed · No credit card</p>
       </div>
     </section>
@@ -172,7 +177,16 @@
     <section class="cta-bottom">
       <h2>The hardest part of writing is starting.<br>We made that part easy.</h2>
       <p>Free forever. Works in any browser.</p>
-      <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta">Install Screenplay Editor — Free →</a>
+      <div class="cta-pair">
+        <div class="cta-pair-item">
+          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta" target="_blank" rel="noopener">Install the Chrome extension</a>
+          <p class="cta-pair-subtitle">Recommended, fastest formatting</p>
+        </div>
+        <div class="cta-pair-item">
+          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-outline" target="_blank" rel="noopener">Get the Workspace add-on</a>
+          <p class="cta-pair-subtitle">Works in any browser</p>
+        </div>
+      </div>
     </section>
   </main>
 

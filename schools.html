@@ -416,6 +416,10 @@
       color: rgba(255,255,255,0.7);
     }
 
+    .install-links { margin-top: 20px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+    .install-link-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .install-link-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin: 0; }
+
     /* FOOTER */
     footer {
       background: var(--dark);
@@ -625,7 +629,16 @@
           </div>
           <button type="submit" class="submit-btn">Request access</button>
         </form>
-        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="marketplace-link" target="_blank">Already using Google Workspace? Install directly from the Marketplace</a>
+        <div class="install-links">
+          <div class="install-link-item">
+            <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="marketplace-link" target="_blank" rel="noopener">Install the Chrome extension directly</a>
+            <p class="install-link-sub">Recommended, fastest formatting</p>
+          </div>
+          <div class="install-link-item">
+            <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="marketplace-link" target="_blank" rel="noopener">Get the Workspace add-on from the Marketplace</a>
+            <p class="install-link-sub">Works in any browser</p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
