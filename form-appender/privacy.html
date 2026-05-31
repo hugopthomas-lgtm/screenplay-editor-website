@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
       line-height: 1.7;
     }
     .container {
-      max-width: 700px;
+      max-width: 760px;
       margin: 40px auto;
       padding: 40px;
       background: #fff;
@@ -22,7 +22,7 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
     h1 {
-      font-size: 24px;
+      font-size: 26px;
       color: #1a73e8;
       margin-bottom: 8px;
     }
@@ -32,19 +32,34 @@
       margin-bottom: 32px;
     }
     h2 {
-      font-size: 17px;
+      font-size: 18px;
       color: #202124;
-      margin: 28px 0 10px;
+      margin: 32px 0 10px;
     }
     p, li {
       color: #444;
       margin-bottom: 10px;
     }
     ul {
-      padding-left: 20px;
+      padding-left: 22px;
       margin-bottom: 12px;
     }
     a { color: #1a73e8; }
+    code {
+      background: #f1f3f4;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'Roboto Mono', Menlo, monospace;
+      font-size: 13px;
+    }
+    .callout {
+      background: #fef7e0;
+      border-left: 4px solid #fbbc04;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
     .footer {
       margin-top: 40px;
       padding-top: 20px;
@@ -56,51 +71,87 @@
 </head>
 <body>
   <div class="container">
-    <h1>Form Appender — Privacy Policy</h1>
-    <p class="subtitle">Last updated: March 13, 2026</p>
+    <h1>Form Appender, Privacy Policy</h1>
+    <p class="subtitle">Last updated: May 12, 2026</p>
 
-    <h2>What Form Appender does</h2>
-    <p>Form Appender is a Google Forms add-on that automatically appends form submission responses to Google Docs in a Drive folder of your choice.</p>
+    <h2>1. Overview</h2>
+    <p>Form Appender is a Google Forms add-on developed by Hugo Thomas. It automatically appends form submission responses to Google Docs that you select through the Google Picker. This privacy policy explains what data the add-on accesses, how that data is handled and protected, and your rights regarding your data.</p>
 
-    <h2>Data we access</h2>
-    <p>Form Appender accesses the following data solely to perform its function:</p>
+    <h2>2. Limited Use of Google user data</h2>
+    <p>Form Appender's use and transfer of information received from Google APIs to any other app adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements. Specifically:</p>
     <ul>
-      <li><strong>Google Forms data</strong> — question titles and submitted responses, to format and append them to Docs.</li>
-      <li><strong>Google Drive</strong> (read-only) — to list Google Docs in your selected folder and validate folder access.</li>
-      <li><strong>Google Docs</strong> — to append formatted responses to the destination document(s).</li>
-      <li><strong>Respondent email</strong> — optionally included in the appended output, only if you enable the "Include respondent email" option.</li>
+      <li>We do <strong>not</strong> use Google user data for serving advertisements.</li>
+      <li>We do <strong>not</strong> sell, rent, or trade Google user data to any third party.</li>
+      <li>We do <strong>not</strong> transfer Google user data to any third party, except as necessary to provide the add-on's features (all such processing happens client-side within Google's own infrastructure).</li>
+      <li>Human review of Google user data is performed only when (a) you give explicit consent for a specific request, (b) it is necessary for security or to comply with applicable law, or (c) the data is aggregated and used for internal operations in accordance with the Limited Use requirements.</li>
     </ul>
 
-    <h2>Data storage</h2>
-    <p>Your configuration (selected folder, questions, format preferences) is stored in Google Apps Script's DocumentProperties, which is scoped to your specific Form. This data is stored by Google on its servers and is not accessible to us or any third party.</p>
-    <p>Form Appender does <strong>not</strong> store, transmit, or collect any data on external servers. There is no backend, no database, and no analytics.</p>
-
-    <h2>Data sharing</h2>
-    <p>Form Appender does <strong>not</strong> share, sell, or transmit any user data to third parties. All processing happens within your Google account using Google Apps Script.</p>
-
-    <h2>Permissions explained</h2>
+    <h2>3. Data the add-on accesses</h2>
+    <p>Form Appender accesses the following data, only to perform its stated function:</p>
     <ul>
-      <li><strong>forms.currentonly</strong> — Read questions and listen for submissions on the current form only.</li>
-      <li><strong>documents</strong> — Write formatted responses to Google Docs.</li>
-      <li><strong>drive.readonly</strong> — List Docs in your selected Drive folder.</li>
-      <li><strong>script.container.ui</strong> — Display the configuration sidebar.</li>
-      <li><strong>script.scriptapp</strong> — Install and manage the form submission trigger.</li>
+      <li><strong>Google Forms data</strong> (current form only) — question titles, question types, and the responses submitted by respondents. Used to format the appended content.</li>
+      <li><strong>Google Drive</strong> (only files and folders you explicitly select via the Google Picker) — to read the names of Google Docs inside the folder you selected, and to write to the destination Doc(s) you selected.</li>
+      <li><strong>Google Docs</strong> — read and write access to the destination Doc(s) you selected, to append formatted responses.</li>
+      <li><strong>Respondent email address</strong> — included in the appended output <strong>only</strong> if you enable the option "Include respondent email" in the sidebar.</li>
+    </ul>
+    <div class="callout">
+      Form Appender uses the narrow <code>drive.file</code> scope. This means the add-on cannot see, list, or access any file or folder in your Drive other than what you explicitly choose through the Google Picker. We never have a blanket view of your Drive.
+    </div>
+
+    <h2>4. Data we do not access</h2>
+    <ul>
+      <li>Other Google Forms in your account.</li>
+      <li>Drive files or folders you have not selected via the Picker.</li>
+      <li>Your contacts, calendar, Gmail, or any other Google product.</li>
+      <li>Your name, profile picture, or other personal identifiers beyond the optional respondent email.</li>
     </ul>
 
-    <h2>Data retention</h2>
-    <p>Configuration data persists as long as the Form exists. You can delete all Form Appender data at any time using the "Reset configuration" button in the sidebar. Uninstalling the add-on also removes all stored configuration.</p>
+    <h2>5. Data storage</h2>
+    <p>The only data Form Appender stores is your add-on configuration: the IDs and names of the folder and Doc(s) you selected, the form-question selections, format preferences, and processing statistics (submission count, last run time, last error message).</p>
+    <p>This configuration is stored using Google Apps Script's <strong>DocumentProperties</strong>, which is scoped to the specific Form on which the add-on is installed. It is stored entirely within Google's infrastructure and is not visible to the developer or to any third party.</p>
+    <p>Form Appender has <strong>no external backend, no database, and no analytics</strong>. No data ever leaves Google's servers as a result of using this add-on.</p>
 
-    <h2>Children's privacy</h2>
-    <p>Form Appender is not directed at children under 13. We do not knowingly collect data from children.</p>
+    <h2>6. Data protection and security</h2>
+    <p>All data accessed by Form Appender is processed inside Google's own infrastructure (Google Apps Script runtime, Google Drive, Google Docs, Google Forms). Specifically:</p>
+    <ul>
+      <li><strong>Encryption in transit:</strong> all communication between your browser, the Google Apps Script runtime, and Google APIs uses HTTPS / TLS as enforced by Google.</li>
+      <li><strong>Encryption at rest:</strong> configuration data stored in DocumentProperties and all referenced Forms, Drive folders, and Docs are encrypted at rest by Google in accordance with Google's data security standards.</li>
+      <li><strong>Authentication:</strong> access to your data is gated by Google's OAuth 2.0 flow. The add-on can only act on your behalf after you have granted the requested scopes through Google's consent screen.</li>
+      <li><strong>Authorization scope minimization:</strong> the add-on requests the narrowest scopes that allow it to function. It uses <code>drive.file</code> rather than broader Drive scopes, so the add-on can only access files and folders you have explicitly authorized through the Google Picker.</li>
+      <li><strong>No third-party transfer:</strong> the add-on does not transmit your data to any external server, database, log, or analytics service controlled by the developer or by any third party.</li>
+      <li><strong>Code distribution:</strong> the add-on is distributed exclusively via the Google Workspace Marketplace. Code updates go through Google's review process.</li>
+      <li><strong>Developer access:</strong> the developer (Hugo Thomas) does not have access to your Drive files, Forms responses, or any personal data. The developer can only inspect aggregated, anonymous error logs produced by Google Apps Script's Stackdriver integration if you choose to share them for support.</li>
+    </ul>
 
-    <h2>Changes to this policy</h2>
-    <p>We may update this policy from time to time. The "Last updated" date at the top will reflect any changes.</p>
+    <h2>7. OAuth scopes explained</h2>
+    <ul>
+      <li><code>forms.currentonly</code> — read the questions and listen for new submissions on the current form only.</li>
+      <li><code>documents</code> — read and write the destination Google Doc(s) you select via the Picker.</li>
+      <li><code>drive.file</code> — read metadata (name, type) of the folder and Doc(s) you select via the Google Picker, and list Google Docs contained in the folder you selected. The add-on cannot see other Drive items.</li>
+      <li><code>script.container.ui</code> — display the configuration sidebar inside the Forms editor.</li>
+      <li><code>script.scriptapp</code> — install and manage the on-submit trigger so the add-on can react to new responses.</li>
+    </ul>
 
-    <h2>Contact</h2>
-    <p>If you have questions about this privacy policy, contact us at <a href="mailto:hugopthomas@gmail.com">hugopthomas@gmail.com</a>.</p>
+    <h2>8. Data retention and deletion</h2>
+    <p>Form Appender's configuration data persists as long as the Form on which it is installed exists. You can delete all stored configuration and statistics at any time by:</p>
+    <ul>
+      <li>Clicking the "Réinitialiser la config" / "Reset configuration" button in the sidebar.</li>
+      <li>Uninstalling the add-on from the Form (Forms menu &rarr; Add-ons &rarr; Manage add-ons).</li>
+      <li>Deleting the Form itself.</li>
+    </ul>
+    <p>You can revoke the add-on's access to your Google account at any time at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">https://myaccount.google.com/permissions</a>. Once access is revoked, the add-on cannot read any of your data.</p>
+
+    <h2>9. Children's privacy</h2>
+    <p>Form Appender is not directed at children under 13. The developer does not knowingly collect personal data from children.</p>
+
+    <h2>10. Changes to this policy</h2>
+    <p>This policy may be updated from time to time. The "Last updated" date at the top of this page reflects the most recent change. Material changes will be communicated through the add-on listing on the Google Workspace Marketplace.</p>
+
+    <h2>11. Contact</h2>
+    <p>For any question about this policy, about the data Form Appender accesses, or to request deletion of any data the developer might hold (e.g. support emails), please contact <a href="mailto:hugopthomas@gmail.com">hugopthomas@gmail.com</a>.</p>
 
     <div class="footer">
-      Form Appender &copy; 2026 Hugo Thomas
+      Form Appender &copy; 2026 Hugo Thomas. Published via the Google Workspace Marketplace.
     </div>
   </div>
 </body>
