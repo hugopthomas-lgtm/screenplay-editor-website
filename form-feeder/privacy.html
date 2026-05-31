@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Feeder, Privacy Policy</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      font-size: 15px;
+      color: #333;
+      background: #f8f9fa;
+      line-height: 1.7;
+    }
+    .container {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 40px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 26px;
+      color: #1a73e8;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: #5f6368;
+      margin-bottom: 32px;
+    }
+    h2 {
+      font-size: 18px;
+      color: #202124;
+      margin: 32px 0 10px;
+    }
+    p, li {
+      color: #444;
+      margin-bottom: 10px;
+    }
+    ul {
+      padding-left: 22px;
+      margin-bottom: 12px;
+    }
+    a { color: #1a73e8; }
+    code {
+      background: #f1f3f4;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'Roboto Mono', Menlo, monospace;
+      font-size: 13px;
+    }
+    .callout {
+      background: #fef7e0;
+      border-left: 4px solid #fbbc04;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e8eaed;
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Form Feeder, Privacy Policy</h1>
+    <p class="subtitle">Last updated: May 31, 2026</p>
+
+    <h2>1. Overview</h2>
+    <p>Form Feeder is a Google Forms add-on developed by Hugo Thomas. It fills the choices of a form question from a column in a Google Sheet that you select through the Google Picker, and it can refresh those choices automatically. This privacy policy explains what data the add-on accesses, how that data is handled and protected, and your rights regarding your data.</p>
+
+    <h2>2. Limited Use of Google user data</h2>
+    <p>Form Feeder's use and transfer of information received from Google APIs to any other app adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements. Specifically:</p>
+    <ul>
+      <li>We do <strong>not</strong> use Google user data for serving advertisements.</li>
+      <li>We do <strong>not</strong> sell, rent, or trade Google user data to any third party.</li>
+      <li>We do <strong>not</strong> transfer Google user data to any third party, except as needed to provide the add-on's features. All such processing happens within Google's own infrastructure.</li>
+      <li>A human reviews Google user data only when (a) you give explicit consent for a specific request, (b) it is necessary for security or to comply with applicable law, or (c) the data is aggregated and used for internal operations in line with the Limited Use requirements.</li>
+    </ul>
+
+    <h2>3. Data the add-on accesses</h2>
+    <p>Form Feeder accesses the following data, only to perform its stated function:</p>
+    <ul>
+      <li><strong>Google Forms data</strong> (current form only): the titles and types of the questions, so it can list them in the sidebar and write the choices back. The add-on also listens for new submissions if you turn on the on-submit refresh, but it does not read the answers people submit.</li>
+      <li><strong>Google Sheets data</strong> (read only): the values in the tab and column you point at, in the one Sheet you selected. These values become the choices on your form question.</li>
+      <li><strong>Google Drive</strong> (only the Sheet you select via the Google Picker): to read its name and open it. The add-on cannot see any other file in your Drive.</li>
+    </ul>
+    <div class="callout">
+      Form Feeder uses the narrow <code>drive.file</code> scope. The add-on cannot see, list, or open any file in your Drive other than the Sheet you explicitly choose through the Google Picker. We never have a blanket view of your Drive.
+    </div>
+
+    <h2>4. Data we do not access</h2>
+    <ul>
+      <li>The answers respondents submit to your form.</li>
+      <li>Other Google Forms in your account.</li>
+      <li>Drive files you have not selected via the Picker.</li>
+      <li>Your contacts, calendar, Gmail, or any other Google product.</li>
+      <li>Your name, profile picture, or other personal identifiers.</li>
+    </ul>
+
+    <h2>5. Data storage</h2>
+    <p>The only data Form Feeder stores is your add-on configuration: the ID and name of the Sheet you selected, the tab and column you mapped to each question, your sort and de-duplication preferences, the refresh-trigger settings, and processing statistics (refresh count, last run time, last error message).</p>
+    <p>This configuration is stored using Google Apps Script's <strong>DocumentProperties</strong>, which is scoped to the specific Form the add-on is installed on. It stays entirely within Google's infrastructure and is not visible to the developer or to any third party.</p>
+    <p>Form Feeder has <strong>no external backend, no database, and no analytics</strong>. No data leaves Google's servers as a result of using this add-on.</p>
+
+    <h2>6. Data protection and security</h2>
+    <p>All data Form Feeder touches is processed inside Google's own infrastructure (the Google Apps Script runtime, Google Forms, Google Sheets, Google Drive). Specifically:</p>
+    <ul>
+      <li><strong>Encryption in transit:</strong> all traffic between your browser, the Apps Script runtime, and Google APIs uses HTTPS / TLS as enforced by Google.</li>
+      <li><strong>Encryption at rest:</strong> the configuration stored in DocumentProperties, and the Forms and Sheets it refers to, are encrypted at rest by Google in line with Google's data security standards.</li>
+      <li><strong>Authentication:</strong> Google's OAuth 2.0 flow gates access to your data. The add-on can act on your behalf only after you grant the requested scopes on Google's consent screen.</li>
+      <li><strong>Scope minimization:</strong> the add-on requests the narrowest scopes that let it work. It reads Sheets with <code>spreadsheets.readonly</code>, never write access, and it uses <code>drive.file</code> rather than a broad Drive scope.</li>
+      <li><strong>No third-party transfer:</strong> the add-on sends your data to no external server, database, log, or analytics service run by the developer or anyone else.</li>
+      <li><strong>Code distribution:</strong> the add-on ships only through the Google Workspace Marketplace, and updates go through Google's review process.</li>
+      <li><strong>Developer access:</strong> the developer (Hugo Thomas) cannot reach your Forms, Sheets, or any personal data. The developer can only look at aggregated, anonymous error logs from Apps Script's Stackdriver integration if you choose to share them for support.</li>
+    </ul>
+
+    <h2>7. OAuth scopes explained</h2>
+    <ul>
+      <li><code>forms.currentonly</code>: read the questions and write the choices on the current form only, and listen for new submissions to trigger a refresh.</li>
+      <li><code>spreadsheets.readonly</code>: read the values in the Sheet you selected. The add-on never writes to your Sheet.</li>
+      <li><code>drive.file</code>: read the name of the Sheet you select via the Google Picker and open it. The add-on cannot see other Drive items.</li>
+      <li><code>script.container.ui</code>:show the configuration sidebar inside the Forms editor.</li>
+      <li><code>script.scriptapp</code>:install and manage the refresh triggers (on submit, or on a timer).</li>
+    </ul>
+
+    <h2>8. Data retention and deletion</h2>
+    <p>Form Feeder's configuration data lasts as long as the Form it is installed on exists. You can delete all stored configuration and statistics at any time by:</p>
+    <ul>
+      <li>Removing each link in the sidebar.</li>
+      <li>Uninstalling the add-on from the Form (Forms menu &rarr; Add-ons &rarr; Manage add-ons).</li>
+      <li>Deleting the Form itself.</li>
+    </ul>
+    <p>You can revoke the add-on's access to your Google account at any time at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">https://myaccount.google.com/permissions</a>. Once you revoke access, the add-on can no longer read any of your data.</p>
+
+    <h2>9. Children's privacy</h2>
+    <p>Form Feeder is not directed at children under 13. The developer does not knowingly collect personal data from children.</p>
+
+    <h2>10. Changes to this policy</h2>
+    <p>We may update this policy from time to time. The "Last updated" date at the top reflects the most recent change. We will note material changes on the add-on listing in the Google Workspace Marketplace.</p>
+
+    <h2>11. Contact</h2>
+    <p>For any question about this policy, about the data Form Feeder accesses, or to request deletion of any data the developer might hold (for example, support emails), please contact <a href="mailto:hugopthomas@gmail.com">hugopthomas@gmail.com</a>.</p>
+
+    <div class="footer">
+      Form Feeder &copy; 2026 Hugo Thomas. Published via the Google Workspace Marketplace.
+    </div>
+  </div>
+</body>
+</html>

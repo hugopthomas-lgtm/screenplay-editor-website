@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support, Form Feeder</title>
+  <meta name="description" content="Get help with Form Feeder. Answers to common questions about filling Google Forms choices from a Google Sheet.">
+  <link rel="canonical" href="https://screenplayeditor.app/form-feeder/support">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="icon.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --purple: #7B68AE;
+      --purple-dark: #5C4D8A;
+      --purple-light: #EDE8F5;
+      --dark: #202124;
+      --gray: #5f6368;
+      --light: #f8f9fa;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 249, 250, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e8eaed;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .logo span { color: var(--purple); }
+
+    .header-nav a {
+      margin-left: 24px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover { color: var(--purple); }
+
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 24px;
+      margin-top: 56px;
+    }
+
+    .breadcrumb-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .breadcrumb-content a {
+      color: var(--purple);
+      transition: opacity 0.2s;
+    }
+
+    .breadcrumb-content a:hover { opacity: 0.8; }
+    .breadcrumb-content .separator { color: #555; }
+    .breadcrumb-content .current { color: #fff; font-weight: 600; }
+
+    .page-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 50px 24px 80px;
+    }
+
+    .page-title {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--dark);
+    }
+
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--gray);
+      margin-bottom: 40px;
+    }
+
+    .intro-card {
+      background: var(--purple-light);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 48px;
+      border-left: 4px solid var(--purple);
+    }
+
+    .intro-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .intro-card p {
+      font-size: 14px;
+      color: var(--purple-dark);
+      line-height: 1.7;
+    }
+
+    .intro-card code {
+      background: rgba(123, 104, 174, 0.15);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: monospace;
+    }
+
+    .faq-section { margin-bottom: 48px; }
+
+    .faq-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-left: 14px;
+      border-left: 3px solid var(--purple);
+      color: var(--dark);
+    }
+
+    .faq-grid { display: grid; gap: 14px; }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid #e8eaed;
+      border-radius: 10px;
+      padding: 22px;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover { border-color: var(--purple); }
+
+    .faq-item h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .faq-item p {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    .contact-section {
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .contact-section h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .contact-section p {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .contact-email:hover { background: var(--purple-dark); }
+
+    .contact-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .report-section { margin-bottom: 48px; }
+
+    .report-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      padding-left: 14px;
+      border-left: 3px solid var(--purple);
+      color: var(--dark);
+    }
+
+    .report-section p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 14px;
+    }
+
+    .report-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .report-item {
+      background: #fff;
+      border: 1px solid #e8eaed;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .report-item::before {
+      content: "\2192";
+      color: var(--purple);
+      font-weight: 600;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 13px;
+      color: var(--gray);
+      border-top: 1px solid #e8eaed;
+    }
+
+    .footer a { color: var(--purple); }
+    .footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .header-content { padding: 14px 16px; }
+      .header-nav a { margin-left: 14px; font-size: 12px; }
+      .page-content { padding: 36px 16px 60px; }
+      .page-title { font-size: 24px; }
+      .intro-card { padding: 22px; }
+      .report-list { grid-template-columns: 1fr; }
+      .contact-section { padding: 30px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">
+        <img src="icon.png" alt="Form Feeder icon">
+        <span>Form Feeder</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html">Home</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="index.html">Home</a>
+      <span class="separator">&rarr;</span>
+      <span class="current">Support</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Support</h1>
+      <p class="page-subtitle">Need help with Form Feeder? Start here.</p>
+
+      <div class="intro-card">
+        <h2>Getting Started</h2>
+        <p>
+          After you install from the Google Workspace Marketplace, open any Google Form and go to
+          <code>Add-ons &rarr; Form Feeder &rarr; Configurer</code>.
+          Pick a question, choose your Google Sheet through the Picker, point at the column that holds the values, and save. The question's choices now come straight from your Sheet.
+        </p>
+      </div>
+
+      <div class="faq-section">
+        <h2>FAQ</h2>
+        <div class="faq-grid">
+
+          <div class="faq-item">
+            <h3>How do I set up Form Feeder?</h3>
+            <p>Open your form, go to Add-ons, select Form Feeder, and click Configurer. Click a question in the list, choose a Google Sheet with the Picker, pick the tab and column, set sorting and de-duplication if you want, and save. Form Feeder fills the choices right away.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Which question types work?</h3>
+            <p>Dropdowns, multiple choice, and checkboxes get their options from your column. Grids get their rows. Other question types (short answer, date, scale, and so on) cannot hold a list, so they are not linkable.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Do the choices update on their own?</h3>
+            <p>Yes, if you turn it on. You can refresh by hand from the sidebar, after every form submission, or on a timer (every 5, 15, 30, or 60 minutes). When the column in your Sheet changes, the form follows.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can I sort the choices or remove duplicates?</h3>
+            <p>Yes. Each link has a sort option (A to Z, Z to A, or the Sheet's own order) and a de-duplication toggle. You can preview the exact list before you save.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can one form pull from several Sheets?</h3>
+            <p>Yes. Each question links to its own Sheet, tab, and column. Different questions on the same form can read from different Sheets.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Does Form Feeder change my Sheet?</h3>
+            <p>No. It reads your Sheet only. It never writes to it. The only thing it edits is the choices on your form question.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is Form Feeder free?</h3>
+            <p>Yes, completely free. No premium tier, no limits, no ads.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is my data private?</h3>
+            <p>Yes. Everything runs inside your Google account. Form Feeder reads only the one Sheet you pick, sends nothing to any outside server, and does not read the answers people submit.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What if the column is empty or the Sheet is gone?</h3>
+            <p>If the column has no values, Form Feeder leaves the question as it is and notes the issue in the sidebar. If you moved or deleted the Sheet, open the link and pick the Sheet again with the Picker.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I stop or remove Form Feeder?</h3>
+            <p>Turn off the automatic refresh in the sidebar, and remove any links you no longer want. To remove it entirely, uninstall the add-on from your form's Add-ons menu.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <h2>Contact</h2>
+        <p>Question, bug report, or suggestion?</p>
+        <a href="mailto:hugopthomas@gmail.com" class="contact-email">hugopthomas@gmail.com</a>
+        <p class="contact-note">I usually reply within 48 hours.</p>
+      </div>
+
+      <div class="report-section">
+        <h2>Reporting a Problem</h2>
+        <p>If something is not working as expected, please tell me:</p>
+        <div class="report-list">
+          <div class="report-item">What happened</div>
+          <div class="report-item">What you expected</div>
+          <div class="report-item">Your browser and OS</div>
+          <div class="report-item">The question type you linked</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="footer">
+    <p><a href="index.html">Home</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="mailto:hugopthomas@gmail.com">Contact</a></p>
+    <p style="margin-top:8px;">Form Feeder &copy; 2026 Hugo Thomas</p>
+  </div>
+
+</body>
+</html>
