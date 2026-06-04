@@ -506,7 +506,8 @@
         <p>Email addresses and aggregated analytics are stored on Cloudflare Workers KV, a secure cloud infrastructure. Data is retained for 90 days for analytics, and indefinitely for account management (email, subscription status).</p>
 
         <h3>AI Feature Data</h3>
-        <p>Document content sent for AI features is processed in-memory and discarded immediately after the response is returned. It is never written to disk or logged.</p>
+        <p>Document content sent for AI features (script feedback, table read, breakdown, statistics) is processed in-memory and discarded immediately after the response is returned. It is never written to disk or logged.</p>
+        <p>The one exception is the Screenplay Poster feature: when you generate a poster from your script, the resulting poster image is saved so you can view and share it through a link. The poster image is stored, not the text of your script.</p>
 
         <h3>Within Google</h3>
         <p>User preferences (formatting options, theme) are stored via Google's PropertiesService, within Google's infrastructure, associated with your account. Document-specific data (character list, scene metadata) is stored in the document's own properties.</p>
@@ -550,7 +551,7 @@
       <div class="section">
         <h2>Data Retention & Deletion</h2>
         <p>Usage analytics are retained for 90 days, then automatically deleted. Email addresses and account data are retained as long as you use the service.</p>
-        <p>To delete all your data, uninstall the add-on or extension and contact us at <a href="mailto:hugothomas@hotmail.fr">hugothomas@hotmail.fr</a> to request deletion of your email from our servers.</p>
+        <p>To delete all your data, uninstall the add-on or extension and contact us at <a href="mailto:hugopthomas@gmail.com">hugopthomas@gmail.com</a> to request deletion of your email from our servers.</p>
       </div>
 
       <div class="section">
@@ -566,7 +567,7 @@
 
       <div class="contact-card">
         <h2>Questions?</h2>
-        <p>Contact us at <a href="mailto:hugothomas@hotmail.fr">hugothomas@hotmail.fr</a></p>
+        <p>Contact us at <a href="mailto:hugopthomas@gmail.com">hugopthomas@gmail.com</a></p>
       </div>
 
     </div>
