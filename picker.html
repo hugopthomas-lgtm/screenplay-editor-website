@@ -3,31 +3,53 @@
      Manifest V3 interdit le code distant dans l'extension, donc le Picker
      (gapi) tourne ici, sur notre domaine, et renvoie le grant à l'extension
      via chrome.runtime.sendMessage (externally_connectable).
-     Ouvert par l'extension avec: #token=...&docId=...&extId=... -->
+     Ouvert par l'extension avec: #token=...&docId=...&extId=...
+     Le Picker s'ouvre tout seul au chargement ; le bouton sert de secours. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Screenplay Editor — Authorize your document</title>
+<title>Screenplay Editor — Almost there</title>
 <meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  body { background:#0e0e10; color:#f2f2f7; font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
-         display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; }
-  .card { text-align:center; max-width:420px; padding:32px; }
-  h1 { font-size:20px; margin:0 0 10px; }
-  p { color:#a1a1aa; font-size:14px; line-height:1.6; margin:0 0 22px; }
-  .btn { background:#7c3aed; color:#fff; border:none; border-radius:12px; padding:14px 28px;
-         font-size:15px; font-weight:600; cursor:pointer; font-family:inherit; }
-  .btn:hover { background:#6d28d9; }
-  .ok { color:#34d399; font-weight:600; }
-  .err { color:#f87171; font-size:13px; margin-top:14px; }
+  body {
+    background: radial-gradient(1200px 600px at 50% -10%, rgba(124,58,237,0.22), transparent 60%), #0e0e10;
+    color: #f2f2f7;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; margin: 0;
+  }
+  .card { text-align: center; max-width: 460px; padding: 40px 32px; }
+  .brand {
+    display: inline-block; font-weight: 700; font-size: 15px; letter-spacing: 0.3px;
+    background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+    color: #fff; padding: 6px 14px; border-radius: 999px; margin-bottom: 26px;
+  }
+  .brand span { opacity: 0.85; font-weight: 500; }
+  h1 { font-size: 26px; margin: 0 0 12px; letter-spacing: -0.3px; }
+  p { color: #c7c7cc; font-size: 15px; line-height: 1.65; margin: 0 0 26px; }
+  p strong { color: #f2f2f7; }
+  .btn {
+    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+    color: #1c1c1e; border: none; border-radius: 12px; padding: 15px 30px;
+    font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit;
+    box-shadow: 0 8px 28px rgba(167,139,250,0.35);
+    transition: transform 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .hint { color: #8e8e93; font-size: 12px; margin-top: 16px; }
+  .ok { color: #34d399; font-weight: 600; font-size: 16px; }
+  .err { color: #f87171; font-size: 13px; margin-top: 14px; }
 </style>
 </head>
 <body>
 <div class="card">
-  <h1>One last step</h1>
-  <p>Google asks you to confirm which document Screenplay Editor can format.
-     Your script is already selected, you just confirm it.</p>
-  <button class="btn" id="openPicker">Choose my document</button>
+  <div class="brand">scrrr.<span> · Screenplay Editor</span></div>
+  <h1 id="headline">You're almost there.</h1>
+  <p id="lead">Google asks every writing tool to confirm which document it can format.
+     <strong>Your script is already selected</strong>, you just say yes once and you're back to writing.</p>
+  <button class="btn" id="openPicker">Confirm my document</button>
+  <div class="hint" id="hint">This happens once per document, then never again.</div>
   <div id="status"></div>
 </div>
 
@@ -49,20 +71,30 @@
     statusEl.firstChild.textContent = msg;
   }
 
-  function notifyExtension(payload) {
+  function notifyExtension(payload, doneMsg) {
     if (!params.extId || !window.chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
       fail('Could not reach the extension. Close this tab and try again.');
       return;
     }
     chrome.runtime.sendMessage(params.extId, payload, function () {
-      statusEl.innerHTML = '<p class="ok">Done! You can go back to your script.</p>';
+      if (doneMsg) {
+        document.getElementById('headline').textContent = 'Done!';
+        document.getElementById('lead').textContent = 'Your script is connected. Head back and keep writing.';
+        document.getElementById('openPicker').style.display = 'none';
+        document.getElementById('hint').style.display = 'none';
+        statusEl.innerHTML = '<p class="ok"></p>';
+        statusEl.firstChild.textContent = doneMsg;
+      }
       setTimeout(function () { window.close(); }, 1200);
     });
   }
 
+  var _pickerOpened = false;
   function openPicker() {
     if (!params.token) { fail('Missing authorization. Close this tab and retry from the extension.'); return; }
+    if (!window.gapi) { fail('Google is still loading. Try the button again in a second.'); return; }
     gapi.load('picker', function () {
+      _pickerOpened = true;
       var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
       // Pré-navigue le picker sur le doc déjà ouvert : un seul clic à confirmer.
       if (params.docId && view.setFileIds) view.setFileIds(params.docId);
@@ -73,9 +105,9 @@
         .setCallback(function (data) {
           if (data.action === google.picker.Action.PICKED) {
             var ids = (data.docs || []).map(function (d) { return d.id; });
-            notifyExtension({ type: 'SE_PICKER_GRANTED', docIds: ids, requestedDocId: params.docId });
+            notifyExtension({ type: 'SE_PICKER_GRANTED', docIds: ids, requestedDocId: params.docId }, 'See you on the page.');
           } else if (data.action === google.picker.Action.CANCEL) {
-            notifyExtension({ type: 'SE_PICKER_CANCELLED', docId: params.docId });
+            notifyExtension({ type: 'SE_PICKER_CANCELLED', docId: params.docId }, null);
           }
         });
       if (PICKER_API_KEY && PICKER_API_KEY.indexOf('PASTE') === -1) builder.setDeveloperKey(PICKER_API_KEY);
@@ -84,6 +116,15 @@
   }
 
   document.getElementById('openPicker').addEventListener('click', openPicker);
+
+  // Ouverture automatique dès que gapi est prêt : le user n'a plus qu'à
+  // confirmer dans le Picker. Le bouton reste en secours si l'auto-open rate.
+  function tryAutoOpen() {
+    if (_pickerOpened) return;
+    if (window.gapi) { openPicker(); return; }
+    setTimeout(tryAutoOpen, 200);
+  }
+  window.addEventListener('load', function () { setTimeout(tryAutoOpen, 100); });
 </script>
 <script src="https://apis.google.com/js/api.js" async defer></script>
 </body>
