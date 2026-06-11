@@ -35,7 +35,7 @@
   // Picker config — même projet Cloud que le client OAuth de l'extension.
   var PICKER_APP_ID = '866229982473';
   // Clé API du projet se-extension-chrome (Credentials > API key, Picker API activée).
-  var PICKER_API_KEY = 'PASTE_PICKER_API_KEY';
+  var PICKER_API_KEY = 'AIzaSyCJLhETuzgul1SZDTiR9FrYhCsfvCBc0xs';
 
   var params = {};
   location.hash.replace(/^#/, '').split('&').forEach(function (kv) {
@@ -73,9 +73,9 @@
         .setCallback(function (data) {
           if (data.action === google.picker.Action.PICKED) {
             var ids = (data.docs || []).map(function (d) { return d.id; });
-            notifyExtension({ type: 'SE_PICKER_GRANTED', docIds: ids });
+            notifyExtension({ type: 'SE_PICKER_GRANTED', docIds: ids, requestedDocId: params.docId });
           } else if (data.action === google.picker.Action.CANCEL) {
-            notifyExtension({ type: 'SE_PICKER_CANCELLED' });
+            notifyExtension({ type: 'SE_PICKER_CANCELLED', docId: params.docId });
           }
         });
       if (PICKER_API_KEY && PICKER_API_KEY.indexOf('PASTE') === -1) builder.setDeveloperKey(PICKER_API_KEY);
