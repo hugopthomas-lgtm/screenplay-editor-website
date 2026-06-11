@@ -1,0 +1,90 @@
+<!doctype html>
+<!-- Pont Google Picker pour l'extension Chrome Screenplay Editor.
+     Manifest V3 interdit le code distant dans l'extension, donc le Picker
+     (gapi) tourne ici, sur notre domaine, et renvoie le grant à l'extension
+     via chrome.runtime.sendMessage (externally_connectable).
+     Ouvert par l'extension avec: #token=...&docId=...&extId=... -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Screenplay Editor — Authorize your document</title>
+<meta name="robots" content="noindex">
+<style>
+  body { background:#0e0e10; color:#f2f2f7; font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+         display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; }
+  .card { text-align:center; max-width:420px; padding:32px; }
+  h1 { font-size:20px; margin:0 0 10px; }
+  p { color:#a1a1aa; font-size:14px; line-height:1.6; margin:0 0 22px; }
+  .btn { background:#7c3aed; color:#fff; border:none; border-radius:12px; padding:14px 28px;
+         font-size:15px; font-weight:600; cursor:pointer; font-family:inherit; }
+  .btn:hover { background:#6d28d9; }
+  .ok { color:#34d399; font-weight:600; }
+  .err { color:#f87171; font-size:13px; margin-top:14px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>One last step</h1>
+  <p>Google asks you to confirm which document Screenplay Editor can format.
+     Your script is already selected, you just confirm it.</p>
+  <button class="btn" id="openPicker">Choose my document</button>
+  <div id="status"></div>
+</div>
+
+<script>
+  // Picker config — même projet Cloud que le client OAuth de l'extension.
+  var PICKER_APP_ID = '866229982473';
+  // Clé API du projet se-extension-chrome (Credentials > API key, Picker API activée).
+  var PICKER_API_KEY = 'PASTE_PICKER_API_KEY';
+
+  var params = {};
+  location.hash.replace(/^#/, '').split('&').forEach(function (kv) {
+    var i = kv.indexOf('=');
+    if (i > 0) params[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1));
+  });
+  var statusEl = document.getElementById('status');
+
+  function fail(msg) {
+    statusEl.innerHTML = '<div class="err"></div>';
+    statusEl.firstChild.textContent = msg;
+  }
+
+  function notifyExtension(payload) {
+    if (!params.extId || !window.chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
+      fail('Could not reach the extension. Close this tab and try again.');
+      return;
+    }
+    chrome.runtime.sendMessage(params.extId, payload, function () {
+      statusEl.innerHTML = '<p class="ok">Done! You can go back to your script.</p>';
+      setTimeout(function () { window.close(); }, 1200);
+    });
+  }
+
+  function openPicker() {
+    if (!params.token) { fail('Missing authorization. Close this tab and retry from the extension.'); return; }
+    gapi.load('picker', function () {
+      var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
+      // Pré-navigue le picker sur le doc déjà ouvert : un seul clic à confirmer.
+      if (params.docId && view.setFileIds) view.setFileIds(params.docId);
+      var builder = new google.picker.PickerBuilder()
+        .setOAuthToken(params.token)
+        .setAppId(PICKER_APP_ID)
+        .addView(view)
+        .setCallback(function (data) {
+          if (data.action === google.picker.Action.PICKED) {
+            var ids = (data.docs || []).map(function (d) { return d.id; });
+            notifyExtension({ type: 'SE_PICKER_GRANTED', docIds: ids });
+          } else if (data.action === google.picker.Action.CANCEL) {
+            notifyExtension({ type: 'SE_PICKER_CANCELLED' });
+          }
+        });
+      if (PICKER_API_KEY && PICKER_API_KEY.indexOf('PASTE') === -1) builder.setDeveloperKey(PICKER_API_KEY);
+      builder.build().setVisible(true);
+    });
+  }
+
+  document.getElementById('openPicker').addEventListener('click', openPicker);
+</script>
+<script src="https://apis.google.com/js/api.js" async defer></script>
+</body>
+</html>
