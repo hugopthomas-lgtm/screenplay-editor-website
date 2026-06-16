@@ -1019,5 +1019,24 @@
       <p class="footer-copy">&copy; 2026 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
+  <script>
+  // Parrainage : capte le code ?ref= d'un lien de parrainage, le garde, et le
+  // relaie à l'extension (si installée) via le pont externally_connectable.
+  // Rejoué à chaque visite du site : si l'extension a été installée APRÈS la
+  // 1re visite, une visite ultérieure (le user revient sur le site pour upgrader,
+  // etc.) fait passer le code. L'extension l'attribue ensuite au 1er usage.
+  (function () {
+    var SE_EXT_ID = 'cgnainjnmiaimmeephomhkhpcjahmfln';
+    try {
+      var ref = new URLSearchParams(location.search).get('ref');
+      if (ref) { try { localStorage.setItem('se_ref', ref); } catch (e) {} }
+      var stored = ref;
+      if (!stored) { try { stored = localStorage.getItem('se_ref'); } catch (e) {} }
+      if (stored && window.chrome && chrome.runtime && chrome.runtime.sendMessage) {
+        try { chrome.runtime.sendMessage(SE_EXT_ID, { type: 'SE_REF', code: stored }, function () { void chrome.runtime.lastError; }); } catch (e) {}
+      }
+    } catch (e) {}
+  })();
+  </script>
 </body>
 </html>
