@@ -30,8 +30,12 @@
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background: var(--dark);
-      color: #f0f0f0;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: var(--dark);
       line-height: 1.6;
       font-size: 15px;
     }
@@ -47,10 +51,9 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(20, 20, 20, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.14);
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
       z-index: 100;
     }
 
@@ -64,16 +67,12 @@
     }
 
     .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
+      position: relative;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
+      letter-spacing: 1px;
+      color: var(--dark);
       cursor: pointer;
-    }
-
-    .logo .dot {
-      color: var(--violet);
     }
 
     .logo .cursor {
@@ -109,7 +108,7 @@
       margin-left: 30px;
       font-size: 13px;
       font-weight: 500;
-      color: #aaa;
+      color: #666;
       transition: color 0.2s;
     }
 
@@ -126,6 +125,10 @@
       background: var(--dark);
       padding: 14px 30px;
       margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .breadcrumb-content {
@@ -170,7 +173,7 @@
 
     .author-card {
       padding: 24px;
-      background: rgba(157, 123, 234, 0.10);
+      background: var(--violet-light);
       border-radius: 12px;
       border: 1px dashed var(--violet);
       text-align: center;
@@ -187,7 +190,7 @@
     .author-name {
       font-size: 16px;
       font-weight: 700;
-      color: #f0f0f0;
+      color: var(--dark);
       margin-bottom: 4px;
     }
 
@@ -218,7 +221,7 @@
     .page-title {
       font-size: 2rem;
       font-weight: 700;
-      color: #f0f0f0;
+      color: var(--dark);
       margin-bottom: 8px;
     }
 
@@ -256,7 +259,7 @@
       text-transform: uppercase;
       letter-spacing: 1.5px;
       color: var(--violet);
-      background: rgba(157, 123, 234, 0.10);
+      background: var(--violet-light);
       padding: 4px 10px;
       border-radius: 4px;
       margin-bottom: 10px;
@@ -271,7 +274,7 @@
     .article-title {
       font-size: 1.25rem;
       font-weight: 700;
-      color: #f0f0f0;
+      color: var(--dark);
       margin-bottom: 8px;
       transition: color 0.2s;
       line-height: 1.4;
@@ -292,6 +295,10 @@
       background: var(--dark);
       color: #fff;
       padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .footer-content {
@@ -301,16 +308,12 @@
     }
 
     .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
+      letter-spacing: 1px;
       color: var(--violet);
+      margin-bottom: 22px;
     }
 
     .footer-nav {
@@ -331,7 +334,7 @@
 
     .footer-copy {
       font-size: 11px;
-      color: #aaa;
+      color: #555;
     }
 
     /* Responsive */
@@ -407,7 +410,10 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
+      <a href="index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
       <nav class="header-nav">
         <a href="index.html#features">Features</a>
         <a href="blog.html" class="highlight">Blog</a>
@@ -472,7 +478,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <div class="footer-logo">SCR|</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="/compare/">Compare</a>

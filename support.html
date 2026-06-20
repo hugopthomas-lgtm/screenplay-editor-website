@@ -18,13 +18,18 @@
     :root {
       --violet: #9D7BEA;
       --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
       --dark: #1a1a1a;
     }
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background: var(--dark);
-      color: #e6e6e6;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: #1a1a1a;
       line-height: 1.6;
       font-size: 15px;
     }
@@ -40,10 +45,9 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(20, 20, 20, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.14);
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
       z-index: 100;
     }
 
@@ -57,28 +61,47 @@
     }
 
     .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
+      position: relative;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
+      letter-spacing: 1px;
+      color: var(--dark);
       cursor: pointer;
     }
 
-    .logo .dot {
+    .logo .cursor {
       color: var(--violet);
     }
 
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
     .header-nav a {
-      margin-left: 26px;
+      margin-left: 30px;
       font-size: 13px;
       font-weight: 500;
-      color: #aaa;
+      color: #666;
       transition: color 0.2s;
     }
 
     .header-nav a:hover {
-      color: #fff;
+      color: var(--violet);
     }
 
     .header-nav a.highlight {
@@ -87,10 +110,13 @@
 
     /* Breadcrumb Bar */
     .breadcrumb-bar {
-      background: #1a1a1a;
+      background: var(--dark);
       padding: 14px 30px;
       margin-top: 60px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .breadcrumb-content {
@@ -112,7 +138,7 @@
     }
 
     .breadcrumb-content .separator {
-      color: #666;
+      color: #555;
     }
 
     .breadcrumb-content .current {
@@ -131,18 +157,18 @@
       font-size: 32px;
       font-weight: 700;
       margin-bottom: 8px;
-      color: #f4f4f4;
+      color: var(--dark);
     }
 
     .page-subtitle {
       font-size: 14px;
-      color: #999;
+      color: #888;
       margin-bottom: 40px;
     }
 
     /* Intro Card */
     .intro-card {
-      background: rgba(157, 123, 234, 0.10);
+      background: var(--violet-light);
       border-radius: 12px;
       padding: 30px;
       margin-bottom: 50px;
@@ -153,21 +179,20 @@
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 10px;
-      color: #fff;
+      color: var(--dark);
     }
 
     .intro-card p {
       font-size: 14px;
-      color: #c9bce4;
+      color: #5a4a7a;
       line-height: 1.6;
     }
 
     .intro-card code {
-      background: rgba(157, 123, 234, 0.22);
+      background: rgba(157, 123, 234, 0.15);
       padding: 3px 8px;
       border-radius: 4px;
       font-size: 13px;
-      color: #e8e0f5;
     }
 
     /* FAQ Section */
@@ -181,7 +206,7 @@
       margin-bottom: 20px;
       padding-left: 15px;
       border-left: 3px solid var(--violet);
-      color: #f4f4f4;
+      color: var(--dark);
     }
 
     .faq-grid {
@@ -190,8 +215,8 @@
     }
 
     .faq-item {
-      background: #242424;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #fff;
+      border: 1px solid #eee;
       border-radius: 10px;
       padding: 24px;
       transition: border-color 0.2s;
@@ -205,23 +230,26 @@
       font-size: 14px;
       font-weight: 600;
       margin-bottom: 10px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .faq-item p {
       font-size: 13px;
-      color: #a8a8a8;
+      color: #666;
       line-height: 1.6;
     }
 
     /* Contact Section */
     .contact-section {
-      background: #202020;
-      border: 1px solid rgba(157, 123, 234, 0.15);
+      background: var(--dark);
       border-radius: 12px;
       padding: 40px;
       text-align: center;
       margin-bottom: 50px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .contact-section h2 {
@@ -233,7 +261,7 @@
 
     .contact-section p {
       font-size: 14px;
-      color: #999;
+      color: #888;
       margin-bottom: 20px;
     }
 
@@ -255,7 +283,7 @@
     .contact-note {
       margin-top: 15px;
       font-size: 12px;
-      color: #888;
+      color: #666;
     }
 
     /* Report Section */
@@ -265,12 +293,12 @@
       margin-bottom: 15px;
       padding-left: 15px;
       border-left: 3px solid var(--violet);
-      color: #f4f4f4;
+      color: var(--dark);
     }
 
     .report-section p {
       font-size: 14px;
-      color: #aaa;
+      color: #555;
       margin-bottom: 15px;
     }
 
@@ -281,12 +309,12 @@
     }
 
     .report-item {
-      background: #242424;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #fff;
+      border: 1px solid #eee;
       border-radius: 8px;
       padding: 14px 18px;
       font-size: 13px;
-      color: #bbb;
+      color: #555;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -300,10 +328,13 @@
 
     /* Footer */
     footer {
-      background: #1a1a1a;
+      background: var(--dark);
       color: #fff;
       padding: 50px 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .footer-content {
@@ -313,16 +344,11 @@
     }
 
     .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
+      letter-spacing: 1px;
       color: var(--violet);
+      margin-bottom: 22px;
     }
 
     .footer-nav {
@@ -343,7 +369,7 @@
 
     .footer-copy {
       font-size: 11px;
-      color: #666;
+      color: #555;
     }
 
     /* Responsive */
@@ -392,7 +418,10 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
+      <a href="index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">&#9612;</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
       <nav class="header-nav">
         <a href="index.html#features">Features</a>
         <a href="schools.html">Schools</a>
@@ -515,7 +544,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <div class="footer-logo">SCR&#9612;</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="compare/index.html">Compare</a>

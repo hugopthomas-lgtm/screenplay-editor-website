@@ -23,8 +23,12 @@
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background: var(--dark);
-      color: #e6e6e6;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: #1a1a1a;
       line-height: 1.6;
       font-size: 15px;
     }
@@ -40,10 +44,9 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(20, 20, 20, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.14);
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
       z-index: 100;
     }
 
@@ -57,16 +60,10 @@
     }
 
     .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    .logo .dot {
-      color: var(--violet);
+      letter-spacing: 1px;
+      color: var(--dark);
     }
 
     .logo .cursor {
@@ -77,7 +74,7 @@
       margin-left: 30px;
       font-size: 13px;
       font-weight: 500;
-      color: #aaa;
+      color: #666;
       transition: color 0.2s;
     }
 
@@ -97,6 +94,10 @@
       position: relative;
       overflow: hidden;
       border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .hero-inner {
@@ -175,7 +176,7 @@
       font-size: 15px;
       line-height: 1.8;
       margin-bottom: 16px;
-      color: #aaa;
+      color: #555;
     }
 
     .section p:last-of-type {
@@ -190,16 +191,20 @@
 
     /* Light section */
     .section-light {
-      background: #242424;
+      background: #fff;
     }
 
     .section-light h2 {
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     /* Dark section */
     .section-dark {
       background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .section-dark h2 {
@@ -228,6 +233,10 @@
       text-align: center;
       padding: 100px 30px;
       background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .cta-section h2 {
@@ -261,16 +270,11 @@
     }
 
     .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
+      letter-spacing: 1px;
       color: var(--violet);
+      margin-bottom: 22px;
     }
 
     .footer-nav {
@@ -291,7 +295,7 @@
 
     .footer-copy {
       font-size: 11px;
-      color: #aaa;
+      color: #555;
     }
 
     /* Responsive */
@@ -351,7 +355,9 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
+      <a href="index.html" class="logo">
+        SCR<span class="cursor">|</span>
+      </a>
       <nav class="header-nav">
         <a href="index.html#features">Features</a>
         <a href="blog.html" class="highlight">Blog</a>
@@ -406,7 +412,7 @@
 
     <section class="section section-light">
       <div class="section-inner" style="display: block; text-align: center;">
-        <p style="font-size: 14px; color: #aaa;">New here? See what <a href="screenplay-formatter-google-docs.html" style="color: var(--violet); font-weight: 600;">the screenplay formatter for Google Docs</a> can do.</p>
+        <p style="font-size: 14px; color: #555;">New here? See what <a href="screenplay-formatter-google-docs.html" style="color: var(--violet); font-weight: 600;">the screenplay formatter for Google Docs</a> can do.</p>
         <p style="margin-top: 12px;"><a href="compare/" style="color: var(--violet); font-weight: 600;">See our full comparison of all Google Docs screenplay add-ons →</a></p>
       </div>
     </section>
@@ -429,7 +435,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <div class="footer-logo">SCR|</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="/compare/">Compare</a>

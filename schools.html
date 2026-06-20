@@ -27,8 +27,12 @@
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background: var(--dark);
-      color: #f0f0f0;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: var(--dark);
       line-height: 1.6;
     }
 
@@ -38,10 +42,9 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(20, 20, 20, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.14);
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
       z-index: 100;
     }
 
@@ -55,16 +58,13 @@
     }
 
     .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
+      position: relative;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
+      letter-spacing: 1px;
+      color: var(--dark);
       cursor: pointer;
-    }
-
-    .logo .dot {
-      color: var(--violet);
+      text-decoration: none;
     }
 
     .logo .cursor {
@@ -98,7 +98,7 @@
       margin-left: 30px;
       font-size: 13px;
       font-weight: 500;
-      color: #aaa;
+      color: #666;
       text-decoration: none;
       transition: color 0.2s;
     }
@@ -182,7 +182,7 @@
       font-size: 24px;
       font-weight: 600;
       margin-bottom: 40px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     /* FEATURE GRID (cards) */
@@ -193,7 +193,7 @@
     }
 
     .feature-card {
-      background: #242424;
+      background: #fff;
       border: 1px solid rgba(0,0,0,0.06);
       border-radius: 16px;
       padding: 28px;
@@ -208,12 +208,12 @@
       font-size: 15px;
       font-weight: 600;
       margin-bottom: 8px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .feature-card p {
       font-size: 13px;
-      color: #aaa;
+      color: #666;
       line-height: 1.7;
     }
 
@@ -249,12 +249,12 @@
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 10px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .feature-text p {
       font-size: 13px;
-      color: #aaa;
+      color: #666;
       line-height: 1.7;
     }
 
@@ -285,7 +285,7 @@
 
     .step {
       position: relative;
-      background: #242424;
+      background: #fff;
       border: 1px solid rgba(0,0,0,0.06);
       border-radius: 16px;
       padding: 28px;
@@ -305,12 +305,12 @@
       font-size: 15px;
       font-weight: 600;
       margin-bottom: 8px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .step p {
       font-size: 13px;
-      color: #aaa;
+      color: #666;
       line-height: 1.7;
     }
 
@@ -434,16 +434,11 @@
     }
 
     .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
+      font-size: 15px;
+      letter-spacing: 1px;
       color: var(--violet);
+      margin-bottom: 16px;
     }
 
     .footer-nav {
@@ -500,7 +495,10 @@
 
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
+      <a href="index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">&#9612;</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
       <nav class="header-nav">
         <a href="index.html#features">Features</a>
         <a href="schools.html" class="highlight">Schools</a>
@@ -604,7 +602,7 @@
     <section class="section scroll-fade">
       <div class="section-label">FOR TEACHERS</div>
       <h2>Teach with ready-made templates and guides.</h2>
-      <p style="font-size: 14px; color: #aaa; max-width: 560px; margin: -24px 0 32px; line-height: 1.8;">Hand these straight to your students. They're all free, and they sit right next to the tool.</p>
+      <p style="font-size: 14px; color: #666; max-width: 560px; margin: -24px 0 32px; line-height: 1.8;">Hand these straight to your students. They're all free, and they sit right next to the tool.</p>
       <div class="feature-grid">
         <div class="feature-card">
           <span class="card-icon">&#128221;</span>
@@ -635,7 +633,7 @@
         </div>
         <div class="feature-card" style="border-color: rgba(157,123,234,0.45);">
           <h3>Pro for the whole class</h3>
-          <p style="font-size:22px;font-weight:700;color: #f0f0f0;margin-bottom:10px;line-height:1.3;">$19<span style="font-size:13px;font-weight:500;color:#888;"> / student / year</span></p>
+          <p style="font-size:22px;font-weight:700;color:var(--dark);margin-bottom:10px;line-height:1.3;">$19<span style="font-size:13px;font-weight:500;color:#888;"> / student / year</span></p>
           <p>Every student gets the full tool with no limits: unlimited formatting, Final Draft export, Script Doctor, the Chrome extension, and unlimited posters. It's for classes of 20 or more. You send one payment, we set up every student.</p>
         </div>
       </div>
@@ -729,7 +727,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <div class="footer-logo">SCR&#9612;</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="schools.html">Schools</a>

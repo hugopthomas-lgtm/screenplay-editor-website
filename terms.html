@@ -24,8 +24,12 @@
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background: var(--dark);
-      color: #e6e6e6;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: #1a1a1a;
       line-height: 1.6;
       font-size: 15px;
     }
@@ -41,10 +45,9 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(20, 20, 20, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.14);
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
       z-index: 100;
     }
 
@@ -58,16 +61,12 @@
     }
 
     .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
+      position: relative;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
+      letter-spacing: 1px;
+      color: var(--dark);
       cursor: pointer;
-    }
-
-    .logo .dot {
-      color: var(--violet);
     }
 
     .logo .cursor {
@@ -97,7 +96,7 @@
       margin-left: 30px;
       font-size: 13px;
       font-weight: 500;
-      color: #aaa;
+      color: #666;
       transition: color 0.2s;
     }
 
@@ -114,6 +113,10 @@
       background: var(--dark);
       padding: 14px 30px;
       margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .breadcrumb-content {
@@ -135,7 +138,7 @@
     }
 
     .breadcrumb-content .separator {
-      color: #aaa;
+      color: #555;
     }
 
     .breadcrumb-content .current {
@@ -154,7 +157,7 @@
       font-size: 32px;
       font-weight: 700;
       margin-bottom: 8px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .last-updated {
@@ -165,7 +168,7 @@
 
     .page-content > p {
       font-size: 14px;
-      color: #aaa;
+      color: #555;
       line-height: 1.7;
       margin-bottom: 30px;
     }
@@ -177,7 +180,7 @@
       margin-bottom: 15px;
       padding-left: 15px;
       border-left: 3px solid var(--violet);
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .page-content h3 {
@@ -185,12 +188,12 @@
       font-weight: 600;
       margin-top: 20px;
       margin-bottom: 10px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .page-content p {
       font-size: 14px;
-      color: #aaa;
+      color: #555;
       line-height: 1.7;
       margin-bottom: 15px;
     }
@@ -208,6 +211,10 @@
       background: var(--dark);
       color: #fff;
       padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .footer-content {
@@ -217,16 +224,11 @@
     }
 
     .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
+      letter-spacing: 1px;
       color: var(--violet);
+      margin-bottom: 22px;
     }
 
     .footer-nav {
@@ -247,7 +249,7 @@
 
     .footer-copy {
       font-size: 11px;
-      color: #aaa;
+      color: #555;
     }
 
     /* Responsive */
@@ -284,7 +286,10 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
+      <a href="index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">&#9612;</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
       <nav class="header-nav">
         <a href="index.html#features">Features</a>
         <a href="schools.html">Schools</a>
@@ -437,7 +442,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <div class="footer-logo">SCR&#9612;</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="compare/index.html">Compare</a>

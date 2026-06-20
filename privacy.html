@@ -26,8 +26,12 @@
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background: var(--dark);
-      color: #e6e6e6;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: #1a1a1a;
       line-height: 1.6;
       font-size: 15px;
     }
@@ -43,10 +47,9 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(20, 20, 20, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.14);
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
       z-index: 100;
     }
 
@@ -60,16 +63,12 @@
     }
 
     .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
+      position: relative;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
+      letter-spacing: 1px;
+      color: var(--dark);
       cursor: pointer;
-    }
-
-    .logo .dot {
-      color: var(--violet);
     }
 
     .logo .cursor {
@@ -99,7 +98,7 @@
       margin-left: 30px;
       font-size: 13px;
       font-weight: 500;
-      color: #aaa;
+      color: #666;
       transition: color 0.2s;
     }
 
@@ -116,6 +115,10 @@
       background: var(--dark);
       padding: 14px 30px;
       margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
     .breadcrumb-content {
@@ -137,7 +140,7 @@
     }
 
     .breadcrumb-content .separator {
-      color: #aaa;
+      color: #555;
     }
 
     .breadcrumb-content .current {
@@ -156,7 +159,7 @@
       font-size: 32px;
       font-weight: 700;
       margin-bottom: 8px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .last-updated {
@@ -167,7 +170,7 @@
 
     /* Summary Card */
     .summary-card {
-      background: rgba(157, 123, 234, 0.10);
+      background: var(--violet-light);
       border-radius: 12px;
       padding: 30px;
       margin-bottom: 50px;
@@ -177,7 +180,7 @@
 
     .summary-card p {
       font-size: 15px;
-      color: #c9bce4;
+      color: #5a4a7a;
       font-weight: 500;
       line-height: 1.6;
     }
@@ -193,12 +196,12 @@
       margin-bottom: 20px;
       padding-left: 15px;
       border-left: 3px solid var(--violet);
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     .section p {
       font-size: 14px;
-      color: #aaa;
+      color: #555;
       line-height: 1.7;
       margin-bottom: 15px;
     }
@@ -208,7 +211,7 @@
       font-weight: 600;
       margin-top: 20px;
       margin-bottom: 10px;
-      color: #f0f0f0;
+      color: var(--dark);
     }
 
     /* Access Cards */
@@ -219,10 +222,10 @@
     }
 
     .access-card {
-      background: #242424;
+      background: #fff;
       border-radius: 10px;
       padding: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid #eee;
     }
 
     .access-card h3 {
@@ -235,29 +238,29 @@
 
     .access-card p {
       font-size: 13px;
-      color: #aaa;
+      color: #666;
       margin-bottom: 10px;
     }
 
     .access-card .scope {
       font-size: 12px;
       color: #888;
-      background: #242424;
+      background: #f5f5f5;
       padding: 8px 12px;
       border-radius: 6px;
       margin-top: 12px;
     }
 
     .access-card .scope strong {
-      color: #aaa;
+      color: #666;
     }
 
     /* No Collection List */
     .no-collect {
-      background: #242424;
+      background: #fff;
       border-radius: 10px;
       padding: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid #eee;
       margin-top: 20px;
     }
 
@@ -272,7 +275,7 @@
       align-items: center;
       gap: 10px;
       font-size: 13px;
-      color: #aaa;
+      color: #555;
     }
 
     .no-collect-item::before {
@@ -344,16 +347,11 @@
     }
 
     .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
+      letter-spacing: 1px;
       color: var(--violet);
+      margin-bottom: 22px;
     }
 
     .footer-nav {
@@ -374,7 +372,7 @@
 
     .footer-copy {
       font-size: 11px;
-      color: #aaa;
+      color: #555;
     }
 
     /* Responsive */
@@ -415,7 +413,10 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
+      <a href="index.html" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
       <nav class="header-nav">
         <a href="index.html#features">Features</a>
         <a href="schools.html">Schools</a>
@@ -556,7 +557,7 @@
       <div class="section">
         <h2>Google API Services User Data Policy</h2>
         <p>Screenplay Editor's use and transfer of information received from Google APIs to any other app will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements. Specifically:</p>
-        <ul style="font-size: 14px; color: #aaa; line-height: 1.7; margin-top: 12px; padding-left: 20px;">
+        <ul style="font-size: 14px; color: #555; line-height: 1.7; margin-top: 12px; padding-left: 20px;">
           <li style="margin-bottom: 8px;">We do not use Google user data for serving advertisements.</li>
           <li style="margin-bottom: 8px;">We do not transfer Google user data to third parties except as necessary to provide or improve the service, comply with applicable law, or as part of a merger or acquisition.</li>
           <li style="margin-bottom: 8px;">We do not use Google user data for purposes unrelated to the product's single purpose of screenplay formatting.</li>
@@ -574,7 +575,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <div class="footer-logo">SCR▌</div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="/compare/">Compare</a>
