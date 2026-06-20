@@ -24,12 +24,8 @@
 
     body {
       font-family: 'JetBrains Mono', monospace;
-      background: #fafafa;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      color: #1a1a1a;
+      background: var(--dark);
+      color: #e6e6e6;
       line-height: 1.6;
       font-size: 15px;
     }
@@ -45,9 +41,10 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(248, 246, 252, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.14);
       z-index: 100;
     }
 
@@ -61,12 +58,16 @@
     }
 
     .logo {
-      position: relative;
-      font-size: 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--dark);
+      letter-spacing: -0.5px;
+      color: #fff;
       cursor: pointer;
+    }
+
+    .logo .dot {
+      color: var(--violet);
     }
 
     .logo .cursor {
@@ -96,7 +97,7 @@
       margin-left: 30px;
       font-size: 13px;
       font-weight: 500;
-      color: #666;
+      color: #aaa;
       transition: color 0.2s;
     }
 
@@ -109,10 +110,6 @@
       background: var(--dark);
       padding: 14px 30px;
       margin-top: 60px;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
     }
 
     .breadcrumb-content {
@@ -134,7 +131,7 @@
     }
 
     .breadcrumb-content .separator {
-      color: #555;
+      color: #aaa;
     }
 
     .breadcrumb-content .current {
@@ -179,7 +176,7 @@
       font-size: 32px;
       font-weight: 700;
       margin-bottom: 8px;
-      color: var(--dark);
+      color: #f0f0f0;
     }
 
     .page-subtitle {
@@ -189,7 +186,7 @@
     }
 
     .intro-card {
-      background: var(--violet-light);
+      background: rgba(157, 123, 234, 0.10);
       border-radius: 12px;
       padding: 30px;
       margin-bottom: 40px;
@@ -201,12 +198,12 @@
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 10px;
-      color: var(--dark);
+      color: #f0f0f0;
     }
 
     .intro-card p {
       font-size: 14px;
-      color: #5a4a7a;
+      color: #c9bce4;
       line-height: 1.6;
       margin-bottom: 10px;
     }
@@ -225,7 +222,7 @@
       align-items: flex-start;
       gap: 16px;
       padding: 16px 0;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
 
     .step:last-child {
@@ -248,12 +245,12 @@
 
     .step-text {
       font-size: 14px;
-      color: #444;
+      color: #aaa;
       padding-top: 5px;
     }
 
     .step-text strong {
-      color: var(--dark);
+      color: #f0f0f0;
     }
 
     .cta-button {
@@ -278,10 +275,6 @@
       background: var(--dark);
       color: #fff;
       padding: 50px 30px;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
     }
 
     .footer-content {
@@ -291,11 +284,16 @@
     }
 
     .footer-logo {
-      font-size: 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--violet);
+      letter-spacing: -0.5px;
+      color: #fff;
       margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
     }
 
     .footer-nav {
@@ -316,7 +314,7 @@
 
     .footer-copy {
       font-size: 11px;
-      color: #555;
+      color: #aaa;
     }
 
     @media (max-width: 600px) {
@@ -333,10 +331,7 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">&#9612;</span></span>
-        <span class="full-name">SCREENPLAY EDITOR</span>
-      </a>
+      <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
       <nav class="header-nav">
         <a href="index.html">Home</a>
         <a href="docs.html">Docs</a>
@@ -389,7 +384,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">SCR&#9612;</div>
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="support.html">Support</a>
