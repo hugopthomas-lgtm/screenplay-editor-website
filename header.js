@@ -9,6 +9,12 @@
   var VIOLET_DARK = '#8B6AD4';
   var INSTALL = 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
 
+  // Fixed header height, published as a CSS var so any page can clear the
+  // fixed bar (e.g. breadcrumb: margin-top:var(--site-header-h)). Change the
+  // height here and in the .inner rule below together — pages follow.
+  var HEADER_H = 65; // px (64px inner + 1px border)
+  try { document.documentElement.style.setProperty('--site-header-h', HEADER_H + 'px'); } catch (e) {}
+
   // Nav links. Absolute paths so they work from any folder depth.
   var NAV = [
     ['Schools', '/schools.html'],
@@ -32,7 +38,7 @@
         'background:#1a1a1a;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);' +
         'border-bottom:1px solid rgba(157,123,234,0.18);' +
         "font-family:'JetBrains Mono',monospace;}" +
-        '.inner{max-width:1100px;margin:0 auto;padding:18px 30px;' +
+        '.inner{max-width:1100px;margin:0 auto;height:64px;padding:0 30px;' +
         'display:flex;justify-content:space-between;align-items:center;}' +
         ".logo{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;" +
         'font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#fff;' +
@@ -46,7 +52,7 @@
         'padding:9px 18px;border-radius:7px;font-size:13px;font-weight:600;' +
         'transition:background .2s,transform .2s;}' +
         '.cta:hover{background:' + VIOLET_DARK + ';transform:translateY(-1px);}' +
-        '@media(max-width:760px){.inner{padding:15px 20px;}' +
+        '@media(max-width:760px){.inner{padding:0 20px;}' +
         'nav a:not(.cta){display:none;}.cta{margin-left:0;}}' +
         '</style>' +
         '<div class="bar"><div class="inner">' +
