@@ -186,32 +186,16 @@
     }
 
 
-    .hero-logo-stacked {
+    .hero-wordmark {
+      font-size: 46px;
       font-weight: 700;
-      letter-spacing: 3px;
-      margin-bottom: 22px;
-    }
-
-    .hero-logo-stacked .line1 {
-      font-size: 34px;
+      letter-spacing: -1px;
       color: #fff;
-      display: block;
+      margin-bottom: 24px;
     }
 
-    .hero-logo-stacked .line2 {
-      font-size: 34px;
-      color: #666;
-      display: block;
-    }
-
-    .hero-logo-stacked .cursor {
+    .hero-wordmark .dot {
       color: var(--violet);
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
     }
 
 
@@ -770,10 +754,8 @@
         padding: 100px 20px 60px;
       }
 
-      .hero-logo-stacked .line1,
-      .hero-logo-stacked .line2 {
-        font-size: 28px;
-        letter-spacing: 2px;
+      .hero-wordmark {
+        font-size: 34px;
       }
 
       .hero h1 {
@@ -840,10 +822,7 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-inner">
-        <div class="hero-logo-stacked">
-          <span class="line1">SCR<span class="cursor">&#9608;&#9608;</span>NPLAY</span>
-          <span class="line2"><span class="cursor">&#9608;</span>DITOR</span>
-        </div>
+        <div class="hero-wordmark">scrrrr<span class="dot">.</span></div>
 
         <h1>Google Docs is now the best<br>screenwriting software.</h1>
         <p class="hero-subtitle">Type your script and it formats itself the way Final Draft does, without ever leaving the Google Doc you already write in. Free to start, $5.99/month when you're ready.</p>
