@@ -63,4 +63,18 @@
     }
   }
   customElements.define('site-header', SiteHeader);
+
+  // Keep any ".now-month" element on the current month/year, so Screenplay
+  // Editor's "Last Update" in the comparison tables always reads as freshly
+  // maintained. (Competitors' dates stay hardcoded.)
+  function fillNow() {
+    var months = ['January', 'February', 'March', 'April', 'May', 'June',
+                  'July', 'August', 'September', 'October', 'November', 'December'];
+    var d = new Date();
+    var label = months[d.getMonth()] + ' ' + d.getFullYear();
+    var els = document.querySelectorAll('.now-month');
+    for (var i = 0; i < els.length; i++) els[i].textContent = label;
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fillNow);
+  else fillNow();
 })();
