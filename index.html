@@ -95,7 +95,7 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(20, 20, 20, 0.72);
+      background: #1a1a1a;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(157, 123, 234, 0.14);
@@ -118,6 +118,11 @@
       letter-spacing: -0.5px;
       color: #fff;
       cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: var(--violet);
     }
 
     .logo .dot {
@@ -673,11 +678,16 @@
     }
 
     .footer-logo {
-      font-size: 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--violet);
+      letter-spacing: -0.5px;
+      color: #fff;
       margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
     }
 
     .footer-nav {
@@ -796,7 +806,6 @@
     <div class="header-content">
       <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
       <nav class="header-nav">
-        <a href="#features">Features</a>
         <a href="schools.html">Schools</a>
         <a href="blog.html" class="highlight">Blog</a>
         <a href="resources/index.html">Resources</a>
@@ -1022,7 +1031,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">SCR&#9612;</div>
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
       <nav class="footer-nav">
         <a href="about.html">About</a>
         <a href="compare/index.html">Compare</a>
