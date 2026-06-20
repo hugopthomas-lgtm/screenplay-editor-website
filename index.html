@@ -166,7 +166,7 @@
        HERO
        ============================================ */
     .hero {
-      padding: 120px 30px 80px;
+      padding: 100px 30px 70px;
       text-align: center;
       background: var(--dark);
       position: relative;
@@ -189,17 +189,17 @@
     .hero-logo-stacked {
       font-weight: 700;
       letter-spacing: 3px;
-      margin-bottom: 35px;
+      margin-bottom: 22px;
     }
 
     .hero-logo-stacked .line1 {
-      font-size: 48px;
+      font-size: 34px;
       color: #fff;
       display: block;
     }
 
     .hero-logo-stacked .line2 {
-      font-size: 48px;
+      font-size: 34px;
       color: #666;
       display: block;
     }
@@ -294,6 +294,7 @@
 
     .hero-screenshot img {
       width: 100%;
+      filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 45px rgba(157, 123, 234, 0.28));
     }
 
     /* Risk reversal row, directly under the CTA */
@@ -508,55 +509,24 @@
       margin-bottom: 24px;
     }
 
-    .reviews-track-wrapper {
-      overflow: hidden;
-      position: relative;
-    }
-
-    .reviews-track-wrapper::before,
-    .reviews-track-wrapper::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 60px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .reviews-track-wrapper::before {
-      left: 0;
-      background: linear-gradient(to right, #f3f0fa, transparent);
-    }
-
-    .reviews-track-wrapper::after {
-      right: 0;
-      background: linear-gradient(to left, #f3f0fa, transparent);
-    }
-
-    .reviews-track {
-      display: flex;
+    .reviews-wall {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      animation: scroll-reviews 25s linear infinite;
-      width: max-content;
     }
 
-    .reviews-track:hover {
-      animation-play-state: paused;
+    @media (max-width: 800px) {
+      .reviews-wall { grid-template-columns: repeat(2, 1fr); }
     }
 
-    @keyframes scroll-reviews {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    @media (max-width: 520px) {
+      .reviews-wall { grid-template-columns: 1fr; }
     }
 
     .review-card {
       background: #fff;
       border-radius: 12px;
       padding: 20px 24px;
-      min-width: 280px;
-      max-width: 320px;
-      flex-shrink: 0;
     }
 
     .review-stars {
@@ -937,7 +907,7 @@
           <h3>You write. It formats.</h3>
           <p>Type INT. or EXT. and scene headings format themselves. Press Tab for characters, Enter for dialogue. Paste a messy draft, hit Format My Document, and watch it snap into place in seconds. Manual or auto mode, your call.</p>
         </div>
-        <div class="feature-image large scroll-float" data-rotation="3">
+        <div class="feature-image large scroll-float">
           <img src="feature-write.png" alt="Screenplay Editor formatting in action">
         </div>
       </div>
@@ -948,7 +918,7 @@
           <h3>More than a formatter.</h3>
           <p>Scene Board: every scene on a card. Drag, drop, restructure. Your script updates itself. AI Table Read: hear your screenplay out loud with a different AI voice for each character. Screenplay Preview: see your script as a real printed page while you write.</p>
         </div>
-        <div class="feature-image medium scroll-float" data-rotation="-3">
+        <div class="feature-image medium scroll-float">
           <img src="feature-studio.png" alt="Screenplay Editor Scene Board and studio features">
         </div>
       </div>
@@ -959,7 +929,7 @@
           <h3>From draft to production.</h3>
           <p>Production Breakdown: AI-powered scene-by-scene breakdown. Cast, props, wardrobe, SFX, everything extracted in one click. Export to Final Draft in industry-standard .fdx format, ready to send.</p>
         </div>
-        <div class="feature-image small scroll-float" data-rotation="3">
+        <div class="feature-image small scroll-float">
           <img src="feature-ship.png" alt="Screenplay Editor export and production tools">
         </div>
       </div>
@@ -971,68 +941,36 @@
     <section class="reviews scroll-fade">
       <div class="reviews-inner">
         <div class="reviews-title">Google Workspace Marketplace Reviews</div>
-        <div class="reviews-track-wrapper">
-          <div class="reviews-track">
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"Just try it, there's no going back."</div>
-              <div class="review-author">Pierre R.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"No need to pay lots of money for lousy commercial software. Thanks for developing this!"</div>
-              <div class="review-author">Theo L.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"I was looking for a Screenplay Formatter alternative after it stopped working. This is so much better. Finally something reliable."</div>
-              <div class="review-author">Elodie K.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"Clean and modern. Much better than the usual outdated scriptwriting tools."</div>
-              <div class="review-author">Guillaume T.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"Easily one of the smoothest tools I've tried. If you're doing any screenwriting in Google Docs, this is it."</div>
-              <div class="review-author">Marielle G.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"A must-have for anyone writing scripts in Google Docs! The live formatting saves a ton of time."</div>
-              <div class="review-author">Louay K.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"Just try it, there's no going back."</div>
-              <div class="review-author">Pierre R.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"No need to pay lots of money for lousy commercial software. Thanks for developing this!"</div>
-              <div class="review-author">Theo L.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"I was looking for a Screenplay Formatter alternative after it stopped working. This is so much better. Finally something reliable."</div>
-              <div class="review-author">Elodie K.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"Clean and modern. Much better than the usual outdated scriptwriting tools."</div>
-              <div class="review-author">Guillaume T.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"Easily one of the smoothest tools I've tried. If you're doing any screenwriting in Google Docs, this is it."</div>
-              <div class="review-author">Marielle G.</div>
-            </div>
-            <div class="review-card">
-              <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <div class="review-text">"A must-have for anyone writing scripts in Google Docs! The live formatting saves a ton of time."</div>
-              <div class="review-author">Louay K.</div>
-            </div>
+        <div class="reviews-wall">
+          <div class="review-card">
+            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-text">"Just try it, there's no going back."</div>
+            <div class="review-author">Pierre R.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-text">"No need to pay lots of money for lousy commercial software. Thanks for developing this!"</div>
+            <div class="review-author">Theo L.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-text">"I was looking for a Screenplay Formatter alternative after it stopped working. This is so much better. Finally something reliable."</div>
+            <div class="review-author">Elodie K.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-text">"Clean and modern. Much better than the usual outdated scriptwriting tools."</div>
+            <div class="review-author">Guillaume T.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-text">"Easily one of the smoothest tools I've tried. If you're doing any screenwriting in Google Docs, this is it."</div>
+            <div class="review-author">Marielle G.</div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="review-text">"A must-have for anyone writing scripts in Google Docs! The live formatting saves a ton of time."</div>
+            <div class="review-author">Louay K.</div>
           </div>
         </div>
       </div>
@@ -1056,7 +994,7 @@
     <!-- PRIVACY -->
     <section class="privacy-section scroll-fade">
       <div class="privacy-inner">
-        <div class="privacy-image scroll-float" data-rotation="-2">
+        <div class="privacy-image scroll-float">
           <img src="feature-privacy.png" alt="Your scripts are safe">
         </div>
         <div>
