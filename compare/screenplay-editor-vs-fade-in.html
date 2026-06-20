@@ -32,9 +32,10 @@
     /* Header */
     header {
       position: fixed; top: 0; left: 0; right: 0;
-      background: rgba(248, 246, 252, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee;
+      background: #1a1a1a;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
       z-index: 100;
     }
     .header-content {
@@ -42,8 +43,17 @@
       display: flex; justify-content: space-between; align-items: center;
     }
     .logo {
-      position: relative; font-size: 16px; font-weight: 700;
-      letter-spacing: 1px; color: var(--dark); cursor: pointer;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: var(--violet);
     }
     .logo .cursor { color: var(--violet); }
     .logo .full-name {
@@ -54,7 +64,7 @@
     .logo:hover .full-name { opacity: 1; }
     .header-nav a {
       margin-left: 30px; font-size: 13px; font-weight: 500;
-      color: #666; transition: color 0.2s;
+      color: #aaa; transition: color 0.2s;
     }
     .header-nav a:hover { color: var(--violet); }
 
@@ -62,10 +72,6 @@
     .breadcrumb-bar {
       margin-top: 60px; background: var(--dark); padding: 14px 30px;
       border-bottom: 1px solid rgba(157, 123, 234, 0.4);
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
     }
     .breadcrumb-content {
       max-width: 1100px; margin: 0 auto;
@@ -129,10 +135,6 @@
     .winner-box {
       background: var(--dark); border-radius: 12px; padding: 30px; margin: 30px 0;
       text-align: center;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
     }
     .winner-box h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
     .winner-box p { font-size: 14px; color: #aaa; margin-bottom: 20px; }
@@ -170,13 +172,20 @@
     /* Footer */
     footer {
       background: var(--dark); color: #fff; padding: 50px 30px;
-      background-image:
-        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
     }
     .footer-content { max-width: 1100px; margin: 0 auto; text-align: center; }
-    .footer-logo { font-size: 16px; font-weight: 700; letter-spacing: 1px; color: var(--violet); margin-bottom: 22px; }
+    .footer-logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
+    }
     .footer-nav { margin-bottom: 22px; }
     .footer-nav a { color: #888; margin: 0 14px; font-size: 12px; font-weight: 500; transition: color 0.2s; }
     .footer-nav a:hover { color: #fff; }
@@ -222,12 +231,8 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="/" class="logo">
-        <span class="mark">SCR<span class="cursor">▌</span></span>
-        <span class="full-name">SCREENPLAY EDITOR</span>
-      </a>
+      <a href="/" class="logo">scrrrr<span class="dot">.</span></a>
       <nav class="header-nav">
-        <a href="/#features">Features</a>
         <a href="/blog">Blog</a>
         <a href="/resources/">Resources</a>
         <a href="/about">About</a>
@@ -373,7 +378,7 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">SCR▌</div>
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
       <nav class="footer-nav">
         <a href="/about">About</a>
         <a href="/compare/">Compare</a>
