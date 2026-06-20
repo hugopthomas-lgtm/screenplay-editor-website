@@ -95,9 +95,10 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(248, 246, 252, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee;
+      background: rgba(20, 20, 20, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.14);
       z-index: 100;
     }
 
@@ -111,51 +112,48 @@
     }
 
     .logo {
-      position: relative;
-      font-size: 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--dark);
+      letter-spacing: -0.5px;
+      color: #fff;
       cursor: pointer;
     }
 
-    .logo .cursor {
+    .logo .dot {
       color: var(--violet);
     }
 
-    .logo .full-name {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .logo:hover .mark {
-      opacity: 0;
-    }
-
-    .logo:hover .full-name {
-      opacity: 1;
-    }
-
     .header-nav a {
-      margin-left: 30px;
+      margin-left: 26px;
       font-size: 13px;
       font-weight: 500;
-      color: #666;
+      color: #aaa;
       transition: color 0.2s;
     }
 
     .header-nav a:hover {
-      color: var(--violet);
+      color: #fff;
     }
 
     .header-nav a.highlight {
       color: var(--violet);
+    }
+
+    .header-cta {
+      margin-left: 26px;
+      background: var(--violet);
+      color: #fff !important;
+      padding: 9px 18px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .header-cta:hover {
+      background: var(--violet-dark);
+      transform: translateY(-1px);
     }
 
     /* ============================================
@@ -304,7 +302,7 @@
     .how {
       max-width: 920px;
       margin: 0 auto;
-      padding: 20px 30px 50px;
+      padding: 20px 30px 24px;
       text-align: center;
     }
 
@@ -392,7 +390,7 @@
        FEATURES (alternating blocks)
        ============================================ */
     .features {
-      padding: 20px 30px 40px;
+      padding: 10px 30px 40px;
       max-width: 1000px;
       margin: 0 auto;
     }
@@ -452,7 +450,7 @@
     }
 
     .feature-image.large img {
-      width: 130%;
+      width: 105%;
       max-width: none;
     }
 
@@ -736,9 +734,12 @@
         padding: 15px 20px;
       }
 
-      .header-nav a {
-        margin-left: 18px;
-        font-size: 12px;
+      .header-nav a:not(.header-cta) {
+        display: none;
+      }
+
+      .header-cta {
+        margin-left: 0;
       }
 
       .hero {
@@ -793,10 +794,7 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">
-        <span class="mark">SCR<span class="cursor">&#9612;</span></span>
-        <span class="full-name">SCREENPLAY EDITOR</span>
-      </a>
+      <a href="index.html" class="logo">scrrrr<span class="dot">.</span></a>
       <nav class="header-nav">
         <a href="#features">Features</a>
         <a href="schools.html">Schools</a>
@@ -805,6 +803,7 @@
         <a href="about.html">About</a>
         <a href="compare/index.html">Compare</a>
         <a href="support.html">Support</a>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="header-cta" target="_blank">Install</a>
       </nav>
     </div>
   </header>
@@ -819,8 +818,8 @@
         <p class="hero-subtitle">Type your script and it formats itself the way Final Draft does, without ever leaving the Google Doc you already write in. Free to start, $5.99/month when you're ready.</p>
 
         <div class="hero-ctas">
-          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank">Install Chrome Extension</a>
-          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Or get the Google Docs add-on</a>
+          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button" target="_blank">Add to Google Docs</a>
+          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-secondary" target="_blank">Or get the Chrome extension (beta)</a>
         </div>
 
         <ul class="hero-trust">
