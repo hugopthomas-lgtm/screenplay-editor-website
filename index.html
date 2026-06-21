@@ -271,13 +271,84 @@
 
     .hero-screenshot {
       max-width: 1035px;
-      margin: -10px auto 0;
-    }
-
-    .hero-screenshot img {
-      width: 100%;
+      margin: 0 auto 0;
       filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 45px rgba(157, 123, 234, 0.28));
     }
+
+    /* Before / after slider */
+    .ba-slider {
+      position: relative;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      cursor: ew-resize;
+      --pos: 50%;
+    }
+
+    .ba-slider img {
+      display: block;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .ba-before {
+      position: absolute;
+      inset: 0;
+    }
+
+    .ba-before img {
+      -webkit-clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+      clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+    }
+
+    .ba-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: var(--pos);
+      width: 2px;
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .ba-knob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--violet);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .ba-tag {
+      position: absolute;
+      top: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    .ba-tag-l { left: 14px; }
+    .ba-tag-r { right: 14px; }
 
     /* Risk reversal row, directly under the CTA */
     .hero-trust {
@@ -829,7 +900,13 @@
         </ul>
 
         <div class="hero-screenshot">
-          <img src="hero-screenshot.png" alt="Screenplay Editor in Google Docs">
+          <div class="ba-slider" id="baSlider">
+            <img src="hero-after.png" alt="Formatted screenplay in Google Docs" draggable="false">
+            <div class="ba-before"><img src="hero-before.png" alt="An unformatted draft in Google Docs" draggable="false"></div>
+            <span class="ba-tag ba-tag-l">Your draft</span>
+            <span class="ba-tag ba-tag-r">Formatted</span>
+            <div class="ba-handle"><span class="ba-knob">&#8596;</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -936,6 +1013,24 @@
       </ul>
     </section>
   </main>
+
+  <script>
+    // Before / after slider drag
+    (function () {
+      var s = document.getElementById('baSlider');
+      if (!s) return;
+      function setPos(clientX) {
+        var r = s.getBoundingClientRect();
+        var p = (clientX - r.left) / r.width * 100;
+        s.style.setProperty('--pos', Math.max(0, Math.min(100, p)) + '%');
+      }
+      var dragging = false;
+      s.addEventListener('pointerdown', function (e) { dragging = true; try { s.setPointerCapture(e.pointerId); } catch (x) {} setPos(e.clientX); });
+      s.addEventListener('pointermove', function (e) { if (dragging) setPos(e.clientX); });
+      s.addEventListener('pointerup', function () { dragging = false; });
+      s.addEventListener('pointercancel', function () { dragging = false; });
+    })();
+  </script>
 
   <script>
     // Fade in elements on scroll
