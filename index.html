@@ -1021,8 +1021,9 @@
       if (!s) return;
       function setPos(clientX) {
         var r = s.getBoundingClientRect();
+        var m = 24 / r.width * 100; // keep the round knob fully inside the frame
         var p = (clientX - r.left) / r.width * 100;
-        s.style.setProperty('--pos', Math.max(0, Math.min(100, p)) + '%');
+        s.style.setProperty('--pos', Math.max(m, Math.min(100 - m, p)) + '%');
       }
       s.addEventListener('pointermove', function (e) { setPos(e.clientX); });
       s.addEventListener('pointerdown', function (e) { setPos(e.clientX); });
