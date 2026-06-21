@@ -1015,7 +1015,7 @@
   </main>
 
   <script>
-    // Before / after slider drag
+    // Before / after slider: follows the cursor on hover, and drags on touch.
     (function () {
       var s = document.getElementById('baSlider');
       if (!s) return;
@@ -1024,11 +1024,8 @@
         var p = (clientX - r.left) / r.width * 100;
         s.style.setProperty('--pos', Math.max(0, Math.min(100, p)) + '%');
       }
-      var dragging = false;
-      s.addEventListener('pointerdown', function (e) { dragging = true; try { s.setPointerCapture(e.pointerId); } catch (x) {} setPos(e.clientX); });
-      s.addEventListener('pointermove', function (e) { if (dragging) setPos(e.clientX); });
-      s.addEventListener('pointerup', function () { dragging = false; });
-      s.addEventListener('pointercancel', function () { dragging = false; });
+      s.addEventListener('pointermove', function (e) { setPos(e.clientX); });
+      s.addEventListener('pointerdown', function (e) { setPos(e.clientX); });
     })();
   </script>
 
