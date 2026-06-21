@@ -852,6 +852,54 @@
         margin: 10px 0;
       }
     }
+    /* ============================================
+       UCCELLO (bottom-of-funnel cross-promo)
+       ============================================ */
+    .uccello {
+      max-width: 1035px;
+      margin: 0 auto;
+      padding: 50px 30px 30px;
+      text-align: center;
+    }
+    .uccello-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 12px;
+    }
+    .uccello h2 {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 0 auto 10px;
+      max-width: 640px;
+      line-height: 1.25;
+    }
+    .uccello-sub {
+      font-size: 14px;
+      color: #888;
+      margin: 0 auto 28px;
+      max-width: 560px;
+      line-height: 1.5;
+    }
+    .uccello-slider {
+      margin: 0 auto 28px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.22);
+    }
+    .uccello-cta {
+      display: inline-block;
+      background: var(--dark);
+      color: #fff;
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .uccello-cta:hover { transform: translateY(-1px); opacity: 0.92; }
+
   </style>
   <script src="/header.js"></script>
 </head>
@@ -979,6 +1027,19 @@
     </section>
 
 
+    <!-- UCCELLO -->
+    <section class="uccello scroll-fade">
+      <div class="uccello-label">Also from Hugo Thomas</div>
+      <h2>Finished your screenplay? Turn it into a graphic novel.</h2>
+      <p class="uccello-sub">Uccello adapts your finished script into a fully illustrated book, scene by scene. Drag to watch a page of script become art.</p>
+      <div class="ba-slider uccello-slider">
+        <img src="uccello-after.jpg" alt="A screenplay adapted into an illustrated graphic novel" draggable="false">
+        <div class="ba-before"><img src="uccello-before.jpg" alt="A screenplay script" draggable="false"></div>
+        <div class="ba-handle"><span class="ba-knob">&#8596;</span></div>
+      </div>
+      <a href="https://uccello.app/en" class="uccello-cta" target="_blank" rel="noopener">Discover Uccello</a>
+    </section>
+
     <!-- CTA -->
     <section class="cta-section">
       <h2>Start writing today</h2>
@@ -997,18 +1058,18 @@
   </main>
 
   <script>
-    // Before / after slider: follows the cursor on hover, and drags on touch.
+    // Before / after sliders: follow the cursor on hover, drag on touch.
     (function () {
-      var s = document.getElementById('baSlider');
-      if (!s) return;
-      function setPos(clientX) {
-        var r = s.getBoundingClientRect();
-        var m = 24 / r.width * 100; // keep the round knob fully inside the frame
-        var p = (clientX - r.left) / r.width * 100;
-        s.style.setProperty('--pos', Math.max(m, Math.min(100 - m, p)) + '%');
-      }
-      s.addEventListener('pointermove', function (e) { setPos(e.clientX); });
-      s.addEventListener('pointerdown', function (e) { setPos(e.clientX); });
+      Array.prototype.forEach.call(document.querySelectorAll('.ba-slider'), function (s) {
+        function setPos(clientX) {
+          var r = s.getBoundingClientRect();
+          var m = 24 / r.width * 100; // keep the round knob fully inside the frame
+          var p = (clientX - r.left) / r.width * 100;
+          s.style.setProperty('--pos', Math.max(m, Math.min(100 - m, p)) + '%');
+        }
+        s.addEventListener('pointermove', function (e) { setPos(e.clientX); });
+        s.addEventListener('pointerdown', function (e) { setPos(e.clientX); });
+      });
     })();
   </script>
 
