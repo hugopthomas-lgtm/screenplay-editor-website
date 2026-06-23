@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>oh no — scrrrr.</title>
+  <link rel="icon" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f4f1ea;
+      --ink: #1c1b18;
+      --soft: #4a463f;
+      --muted: #8c867a;
+      --faint: #b6afa1;
+      --line: rgba(28,27,24,0.12);
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-ink: #6f51c4;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+
+    .topbar { flex: 0 0 auto; display: flex; justify-content: flex-end; align-items: center; padding: 26px 40px; }
+    .reinstall {
+      font-family: var(--mono); font-size: 13px; font-weight: 500; text-decoration: none;
+      color: var(--violet-ink); border: 1px solid var(--violet); border-radius: 999px;
+      padding: 9px 18px; transition: all 0.15s ease;
+    }
+    .reinstall:hover { background: var(--violet); color: #fff; }
+
+    .main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4px 40px 40px; overflow-y: auto; }
+    .grid { display: grid; grid-template-columns: 1.06fr 0.94fr; max-width: 980px; width: 100%; align-items: center; }
+    .left { padding-right: 60px; }
+    .right { padding-left: 60px; border-left: 1px solid var(--line); }
+
+    /* ---- left: survey ---- */
+    .headline {
+      font-family: var(--mono); font-size: 31px; line-height: 1.22; font-weight: 700;
+      letter-spacing: -1px; color: var(--ink); margin-bottom: 30px; text-wrap: balance;
+    }
+    .headline .em { color: var(--violet-ink); }
+
+    .opt { display: flex; align-items: center; gap: 13px; padding: 7px 0; cursor: pointer; }
+    .opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .box {
+      flex: 0 0 auto; width: 19px; height: 19px; border-radius: 5px;
+      border: 1.5px solid #c8c1b3; background: transparent;
+      display: flex; align-items: center; justify-content: center; transition: all 0.12s ease;
+    }
+    .box svg { opacity: 0; transition: opacity 0.12s ease; }
+    .opt:hover .box { border-color: var(--violet); }
+    .opt input:checked + .box { background: var(--violet); border-color: var(--violet); }
+    .opt input:checked + .box svg { opacity: 1; }
+    .opt .lbl { font-size: 13.5px; line-height: 1.35; color: var(--soft); }
+
+    .more { margin-top: 16px; }
+    textarea {
+      width: 100%; min-height: 74px; resize: vertical; padding: 12px 14px; border-radius: 10px;
+      background: #fbf9f4; border: 1px solid #ddd6c8; color: var(--ink);
+      font-family: var(--mono); font-size: 13.5px; line-height: 1.5;
+    }
+    textarea::placeholder { color: var(--faint); }
+    textarea:focus { outline: none; border-color: var(--violet); background: #fff; }
+    .submit {
+      margin-top: 20px; background: var(--violet); color: #fff; border: none; cursor: pointer;
+      font-family: var(--mono); font-weight: 600; font-size: 14.5px; padding: 13px 28px; border-radius: 11px;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .submit:hover { background: var(--violet-dark); transform: translateY(-1px); }
+    .submit:disabled { opacity: 0.55; cursor: default; transform: none; }
+
+    .thanks { display: none; }
+    .thanks p { font-size: 15px; line-height: 1.65; color: var(--soft); margin: 0 0 24px; max-width: 40ch; }
+    .done .survey { display: none; }
+    .done .thanks { display: block; }
+
+    /* ---- right: a note from the maker ---- */
+    .note { text-align: left; }
+    .avatar {
+      display: block; width: 88px; height: 88px; border-radius: 50%; margin: 0 auto 26px;
+      object-fit: cover; object-position: 48% 30%;
+      box-shadow: 0 6px 20px rgba(28,27,24,0.14);
+    }
+    .note p { font-family: var(--mono); font-size: 13.5px; line-height: 1.72; color: var(--soft); margin-bottom: 13px; }
+    .note p:last-of-type { margin-bottom: 0; }
+    .sig { margin-top: 18px; text-align: right; }
+    .sig .sign-img { height: 50px; width: auto; display: inline-block; margin-right: 2px; }
+
+    @media (max-width: 860px) {
+      body { overflow-y: auto; }
+      .grid { grid-template-columns: 1fr; max-width: 440px; }
+      .left { padding-right: 0; }
+      .right { padding-left: 0; border-left: none; border-top: 1px solid var(--line); padding-top: 40px; margin-top: 40px; }
+      .headline { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="reinstall" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">reinstall scrrrr.</a>
+  </div>
+
+  <div class="main">
+    <div class="grid" id="grid">
+      <!-- LEFT -->
+      <div class="left">
+        <div class="survey">
+          <div class="headline">oh no! i'm sorry. <span class="em">can i know what happened?</span></div>
+
+          <label class="opt"><input type="checkbox" value="formatting"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">it didn't format my script the way i wanted.</span></label>
+          <label class="opt"><input type="checkbox" value="in_the_way"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">it got in my way while i was writing.</span></label>
+          <label class="opt"><input type="checkbox" value="privacy"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">i had privacy or security concerns.</span></label>
+          <label class="opt"><input type="checkbox" value="google_auth"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">i didn't want to connect my google account.</span></label>
+          <label class="opt"><input type="checkbox" value="missing_feature"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">it was missing something i need.</span></label>
+          <label class="opt"><input type="checkbox" value="price"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">i didn't want to pay for it.</span></label>
+          <label class="opt"><input type="checkbox" value="one_project"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">i only needed it for one project.</span></label>
+          <label class="opt"><input type="checkbox" value="buggy"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">it was buggy or slow.</span></label>
+
+          <div class="more">
+            <textarea id="note" placeholder="anything else? the more honest, the better. this goes straight to me."></textarea>
+          </div>
+
+          <button class="submit" id="submit">send feedback</button>
+        </div>
+
+        <div class="thanks">
+          <div class="headline">thank you. <span class="em">really.</span></div>
+          <p>that goes straight to me, and i read every single one. whenever you want to give scrrrr. another shot, it's one click away.</p>
+          <a class="reinstall" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">reinstall scrrrr.</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: a note from the maker -->
+      <div class="right">
+        <div class="note">
+          <img class="avatar" src="hugo2.jpg" alt="Hugo">
+          <p>hi,</p>
+          <p>i'm hugo. i build scrrrr. on my own, so when something pushed you to remove it, that's on me, and i'd genuinely like to know what it was.</p>
+          <p>a screenwriting tool living inside google docs is a strange, hard thing to get right. your reason, even one line, tells me exactly where to look next.</p>
+          <p>thank you for trying it. i hope to win you back one day.</p>
+          <div class="sig">
+            <img class="sign-img" src="signature.png" alt="Hugo Thomas">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var submit = document.getElementById('submit');
+      if (!submit) return;
+      submit.addEventListener('click', function () {
+        var reasons = Array.prototype.slice
+          .call(document.querySelectorAll('.opt input:checked'))
+          .map(function (c) { return c.value; });
+        var note = (document.getElementById('note').value || '').trim();
+        submit.disabled = true;
+        submit.textContent = 'sending...';
+        try {
+          fetch('https://screenplay-editor-api.hugopthomas.workers.dev/uninstall-feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reasons: reasons, note: note })
+          }).catch(function () {});
+        } catch (e) {}
+        setTimeout(function () { document.body.classList.add('done'); }, 350);
+      });
+    })();
+  </script>
+</body>
+</html>
