@@ -7,7 +7,7 @@
 (function () {
   var VIOLET = '#9D7BEA';
   var VIOLET_DARK = '#8B6AD4';
-  var INSTALL = 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
+  var INSTALL = 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln';
 
   // Fixed header height, published as a CSS var so any page can clear the
   // fixed bar (e.g. breadcrumb: margin-top:var(--site-header-h)). Change the
