@@ -1237,14 +1237,14 @@
       if (ref) { try { localStorage.setItem('se_ref', ref); } catch (e) {} }
       var stored = ref;
       if (!stored) { try { stored = localStorage.getItem('se_ref'); } catch (e) {} }
-      // Lien de parrainage détecté → bascule l'accueil parrainage en haut du hero
-      // pour que le filleul VOIE qu'il est invité, ce qu'il gagne, et le CODE à
-      // entrer (filet fiable, ne dépend pas du relais à l'extension). Best practice.
-      if (stored) {
+      // Carte d'accueil : SEULEMENT sur un clic FRAIS (?ref= dans l'URL). Sinon elle
+      // s'afficherait à chaque visite pour quiconque a déjà cliqué un lien un jour.
+      // Le relais à l'extension, lui, réutilise le code stocké (bloc ci-dessous).
+      if (ref) {
         try {
           document.body.classList.add('has-ref');
           var codeEl = document.getElementById('ref-code-value');
-          var codeUp = String(stored).toUpperCase();
+          var codeUp = String(ref).toUpperCase();
           if (codeEl) codeEl.textContent = codeUp;
           var copyBtn = document.getElementById('ref-code-copy');
           if (copyBtn) copyBtn.addEventListener('click', function () {
