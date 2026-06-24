@@ -49,16 +49,20 @@
         'text-decoration:none;transition:color .2s;}' +
         'nav a:hover{color:#fff;}' +
         '.cta{margin-left:26px;background:' + VIOLET + ';color:#fff;' +
+        'display:inline-flex;align-items:center;gap:7px;' +
         'padding:9px 18px;border-radius:7px;font-size:13px;font-weight:600;' +
         'transition:background .2s,transform .2s;}' +
         '.cta:hover{background:' + VIOLET_DARK + ';transform:translateY(-1px);}' +
+        '.cta .flame{width:16px;height:16px;flex-shrink:0;filter:brightness(0) invert(1);}' +
         '@media(max-width:760px){.inner{padding:0 20px;}' +
         'nav a:not(.cta){display:none;}.cta{margin-left:0;}}' +
         '</style>' +
         '<div class="bar"><div class="inner">' +
         '<a href="/" class="logo">scrrrr<span class="dot">.</span></a>' +
         '<nav>' + navHtml +
-        '<a class="cta" href="' + INSTALL + '" target="_blank" rel="noopener">Install</a>' +
+        '<a class="cta" href="' + INSTALL + '" target="_blank" rel="noopener">' +
+        '<img class="flame" src="/flame.png" alt="" aria-hidden="true">' +
+        'Install</a>' +
         '</nav></div></div>';
     }
   }
