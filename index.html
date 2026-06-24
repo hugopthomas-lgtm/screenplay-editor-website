@@ -276,6 +276,23 @@
       filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 45px rgba(157, 123, 234, 0.28));
     }
 
+    /* "No more" caption: emotional lead-in to the demo screenshot, two stacked
+       lines of equal size for a hammering rhythm. */
+    .demo-title {
+      max-width: 800px;
+      margin: 64px auto 30px;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.45;
+      letter-spacing: -0.5px;
+      color: #fff;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .demo-title { font-size: 22px; margin-top: 48px; }
+    }
+
     /* Auto-format sweep: a violet laser line slides down the page and the
        transformed version appears underneath, on loop. No interaction needed.
        Used by the hero (draft -> formatted) and Uccello (script -> graphic novel). */
@@ -960,6 +977,11 @@
           <li><span class="ck">&#10003;</span>Installs in seconds</li>
           <li><span class="ck">&#10003;</span>Your scripts stay in your Drive</li>
         </ul>
+
+        <h2 class="demo-title">
+          No more lost pages when it crashes.<br>
+          No more choosing between writing and collaborating.
+        </h2>
 
         <div class="hero-screenshot">
           <div class="sweep">
