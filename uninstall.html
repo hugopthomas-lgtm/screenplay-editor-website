@@ -64,9 +64,10 @@
     .opt input:checked + .box svg { opacity: 1; }
     .opt .lbl { font-size: 13.5px; line-height: 1.35; color: var(--soft); }
 
+    .ask { font-size: 14px; line-height: 1.55; color: var(--soft); margin: 4px 0 0; }
     .more { margin-top: 16px; }
     textarea {
-      width: 100%; min-height: 74px; resize: vertical; padding: 12px 14px; border-radius: 10px;
+      width: 100%; min-height: 150px; resize: vertical; padding: 13px 15px; border-radius: 10px;
       background: #fbf9f4; border: 1px solid #ddd6c8; color: var(--ink);
       font-family: var(--mono); font-size: 13.5px; line-height: 1.5;
     }
@@ -118,17 +119,10 @@
         <div class="survey">
           <div class="headline">Oh no! I'm sorry. <span class="em">Can I know what happened?</span></div>
 
-          <label class="opt"><input type="checkbox" value="formatting"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">it didn't format my script the way i wanted.</span></label>
-          <label class="opt"><input type="checkbox" value="in_the_way"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">it got in my way while i was writing.</span></label>
-          <label class="opt"><input type="checkbox" value="privacy"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">i had privacy or security concerns.</span></label>
-          <label class="opt"><input type="checkbox" value="google_auth"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">i didn't want to connect my google account.</span></label>
-          <label class="opt"><input type="checkbox" value="missing_feature"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">it was missing something i need.</span></label>
-          <label class="opt"><input type="checkbox" value="price"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">i didn't want to pay for it.</span></label>
-          <label class="opt"><input type="checkbox" value="one_project"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">i only needed it for one project.</span></label>
-          <label class="opt"><input type="checkbox" value="buggy"><span class="box"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="lbl">it was buggy or slow.</span></label>
+          <p class="ask">What were you writing, and what made scrrrr. not work for you? Even one honest line tells me exactly where to look next. It comes straight to me.</p>
 
           <div class="more">
-            <textarea id="note" placeholder="anything else? the more honest, the better. this goes straight to me."></textarea>
+            <textarea id="note" placeholder="type here, in your own words…" autofocus></textarea>
           </div>
 
           <button class="submit" id="submit">send feedback</button>
@@ -162,9 +156,6 @@
       var submit = document.getElementById('submit');
       if (!submit) return;
       submit.addEventListener('click', function () {
-        var reasons = Array.prototype.slice
-          .call(document.querySelectorAll('.opt input:checked'))
-          .map(function (c) { return c.value; });
         var note = (document.getElementById('note').value || '').trim();
         submit.disabled = true;
         submit.textContent = 'sending...';
@@ -172,7 +163,7 @@
           fetch('https://screenplay-editor-api.hugopthomas.workers.dev/uninstall-feedback', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ reasons: reasons, note: note })
+            body: JSON.stringify({ note: note })
           }).catch(function () {});
         } catch (e) {}
         setTimeout(function () { document.body.classList.add('done'); }, 350);
