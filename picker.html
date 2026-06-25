@@ -45,10 +45,10 @@
 <body>
 <div class="card">
   <div class="brand">scrrr.<span> · Screenplay Editor</span></div>
-  <h1 id="headline">Connect your document.</h1>
+  <h1 id="headline">Google needs a quick yes.</h1>
   <p id="lead">Every writing tool has to confirm which document it can format.
-     Pick the one you just opened, <strong>it's at the top of the list</strong>, then hit Select.</p>
-  <button class="btn" id="openPicker">Choose my document</button>
+     <strong>Your script is already selected</strong>, you say yes once and you're back to writing.</p>
+  <button class="btn" id="openPicker">Confirm my document</button>
   <div class="hint" id="hint">This happens once per document, then never again.</div>
   <div id="status"></div>
 </div>
@@ -95,13 +95,14 @@
     if (!window.gapi) { fail('Google is still loading. Try the button again in a second.'); return; }
     gapi.load('picker', function () {
       _pickerOpened = true;
-      var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS)
-        .setMode(google.picker.DocsViewMode.LIST);
-      // PAS de setFileIds : avec drive.file, filtrer par l'ID d'un doc neuf / non
-      // encore autorisé renvoie "No documents" (deadlock total, prouvé en test).
-      // On montre la liste (doc ouvert en tête, tri par récence). Le mauvais clic
-      // n'est plus un piège : l'extension ne fait plus de faux grant et se répare
-      // via 403, donc autoriser un autre doc est récupérable (réactiver relance).
+      var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
+      // Pré-navigue le picker sur le doc déjà ouvert : un seul clic à confirmer.
+      // Marche quand le doc est INDEXÉ par Google = le cas de l'extension PUBLIÉE,
+      // qui demande le grant au 1er formatage (doc déjà rempli). Un doc vierge tout
+      // neuf (cas du setup-à-l'activation de la version locale) n'est pas encore
+      // indexé → setFileIds renverrait vide ; ce cas se règle côté extension (faire
+      // que scrrr crée le doc → accès automatique, zéro Picker), pas ici.
+      if (params.docId && view.setFileIds) view.setFileIds(params.docId);
       var builder = new google.picker.PickerBuilder()
         .setOAuthToken(params.token)
         .setAppId(PICKER_APP_ID)
