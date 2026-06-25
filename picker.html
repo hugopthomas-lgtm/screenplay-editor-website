@@ -45,10 +45,10 @@
 <body>
 <div class="card">
   <div class="brand">scrrr.<span> · Screenplay Editor</span></div>
-  <h1 id="headline">Google needs a quick yes.</h1>
+  <h1 id="headline">Connect your document.</h1>
   <p id="lead">Every writing tool has to confirm which document it can format.
-     <strong>Your script is already selected</strong>, you say yes once and you're back to writing.</p>
-  <button class="btn" id="openPicker">Confirm my document</button>
+     Pick the one you just opened, <strong>it's at the top of the list</strong>, and you're back to writing.</p>
+  <button class="btn" id="openPicker">Choose my document</button>
   <div class="hint" id="hint">This happens once per document, then never again.</div>
   <div id="status"></div>
 </div>
@@ -96,8 +96,10 @@
     gapi.load('picker', function () {
       _pickerOpened = true;
       var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
-      // Pré-navigue le picker sur le doc déjà ouvert : un seul clic à confirmer.
-      if (params.docId && view.setFileIds) view.setFileIds(params.docId);
+      // PAS de setFileIds : avec le scope drive.file, filtrer par l'ID d'un doc
+      // pas ENCORE autorisé renvoie « No documents » (l'app ne peut pas résoudre
+      // un fichier auquel elle n'a pas accès, surtout un doc tout neuf) → deadlock.
+      // On montre la liste des docs : celui qu'on vient d'ouvrir est en tête.
       var builder = new google.picker.PickerBuilder()
         .setOAuthToken(params.token)
         .setAppId(PICKER_APP_ID)
