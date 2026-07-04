@@ -8,13 +8,13 @@ disallow), URLs propres servies par Cloudflare Pages, canonical absorbe le doubl
 ## Fait
 
 - [x] **Sitemap : `/resources/screenplay-format-google-docs` manquait** (page « Complete Guide 2026 », grosse requête). Ajouté priority 0.9. (2026-07-04)
+- [x] **JSON-LD sur les 14 pages resources/** : `Article` + `BreadcrumbList` partout
+  (dates réelles tirées de git, auteur Hugo Thomas pour l'E-E-A-T), `FAQPage` sur les
+  2 guides à FAQ visible, `CollectionPage` sur le hub. HowTo volontairement écarté
+  (rich results supprimés par Google en 2023). (2026-07-04)
 
 ## À faire (classé par impact)
 
-- [ ] **JSON-LD sur les 13 pages resources/** : `Article` ou `HowTo` pour les guides,
-  `FAQPage` si la page a une section questions. Candidates aux rich results, ce sont les
-  pages qui rankent. Commencer par how-to-write-screenplay-google-docs et
-  screenplay-format-google-docs.
 - [ ] **JSON-LD `BlogPosting` sur les 3 articles de blog** + `Blog` sur blog.html.
 - [ ] **Open Graph + Twitter cards sur toutes les pages publiques** (seuls index.html et
   schools.html ont og:title). Gabarit commun : og:title, og:description, og:image
