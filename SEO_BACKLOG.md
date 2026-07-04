@@ -13,9 +13,10 @@ disallow), URLs propres servies par Cloudflare Pages, canonical absorbe le doubl
   2 guides à FAQ visible, `CollectionPage` sur le hub. HowTo volontairement écarté
   (rich results supprimés par Google en 2023). (2026-07-04)
 
-## À faire (classé par impact)
+- [x] **JSON-LD blog** : `BlogPosting` + `BreadcrumbList` sur les 2 essais, `Blog` sur
+  blog.html (l'article addons était déjà balisé). (2026-07-04)
 
-- [ ] **JSON-LD `BlogPosting` sur les 3 articles de blog** + `Blog` sur blog.html.
+## À faire (classé par impact)
 - [ ] **Open Graph + Twitter cards sur toutes les pages publiques** (seuls index.html et
   schools.html ont og:title). Gabarit commun : og:title, og:description, og:image
   (créer une image de partage 1200×630 réutilisable), og:url, twitter:card summary_large_image.
