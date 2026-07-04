@@ -64,6 +64,10 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://screenplayeditor.app/resources/screenplay-format-google-docs</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://screenplayeditor.app/resources/short-film-screenplay-template</loc>
     <priority>0.7</priority>
   </url>
