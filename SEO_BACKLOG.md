@@ -22,9 +22,14 @@ disallow), URLs propres servies par Cloudflare Pages, canonical absorbe le doubl
   canonique, twitter:card), schools.html complété. Image de partage `og-image.png`
   1200×630 créée depuis hero-screenshot-flat (crop centré). Prochain raffinement
   possible : og:image dédiée par grande page (template, compare). (2026-07-04)
-- [ ] **Maillage interne** : vérifier que index.html et les landings pointent vers
-  /resources (hub) et les compare ; que chaque template page pointe vers le guide principal
-  et inversement. Les pages orphelines ne rankent pas.
+- [x] **Liens internes normalisés vers les URLs canoniques** : 286 hrefs `.html`
+  (+ cancel/success) réécrits en chemins propres absolus. Avant, chaque clic et chaque
+  crawl interne passaient par la redirection 308 de Cloudflare Pages. Audit au passage :
+  les hubs resources/compare/blog maillent bien leurs enfants. (2026-07-04)
+- [ ] **Orphelines restantes (décision produit à valider avec Hugo)** : les 10
+  landing-*.html (pages de campagne, zéro lien entrant, mais dans le sitemap) ;
+  /sceneboard et /filmstill (produits à part). Options : bloc footer « Who it's for »,
+  ou les sortir du sitemap et assumer le noindex de fait.
 - [ ] **Nouvelle page contenu par requête non couverte** (une par itération) : idées à
   valider avec volume réel : « fountain syntax guide », « how to format dialogue in a
   screenplay », « screenplay page count / pages per minute », « courier vs courier new
