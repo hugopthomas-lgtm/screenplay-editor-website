@@ -777,16 +777,40 @@
        PRIVACY
        ============================================ */
     .privacy-section {
-      padding: 10px 30px 40px;
-      max-width: 1000px;
-      margin: 0 auto;
+      padding: 74px 30px 78px;
+      background: #f6f0e6;
     }
+
+    /* Objets v4 — la vibe pop des slides, en clin d'œil */
+    .float-obj {
+      position: absolute; pointer-events: none; z-index: 3;
+      -webkit-mask-image: radial-gradient(closest-side, #000 52%, transparent 94%);
+      mask-image: radial-gradient(closest-side, #000 52%, transparent 94%);
+    }
+    .hero-inner { position: relative; }
+    .hero-plane { width: 215px; right: -84px; top: 245px; transform: rotate(-14deg); }
+    .tools { position: relative; }
+    .tools-tama { width: 160px; right: 5%; top: 6px; transform: rotate(9deg); }
+    @media (max-width: 1100px) { .float-obj { display: none; } }
+
+    .hero-safety {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 14px; padding: 9px 16px; border-radius: 999px;
+      background: rgba(157, 123, 234, 0.16); color: #e9e9ee;
+      font-size: 13.5px; font-weight: 600; text-decoration: none;
+      transform: rotate(-0.6deg);
+    }
+    .hero-safety svg { width: 15px; height: 15px; stroke: var(--violet); flex: 0 0 auto; }
+    .hero-safety b { color: var(--violet); font-weight: 800; }
+    .hero-safety:hover { background: rgba(157, 123, 234, 0.26); }
 
     .privacy-inner {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 56px;
       align-items: center;
+      max-width: 1020px;
+      margin: 0 auto;
     }
 
     .privacy-label {
@@ -799,11 +823,33 @@
     }
 
     .privacy-section h2 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 14px;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      margin-bottom: 16px;
       color: var(--dark);
     }
+    .privacy-section h2 .g { color: var(--violet); }
+
+    .cloud-table {
+      margin-top: 26px; background: #fff; border-radius: 16px;
+      padding: 18px 24px; box-shadow: 0 16px 40px rgba(26,26,26,0.08);
+    }
+    .cloud-table .chead {
+      font-size: 11px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase;
+      color: #b3ac9e; padding-bottom: 8px;
+    }
+    .cloud-table .crow {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; font-size: 15.5px; font-weight: 600;
+    }
+    .cloud-table .crow + .crow { border-top: 1px solid #f1ece2; }
+    .cloud-table .crow .cwho { color: #8a8a92; }
+    .cloud-table .crow .cwhere { color: #44444c; }
+    .cloud-table .crow.us { background: rgba(157,123,234,0.09); margin: 0 -24px -18px; padding: 13px 24px 15px; border-radius: 0 0 16px 16px; }
+    .cloud-table .crow.us .cwho { color: var(--dark); font-weight: 800; }
+    .cloud-table .crow.us .cwhere { color: var(--violet); font-weight: 800; }
 
     .privacy-section p {
       font-size: 14px;
@@ -812,7 +858,10 @@
     }
 
     .privacy-image img {
-      width: 95%;
+      width: 100%;
+      -webkit-mask-image: radial-gradient(closest-side, #000 50%, transparent 96%);
+      mask-image: radial-gradient(closest-side, #000 50%, transparent 96%);
+      transform: rotate(2.5deg);
     }
 
     /* ============================================
@@ -1073,8 +1122,10 @@
           <li><span class="ck">&#10003;</span>Free to start</li>
           <li><span class="ck">&#10003;</span>No credit card</li>
           <li><span class="ck">&#10003;</span>Installs in seconds</li>
-          <li aria-hidden="true" style="flex-basis:100%;height:0;margin:0;padding:0;list-style:none;"></li><li><span class="ck">&#10003;</span>Secured by Google, not us</li>
         </ul>
+        <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Your script is guarded by <b>Google</b> — not by us.</a>
+
+        <img class="float-obj hero-plane" src="obj-plane-dark.png" alt="" aria-hidden="true">
 
         <div class="hero-screenshot">
           <video class="hero-demo" autoplay muted loop playsinline aria-label="Screenplay Editor formatting a script live in Google Docs">
@@ -1110,6 +1161,27 @@
           <div class="how-num">STEP 3</div>
           <h3>Just write</h3>
           <p>It formats every scene, character, and line as you type, so your script is ready to share or shoot.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY / TRUST -->
+    <section id="privacy" class="privacy-section scroll-fade">
+      <div class="privacy-inner">
+        <div>
+          <div class="privacy-label">Privacy</div>
+          <h2>Guarded by <span class="g">Google</span>. Not by us.</h2>
+          <p>Your script lives in your own Google Drive, behind the same security as Gmail. We never store it, and we never see it.</p>
+          <div class="cloud-table">
+            <div class="chead">Your script lives in&hellip;</div>
+            <div class="crow"><span class="cwho">Final Draft</span><span class="cwhere">Final Draft&rsquo;s cloud</span></div>
+            <div class="crow"><span class="cwho">Arc Studio</span><span class="cwhere">Arc Studio&rsquo;s cloud</span></div>
+            <div class="crow"><span class="cwho">Celtx</span><span class="cwhere">Celtx&rsquo;s cloud</span></div>
+            <div class="crow us"><span class="cwho">Screenplay Editor</span><span class="cwhere">your Google Drive</span></div>
+          </div>
+        </div>
+        <div class="privacy-image">
+          <img src="obj-diary.png" alt="Your screenplay stays private, like a locked diary">
         </div>
       </div>
     </section>
@@ -1155,6 +1227,7 @@
 
     <!-- TOOLS -->
     <section id="features" class="tools scroll-fade">
+      <img class="float-obj tools-tama" src="obj-tamagotchi.png" alt="" aria-hidden="true">
       <h2>Every tool, right inside Google Docs.</h2>
       <p class="tools-sub">No new software to learn. It all lives in one sidebar.</p>
       <div class="tools-grid">
@@ -1166,21 +1239,6 @@
         <div class="tool-card"><i class="tm ti ti-photo"></i><div><h3>Movie Poster</h3><p>Turn your script into a movie poster, made from your own story.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-layout-grid"></i><div><h3>Production Breakdown</h3><p>Cast, props, wardrobe, and SFX pulled from every scene in one click.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-file-export"></i><div><h3>Final Draft export</h3><p>Export to industry-standard .fdx, ready to send to anyone.</p></div></div>
-      </div>
-    </section>
-
-    <!-- PRIVACY / TRUST -->
-    <section class="privacy-section">
-      <div class="privacy-inner">
-        <div>
-          <div class="privacy-label">Privacy</div>
-          <h2>Where does your screenplay actually live?</h2>
-          <p style="margin-bottom:14px;">Your screenplay stays in your Google Drive. We don't keep a copy on our servers. It's protected by the same Google security that guards your email and everything else you trust to Google. You pick which document to open, and that's the only access we ask for.</p>
-          <p>Final Draft keeps your script in a file or its own cloud. Arc Studio and Celtx keep it on theirs. With Screenplay Editor, the company holding your script is Google, not us.</p>
-        </div>
-        <div class="privacy-image">
-          <img src="feature-privacy.png" alt="Your screenplay stays in your Google Drive">
-        </div>
       </div>
     </section>
 
