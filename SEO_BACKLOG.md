@@ -17,10 +17,11 @@ disallow), URLs propres servies par Cloudflare Pages, canonical absorbe le doubl
   blog.html (l'article addons était déjà balisé). (2026-07-04)
 
 ## À faire (classé par impact)
-- [ ] **Open Graph + Twitter cards sur toutes les pages publiques** (seuls index.html et
-  schools.html ont og:title). Gabarit commun : og:title, og:description, og:image
-  (créer une image de partage 1200×630 réutilisable), og:url, twitter:card summary_large_image.
-  ~40 pages, faisable en 2-3 itérations (resources → compare/landings → reste).
+- [x] **Open Graph + Twitter cards sur toutes les pages publiques** : 45 pages taguées
+  (og:type article/website, og:site_name, title nettoyé du suffixe, description, url
+  canonique, twitter:card), schools.html complété. Image de partage `og-image.png`
+  1200×630 créée depuis hero-screenshot-flat (crop centré). Prochain raffinement
+  possible : og:image dédiée par grande page (template, compare). (2026-07-04)
 - [ ] **Maillage interne** : vérifier que index.html et les landings pointent vers
   /resources (hub) et les compare ; que chaque template page pointe vers le guide principal
   et inversement. Les pages orphelines ne rankent pas.
