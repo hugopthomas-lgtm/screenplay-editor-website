@@ -788,7 +788,8 @@
       mask-image: radial-gradient(closest-side, #000 52%, transparent 94%);
     }
     .hero-inner { position: relative; }
-    .hero-plane { width: 215px; right: -84px; top: 245px; transform: rotate(-14deg); }
+    .hero-plane { width: 210px; right: -64px; top: 250px; transform: rotate(-10deg); filter: drop-shadow(0 18px 30px rgba(0,0,0,0.45)); }
+    .float-obj.nomask { -webkit-mask-image: none; mask-image: none; }
     .tools { position: relative; }
     .tools-tama { width: 175px; right: 5%; top: 0px; transform: rotate(-8deg); }
     @media (max-width: 1100px) { .float-obj { display: none; } }
@@ -850,6 +851,34 @@
     .cloud-table .crow.us { background: rgba(157,123,234,0.09); margin: 0 -24px -18px; padding: 13px 24px 15px; border-radius: 0 0 16px 16px; }
     .cloud-table .crow.us .cwho { color: var(--dark); font-weight: 800; }
     .cloud-table .crow.us .cwhere { color: var(--violet); font-weight: 800; }
+
+    .collab-section { padding: 74px 30px 70px; }
+    .collab-inner {
+      display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px;
+      align-items: center; max-width: 1020px; margin: 0 auto;
+    }
+    .collab-section h2 {
+      font-size: 38px; font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.08; margin-bottom: 16px; color: var(--dark);
+    }
+    .collab-section h2 .g { color: var(--violet); }
+    .collab-section p { font-size: 15px; color: #666; line-height: 1.7; }
+    .collab-list { list-style: none; margin-top: 22px; padding: 0; }
+    .collab-list li {
+      display: flex; align-items: center; gap: 11px;
+      font-size: 15.5px; font-weight: 600; color: #3c3c44; margin-bottom: 12px;
+    }
+    .collab-list .ck {
+      width: 22px; height: 22px; border-radius: 50%; flex: 0 0 auto;
+      background: var(--violet); color: #fff; font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .collab-image img {
+      width: 92%;
+      -webkit-mask-image: radial-gradient(closest-side, #000 50%, transparent 96%);
+      mask-image: radial-gradient(closest-side, #000 50%, transparent 96%);
+      transform: rotate(-3deg);
+    }
 
     .privacy-section p {
       font-size: 14px;
@@ -1125,7 +1154,7 @@
         </ul>
         <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Your script is guarded by <b>Google</b> — not by us.</a>
 
-        <img class="float-obj hero-plane" src="obj-plane-dark.png" alt="" aria-hidden="true">
+        <img class="float-obj hero-plane nomask" src="obj-plane-cut.png" alt="" aria-hidden="true">
 
         <div class="hero-screenshot">
           <video class="hero-demo" autoplay muted loop playsinline aria-label="Screenplay Editor formatting a script live in Google Docs">
@@ -1226,8 +1255,25 @@
     </section>
 
     <!-- TOOLS -->
+    <section class="collab-section scroll-fade">
+      <div class="collab-inner">
+        <div>
+          <div class="privacy-label">The killer feature</div>
+          <h2>Write together. <span class="g">In real time.</span></h2>
+          <p>Final Draft can't do this. Comments, suggestions, live co-writing with multiple cursors: your co-writer is already in the room, because it's Google Docs.</p>
+          <ul class="collab-list">
+            <li><span class="ck">&#10003;</span>Live co-editing with multiple cursors</li>
+            <li><span class="ck">&#10003;</span>Comments and suggestions built in</li>
+            <li><span class="ck">&#10003;</span>No file sharing, no merging, no conflicts</li>
+          </ul>
+        </div>
+        <div class="collab-image">
+          <img src="obj-walkies.png" alt="Two writers, one script, in real time">
+        </div>
+      </div>
+    </section>
+
     <section id="features" class="tools scroll-fade">
-      <img class="float-obj tools-tama" src="obj-swissknife.png" alt="" aria-hidden="true">
       <h2>Every tool, right inside Google Docs.</h2>
       <p class="tools-sub">No new software to learn. It all lives in one sidebar.</p>
       <div class="tools-grid">
