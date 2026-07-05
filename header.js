@@ -45,6 +45,7 @@
         'text-decoration:none;cursor:pointer;}' +
         '.logo .dot{color:' + VIOLET + ';}' +
         'nav{display:flex;align-items:center;}' +
+        '.nav-links{display:flex;align-items:center;}' +
         'nav a{margin-left:26px;font-size:13px;font-weight:500;color:#aaa;' +
         'text-decoration:none;transition:color .2s;}' +
         'nav a:hover{color:#fff;}' +
@@ -54,16 +55,46 @@
         'transition:background .2s,transform .2s;}' +
         '.cta:hover{background:' + VIOLET_DARK + ';transform:translateY(-1px);}' +
         '.cta .flame{width:16px;height:16px;flex-shrink:0;filter:brightness(0) invert(1);}' +
+        '.burger{display:none;margin-left:16px;width:26px;height:20px;background:none;border:0;padding:0;cursor:pointer;position:relative;}' +
+        '.burger span{position:absolute;left:0;width:26px;height:2px;background:#fff;border-radius:2px;' +
+        'transition:transform .25s ease,opacity .2s ease,top .25s ease;}' +
+        '.burger span:nth-child(1){top:3px;}.burger span:nth-child(2){top:9px;}.burger span:nth-child(3){top:15px;}' +
+        '.bar.open .burger span:nth-child(1){top:9px;transform:rotate(45deg);}' +
+        '.bar.open .burger span:nth-child(2){opacity:0;}' +
+        '.bar.open .burger span:nth-child(3){top:9px;transform:rotate(-45deg);}' +
+        '.mobile-menu{display:none;flex-direction:column;background:#1a1a1a;' +
+        'border-bottom:1px solid rgba(157,123,234,0.18);padding:4px 0 12px;}' +
+        '.mobile-menu a{padding:13px 22px;font-size:15px;font-weight:500;color:#ccc;' +
+        "text-decoration:none;border-top:1px solid rgba(255,255,255,0.06);font-family:'JetBrains Mono',monospace;}" +
+        '.mobile-menu a:active{background:rgba(157,123,234,0.14);color:#fff;}' +
         '@media(max-width:760px){.inner{padding:0 20px;}' +
-        'nav a:not(.cta){display:none;}.cta{margin-left:0;}}' +
+        '.nav-links{display:none;}.cta{margin-left:0;}.burger{display:block;}' +
+        '.bar.open .mobile-menu{display:flex;}}' +
         '</style>' +
         '<div class="bar"><div class="inner">' +
         '<a href="/" class="logo">scrrrr<span class="dot">.</span></a>' +
-        '<nav>' + navHtml +
+        '<nav>' +
+        '<span class="nav-links">' + navHtml + '</span>' +
         '<a class="cta" href="' + INSTALL + '" target="_blank" rel="noopener">' +
         '<img class="flame" src="/flame.png" alt="" aria-hidden="true">' +
         'Install</a>' +
-        '</nav></div></div>';
+        '<button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>' +
+        '</nav></div>' +
+        '<div class="mobile-menu">' + navHtml + '</div>' +
+        '</div>';
+
+      var bar = root.querySelector('.bar');
+      var burger = root.querySelector('.burger');
+      burger.addEventListener('click', function () {
+        var open = bar.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      root.querySelectorAll('.mobile-menu a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          bar.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        });
+      });
     }
   }
   customElements.define('site-header', SiteHeader);
