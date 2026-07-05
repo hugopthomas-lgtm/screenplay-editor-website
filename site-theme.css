@@ -31,8 +31,7 @@ a { color: inherit; }
 /* HERO */
 .hero {
   background: var(--dark);
-  padding: 104px 30px 72px;
-  min-height: 380px;
+  padding: 100px 30px 80px;
   text-align: center;
   position: relative;
   overflow: hidden;
