@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>document.documentElement.classList.add('js');</script>
   <title>Support - Screenplay Editor for Google Docs</title>
   <meta name="description" content="Get help with Screenplay Editor. Find answers to common questions about screenplay formatting in Google Docs, or contact us directly.">
   <link rel="canonical" href="https://screenplayeditor.app/support">
@@ -15,518 +16,139 @@
   <meta name="twitter:card" content="summary_large_image">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="/site-theme.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --violet: #9D7BEA;
-      --violet-dark: #8B6AD4;
-      --violet-light: #f8f6fc;
-      --dark: #1a1a1a;
-    }
-
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background: #fafafa;
-      color: #1a1a1a;
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: #1a1a1a;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
-      z-index: 100;
-    }
-
-    .header-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 18px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .logo .dot {
-      color: var(--violet);
-    }
-
-    .logo .cursor {
-      color: var(--violet);
-    }
-
-    .logo .full-name {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .logo:hover .mark {
-      opacity: 0;
-    }
-
-    .logo:hover .full-name {
-      opacity: 1;
-    }
-
-    .header-nav a {
-      margin-left: 30px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #aaa;
-      transition: color 0.2s;
-    }
-
-    .header-nav a:hover {
-      color: var(--violet);
-    }
-
-    .header-nav a.highlight {
-      color: var(--violet);
-    }
-
-    /* Breadcrumb Bar */
-    .breadcrumb-bar {
-      background: var(--dark);
-      padding: 14px 30px;
-      margin-top: var(--site-header-h, 65px);
-    }
-
-    .breadcrumb-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
-    }
-
-    .breadcrumb-content a {
-      color: var(--violet);
-      transition: opacity 0.2s;
-    }
-
-    .breadcrumb-content a:hover {
-      opacity: 0.8;
-    }
-
-    .breadcrumb-content .separator {
-      color: #555;
-    }
-
-    .breadcrumb-content .current {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    /* Page Content */
-    .page-content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 50px 30px 80px;
-    }
-
-    .page-title {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    .page-subtitle {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 40px;
-    }
-
-    /* Intro Card */
-    .intro-card {
-      background: var(--violet-light);
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 50px;
-      border-left: 4px solid var(--violet);
-    }
-
-    .intro-card h2 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
-
-    .intro-card p {
-      font-size: 14px;
-      color: #5a4a7a;
-      line-height: 1.6;
-    }
-
-    .intro-card code {
+    /* Page-specific: inline code chip inside prose, and the small note under the contact CTA. */
+    .section .prose code {
       background: rgba(157, 123, 234, 0.15);
       padding: 3px 8px;
       border-radius: 4px;
       font-size: 13px;
     }
-
-    /* FAQ Section */
-    .faq-section {
-      margin-bottom: 50px;
-    }
-
-    .faq-section h2 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      padding-left: 15px;
-      border-left: 3px solid var(--violet);
-      color: var(--dark);
-    }
-
-    .faq-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .faq-item {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 24px;
-      transition: border-color 0.2s;
-    }
-
-    .faq-item:hover {
-      border-color: var(--violet);
-    }
-
-    .faq-item h3 {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
-
-    .faq-item p {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-    }
-
-    /* Contact Section */
-    .contact-section {
-      background: var(--dark);
-      border-radius: 12px;
-      padding: 40px;
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .contact-section h2 {
-      font-size: 18px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-
-    .contact-section p {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 20px;
-    }
-
-    .contact-email {
-      display: inline-block;
-      background: var(--violet);
-      color: #fff;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    .contact-email:hover {
-      background: var(--violet-dark);
-    }
-
-    .contact-note {
-      margin-top: 15px;
+    .cta-section > .cta-inner > p.cta-note {
+      margin-top: 16px;
+      margin-bottom: 0;
       font-size: 12px;
-      color: #666;
-    }
-
-    /* Report Section */
-    .report-section h2 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      padding-left: 15px;
-      border-left: 3px solid var(--violet);
-      color: var(--dark);
-    }
-
-    .report-section p {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 15px;
-    }
-
-    .report-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .report-item {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 14px 18px;
-      font-size: 13px;
-      color: #555;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .report-item::before {
-      content: "/";
-      color: var(--violet);
-      font-weight: 600;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--dark);
-      color: #fff;
-      padding: 50px 30px;
-    }
-
-    .footer-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
-      color: var(--violet);
-    }
-
-    .footer-nav {
-      margin-bottom: 22px;
-    }
-
-    .footer-nav a {
-      color: #888;
-      margin: 0 14px;
-      font-size: 12px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .footer-nav a:hover {
-      color: #fff;
-    }
-
-    .footer-copy {
-      font-size: 11px;
-      color: #555;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .header-content {
-        padding: 15px 20px;
-      }
-
-      .header-nav a {
-        margin-left: 18px;
-        font-size: 12px;
-      }
-
-      .breadcrumb-bar {
-        padding: 14px 20px;
-      }
-
-      .page-content {
-        padding: 40px 20px 60px;
-      }
-
-      .page-title {
-        font-size: 26px;
-      }
-
-      .intro-card {
-        padding: 24px;
-      }
-
-      .faq-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .report-list {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-nav a {
-        display: block;
-        margin: 10px 0;
-      }
+      color: rgba(255, 255, 255, 0.4);
     }
   </style>
   <script src="/header.js"></script>
 </head>
-
 <body>
   <site-header></site-header>
 
   <div class="breadcrumb-bar">
     <div class="breadcrumb-content">
-      <a href="/">Home</a>
-      <span class="separator">/</span>
-      <span class="current">Support</span>
+      <div class="breadcrumb"><a href="/">Home</a> / <span>Support</span></div>
     </div>
   </div>
 
   <main>
-    <div class="page-content">
-
-      <h1 class="page-title">Support</h1>
-      <p class="page-subtitle">Need help? We've got you covered.</p>
-
-      <div class="intro-card">
-        <h2>Getting Started</h2>
-        <p>
-          After installing from the Marketplace or Chrome Web Store, open any Google Doc, go to
-          <code>Extensions > Screenplay Editor</code>, and click "AI Live Formatting". Just write. Your screenplay formats itself.
-        </p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">Support</div>
+        <h1>Help, <span>fast.</span></h1>
+        <p class="hero-subtitle">Need help? We've got you covered.</p>
+        <img class="float-obj hero-plane nomask" src="obj-plane-cut.png" alt="" aria-hidden="true">
       </div>
+    </section>
 
-      <div class="faq-section">
-        <h2>FAQ</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>How do I format a scene heading?</h3>
-            <p>Just type. With AI Live Formatting enabled, your screenplay formats automatically as you write. No buttons needed.</p>
-          </div>
+    <!-- GETTING STARTED -->
+    <section class="section scroll-fade narrow">
+      <div class="section-label">Start here</div>
+      <h2>Getting started</h2>
+      <div class="prose">
+        <p>After installing from the Marketplace or Chrome Web Store, open any Google Doc, go to <code>Extensions &gt; Screenplay Editor</code>, and click "AI Live Formatting". Just write. Your screenplay formats itself.</p>
+      </div>
+    </section>
 
-          <div class="faq-item">
-            <h3>Can I collaborate with others?</h3>
-            <p>Yes. You get all Google Docs collaboration features: real-time editing, comments, suggestion mode, and sharing.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>How do I export my script?</h3>
-            <p>Use the Export button in the sidebar. Choose PDF or FDX format. The file saves directly to your Google Drive.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>Is my script private?</h3>
-            <p>Absolutely. Your content never leaves Google's servers. We don't see your work, ever.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>Does it work offline?</h3>
-            <p>Screenplay Editor requires an internet connection. Google Docs' offline mode may allow limited functionality.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>How much does it cost?</h3>
-            <p>Screenplay Editor starts at $5.99/month for the Google Docs add-on, and $7.99/month for the Chrome extension (launch price, normally $9.99). Start free with all core formatting features. Pro unlocks Final Draft export, scene numbers, production breakdown, ElevenLabs Table Read, and removes the PDF watermark.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>What is AI Live Formatting?</h3>
-            <p>AI Live Formatting automatically detects and formats your screenplay elements as you type. Scene headings, action, dialogue, parentheticals. Type = before character names and we handle the rest.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>What is the Boneyard?</h3>
-            <p>A place to store your cut ideas. Scenes, lines, notes you're not ready to delete. Everything stays attached to your document.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>What is Scene Board?</h3>
-            <p>A visual representation of your story structure. See all your scenes on cards, drag and drop to reorganize. Your script updates itself.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>How do I manage my subscription?</h3>
-            <p>Open Settings in the sidebar and click "Manage subscription". You can change your plan or cancel anytime through the Stripe Customer Portal.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>What happens if I cancel Pro?</h3>
-            <p>You keep access until the end of your billing period, then your account returns to the free plan. Your scripts are never affected. They stay in your Google Drive.</p>
-          </div>
-
-          <div class="faq-item">
-            <h3>Is there a Chrome extension?</h3>
-            <p>Yes. Screenplay Editor is available as both a Google Docs add-on and a Chrome extension. Both connect to the same features and your same account.</p>
-          </div>
+    <!-- FAQ -->
+    <section class="section scroll-fade" style="padding-top: 0;">
+      <div class="section-label">FAQ</div>
+      <h2>Frequently asked questions</h2>
+      <div class="card-grid three">
+        <div class="info-card">
+          <h3>How do I format a scene heading?</h3>
+          <p>Just type. With AI Live Formatting enabled, your screenplay formats automatically as you write. No buttons needed.</p>
+        </div>
+        <div class="info-card">
+          <h3>Can I collaborate with others?</h3>
+          <p>Yes. You get all Google Docs collaboration features: real-time editing, comments, suggestion mode, and sharing.</p>
+        </div>
+        <div class="info-card">
+          <h3>How do I export my script?</h3>
+          <p>Use the Export button in the sidebar. Choose PDF or FDX format. The file saves directly to your Google Drive.</p>
+        </div>
+        <div class="info-card">
+          <h3>Is my script private?</h3>
+          <p>Absolutely. Your content never leaves Google's servers. We don't see your work, ever.</p>
+        </div>
+        <div class="info-card">
+          <h3>Does it work offline?</h3>
+          <p>Screenplay Editor requires an internet connection. Google Docs' offline mode may allow limited functionality.</p>
+        </div>
+        <div class="info-card">
+          <h3>How much does it cost?</h3>
+          <p>Screenplay Editor starts at $5.99/month for the Google Docs add-on, and $7.99/month for the Chrome extension (launch price, normally $9.99). Start free with all core formatting features. Pro unlocks Final Draft export, scene numbers, production breakdown, ElevenLabs Table Read, and removes the PDF watermark.</p>
+        </div>
+        <div class="info-card">
+          <h3>What is AI Live Formatting?</h3>
+          <p>AI Live Formatting automatically detects and formats your screenplay elements as you type. Scene headings, action, dialogue, parentheticals. Type = before character names and we handle the rest.</p>
+        </div>
+        <div class="info-card">
+          <h3>What is the Boneyard?</h3>
+          <p>A place to store your cut ideas. Scenes, lines, notes you're not ready to delete. Everything stays attached to your document.</p>
+        </div>
+        <div class="info-card">
+          <h3>What is Scene Board?</h3>
+          <p>A visual representation of your story structure. See all your scenes on cards, drag and drop to reorganize. Your script updates itself.</p>
+        </div>
+        <div class="info-card">
+          <h3>How do I manage my subscription?</h3>
+          <p>Open Settings in the sidebar and click "Manage subscription". You can change your plan or cancel anytime through the Stripe Customer Portal.</p>
+        </div>
+        <div class="info-card">
+          <h3>What happens if I cancel Pro?</h3>
+          <p>You keep access until the end of your billing period, then your account returns to the free plan. Your scripts are never affected. They stay in your Google Drive.</p>
+        </div>
+        <div class="info-card">
+          <h3>Is there a Chrome extension?</h3>
+          <p>Yes. Screenplay Editor is available as both a Google Docs add-on and a Chrome extension. Both connect to the same features and your same account.</p>
         </div>
       </div>
+    </section>
 
-      <div class="contact-section">
-        <h2>Contact Us</h2>
+    <!-- REPORTING A PROBLEM -->
+    <section class="section scroll-fade" style="padding-top: 0;">
+      <div class="section-label">Bug reports</div>
+      <h2>Reporting a problem</h2>
+      <p class="section-sub">If you're experiencing a bug, please include:</p>
+      <div class="card-grid">
+        <div class="info-card">
+          <h3>What happened</h3>
+        </div>
+        <div class="info-card">
+          <h3>What you expected</h3>
+        </div>
+        <div class="info-card">
+          <h3>Your browser &amp; OS</h3>
+        </div>
+        <div class="info-card">
+          <h3>Any error messages</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>Contact us</h2>
         <p>Question, bug report, or feature request?</p>
-        <a href="mailto:hugothomas@hotmail.fr" class="contact-email">hugothomas@hotmail.fr</a>
-        <p class="contact-note">We typically respond within 48 hours.</p>
+        <a href="mailto:hugothomas@hotmail.fr" class="cta-button">hugothomas@hotmail.fr</a>
+        <p class="cta-note">We typically respond within 48 hours.</p>
       </div>
-
-      <div class="report-section">
-        <h2>Reporting a Problem</h2>
-        <p>If you're experiencing a bug, please include:</p>
-        <div class="report-list">
-          <div class="report-item">What happened</div>
-          <div class="report-item">What you expected</div>
-          <div class="report-item">Your browser & OS</div>
-          <div class="report-item">Any error messages</div>
-        </div>
-      </div>
-
-    </div>
+    </section>
   </main>
 
   <footer>
@@ -538,10 +160,12 @@
         <a href="/support">Support</a>
         <a href="/privacy">Privacy Policy</a>
         <a href="/terms">Terms of Service</a>
-        <a href="/free-google-docs-screenplay-template">Free Template</a>
+        <a href="/blog">Blog</a>
       </nav>
       <p class="footer-copy">&copy; 2026 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
+
+  <script src="/site-anim.js"></script>
 </body>
 </html>

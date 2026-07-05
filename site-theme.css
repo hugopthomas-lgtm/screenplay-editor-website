@@ -163,7 +163,7 @@ a { color: inherit; }
 .cloud-table .crow.us { background: rgba(157,123,234,0.09); margin: 0 -24px -18px; padding: 13px 24px 15px; border-radius: 0 0 16px 16px; }
 .cloud-table .crow.us .cwho { color: var(--dark); font-weight: 800; }
 .cloud-table .crow.us .cwhere { color: var(--violet); font-weight: 800; }
-.privacy-image img { width: 100%; transform: rotate(2.5deg); }
+.privacy-image img { width: 100%; -webkit-mask-image: radial-gradient(closest-side, #000 56%, transparent 96%); mask-image: radial-gradient(closest-side, #000 56%, transparent 96%); transform: rotate(2.5deg); }
 
 /* CTA SOMBRE */
 .cta-section {

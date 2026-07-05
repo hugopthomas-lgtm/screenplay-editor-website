@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>document.documentElement.classList.add('js');</script>
   <title>Screenwriting Resources — Free Templates & Guides for Google Docs</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../favicon.png">
@@ -15,379 +16,14 @@
   <meta property="og:url" content="https://screenplayeditor.app/resources">
   <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/site-theme.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    .info-card.soon { opacity: 0.6; }
+    .info-card.soon .soon-tag {
+      display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; color: #9a9a9a;
     }
-
-    :root {
-      --violet: #9D7BEA;
-      --violet-dark: #8B6AD4;
-      --violet-light: #f8f6fc;
-      --dark: #1a1a1a;
-    }
-
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background: #fafafa;
-      color: #1a1a1a;
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: #1a1a1a;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
-      z-index: 100;
-    }
-
-    .header-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 18px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .logo .dot {
-      color: var(--violet);
-    }
-
-    .logo .cursor {
-      color: var(--violet);
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .logo .full-name {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .logo:hover .mark {
-      opacity: 0;
-    }
-
-    .logo:hover .full-name {
-      opacity: 1;
-    }
-
-    .header-nav a {
-      margin-left: 30px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #aaa;
-      transition: color 0.2s;
-    }
-
-    .header-nav a:hover {
-      color: var(--violet);
-    }
-
-    .header-nav a.highlight {
-      color: var(--violet);
-    }
-
-    /* Breadcrumb Bar with Art Deco Grid */
-    .breadcrumb-bar {
-      background: var(--dark);
-      padding: 14px 30px;
-      margin-top: var(--site-header-h, 65px);
-    }
-
-    .breadcrumb-content {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .breadcrumb {
-      font-size: 13px;
-      color: #888;
-    }
-
-    .breadcrumb a {
-      color: #888;
-      transition: color 0.2s;
-    }
-
-    .breadcrumb a:hover {
-      color: var(--violet);
-    }
-
-    .breadcrumb span {
-      color: var(--violet);
-    }
-
-    /* Page Content */
-    .page-content {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 50px 30px 80px;
-    }
-
-    .page-title {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--dark);
-    }
-
-    .page-subtitle {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 50px;
-    }
-
-    /* Resource Categories */
-    .resource-section {
-      margin-bottom: 50px;
-    }
-
-    .resource-section h2 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      padding-left: 15px;
-      border-left: 3px solid var(--violet);
-      color: var(--dark);
-    }
-
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .resource-card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 24px;
-      transition: border-color 0.2s, transform 0.2s;
-      display: block;
-    }
-
-    .resource-card:hover {
-      border-color: var(--violet);
-      transform: translateY(-2px);
-    }
-
-    .resource-card .tag {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-bottom: 12px;
-    }
-
-    .resource-card .tag.guide {
-      background: var(--violet-light);
-      color: var(--violet-dark);
-    }
-
-    .resource-card .tag.template {
-      background: #e6f7f0;
-      color: #1a8f5c;
-    }
-
-    .resource-card h3 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    .resource-card p {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-    }
-
-    .resource-card .arrow {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 13px;
-      color: var(--violet);
-      font-weight: 500;
-    }
-
-    /* Featured Card */
-    .featured-card {
-      background: linear-gradient(135deg, var(--violet-light) 0%, #fff 100%);
-      border: 2px solid var(--violet);
-      border-radius: 12px;
-      padding: 32px;
-      display: block;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .featured-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(157, 123, 234, 0.2);
-    }
-
-    .featured-card .tag {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 5px 12px;
-      border-radius: 4px;
-      margin-bottom: 14px;
-      background: var(--violet);
-      color: #fff;
-    }
-
-    .featured-card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
-
-    .featured-card p {
-      font-size: 14px;
-      color: #555;
-      line-height: 1.7;
-    }
-
-    .featured-card .arrow {
-      display: inline-block;
-      margin-top: 16px;
-      font-size: 14px;
-      color: var(--violet);
-      font-weight: 600;
-    }
-
-    /* Coming Soon */
-    .coming-soon {
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    .coming-soon .tag {
-      background: #f0f0f0 !important;
-      color: #888 !important;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--dark);
-      color: #fff;
-      padding: 50px 30px;
-    }
-
-    .footer-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
-      color: var(--violet);
-    }
-
-    .footer-nav {
-      margin-bottom: 22px;
-    }
-
-    .footer-nav a {
-      color: #888;
-      margin: 0 14px;
-      font-size: 12px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .footer-nav a:hover {
-      color: #fff;
-    }
-
-    .footer-copy {
-      font-size: 11px;
-      color: #555;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .header-content {
-        padding: 15px 20px;
-      }
-
-      .header-nav a {
-        margin-left: 18px;
-        font-size: 12px;
-      }
-
-      .breadcrumb-bar {
-        padding: 14px 20px;
-      }
-
-      .page-content {
-        padding: 40px 20px 60px;
-      }
-
-      .page-title {
-        font-size: 26px;
-      }
-
-      .resource-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-nav a {
-        display: block;
-        margin: 10px 0;
-      }
-    }
+    .featured-resource { max-width: 620px; }
   </style>
   <script src="/header.js"></script>
   <script type="application/ld+json">
@@ -442,147 +78,144 @@
 }
   </script>
 </head>
-
 <body>
   <site-header></site-header>
 
   <div class="breadcrumb-bar">
     <div class="breadcrumb-content">
-      <div class="breadcrumb">
-        <a href="/">Home</a> / <span>Resources</span>
-      </div>
+      <div class="breadcrumb"><a href="/">Home</a> / <span>Resources</span></div>
     </div>
   </div>
 
   <main>
-    <div class="page-content">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">Resources</div>
+        <h1>Free screenwriting <span>resources.</span></h1>
+        <p class="hero-subtitle">Guides, templates, and tools to help you write better screenplays.</p>
+        <img class="float-obj hero-plane nomask" src="/obj-plane-cut.png" alt="" aria-hidden="true">
+      </div>
+    </section>
 
-      <h1 class="page-title">Resources</h1>
-      <p class="page-subtitle">Guides, templates, and tools to help you write better screenplays.</p>
-
-      <div class="resource-section">
-        <h2>Start Here</h2>
-        <a href="/resources/how-to-write-screenplay-google-docs" class="featured-card">
-          <span class="tag">Essential Guide</span>
-          <h3>How to Write a Screenplay in Google Docs</h3>
+    <!-- START HERE -->
+    <section class="section scroll-fade">
+      <div class="section-label">Start here</div>
+      <h2>Read this one first.</h2>
+      <p class="section-sub">The foundation for everything below. Learn it once, and the rest falls into place.</p>
+      <div class="card-grid">
+        <div class="info-card highlight featured-resource">
+          <span class="card-icon">&#128221;</span>
+          <h3><a href="/resources/how-to-write-screenplay-google-docs">How to Write a Screenplay in Google Docs &rarr;</a></h3>
           <p>A complete guide to formatting professional screenplays in Google Docs, from page setup to export. The foundation for everything else.</p>
-          <span class="arrow">Read the guide →</span>
-        </a>
-      </div>
-
-      <div class="resource-section">
-        <h2>Templates</h2>
-        <div class="resource-grid">
-          <a href="/free-google-docs-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>Free Screenplay Template</h3>
-            <p>A ready-to-use Google Docs template with proper screenplay formatting. Just make a copy and start writing.</p>
-            <span class="arrow">View template →</span>
-          </a>
-
-          <a href="/resources/short-film-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>Short Film Template</h3>
-            <p>Optimized for films under 40 minutes. Tight storytelling tips and proper formatting for festivals and student projects.</p>
-            <span class="arrow">View template →</span>
-          </a>
-
-          <a href="/resources/horror-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>Horror Template</h3>
-            <p>Genre-specific formatting tips for building tension, crafting scares, and using white space as a weapon.</p>
-            <span class="arrow">View template →</span>
-          </a>
-
-          <a href="/resources/thriller-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>Thriller Template</h3>
-            <p>Build tension and control information. Formatted with the opening of Prisoners (2013).</p>
-            <span class="arrow">View template →</span>
-          </a>
-
-          <a href="/resources/comedy-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>Comedy Template</h3>
-            <p>Timing, setup-payoff, and sharp dialogue. Formatted with the opening of The Nice Guys (2016).</p>
-            <span class="arrow">View template →</span>
-          </a>
-
-          <a href="/resources/sci-fi-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>Sci-Fi Template</h3>
-            <p>Concept as character, world-building through implication. Formatted with Ex Machina (2014).</p>
-            <span class="arrow">View template →</span>
-          </a>
-
-          <a href="/resources/drama-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>Drama Template</h3>
-            <p>Raw emotion and precise dialogue. Formatted with the opening of Marriage Story (2019).</p>
-            <span class="arrow">View template →</span>
-          </a>
-
-          <a href="/resources/action-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>Action Template</h3>
-            <p>Clean action lines and controlled chaos. Formatted with Collateral (2004).</p>
-            <span class="arrow">View template →</span>
-          </a>
-
-          <a href="/resources/tv-pilot-screenplay-template" class="resource-card">
-            <span class="tag template">Template</span>
-            <h3>TV Pilot Template</h3>
-            <p>Setup world, characters, and conflict. Formatted with the Succession (2018) pilot.</p>
-            <span class="arrow">View template →</span>
-          </a>
         </div>
       </div>
+    </section>
 
-      <div class="resource-section">
-        <h2>Guides</h2>
-        <div class="resource-grid">
-          <a href="/resources/chromebook" class="resource-card">
-            <span class="tag guide">Guide</span>
-            <h3>How to Write a Screenplay on Chromebook</h3>
-            <p>Final Draft doesn't run on ChromeOS. Here's how to write professional screenplays on Chromebook for free.</p>
-            <span class="arrow">Read guide →</span>
-          </a>
-
-          <a href="/resources/how-to-get-your-short-film-read-by-producers" class="resource-card">
-            <span class="tag guide">Guide</span>
-            <h3>How to Get Your Short Film Read by Producers</h3>
-            <p>The myth that producers don't read unsolicited scripts is mostly false. Real strategies and a real email that worked.</p>
-            <span class="arrow">Read guide →</span>
-          </a>
-
-          <a href="/resources/google-docs-vs-final-draft" class="resource-card">
-            <span class="tag guide">Guide</span>
-            <h3>Google Docs vs Final Draft</h3>
-            <p>An honest comparison for beginners. Which tool should you use to write your first screenplay?</p>
-            <span class="arrow">Read guide →</span>
-          </a>
-
-          <div class="resource-card coming-soon">
-            <span class="tag guide">Coming Soon</span>
-            <h3>Writing Your First Feature</h3>
-            <p>A step-by-step guide to writing your first feature-length screenplay, from concept to final draft.</p>
-          </div>
-
-          <div class="resource-card coming-soon">
-            <span class="tag guide">Coming Soon</span>
-            <h3>Character Development</h3>
-            <p>How to create memorable, three-dimensional characters that drive your story forward.</p>
-          </div>
-
-          <div class="resource-card coming-soon">
-            <span class="tag guide">Coming Soon</span>
-            <h3>Scene Structure</h3>
-            <p>Master the art of writing scenes that move your story forward and keep readers engaged.</p>
-          </div>
+    <!-- TEMPLATES -->
+    <section class="section scroll-fade" style="padding-top: 0;">
+      <div class="section-label">Templates</div>
+      <h2>Ready-made screenplay templates.</h2>
+      <p class="section-sub">Open one, make a copy, and start writing. Each is formatted like a real script.</p>
+      <div class="card-grid three">
+        <div class="info-card">
+          <span class="card-icon">&#128196;</span>
+          <h3><a href="/free-google-docs-screenplay-template">Free Screenplay Template &rarr;</a></h3>
+          <p>A ready-to-use Google Docs template with proper screenplay formatting. Just make a copy and start writing.</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#127916;</span>
+          <h3><a href="/resources/short-film-screenplay-template">Short Film Template &rarr;</a></h3>
+          <p>Optimized for films under 40 minutes. Tight storytelling tips and proper formatting for festivals and student projects.</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#128123;</span>
+          <h3><a href="/resources/horror-screenplay-template">Horror Template &rarr;</a></h3>
+          <p>Genre-specific formatting tips for building tension, crafting scares, and using white space as a weapon.</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#128269;</span>
+          <h3><a href="/resources/thriller-screenplay-template">Thriller Template &rarr;</a></h3>
+          <p>Build tension and control information. Formatted with the opening of Prisoners (2013).</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#128514;</span>
+          <h3><a href="/resources/comedy-screenplay-template">Comedy Template &rarr;</a></h3>
+          <p>Timing, setup-payoff, and sharp dialogue. Formatted with the opening of The Nice Guys (2016).</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#128640;</span>
+          <h3><a href="/resources/sci-fi-screenplay-template">Sci-Fi Template &rarr;</a></h3>
+          <p>Concept as character, world-building through implication. Formatted with Ex Machina (2014).</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#127917;</span>
+          <h3><a href="/resources/drama-screenplay-template">Drama Template &rarr;</a></h3>
+          <p>Raw emotion and precise dialogue. Formatted with the opening of Marriage Story (2019).</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#128165;</span>
+          <h3><a href="/resources/action-screenplay-template">Action Template &rarr;</a></h3>
+          <p>Clean action lines and controlled chaos. Formatted with Collateral (2004).</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#128250;</span>
+          <h3><a href="/resources/tv-pilot-screenplay-template">TV Pilot Template &rarr;</a></h3>
+          <p>Setup world, characters, and conflict. Formatted with the Succession (2018) pilot.</p>
         </div>
       </div>
+    </section>
 
-    </div>
+    <!-- GUIDES -->
+    <section class="section scroll-fade" style="padding-top: 0;">
+      <div class="section-label">Guides</div>
+      <h2>Guides for writing screenplays.</h2>
+      <p class="section-sub">Plain-English walkthroughs, from writing on a Chromebook to getting your short film read.</p>
+      <div class="card-grid three">
+        <div class="info-card">
+          <span class="card-icon">&#128187;</span>
+          <h3><a href="/resources/chromebook">How to Write a Screenplay on Chromebook &rarr;</a></h3>
+          <p>Final Draft doesn't run on ChromeOS. Here's how to write professional screenplays on Chromebook for free.</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#128236;</span>
+          <h3><a href="/resources/how-to-get-your-short-film-read-by-producers">How to Get Your Short Film Read by Producers &rarr;</a></h3>
+          <p>The myth that producers don't read unsolicited scripts is mostly false. Real strategies and a real email that worked.</p>
+        </div>
+        <div class="info-card">
+          <span class="card-icon">&#9878;</span>
+          <h3><a href="/resources/google-docs-vs-final-draft">Google Docs vs Final Draft &rarr;</a></h3>
+          <p>An honest comparison for beginners. Which tool should you use to write your first screenplay?</p>
+        </div>
+        <div class="info-card soon">
+          <span class="card-icon">&#9997;</span>
+          <h3>Writing Your First Feature</h3>
+          <p>A step-by-step guide to writing your first feature-length screenplay, from concept to final draft.</p>
+          <span class="soon-tag">Coming soon</span>
+        </div>
+        <div class="info-card soon">
+          <span class="card-icon">&#128100;</span>
+          <h3>Character Development</h3>
+          <p>How to create memorable, three-dimensional characters that drive your story forward.</p>
+          <span class="soon-tag">Coming soon</span>
+        </div>
+        <div class="info-card soon">
+          <span class="card-icon">&#129521;</span>
+          <h3>Scene Structure</h3>
+          <p>Master the art of writing scenes that move your story forward and keep readers engaged.</p>
+          <span class="soon-tag">Coming soon</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>Write your next script for free.</h2>
+        <p>Install Screenplay Editor and format professionally right inside Google Docs.</p>
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank" rel="noopener">Install the Chrome extension</a>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -590,14 +223,16 @@
       <div class="footer-logo">scrrrr<span class="dot">.</span></div>
       <nav class="footer-nav">
         <a href="/about">About</a>
-        <a href="/compare/">Compare</a>
+        <a href="/compare">Compare</a>
         <a href="/support">Support</a>
         <a href="/privacy">Privacy Policy</a>
         <a href="/terms">Terms of Service</a>
-        <a href="/free-google-docs-screenplay-template">Free Template</a>
+        <a href="/blog">Blog</a>
       </nav>
-      <p class="footer-copy">© 2025 Screenplay Editor. Made for screenwriters.</p>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
+
+  <script src="/site-anim.js"></script>
 </body>
 </html>
