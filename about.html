@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>document.documentElement.classList.add('js');</script>
   <title>About Screenplay Editor - Professional Screenplay Formatting for Google Docs</title>
   <meta name="description" content="Learn about Screenplay Editor, the Google Docs add-on and Chrome extension for professional screenplay formatting. Built by a screenwriter, for screenwriters.">
   <link rel="canonical" href="https://screenplayeditor.app/about">
@@ -15,377 +16,68 @@
   <meta name="twitter:card" content="summary_large_image">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="/site-theme.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --violet: #9D7BEA;
-      --violet-dark: #8B6AD4;
-      --violet-light: #f8f6fc;
-      --dark: #1a1a1a;
-      --gray-500: #737373;
-      --gray-600: #525252;
-    }
-
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background: #fafafa;
-      color: var(--dark);
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: #1a1a1a;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
-      z-index: 100;
-    }
-
-    .header-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 18px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .logo .dot {
-      color: var(--violet);
-    }
-
-    .logo .cursor {
-      color: var(--violet);
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .logo .full-name {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .logo:hover .mark {
-      opacity: 0;
-    }
-
-    .logo:hover .full-name {
-      opacity: 1;
-    }
-
-    .header-nav a {
-      margin-left: 30px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #aaa;
-      transition: color 0.2s;
-    }
-
-    .header-nav a:hover {
-      color: var(--violet);
-    }
-
-    .header-nav a.highlight {
-      color: var(--violet);
-    }
-
-    /* Breadcrumb Bar */
-    .breadcrumb-bar {
-      background: var(--dark);
-      padding: 14px 30px;
-      margin-top: var(--site-header-h, 65px);
-    }
-
-    .breadcrumb-content {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .breadcrumb {
-      font-size: 13px;
-      color: #888;
-    }
-
-    .breadcrumb a {
-      color: #888;
-      transition: color 0.2s;
-    }
-
-    .breadcrumb a:hover {
-      color: var(--violet);
-    }
-
-    .breadcrumb span {
-      color: var(--violet);
-    }
-
-    /* Main Content */
-    .about-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 60px 40px 100px;
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    /* Photo Section */
-    .photo-section {
-      position: sticky;
-      top: 120px;
-    }
-
-    .author-photo {
-      width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      border-radius: 16px;
-      box-shadow:
-        0 25px 60px rgba(157, 123, 234, 0.25),
-        0 10px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .author-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--violet);
-      margin-top: 20px;
-      letter-spacing: 0.5px;
-    }
-
-    .author-role {
-      font-size: 14px;
-      color: var(--gray-500);
-      margin-top: 4px;
-    }
-
-    /* Text Section */
-    .text-section {
-      padding-top: 20px;
-    }
-
-    .text-section p {
-      font-size: 15px;
-      line-height: 1.85;
-      color: var(--gray-600);
-      margin-bottom: 24px;
-    }
-
-    .text-section .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 20px;
-    }
-
-    .text-section .section-subtitle {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin-top: 32px;
-      margin-bottom: 14px;
-    }
-
-    .text-section p:last-of-type {
-      margin-bottom: 0;
-    }
-
-    .text-section em {
-      font-style: italic;
-    }
-
-    .contact-button {
-      display: inline-block;
-      margin-top: 40px;
-      padding: 16px 32px;
-      background: var(--violet);
-      color: #fff !important;
-      font-size: 15px;
-      font-weight: 600;
-      border-radius: 10px;
-      transition: all 0.2s;
-    }
-
-    .contact-button:hover {
-      background: var(--violet-dark);
-      transform: translateY(-2px);
-      text-decoration: none;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--dark);
-      color: #fff;
-      padding: 50px 30px;
-    }
-
-    .footer-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-
-    .footer-logo .dot {
-      color: var(--violet);
-    }
-
-    .footer-nav {
-      margin-bottom: 22px;
-    }
-
-    .footer-nav a {
-      color: #888;
-      margin: 0 14px;
-      font-size: 12px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .footer-nav a:hover {
-      color: #fff;
-    }
-
-    .footer-copy {
-      font-size: 11px;
-      color: #555;
-    }
-
-    /* Responsive */
-    @media (max-width: 800px) {
-      .about-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        padding: 40px 24px 80px;
-      }
-
-      .breadcrumb-bar {
-        padding: 14px 20px;
-      }
-
-      .photo-section {
-        position: static;
-        max-width: 280px;
-      }
-
-      .author-photo {
-        aspect-ratio: 1;
-      }
-
-      .text-section {
-        padding-top: 0;
-      }
-
-      .text-section p {
-        font-size: 16px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .header-content {
-        padding: 15px 20px;
-      }
-
-      .header-nav a {
-        margin-left: 18px;
-        font-size: 12px;
-      }
-
-      .footer-nav a {
-        display: block;
-        margin: 10px 0;
-      }
-    }
+    .bio { max-width: 1000px; margin: 0 auto; padding: 66px 30px 20px; display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: start; }
+    .bio-photo { position: sticky; top: 100px; }
+    .bio-photo img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 16px; box-shadow: 0 25px 60px rgba(157,123,234,0.22), 0 10px 20px rgba(0,0,0,0.08); }
+    .bio-name { font-size: 13px; font-weight: 700; color: var(--violet); margin-top: 18px; letter-spacing: 0.5px; }
+    .bio-role { font-size: 13px; color: #777; margin-top: 4px; }
+    .bio-text h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 32px 0 12px; }
+    .bio-text h3:first-child { margin-top: 0; }
+    .bio-text p { font-size: 15px; line-height: 1.85; color: #525252; margin-bottom: 20px; }
+    .bio-text em { color: var(--dark); font-style: normal; font-weight: 600; }
+    .bio-text a { color: var(--violet); text-decoration: none; border-bottom: 1px solid rgba(157,123,234,0.4); }
+    @media (max-width: 800px) { .bio { grid-template-columns: 1fr; gap: 34px; padding: 44px 24px 10px; } .bio-photo { position: static; max-width: 260px; } }
   </style>
   <script src="/header.js"></script>
 </head>
-
 <body>
   <site-header></site-header>
 
   <div class="breadcrumb-bar">
     <div class="breadcrumb-content">
-      <div class="breadcrumb">
-        <a href="/">Home</a> / <span>About</span>
-      </div>
+      <div class="breadcrumb"><a href="/">Home</a> / <span>About</span></div>
     </div>
   </div>
 
-  <main class="about-container">
-    <div class="photo-section">
-      <img src="hugo4.jpg" alt="Hugo Thomas" class="author-photo">
-      <div class="author-name">Hugo Thomas</div>
-      <div class="author-role">Writer & Director, founder of Screenplay Editor</div>
-    </div>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">About</div>
+        <h1>Built by a filmmaker,<br><span>for filmmakers.</span></h1>
+        <p class="hero-subtitle">Screenplay Editor is made by Hugo Thomas, a writer and director who got tired of screenwriting software built for the 90s.</p>
+        <div class="hero-proof"><span>Willy 1er &middot; ACID Cannes</span><span class="dot">&middot;</span><span>Juniors on Netflix</span><span class="dot">&middot;</span><span>Clermont-Ferrand awards</span></div>
+        <img class="float-obj hero-plane nomask" src="obj-plane-cut.png" alt="" aria-hidden="true">
+      </div>
+    </section>
 
-    <div class="text-section">
-      <h2 class="section-title">Who made this?</h2>
-      <p>
-        I'm Hugo Thomas, a French writer and director based in Rome. My first feature film, <em>Willy 1er</em>, premiered at the Cannes Film Festival in the ACID selection (2016). <em>Juniors</em>, my second, screened at festivals worldwide. Both are on Netflix. Before that, my shorts <em>Perrault, La Fontaine, Mon Cul!</em> and <em>Ich Bin Eine Tata</em> both won awards at Clermont-Ferrand, the largest short film festival in the world (did I mention it's the largest?).
-      </p>
-      <p>
-        I've spent years formatting scripts, fighting with software that wasn't built for how writers actually work. Final Draft feels like the 90s to me. I love a vintage look, but emailing license codes around every time you want to collaborate? That's where I draw the line.
-      </p>
-      <h3 class="section-subtitle">The people behind it</h3>
-      <p>
-        Screenplay Editor isn't a side project. I built it with screenwriters who tested every feature and told me the truth, and developers who helped me make it fast and reliable. It's live, it gets better almost every week, and screenwriters around the world write with it. When something breaks, a real person answers. Usually me.
-      </p>
-      <h3 class="section-subtitle">Schools, universities and writing teams</h3>
-      <p>
-        Teachers run Screenplay Editor in the classroom and writing teams use it together. If you're bringing it to a school, a film program, or a team, I set up access and invoicing for you directly. <a href="/schools" style="color: var(--violet); text-decoration: underline;">See the schools and teams page</a>, or just write to me.
-      </p>
-      <h3 class="section-subtitle">Pricing</h3>
-      <p>
-        Start free, no credit card required. Plans start at $5.99/month for the Google Docs add-on, and the Chrome extension is $7.99/month during launch (normally $9.99). You upgrade when you want the advanced tools, like Final Draft export and production breakdowns.
-      </p>
-      <a href="mailto:hugopthomas@gmail.com" class="contact-button">Contact me</a>
-    </div>
+    <section class="bio scroll-fade">
+      <div class="bio-photo">
+        <img src="hugo4.jpg" alt="Hugo Thomas">
+        <div class="bio-name">Hugo Thomas</div>
+        <div class="bio-role">Writer & Director, founder of Screenplay Editor</div>
+      </div>
+      <div class="bio-text">
+        <h3>Who made this?</h3>
+        <p>I'm Hugo Thomas, a French writer and director based in Rome. My first feature film, <em>Willy 1er</em>, premiered at the Cannes Film Festival in the ACID selection (2016). <em>Juniors</em>, my second, screened at festivals worldwide. Both are on Netflix. Before that, my shorts <em>Perrault, La Fontaine, Mon Cul!</em> and <em>Ich Bin Eine Tata</em> both won awards at Clermont-Ferrand, the largest short film festival in the world (did I mention it's the largest?).</p>
+        <p>I've spent years formatting scripts, fighting with software that wasn't built for how writers actually work. Final Draft feels like the 90s to me. I love a vintage look, but emailing license codes around every time you want to collaborate? That's where I draw the line.</p>
+        <h3>The people behind it</h3>
+        <p>Screenplay Editor isn't a side project. I built it with screenwriters who tested every feature and told me the truth, and developers who helped me make it fast and reliable. It's live, it gets better almost every week, and screenwriters around the world write with it. When something breaks, a real person answers. Usually me.</p>
+        <h3>Schools, universities and writing teams</h3>
+        <p>Teachers run Screenplay Editor in the classroom and writing teams use it together. If you're bringing it to a school, a film program, or a team, I set up access and invoicing for you directly. <a href="/schools">See the schools and teams page</a>, or just write to me.</p>
+        <h3>Pricing</h3>
+        <p>Start free, no credit card required. Plans start at $5.99/month for the Google Docs add-on, and the Chrome extension is $7.99/month during launch (normally $9.99). You upgrade when you want the advanced tools, like Final Draft export and production breakdowns.</p>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>Questions? Just ask.</h2>
+        <p>When something breaks, a real person answers. Usually me.</p>
+        <a href="mailto:hugopthomas@gmail.com" class="cta-button">Contact me</a>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -402,5 +94,7 @@
       <p class="footer-copy">&copy; 2026 Screenplay Editor. Made for screenwriters.</p>
     </div>
   </footer>
+
+  <script src="/site-anim.js"></script>
 </body>
 </html>
