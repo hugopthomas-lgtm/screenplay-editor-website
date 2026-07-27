@@ -73,6 +73,13 @@
     }
     textarea::placeholder { color: var(--faint); }
     textarea:focus { outline: none; border-color: var(--violet); background: #fff; }
+    #email {
+      width: 100%; margin-top: 10px; padding: 12px 15px; border-radius: 10px;
+      background: #fbf9f4; border: 1px solid #ddd6c8; color: var(--ink);
+      font-family: var(--mono); font-size: 13.5px; line-height: 1.5;
+    }
+    #email::placeholder { color: var(--faint); }
+    #email:focus { outline: none; border-color: var(--violet); background: #fff; }
     .submit {
       margin-top: 20px; background: var(--violet); color: #fff; border: none; cursor: pointer;
       font-family: var(--mono); font-weight: 600; font-size: 14.5px; padding: 13px 28px; border-radius: 11px;
@@ -117,12 +124,13 @@
       <!-- LEFT -->
       <div class="left">
         <div class="survey">
-          <div class="headline">Oh no! I'm sorry. <span class="em">Can I know what happened?</span></div>
+          <div class="headline">Oh no! I'm sorry.<br><span class="em">Can I know what happened?</span></div>
 
           <p class="ask">you've got better things to do, i know. but you're a writer, so you of all people know what one good line can do. give me the one that says why scrrrr. let you down, and it comes straight to me, to make it better.</p>
 
           <div class="more">
             <textarea id="note" placeholder="type here, in your own words…" autofocus></textarea>
+            <input id="email" type="email" autocomplete="email" spellcheck="false" placeholder="your email, if you'd like an answer">
           </div>
 
           <button class="submit" id="submit">send feedback</button>
@@ -130,7 +138,7 @@
 
         <div class="thanks">
           <div class="headline">Thank you. <span class="em">Really.</span></div>
-          <p>that goes straight to me, and i read every single one. whenever you want to give scrrrr. another shot, it's one click away.</p>
+          <p id="thanks-copy">that goes straight to me, and i read every single one. whenever you want to give scrrrr. another shot, it's one click away.</p>
           <a class="reinstall" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">reinstall scrrrr.</a>
         </div>
       </div>
@@ -155,17 +163,28 @@
     (function () {
       var submit = document.getElementById('submit');
       if (!submit) return;
+      // Identifiant opaque posé par l'extension dans l'URL de désinstallation.
+      // Il ne dit rien à qui le lit ; côté serveur il retrouve la fiche (compte
+      // connecté, version, plan) sans laquelle un « broken » n'est pas enquêtable.
+      var uid = '';
+      try { uid = new URLSearchParams(window.location.search).get('u') || ''; } catch (e) {}
+
       submit.addEventListener('click', function () {
         var note = (document.getElementById('note').value || '').trim();
+        var email = (document.getElementById('email').value || '').trim();
         submit.disabled = true;
         submit.textContent = 'sending...';
         try {
           fetch('https://screenplay-editor-api.hugopthomas.workers.dev/uninstall-feedback', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ note: note })
+            body: JSON.stringify({ note: note, email: email, u: uid })
           }).catch(function () {});
         } catch (e) {}
+        if (email.indexOf('@') > 0) {
+          var copy = document.getElementById('thanks-copy');
+          if (copy) copy.textContent = "that goes straight to me, and i read every single one. you left your address, so i'll write back.";
+        }
         setTimeout(function () { document.body.classList.add('done'); }, 350);
       });
     })();
