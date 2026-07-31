@@ -163,6 +163,11 @@
     (function () {
       var submit = document.getElementById('submit');
       if (!submit) return;
+      // src=cancel : la page a été atteinte depuis l'email de résiliation — le
+      // worker en fait un sujet « CANCELLATION » (voix d'abonné, pas un uninstall).
+      var src = '';
+      try { src = new URLSearchParams(window.location.search).get('src') || ''; } catch (e) {}
+
       submit.addEventListener('click', function () {
         var note = (document.getElementById('note').value || '').trim();
         var email = (document.getElementById('email').value || '').trim();
@@ -172,7 +177,7 @@
           fetch('https://screenplay-editor-api.hugopthomas.workers.dev/uninstall-feedback', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ note: note, email: email, surface: 'addon' })
+            body: JSON.stringify({ note: note, email: email, surface: 'addon', src: src })
           }).catch(function () {});
         } catch (e) {}
         if (email.indexOf('@') > 0) {
