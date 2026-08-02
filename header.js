@@ -29,9 +29,26 @@
     ['Support', '/support.html']
   ];
 
+  // Version française (page avec lang="fr") : libellés FR sur les mêmes pages,
+  // et une bascule EN/FR en fin de nav. Le choix est mémorisé (se_lang) pour
+  // que l'aiguillage automatique de la page d'accueil respecte le visiteur.
+  var IS_FR = (document.documentElement.getAttribute('lang') || '').toLowerCase().indexOf('fr') === 0;
+  if (IS_FR) {
+    NAV = [
+      ['Écoles', '/schools.html'],
+      ['Blog', '/blog.html'],
+      ['Ressources', '/resources/'],
+      ['À propos', '/about.html'],
+      ['Comparer', '/compare/'],
+      ['Aide', '/support.html']
+    ];
+  }
+  var LANG = IS_FR ? ['EN', '/', 'en'] : ['FR', '/fr/', 'fr'];
+
   var navHtml = NAV.map(function (n) {
     return '<a href="' + n[1] + '">' + n[0] + '</a>';
-  }).join('');
+  }).join('') +
+    '<a class="lang-switch" data-lang="' + LANG[2] + '" href="' + LANG[1] + '">' + LANG[0] + '</a>';
 
   class SiteHeader extends HTMLElement {
     connectedCallback() {
@@ -105,7 +122,7 @@
         '<span class="nav-links">' + navHtml + '</span>' +
         '<a class="cta" href="' + INSTALL + '" target="_blank" rel="noopener">' +
         '<img class="flame" src="/flame.png" alt="" aria-hidden="true">' +
-        'Install</a>' +
+        (IS_FR ? 'Installer' : 'Install') + '</a>' +
         '<button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>' +
         '</nav></div>' +
         '<div class="mobile-menu">' + navHtml + '</div>' +
@@ -116,6 +133,14 @@
       burger.addEventListener('click', function () {
         var open = rail.classList.toggle('open');
         burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      // Bascule de langue : mémorise le choix pour que l'aiguillage de la
+      // page d'accueil ne renvoie pas le visiteur d'où il vient.
+      root.querySelectorAll('.lang-switch').forEach(function (a) {
+        a.addEventListener('click', function () {
+          try { localStorage.setItem('se_lang', a.getAttribute('data-lang')); } catch (e) {}
+        });
       });
       root.querySelectorAll('.mobile-menu a').forEach(function (a) {
         a.addEventListener('click', function () {

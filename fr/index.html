@@ -1,35 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>document.documentElement.classList.add('js');</script>
-  <script>
-  // Aiguillage langue : navigateur en français -> /fr/, sauf si le visiteur a
-  // explicitement choisi l'anglais (localStorage se_lang, posé par la bascule
-  // EN/FR du header). Google ne suit pas ce script : il lit les hreflang.
-  (function () {
-    try {
-      var pick = localStorage.getItem('se_lang');
-      if (pick === 'en') return;
-      var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-      if (pick === 'fr' || /^fr\b/i.test(nav)) location.replace('/fr/' + location.search);
-    } catch (e) {}
-  })();
-  </script>
-  <title>Screenplay Editor - Professional Screenplay Formatting for Google Docs</title>
+  <title>Screenplay Editor - Le format scénario professionnel dans Google Docs</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="description" content="Screenplay Editor turns Google Docs into professional screenwriting software. Same formatting as Final Draft. Real-time collaboration. From $5.99/month.">
-  <link rel="canonical" href="https://screenplayeditor.app/">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Screenplay Editor transforme Google Docs en vrai logiciel d'écriture de scénario. Le même formatage que Final Draft, la collaboration en temps réel, à partir de 5,99 $ par mois.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/">
   <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/">
   <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/">
   <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/">
-  <meta property="og:title" content="Screenplay Editor - Google Docs is now the best screenwriting software">
-  <meta property="og:description" content="Same formatting as Final Draft. Real-time collaboration. From $5.99/month.">
+  <meta property="og:title" content="Screenplay Editor - Google Docs devient le meilleur logiciel de scénario">
+  <meta property="og:description" content="Le même formatage que Final Draft. Collaboration en temps réel. À partir de 5,99 $/mois.">
   <meta property="og:image" content="https://screenplayeditor.app/screenshot.png">
-  <meta property="og:url" content="https://screenplayeditor.app/">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Screenplay Editor">
   <meta name="twitter:card" content="summary_large_image">
@@ -53,8 +40,8 @@
     "applicationCategory": "ProductivityApplication",
     "applicationSubCategory": "Screenwriting Software",
     "operatingSystem": "Web, Chrome, Google Workspace",
-    "description": "Professional screenplay formatting for Google Docs. Same formatting as Final Draft. Available as a Chrome extension and Google Workspace add-on.",
-    "url": "https://screenplayeditor.app",
+    "description": "Le format scénario professionnel dans Google Docs. Le même formatage que Final Draft, en extension Chrome et en module Google Workspace.",
+    "url": "https://screenplayeditor.app/fr/",
     "screenshot": "https://screenplayeditor.app/screenshot.png",
     "downloadUrl": [
       "https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln",
@@ -1280,41 +1267,41 @@
         <div class="ref-welcome" id="ref-welcome">
           <span class="ref-gift">&#127873;</span>
           <div class="ref-welcome-body">
-            <div class="ref-eyebrow">A screenwriter invited you to scrrrr.</div>
-            <div class="ref-reward">Your first month of Pro, on us.</div>
+            <div class="ref-eyebrow">Un scénariste vous invite sur scrrrr.</div>
+            <div class="ref-reward">Votre premier mois de Pro est offert.</div>
             <div class="ref-code-row">
               <code class="ref-code" id="ref-code-value">--------</code>
-              <button class="ref-code-copy" id="ref-code-copy" type="button">Copy</button>
+              <button class="ref-code-copy" id="ref-code-copy" type="button">Copier</button>
             </div>
-            <div class="ref-howto">Install scrrrr., then enter this code inside it to unlock your free month.</div>
+            <div class="ref-howto">Installez scrrrr., puis entrez ce code dans l'outil pour débloquer votre mois gratuit.</div>
           </div>
         </div>
-        <h1>Write your next movie<br>directly inside Google&nbsp;Docs&trade;.</h1>
-        <p class="hero-subtitle">The writing workflow of Final Draft, the comfort of Google Docs. Keep the best of both worlds, skip the $250 software.</p>
-        <p class="hero-subtitle hero-pain">No more lost pages when Final Draft crashes.<br>No more choosing between writing and collaborating.</p>
+        <h1>Écrivez votre prochain film<br>directement dans Google&nbsp;Docs&trade;.</h1>
+        <p class="hero-subtitle">Le confort d'écriture de Final Draft, la souplesse de Google Docs. Gardez le meilleur des deux mondes, oubliez le logiciel à 250 $.</p>
+        <p class="hero-subtitle hero-pain">Fini les pages perdues quand Final Draft plante.<br>Fini le choix entre écrire et collaborer.</p>
 
         <div class="hero-ctas">
-          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Add to Chrome</a>
-          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Or get the Google Docs add-on</a>
+          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Ajouter à Chrome</a>
+          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Ou installez le module Google Docs</a>
         </div>
 
         <div class="hero-proof">
           <span class="proof-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <strong>11,000+ screenwriters</strong> &middot; 4.9/5 on Google Workspace
+          <strong>Plus de 11 000 scénaristes</strong> &middot; 4,9/5 sur Google Workspace
         </div>
 
         <ul class="hero-trust">
-          <li><span class="ck">&#10003;</span>Free to start</li>
-          <li><span class="ck">&#10003;</span>No credit card</li>
-          <li><span class="ck">&#10003;</span>Installs in seconds</li>
+          <li><span class="ck">&#10003;</span>Gratuit pour commencer</li>
+          <li><span class="ck">&#10003;</span>Sans carte bancaire</li>
+          <li><span class="ck">&#10003;</span>Installé en quelques secondes</li>
         </ul>
-        <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Your script is guarded by <b>Google</b>, not by us.</span></a>
+        <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Votre scénario est gardé par <b>Google</b>, pas par nous.</span></a>
 
-        <img class="float-obj hero-plane nomask" src="obj-plane-cut.png" alt="" aria-hidden="true">
+        <img class="float-obj hero-plane nomask" src="/obj-plane-cut.png" alt="" aria-hidden="true">
 
         <div class="hero-screenshot">
-          <video class="hero-demo" autoplay muted loop playsinline aria-label="Screenplay Editor formatting a script live in Google Docs">
-            <source src="demo.mp4" type="video/mp4">
+          <video class="hero-demo" autoplay muted loop playsinline aria-label="Screenplay Editor met un scénario en forme en direct dans Google Docs">
+            <source src="/demo.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -1323,58 +1310,58 @@
     <!-- FINAL DRAFT PUNCH -->
     <section class="punch scroll-fade">
       <p>
-        <span class="punch-price">Final Draft costs $249.99.</span> It doesn't do collaboration. It doesn't run in your browser. It hasn't changed in 20 years. We built something better, inside the tool you already use.
+        <span class="punch-price">Final Draft coûte 249,99 $.</span> Il ne permet pas d'écrire à plusieurs. Il ne tourne pas dans votre navigateur. Il n'a pas changé depuis vingt ans. Nous avons construit mieux, dans l'outil que vous utilisez déjà.
       </p>
-      <img src="bandage.png" alt="" class="punch-bandage">
+      <img src="/bandage.png" alt="" class="punch-bandage">
     </section>
 
     <!-- HOW IT WORKS -->
     <section class="how scroll-fade">
-      <h2>Set up in under a minute.</h2>
+      <h2>Prêt en moins d'une minute.</h2>
       <div class="how-steps">
         <div class="how-step">
-          <div class="how-num">STEP 1</div>
-          <h3>Install it</h3>
-          <p>Add the Chrome extension or the Google Docs add-on. It takes about ten seconds.</p>
+          <div class="how-num">ÉTAPE 1</div>
+          <h3>Installez-le</h3>
+          <p>Ajoutez l'extension Chrome ou le module Google Docs. Cela prend une dizaine de secondes.</p>
         </div>
         <div class="how-step">
-          <div class="how-num">STEP 2</div>
-          <h3>Open a Google Doc</h3>
-          <p>Start a fresh script or paste a draft you already have. There is no new app to learn.</p>
+          <div class="how-num">ÉTAPE 2</div>
+          <h3>Ouvrez un Google Doc</h3>
+          <p>Commencez un scénario ou collez un brouillon existant. Il n'y a aucune application nouvelle à apprendre.</p>
         </div>
         <div class="how-step">
-          <div class="how-num">STEP 3</div>
-          <h3>Just write</h3>
-          <p>It formats every scene, character, and line as you type, so your script is ready to share or shoot.</p>
+          <div class="how-num">ÉTAPE 3</div>
+          <h3>Écrivez</h3>
+          <p>Chaque scène, chaque personnage, chaque réplique se met en forme pendant que vous tapez : votre scénario est toujours prêt à partager ou à tourner.</p>
         </div>
       </div>
     </section>
 
     <!-- WHAT IT WON'T DO -->
     <section class="creed scroll-fade">
-      <div class="privacy-label">What it won&rsquo;t do</div>
-      <h2>It formats your script.<br>It doesn&rsquo;t write it.</h2>
-      <p>The tool takes care of margins, indents, scene headings and character cues. The words stay yours, and we never train anything on them.</p>
-      <p>Two features do use AI, a table read with synthetic voices and a production breakdown, and you decide when to run them. Nothing gets written in your place.</p>
+      <div class="privacy-label">Ce qu'il ne fera pas</div>
+      <h2>Il met votre scénario en forme.<br>Il ne l'écrit pas.</h2>
+      <p>L'outil s'occupe des marges, des retraits, des intitulés de scène et des noms de personnages. Les mots restent les vôtres, et nous n'entraînons jamais rien dessus.</p>
+      <p>Deux fonctions utilisent l'IA, une lecture à voix haute avec des voix de synthèse et un dépouillement de production, et c'est vous qui décidez de les lancer. Rien ne s'écrit à votre place.</p>
     </section>
 
     <!-- PRIVACY / TRUST -->
     <section id="privacy" class="privacy-section scroll-fade">
       <div class="privacy-inner">
         <div>
-          <div class="privacy-label">Privacy</div>
-          <h2>Guarded by <span class="g">Google</span>.<br>Not by us.</h2>
-          <p>Your script lives in your own Google Drive, behind the same security as Gmail. We never store it, and we never see it.</p>
+          <div class="privacy-label">Confidentialité</div>
+          <h2>Gardé par <span class="g">Google</span>.<br>Pas par nous.</h2>
+          <p>Votre scénario vit dans votre propre Google Drive, derrière la même sécurité que Gmail. Nous ne le stockons jamais, et nous ne le voyons jamais.</p>
           <div class="cloud-table">
-            <div class="chead">Your script lives in&hellip;</div>
-            <div class="crow"><span class="cwho">Final Draft</span><span class="cwhere">Final Draft&rsquo;s cloud</span></div>
-            <div class="crow"><span class="cwho">Arc Studio</span><span class="cwhere">Arc Studio&rsquo;s cloud</span></div>
-            <div class="crow"><span class="cwho">Celtx</span><span class="cwhere">Celtx&rsquo;s cloud</span></div>
-            <div class="crow us"><span class="cwho">Screenplay Editor</span><span class="cwhere">your Google Drive</span></div>
+            <div class="chead">Votre scénario vit dans&hellip;</div>
+            <div class="crow"><span class="cwho">Final Draft</span><span class="cwhere">les serveurs de Final Draft</span></div>
+            <div class="crow"><span class="cwho">Arc Studio</span><span class="cwhere">les serveurs d'Arc Studio</span></div>
+            <div class="crow"><span class="cwho">Celtx</span><span class="cwhere">les serveurs de Celtx</span></div>
+            <div class="crow us"><span class="cwho">Screenplay Editor</span><span class="cwhere">votre Google Drive</span></div>
           </div>
         </div>
         <div class="privacy-image">
-          <img src="obj-diary.png" alt="Your screenplay stays private, like a locked diary">
+          <img src="/obj-diary.png" alt="Votre scénario reste privé, comme un journal intime fermé à clé">
         </div>
       </div>
     </section>
@@ -1382,7 +1369,7 @@
     <!-- REVIEWS -->
     <section class="reviews scroll-fade">
       <div class="reviews-inner">
-        <div class="reviews-title">Google Workspace Marketplace Reviews</div>
+        <div class="reviews-title">Avis Google Workspace Marketplace</div>
         <div class="reviews-wall">
           <div class="review-card">
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -1422,73 +1409,73 @@
     <section class="collab-section scroll-fade">
       <div class="collab-inner">
         <div>
-          <div class="privacy-label">The killer feature</div>
-          <h2>Write together.<br><span class="g">In real time.</span></h2>
-          <p>Final Draft can't do this. Comments, suggestions, live co-writing with multiple cursors: your co-writer is already in the room, because it's Google Docs.</p>
+          <div class="privacy-label">La fonction reine</div>
+          <h2>Écrivez à plusieurs.<br><span class="g">En temps réel.</span></h2>
+          <p>Final Draft ne sait pas faire ça. Commentaires, suggestions, co-écriture en direct avec plusieurs curseurs : votre co-auteur est déjà dans la pièce, parce que c'est Google Docs.</p>
           <ul class="collab-list">
-            <li><span class="ck">&#10003;</span>Live co-editing with multiple cursors</li>
-            <li><span class="ck">&#10003;</span>Comments and suggestions built in</li>
-            <li><span class="ck">&#10003;</span>No file sharing, no merging, no conflicts</li>
+            <li><span class="ck">&#10003;</span>Co-écriture en direct avec plusieurs curseurs</li>
+            <li><span class="ck">&#10003;</span>Commentaires et suggestions intégrés</li>
+            <li><span class="ck">&#10003;</span>Aucun fichier à envoyer, aucune fusion, aucun conflit</li>
           </ul>
         </div>
         <div class="collab-image">
-          <img src="obj-walkies.png" alt="Two writers, one script, in real time">
+          <img src="/obj-walkies.png" alt="Deux auteurs, un scénario, en temps réel">
         </div>
       </div>
     </section>
 
     <section id="features" class="tools scroll-fade">
-      <h2>Every tool, right inside Google Docs.</h2>
-      <p class="tools-sub">No new software to learn. It all lives in one sidebar.</p>
+      <h2>Tous les outils, directement dans Google Docs.</h2>
+      <p class="tools-sub">Aucun logiciel à apprendre. Tout vit dans un seul panneau latéral.</p>
       <div class="tools-grid">
-        <div class="tool-card"><i class="tm ti ti-wand"></i><div><h3>Live formatting</h3><p>Type, and scene headings, action, and dialogue format themselves as you go.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-file-text"></i><div><h3>Format My Document</h3><p>Paste a messy draft and format the whole script in one click.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-layout-kanban"></i><div><h3>Scene Board</h3><p>Every scene on a card. Drag to reorder and your script rewrites itself.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-eye"></i><div><h3>Screenplay Preview</h3><p>See your script as a real printed page while you write.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-headphones"></i><div><h3>ElevenLabs Table Read</h3><p>Hear your screenplay out loud, with a different AI voice for each character.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-photo"></i><div><h3>Movie Poster</h3><p>Turn your script into a movie poster, made from your own story.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-layout-grid"></i><div><h3>Production Breakdown</h3><p>Cast, props, wardrobe, and SFX pulled from every scene in one click.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-file-export"></i><div><h3>Final Draft export</h3><p>Export to industry-standard .fdx, ready to send to anyone.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-wand"></i><div><h3>Formatage en direct</h3><p>Tapez, et les intitulés de scène, l'action et les dialogues se mettent en forme tout seuls.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-file-text"></i><div><h3>Formater mon document</h3><p>Collez un brouillon en vrac et mettez tout le scénario en forme en un clic.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-layout-kanban"></i><div><h3>Scene Board</h3><p>Chaque scène sur une carte. Glissez pour réordonner et votre scénario se réécrit.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-eye"></i><div><h3>Aperçu scénario</h3><p>Voyez votre scénario comme une vraie page imprimée pendant que vous écrivez.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-headphones"></i><div><h3>Lecture à voix haute ElevenLabs</h3><p>Écoutez votre scénario, avec une voix différente pour chaque personnage.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-photo"></i><div><h3>Affiche de film</h3><p>Transformez votre scénario en affiche de cinéma, tirée de votre propre histoire.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-layout-grid"></i><div><h3>Dépouillement de production</h3><p>Rôles, accessoires, costumes et effets extraits de chaque scène en un clic.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-file-export"></i><div><h3>Export Final Draft</h3><p>Exportez au format .fdx, le standard du métier, prêt à envoyer à n'importe qui.</p></div></div>
       </div>
     </section>
 
     <!-- WHO MAKES THIS -->
     <section class="maker scroll-fade">
       <div class="maker-inner">
-        <div class="privacy-label">Who makes this</div>
-        <h2>A filmmaker built it, because he needed it.</h2>
-        <p>I'm Hugo P. Thomas, a French writer and director. My first feature, <em>Willy&nbsp;1er</em>, premiered at the Cannes Film Festival in the ACID selection. My second, <em>Juniors</em>, screened at festivals around the world. Both are on Netflix.</p>
-        <p>I wrote those films in Google Docs and spent years fighting the formatting instead of the scenes. So I built the tool I wanted, and I still answer the support emails myself.</p>
-        <p class="maker-sign"><span>Hugo P. Thomas</span><a href="/about.html">More about this</a></p>
+        <div class="privacy-label">Qui fabrique ça</div>
+        <h2>Un cinéaste l'a construit, parce qu'il en avait besoin.</h2>
+        <p>Je suis Hugo P. Thomas, scénariste et réalisateur. Mon premier long métrage, <em>Willy&nbsp;1er</em>, a été présenté au Festival de Cannes, à l'ACID. Le deuxième, <em>Juniors</em>, a voyagé en festivals dans le monde entier. Les deux sont sur Netflix.</p>
+        <p>J'ai écrit ces films dans Google Docs, en passant des années à me battre contre le formatage au lieu de travailler les scènes. Alors j'ai construit l'outil dont je rêvais, et je réponds encore moi-même aux emails d'assistance.</p>
+        <p class="maker-sign"><span>Hugo P. Thomas</span><a href="/about.html">En savoir plus</a></p>
       </div>
     </section>
 
     <!-- UCCELLO -->
     <section class="uccello scroll-fade">
-      <div class="uccello-label">Also from Hugo Thomas</div>
-      <h2>Finished your screenplay? Turn it into a graphic novel.</h2>
-      <p class="uccello-sub">Uccello adapts your finished script into a fully illustrated book, scene by scene. Watch a page of script become art.</p>
+      <div class="uccello-label">Également signé Hugo Thomas</div>
+      <h2>Scénario terminé ? Transformez-le en roman graphique.</h2>
+      <p class="uccello-sub">Uccello adapte votre scénario terminé en livre entièrement illustré, scène par scène. Regardez une page de script devenir une planche.</p>
       <div class="sweep is-uccello uccello-slider">
-        <img src="uccello-after.jpg" alt="A screenplay adapted into an illustrated graphic novel" draggable="false">
-        <div class="sweep-before"><img src="uccello-before.jpg" alt="A screenplay script" draggable="false"></div>
+        <img src="/uccello-after.jpg" alt="Un scénario adapté en roman graphique illustré" draggable="false">
+        <div class="sweep-before"><img src="/uccello-before.jpg" alt="Une page de scénario" draggable="false"></div>
         <div class="sweep-line"></div>
       </div>
-      <a href="https://atelier.uccello.app/en.html" class="uccello-cta" target="_blank" rel="noopener">Discover Uccello</a>
+      <a href="https://atelier.uccello.app/" class="uccello-cta" target="_blank" rel="noopener">Découvrir Uccello</a>
     </section>
 
     <!-- CTA -->
     <section class="cta-section">
-      <h2>Start writing today</h2>
-      <p>Screenplay Editor installs in seconds. Start free, then $5.99/month for the add-on or $7.99 for the Chrome extension (launch price, normally $9.99).</p>
+      <h2>Commencez à écrire aujourd'hui</h2>
+      <p>Screenplay Editor s'installe en quelques secondes. Commencez gratuitement, puis 5,99 $ par mois pour le module ou 7,99 $ pour l'extension Chrome (prix de lancement, 9,99 $ ensuite).</p>
       <div class="hero-ctas">
-        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Add to Chrome</a>
-        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Or get the Google Docs add-on</a>
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Ajouter à Chrome</a>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Ou installez le module Google Docs</a>
       </div>
       <ul class="hero-trust" style="margin-top:22px;margin-bottom:0;">
-        <li><span class="ck">&#10003;</span>Free to start</li>
-        <li><span class="ck">&#10003;</span>No credit card</li>
-        <li><span class="ck">&#10003;</span>Installs in seconds</li>
-        <li aria-hidden="true" style="flex-basis:100%;height:0;margin:0;padding:0;list-style:none;"></li><li><span class="ck">&#10003;</span>Secured by Google, not us</li>
+        <li><span class="ck">&#10003;</span>Gratuit pour commencer</li>
+        <li><span class="ck">&#10003;</span>Sans carte bancaire</li>
+        <li><span class="ck">&#10003;</span>Installé en quelques secondes</li>
+        <li aria-hidden="true" style="flex-basis:100%;height:0;margin:0;padding:0;list-style:none;"></li><li><span class="ck">&#10003;</span>Sécurisé par Google, pas par nous</li>
       </ul>
     </section>
   </main>
@@ -1555,17 +1542,17 @@
   <footer>
     <div class="footer-content">
       <div class="footer-logo">scrrrr<span class="dot">.</span></div>
-      <p class="footer-tagline">scrrrr. is Screenplay Editor, the screenplay formatter for Google Docs.</p>
+      <p class="footer-tagline">scrrrr., c'est Screenplay Editor, le formateur de scénario pour Google Docs.</p>
       <nav class="footer-nav">
-        <a href="/about">About</a>
-        <a href="/compare">Compare</a>
+        <a href="/about">À propos</a>
+        <a href="/compare">Comparer</a>
         <a href="/screenplay-formatter-google-docs">Screenplay Formatter</a>
-        <a href="/support">Support</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-        <a href="/free-google-docs-screenplay-template">Free Template</a>
+        <a href="/support">Aide</a>
+        <a href="/privacy">Confidentialité</a>
+        <a href="/terms">Conditions d'utilisation</a>
+        <a href="/free-google-docs-screenplay-template">Modèle gratuit</a>
       </nav>
-      <p class="footer-copy">&copy; 2026 Screenplay Editor. Made for screenwriters.</p>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Fait pour les scénaristes.</p>
     </div>
   </footer>
   <script>
@@ -1593,8 +1580,8 @@
           var copyBtn = document.getElementById('ref-code-copy');
           if (copyBtn) copyBtn.addEventListener('click', function () {
             try { if (navigator.clipboard) navigator.clipboard.writeText(codeUp); } catch (e) {}
-            copyBtn.textContent = 'Copied ✓';
-            setTimeout(function () { copyBtn.textContent = 'Copy'; }, 1800);
+            copyBtn.textContent = 'Copié ✓';
+            setTimeout(function () { copyBtn.textContent = 'Copier'; }, 1800);
           });
         } catch (e) {}
       }
