@@ -269,13 +269,13 @@
     <section class="hero">
       <div class="hero-inner">
         <div class="hero-eyebrow">For schools</div>
-        <h1>Screenwriting tools for <span>your classroom.</span></h1>
-        <p class="hero-subtitle">Professional screenplay formatting, right inside Google Docs. No new software, no IT department, no budget needed.</p>
+        <h1>Your students write real screenplays.<br><span>Industry-standard, in Google&nbsp;Docs.</span></h1>
+        <p class="hero-subtitle">Professional formatting inside the Google Docs your students already use. Nothing to install, nothing for IT to approve, free to start.</p>
         <div class="hero-ctas">
-          <a href="#school-form" class="cta-button">Request access for your class</a>
+          <a href="#school-form" class="cta-button">Book a 15-minute demo</a>
           <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-secondary" target="_blank" rel="noopener">Or install it free for one class</a>
         </div>
-        <div class="hero-proof"><span>Free for every student</span><span class="dot">&middot;</span><span>Works on Chromebooks</span><span class="dot">&middot;</span><span>FERPA-friendly</span></div>
+        <div class="hero-proof"><span>Students in 100+ schools worldwide</span><span class="dot">&middot;</span><span>Works on Chromebooks</span><span class="dot">&middot;</span><span>FERPA-friendly</span><span class="dot">&middot;</span><span>Free for every student</span></div>
       </div>
     </section>
 
@@ -306,6 +306,13 @@
         </div>
         <div class="feature-image win"><img src="learn-shot.png" alt="Screenplay formatting inside Google Docs, with every element one click away"></div>
       </div>
+    </section>
+
+    <!-- ACADEMIC INTEGRITY -->
+    <section class="section scroll-fade" style="text-align:center;">
+      <div class="section-label">Academic integrity</div>
+      <h2>It formats. It doesn&rsquo;t write.</h2>
+      <p class="section-sub" style="max-width:640px;margin-left:auto;margin-right:auto;">Screenplay Editor takes care of margins, indents and cues. It never writes a line for a student, and it never trains on their work. And because everything happens in Google Docs, version history shows the whole writing process: who wrote what, and when. You see the work, not just the result.</p>
     </section>
 
     <!-- HOW IT WORKS -->
@@ -373,7 +380,7 @@
     <!-- PRICING -->
     <section class="section scroll-fade" style="padding-top: 0;">
       <div class="section-label">Pricing</div>
-      <h2>Start free. Go Pro when the class needs more.</h2>
+      <h2>Start free. Equip the class when it clicks.</h2>
       <div class="card-grid" style="margin-top: 26px;">
         <div class="info-card">
           <h3>Free for every student</h3>
@@ -381,8 +388,7 @@
         </div>
         <div class="info-card highlight">
           <h3>Pro for the whole class</h3>
-          <p class="price">$19<span> / student / year</span></p>
-          <p>Every student gets the full tool with no limits: unlimited formatting, Final Draft export, the Chrome extension, and unlimited posters. For classes of 20 or more. You send one payment, we set up every student.</p>
+          <p>Every student gets the full tool with no limits: unlimited formatting, Final Draft export, the Chrome extension, everything. One simple price for the whole class, and it is really not expensive. Tell me your class size and you get a quote within a day.</p>
         </div>
       </div>
       <div style="text-align:center;margin-top:34px;">
@@ -393,8 +399,8 @@
     <!-- CTA / FORM -->
     <section class="cta-section">
       <div class="cta-inner">
-        <h2>Get access for your class</h2>
-        <p>Tell us about your program and we'll set you up.</p>
+        <h2>Get a demo, or just get access</h2>
+        <p>Tell me about your class. I answer every message myself, usually within a day, and if you want I will show you everything live in 15 minutes. The demo is given by me, Hugo, a filmmaker (Willy&nbsp;1er premiered at Cannes; two features on Netflix). I built the tool and I like showing it.</p>
         <form id="school-form" method="POST" action="mailto:hugopthomas@gmail.com" enctype="text/plain">
           <div class="form-group">
             <label for="name">Your name</label>
@@ -498,7 +504,7 @@
       var school = document.getElementById('school').value.trim();
       var students = document.getElementById('students').value.trim();
       var email = document.getElementById('email').value.trim();
-      var subject = encodeURIComponent('School access request: ' + school);
+      var subject = encodeURIComponent('School demo / access request: ' + school);
       var body = encodeURIComponent('Hi,\n\nI\'d like to request access for my class.\n\n' +
         'Name: ' + name + '\nSchool: ' + school + '\nStudents: ' + students + '\nContact email: ' + email + '\n\nThanks!');
       window.location.href = 'mailto:hugopthomas@gmail.com?subject=' + subject + '&body=' + body;
