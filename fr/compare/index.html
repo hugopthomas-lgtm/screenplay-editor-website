@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>document.documentElement.classList.add('js');</script>
+  <title>Screenplay Editor vs Final Draft vs Celtx — Comparatif honnête (2026)</title>
+  <meta name="description" content="Screenplay Editor vs Final Draft vs Celtx en 2026 : prix, collaboration, où vit votre scénario, courbe d'apprentissage. Un comparatif honnête écrit par un scénariste en activité.">
+  <meta name="keywords" content="alternative Final Draft, alternative Celtx, comparatif logiciels scénario, écrire un scénario dans Google Docs, Final Draft vs Celtx">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/compare/">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/compare">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/compare/">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/compare">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Screenplay Editor vs Final Draft vs Celtx — Comparatif honnête (2026)">
+  <meta property="og:description" content="Prix, collaboration, où vit votre scénario, courbe d'apprentissage : les trois vraies façons d'écrire un scénario en 2026, comparées honnêtement.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/compare/">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/site-theme.css">
+  <style>
+    /* Page-specific: wide comparison matrix, status badges, FAQ, dual install CTA. */
+    .compare-wrap { overflow-x: auto; margin-top: 30px; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+    .comparison-table {
+      width: 100%; min-width: 680px; border-collapse: separate; border-spacing: 0;
+      background: #fff; border-radius: 16px; overflow: hidden; font-size: 13px;
+      box-shadow: 0 16px 40px rgba(26,26,26,0.08);
+    }
+    .comparison-table th {
+      background: var(--dark); color: #fff; text-align: left; font-weight: 700;
+      font-size: 12px; padding: 15px 16px; letter-spacing: 0.2px;
+    }
+    .comparison-table th.se-col { background: var(--violet); }
+    .comparison-table td {
+      padding: 13px 16px; border-bottom: 1px solid #f1f1f1; color: #555; vertical-align: top;
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table .feature-name { font-weight: 700; color: var(--dark); white-space: nowrap; }
+    .comparison-table td.se-col { background: rgba(157,123,234,0.06); font-weight: 600; }
+    .comparison-table tr:hover td { background: rgba(157,123,234,0.035); }
+    .comparison-table tr:hover td.se-col { background: rgba(157,123,234,0.11); }
+    .yes { color: #2f9e57; font-weight: 700; }
+    .no { color: #e0473c; font-weight: 700; }
+    .partial { color: #c8790a; font-weight: 700; }
+
+    /* Status cards */
+    .status-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+    .status-badge.ok { background: rgba(52,199,89,0.15); color: #2f9e57; }
+    .status-badge.warn { background: rgba(255,149,0,0.16); color: #c8790a; }
+    .info-card.st-ok { border-top: 3px solid #34C759; }
+    .info-card.st-warn { border-top: 3px solid #FF9500; }
+
+    /* FAQ */
+    .faq-item { background: #fff; border-radius: 14px; padding: 22px 24px; margin-bottom: 14px; box-shadow: 0 10px 30px rgba(26,26,26,0.05); }
+    .faq-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+    .faq-item p { font-size: 13px; color: #666; line-height: 1.7; margin: 0; }
+
+    /* Dual install CTA (on the dark section) */
+    .cta-pair { display: flex; flex-direction: column; gap: 16px; align-items: center; margin-top: 6px; }
+    .cta-pair-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .cta-button-outline {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 8px;
+      font-size: 14px; font-weight: 600; text-decoration: none; background: transparent; color: #fff;
+      border: 1px solid rgba(255,255,255,0.25); transition: background 0.2s, border-color 0.2s;
+    }
+    .cta-button-outline:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.5); }
+    .cta-pair-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin: 0; }
+
+    @media (max-width: 700px) {
+      .comparison-table { font-size: 12px; }
+      .comparison-table th, .comparison-table td { padding: 11px 12px; }
+    }
+  </style>
+
+  <!-- Structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Screenplay Editor vs Final Draft vs Celtx — Comparatif honnête (2026)",
+    "description": "Prix, collaboration, où vit votre scénario, courbe d'apprentissage : les trois vraies façons d'écrire un scénario en 2026, comparées honnêtement.",
+    "inLanguage": "fr",
+    "author": {
+      "@type": "Person",
+      "name": "Hugo Thomas",
+      "url": "https://screenplayeditor.app/about"
+    },
+    "datePublished": "2026-02-05",
+    "dateModified": "2026-08-09",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Screenplay Editor"
+    }
+  }
+  </script>
+  <script src="/header.js"></script>
+</head>
+<body>
+
+  <site-header></site-header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">Comparatif</div>
+        <h1><span>Screenplay Editor</span> vs Final Draft vs Celtx</h1>
+        <p class="hero-subtitle">Il existe trois vraies façons d'écrire un scénario en 2026. L'une coûte 250 € et vit sur votre ordinateur. L'autre est une plateforme cloud qui démarre à 29 € par mois. La troisième transforme le Google Docs que vous utilisez déjà en logiciel d'écriture de scénario.</p>
+        <div class="hero-proof"><span>Mis à jour en <span class="now-month">août 2026</span></span><span class="dot">&middot;</span><span>Écrit par un scénariste en activité</span><span class="dot">&middot;</span><span>Plus de 12 000 scénaristes utilisent Screenplay Editor</span></div>
+      </div>
+    </section>
+
+    <!-- CURRENT STATUS -->
+    <section class="section scroll-fade">
+      <div class="section-label">État des lieux</div>
+      <h2>Les trois prétendants (<span class="now-month">août 2026</span>)</h2>
+      <p class="section-sub">Le prix ne dit pas tout. Les vraies différences sont ailleurs : où vit votre scénario, comment vous collaborez, et combien de logiciel il faut apprendre avant d'écrire votre première scène.</p>
+      <div class="card-grid three">
+        <div class="info-card st-ok">
+          <h3>Screenplay Editor</h3>
+          <span class="status-badge ok">&#10003; Dans Google Docs</span>
+          <p>Gratuit pour commencer, puis 5,99 € par mois (module) ou 7,99 € par mois (extension Chrome). Votre scénario reste dans votre Google Drive. Plus de 12 000 scénaristes.</p>
+        </div>
+        <div class="info-card st-warn">
+          <h3>Final Draft</h3>
+          <span class="status-badge warn">249,99 €, sur ordinateur</span>
+          <p>Le standard de l'industrie depuis des décennies. Un achat unique, installé sur un seul ordinateur. Pas de collaboration en temps réel, pas de version navigateur.</p>
+        </div>
+        <div class="info-card st-warn">
+          <h3>Celtx</h3>
+          <span class="status-badge warn">Dès 29 €/mois, cloud</span>
+          <p>Une plateforme de préproduction complète : dépouillement, plan de travail, budget. Puissante si vous avez besoin de tout, lourde si vous voulez juste écrire.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURE COMPARISON -->
+    <section class="section scroll-fade" style="padding-top:0;">
+      <div class="section-label">Point par point</div>
+      <h2>Comparatif fonction par fonction</h2>
+      <div class="compare-wrap">
+        <table class="comparison-table">
+          <tr>
+            <th>Fonction</th>
+            <th class="se-col">Screenplay Editor</th>
+            <th>Final Draft</th>
+            <th>Celtx</th>
+          </tr>
+          <tr>
+            <td class="feature-name">Prix</td>
+            <td class="se-col"><span class="yes">Gratuit pour commencer &middot; Pro 5,99&ndash;7,99 €/mois</span></td>
+            <td>249,99 € en une fois</td>
+            <td>Dès 29 €/mois</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Version gratuite</td>
+            <td class="se-col"><span class="yes">Oui, chaque jour, sans carte</span></td>
+            <td><span class="no">Essai de 30 jours seulement</span></td>
+            <td><span class="partial">Essai limité</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Où vit votre scénario</td>
+            <td class="se-col"><span class="yes">Dans votre propre Google Drive</span></td>
+            <td>Sur votre ordinateur</td>
+            <td><span class="no">Sur le cloud de Celtx</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Collaboration en temps réel</td>
+            <td class="se-col"><span class="yes">&#10003; Native (c'est Google Docs)</span></td>
+            <td><span class="no">Non</span></td>
+            <td><span class="partial">Oui, sur leur plateforme</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Fonctionne dans le navigateur</td>
+            <td class="se-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">Non, installation sur ordinateur</span></td>
+            <td><span class="yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Fonctionne sur Chromebook</td>
+            <td class="se-col"><span class="yes">&#10003;</span></td>
+            <td><span class="no">Non</span></td>
+            <td><span class="yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Mise en forme pendant la frappe</td>
+            <td class="se-col"><span class="yes">&#10003; Entrée et Tab, en direct</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Courbe d'apprentissage</td>
+            <td class="se-col"><span class="yes">Aucune, c'est Google Docs</span></td>
+            <td><span class="partial">Une nouvelle application à apprendre</span></td>
+            <td><span class="partial">Une nouvelle plateforme à apprendre</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Export .fdx (Final Draft)</td>
+            <td class="se-col"><span class="yes">&#10003;</span></td>
+            <td><span class="yes">Format natif</span></td>
+            <td><span class="yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Export PDF</td>
+            <td class="se-col"><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+            <td><span class="yes">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Dépouillement de production</td>
+            <td class="se-col"><span class="yes">&#10003; Un clic, catégorisé par IA</span></td>
+            <td><span class="partial">Via Final Draft Tagger</span></td>
+            <td><span class="yes">&#10003; Suite complète</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Lecture à voix haute</td>
+            <td class="se-col"><span class="yes">&#10003; Une voix IA par personnage</span></td>
+            <td><span class="partial">Synthèse vocale basique</span></td>
+            <td><span class="no">Non</span></td>
+          </tr>
+          <tr>
+            <td class="feature-name">Historique des versions</td>
+            <td class="se-col"><span class="yes">&#10003; Natif Google Docs</span></td>
+            <td><span class="partial">Sauvegardes manuelles</span></td>
+            <td><span class="yes">&#10003;</span></td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- SCREENPLAY EDITOR -->
+    <section class="section scroll-fade" style="padding-top:0;">
+      <div class="section-label">En détail</div>
+      <h2>Screenplay Editor</h2>
+      <div class="prose">
+        <p><a href="https://screenplayeditor.app/fr/">Screenplay Editor</a> est construit par Hugo Thomas, scénariste et cinéaste français dont le travail compte <em>Willy 1er</em> (Cannes 2016) et <em>Juniors</em> (Netflix). Lancé en décembre 2024, il dépasse aujourd'hui les 12 000 scénaristes, avec une forte adoption dans les écoles de cinéma.</p>
+        <p>L'idée est simple : vous écrivez déjà dans Google Docs, alors le logiciel vient à vous. L'extension Chrome recrée le confort d'écriture de Final Draft en direct dans votre document : vous appuyez sur Entrée et Tab, et les intitulés de scène, les personnages et les dialogues se mettent en forme pendant que vous tapez. Le module Google Docs apporte toute la panoplie du panneau latéral dans n'importe quel navigateur. Les deux partagent le même principe : pas de nouvelle application, pas d'import, pas d'export, votre scénario est un Google Doc dès le premier jour.</p>
+        <p>Au-delà de la mise en forme, il comprend un Scene Board, un générateur de page de titre, un Boneyard pour les scènes coupées, un dépouillement de production IA en un clic, une lecture à voix haute avec une voix différente par personnage, et l'export PDF et .fdx. Vous commencez gratuitement avec des limites quotidiennes, et Pro coûte 5,99 € par mois (module) ou 7,99 € par mois (extension). Votre scénario reste dans votre Google Drive : nous ne le stockons jamais, nous n'entraînons jamais rien dessus.</p>
+        <p><strong>Idéal pour :</strong> les scénaristes qui collaborent, écrivent sur plusieurs machines, ou aiment simplement Google Docs. Les étudiants et les classes, puisqu'il tourne sur Chromebook sans rien installer.</p>
+      </div>
+    </section>
+
+    <!-- FINAL DRAFT -->
+    <section class="section scroll-fade" style="padding-top:0;">
+      <div class="section-label">Le standard</div>
+      <h2>Final Draft</h2>
+      <div class="prose">
+        <p>Final Draft est le standard de l'industrie depuis des décennies, et son format .fdx règne encore sur le monde professionnel. Quand une société de production demande votre scénario, elle demande souvent un fichier Final Draft.</p>
+        <p>C'est aussi un programme à 249,99 € qui n'a pas fondamentalement changé en vingt ans. Il n'existe pas de vraie version navigateur, pas de co-écriture en temps réel, et votre scénario vit sur un seul ordinateur (avec la synchronisation cloud de Final Draft en option). Beaucoup de professionnels le gardent pour la livraison finale et écrivent ailleurs.</p>
+        <p><strong>Idéal pour :</strong> les scénaristes dans des circuits de studio où la livraison .fdx est contractuelle, et ceux qui préfèrent une application dédiée sur ordinateur. Voir le comparatif complet <a href="/compare/screenplay-editor-vs-final-draft.html">Screenplay Editor vs Final Draft</a> (en anglais).</p>
+      </div>
+    </section>
+
+    <!-- CELTX -->
+    <section class="section scroll-fade" style="padding-top:0;">
+      <div class="section-label">La plateforme</div>
+      <h2>Celtx</h2>
+      <div class="prose">
+        <p>Celtx n'est pas vraiment un outil d'écriture de scénario : c'est une plateforme de préproduction qui en contient un. Dépouillement, feuilles de service, plan de travail, budget, découpage : si vous dirigez une production, cette largeur est justement l'intérêt.</p>
+        <p>Si vous voulez juste écrire, cela fait beaucoup de plateforme à porter, et l'abonnement démarre à 29 € par mois. Votre scénario vit aussi sur les serveurs de Celtx, dans leur écosystème, et n'en sort que par export.</p>
+        <p><strong>Idéal pour :</strong> les petites équipes de production qui veulent l'écriture et la préparation au même endroit payant. Voir le comparatif complet <a href="/compare/screenplay-editor-vs-celtx.html">Screenplay Editor vs Celtx</a> (en anglais).</p>
+      </div>
+    </section>
+
+    <!-- VERDICT -->
+    <section class="section scroll-fade" style="padding-top:0;">
+      <div class="section-label">Notre avis</div>
+      <h2>Le verdict</h2>
+      <div class="prose">
+        <p>Si votre travail exige une livraison .fdx dans un circuit de studio, gardez Final Draft pour le dernier kilomètre : c'est à cela qu'il sert. Si vous dirigez des productions et voulez des outils de préparation accrochés à votre scénario, Celtx mérite son abonnement.</p>
+        <p>Pour tous ceux qui ont surtout besoin d'ÉCRIRE, seuls ou avec un co-auteur, Screenplay Editor apporte la mise en forme professionnelle dans l'outil que vous utilisez déjà, avec la collaboration en temps réel que Google Docs a inventée, pour une fraction du prix. Et comme il exporte en .fdx, le choisir ne ferme aucune porte.</p>
+      </div>
+    </section>
+
+    <!-- OTHER TOOLS -->
+    <section class="section scroll-fade" style="padding-top:0;">
+      <div class="section-label">Autres comparatifs</div>
+      <h2>Comparer avec d'autres outils</h2>
+      <p class="section-sub">Ces comparatifs détaillés sont en anglais.</p>
+      <div class="card-grid three">
+        <div class="info-card">
+          <h3><a href="/compare/screenplay-editor-vs-final-draft.html">vs Final Draft &rarr;</a></h3>
+          <p>Le standard de l'industrie face à la voie Google Docs.</p>
+        </div>
+        <div class="info-card">
+          <h3><a href="/compare/screenplay-editor-vs-celtx.html">vs Celtx &rarr;</a></h3>
+          <p>L'outil d'écriture face à la plateforme de préproduction.</p>
+        </div>
+        <div class="info-card">
+          <h3><a href="/compare/screenplay-editor-vs-arc-studio.html">vs Arc Studio &rarr;</a></h3>
+          <p>Deux visions modernes du logiciel de scénario.</p>
+        </div>
+        <div class="info-card">
+          <h3><a href="/compare/screenplay-editor-vs-fade-in.html">vs Fade In &rarr;</a></h3>
+          <p>Le challenger sur ordinateur à 79 €.</p>
+        </div>
+        <div class="info-card">
+          <h3><a href="/compare/screenplay-editor-vs-highland.html">vs Highland &rarr;</a></h3>
+          <p>L'option minimaliste réservée au Mac.</p>
+        </div>
+        <div class="info-card">
+          <h3><a href="/compare/screenplay-editor-vs-screenplay-formatter.html">vs les anciens modules Google Docs &rarr;</a></h3>
+          <p>Screenplay Formatter a été retiré, Fountainize est abandonné depuis 2020. Voici ce qui s'est passé.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section scroll-fade" style="padding-top:0;">
+      <div class="section-label">Questions</div>
+      <h2>Questions fréquentes</h2>
+      <div>
+        <div class="faq-item">
+          <h3>Existe-t-il une vraie alternative à Final Draft dans Google Docs ?</h3>
+          <p>Oui. Screenplay Editor met en forme au même standard de l'industrie, ajoute le flux d'écriture Entrée/Tab que les habitués de Final Draft attendent, et exporte en .fdx quand on vous demande un fichier Final Draft. Plus de 12 000 scénaristes l'utilisent.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Screenplay Editor est-il gratuit ?</h3>
+          <p>Il est gratuit pour commencer, chaque jour, avec des limites quotidiennes et sans carte. Pro retire les limites : 5,99 € par mois pour le module Google Docs, 7,99 € par mois pour l'extension Chrome. Voir la <a href="/fr/pricing.html">page des prix</a>.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Les utilisateurs de Final Draft peuvent-ils lire mon scénario ?</h3>
+          <p>Oui. Screenplay Editor exporte des fichiers .fdx au standard de l'industrie qui s'ouvrent directement dans Final Draft, mise en forme intacte.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Qu'est-il arrivé à Screenplay Formatter et Fountainize ?</h3>
+          <p>Screenplay Formatter a été retiré du Marketplace. Fountainize n'a pas été mis à jour depuis juin 2020 et limite l'usage gratuit à une quinzaine de pages. <a href="/compare/screenplay-editor-vs-screenplay-formatter.html">L'histoire complète est ici</a> (en anglais).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>Essayez-le sur votre prochaine scène</h2>
+        <p>Il s'installe en quelques secondes et démarre gratuitement. Votre scénario ne quitte jamais votre Google Drive.</p>
+        <div class="cta-pair">
+          <div class="cta-pair-item">
+            <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank" rel="noopener">Ajouter à Chrome</a>
+            <p class="cta-pair-sub">Le confort d'écriture de Final Draft, dans Google Docs</p>
+          </div>
+          <div class="cta-pair-item">
+            <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button-outline" target="_blank" rel="noopener">Installer le module Google Docs</a>
+            <p class="cta-pair-sub">Fonctionne dans tous les navigateurs</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <nav class="footer-nav">
+        <a href="/about">À propos</a>
+        <a href="/fr/pricing.html">Prix</a>
+        <a href="/schools">Écoles</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/blog">Blog</a>
+        <a href="/resources">Ressources</a>
+        <a href="/support">Aide</a>
+        <a href="/privacy">Confidentialité</a>
+        <a href="/terms">Conditions</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+
+  <script src="/site-anim.js"></script>
+</body>
+</html>

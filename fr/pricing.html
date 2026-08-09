@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prix — Screenplay Editor pour Google Docs</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Les prix de Screenplay Editor : commencez gratuitement, puis 5,99 € par mois pour le module Google Docs ou 7,99 € par mois pour l'extension Chrome. Résiliable à tout moment.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/pricing.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/pricing.html">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/pricing.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/pricing.html">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --violet: #9D7BEA; --violet-dark: #8B6AD4; --dark: #1a1a1a; }
+    body { font-family: 'JetBrains Mono', monospace; background: #fafafa; color: #1a1a1a; line-height: 1.6; font-size: 15px; }
+    a { color: inherit; text-decoration: none; }
+
+    .hero { padding: 128px 30px 56px; text-align: center; background: var(--dark);
+      border-bottom: 1px solid rgba(157,123,234,.4);
+      background-image: radial-gradient(ellipse 75% 55% at 50% 0%, rgba(157,123,234,.20), transparent 70%); }
+    .hero h1 { font-size: 42px; font-weight: 700; color: #fff; letter-spacing: -1px; margin-bottom: 14px; }
+    .hero p { font-size: 15px; color: #999; max-width: 560px; margin: 0 auto; text-wrap: balance; }
+    .hero-trust { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 22px auto 0; padding: 0; }
+    .hero-trust li { font-size: 12px; font-weight: 500; color: #9a9a9a; }
+    .hero-trust .ck { color: var(--violet); font-weight: 700; margin-right: 4px; }
+
+    .plans { max-width: 1020px; margin: -34px auto 0; padding: 0 30px 26px; display: grid;
+      grid-template-columns: repeat(3, 1fr); gap: 16px; position: relative; z-index: 2; }
+    .plan { background: #fff; border-radius: 16px; padding: 30px 28px; box-shadow: 0 18px 44px rgba(26,26,26,.10);
+      display: flex; flex-direction: column; }
+    .plan.pop { background: #1a1a1a; color: #fff; }
+    .plan-name { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--violet); }
+    .plan-price { margin-top: 14px; font-size: 40px; font-weight: 700; letter-spacing: -1.5px; line-height: 1; }
+    .plan-price span { font-size: 14px; font-weight: 500; letter-spacing: 0; color: #999; }
+    .plan.pop .plan-price span { color: #9a92ad; }
+    .plan-alt { margin-top: 6px; font-size: 12.5px; color: #999; }
+    .plan.pop .plan-alt { color: #9a92ad; }
+    .plan-desc { margin-top: 16px; font-size: 13.5px; color: #666; line-height: 1.65; }
+    .plan.pop .plan-desc { color: #c9c3d6; }
+    .plan ul { list-style: none; margin: 18px 0 24px; padding: 0; flex: 1; }
+    .plan li { font-size: 13px; margin-bottom: 9px; color: #444; }
+    .plan.pop li { color: #ddd8e8; }
+    .plan .ck { color: var(--violet); font-weight: 700; margin-right: 7px; }
+    .plan-cta { display: block; text-align: center; background: var(--violet); color: #fff; padding: 13px 18px;
+      border-radius: 8px; font-size: 13.5px; font-weight: 600; transition: background .2s, transform .2s; }
+    .plan-cta:hover { background: var(--violet-dark); transform: translateY(-1px); }
+    .plan-cta.ghost { background: #f1edfb; color: var(--violet); }
+    .plan-cta.ghost:hover { background: #e6dff7; color: var(--violet-dark); }
+    .pop-badge { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); white-space: nowrap;
+      background: var(--violet); color: #fff; font-size: 10.5px; font-weight: 700; letter-spacing: 1.5px;
+      padding: 5px 14px; border-radius: 999px; }
+    .plan { position: relative; }
+
+    .note { max-width: 720px; margin: 0 auto; padding: 26px 30px 0; text-align: center; }
+    .note p { font-size: 13px; color: #888; line-height: 1.7; }
+    .note a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
+
+    .schools-band { max-width: 1020px; margin: 40px auto 0; padding: 0 30px; }
+    .schools-band .inner { background: #f6f0e6; border-radius: 16px; padding: 30px 34px; display: flex;
+      align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
+    .schools-band h2 { font-size: 19px; font-weight: 700; letter-spacing: -.3px; }
+    .schools-band p { font-size: 13.5px; color: #666; margin-top: 5px; max-width: 520px; }
+    .schools-band a { flex-shrink: 0; background: var(--dark); color: #fff; padding: 13px 24px; border-radius: 8px;
+      font-size: 13.5px; font-weight: 600; transition: transform .2s, opacity .2s; }
+    .schools-band a:hover { transform: translateY(-1px); opacity: .92; }
+
+    .faq { max-width: 720px; margin: 0 auto; padding: 56px 30px 70px; }
+    .faq h2 { text-align: center; font-size: 24px; font-weight: 600; margin-bottom: 30px; }
+    .faq-item { margin-bottom: 26px; }
+    .faq-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 7px; }
+    .faq-item p { font-size: 13.5px; color: #666; line-height: 1.7; }
+
+    footer { background: var(--dark); color: #fff; padding: 50px 30px; }
+    .footer-content { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .footer-logo { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 700;
+      letter-spacing: -.5px; margin-bottom: 6px; }
+    .footer-logo .dot { color: var(--violet); }
+    .footer-nav { margin: 16px 0 22px; }
+    .footer-nav a { color: #888; margin: 0 14px; font-size: 12px; font-weight: 500; transition: color .2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-copy { font-size: 11px; color: #555; }
+
+    @media (max-width: 860px) {
+      .plans { grid-template-columns: 1fr; margin-top: -20px; }
+      .hero h1 { font-size: 30px; }
+      .schools-band .inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+  <script src="/header.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="hero">
+      <h1>Des prix simples.</h1>
+      <p>Vous commencez gratuitement, et vous passez au niveau supérieur quand votre scénario le demande. Vous résiliez en deux clics, et votre document reste toujours le vôtre.</p>
+      <ul class="hero-trust">
+        <li><span class="ck">&#10003;</span>Gratuit pour commencer</li>
+        <li><span class="ck">&#10003;</span>Sans carte bancaire</li>
+        <li><span class="ck">&#10003;</span>Résiliable à tout moment</li>
+        <li><span class="ck">&#10003;</span>Sécurisé par Google, pas par nous</li>
+      </ul>
+    </section>
+
+    <section class="plans">
+      <div class="plan">
+        <div class="plan-name">Gratuit</div>
+        <div class="plan-price">0 €</div>
+        <div class="plan-alt">pour toujours</div>
+        <p class="plan-desc">Vous écrivez et formatez gratuitement, chaque jour, avec des limites quotidiennes. De quoi couvrir les courts métrages et apprendre le métier.</p>
+        <ul>
+          <li><span class="ck">&#10003;</span>Formatage en direct, avec limites quotidiennes</li>
+          <li><span class="ck">&#10003;</span>Fonctionne sur n'importe quel Google Doc</li>
+          <li><span class="ck">&#10003;</span>Sans compte, sans carte</li>
+        </ul>
+        <a class="plan-cta ghost" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Commencer gratuitement</a>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Module Google Docs</div>
+        <div class="plan-price">5,99 €<span> / mois</span></div>
+        <div class="plan-alt">ou 50 € / an (30 % de moins)</div>
+        <p class="plan-desc">Toute la panoplie du panneau latéral, sans limite. Fonctionne dans tous les navigateurs, sur tous les ordinateurs.</p>
+        <ul>
+          <li><span class="ck">&#10003;</span>Formatage illimité</li>
+          <li><span class="ck">&#10003;</span>Scene Board, Boneyard, page de titre</li>
+          <li><span class="ck">&#10003;</span>Export PDF et Final Draft (.fdx)</li>
+        </ul>
+        <a class="plan-cta" href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" target="_blank" rel="noopener">Installer le module</a>
+      </div>
+
+      <div class="plan pop">
+        <div class="pop-badge">NOTRE MEILLEURE EXPÉRIENCE</div>
+        <div class="plan-name">Extension Chrome</div>
+        <div class="plan-price">7,99 €<span> / mois</span></div>
+        <div class="plan-alt">prix de lancement, 9,99 € ensuite</div>
+        <p class="plan-desc">Le confort d'écriture de Final Draft, en direct dans Google Docs : vous appuyez sur Entrée et Tab, et le scénario se met en forme pendant que vous tapez.</p>
+        <ul>
+          <li><span class="ck">&#10003;</span>Tout ce que fait le module</li>
+          <li><span class="ck">&#10003;</span>Smart Writing : Entrée et Tab font le travail</li>
+          <li><span class="ck">&#10003;</span>Formate un scénario entier en quelques secondes</li>
+        </ul>
+        <a class="plan-cta" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Ajouter à Chrome</a>
+      </div>
+    </section>
+
+    <div class="note">
+      <p>La lecture à voix haute (voix ElevenLabs) fonctionne avec des packs de crédits séparés, parce que chaque minute de voix nous coûte réellement de l'argent. Tout le reste est couvert par votre abonnement.</p>
+    </div>
+
+    <section class="schools-band">
+      <div class="inner">
+        <div>
+          <h2>Vous enseignez ?</h2>
+          <p>Il existe un prix simple pour toute une classe, et il est vraiment raisonnable. Dites-moi la taille de votre classe et vous recevez un devis sous un jour.</p>
+        </div>
+        <a href="/schools.html">Voir l'offre écoles</a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2>Les questions qu'on nous pose vraiment</h2>
+      <div class="faq-item">
+        <h3>Module ou extension, lequel choisir ?</h3>
+        <p>Le module vit dans le panneau latéral de Google Docs et fonctionne dans tous les navigateurs : c'est le choix universel. L'extension tourne dans Chrome et ajoute le confort d'écriture en direct (Entrée, Tab, mise en forme instantanée pendant la frappe) : c'est celle avec laquelle j'écris. Vous pouvez essayer les deux gratuitement.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Que se passe-t-il si je résilie ?</h3>
+        <p>Vous gardez Pro jusqu'à la fin de la période payée, puis vous repassez au niveau gratuit. Votre scénario reste exactement en l'état : il vit dans votre Google Drive, pas chez nous, et la mise en forme déjà appliquée ne disparaît jamais.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Voyez-vous ou stockez-vous mon scénario ?</h3>
+        <p>Non. Votre scénario reste dans votre propre Google Drive, derrière la même sécurité que Gmail. Nous ne le stockons jamais, et nous n'entraînons jamais rien dessus.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Pourquoi l'extension coûte-t-elle plus cher que le module ?</h3>
+        <p>Parce qu'elle fait plus : le Smart Writing en direct est la chose la plus difficile que nous ayons construite, et c'est lui qui donne à Google Docs le confort de Final Draft. Les 7,99 € sont un prix de lancement, et ceux qui s'abonnent maintenant le gardent.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <nav class="footer-nav">
+        <a href="/about">À propos</a>
+        <a href="/fr/pricing.html">Prix</a>
+        <a href="/schools">Écoles</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/blog">Blog</a>
+        <a href="/resources">Resources</a>
+        <a href="/support">Aide</a>
+        <a href="/privacy">Confidentialité</a>
+        <a href="/terms">Conditions</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+</body>
+</html>

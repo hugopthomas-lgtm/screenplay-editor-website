@@ -21,25 +21,22 @@
 
   // Nav links. Absolute paths so they work from any folder depth.
   var NAV = [
+    ['Pricing', '/pricing.html'],
     ['Schools', '/schools.html'],
-    ['Blog', '/blog.html'],
-    ['Resources', '/resources/'],
-    ['About', '/about.html'],
     ['Compare', '/compare/'],
     ['Support', '/support.html']
   ];
 
-  // Version française (page avec lang="fr") : libellés FR sur les mêmes pages,
-  // et une bascule EN/FR en fin de nav. Le choix est mémorisé (se_lang) pour
-  // que l'aiguillage automatique de la page d'accueil respecte le visiteur.
+  // Version française (page avec lang="fr") : libellés FR, et les pages qui
+  // existent en français pointent vers /fr/. Une bascule EN/FR ferme la nav ;
+  // le choix est mémorisé (se_lang) pour que l'aiguillage automatique de la
+  // page d'accueil respecte le visiteur.
   var IS_FR = (document.documentElement.getAttribute('lang') || '').toLowerCase().indexOf('fr') === 0;
   if (IS_FR) {
     NAV = [
+      ['Prix', '/fr/pricing.html'],
       ['Écoles', '/schools.html'],
-      ['Blog', '/blog.html'],
-      ['Ressources', '/resources/'],
-      ['À propos', '/about.html'],
-      ['Comparer', '/compare/'],
+      ['Comparer', '/fr/compare/'],
       ['Aide', '/support.html']
     ];
   }
@@ -174,8 +171,11 @@
   // Editor's "Last Update" in the comparison tables always reads as freshly
   // maintained. (Competitors' dates stay hardcoded.)
   function fillNow() {
-    var months = ['January', 'February', 'March', 'April', 'May', 'June',
-                  'July', 'August', 'September', 'October', 'November', 'December'];
+    var months = IS_FR
+      ? ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+         'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+      : ['January', 'February', 'March', 'April', 'May', 'June',
+         'July', 'August', 'September', 'October', 'November', 'December'];
     var d = new Date();
     var label = months[d.getMonth()] + ' ' + d.getFullYear();
     var els = document.querySelectorAll('.now-month');
