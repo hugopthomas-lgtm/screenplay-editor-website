@@ -36,13 +36,36 @@
   if (IS_FR) {
     NAV = [
       ['Prix', '/fr/pricing.html'],
-      ['Écoles', '/schools.html'],
+      ['Écoles', '/fr/schools.html'],
       ['Comparer', '/fr/compare/'],
       ['À propos', '/fr/about.html'],
-      ['Aide', '/support.html']
+      ['Aide', '/fr/support.html']
     ];
   }
-  var LANG = IS_FR ? ['EN', '/', 'en'] : ['FR', '/fr/', 'fr'];
+  // Bascule EN/FR : elle mène à la MÊME page dans l'autre langue quand cette
+  // page existe dans les deux, sinon à l'accueil de l'autre langue. Ajouter
+  // une ligne ici chaque fois qu'une page est traduite.
+  var PAIRS = {
+    '/': '/fr/',
+    '/pricing.html': '/fr/pricing.html',
+    '/about.html': '/fr/about.html',
+    '/schools.html': '/fr/schools.html',
+    '/support.html': '/fr/support.html',
+    '/privacy.html': '/fr/privacy.html',
+    '/terms.html': '/fr/terms.html',
+    '/compare/': '/fr/compare/'
+  };
+  function counterpartHref() {
+    var p = location.pathname.replace(/\/index\.html$/, '/');
+    if (IS_FR) {
+      var en = p.replace(/^\/fr(\/|$)/, '/');
+      for (var k in PAIRS) { if (PAIRS[k] === p || k === en) return k; }
+      return '/';
+    }
+    if (!/\.html$/.test(p) && p !== '/' && !/\/$/.test(p)) p += '.html'; // /schools → /schools.html
+    return PAIRS[p] || '/fr/';
+  }
+  var LANG = IS_FR ? ['EN', counterpartHref(), 'en'] : ['FR', counterpartHref(), 'fr'];
 
   var navHtml = NAV.map(function (n) {
     return '<a href="' + n[1] + '">' + n[0] + '</a>';

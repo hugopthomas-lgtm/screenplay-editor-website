@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conditions d’utilisation - Screenplay Editor pour Google Docs</title>
+  <meta name="description" content="Les conditions d’utilisation de Screenplay Editor, le module Google Docs et l’extension Chrome qui mettent votre scénario au format professionnel.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/terms.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/terms">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/terms.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/terms">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Conditions d’utilisation - Screenplay Editor pour Google Docs">
+  <meta property="og:description" content="Les conditions d’utilisation de Screenplay Editor, le module Google Docs et l’extension Chrome.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/terms.html">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: var(--violet);
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: var(--site-header-h, 65px);
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .breadcrumb-content a {
+      color: var(--violet);
+      transition: opacity 0.2s;
+    }
+
+    .breadcrumb-content a:hover {
+      opacity: 0.8;
+    }
+
+    .breadcrumb-content .separator {
+      color: #555;
+    }
+
+    .breadcrumb-content .current {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Page Content */
+    .page-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 30px 80px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .last-updated {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .page-content > p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .page-content h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      padding-left: 15px;
+      border-left: 3px solid var(--violet);
+      color: var(--dark);
+    }
+
+    .page-content h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .page-content p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .page-content a {
+      color: var(--violet);
+    }
+
+    .page-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .breadcrumb-bar {
+        padding: 14px 20px;
+      }
+
+      .page-content {
+        padding: 40px 20px 60px;
+      }
+
+      .page-title {
+        font-size: 26px;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+  <script src="/header.js"></script>
+</head>
+
+<body>
+  <site-header></site-header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="/fr/">Accueil</a>
+      <span class="separator">/</span>
+      <span class="current">Conditions d’utilisation</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-content">
+
+      <h1 class="page-title">Conditions d’utilisation</h1>
+      <p class="last-updated">Dernière mise à jour : avril 2026</p>
+
+      <p>
+        Les présentes conditions d’utilisation (les « Conditions ») encadrent votre usage de Screenplay Editor, un module Google Docs
+        et une extension Chrome qui mettent les scénarios au format. En installant ou en utilisant Screenplay Editor, vous les acceptez.
+      </p>
+
+      <h2>1. Description du service</h2>
+      <p>
+        Screenplay Editor est un module Google Docs et une extension Chrome qui fournissent des outils
+        professionnels de mise en forme du scénario : formatage automatique, gestion des personnages, navigation
+        entre les séquences et export. Le logiciel fonctionne à l’intérieur de Google Docs et de Google Drive.
+      </p>
+
+      <h2>2. Abonnement</h2>
+      <p>
+        Screenplay Editor propose une formule gratuite avec la mise en forme essentielle et une formule Pro à 7,99 $ par mois ou 69 $ par an (prix de lancement), qui couvre à la fois l’extension Chrome et le module Google Docs,
+        facturée via Stripe. Vous pouvez résilier quand vous voulez.
+      </p>
+      <p>
+        Pro débloque les fonctions avancées : export Final Draft (.fdx),
+        numérotation des séquences, dépouillement de production, lecture à voix haute ElevenLabs et export PDF sans filigrane.
+      </p>
+      <p>
+        Vous gérez ou résiliez votre abonnement à tout moment depuis le portail client Stripe,
+        accessible par les Réglages du panneau latéral. Après résiliation, vous gardez l’accès aux
+        fonctions Pro jusqu’à la fin de la période en cours, puis votre compte
+        repasse en formule gratuite.
+      </p>
+      <p>
+        Les périodes entamées ne sont pas remboursées. Vos scénarios ne sont jamais touchés
+        par un changement de formule : ils restent dans votre Google Drive.
+      </p>
+
+      <h2>3. Acceptation des conditions</h2>
+      <p>
+        En installant Screenplay Editor, en y accédant ou en l’utilisant, vous reconnaissez avoir lu
+        et compris les présentes Conditions et vous acceptez d’y être tenu. Si vous ne les acceptez pas,
+        n’installez pas et n’utilisez pas le logiciel.
+      </p>
+
+      <h2>4. Usage du service</h2>
+      <p>
+        Vous vous engagez à n’utiliser Screenplay Editor qu’à des fins licites, dans le respect
+        des conditions d’utilisation et de la politique d’usage acceptable de Google. Vous vous engagez à ne pas tenter
+        de faire de l’ingénierie inverse, de modifier le logiciel ni d’en créer des œuvres dérivées. Vous vous engagez
+        à ne pas l’utiliser pour porter atteinte aux droits de propriété intellectuelle d’un tiers.
+      </p>
+
+      <h2>5. Propriété intellectuelle</h2>
+      <h3>Vos contenus</h3>
+      <p>
+        Vous conservez tous les droits sur ce que vous créez avec Screenplay Editor. Vos scénarios,
+        vos personnages et votre travail de création restent entièrement à vous.
+      </p>
+
+      <h3>Notre logiciel</h3>
+      <p>
+        Screenplay Editor, son code d’origine et ses fonctionnalités appartiennent au
+        développeur et sont protégés par le droit d’auteur et les autres lois de propriété intellectuelle.
+      </p>
+
+      <h2>6. Absence de garantie</h2>
+      <p>
+        Screenplay Editor est fourni « en l’état » et « selon disponibilité », sans garantie d’aucune sorte,
+        expresse ou implicite, y compris et sans limitation les garanties implicites de
+        qualité marchande, d’adéquation à un usage particulier ou d’absence de contrefaçon.
+      </p>
+      <p>
+        Nous ne garantissons pas que le logiciel répondra à vos besoins particuliers, qu’il fonctionnera
+        sans interruption, à temps, en sécurité ou sans erreur, ni que les erreurs seront corrigées.
+      </p>
+
+      <h2>7. Limitation de responsabilité</h2>
+      <p>
+        Dans toute la mesure permise par la loi applicable, Screenplay Editor et son développeur
+        ne peuvent être tenus responsables des dommages indirects, accessoires, spéciaux, consécutifs ou
+        punitifs, ni d’une perte de bénéfices, de données ou de réputation, résultant de
+        votre usage ou de votre impossibilité d’utiliser le logiciel, d’un accès non autorisé à vos documents
+        ou de leur altération, d’un bug ou d’une erreur du logiciel, ou de toute autre question liée
+        au logiciel.
+      </p>
+
+      <h2>8. Garantie contre les recours</h2>
+      <p>
+        Vous acceptez de garantir Screenplay Editor et son développeur contre toute
+        réclamation, tout dommage, toute perte ou tout frais découlant de votre usage du logiciel ou de
+        votre non-respect des présentes Conditions.
+      </p>
+
+      <h2>9. Modifications du service</h2>
+      <p>
+        Nous nous réservons le droit de modifier, suspendre ou arrêter Screenplay Editor à tout moment,
+        avec ou sans préavis. Notre responsabilité ne peut être engagée envers vous ni envers un tiers pour
+        une modification, une suspension ou un arrêt du service.
+      </p>
+
+      <h2>10. Modifications des conditions</h2>
+      <p>
+        Nous pouvons réviser ces Conditions de temps en temps. La version la plus récente sera toujours
+        disponible sur cette page. En continuant à utiliser Screenplay Editor après l’entrée en vigueur
+        d’une révision, vous acceptez d’être tenu par les Conditions révisées.
+      </p>
+
+      <h2>11. Fin de l’utilisation</h2>
+      <p>
+        Vous pouvez cesser d’utiliser Screenplay Editor à tout moment en désinstallant le module ou l’extension
+        depuis votre compte Google. Nous pouvons mettre fin à votre accès ou le suspendre à tout moment,
+        sans préavis, en cas de comportement qui nous paraît contraire aux présentes Conditions ou
+        nuisible aux autres utilisateurs ou à nous-mêmes.
+      </p>
+
+      <h2>12. Droit applicable</h2>
+      <p>
+        Les présentes Conditions sont régies par le droit français et interprétées selon celui-ci,
+        sans égard aux règles de conflit de lois.
+      </p>
+
+      <h2>13. Contact</h2>
+      <p>
+        Pour toute question sur ces Conditions, écrivez-nous à :
+        <a href="mailto:hugothomas@hotmail.fr">hugothomas@hotmail.fr</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <nav class="footer-nav">
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions d’utilisation</a>
+        <a href="/free-google-docs-screenplay-template">Modèle gratuit</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+</body>
+</html>
