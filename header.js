@@ -24,6 +24,7 @@
     ['Pricing', '/pricing.html'],
     ['Schools', '/schools.html'],
     ['Compare', '/compare/'],
+    ['About', '/about.html'],
     ['Support', '/support.html']
   ];
 
@@ -37,6 +38,7 @@
       ['Prix', '/fr/pricing.html'],
       ['Écoles', '/schools.html'],
       ['Comparer', '/fr/compare/'],
+      ['À propos', '/fr/about.html'],
       ['Aide', '/support.html']
     ];
   }
