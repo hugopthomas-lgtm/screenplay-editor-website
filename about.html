@@ -18,22 +18,26 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="/site-theme.css">
   <style>
-    .story { max-width: 1000px; margin: 0 auto; padding: 10px 30px 0; }
+    .story { max-width: 1100px; margin: 0 auto; padding: 10px 30px 0; }
     .story h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 0 0 12px; }
     .story p { font-size: 15px; line-height: 1.85; color: #525252; margin-bottom: 20px; max-width: 620px; }
     .story strong { color: var(--dark); font-weight: 700; }
-    .team { max-width: 1000px; margin: 0 auto; padding: 42px 30px 10px; }
-    .team h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 0 0 8px; }
-    .team-note { font-size: 14px; line-height: 1.7; color: #6b6b6b; margin: 0 0 28px; max-width: 620px; }
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 34px 26px; }
+    .team { max-width: 1100px; margin: 0 auto; padding: 70px 30px 20px; }
+    .team h2 { font-size: 30px; font-weight: 700; color: var(--dark); margin: 0 0 12px; letter-spacing: -0.02em; }
+    .team-note { font-size: 15px; line-height: 1.75; color: #6b6b6b; margin: 0 0 40px; max-width: 640px; }
+    /* Cinq membres : on force cinq colonnes des qu'il y a la place, sinon le
+       dernier se retrouve seul sur une deuxieme ligne et la grille a l'air cassee. */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 40px 30px; }
+    @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(5, 1fr); } }
     .member { text-align: left; }
-    .member-avatar { width: 100%; aspect-ratio: 1; margin: 0 0 14px; border-radius: 12px; object-fit: cover; display: block; }
-    .member-initials { width: 100%; aspect-ratio: 1; margin: 0 0 14px; border-radius: 12px;
+    .member-avatar { width: 100%; aspect-ratio: 4/5; margin: 0 0 16px; border-radius: 14px; object-fit: cover; display: block; }
+    .member-initials { width: 100%; aspect-ratio: 4/5; margin: 0 0 16px; border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(157,123,234,0.12); color: var(--violet); font-size: 30px; font-weight: 700; letter-spacing: 1px; }
-    .member-name { font-size: 14px; font-weight: 700; color: var(--dark); }
-    .member-role { font-size: 13px; color: #777; margin-top: 3px; }
+      background: rgba(157,123,234,0.12); color: var(--violet); font-size: 38px; font-weight: 700; letter-spacing: 1px; }
+    .member-name { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .member-role { font-size: 13px; color: #777; margin-top: 4px; }
     .member-credit { font-size: 12px; color: #999; margin-top: 6px; line-height: 1.5; }
+    @media (max-width: 620px) { .team h2 { font-size: 24px; } }
     @media (max-width: 800px) { .team-grid { gap: 22px; } .story { padding: 6px 24px 0; } .team { padding: 32px 24px 6px; } }
     .bio { max-width: 1000px; margin: 0 auto; padding: 66px 30px 20px; display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: start; }
     .bio-photo { position: sticky; top: 100px; }
@@ -78,14 +82,8 @@
       </div>
     </section>
 
-    <section class="story scroll-fade">
-      <h3>How it grew</h3>
-      <p>Screenplay Editor started in <strong>2025</strong> as a prototype I built for my own scripts. I showed it to a few writer friends, they asked to keep it, and it went from there.</p>
-      <p>Today thousands of screenwriters write with it. <strong>Last month alone it was used in 63 countries</strong>, on six continents, from film schools in Singapore and Las Vegas to writers' rooms in England.</p>
-    </section>
-
     <section class="team scroll-fade">
-      <h3>The team</h3>
+      <h2>The team</h2>
       <p class="team-note">It stopped being a one-person project a while ago. I still answer the emails, and these are the people who build it with me.</p>
       <div class="team-grid">
         <div class="member">
@@ -99,7 +97,7 @@
           <div class="member-role">Engineering</div>
         </div>
         <div class="member">
-          <div class="member-initials">C</div>
+          <img class="member-avatar" src="team-claire.jpg" alt="Claire">
           <div class="member-name">Claire</div>
           <div class="member-role">Engineering</div>
         </div>
@@ -109,11 +107,17 @@
           <div class="member-role">Web design</div>
         </div>
         <div class="member">
-          <div class="member-initials">P</div>
+          <img class="member-avatar" src="team-paul.jpg" alt="Paul">
           <div class="member-name">Paul</div>
           <div class="member-role">Design</div>
         </div>
       </div>
+    </section>
+
+    <section class="story scroll-fade">
+      <h3>How it grew</h3>
+      <p>Screenplay Editor started in <strong>2025</strong> as a prototype I built for my own scripts. I showed it to a few writer friends, they asked to keep it, and it went from there.</p>
+      <p>Today thousands of screenwriters write with it. <strong>Last month alone it was used in 63 countries</strong>, on six continents, from film schools in Singapore and Las Vegas to writers' rooms in England.</p>
     </section>
 
     <section class="cta-section">
