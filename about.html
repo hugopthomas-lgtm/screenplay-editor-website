@@ -18,31 +18,34 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="/site-theme.css">
   <style>
-    .story { max-width: 1100px; margin: 0 auto; padding: 10px 30px 0; }
-    .story h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 0 0 12px; }
-    .story p { font-size: 15px; line-height: 1.85; color: #525252; margin-bottom: 20px; max-width: 620px; }
+    /* Centre, comme l'equipe au-dessus et l'appel a l'action en dessous : cales a
+       gauche dans un conteneur large, ces blocs laissaient un vide a droite et
+       cassaient le rythme de la page. */
+    .story { max-width: 660px; margin: 0 auto; padding: 14px 30px 0; text-align: center; }
+    .story h3 { font-size: 20px; font-weight: 700; color: var(--dark); margin: 0 0 14px; }
+    .story p { font-size: 15px; line-height: 1.85; color: #525252; margin-bottom: 20px; text-wrap: balance; }
     .story strong { color: var(--dark); font-weight: 700; }
-    .team { max-width: 1100px; margin: 0 auto; padding: 76px 30px 30px; }
+    .team { max-width: 1100px; margin: 0 auto; padding: 24px 30px 30px; }
     .team h2 { font-size: 38px; font-weight: 700; color: var(--violet); margin: 0 0 14px; letter-spacing: -0.02em; text-align: center; }
     .team-note { font-size: 15px; line-height: 1.75; color: #6b6b6b; margin: 0 auto 20px; max-width: 560px; text-align: center; text-wrap: balance; }
     /* Disposition en desordre organique, comme Arc Studio : des cercles poses a
        des hauteurs differentes plutot qu'une grille reguliere. Les decalages sont
        portes par nth-child pour rester lisibles. */
     .team-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 10px 18px; }
-    .member { width: 190px; }
+    .member { width: 238px; }
     .member:nth-child(2) { margin-top: 78px; }
     .member:nth-child(3) { margin-top: 18px; }
     .member:nth-child(4) { margin-top: 62px; }
     /* object-position remonte le cadrage : dans un cercle, un visage place haut
        se fait rogner par le bas du cadre carre. 30 % vise les yeux. */
-    .member-avatar, .member-initials { width: 190px; height: 190px; border-radius: 50%; object-fit: cover; object-position: center 30%; display: block; }
+    .member-avatar, .member-initials { width: 238px; height: 238px; border-radius: 50%; object-fit: cover; object-position: center 30%; display: block; }
     .member-initials { display: flex; align-items: center; justify-content: center;
       background: rgba(157,123,234,0.12); color: var(--violet); font-size: 44px; font-weight: 700; letter-spacing: 1px; }
     /* La carte chevauche le bas du cercle : c'est ce qui fait toute la signature. */
     /* Marianne en noir et blanc (demande de Hugo). En CSS plutot qu'en
        reencodant le fichier : reversible en une ligne, sans perte. */
     .member-avatar[src*="marianne"] { filter: grayscale(1); }
-    .member-card { position: relative; margin: -34px auto 0; width: 172px; background: #fff; border-radius: 12px;
+    .member-card { position: relative; margin: -40px auto 0; width: 214px; background: #fff; border-radius: 12px;
       padding: 12px 10px; text-align: center; box-shadow: 0 8px 26px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.05); }
     .member-name { font-size: 16px; font-weight: 700; color: var(--violet); }
     .member-role { font-size: 13px; font-weight: 700; color: var(--dark); margin-top: 2px; }
@@ -89,12 +92,10 @@
       </div>
       <div class="bio-text">
         <h3>Who made this?</h3>
-        <p>I'm Hugo Thomas, a French writer and director based in Rome. My first feature film, <em>Willy 1er</em>, premiered at the Cannes Film Festival in the ACID selection (2016). <em>Juniors</em>, my second, screened at festivals worldwide. Both are on Netflix. Before that, my shorts <em>Perrault, La Fontaine, Mon Cul!</em> and <em>Ich Bin Eine Tata</em> both won awards at Clermont-Ferrand, the largest short film festival in the world (did I mention it's the largest?).</p>
+        <p>I'm Hugo Thomas, a French writer and director based in Rome. My first feature film, <em>Willy 1er</em>, premiered at the Cannes Film Festival in the ACID selection (2016). <em>Juniors</em>, my second, screened at festivals worldwide. Both are on Netflix. Before that, my shorts <em>Perrault, La Fontaine, Mon Cul!</em> and <em>Ich Bin Eine Tata</em> both won awards at Clermont-Ferrand, the largest short film festival in the world.</p>
         <h3>Why it exists</h3>
         <p>I spent years formatting scripts by hand and fighting software that was not built for the way writers actually work. Final Draft feels like the nineties to me. I love a vintage look, but emailing licence codes around every time someone needs to read a scene, that is where I stop.</p>
         <p>Everything I write already lives in Google Docs. So instead of asking anyone to move, I put the formatting where the writing already happens. You press Enter and Tab, the script formats itself, and you share it the way you share any other document.</p>
-        <h3>Schools, universities and writing teams</h3>
-        <p>Teachers run Screenplay Editor in the classroom and writing teams use it together. If you're bringing it to a school, a film program, or a team, I set up access and invoicing for you directly. <a href="/schools">See the schools and teams page</a>, or just write to me.</p>
       </div>
     </section>
 
@@ -137,6 +138,11 @@
       <h3>How it grew</h3>
       <p>Screenplay Editor started in <strong>2025</strong> as a prototype I built for my own scripts. I showed it to a few writer friends, they asked to keep it, and it went from there.</p>
       <p>Today thousands of screenwriters write with it. <strong>Last month alone it was used in 63 countries</strong>, on six continents, from film schools in Singapore and Las Vegas to writers' rooms in England.</p>
+    </section>
+
+    <section class="story scroll-fade" style="padding-top:0;">
+      <h3>Schools, universities and writing teams</h3>
+      <p>Teachers run it in the classroom and writing teams use it together. If you're bringing it to a school, a film program or a team, I set up access and invoicing for you directly. <a href="/schools">See the schools and teams page</a>, or just write to me.</p>
     </section>
 
     <section class="cta-section">
