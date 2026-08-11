@@ -53,7 +53,14 @@
     '/support.html': '/fr/support.html',
     '/privacy.html': '/fr/privacy.html',
     '/terms.html': '/fr/terms.html',
-    '/compare/': '/fr/compare/'
+    '/compare/': '/fr/compare/',
+    '/compare/screenplay-editor-vs-arc-studio.html': '/fr/compare/screenplay-editor-vs-arc-studio.html',
+    '/compare/screenplay-editor-vs-celtx.html': '/fr/compare/screenplay-editor-vs-celtx.html',
+    '/compare/screenplay-editor-vs-fade-in.html': '/fr/compare/screenplay-editor-vs-fade-in.html',
+    '/compare/screenplay-editor-vs-final-draft.html': '/fr/compare/screenplay-editor-vs-final-draft.html',
+    '/compare/screenplay-editor-vs-highland.html': '/fr/compare/screenplay-editor-vs-highland.html',
+    '/compare/screenplay-editor-vs-screenplay-formatter.html': '/fr/compare/screenplay-editor-vs-screenplay-formatter.html',
+    '/compare/screenplay-editor-vs-writersolo.html': '/fr/compare/screenplay-editor-vs-writersolo.html'
   };
   function counterpartHref() {
     var p = location.pathname.replace(/\/index\.html$/, '/');
