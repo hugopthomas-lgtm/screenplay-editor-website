@@ -18,6 +18,21 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="/site-theme.css">
   <style>
+    .story { max-width: 1000px; margin: 0 auto; padding: 10px 30px 0; }
+    .story h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 0 0 12px; }
+    .story p { font-size: 15px; line-height: 1.85; color: #525252; margin-bottom: 20px; max-width: 620px; }
+    .story strong { color: var(--dark); font-weight: 700; }
+    .team { max-width: 1000px; margin: 0 auto; padding: 42px 30px 10px; }
+    .team h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 0 0 8px; }
+    .team-note { font-size: 14px; line-height: 1.7; color: #6b6b6b; margin: 0 0 28px; max-width: 620px; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 26px; }
+    .member { text-align: center; }
+    .member-avatar { width: 84px; height: 84px; margin: 0 auto 12px; border-radius: 50%; object-fit: cover;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(157,123,234,0.12); color: var(--violet); font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+    .member-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .member-role { font-size: 13px; color: #777; margin-top: 3px; }
+    @media (max-width: 800px) { .team-grid { gap: 22px; } .story { padding: 6px 24px 0; } .team { padding: 32px 24px 6px; } }
     .bio { max-width: 1000px; margin: 0 auto; padding: 66px 30px 20px; display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: start; }
     .bio-photo { position: sticky; top: 100px; }
     .bio-photo img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 16px; box-shadow: 0 25px 60px rgba(157,123,234,0.22), 0 10px 20px rgba(0,0,0,0.08); }
@@ -56,12 +71,48 @@
         <h3>Why it exists</h3>
         <p>I spent years formatting scripts by hand and fighting software that was not built for the way writers actually work. Final Draft feels like the nineties to me. I love a vintage look, but emailing licence codes around every time someone needs to read a scene, that is where I stop.</p>
         <p>Everything I write already lives in Google Docs. So instead of asking anyone to move, I put the formatting where the writing already happens. You press Enter and Tab, the script formats itself, and you share it the way you share any other document.</p>
-        <h3>Who writes with it</h3>
-        <p>More than 11,000 writers have installed it. Film schools run it in class, from Singapore to Las Vegas, and writing teams work in the same script the way they would in any shared document. I built it with screenwriters who tested every feature and told me the truth, and with developers who made it fast. It ships improvements most weeks.</p>
         <h3>Schools, universities and writing teams</h3>
         <p>Teachers run Screenplay Editor in the classroom and writing teams use it together. If you're bringing it to a school, a film program, or a team, I set up access and invoicing for you directly. <a href="/schools">See the schools and teams page</a>, or just write to me.</p>
         <h3>What it costs</h3>
         <p>Start free, no credit card. The Google Docs add-on is $5.99 a month and the Chrome extension is $7.99 during launch. You pay when you want the production tools, like Final Draft export and breakdowns. <a href="/pricing">See the full comparison</a>.</p>
+      </div>
+    </section>
+
+    <section class="story scroll-fade">
+      <h3>How it grew</h3>
+      <p>Screenplay Editor started in <strong>2025</strong> as a prototype I built for my own scripts. It was supposed to save me an afternoon of reformatting. I showed it to a few writer friends, they asked to keep it, and it went from there.</p>
+      <p>Today thousands of screenwriters write with it, in <strong>more than 25 countries</strong> and on <strong>six continents</strong>, from film schools in Singapore and Las Vegas to writers' rooms and people writing their first script at their kitchen table.</p>
+    </section>
+
+    <section class="team scroll-fade">
+      <h3>The team</h3>
+      <p class="team-note">It stopped being a one-person project a while ago. I still answer the emails, and these are the people who build it with me.</p>
+      <div class="team-grid">
+        <div class="member">
+          <img class="member-avatar" src="hugo4.jpg" alt="Hugo Thomas">
+          <div class="member-name">Hugo Thomas</div>
+          <div class="member-role">Founder, writer &amp; director</div>
+        </div>
+        <div class="member">
+          <div class="member-avatar">J</div>
+          <div class="member-name">Jonathan</div>
+          <div class="member-role">Engineering</div>
+        </div>
+        <div class="member">
+          <div class="member-avatar">C</div>
+          <div class="member-name">Claire</div>
+          <div class="member-role">Engineering</div>
+        </div>
+        <div class="member">
+          <div class="member-avatar">M</div>
+          <div class="member-name">Marianne</div>
+          <div class="member-role">Web design</div>
+        </div>
+        <div class="member">
+          <div class="member-avatar">P</div>
+          <div class="member-name">Paul</div>
+          <div class="member-role">Design</div>
+        </div>
       </div>
     </section>
 
