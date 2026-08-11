@@ -22,22 +22,38 @@
     .story h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 0 0 12px; }
     .story p { font-size: 15px; line-height: 1.85; color: #525252; margin-bottom: 20px; max-width: 620px; }
     .story strong { color: var(--dark); font-weight: 700; }
-    .team { max-width: 1100px; margin: 0 auto; padding: 70px 30px 20px; }
-    .team h2 { font-size: 30px; font-weight: 700; color: var(--dark); margin: 0 0 12px; letter-spacing: -0.02em; }
-    .team-note { font-size: 15px; line-height: 1.75; color: #6b6b6b; margin: 0 0 40px; max-width: 640px; }
-    /* Cinq membres : on force cinq colonnes des qu'il y a la place, sinon le
-       dernier se retrouve seul sur une deuxieme ligne et la grille a l'air cassee. */
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 40px 30px; }
-    @media (min-width: 900px) { .team-grid { grid-template-columns: repeat(5, 1fr); } }
-    .member { text-align: left; }
-    .member-avatar { width: 100%; aspect-ratio: 4/5; margin: 0 0 16px; border-radius: 14px; object-fit: cover; display: block; }
-    .member-initials { width: 100%; aspect-ratio: 4/5; margin: 0 0 16px; border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(157,123,234,0.12); color: var(--violet); font-size: 38px; font-weight: 700; letter-spacing: 1px; }
-    .member-name { font-size: 15px; font-weight: 700; color: var(--dark); }
-    .member-role { font-size: 13px; color: #777; margin-top: 4px; }
-    .member-credit { font-size: 12px; color: #999; margin-top: 6px; line-height: 1.5; }
-    @media (max-width: 620px) { .team h2 { font-size: 24px; } }
+    .team { max-width: 1100px; margin: 0 auto; padding: 76px 30px 30px; }
+    .team h2 { font-size: 38px; font-weight: 700; color: var(--violet); margin: 0 0 14px; letter-spacing: -0.02em; text-align: center; }
+    .team-note { font-size: 15px; line-height: 1.75; color: #6b6b6b; margin: 0 auto 20px; max-width: 560px; text-align: center; text-wrap: balance; }
+    /* Disposition en desordre organique, comme Arc Studio : des cercles poses a
+       des hauteurs differentes plutot qu'une grille reguliere. Les decalages sont
+       portes par nth-child pour rester lisibles. */
+    .team-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 10px 18px; }
+    .member { width: 190px; }
+    .member:nth-child(2) { margin-top: 78px; }
+    .member:nth-child(3) { margin-top: 18px; }
+    .member:nth-child(4) { margin-top: 62px; }
+    /* object-position remonte le cadrage : dans un cercle, un visage place haut
+       se fait rogner par le bas du cadre carre. 30 % vise les yeux. */
+    .member-avatar, .member-initials { width: 190px; height: 190px; border-radius: 50%; object-fit: cover; object-position: center 30%; display: block; }
+    .member-initials { display: flex; align-items: center; justify-content: center;
+      background: rgba(157,123,234,0.12); color: var(--violet); font-size: 44px; font-weight: 700; letter-spacing: 1px; }
+    /* La carte chevauche le bas du cercle : c'est ce qui fait toute la signature. */
+    /* Marianne en noir et blanc (demande de Hugo). En CSS plutot qu'en
+       reencodant le fichier : reversible en une ligne, sans perte. */
+    .member-avatar[src*="marianne"] { filter: grayscale(1); }
+    .member-card { position: relative; margin: -34px auto 0; width: 172px; background: #fff; border-radius: 12px;
+      padding: 12px 10px; text-align: center; box-shadow: 0 8px 26px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.05); }
+    .member-name { font-size: 16px; font-weight: 700; color: var(--violet); }
+    .member-role { font-size: 13px; font-weight: 700; color: var(--dark); margin-top: 2px; }
+    .member-credit { font-size: 13px; color: #6b6b6b; margin-top: 2px; }
+    @media (max-width: 820px) {
+      .team h2 { font-size: 28px; }
+      .member { width: 150px; }
+      .member-avatar, .member-initials { width: 150px; height: 150px; font-size: 34px; }
+      .member-card { width: 140px; margin-top: -28px; }
+      .member:nth-child(n) { margin-top: 0; }
+    }
     @media (max-width: 800px) { .team-grid { gap: 22px; } .story { padding: 6px 24px 0; } .team { padding: 32px 24px 6px; } }
     .bio { max-width: 1000px; margin: 0 auto; padding: 66px 30px 20px; display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: start; }
     .bio-photo { position: sticky; top: 100px; }
@@ -87,29 +103,32 @@
       <p class="team-note">It stopped being a one-person project a while ago. I still answer the emails, and these are the people who build it with me.</p>
       <div class="team-grid">
         <div class="member">
-          <img class="member-avatar" src="hugo4.jpg" alt="Hugo Thomas">
-          <div class="member-name">Hugo Thomas</div>
-          <div class="member-role">Founder, writer &amp; director</div>
-        </div>
-        <div class="member">
-          <div class="member-initials">J</div>
-          <div class="member-name">Jonathan</div>
-          <div class="member-role">Engineering</div>
+          <img class="member-avatar" src="team-jonathan.jpg" alt="Jonathan">
+          <div class="member-card">
+            <div class="member-name">Jonathan</div>
+            <div class="member-role">Engineering</div>
+          </div>
         </div>
         <div class="member">
           <img class="member-avatar" src="team-claire.jpg" alt="Claire">
-          <div class="member-name">Claire</div>
-          <div class="member-role">Engineering</div>
+          <div class="member-card">
+            <div class="member-name">Claire</div>
+            <div class="member-role">Engineering</div>
+          </div>
         </div>
         <div class="member">
           <img class="member-avatar" src="team-marianne.jpg" alt="Marianne">
-          <div class="member-name">Marianne</div>
-          <div class="member-role">Web design</div>
+          <div class="member-card">
+            <div class="member-name">Marianne</div>
+            <div class="member-role">Web design</div>
+          </div>
         </div>
         <div class="member">
           <img class="member-avatar" src="team-paul.jpg" alt="Paul">
-          <div class="member-name">Paul</div>
-          <div class="member-role">Design</div>
+          <div class="member-card">
+            <div class="member-name">Paul</div>
+            <div class="member-role">Design</div>
+          </div>
         </div>
       </div>
     </section>
