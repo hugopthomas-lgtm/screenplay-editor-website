@@ -25,13 +25,15 @@
     .team { max-width: 1000px; margin: 0 auto; padding: 42px 30px 10px; }
     .team h3 { font-size: 18px; font-weight: 700; color: var(--dark); margin: 0 0 8px; }
     .team-note { font-size: 14px; line-height: 1.7; color: #6b6b6b; margin: 0 0 28px; max-width: 620px; }
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 26px; }
-    .member { text-align: center; }
-    .member-avatar { width: 84px; height: 84px; margin: 0 auto 12px; border-radius: 50%; object-fit: cover;
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 34px 26px; }
+    .member { text-align: left; }
+    .member-avatar { width: 100%; aspect-ratio: 1; margin: 0 0 14px; border-radius: 12px; object-fit: cover; display: block; }
+    .member-initials { width: 100%; aspect-ratio: 1; margin: 0 0 14px; border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(157,123,234,0.12); color: var(--violet); font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+      background: rgba(157,123,234,0.12); color: var(--violet); font-size: 30px; font-weight: 700; letter-spacing: 1px; }
     .member-name { font-size: 14px; font-weight: 700; color: var(--dark); }
     .member-role { font-size: 13px; color: #777; margin-top: 3px; }
+    .member-credit { font-size: 12px; color: #999; margin-top: 6px; line-height: 1.5; }
     @media (max-width: 800px) { .team-grid { gap: 22px; } .story { padding: 6px 24px 0; } .team { padding: 32px 24px 6px; } }
     .bio { max-width: 1000px; margin: 0 auto; padding: 66px 30px 20px; display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: start; }
     .bio-photo { position: sticky; top: 100px; }
@@ -92,22 +94,22 @@
           <div class="member-role">Founder, writer &amp; director</div>
         </div>
         <div class="member">
-          <div class="member-avatar">J</div>
+          <div class="member-initials">J</div>
           <div class="member-name">Jonathan</div>
           <div class="member-role">Engineering</div>
         </div>
         <div class="member">
-          <div class="member-avatar">C</div>
+          <div class="member-initials">C</div>
           <div class="member-name">Claire</div>
           <div class="member-role">Engineering</div>
         </div>
         <div class="member">
-          <div class="member-avatar">M</div>
+          <img class="member-avatar" src="team-marianne.jpg" alt="Marianne">
           <div class="member-name">Marianne</div>
           <div class="member-role">Web design</div>
         </div>
         <div class="member">
-          <div class="member-avatar">P</div>
+          <div class="member-initials">P</div>
           <div class="member-name">Paul</div>
           <div class="member-role">Design</div>
         </div>
