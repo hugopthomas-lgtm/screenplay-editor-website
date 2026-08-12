@@ -18,9 +18,9 @@
 :root { interpolate-size: allow-keywords; }
 
 .faq {
-  max-width: 1400px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 78px 40px 90px;
+  padding: 78px 30px 90px;
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 56px;
