@@ -104,7 +104,7 @@
         ".wrap{background:#1a1a1a;color:#fff;padding:62px 30px 34px;font-family:'JetBrains Mono',monospace;}" +
         '.inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px 30px;}' +
         ".brand .logo{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:20px;font-weight:700;" +
-        'letter-spacing:-.5px;color:#fff;text-decoration:none;display:inline-block;}' +
+        'letter-spacing:0.6px;color:#fff;text-decoration:none;display:inline-block;}' +
         '.brand .logo .dot{color:' + VIOLET + ';}' +
         '.brand p{margin-top:12px;font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.42);max-width:260px;}' +
         '.brand .lang{margin-top:18px;display:inline-block;font-size:12px;color:rgba(255,255,255,.55);' +

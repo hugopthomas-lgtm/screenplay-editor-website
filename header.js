@@ -134,23 +134,23 @@
            hero behind it and dark against the light pages. */
         'background:rgba(14,14,16,0.86);-webkit-backdrop-filter:blur(16px) saturate(160%);' +
         'backdrop-filter:blur(16px) saturate(160%);' +
-        'border-radius:999px;padding:7px 7px 7px 22px;' +
+        'border-radius:999px;padding:7px 7px 7px 26px;' +
         'box-shadow:0 6px 26px rgba(0,0,0,0.22);}' +
 
         ".logo{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;" +
-        'font-size:19px;font-weight:700;letter-spacing:-0.5px;color:#fff;' +
+        'font-size:19px;font-weight:700;letter-spacing:0.6px;color:#fff;' +
         'text-decoration:none;cursor:pointer;line-height:1;}' +
         '.logo .dot{color:' + VIOLET + ';}' +
 
         'nav{display:flex;align-items:center;}' +
         '.nav-links{display:flex;align-items:center;}' +
-        'nav a{margin-left:24px;font-size:13px;font-weight:500;color:#a5a5a5;' +
+        'nav a{margin-left:32px;font-size:13px;font-weight:500;color:#a5a5a5;' +
         'text-decoration:none;white-space:nowrap;transition:color .2s;}' +
         'nav a:hover{color:#fff;}' +
         /* The brand is its own block: give it more air than the links get. */
-        '.nav-links a:first-child{margin-left:36px;}' +
+        '.nav-links a:first-child{margin-left:44px;}' +
 
-        '.cta{margin-left:24px;background:' + VIOLET + ';color:#fff;' +
+        '.cta{margin-left:30px;background:' + VIOLET + ';color:#fff;' +
         'display:inline-flex;align-items:center;gap:7px;white-space:nowrap;' +
         'padding:9px 19px;border-radius:999px;font-size:13px;font-weight:600;' +
         'text-decoration:none;transition:background .2s,transform .2s;}' +
@@ -176,7 +176,7 @@
         "font-family:'JetBrains Mono',monospace;}" +
         '.mobile-menu a:active{background:rgba(157,123,234,0.16);color:#fff;}' +
 
-        '@media(max-width:860px){.nav-links{display:none;}.cta{margin-left:18px;}' +
+        '@media(max-width:980px){.nav-links{display:none;}.cta{margin-left:18px;}' +
         '.pill{padding:7px 7px 7px 20px;}.burger{display:block;}' +
         '.rail.open .mobile-menu{display:flex;}}' +
         '@media(prefers-reduced-motion:reduce){.rail{transition:none;}}' +
