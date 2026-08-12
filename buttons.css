@@ -1,0 +1,86 @@
+/* ============================================================
+   FINITION DES BOUTONS — feuille commune, chargée partout.
+
+   Un seul effet, repris de Final Draft parce qu'il est juste :
+   au survol, le bouton arrondi SE CARRE. Le rayon passe à 0 en
+   0,3 s avec la courbe cubic-bezier(.4, 0, .2, 1). Ça ne se voit
+   pas sur une capture, ça se sent à la souris, et c'est ce qui
+   sépare un bouton fait maison d'un bouton fait par une équipe.
+
+   Règle : on ne touche qu'au rayon, à la couleur et à l'ombre.
+   Les boutons en gélule (rayon 999) sont exclus : les carrer
+   entièrement casserait leur forme au lieu de la préciser.
+   ============================================================ */
+
+/* Départ plus rond : la feuille est chargée en dernier, elle impose le rayon
+   de repos par-dessus celui des pages. Plus le repos est rond, plus le
+   passage au carré se voit. Final Draft part de 12 px, on part de 16. */
+.cta-button,
+.cta-button-outline,
+.plan-cta,
+.hero-cta,
+.btn-outline,
+.cta-bottom {
+  border-radius: 16px;
+}
+
+.cta-button,
+.cta-button-outline,
+.plan-cta,
+.plan-second,
+.hero-cta,
+.btn-outline,
+.uccello-cta,
+.submit-btn,
+.cta-bottom {
+  transition: border-radius .3s cubic-bezier(.4, 0, .2, 1),
+              background-color .3s cubic-bezier(.4, 0, .2, 1),
+              background .3s cubic-bezier(.4, 0, .2, 1),
+              color .3s cubic-bezier(.4, 0, .2, 1),
+              border-color .3s cubic-bezier(.4, 0, .2, 1),
+              box-shadow .3s cubic-bezier(.4, 0, .2, 1),
+              transform .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.cta-button:hover,
+.cta-button-outline:hover,
+.plan-cta:hover,
+.hero-cta:hover,
+.btn-outline:hover,
+.uccello-cta:hover,
+.cta-bottom:hover {
+  border-radius: 0;
+}
+
+/* Les gélules ne se carrent pas complètement : elles se resserrent,
+   ce qui donne le même signal sans casser la forme. */
+.submit-btn:hover {
+  border-radius: 10px;
+}
+
+/* Le bouton de la pilule du header vit dans un Shadow DOM :
+   son effet est défini dans header.js, pas ici. */
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-button,
+  .cta-button-outline,
+  .plan-cta,
+  .plan-second,
+  .hero-cta,
+  .btn-outline,
+  .uccello-cta,
+  .submit-btn,
+  .cta-bottom {
+    transition: none;
+  }
+  .cta-button:hover,
+  .cta-button-outline:hover,
+  .plan-cta:hover,
+  .hero-cta:hover,
+  .btn-outline:hover,
+  .uccello-cta:hover,
+  .cta-bottom:hover,
+  .submit-btn:hover {
+    border-radius: inherit;
+  }
+}
