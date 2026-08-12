@@ -157,6 +157,24 @@ h1, h2, h3,
 }
 p, li { text-wrap: pretty; }
 
+/* Le chiffre qui compte se pose sur un bloc de couleur plein, très
+   légèrement de travers, comme un coup de surligneur. Sur violet
+   plein il faut du texte sombre : du blanc sur #9D7BEA ne passe pas
+   le contraste. */
+span.mark {
+  display: inline-block;
+  padding: 0.1em 0.3em 0.14em;
+  margin: 0 0.06em;
+  color: var(--ink);
+  background: var(--violet);
+  transform: rotate(-1.2deg);
+  white-space: nowrap;
+}
+span.mark-dark {
+  background: #6B4FB8;
+  color: #fff;
+}
+
 /* Le ™ de Plus Jakarta Sans a une chasse large et s'assoit sur la
    ligne de base : dans un titre il ouvre un trou avant le point.
    On le réduit, on le remonte, on récupère la chasse. */
