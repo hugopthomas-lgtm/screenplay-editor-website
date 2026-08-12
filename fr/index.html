@@ -188,7 +188,7 @@
     }
 
     .hero-inner {
-      max-width: 1180px;
+      max-width: 1400px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
@@ -358,7 +358,7 @@
     }
 
     .hero-screenshot {
-      max-width: 1035px;
+      max-width: 1360px;
       margin: 0 auto 0;
       filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 45px rgba(157, 123, 234, 0.28));
     }
@@ -407,7 +407,7 @@
 
     /* How it works, 3 steps */
     .how {
-      max-width: 1040px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 64px 30px 28px;
       text-align: center;
@@ -488,7 +488,7 @@
        sur une surface creme, la meme que la section « qui fait ca ».
        Deux blocs de couleur qui se repondent a distance. */
     .creed {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 12px auto 0;
       padding: 56px 54px 52px;
       text-align: center;
@@ -621,7 +621,7 @@
        TOOLS (clear, named list of what you get)
        ============================================ */
     .tools {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 30px 30px 50px;
     }
@@ -646,20 +646,24 @@
 
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
+    @media (max-width: 1180px) { .tools-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 900px)  { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
 
     .tool-card {
       background: #fff;
       border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 20px 22px;
+      border-radius: 16px;
+      padding: 24px 22px 26px;
       display: flex;
-      gap: 14px;
+      flex-direction: column;
+      gap: 12px;
       align-items: flex-start;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
+    .tool-card:hover { box-shadow: var(--shadow-1); }
 
     .tool-card:hover {
       border-color: var(--violet);
@@ -700,7 +704,7 @@
     }
 
     .reviews-inner {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
@@ -791,7 +795,7 @@
        ============================================ */
     .collab {
       padding: 20px 30px 0;
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
@@ -829,6 +833,9 @@
 
     .collab-image img {
       width: 100%;
+      max-width: 460px;
+      margin: 0 auto;
+      display: block;
     }
 
     /* ============================================
@@ -929,7 +936,7 @@
       grid-template-columns: 1.15fr 1fr;
       gap: 56px;
       align-items: center;
-      max-width: 1020px;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
@@ -974,14 +981,14 @@
     .collab-section { padding: 74px 30px 70px; }
     .collab-inner {
       display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px;
-      align-items: center; max-width: 1020px; margin: 0 auto;
+      align-items: center; max-width: 1400px; margin: 0 auto;
     }
     .collab-section h2 {
       font-size: 38px; font-weight: 700; letter-spacing: -0.02em;
       line-height: 1.08; margin-bottom: 16px; color: var(--dark);
     }
     .collab-section h2 .g { color: var(--violet); }
-    .collab-section p { font-size: 16px; color: #666; line-height: 1.7; }
+    .collab-section p { font-size: 16px; color: #56565F; line-height: 1.7; max-width: 52ch; }
     .collab-list { list-style: none; margin-top: 22px; padding: 0; }
     .collab-list li {
       display: flex; align-items: center; gap: 11px;
@@ -998,13 +1005,17 @@
     }
 
     .privacy-section p {
-      font-size: 14px;
-      color: #666;
+      font-size: 16px;
+      color: #56565F;
       line-height: 1.7;
+      max-width: 52ch;
     }
 
     .privacy-image img {
       width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      display: block;
       -webkit-mask-image: radial-gradient(closest-side, #000 50%, transparent 96%);
       mask-image: radial-gradient(closest-side, #000 50%, transparent 96%);
       transform: rotate(2.5deg);
