@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Le format du scénario dans Google Docs : le guide complet</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/favicon.png">
   <meta name="description" content="Le format du scénario dans Google Docs : marges exactes, retraits, police, et le réglage pas à pas. Le standard du métier, expliqué simplement.">
   <link rel="canonical" href="https://screenplayeditor.app/fr/resources/screenplay-format-google-docs.html">
@@ -42,7 +41,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
       background: #fff;
       color: var(--dark);
       line-height: 1.6;
@@ -120,7 +119,6 @@
     }
 
     .header-nav a {
-      font-family: 'JetBrains Mono', monospace;
       margin-left: 30px;
       font-size: 14px;
       font-weight: 500;
@@ -149,7 +147,6 @@
     }
 
     .breadcrumb {
-      font-family: 'JetBrains Mono', monospace;
       font-size: 14px;
       color: #888;
     }
@@ -639,32 +636,10 @@
       margin: 0;
     }
 
-    /* FAQ Section */
-    .faq-grid {
-      margin-top: 28px;
-    }
 
-    .faq-item {
-      border-bottom: 1px solid var(--gray-200);
-      padding: 24px 0;
-    }
 
-    .faq-item:first-child {
-      border-top: 1px solid var(--gray-200);
-    }
 
-    .faq-question {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
 
-    .faq-answer {
-      font-size: 16px;
-      color: var(--gray-600);
-      line-height: 1.7;
-    }
 
     /* Internal Link */
     .internal-link {
@@ -856,6 +831,10 @@
   ]
 }
   </script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
 </head>
 
 <body>
@@ -1215,53 +1194,38 @@
   </section>
 
   <!-- FAQ -->
-  <section class="bg-white">
-    <div class="section-inner">
-      <h2 class="section-title">Les questions qu’on me pose</h2>
-
-      <div class="faq-grid">
-        <div class="faq-item">
-          <div class="faq-question">C’est quoi, le format standard du scénario ?</div>
-          <p class="faq-answer">
-            C’est l’ensemble des conventions typographiques du cinéma et de la télévision : police Courier 12, marges de 2,5 cm (3,8 à gauche), page au format US Letter, et un retrait précis par élément (titre de séquence collé à gauche, nom de personnage à 9,4 cm, dialogue à 6,4 cm). Une page bien mise en forme vaut à peu près une minute à l’écran.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Quelle police et quel corps pour un scénario ?</div>
-          <p class="faq-answer">
-            Courier ou Courier New, corps 12, graisse normale. C’est la seule police acceptée dans le métier parce qu’elle est à chasse fixe : chaque caractère occupe la même largeur, et c’est ce qui rend le rapport page-minute prévisible. Des variantes récentes comme Courier Prime existent, mais Courier 12 reste le choix le plus sûr.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Quelles sont les bonnes marges ?</div>
-          <p class="faq-answer">
-            2,5 cm en haut, en bas et à droite. 3,8 cm à gauche pour la reliure. Page au format US Letter (21,6 x 27,9 cm), même quand on écrit hors des États-Unis. Avec du Courier 12, ces valeurs donnent environ 55 à 58 lignes par page.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Google Docs propose-t-il un format de scénario intégré ?</div>
-          <p class="faq-answer">
-            Non. Google Docs ne fournit ni modèle de scénario ni jeu de styles pour ça. Vous pouvez régler le format à la main avec les styles de paragraphe et la règle, partir d’un modèle, ou installer un module qui l’applique tout seul.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Comment exporter en PDF un scénario bien mis en forme depuis Google Docs ?</div>
-          <p class="faq-answer">
-            Allez dans Fichier, puis Télécharger, puis Document PDF. Le PDF fige la mise en forme : celui qui ouvre le fichier voit ce que vous avez écrit, quelles que soient ses polices et sa machine. N’envoyez jamais un .docx pour une soumission, la mise en forme dérivera dès que le destinataire l’ouvrira avec une autre version de Word ou d’autres polices.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Le format change-t-il entre la télévision et le cinéma ?</div>
-          <p class="faq-answer">
-            La base typographique est identique : Courier 12, mêmes marges, mêmes retraits. Les différences sont structurelles. Un pilote de série découpe en actes, en général quatre plus un teaser pour une heure, deux pour une demi-heure. Les séries en caméra unique ressemblent à des films. Les séries multicaméras doublent l’interligne des dialogues et mettent les indications scéniques en majuscules. Le long métrage ne découpe pas en actes, sa structure est implicite.
-          </p>
-        </div>
-      </div>
+  <section class="faq">
+    <div class="faq-intro">
+      <div class="faq-badge">?</div>
+      <h2>Questions fréquentes</h2>
+      <p>Les règles du format scénario, et comment les appliquer dans Google Docs sans se battre avec la règle.</p>
+      <a class="faq-ask" href="/fr/free-google-docs-screenplay-template.html">Prendre le modèle gratuit</a>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" name="faq">
+          <summary><span>C’est quoi, le format standard du scénario ?</span></summary>
+          <div class="faq-body">C’est l’ensemble des conventions typographiques du cinéma et de la télévision : police Courier 12, marges de 2,5 cm (3,8 à gauche), page au format US Letter, et un retrait précis par élément (titre de séquence collé à gauche, nom de personnage à 9,4 cm, dialogue à 6,4 cm). Une page bien mise en forme vaut à peu près une minute à l’écran.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Quelle police et quel corps pour un scénario ?</span></summary>
+          <div class="faq-body">Courier ou Courier New, corps 12, graisse normale. C’est la seule police acceptée dans le métier parce qu’elle est à chasse fixe : chaque caractère occupe la même largeur, et c’est ce qui rend le rapport page-minute prévisible. Des variantes récentes comme Courier Prime existent, mais Courier 12 reste le choix le plus sûr.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Quelles sont les bonnes marges ?</span></summary>
+          <div class="faq-body">2,5 cm en haut, en bas et à droite. 3,8 cm à gauche pour la reliure. Page au format US Letter (21,6 x 27,9 cm), même quand on écrit hors des États-Unis. Avec du Courier 12, ces valeurs donnent environ 55 à 58 lignes par page.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Google Docs propose-t-il un format de scénario intégré ?</span></summary>
+          <div class="faq-body">Non. Google Docs ne fournit ni modèle de scénario ni jeu de styles pour ça. Vous pouvez régler le format à la main avec les styles de paragraphe et la règle, partir d’un modèle, ou installer un module qui l’applique tout seul.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Comment exporter en PDF un scénario bien mis en forme depuis Google Docs ?</span></summary>
+          <div class="faq-body">Allez dans Fichier, puis Télécharger, puis Document PDF. Le PDF fige la mise en forme : celui qui ouvre le fichier voit ce que vous avez écrit, quelles que soient ses polices et sa machine. N’envoyez jamais un .docx pour une soumission, la mise en forme dérivera dès que le destinataire l’ouvrira avec une autre version de Word ou d’autres polices.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Le format change-t-il entre la télévision et le cinéma ?</span></summary>
+          <div class="faq-body">La base typographique est identique : Courier 12, mêmes marges, mêmes retraits. Les différences sont structurelles. Un pilote de série découpe en actes, en général quatre plus un teaser pour une heure, deux pour une demi-heure. Les séries en caméra unique ressemblent à des films. Les séries multicaméras doublent l’interligne des dialogues et mettent les indications scéniques en majuscules. Le long métrage ne découpe pas en actes, sa structure est implicite.</div>
+        </details>
     </div>
   </section>
 

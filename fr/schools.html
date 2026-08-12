@@ -211,21 +211,6 @@
     .founder p { font-size: 16px; color: #63605a; line-height: 1.85; margin-bottom: 14px; }
     .founder .sig { font-size: 14px; color: #8a857c; }
 
-    /* FAQ */
-    .faq-list { max-width: 760px; }
-    .faq-item { background: #fff; border-radius: 14px; padding: 0 24px; margin-bottom: 12px; box-shadow: 0 10px 30px rgba(26,26,26,0.06); }
-    .faq-item summary {
-      list-style: none; cursor: pointer; padding: 20px 0; font-size: 16px; font-weight: 700;
-      display: flex; justify-content: space-between; align-items: center; gap: 18px;
-    }
-    .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary::after {
-      content: '+'; color: var(--violet); font-size: 19px; font-weight: 700; flex: 0 0 auto; line-height: 1;
-      transition: transform 0.2s;
-    }
-    .faq-item[open] summary::after { content: '\2212'; }
-    .faq-item .faq-body { padding: 0 0 22px; font-size: 14px; color: #666; line-height: 1.8; }
-    .faq-item .faq-body a { color: var(--violet); }
 
     /* CTA / FORM */
     .cta-section { background: var(--dark); padding: 74px 30px; text-align: center; position: relative; overflow: hidden;
@@ -320,6 +305,7 @@
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
 </head>
 <body>
 
@@ -414,168 +400,40 @@
     </section>
 
     <!-- WHAT IT DOES IN A CLASSROOM -->
-    <section class="section scroll-fade">
-      <div class="section-label">En classe</div>
-      <h2>Ce que ça change, pour vous et pour eux.</h2>
-      <p class="section-sub">Quatre points qui reviennent à chaque démonstration que je fais.</p>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-label">Installation</div>
-          <h3>Rien à installer, rien à faire valider par l’informatique.</h3>
-          <p>Votre établissement tourne déjà sous Google&nbsp;Workspace, donc il n’y a pas de nouveau logiciel, pas de serveur de licences et pas de ticket à ouvrir. Un enseignant l’installe une fois depuis le Marketplace, les élèves ouvrent un Google&nbsp;Doc, et ça marche. Ça tourne sur les Chromebook que vous avez, sur les vieux portables du fond de la salle, et sur ce que vos élèves utilisent chez eux.</p>
-          <ul class="feature-checks">
-            <li><span class="ck">&#10003;</span>Fonctionne sur n’importe quel Chromebook</li>
-            <li><span class="ck">&#10003;</span>S’installe en une trentaine de secondes</li>
-            <li><span class="ck">&#10003;</span>Aucun compte élève à créer</li>
-          </ul>
-        </div>
-        <div class="feature-card">
-          <div class="feature-label">Collaboration</div>
-          <h3>Une collaboration que personne n’a besoin d’apprendre.</h3>
-          <p>Les autres outils pour l’enseignement promettent une collaboration qui ressemble à Google&nbsp;Docs. Ici, c’est Google&nbsp;Docs. Les élèves écrivent ensemble en temps réel, vous commentez dans la marge comme vous l’avez toujours fait, et Google garde l’historique de toutes les versions, donc vous voyez comment un scénario en est arrivé là.</p>
-          <ul class="feature-checks">
-            <li><span class="ck">&#10003;</span>Commentez et suggérez dans le scénario même</li>
-            <li><span class="ck">&#10003;</span>Relisez chaque version dans l’historique</li>
-            <li><span class="ck">&#10003;</span>Des projets de groupe sans fichiers à fusionner</li>
-          </ul>
-        </div>
-        <div class="feature-card">
-          <div class="feature-label">Exercices</div>
-          <h3>Distribuez un exercice comme vous le faites déjà.</h3>
-          <p>Si vous utilisez Google&nbsp;Classroom, joignez un de mes modèles de scénario et choisissez «&nbsp;faire une copie pour chaque élève&nbsp;». Chacun reçoit son scénario déjà mis en forme à remplir, et toutes les copies arrivent dans votre Drive. Les modèles sont gratuits, et ils couvrent les exercices que vous donnez sans doute déjà&nbsp;: court métrage, horreur, comédie, drame, science-fiction, pilote de série.</p>
-          <ul class="feature-checks">
-            <li><span class="ck">&#10003;</span>Six modèles par genre, gratuits à distribuer</li>
-            <li><span class="ck">&#10003;</span>Fonctionne avec Google&nbsp;Classroom tel quel</li>
-            <li><span class="ck">&#10003;</span>Chaque copie reste dans votre Drive</li>
-          </ul>
-        </div>
-        <div class="feature-card">
-          <div class="feature-label">L’outil lui-même</div>
-          <h3>Vos élèves l’ouvriront une deuxième fois.</h3>
-          <p>La plupart des logiciels de scénario ouvrent encore une fenêtre grise avec une barre de menus, et un adolescent la referme pour ne jamais y revenir. Eux ouvriront un Google&nbsp;Doc, parce qu’ils y vivent déjà. Ils continuent chez eux, sur la machine du lycée, sur un portable emprunté, et le scénario les suit sans un seul fichier à s’envoyer par mail.</p>
-          <ul class="feature-checks">
-            <li><span class="ck">&#10003;</span>Le même scénario en cours et à la maison</li>
-            <li><span class="ck">&#10003;</span>Sauvegarde automatique, puisque c’est Google&nbsp;Docs</li>
-            <li><span class="ck">&#10003;</span>Export vers Final&nbsp;Draft à la fin de l’année</li>
-          </ul>
-        </div>
+        <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Les questions qu’on me pose</h2>
+        <p>Ce que les enseignants demandent avant d'amener l'outil en classe : les machines, les comptes, le prix.</p>
+        <a class="faq-ask" href="#school-form">Posez la question pour votre établissement</a>
       </div>
-      <div style="text-align:center;margin-top:34px;"><a href="#school-form" class="cta-button">Demander le tarif écoles</a></div>
-    </section>
-
-    <!-- ACADEMIC INTEGRITY -->
-    <section class="section scroll-fade" style="text-align:center; padding-top: 0;">
-      <div class="section-label">Intégrité du travail</div>
-      <h2>Il met en forme. Il n’écrit pas.</h2>
-      <p class="section-sub" style="max-width:660px;margin-left:auto;margin-right:auto;">Screenplay Editor s’occupe des marges, des retraits et des indications. Il n’écrit jamais une ligne à la place d’un élève, et il ne s’entraîne jamais sur son travail. Tout se passe dans Google&nbsp;Docs, donc l’historique des versions vous montre tout le chemin&nbsp;: qui a écrit quoi, et quand. Vous notez un travail, pas un copier-coller.</p>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="section scroll-fade" style="padding-top: 0;">
-      <div class="section-label">Concrètement</div>
-      <h2>Comment une classe démarre</h2>
-      <div class="steps" style="margin-top: 26px;">
-        <div class="step">
-          <h3>Vous l’installez une fois</h3>
-          <p>Prenez Screenplay Editor sur le Google&nbsp;Workspace Marketplace. Ça prend une trentaine de secondes.</p>
-        </div>
-        <div class="step">
-          <h3>Les élèves ouvrent un document</h3>
-          <p>N’importe quel Google&nbsp;Doc. Ils ouvrent le panneau latéral et se mettent à écrire. Il n’y a aucune inscription.</p>
-        </div>
-        <div class="step">
-          <h3>Les scénarios se mettent en forme seuls</h3>
-          <p>Ils tapent un titre de séquence, c’est formaté. Ils tapent un nom de personnage, c’est formaté. Ils pensent à l’histoire à la place.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRIVACY -->
-    <section id="privacy" class="privacy-section scroll-fade">
-      <div class="privacy-inner">
-        <div class="privacy-label">Confidentialité</div>
-        <h2>Gardé par <span class="g">Google</span>.<br>Pas par nous.</h2>
-        <p>Le travail de chaque élève reste dans son propre Google&nbsp;Drive, derrière la même sécurité que la messagerie de votre établissement. Nous ne le stockons jamais et nous ne le lisons jamais, ce qui explique aussi qu’il n’y ait aucun nouveau prestataire à faire valider.</p>
-        <div class="cloud-table">
-          <div class="chead">Où vit le travail des élèves&nbsp;?</div>
-          <div class="crow"><span class="cwho">Final&nbsp;Draft</span><span class="cwhere">le cloud de Final&nbsp;Draft</span></div>
-          <div class="crow"><span class="cwho">Celtx</span><span class="cwhere">le cloud de Celtx</span></div>
-          <div class="crow"><span class="cwho">Arc Studio</span><span class="cwhere">le cloud d’Arc Studio</span></div>
-          <div class="crow us"><span class="cwho">Screenplay Editor</span><span class="cwhere">le Google&nbsp;Drive de l’élève</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOUNDER (à la place du mur de citations) -->
-    <section class="founder scroll-fade">
-      <div class="founder-inner">
-        <div class="founder-photo"><img src="/hugo4.jpg" alt="Hugo Thomas, réalisateur et auteur de Screenplay Editor"></div>
-        <div>
-          <div class="section-label">À qui vous parlez</div>
-          <h2>Vous n’achetez pas à un éditeur de logiciels.</h2>
-          <p>Je m’appelle Hugo, je suis réalisateur. Mon premier long métrage, Willy 1er, a été présenté à Cannes, et deux de mes films sont sur Netflix. J’ai écrit pendant des années sur Final&nbsp;Draft, j’en ai eu assez de payer, et j’ai construit ça à la place.</p>
-          <p>Un message d’école reçoit une réponse dans la journée, et la démonstration dure quinze minutes. En septembre j’anime un atelier à la 18e conférence du Screenwriting Research Network, à Oxford Brookes, donc si vous préférez qu’on se parle de vive voix, c’est possible.</p>
-          <p class="sig">Hugo Thomas, Paris</p>
-          <a href="#school-form" class="cta-inline">Demander le tarif écoles &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESOURCES FOR TEACHERS -->
-    <section class="section scroll-fade">
-      <div class="section-label">Pour les enseignants</div>
-      <h2>Des modèles et des guides à distribuer dès demain.</h2>
-      <p class="section-sub">Ils sont gratuits et ne demandent aucun compte. Ils sont encore en anglais, je les traduis en ce moment.</p>
-      <div class="card-grid three">
-        <div class="info-card">
-          <span class="card-icon">&#128221;</span>
-          <h3><a href="/fr/resources/how-to-write-screenplay-google-docs.html">Écrire un scénario dans Google&nbsp;Docs &rarr;</a></h3>
-          <p>À utiliser comme premier cours. Sans jargon, sans installation.</p>
-        </div>
-        <div class="info-card">
-          <span class="card-icon">&#127916;</span>
-          <h3><a href="/fr/resources/">Modèles par genre &rarr;</a></h3>
-          <p>Court métrage, horreur, comédie, science-fiction et d’autres. Chacun est un exercice que les élèves ouvrent et remplissent.</p>
-        </div>
-        <div class="info-card">
-          <span class="card-icon">&#128196;</span>
-          <h3><a href="/fr/resources/screenplay-format-google-docs.html">Guide du format scénario &rarr;</a></h3>
-          <p>Il pose les règles exactes en langage simple, pour que les élèves les tiennent dès la première page.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section scroll-fade" style="padding-top: 0;">
-      <div class="section-label">Questions</div>
-      <h2>Les questions qu’on me pose</h2>
-      <div class="faq-list" style="margin-top: 26px;">
-        <details class="faq-item">
-          <summary>Qu’est-ce qui le rend bon pour une classe&nbsp;?</summary>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>Qu’est-ce qui le rend bon pour une classe&nbsp;?</span></summary>
           <div class="faq-body">Les élèves apprennent le format professionnel en écrivant, pas en lisant un manuel. Séquence, action, personnage, dialogue&nbsp;: chaque élément est nommé et à un clic, et la page se met en forme pendant qu’ils tapent. Comme tout se passe dans Google&nbsp;Docs, vous gardez la collaboration, les commentaires et l’historique dont vous vous servez déjà pour les dissertations.</div>
         </details>
-        <details class="faq-item">
-          <summary>Qu’est-ce que les élèves obtiennent vraiment&nbsp;?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Qu’est-ce que les élèves obtiennent vraiment&nbsp;?</span></summary>
           <div class="faq-body">Le format professionnel pendant qu’ils tapent, un panneau avec tous les éléments du scénario, une page de titre, la numérotation des séquences, un dépouillement de production, et l’export en PDF et en Final&nbsp;Draft (.fdx) pour que leur travail sorte de la classe dans un format que n’importe quel professionnel ouvre.</div>
         </details>
-        <details class="faq-item">
-          <summary>Est-ce que ça marchera sur les ordinateurs de mon établissement&nbsp;?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Est-ce que ça marchera sur les ordinateurs de mon établissement&nbsp;?</span></summary>
           <div class="faq-body">Oui, du moment qu’ils ouvrent Google&nbsp;Docs. Il y a un module Workspace qui fonctionne dans n’importe quel navigateur et une extension Chrome qui met en forme pendant la frappe. Les deux tournent sur Chromebook. Rien ne s’installe sur la machine, donc les sessions verrouillées des établissements ne posent pas de problème.</div>
         </details>
-        <details class="faq-item">
-          <summary>Mes élèves doivent-ils créer un compte&nbsp;?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Mes élèves doivent-ils créer un compte&nbsp;?</span></summary>
           <div class="faq-body">Non. Ils se servent du compte Google que votre établissement leur a déjà donné. Pas de connexion à part, pas de mot de passe à réinitialiser au milieu d’un cours, et aucune donnée personnelle à confier à un nouveau prestataire.</div>
         </details>
-        <details class="faq-item">
-          <summary>Combien ça coûte pour un établissement&nbsp;?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Combien ça coûte pour un établissement&nbsp;?</span></summary>
           <div class="faq-body">Ça dépend de votre effectif, et c’est bien moins cher que les logiciels que vos élèves rencontreront ensuite. Il n’y a pas de licence d’établissement à acheter et c’est gratuit pour les enseignants. Dites-moi la taille de votre classe dans le formulaire ci-dessous et je vous envoie le chiffre dans la journée.</div>
         </details>
-        <details class="faq-item">
-          <summary>Et s’il n’y a pas de budget cette année&nbsp;?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Et s’il n’y a pas de budget cette année&nbsp;?</span></summary>
           <div class="faq-body">Alors prenez la version gratuite. Les élèves écrivent et mettent en forme gratuitement, avec des limites quotidiennes qui suffisent à la plupart des exercices, et vous ne perdez rien à commencer par là. Beaucoup d’établissements font exactement ça pendant un trimestre et reviennent quand le budget s’ouvre.</div>
         </details>
-        <details class="faq-item">
-          <summary>Puis-je le voir avant de demander de l’argent à qui que ce soit&nbsp;?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Puis-je le voir avant de demander de l’argent à qui que ce soit&nbsp;?</span></summary>
           <div class="faq-body">Oui. Installez-le gratuitement et faites une séance avec. Si vous voulez, je vous montre tout en direct en quinze minutes, et vous pouvez venir avec un collègue ou votre chef de département.</div>
         </details>
       </div>

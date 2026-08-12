@@ -52,10 +52,6 @@
     .info-card.st-ok { border-top: 3px solid #34C759; }
     .info-card.st-warn { border-top: 3px solid #FF9500; }
 
-    /* FAQ */
-    .faq-item { background: #fff; border-radius: 14px; padding: 22px 24px; margin-bottom: 14px; box-shadow: 0 10px 30px rgba(26,26,26,0.05); }
-    .faq-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
-    .faq-item p { font-size: 14px; color: #666; line-height: 1.7; margin: 0; }
 
     /* Dual install CTA (on the dark section) */
     .cta-pair { display: flex; flex-direction: column; gap: 16px; align-items: center; margin-top: 6px; }
@@ -99,6 +95,7 @@
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
 </head>
 <body>
 
@@ -116,220 +113,30 @@
     </section>
 
     <!-- CURRENT STATUS -->
-    <section class="section scroll-fade">
-      <div class="section-label">Where things stand</div>
-      <h2>The three contenders (<span class="now-month">August 2026</span>)</h2>
-      <p class="section-sub">Price is not the whole story. The real differences are where your script lives, how you collaborate, and how much software you have to learn before you write your first scene.</p>
-      <div class="card-grid three">
-        <div class="info-card st-ok">
-          <h3>Screenplay Editor</h3>
-          <span class="status-badge ok">&#10003; Inside Google Docs</span>
-          <p>Free to start, then $7.99/month for the extension and the add-on together. Your script stays in your Google Drive. 12,000+ writers.</p>
-        </div>
-        <div class="info-card st-warn">
-          <h3>Final Draft</h3>
-          <span class="status-badge warn">$249.99, desktop</span>
-          <p>The industry standard for decades. A one-time purchase, installed on one computer. No real-time collaboration, no browser version.</p>
-        </div>
-        <div class="info-card st-warn">
-          <h3>Celtx</h3>
-          <span class="status-badge warn">From $29/month, cloud</span>
-          <p>A full pre-production platform: breakdowns, scheduling, budgeting. Powerful if you need all of it, heavy if you just want to write.</p>
-        </div>
+        <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Frequently asked questions</h2>
+        <p>What people ask before switching tools, answered without the sales pitch.</p>
+        <a class="faq-ask" href="/pricing.html">See the pricing</a>
       </div>
-    </section>
-
-    <!-- FEATURE COMPARISON -->
-    <section class="section scroll-fade" style="padding-top:0;">
-      <div class="section-label">Feature by feature</div>
-      <h2>Feature-by-feature comparison</h2>
-      <div class="compare-wrap">
-        <table class="comparison-table">
-          <tr>
-            <th>Feature</th>
-            <th class="se-col">Screenplay Editor</th>
-            <th>Final Draft</th>
-            <th>Celtx</th>
-          </tr>
-          <tr>
-            <td class="feature-name">Price</td>
-            <td class="se-col"><span class="yes">Free to start &middot; $7.99/mo Pro</span></td>
-            <td>$249.99 one-time</td>
-            <td>From $29/month</td>
-          </tr>
-          <tr>
-            <td class="feature-name">Free tier</td>
-            <td class="se-col"><span class="yes">Yes, every day, no card</span></td>
-            <td><span class="no">30-day trial only</span></td>
-            <td><span class="partial">Limited trial</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Where your script lives</td>
-            <td class="se-col"><span class="yes">Your own Google Drive</span></td>
-            <td>Your computer</td>
-            <td><span class="no">Celtx's cloud</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Real-time collaboration</td>
-            <td class="se-col"><span class="yes">&#10003; Native (it's Google Docs)</span></td>
-            <td><span class="no">No</span></td>
-            <td><span class="partial">Yes, on their platform</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Runs in the browser</td>
-            <td class="se-col"><span class="yes">&#10003;</span></td>
-            <td><span class="no">No, desktop install</span></td>
-            <td><span class="yes">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Works on Chromebooks</td>
-            <td class="se-col"><span class="yes">&#10003;</span></td>
-            <td><span class="no">No</span></td>
-            <td><span class="yes">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Formats as you type</td>
-            <td class="se-col"><span class="yes">&#10003; Enter and Tab, live</span></td>
-            <td><span class="yes">&#10003;</span></td>
-            <td><span class="yes">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Learning curve</td>
-            <td class="se-col"><span class="yes">None, it's Google Docs</span></td>
-            <td><span class="partial">A new app to learn</span></td>
-            <td><span class="partial">A new platform to learn</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">.fdx (Final Draft) export</td>
-            <td class="se-col"><span class="yes">&#10003;</span></td>
-            <td><span class="yes">Native format</span></td>
-            <td><span class="yes">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">PDF export</td>
-            <td class="se-col"><span class="yes">&#10003;</span></td>
-            <td><span class="yes">&#10003;</span></td>
-            <td><span class="yes">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Production breakdown</td>
-            <td class="se-col"><span class="yes">&#10003; One click, AI-tagged</span></td>
-            <td><span class="partial">Via Final Draft Tagger</span></td>
-            <td><span class="yes">&#10003; Full suite</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Table read out loud</td>
-            <td class="se-col"><span class="yes">&#10003; AI voices per character</span></td>
-            <td><span class="partial">Basic speech</span></td>
-            <td><span class="no">No</span></td>
-          </tr>
-          <tr>
-            <td class="feature-name">Version history</td>
-            <td class="se-col"><span class="yes">&#10003; Native Google Docs</span></td>
-            <td><span class="partial">Manual backups</span></td>
-            <td><span class="yes">&#10003;</span></td>
-          </tr>
-        </table>
-      </div>
-    </section>
-
-    <!-- SCREENPLAY EDITOR -->
-    <section class="section scroll-fade" style="padding-top:0;">
-      <div class="section-label">In depth</div>
-      <h2>Screenplay Editor</h2>
-      <div class="prose">
-        <p><a href="https://screenplayeditor.app">Screenplay Editor</a> is built by Hugo Thomas, a French screenwriter and filmmaker whose work includes <em>Willy 1er</em> (Cannes 2016) and <em>Juniors</em> (Netflix). It launched in December 2024 and has grown to more than 12,000 writers, with strong adoption in film schools.</p>
-        <p>The idea is simple: you already write in Google Docs, so the software comes to you. The Chrome extension recreates the Final Draft workflow live in your document: you press Enter and Tab, and scene headings, characters and dialogue format themselves as you type. The Google Docs add-on brings the full sidebar suite to any browser. Both share the same principle: no new app, no import, no export, your script is a Google Doc from the first day.</p>
-        <p>Beyond formatting, it includes a Scene Board, a title page generator, a Boneyard for cut scenes, a one-click AI production breakdown, a table read with a different AI voice per character, and PDF and .fdx export. You start free with daily limits, and Pro costs $7.99/month for both tools at once. Your script stays in your Google Drive: we never store it, we never train on it.</p>
-        <p><strong>Best for:</strong> Writers who collaborate, write on more than one machine, or simply love Google Docs. Students and classrooms, since it runs on Chromebooks with nothing to install.</p>
-      </div>
-    </section>
-
-    <!-- FINAL DRAFT -->
-    <section class="section scroll-fade" style="padding-top:0;">
-      <div class="section-label">The standard</div>
-      <h2>Final Draft</h2>
-      <div class="prose">
-        <p>Final Draft has been the industry standard for decades, and its .fdx file format still rules the professional world. If a production company asks for your script, they often ask for a Final Draft file.</p>
-        <p>It is also a $249.99 desktop program that has not fundamentally changed in twenty years. There is no real browser version, no real-time co-writing, and your script lives on one computer (with Final Draft's own cloud sync as an option). Many professionals keep it for the final delivery step and write elsewhere.</p>
-        <p><strong>Best for:</strong> Writers inside studio pipelines where .fdx delivery is contractual, and people who prefer a dedicated desktop app. See the full <a href="/compare/screenplay-editor-vs-final-draft.html">Screenplay Editor vs Final Draft</a> comparison.</p>
-      </div>
-    </section>
-
-    <!-- CELTX -->
-    <section class="section scroll-fade" style="padding-top:0;">
-      <div class="section-label">The platform</div>
-      <h2>Celtx</h2>
-      <div class="prose">
-        <p>Celtx is not really a screenwriting tool: it is a pre-production platform that happens to include one. Breakdowns, stripboards, scheduling, budgeting, shot lists: if you run a production, that breadth is the point.</p>
-        <p>If you just want to write, it is a lot of platform to carry, and the subscription starts at $29 a month. Your script also lives on Celtx's servers, inside their ecosystem, and leaves it by export.</p>
-        <p><strong>Best for:</strong> Small production teams that want writing and planning in one paid place. See the full <a href="/compare/screenplay-editor-vs-celtx.html">Screenplay Editor vs Celtx</a> comparison.</p>
-      </div>
-    </section>
-
-    <!-- VERDICT -->
-    <section class="section scroll-fade" style="padding-top:0;">
-      <div class="section-label">Our take</div>
-      <h2>The verdict</h2>
-      <div class="prose">
-        <p>If your work requires .fdx delivery into a studio pipeline, keep Final Draft for the last mile: that is what it is for. If you run productions and want planning tools attached to your script, Celtx earns its subscription.</p>
-        <p>For everyone who mostly needs to WRITE, alone or with a co-writer, Screenplay Editor gives you professional formatting inside the tool you already use, with real-time collaboration Google Docs invented, for a fraction of the price. And because it exports .fdx, choosing it does not close any door.</p>
-      </div>
-    </section>
-
-    <!-- OTHER TOOLS -->
-    <section class="section scroll-fade" style="padding-top:0;">
-      <div class="section-label">More comparisons</div>
-      <h2>Compare with other tools</h2>
-      <div class="card-grid three">
-        <div class="info-card">
-          <h3><a href="/compare/screenplay-editor-vs-final-draft.html">vs Final Draft &rarr;</a></h3>
-          <p>The industry standard vs the Google Docs way.</p>
-        </div>
-        <div class="info-card">
-          <h3><a href="/compare/screenplay-editor-vs-celtx.html">vs Celtx &rarr;</a></h3>
-          <p>The writing tool vs the pre-production platform.</p>
-        </div>
-        <div class="info-card">
-          <h3><a href="/compare/screenplay-editor-vs-arc-studio.html">vs Arc Studio &rarr;</a></h3>
-          <p>Two modern takes on screenwriting software.</p>
-        </div>
-        <div class="info-card">
-          <h3><a href="/compare/screenplay-editor-vs-fade-in.html">vs Fade In &rarr;</a></h3>
-          <p>The $79 desktop challenger.</p>
-        </div>
-        <div class="info-card">
-          <h3><a href="/compare/screenplay-editor-vs-highland.html">vs Highland &rarr;</a></h3>
-          <p>The Mac-only minimalist option.</p>
-        </div>
-        <div class="info-card">
-          <h3><a href="/compare/screenplay-editor-vs-screenplay-formatter.html">vs the old Google Docs add-ons &rarr;</a></h3>
-          <p>Screenplay Formatter is discontinued, Fountainize was abandoned in 2020. Here is what happened.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section scroll-fade" style="padding-top:0;">
-      <div class="section-label">Questions</div>
-      <h2>Frequently asked questions</h2>
-      <div>
-        <div class="faq-item">
-          <h3>Is there a real alternative to Final Draft in Google Docs?</h3>
-          <p>Yes. Screenplay Editor formats to the same industry standard, adds the Enter/Tab writing workflow Final Draft users expect, and exports .fdx when someone asks for a Final Draft file. More than 12,000 writers use it.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Is Screenplay Editor free?</h3>
-          <p>It is free to start, every day, with daily limits and no card. Pro removes the limits: $7.99/month, or $69/year, and one subscription covers the Chrome extension and the Google Docs add-on. See the <a href="/pricing.html">pricing page</a>.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can Final Draft users read my script?</h3>
-          <p>Yes. Screenplay Editor exports industry-standard .fdx files that open directly in Final Draft, formatting intact.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What happened to Screenplay Formatter and Fountainize?</h3>
-          <p>Screenplay Formatter was discontinued and removed from the Marketplace. Fountainize has not been updated since June 2020 and limits free use to about 15 pages. <a href="/compare/screenplay-editor-vs-screenplay-formatter.html">The full story is here</a>.</p>
-        </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>Is there a real alternative to Final Draft in Google Docs?</span></summary>
+          <div class="faq-body">Yes. Screenplay Editor formats to the same industry standard, adds the Enter/Tab writing workflow Final Draft users expect, and exports .fdx when someone asks for a Final Draft file. More than 12,000 writers use it.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Is Screenplay Editor free?</span></summary>
+          <div class="faq-body">It is free to start, every day, with daily limits and no card. Pro removes the limits: $7.99/month, or $69/year, and one subscription covers the Chrome extension and the Google Docs add-on. See the <a href="/pricing.html">pricing page</a>.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Can Final Draft users read my script?</span></summary>
+          <div class="faq-body">Yes. Screenplay Editor exports industry-standard .fdx files that open directly in Final Draft, formatting intact.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>What happened to Screenplay Formatter and Fountainize?</span></summary>
+          <div class="faq-body">Screenplay Formatter was discontinued and removed from the Marketplace. Fountainize has not been updated since June 2020 and limits free use to about 15 pages. <a href="/compare/screenplay-editor-vs-screenplay-formatter.html">The full story is here</a>.</div>
+        </details>
       </div>
     </section>
 

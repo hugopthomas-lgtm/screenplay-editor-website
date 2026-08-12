@@ -636,32 +636,10 @@
       margin: 0;
     }
 
-    /* FAQ Section */
-    .faq-grid {
-      margin-top: 28px;
-    }
 
-    .faq-item {
-      border-bottom: 1px solid var(--gray-200);
-      padding: 24px 0;
-    }
 
-    .faq-item:first-child {
-      border-top: 1px solid var(--gray-200);
-    }
 
-    .faq-question {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
 
-    .faq-answer {
-      font-size: 16px;
-      color: var(--gray-600);
-      line-height: 1.7;
-    }
 
     /* Internal Link */
     .internal-link {
@@ -856,6 +834,7 @@
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
 </head>
 
 <body>
@@ -1215,53 +1194,38 @@
   </section>
 
   <!-- FAQ -->
-  <section class="bg-white">
-    <div class="section-inner">
-      <h2 class="section-title">Frequently Asked Questions</h2>
-
-      <div class="faq-grid">
-        <div class="faq-item">
-          <div class="faq-question">What is the standard screenplay format?</div>
-          <p class="faq-answer">
-            Standard screenplay format is the set of typographic conventions used in the film and TV industry: Courier 12pt font, 1-inch margins (1.5 on the left), US Letter paper, and specific indentation values per element (scene heading flush left, character name at 3.7 inches, dialogue at 2.5 inches). One correctly formatted page equals roughly one minute of screen time.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">What font and size should a screenplay use?</div>
-          <p class="faq-answer">
-            Courier or Courier New, 12 points, regular weight. Courier is the only acceptable industry font because it's monospaced: every character takes the same width, which is what creates the predictable page-to-minute ratio. Modern variants like Courier Prime are sometimes used, but Courier 12 remains the safest default.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">What are the correct margins for a screenplay?</div>
-          <p class="faq-answer">
-            1 inch on the top, bottom, and right edges. 1.5 inches on the left to accommodate three-hole binding. US Letter page size (8.5 x 11 inches), even when writing outside the United States. These values produce roughly 55 to 58 lines per page when paired with Courier 12.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Does Google Docs have a built-in screenplay format?</div>
-          <p class="faq-answer">
-            No. Google Docs does not ship with a native screenplay template or style preset. You can configure the format manually with paragraph styles and the ruler, start from a template, or install an add-on that applies the format automatically.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">How do I export a properly formatted screenplay PDF from Google Docs?</div>
-          <p class="faq-answer">
-            Go to File, then Download, then PDF Document. PDF locks the format in place: anyone opening the file sees what you wrote regardless of their font installs or device. Never send a .docx for submission, since the format will drift when the recipient opens it in a different Word version or font setup.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Is screenplay format different for TV scripts and films?</div>
-          <p class="faq-answer">
-            The core typographic spec is identical: Courier 12, same margins, same element indentation. The differences are structural. TV pilots use act breaks (typically four acts plus a teaser for hour-long, two acts for half-hour). Single-camera scripts look like films. Multi-camera scripts use double-spaced dialogue and capitalized stage directions. Feature films use no act breaks at all, since the structure is implicit.
-          </p>
-        </div>
-      </div>
+  <section class="faq">
+    <div class="faq-intro">
+      <div class="faq-badge">?</div>
+      <h2>Frequently Asked Questions</h2>
+      <p>The rules of screenplay format, and how to apply them in Google Docs without fighting the ruler.</p>
+      <a class="faq-ask" href="/free-google-docs-screenplay-template.html">Get the free template</a>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" name="faq">
+          <summary><span>What is the standard screenplay format?</span></summary>
+          <div class="faq-body">Standard screenplay format is the set of typographic conventions used in the film and TV industry: Courier 12pt font, 1-inch margins (1.5 on the left), US Letter paper, and specific indentation values per element (scene heading flush left, character name at 3.7 inches, dialogue at 2.5 inches). One correctly formatted page equals roughly one minute of screen time.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>What font and size should a screenplay use?</span></summary>
+          <div class="faq-body">Courier or Courier New, 12 points, regular weight. Courier is the only acceptable industry font because it's monospaced: every character takes the same width, which is what creates the predictable page-to-minute ratio. Modern variants like Courier Prime are sometimes used, but Courier 12 remains the safest default.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>What are the correct margins for a screenplay?</span></summary>
+          <div class="faq-body">1 inch on the top, bottom, and right edges. 1.5 inches on the left to accommodate three-hole binding. US Letter page size (8.5 x 11 inches), even when writing outside the United States. These values produce roughly 55 to 58 lines per page when paired with Courier 12.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Does Google Docs have a built-in screenplay format?</span></summary>
+          <div class="faq-body">No. Google Docs does not ship with a native screenplay template or style preset. You can configure the format manually with paragraph styles and the ruler, start from a template, or install an add-on that applies the format automatically.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>How do I export a properly formatted screenplay PDF from Google Docs?</span></summary>
+          <div class="faq-body">Go to File, then Download, then PDF Document. PDF locks the format in place: anyone opening the file sees what you wrote regardless of their font installs or device. Never send a .docx for submission, since the format will drift when the recipient opens it in a different Word version or font setup.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Is screenplay format different for TV scripts and films?</span></summary>
+          <div class="faq-body">The core typographic spec is identical: Courier 12, same margins, same element indentation. The differences are structural. TV pilots use act breaks (typically four acts plus a teaser for hour-long, two acts for half-hour). Single-camera scripts look like films. Multi-camera scripts use double-spaced dialogue and capitalized stage directions. Feature films use no act breaks at all, since the structure is implicit.</div>
+        </details>
     </div>
   </section>
 

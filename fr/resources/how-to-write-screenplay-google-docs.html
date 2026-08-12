@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Écrire un scénario dans Google Docs, le guide pas à pas</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/favicon.png">
   <meta name="description" content="Comment écrire un scénario correctement mis en forme dans Google Docs : structure, règles de format, erreurs courantes et un modèle gratuit pour débuter.">
   <link rel="canonical" href="https://screenplayeditor.app/fr/resources/how-to-write-screenplay-google-docs.html">
@@ -42,7 +41,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
       background: #fff;
       color: var(--dark);
       line-height: 1.6;
@@ -120,7 +119,6 @@
     }
 
     .header-nav a {
-      font-family: 'JetBrains Mono', monospace;
       margin-left: 30px;
       font-size: 14px;
       font-weight: 500;
@@ -149,7 +147,6 @@
     }
 
     .breadcrumb {
-      font-family: 'JetBrains Mono', monospace;
       font-size: 14px;
       color: #888;
     }
@@ -639,32 +636,10 @@
       margin: 0;
     }
 
-    /* FAQ Section */
-    .faq-grid {
-      margin-top: 28px;
-    }
 
-    .faq-item {
-      border-bottom: 1px solid var(--gray-200);
-      padding: 24px 0;
-    }
 
-    .faq-item:first-child {
-      border-top: 1px solid var(--gray-200);
-    }
 
-    .faq-question {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
 
-    .faq-answer {
-      font-size: 16px;
-      color: var(--gray-600);
-      line-height: 1.7;
-    }
 
     /* Internal Link */
     .internal-link {
@@ -856,6 +831,10 @@
   ]
 }
   </script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
 </head>
 
 <body>
@@ -1218,53 +1197,38 @@
   </section>
 
   <!-- FAQ -->
-  <section class="bg-white">
-    <div class="section-inner">
-      <h2 class="section-title">Les questions qu’on me pose</h2>
-
-      <div class="faq-grid">
-        <div class="faq-item">
-          <div class="faq-question">Google Docs est-il bon pour écrire un scénario ?</div>
-          <p class="faq-answer">
-            Oui, on peut écrire un scénario dans Google Docs. Il n’a pas de format scénario natif, il faut donc régler les marges à la main ou ajouter un module. Il convient bien aux débutants et aux projets à plusieurs.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Quelle police utiliser pour un scénario ?</div>
-          <p class="faq-answer">
-            Courier, en corps 12. Cette police à chasse fixe est le standard du métier parce qu’elle donne une durée régulière : une page bien mise en forme vaut à peu près une minute à l’écran. Google Docs propose Courier dans sa liste.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Faut-il Final Draft pour écrire un scénario ?</div>
-          <p class="faq-answer">
-            Non. Final Draft est très répandu dans le métier, mais il n’est pas obligatoire. Ce qui compte, c’est que le scénario soit au bon format. Un PDF correct sorti de Google Docs est identique à un PDF sorti de Final Draft.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Quelle longueur doit faire un scénario ?</div>
-          <p class="faq-answer">
-            Un long métrage fait en général 90 à 120 pages. Un court, 5 à 40 pages. Un pilote de série, 30 pages pour un format demi-heure, 60 pour une heure. Une page vaut environ une minute à l’écran.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Peut-on écrire à plusieurs dans Google Docs ?</div>
-          <p class="faq-answer">
-            Oui, et c’est l’une de ses plus grandes forces. Plusieurs auteurs travaillent sur le même document en même temps, commentent, proposent des modifications et voient les changements des autres en direct.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">Peut-on écrire un long métrage entier dans Google Docs ?</div>
-          <p class="faq-answer">
-            Oui. Google Docs encaisse les longs documents sans broncher. Beaucoup de scénaristes ont écrit des scénarios de plus de 120 pages entièrement dedans.
-          </p>
-        </div>
-      </div>
+  <section class="faq">
+    <div class="faq-intro">
+      <div class="faq-badge">?</div>
+      <h2>Questions fréquentes</h2>
+      <p>Ce que demandent les débutants qui écrivent leur premier scénario dans Google Docs.</p>
+      <a class="faq-ask" href="/fr/free-google-docs-screenplay-template.html">Prendre le modèle gratuit</a>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" name="faq">
+          <summary><span>Google Docs est-il bon pour écrire un scénario ?</span></summary>
+          <div class="faq-body">Oui, on peut écrire un scénario dans Google Docs. Il n’a pas de format scénario natif, il faut donc régler les marges à la main ou ajouter un module. Il convient bien aux débutants et aux projets à plusieurs.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Quelle police utiliser pour un scénario ?</span></summary>
+          <div class="faq-body">Courier, en corps 12. Cette police à chasse fixe est le standard du métier parce qu’elle donne une durée régulière : une page bien mise en forme vaut à peu près une minute à l’écran. Google Docs propose Courier dans sa liste.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Faut-il Final Draft pour écrire un scénario ?</span></summary>
+          <div class="faq-body">Non. Final Draft est très répandu dans le métier, mais il n’est pas obligatoire. Ce qui compte, c’est que le scénario soit au bon format. Un PDF correct sorti de Google Docs est identique à un PDF sorti de Final Draft.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Quelle longueur doit faire un scénario ?</span></summary>
+          <div class="faq-body">Un long métrage fait en général 90 à 120 pages. Un court, 5 à 40 pages. Un pilote de série, 30 pages pour un format demi-heure, 60 pour une heure. Une page vaut environ une minute à l’écran.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Peut-on écrire à plusieurs dans Google Docs ?</span></summary>
+          <div class="faq-body">Oui, et c’est l’une de ses plus grandes forces. Plusieurs auteurs travaillent sur le même document en même temps, commentent, proposent des modifications et voient les changements des autres en direct.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Peut-on écrire un long métrage entier dans Google Docs ?</span></summary>
+          <div class="faq-body">Oui. Google Docs encaisse les longs documents sans broncher. Beaucoup de scénaristes ont écrit des scénarios de plus de 120 pages entièrement dedans.</div>
+        </details>
     </div>
   </section>
 

@@ -211,21 +211,6 @@
     .founder p { font-size: 16px; color: #63605a; line-height: 1.85; margin-bottom: 14px; }
     .founder .sig { font-size: 14px; color: #8a857c; }
 
-    /* FAQ */
-    .faq-list { max-width: 760px; }
-    .faq-item { background: #fff; border-radius: 14px; padding: 0 24px; margin-bottom: 12px; box-shadow: 0 10px 30px rgba(26,26,26,0.06); }
-    .faq-item summary {
-      list-style: none; cursor: pointer; padding: 20px 0; font-size: 16px; font-weight: 700;
-      display: flex; justify-content: space-between; align-items: center; gap: 18px;
-    }
-    .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary::after {
-      content: '+'; color: var(--violet); font-size: 19px; font-weight: 700; flex: 0 0 auto; line-height: 1;
-      transition: transform 0.2s;
-    }
-    .faq-item[open] summary::after { content: '\2212'; }
-    .faq-item .faq-body { padding: 0 0 22px; font-size: 14px; color: #666; line-height: 1.8; }
-    .faq-item .faq-body a { color: var(--violet); }
 
     /* CTA / FORM */
     .cta-section { background: var(--dark); padding: 74px 30px; text-align: center; position: relative; overflow: hidden;
@@ -320,6 +305,7 @@
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
 </head>
 <body>
 
@@ -414,168 +400,40 @@
     </section>
 
     <!-- WHAT IT DOES IN A CLASSROOM -->
-    <section class="section scroll-fade">
-      <div class="section-label">In the classroom</div>
-      <h2>What it changes for you and for them.</h2>
-      <p class="section-sub">Four things teachers bring up in every demo I give.</p>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-label">Setup</div>
-          <h3>Nothing to install, nothing for IT to approve.</h3>
-          <p>Your school already runs Google Workspace, so there is no new software, no licence server and no ticket to file. A teacher installs it once from the Marketplace, students open a Google Doc, and it works. It runs on the Chromebooks you have, on the old laptops at the back of the room, and on whatever your students use at home.</p>
-          <ul class="feature-checks">
-            <li><span class="ck">&#10003;</span>Works on any Chromebook</li>
-            <li><span class="ck">&#10003;</span>Sets up in about thirty seconds</li>
-            <li><span class="ck">&#10003;</span>No student accounts to create</li>
-          </ul>
-        </div>
-        <div class="feature-card">
-          <div class="feature-label">Collaboration</div>
-          <h3>Collaboration nobody has to learn.</h3>
-          <p>Other classroom tools promise collaboration that works like Google&nbsp;Docs. This one is Google&nbsp;Docs. Students write together in real time, you leave comments in the margin the way you always have, and Google keeps the version history of every draft, so you can see how a script got where it got.</p>
-          <ul class="feature-checks">
-            <li><span class="ck">&#10003;</span>Comment and suggest right in the script</li>
-            <li><span class="ck">&#10003;</span>Read every draft in version history</li>
-            <li><span class="ck">&#10003;</span>Group projects with no files to merge</li>
-          </ul>
-        </div>
-        <div class="feature-card">
-          <div class="feature-label">Assignments</div>
-          <h3>Hand out an assignment the way you already do.</h3>
-          <p>If you use Google&nbsp;Classroom, attach one of my script templates and pick "make a copy for each student". Everyone gets their own formatted screenplay to fill in, and every copy lands in your Drive. The templates are free, and they cover the exercises you probably already set: short film, horror, comedy, drama, science fiction, TV pilot.</p>
-          <ul class="feature-checks">
-            <li><span class="ck">&#10003;</span>Six genre templates, free to hand out</li>
-            <li><span class="ck">&#10003;</span>Works with Google&nbsp;Classroom as it is</li>
-            <li><span class="ck">&#10003;</span>Every copy stays in your own Drive</li>
-          </ul>
-        </div>
-        <div class="feature-card">
-          <div class="feature-label">The tool itself</div>
-          <h3>Your students will actually open it twice.</h3>
-          <p>Most screenwriting software still opens a grey window with a menu bar, and a teenager closes it and never comes back. They will open a Google Doc, because they already live in one. They keep writing at home, on the school machine, on a borrowed laptop, and the script follows them without a single file to email around.</p>
-          <ul class="feature-checks">
-            <li><span class="ck">&#10003;</span>Same script at school and at home</li>
-            <li><span class="ck">&#10003;</span>Autosaves, because it is Google&nbsp;Docs</li>
-            <li><span class="ck">&#10003;</span>Exports to Final&nbsp;Draft when the course ends</li>
-          </ul>
-        </div>
+        <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Frequently asked questions</h2>
+        <p>What teachers ask before bringing it into a classroom: the machines, the accounts, the price.</p>
+        <a class="faq-ask" href="#school-form">Ask about your school</a>
       </div>
-      <div style="text-align:center;margin-top:34px;"><a href="#school-form" class="cta-button">Get the school price</a></div>
-    </section>
-
-    <!-- ACADEMIC INTEGRITY -->
-    <section class="section scroll-fade" style="text-align:center; padding-top: 0;">
-      <div class="section-label">Academic integrity</div>
-      <h2>It formats. It doesn&rsquo;t write.</h2>
-      <p class="section-sub" style="max-width:660px;margin-left:auto;margin-right:auto;">Screenplay Editor takes care of margins, indents and cues. It never writes a line for a student, and it never trains on their work. Everything happens in Google&nbsp;Docs, so version history shows you the whole process: who wrote what, and when. You grade the work, not a paste.</p>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="section scroll-fade" style="padding-top: 0;">
-      <div class="section-label">In practice</div>
-      <h2>How a class gets started</h2>
-      <div class="steps" style="margin-top: 26px;">
-        <div class="step">
-          <h3>You install it once</h3>
-          <p>Get Screenplay Editor from the Google Workspace Marketplace. It takes about thirty seconds.</p>
-        </div>
-        <div class="step">
-          <h3>Students open a doc</h3>
-          <p>Any Google Doc. They open the sidebar and start writing. There is nothing to sign up for.</p>
-        </div>
-        <div class="step">
-          <h3>Scripts format themselves</h3>
-          <p>They type a scene heading, it formats. They type a character name, it formats. They think about the story instead.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRIVACY -->
-    <section id="privacy" class="privacy-section scroll-fade">
-      <div class="privacy-inner">
-        <div class="privacy-label">Privacy</div>
-        <h2>Guarded by <span class="g">Google</span>.<br>Not by us.</h2>
-        <p>Every student's work stays in their own Google Drive, behind the same security as your school's Gmail. We never store it and we never read it, which is also why there is no new vendor for your district to vet.</p>
-        <div class="cloud-table">
-          <div class="chead">Where does student work live?</div>
-          <div class="crow"><span class="cwho">Final&nbsp;Draft</span><span class="cwhere">Final&nbsp;Draft&rsquo;s cloud</span></div>
-          <div class="crow"><span class="cwho">Celtx</span><span class="cwhere">Celtx&rsquo;s cloud</span></div>
-          <div class="crow"><span class="cwho">Arc Studio</span><span class="cwhere">Arc Studio&rsquo;s cloud</span></div>
-          <div class="crow us"><span class="cwho">Screenplay Editor</span><span class="cwhere">the student&rsquo;s Google Drive</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOUNDER (à la place du mur de citations) -->
-    <section class="founder scroll-fade">
-      <div class="founder-inner">
-        <div class="founder-photo"><img src="hugo4.jpg" alt="Hugo Thomas, filmmaker and author of Screenplay Editor"></div>
-        <div>
-          <div class="section-label">Who you are talking to</div>
-          <h2>You are not buying from a software company.</h2>
-          <p>I am Hugo, a filmmaker. My first feature, Willy 1er, premiered at Cannes, and two of my films are on Netflix. I wrote in Final&nbsp;Draft for years, got tired of paying for it, and built this instead.</p>
-          <p>School emails get an answer within a day, and the demo takes fifteen minutes. In September I am running a workshop at the 18th Screenwriting Research Network conference at Oxford Brookes, so if you would rather talk face to face, that also works.</p>
-          <p class="sig">Hugo Thomas, Paris</p>
-          <a href="#school-form" class="cta-inline">Get the school price &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESOURCES FOR TEACHERS -->
-    <section class="section scroll-fade">
-      <div class="section-label">For teachers</div>
-      <h2>Templates and guides you can hand out today.</h2>
-      <p class="section-sub">These are free, they need no account, and they sit right next to the tool. Several teachers use the first one as their opening lesson.</p>
-      <div class="card-grid three">
-        <div class="info-card">
-          <span class="card-icon">&#128221;</span>
-          <h3><a href="/resources/how-to-write-screenplay-google-docs">How to write a screenplay in Google&nbsp;Docs &rarr;</a></h3>
-          <p>Use it as your first lesson. No jargon, no setup.</p>
-        </div>
-        <div class="info-card">
-          <span class="card-icon">&#127916;</span>
-          <h3><a href="/resources">Genre templates &rarr;</a></h3>
-          <p>Short film, horror, comedy, science fiction and more. Each one is an assignment students open and fill in.</p>
-        </div>
-        <div class="info-card">
-          <span class="card-icon">&#128196;</span>
-          <h3><a href="/resources/screenplay-format-google-docs">Screenplay format guide &rarr;</a></h3>
-          <p>It lays out the exact rules in plain English, so students get them right from the first page.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section scroll-fade" style="padding-top: 0;">
-      <div class="section-label">Questions</div>
-      <h2>Frequently asked questions</h2>
-      <div class="faq-list" style="margin-top: 26px;">
-        <details class="faq-item">
-          <summary>What makes this good for a classroom?</summary>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>What makes this good for a classroom?</span></summary>
           <div class="faq-body">Students learn industry formatting by writing, not by reading a manual. Scene Heading, Action, Character, Dialogue: every element is labelled and one click away, and the page formats itself as they type. Because it all happens in Google&nbsp;Docs, you keep the collaboration, the comments and the version history you already use for essays.</div>
         </details>
-        <details class="faq-item">
-          <summary>What do the students actually get?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>What do the students actually get?</span></summary>
           <div class="faq-body">Industry-standard formatting as they type, a sidebar with every screenplay element, a title page, scene numbers, a production breakdown, and export to PDF and to Final&nbsp;Draft (.fdx) so their work leaves the classroom in a format any professional can open.</div>
         </details>
-        <details class="faq-item">
-          <summary>Will it work on the computers at my school?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Will it work on the computers at my school?</span></summary>
           <div class="faq-body">Yes, as long as they open Google&nbsp;Docs. There is a Workspace add-on that works in any browser and a Chrome extension that formats as students type. Both run on Chromebooks. Nothing gets installed on the machine itself, so locked-down school profiles are not a problem.</div>
         </details>
-        <details class="faq-item">
-          <summary>Do my students need to create accounts?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Do my students need to create accounts?</span></summary>
           <div class="faq-body">No. They use the Google account your school already gave them. There is no separate login, no password to reset in the middle of a lesson, and no personal data for you to hand to a new vendor.</div>
         </details>
-        <details class="faq-item">
-          <summary>How much does it cost for a school?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>How much does it cost for a school?</span></summary>
           <div class="faq-body">It depends on how many students you have, and it costs far less than the software they will meet later. There is no site licence to buy, and it is free for teachers. Tell me your class size in the form below and I send you the number the same day.</div>
         </details>
-        <details class="faq-item">
-          <summary>What if there is no budget this year?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>What if there is no budget this year?</span></summary>
           <div class="faq-body">Then use the free version. Students can write and format for free with daily limits, which is enough to run most class assignments, and you lose nothing by starting there. Plenty of schools do exactly that for a term and come back when the budget opens.</div>
         </details>
-        <details class="faq-item">
-          <summary>Can I see it before I ask anyone for money?</summary>
+        <details class="faq-item" name="faq">
+          <summary><span>Can I see it before I ask anyone for money?</span></summary>
           <div class="faq-body">Yes. Install it free and run one class with it. If you want, I will walk you through everything live in fifteen minutes, and you can bring a colleague or your head of department.</div>
         </details>
       </div>

@@ -96,11 +96,6 @@
       font-size: 14px; font-weight: 600; transition: transform .2s, opacity .2s; }
     .schools-band a:hover { transform: translateY(-1px); opacity: .92; }
 
-    .faq { max-width: 720px; margin: 0 auto; padding: 56px 30px 70px; }
-    .faq h2 { text-align: center; font-size: 22px; font-weight: 600; margin-bottom: 30px; }
-    .faq-item { margin-bottom: 26px; }
-    .faq-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 7px; }
-    .faq-item p { font-size: 14px; color: #666; line-height: 1.7; }
 
     footer { background: var(--dark); color: #fff; padding: 50px 30px; }
     .footer-content { max-width: 1100px; margin: 0 auto; text-align: center; }
@@ -129,6 +124,7 @@
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
 </head>
 <body>
   <site-header></site-header>
@@ -230,23 +226,30 @@
       </div>
     </section>
 
-    <section class="faq">
-      <h2>Les questions qu'on nous pose vraiment</h2>
-      <div class="faq-item">
-        <h3>Module ou extension, lequel choisir ?</h3>
-        <p>Le module vit dans le panneau latéral de Google Docs et fonctionne dans tous les navigateurs : c'est le choix universel. L'extension tourne dans Chrome et ajoute le confort d'écriture en direct (Entrée, Tab, mise en forme instantanée pendant la frappe) : c'est celle avec laquelle j'écris. Vous pouvez essayer les deux gratuitement.</p>
+        <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Les questions qu'on nous pose vraiment</h2>
+        <p>Le prix, l'offre gratuite, et ce qui se passe le jour où vous arrêtez de payer. Si votre question n'est pas là, posez-la.</p>
+        <a class="faq-ask" href="mailto:hugopthomas@gmail.com?subject=Question%20sur%20Screenplay%20Editor">Posez votre question</a>
       </div>
-      <div class="faq-item">
-        <h3>Que se passe-t-il si je résilie ?</h3>
-        <p>Vous gardez Pro jusqu'à la fin de la période payée, puis vous repassez au niveau gratuit. Votre scénario reste exactement en l'état : il vit dans votre Google Drive, pas chez nous, et la mise en forme déjà appliquée ne disparaît jamais.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Voyez-vous ou stockez-vous mon scénario ?</h3>
-        <p>Non. Votre scénario reste dans votre propre Google Drive, derrière la même sécurité que Gmail. Nous ne le stockons jamais, et nous n'entraînons jamais rien dessus.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Est-ce que je paie deux fois si j'utilise l'extension et le module ?</h3>
-        <p>Non. Il y a un seul prix et un seul abonnement, et il débloque les deux outils, sur tous les ordinateurs où vous écrivez. Les 7,99 $ sont un prix de lancement, et ceux qui s'abonnent maintenant le gardent.</p>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>Module ou extension, lequel choisir ?</span></summary>
+          <div class="faq-body">Le module vit dans le panneau latéral de Google Docs et fonctionne dans tous les navigateurs : c'est le choix universel. L'extension tourne dans Chrome et ajoute le confort d'écriture en direct (Entrée, Tab, mise en forme instantanée pendant la frappe) : c'est celle avec laquelle j'écris. Vous pouvez essayer les deux gratuitement.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Que se passe-t-il si je résilie ?</span></summary>
+          <div class="faq-body">Vous gardez Pro jusqu'à la fin de la période payée, puis vous repassez au niveau gratuit. Votre scénario reste exactement en l'état : il vit dans votre Google Drive, pas chez nous, et la mise en forme déjà appliquée ne disparaît jamais.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Voyez-vous ou stockez-vous mon scénario ?</span></summary>
+          <div class="faq-body">Non. Votre scénario reste dans votre propre Google Drive, derrière la même sécurité que Gmail. Nous ne le stockons jamais, et nous n'entraînons jamais rien dessus.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Est-ce que je paie deux fois si j'utilise l'extension et le module ?</span></summary>
+          <div class="faq-body">Non. Il y a un seul prix et un seul abonnement, et il débloque les deux outils, sur tous les ordinateurs où vous écrivez. Les 7,99 $ sont un prix de lancement, et ceux qui s'abonnent maintenant le gardent.</div>
+        </details>
       </div>
     </section>
   </main>

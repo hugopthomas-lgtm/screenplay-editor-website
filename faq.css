@@ -1,0 +1,190 @@
+/* ============================================================
+   FAQ — un seul composant pour tout le site.
+
+   Repris de la FAQ de ClickHouse, dans notre palette : deux
+   colonnes, la colonne de gauche reste à l'écran pendant qu'on
+   parcourt les questions, chaque question est une carte numérotée
+   qui s'ouvre au clic.
+
+   Pourquoi : il existait TROIS présentations de FAQ (prix, écoles,
+   comparatifs), et sur la page prix les réponses étaient toutes
+   déroulées, donc illisibles. Une seule mise en forme, ici.
+
+   Aucun JavaScript : <details name="faq"> donne l'accordéon
+   exclusif, le compteur CSS donne la numérotation, et l'ouverture
+   s'anime avec ::details-content là où le navigateur sait le faire.
+   ============================================================ */
+
+:root { interpolate-size: allow-keywords; }
+
+.faq {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 78px 30px 90px;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ---- Colonne de gauche : elle suit le lecteur ---- */
+.faq-intro {
+  position: sticky;
+  top: 108px;
+}
+
+.faq-badge {
+  width: 62px;
+  height: 62px;
+  border: 1.5px solid var(--violet);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--violet);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 30px;
+}
+
+.faq-intro h2 {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+.faq-intro p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  margin: 0 0 20px;
+  max-width: 34ch;
+}
+
+.faq-ask {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--violet);
+  text-decoration: none;
+}
+.faq-ask::after {
+  content: '→';
+  transition: transform var(--fast);
+}
+.faq-ask:hover::after { transform: translateX(4px); }
+
+/* ---- Colonne de droite : la pile de questions ---- */
+.faq-list {
+  counter-reset: faq;
+  max-width: none;
+}
+
+.faq-item {
+  counter-increment: faq;
+  background: var(--paper-2);
+  border-radius: 14px;
+  padding: 0 26px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-1);
+  transition: box-shadow var(--slow);
+}
+.faq-item:hover { box-shadow: var(--shadow-2); }
+.faq-item[open] { box-shadow: var(--shadow-2); }
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 46px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 22px 0;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+
+/* le numéro et le filet qui le sépare de la question */
+.faq-item summary::before {
+  content: counter(faq, decimal-leading-zero);
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-4);
+  border-right: 1px solid var(--line);
+  height: 100%;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.faq-item summary > span {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.35;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.faq-item summary::after {
+  content: '+';
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--violet);
+  transition: transform var(--slow);
+}
+.faq-item[open] summary::after {
+  content: '\2212';
+  transform: rotate(180deg);
+}
+
+/* la réponse s'aligne sur la question et prolonge le filet */
+.faq-item .faq-body {
+  margin-left: 46px;
+  padding: 0 0 24px 20px;
+  border-left: 1px solid var(--line);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-3);
+  text-wrap: pretty;
+}
+.faq-item .faq-body a { color: var(--violet); }
+.faq-item .faq-body p { margin: 0 0 12px; }
+.faq-item .faq-body p:last-child { margin: 0; }
+
+/* ouverture animée là où le navigateur sait le faire */
+.faq-item::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size var(--slow), content-visibility var(--slow) allow-discrete;
+}
+.faq-item[open]::details-content { block-size: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item::details-content { transition: none; }
+  .faq-item summary::after { transition: none; }
+}
+
+/* ---- Une seule colonne sous 900px ---- */
+@media (max-width: 900px) {
+  .faq {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding: 54px 24px 66px;
+  }
+  .faq-intro { position: static; }
+  .faq-intro h2 { font-size: 28px; }
+  .faq-intro p { max-width: none; }
+  .faq-badge { width: 52px; height: 52px; border-radius: 15px; font-size: 22px; margin-bottom: 20px; }
+  .faq-item { padding: 0 20px; }
+  .faq-item summary { grid-template-columns: 32px 1fr auto; gap: 14px; padding: 18px 0; }
+  .faq-item summary > span { font-size: 16px; }
+  .faq-item .faq-body { margin-left: 32px; padding-left: 14px; font-size: 15px; }
+}

@@ -75,11 +75,6 @@
       font-size: 14px; font-weight: 600; transition: transform .2s, opacity .2s; }
     .schools-band a:hover { transform: translateY(-1px); opacity: .92; }
 
-    .faq { max-width: 720px; margin: 0 auto; padding: 56px 30px 70px; }
-    .faq h2 { text-align: center; font-size: 22px; font-weight: 600; margin-bottom: 30px; }
-    .faq-item { margin-bottom: 26px; }
-    .faq-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 7px; }
-    .faq-item p { font-size: 14px; color: #666; line-height: 1.7; }
 
     footer { background: var(--dark); color: #fff; padding: 50px 30px; }
     .footer-content { max-width: 1100px; margin: 0 auto; text-align: center; }
@@ -108,6 +103,7 @@
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
 </head>
 <body>
   <site-header></site-header>
@@ -172,22 +168,29 @@
     </section>
 
     <section class="faq">
-      <h2>Questions people actually ask</h2>
-      <div class="faq-item">
-        <h3>Add-on or extension, which one should I pick?</h3>
-        <p>The add-on lives in the Google Docs sidebar and works in any browser: it is the safe, universal choice. The extension runs in Chrome and adds the live writing workflow (Enter, Tab, instant formatting as you type): it is the one I use to write. You can try both for free, and one subscription covers both, so you never have to choose for money reasons.</p>
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions people actually ask</h2>
+        <p>The price, the free plan, and what happens the day you stop paying. If your question is not here, ask it.</p>
+        <a class="faq-ask" href="mailto:hugopthomas@gmail.com?subject=Question%20about%20Screenplay%20Editor">Ask your question</a>
       </div>
-      <div class="faq-item">
-        <h3>What happens if I cancel?</h3>
-        <p>You keep Pro until the end of the period you paid for, then you go back to the free plan. Your script stays exactly as it is: it lives in your Google Drive, not with us, and the formatting already applied never disappears.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Do you see or store my script?</h3>
-        <p>No. Your script stays in your own Google Drive, behind the same security as Gmail. We never store it, we never train anything on it.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Do I pay twice if I use both the extension and the add-on?</h3>
-        <p>No. There is one price and one subscription, and it unlocks both tools on every computer you write on. The $7.99 is a launch price, and people who subscribe now keep it.</p>
+      <div class="faq-list">
+      <details class="faq-item" name="faq">
+          <summary><span>Add-on or extension, which one should I pick?</span></summary>
+          <div class="faq-body">The add-on lives in the Google Docs sidebar and works in any browser: it is the safe, universal choice. The extension runs in Chrome and adds the live writing workflow (Enter, Tab, instant formatting as you type): it is the one I use to write. You can try both for free, and one subscription covers both, so you never have to choose for money reasons.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>What happens if I cancel?</span></summary>
+          <div class="faq-body">You keep Pro until the end of the period you paid for, then you go back to the free plan. Your script stays exactly as it is: it lives in your Google Drive, not with us, and the formatting already applied never disappears.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Do you see or store my script?</span></summary>
+          <div class="faq-body">No. Your script stays in your own Google Drive, behind the same security as Gmail. We never store it, we never train anything on it.</div>
+        </details>
+      <details class="faq-item" name="faq">
+          <summary><span>Do I pay twice if I use both the extension and the add-on?</span></summary>
+          <div class="faq-body">No. There is one price and one subscription, and it unlocks both tools on every computer you write on. The $7.99 is a launch price, and people who subscribe now keep it.</div>
+        </details>
       </div>
     </section>
   </main>
