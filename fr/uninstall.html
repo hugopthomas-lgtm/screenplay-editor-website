@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>oh no, scrrrr.</title>
+  <title>oh non, scrrrr.</title>
   <link rel="icon" href="/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -113,14 +113,10 @@
       .headline { font-size: 26px; }
     }
   </style>
-  <link rel="canonical" href="https://screenplayeditor.app/uninstall-addon">
-  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/uninstall-addon">
-  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/uninstall-addon.html">
-  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/uninstall-addon">
 </head>
 <body>
   <div class="topbar">
-    <a class="reinstall" href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" target="_blank" rel="noopener">reinstall scrrrr.</a>
+    <a class="reinstall" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">réinstaller scrrrr.</a>
   </div>
 
   <div class="main">
@@ -128,22 +124,22 @@
       <!-- LEFT -->
       <div class="left">
         <div class="survey">
-          <div class="headline">Oh no! I'm sorry.<br><span class="em">Can I know what happened?</span></div>
+          <div class="headline">Oh non ! Je suis désolé.<br><span class="em">Je peux savoir ce qui s’est passé ?</span></div>
 
-          <p class="ask">you've got better things to do, i know. but you're a writer, so you of all people know what one good line can do. give me the one that says why scrrrr. let you down, and it comes straight to me, to make it better.</p>
+          <p class="ask">vous avez mieux à faire, je sais. mais vous écrivez, donc vous savez mieux que personne ce que vaut une bonne réplique. donnez-moi celle qui dit pourquoi scrrrr. vous a déçu, elle arrive directement chez moi, et elle sert à faire mieux.</p>
 
           <div class="more">
             <textarea id="note" placeholder="type here, in your own words…" autofocus></textarea>
             <input id="email" type="email" autocomplete="email" spellcheck="false" placeholder="your email, if you'd like an answer">
           </div>
 
-          <button class="submit" id="submit">send feedback</button>
+          <button class="submit" id="submit">envoyer</button>
         </div>
 
         <div class="thanks">
-          <div class="headline">Thank you. <span class="em">Really.</span></div>
-          <p id="thanks-copy">that goes straight to me, and i read every single one. whenever you want to give scrrrr. another shot, it's one click away.</p>
-          <a class="reinstall" href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" target="_blank" rel="noopener">reinstall scrrrr.</a>
+          <div class="headline">Merci. <span class="em">Vraiment.</span></div>
+          <p id="thanks-copy">ça arrive directement chez moi, et je les lis toutes. le jour où vous voulez redonner sa chance à scrrrr., c’est à un clic.</p>
+          <a class="reinstall" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">réinstaller scrrrr.</a>
         </div>
       </div>
 
@@ -151,10 +147,10 @@
       <div class="right">
         <div class="note">
           <img class="avatar" src="hugo2.jpg" alt="Hugo">
-          <p>hi,</p>
-          <p>i'm hugo. i build scrrrr. on my own, so when something pushed you to remove it, that's on me, and i'd genuinely like to know what it was.</p>
-          <p>a screenwriting tool living inside google docs is a strange, hard thing to get right. your reason, even one line, tells me exactly where to look next.</p>
-          <p>thank you for trying it. i hope to win you back one day.</p>
+          <p>bonjour,</p>
+          <p>je m’appelle hugo. je construis scrrrr. tout seul, donc si quelque chose vous a poussé à le retirer, ça vient de moi, et j’aimerais sincèrement savoir quoi.</p>
+          <p>un outil de scénario qui vit dans google docs, c’est une chose étrange et difficile à réussir. votre raison, même en une ligne, me dit exactement où regarder.</p>
+          <p>merci de l’avoir essayé. j’espère vous récupérer un jour.</p>
           <div class="sig">
             <img class="sign-img" src="signature.png" alt="Hugo Thomas">
           </div>
@@ -167,10 +163,11 @@
     (function () {
       var submit = document.getElementById('submit');
       if (!submit) return;
-      // src=cancel : la page a été atteinte depuis l'email de résiliation — le
-      // worker en fait un sujet « CANCELLATION » (voix d'abonné, pas un uninstall).
-      var src = '';
-      try { src = new URLSearchParams(window.location.search).get('src') || ''; } catch (e) {}
+      // Identifiant opaque posé par l'extension dans l'URL de désinstallation.
+      // Il ne dit rien à qui le lit ; côté serveur il retrouve la fiche (compte
+      // connecté, version, plan) sans laquelle un « broken » n'est pas enquêtable.
+      var uid = '';
+      try { uid = new URLSearchParams(window.location.search).get('u') || ''; } catch (e) {}
 
       submit.addEventListener('click', function () {
         var note = (document.getElementById('note').value || '').trim();
@@ -181,7 +178,7 @@
           fetch('https://screenplay-editor-api.hugopthomas.workers.dev/uninstall-feedback', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ note: note, email: email, surface: 'addon', src: src })
+            body: JSON.stringify({ note: note, email: email, u: uid })
           }).catch(function () {});
         } catch (e) {}
         if (email.indexOf('@') > 0) {

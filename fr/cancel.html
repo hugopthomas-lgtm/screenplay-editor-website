@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to Pro — Screenplay Editor</title>
-  <meta name="description" content="Your upgrade to Screenplay Editor Pro is complete. Go back to Google Docs and refresh the sidebar to unlock all features.">
-  <link rel="canonical" href="https://screenplayeditor.app/success">
-  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/success">
-  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/success.html">
-  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/success">
+  <title>Paiement annulé - Screenplay Editor</title>
+  <meta name="description" content="Le paiement a été annulé, rien n’a été débité. Vous pouvez passer à Pro quand vous voulez.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/cancel.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/cancel">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/cancel.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/cancel">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Screenplay Editor">
-  <meta property="og:title" content="Welcome to Pro">
-  <meta property="og:description" content="Your upgrade to Screenplay Editor Pro is complete. Go back to Google Docs and refresh the sidebar to unlock all features.">
-  <meta property="og:url" content="https://screenplayeditor.app/success">
+  <meta property="og:title" content="Paiement annulé - Screenplay Editor">
+  <meta property="og:description" content="Le paiement a été annulé, rien n’a été débité. Vous pouvez passer à Pro quand vous voulez.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/cancel.html">
   <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="/favicon.png">
   <style>
     * {
       margin: 0;
@@ -158,29 +158,10 @@
       text-align: center;
     }
 
-    .success-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: var(--violet);
+    .cancel-icon {
+      font-size: 48px;
       margin-bottom: 30px;
-      animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .success-badge svg {
-      width: 40px;
-      height: 40px;
-      stroke: #fff;
-      stroke-width: 3;
-      fill: none;
-    }
-
-    @keyframes pop {
-      0% { transform: scale(0); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+      opacity: 0.6;
     }
 
     .page-title {
@@ -194,74 +175,14 @@
       font-size: 14px;
       color: #888;
       margin-bottom: 40px;
+      line-height: 1.7;
     }
 
-    .intro-card {
-      background: var(--violet-light);
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 40px;
-      border-left: 4px solid var(--violet);
-      text-align: left;
-    }
-
-    .intro-card h2 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
-
-    .intro-card p {
-      font-size: 14px;
-      color: #5a4a7a;
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    .intro-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .steps {
-      text-align: left;
-      margin-bottom: 40px;
-    }
-
-    .step {
+    .actions {
       display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .step:last-child {
-      border-bottom: none;
-    }
-
-    .step-number {
-      flex-shrink: 0;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--violet);
-      color: #fff;
-      display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .step-text {
-      font-size: 14px;
-      color: #444;
-      padding-top: 5px;
-    }
-
-    .step-text strong {
-      color: var(--dark);
+      gap: 16px;
     }
 
     .cta-button {
@@ -279,6 +200,17 @@
     .cta-button:hover {
       background: var(--violet-dark);
       transform: translateY(-1px);
+    }
+
+    .link {
+      color: var(--violet);
+      font-size: 13px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .link:hover {
+      opacity: 0.7;
     }
 
     /* Footer */
@@ -345,43 +277,23 @@
 
   <div class="breadcrumb-bar">
     <div class="breadcrumb-content">
-      <a href="/">Home</a>
+      <a href="/fr/">Accueil</a>
       <span class="separator">/</span>
-      <span class="current">Pro</span>
+      <span class="current">Annulé</span>
     </div>
   </div>
 
   <main>
     <div class="page-content">
-      <div class="success-badge">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <div class="cancel-icon">&larr;</div>
+
+      <h1 class="page-title">Pas de souci !</h1>
+      <p class="page-subtitle">Le paiement a été annulé. Rien n’a été débité.<br>Vous pouvez passer à Pro quand vous voulez, depuis le panneau Screenplay Editor.</p>
+
+      <div class="actions">
+        <a href="/" class="cta-button">Retour à Screenplay Editor</a>
+        <a href="/support" class="link">Besoin d’aide ? Écrivez-nous &rarr;</a>
       </div>
-
-      <h1 class="page-title">Bienvenue dans Pro !</h1>
-      <p class="page-subtitle">Your upgrade is complete. All Pro features are now unlocked.</p>
-
-      <div class="intro-card">
-        <h2>What's next?</h2>
-        <p>Go back to your Google Docs document and <strong>refresh the Screenplay Editor sidebar</strong> to activate your Pro features.</p>
-        <p>If the sidebar is already open, close it and reopen it from the <strong>Extensions</strong> menu.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-text">Go back to your <strong>Google Docs</strong> document</div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-text">Open <strong>Extensions &rarr; Screenplay Editor &rarr; Open sidebar</strong></div>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-text">Your Pro status will appear automatically. <strong>Enjoy!</strong></div>
-        </div>
-      </div>
-
-      <a href="https://docs.google.com" class="cta-button">Open Google Docs</a>
     </div>
   </main>
 
@@ -389,12 +301,12 @@
     <div class="footer-content">
       <div class="footer-logo">scrrrr<span class="dot">.</span></div>
       <nav class="footer-nav">
-        <a href="/about">About</a>
-        <a href="/support">Support</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions</a>
       </nav>
-      <p class="footer-copy">&copy; 2025 Screenplay Editor. Made for screenwriters.</p>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Fait pour les scénaristes.</p>
     </div>
   </footer>
 </body>

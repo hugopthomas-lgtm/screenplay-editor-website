@@ -5,10 +5,10 @@
      via chrome.runtime.sendMessage (externally_connectable).
      Ouvert par l'extension avec: #token=...&docId=...&extId=...
      Le Picker s'ouvre tout seul au chargement ; le bouton sert de secours. -->
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Screenplay Editor — Almost there</title>
+<title>Screenplay Editor - encore une seconde</title>
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -41,19 +41,15 @@
   .ok { color: #34d399; font-weight: 600; font-size: 16px; }
   .err { color: #f87171; font-size: 13px; margin-top: 14px; }
 </style>
-  <link rel="canonical" href="https://screenplayeditor.app/picker">
-  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/picker">
-  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/picker.html">
-  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/picker">
 </head>
 <body>
 <div class="card">
   <div class="brand">scrrr.<span> · Screenplay Editor</span></div>
-  <h1 id="headline">Google needs a quick yes.</h1>
-  <p id="lead">Every writing tool has to confirm which document it can format.
-     <strong>Your script is already selected</strong>, you say yes once and you're back to writing.</p>
-  <button class="btn" id="openPicker">Confirm my document</button>
-  <div class="hint" id="hint">This happens once per document, then never again.</div>
+  <h1 id="headline">Google a besoin d’un oui rapide.</h1>
+  <p id="lead">Tout outil d’écriture doit confirmer quel document il a le droit de mettre en forme.
+     <strong>Votre scénario est déjà sélectionné</strong>, vous dites oui une fois et vous retournez écrire.</p>
+  <button class="btn" id="openPicker">Confirmer mon document</button>
+  <div class="hint" id="hint">Ça n’arrive qu’une fois par document, et plus jamais ensuite.</div>
   <div id="status"></div>
 </div>
 
