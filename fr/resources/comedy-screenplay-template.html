@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modèle de scénario de comédie - gratuit pour Google Docs</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Un modèle de scénario de comédie gratuit pour Google Docs, déjà au format. Avec l’ouverture de The Nice Guys : tempo, installation, chute.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/resources/comedy-screenplay-template.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/resources/comedy-screenplay-template">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/resources/comedy-screenplay-template.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/resources/comedy-screenplay-template">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Modèle de scénario de comédie - gratuit pour Google Docs">
+  <meta property="og:description" content="Un modèle de scénario de comédie gratuit pour Google Docs, déjà au format. Avec l’ouverture de The Nice Guys : tempo, installation, chute.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/resources/comedy-screenplay-template.html">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: var(--violet);
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: var(--site-header-h, 65px);
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Hero Section - Dark */
+    .hero {
+      padding: 80px 32px 80px;
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      text-align: center;
+    }
+
+    .hero * {
+      color: #fff;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-400);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-400);
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--violet);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hero-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Section Base */
+    section {
+      padding: 80px 32px;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 22px;
+      height: 22px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 700px;
+      line-height: 1.8;
+    }
+
+    .section-intro + .section-intro {
+      margin-top: 20px;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .checklist-icon {
+      width: 28px;
+      height: 28px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .checklist-icon i {
+      width: 16px;
+      height: 16px;
+      color: #43a047;
+    }
+
+    .checklist-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .checklist-item p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Film Section */
+    .film-image {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .film-content {
+      max-width: 700px;
+    }
+
+    .film-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+    }
+
+    .film-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .film-content strong {
+      color: var(--dark);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-button i {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 32px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
+    }
+
+    .footer-nav {
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 26px;
+      }
+
+      .cta-section .section-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+  <script src="/header.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://screenplayeditor.app/resources/comedy-screenplay-template#main",
+      "headline": "Comedy Screenplay Template",
+      "description": "Free comedy screenplay template for Google Docs. Learn comedic structure from The Nice Guys (2016). Timing, setup-payoff, and sharp dialogue.",
+      "url": "https://screenplayeditor.app/resources/comedy-screenplay-template",
+      "image": "https://screenplayeditor.app/hero-screenshot.png",
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas",
+        "url": "https://screenplayeditor.app/about",
+        "jobTitle": "Screenwriter and film director"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Screenplay Editor",
+        "url": "https://screenplayeditor.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://screenplayeditor.app/favicon.png"
+        }
+      },
+      "mainEntityOfPage": "https://screenplayeditor.app/resources/comedy-screenplay-template",
+      "datePublished": "2025-12-30",
+      "dateModified": "2026-06-20"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://screenplayeditor.app/resources/comedy-screenplay-template#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://screenplayeditor.app/resources"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Comedy Screenplay Template",
+          "item": "https://screenplayeditor.app/resources/comedy-screenplay-template"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+
+<body>
+  <site-header></site-header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="/fr/">Accueil</a> / <a href="/fr/resources/">Ressources</a> / <span>Modèle comédie</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="smile"></i>
+      Modèle gratuit
+    </div>
+    <h1>Tout est dans le tempo.</h1>
+    <p class="hero-subtitle">
+      Un modèle de scénario de comédie pour Google Docs. Déjà au format. Prêt pour vos chutes.
+    </p>
+    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="hero-cta">
+      <i data-lucide="download"></i>
+      Obtenir le modèle (gratuit)
+    </a>
+    <p class="hero-note">Ça s’ouvre dans Google Docs. Faites une copie et écrivez.</p>
+  </section>
+
+  <!-- Pourquoi ce modèle ? -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="help-circle"></i>
+        Pourquoi ce modèle ?
+      </span>
+      <h2 class="section-title">La comédie, c’est du rythme.</h2>
+      <p class="section-intro">
+        Une blague sur la page n’est pas une blague à l’écran, mais la mécanique est la même. On installe. On fait attendre. On détourne. Le rire naît de l’écart entre ce que la salle attend et ce qu’elle reçoit. Dans un scénario, cet écart vit dans les lignes d’action, dans les silences entre les répliques, dans la coupe vers la scène suivante. La comédie est le genre le plus dur à écrire parce que la structure doit rester invisible. Si le public voit l’installation, la chute est morte.
+      </p>
+      <p class="section-intro">
+        Les meilleures comédies partent des personnages. Le comique vient de ce que ces gens sont, pas de vannes vissées sur une intrigue. Un personnage bien dessiné dans une mauvaise situation est plus drôle que n’importe quel bon mot. Shane Black l’avait compris. Billy Wilder aussi. C’est la logique du personnage qui fabrique le rire : il fait une chose qui lui paraît évidente et qui n’a de sens pour personne d’autre.
+      </p>
+      <p class="section-intro">
+        Ce modèle vous donne la mise en forme. Titres de séquence, blocs d’action, dialogues, didascalies, tout est au format professionnel. Vous apportez le tempo. Les marges sont déjà justes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Ce qu’il contient -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="package"></i>
+        Ce qu’il contient
+      </span>
+      <h2 class="section-title">Tout ce qu’il vous faut</h2>
+
+      <div class="checklist">
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Format professionnel</h4>
+            <p>Courier 12, marges justes</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Structure de séquence déjà posée</h4>
+            <p>À adapter ou à supprimer</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Personnages et dialogues au format</h4>
+            <p>Prêts à l’emploi</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Marche avec Screenplay Editor</h4>
+            <p>Mise en forme en un clic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le film derrière le modèle -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="film"></i>
+        Le film derrière le modèle
+      </span>
+      <h2 class="section-title">The Nice Guys (2016)</h2>
+      <img src="/nice-guys.webp" alt="The Nice Guys (2016) - Ryan Gosling and Russell Crowe" class="film-image">
+      <div class="film-content">
+        <p>
+          Ce modèle est bâti autour de l’ouverture de <strong>The Nice Guys</strong> (2016), la comédie de duo néo-noire de Shane Black, dans le Los Angeles des années 70. C’est l’une des comédies les plus sous-estimées de la décennie, et sa séquence d’ouverture est une leçon : poser un ton, des personnages et un monde en moins de cinq minutes.
+        </p>
+        <p>
+          L’ouverture est du pur Shane Black. Un gamin se lève la nuit en douce. Il trouve un magazine. Puis une voiture dévale la colline et traverse la maison. Une femme en sort, à peine vivante, et le gamin la couvre d’une couverture. La scène est absurde, violente, tendre et drôlement noire, tout à la fois. Elle pose les règles du film : rien n’est sacré, tout peut arriver, et le comique naîtra du choc entre le grotesque et l’ordinaire. Sur le papier, cette scène ne devrait pas tenir. L’écriture de Black fait tomber chaque temps avec la précision d’une chute.
+        </p>
+        <p>
+          Shane Black a vendu L’Arme fatale à 23 ans et a pratiquement inventé la comédie d’action à deux. Ses scénarios sont célèbres pour leur voix : narration sardonique, dialogues qui se savent dialogues, et des personnages qu’il laisse être franchement mauvais dans leur métier. Dans The Nice Guys, Ryan Gosling et Russell Crowe jouent un détective privé et un homme de main qui tiennent à peine debout séparément, alors ensemble. Le comique vient des écarts de compétence, des situations mal lues, et de personnages toujours en retard sur l’intrigue qu’ils sont censés mener.
+        </p>
+        <p>
+          <strong>La bonne comédie a l’air facile à écrire. Elle ne l’est jamais. Voilà la structure qui lui donne cet air-là.</strong>
+        </p>
+
+        <!-- SCENE PLACEHOLDER: The Nice Guys (2016) - Opening sequence: A young boy sneaks downstairs at night, discovers a magazine, then a car crashes through the hillside into his house. A woman (Misty Mountains) stumbles from the wreckage. The text of the formatted scene will be added here manually. -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <h2 class="section-title">Écrivez.</h2>
+    <p class="section-intro">
+      Le modèle est gratuit. Les rires sont à vous.
+    </p>
+    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="cta-button">
+      <i data-lucide="download"></i>
+      Obtenir le modèle (gratuit)
+    </a>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <nav class="footer-nav">
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions d’utilisation</a>
+        <a href="/fr/resources/">Ressources</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

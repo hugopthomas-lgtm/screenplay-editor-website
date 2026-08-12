@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modèle de scénario de thriller - gratuit pour Google Docs</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Un modèle de scénario de thriller gratuit pour Google Docs, déjà au format. Avec l’ouverture de Prisoners : monter la tension, tenir la pression.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/resources/thriller-screenplay-template.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/resources/thriller-screenplay-template">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/resources/thriller-screenplay-template.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/resources/thriller-screenplay-template">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Modèle de scénario de thriller - gratuit pour Google Docs">
+  <meta property="og:description" content="Un modèle de scénario de thriller gratuit pour Google Docs, déjà au format. Avec l’ouverture de Prisoners : monter la tension, tenir la pression.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/resources/thriller-screenplay-template.html">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: var(--violet);
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: var(--site-header-h, 65px);
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Hero Section - Dark */
+    .hero {
+      padding: 80px 32px 80px;
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      text-align: center;
+    }
+
+    .hero * {
+      color: #fff;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-400);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-400);
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--violet);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hero-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Section Base */
+    section {
+      padding: 80px 32px;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 22px;
+      height: 22px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 700px;
+      line-height: 1.8;
+    }
+
+    .section-intro + .section-intro {
+      margin-top: 20px;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .checklist-icon {
+      width: 28px;
+      height: 28px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .checklist-icon i {
+      width: 16px;
+      height: 16px;
+      color: #43a047;
+    }
+
+    .checklist-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .checklist-item p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Film Section */
+    .film-image {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .film-content {
+      max-width: 700px;
+    }
+
+    .film-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+    }
+
+    .film-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .film-content strong {
+      color: var(--dark);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-button i {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 32px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
+    }
+
+    .footer-nav {
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 26px;
+      }
+
+      .cta-section .section-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+  <script src="/header.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://screenplayeditor.app/resources/thriller-screenplay-template#main",
+      "headline": "Thriller Screenplay Template",
+      "description": "Free thriller screenplay template for Google Docs. Properly formatted with the opening of Prisoners (2013). Build tension, raise stakes, write better thrillers.",
+      "url": "https://screenplayeditor.app/resources/thriller-screenplay-template",
+      "image": "https://screenplayeditor.app/hero-screenshot.png",
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas",
+        "url": "https://screenplayeditor.app/about",
+        "jobTitle": "Screenwriter and film director"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Screenplay Editor",
+        "url": "https://screenplayeditor.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://screenplayeditor.app/favicon.png"
+        }
+      },
+      "mainEntityOfPage": "https://screenplayeditor.app/resources/thriller-screenplay-template",
+      "datePublished": "2025-12-30",
+      "dateModified": "2026-06-20"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://screenplayeditor.app/resources/thriller-screenplay-template#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://screenplayeditor.app/resources"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Thriller Screenplay Template",
+          "item": "https://screenplayeditor.app/resources/thriller-screenplay-template"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+
+<body>
+  <site-header></site-header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="/fr/">Accueil</a> / <a href="/fr/resources/">Ressources</a> / <span>Modèle thriller</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="shield-alert"></i>
+      Modèle gratuit
+    </div>
+    <h1>Le pire cauchemar d’un parent.</h1>
+    <p class="hero-subtitle">
+      Un modèle de scénario de thriller pour Google Docs. Déjà au format. Prêt pour votre histoire la plus noire.
+    </p>
+    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="hero-cta">
+      <i data-lucide="download"></i>
+      Obtenir le modèle (gratuit)
+    </a>
+    <p class="hero-note">Ça s’ouvre dans Google Docs. Faites une copie et écrivez.</p>
+  </section>
+
+  <!-- Pourquoi ce modèle ? -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="help-circle"></i>
+        Pourquoi ce modèle ?
+      </span>
+      <h2 class="section-title">Le thriller, c’est du contrôle.</h2>
+      <p class="section-intro">
+        Un thriller ne fait pas peur avec ce qui surgit, mais avec ce qui pourrait surgir. Le genre carbure à l’information : qui la détient, qui ne l’a pas, et ce qui arrive quand le spectateur en sait plus que les personnages. Chaque scène resserre l’étau. Chaque réplique peut être un mensonge. L’auteur tient la soupape, et les meilleurs thrillers ne la relâchent qu’à la toute dernière page.
+      </p>
+      <p class="section-intro">
+        Ici, tout est structure. Il faut une montée qui paraisse inévitable sans jamais être prévisible. L’ouverture pose un niveau de normalité. Puis quelque chose casse. Et le reste du scénario est la conséquence de cette cassure : elle s’élargit, embarque d’autres personnages, alourdit le prix de chaque décision. Le spectateur doit sentir les murs se refermer avant les personnages.
+      </p>
+      <p class="section-intro">
+        Ce modèle vous donne le cadre. Titres de séquence, lignes d’action, blocs de dialogue, tout est au format professionnel. Vous vous occupez de la tension. Les marges sont déjà justes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Ce qu’il contient -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="package"></i>
+        Ce qu’il contient
+      </span>
+      <h2 class="section-title">Tout ce qu’il vous faut</h2>
+
+      <div class="checklist">
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Format professionnel</h4>
+            <p>Courier 12, marges justes</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Structure de séquence déjà posée</h4>
+            <p>À adapter ou à supprimer</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Personnages et dialogues au format</h4>
+            <p>Prêts à l’emploi</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Marche avec Screenplay Editor</h4>
+            <p>Mise en forme en un clic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le film derrière le modèle -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="film"></i>
+        Le film derrière le modèle
+      </span>
+      <h2 class="section-title">Prisoners (2013)</h2>
+      <img src="/prisoners.webp" alt="Prisoners (2013) - Hugh Jackman" class="film-image">
+      <div class="film-content">
+        <p>
+          Ce modèle est bâti autour de l’ouverture de <strong>Prisoners</strong> (2013), le thriller dévastateur de Denis Villeneuve sur deux familles brisées par la disparition de leurs filles le jour de Thanksgiving. C’est le film qui a fait découvrir au public américain la précision de Villeneuve, et il reste l’un des thrillers les mieux construits de ces vingt dernières années.
+        </p>
+        <p>
+          L’ouverture est une leçon sur ce que les scénaristes appellent l’« avant ». Le scénario d’Aaron Guzikowski passe ses premières minutes à construire un monde de chaleur, d’habitudes et de confiance. Deux familles autour d’un repas de fête. Des enfants qui jouent. Des adultes qui parlent. Tout est ordinaire. Tout est sûr. Et puis ça ne l’est plus. Le basculement est d’abord silencieux : une question, un regard, un manteau qui manque. Quand les parents comprennent, le spectateur a déjà senti le sol disparaître. Voilà ce que vaut une ouverture de thriller qui mérite son angoisse au lieu de l’annoncer.
+        </p>
+        <p>
+          Ce qui rend Prisoners exceptionnel, c’est son refus de simplifier. La disparition est l’élément déclencheur, mais le vrai thriller est ce qui arrive à ceux qui restent. La descente de Keller Dover, la poursuite obsessionnelle de l’inspecteur Loki, les fractures morales qui s’élargissent à chaque scène. Villeneuve et le chef opérateur Roger Deakins bâtissent un monde de pluie, de lumière grise et d’intérieurs étouffants qui répond à l’effondrement psychologique au centre de l’histoire. Le scénario a valu à Guzikowski une place sur la Black List et a lancé Villeneuve vers Sicario, Premier Contact et Dune.
+        </p>
+        <p>
+          <strong>Les meilleurs thrillers ne commencent pas par un fracas. Ils commencent par du silence. Puis ils vous le retirent.</strong>
+        </p>
+
+        <!-- SCENE PLACEHOLDER: Prisoners (2013) - Opening sequence: Thanksgiving dinner with the Dover and Birch families, followed by the discovery that the two young girls have disappeared. The text of the formatted scene will be added here manually. -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <h2 class="section-title">Écrivez.</h2>
+    <p class="section-intro">
+      Le modèle est gratuit. La tension est à vous.
+    </p>
+    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="cta-button">
+      <i data-lucide="download"></i>
+      Obtenir le modèle (gratuit)
+    </a>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <nav class="footer-nav">
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions d’utilisation</a>
+        <a href="/fr/resources/">Ressources</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

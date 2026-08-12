@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modèle de scénario de court métrage - gratuit pour Google Docs</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Un modèle de scénario de court métrage gratuit pour Google Docs, au format professionnel, avec les conseils d’écriture qui vont avec et un court primé en exemple.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/resources/short-film-screenplay-template.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/resources/short-film-screenplay-template">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/resources/short-film-screenplay-template.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/resources/short-film-screenplay-template">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Modèle de scénario de court métrage - gratuit pour Google Docs">
+  <meta property="og:description" content="Un modèle de scénario de court métrage gratuit pour Google Docs, au format professionnel, avec les conseils d’écriture qui vont avec et un court primé en exemple.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/resources/short-film-screenplay-template.html">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: var(--violet);
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: var(--site-header-h, 65px);
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 50px 32px 50px;
+      background: linear-gradient(180deg, var(--violet-light) 0%, #fff 100%);
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--dark);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--violet);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--violet);
+      border: 2px solid var(--violet);
+      padding: 14px 30px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: var(--violet);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline i {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Script Example Layout */
+    .script-example-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 48px;
+      align-items: start;
+      text-align: left;
+    }
+
+    .script-example-image {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .perrault-image {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow:
+        0 20px 50px rgba(157, 123, 234, 0.2),
+        0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .script-example-content .section-label {
+      justify-content: flex-start;
+    }
+
+    .script-example-content .section-intro {
+      max-width: none;
+    }
+
+    @media (max-width: 800px) {
+      .script-example-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .script-example-image {
+        position: static;
+        max-width: 280px;
+      }
+    }
+
+    /* Section Base */
+    section {
+      padding: 80px 32px;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 22px;
+      height: 22px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--violet);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(157, 123, 234, 0.12);
+    }
+
+    .feature-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--violet-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .feature-card-icon i {
+      width: 24px;
+      height: 24px;
+      color: var(--violet);
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .checklist-icon {
+      width: 28px;
+      height: 28px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .checklist-icon i {
+      width: 16px;
+      height: 16px;
+      color: #43a047;
+    }
+
+    .checklist-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .checklist-item p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Tips Grid */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .tip-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .tip-card:hover {
+      border-color: var(--violet);
+    }
+
+    .tip-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .tip-card-header i {
+      width: 20px;
+      height: 20px;
+      color: var(--violet);
+    }
+
+    .tip-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .tip-card p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* Screenplay Block */
+    .screenplay-block {
+      background: #fffef8;
+      border: 1px solid #e8e4d4;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 32px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .screenplay-header {
+      background: #f8f6f0;
+      padding: 12px 20px;
+      border-bottom: 1px solid #e8e4d4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .screenplay-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-500);
+    }
+
+    .screenplay-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .screenplay-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .screenplay-dots span:nth-child(1) { background: #ff5f56; }
+    .screenplay-dots span:nth-child(2) { background: #ffbd2e; }
+    .screenplay-dots span:nth-child(3) { background: #27ca40; }
+
+    .screenplay-content {
+      padding: 32px 48px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #222;
+    }
+
+    .screenplay-content .scene-heading {
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .screenplay-content .action {
+      margin-bottom: 16px;
+      max-width: 480px;
+    }
+
+    .screenplay-content .character {
+      margin-left: 180px;
+      margin-bottom: 0;
+      font-weight: bold;
+    }
+
+    .screenplay-content .dialogue {
+      margin-left: 100px;
+      margin-right: 140px;
+      margin-bottom: 16px;
+    }
+
+    .screenplay-content .transition {
+      text-align: right;
+      margin-top: 16px;
+    }
+
+    /* Steps */
+    .steps-container {
+      margin-top: 48px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 56px;
+      height: 56px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .step-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .cta-button i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cta-button.primary {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button.primary:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-button.secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .cta-button.secondary:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 32px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
+    }
+
+    .footer-nav {
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .features-grid,
+      .tips-grid,
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .screenplay-content {
+        padding: 24px;
+      }
+
+      .screenplay-content .character {
+        margin-left: 60px;
+      }
+
+      .screenplay-content .dialogue {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+    }
+  </style>
+  <script src="/header.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://screenplayeditor.app/resources/short-film-screenplay-template#main",
+      "headline": "Short Film Screenplay Template for Google Docs",
+      "description": "Free short film screenplay template for Google Docs. Professional formatting for films under 40 minutes, with tips for tight storytelling.",
+      "url": "https://screenplayeditor.app/resources/short-film-screenplay-template",
+      "image": "https://screenplayeditor.app/hero-screenshot.png",
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas",
+        "url": "https://screenplayeditor.app/about",
+        "jobTitle": "Screenwriter and film director"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Screenplay Editor",
+        "url": "https://screenplayeditor.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://screenplayeditor.app/favicon.png"
+        }
+      },
+      "mainEntityOfPage": "https://screenplayeditor.app/resources/short-film-screenplay-template",
+      "datePublished": "2025-12-30",
+      "dateModified": "2026-06-20"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://screenplayeditor.app/resources/short-film-screenplay-template#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://screenplayeditor.app/resources"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Short Film Screenplay Template for Google Docs",
+          "item": "https://screenplayeditor.app/resources/short-film-screenplay-template"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+
+<body>
+  <site-header></site-header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="/fr/">Accueil</a> / <a href="/fr/resources/">Ressources</a> / <span>Modèle court métrage</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="clapperboard"></i>
+      Modèle gratuit
+    </div>
+    <h1>Modèle de scénario de court métrage</h1>
+    <p class="hero-subtitle">
+      Un modèle Google Docs gratuit, déjà au format professionnel. Avec, en prime, un court métrage primé à décortiquer.
+    </p>
+    <a href="https://docs.google.com/document/d/1ODFN6TuEbI8hm9hORUNaDehDvN08V8mI1HdiIv5rSf4/copy" class="hero-cta" target="_blank">
+      <i data-lucide="download"></i>
+      Obtenir le modèle
+    </a>
+  </section>
+
+  <!-- Real Script Example -->
+  <section class="bg-white" style="padding-top: 50px;">
+    <div class="section-inner">
+      <div class="script-example-layout">
+        <div class="script-example-image">
+          <img src="/perrault.png" alt="Perrault, La Fontaine, Mon Cul! - Short Film" class="perrault-image">
+          <img src="/perrault2.jpg" alt="Perrault, La Fontaine, Mon Cul! - Behind the scenes" class="perrault-image">
+        </div>
+        <div class="script-example-content">
+          <span class="section-label">
+            <i data-lucide="award"></i>
+            Un exemple primé
+          </span>
+          <h2 class="section-title">Un vrai scénario de court métrage</h2>
+          <p class="section-intro" style="margin-bottom: 20px;">
+            <strong>Avant Netflix, il y a eu les courts. Voilà ce que j’y ai appris.</strong>
+          </p>
+          <p class="section-intro" style="margin-bottom: 20px;">
+            Mes courts métrages <em>Perrault, La Fontaine, Mon Cul&nbsp;!</em> et <em>Ich Bin Eine Tata</em> ont été primés à Clermont-Ferrand, le plus grand festival de court métrage du monde (est-ce que j’ai dit que c’était le plus grand ?). <em>Premier Métro</em> a tourné dans des festivals partout. C’est comme ça qu’on m’a repéré, et c’est comme ça que j’ai fait mon premier long.
+          </p>
+          <p class="section-intro" style="margin-bottom: 28px;">
+            Le scénario complet est là, en dessous. Voilà à quoi ressemble un court qui a été tourné. Servez-vous-en comme référence.
+          </p>
+          <a href="https://docs.google.com/document/d/1bxyQlagdGBhys8jRAznRA-hr6QsKOREbId5btg6GYTA/copy" class="btn-outline" target="_blank">
+            <i data-lucide="file-text"></i>
+            Lire le scénario complet (.doc)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ce qui est dedans -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="package"></i>
+        Ce qui est dedans
+      </span>
+      <h2 class="section-title">Tout ce qu’il faut pour commencer</h2>
+      <p class="section-intro">
+        Le modèle arrive déjà réglé au format professionnel, pour que vous ne pensiez qu’à votre histoire.
+      </p>
+
+      <div class="checklist">
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Professional Margins</h4>
+            <p>3,8 cm à gauche, 2,5 cm à droite, en haut et en bas</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Courier 12pt Font</h4>
+            <p>Standard du métier, interligne compris</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Sample Scene Format</h4>
+            <p>Titres de séquence, action, exemples de dialogue</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Title Page Included</h4>
+            <p>Page de titre de court métrage, champs standards</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Page Numbering</h4>
+            <p>Commence à la page 2, comme il se doit</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Runtime Guide</h4>
+            <p>1 page ≈ 1 minute à l’écran</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="file-text"></i>
+        Example
+      </span>
+      <h2 class="section-title">À quoi votre scénario va ressembler</h2>
+      <p class="section-intro">
+        Voici une scène d’exemple, au bon format. Regardez les lignes d’action serrées et l’installation réduite au minimum.
+      </p>
+
+      <div class="screenplay-block">
+        <div class="screenplay-header">
+          <span class="screenplay-label">Format court métrage</span>
+          <div class="screenplay-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="screenplay-content">
+          <div class="scene-heading">INT. EMPTY APARTMENT - DAY</div>
+          <div class="action">Le soleil traverse des stores poussiéreux. MAYA (25 ans) se tient seule au milieu de la pièce, un carton dans les bras.</div>
+          <div class="action">Elle pose le carton. L’ouvre. Dedans : une boule à neige, une lettre, une clé.</div>
+          <div class="character">MAYA</div>
+          <div class="dialogue">C’est tout ce qui reste.</div>
+          <div class="action">Elle prend la boule à neige. La secoue. Regarde tomber la fausse neige.</div>
+          <div class="transition">CUT TO:</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section class="bg-violet">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="lightbulb"></i>
+        Short Film Tips
+      </span>
+      <h2 class="section-title">Écrire court</h2>
+      <p class="section-intro">
+        Un court métrage n’est pas un long en plus petit. Il demande une autre façon de raconter.
+      </p>
+
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="fast-forward"></i>
+            <h3>Entrer tard, sortir tôt</h3>
+          </div>
+          <p>Un court n’a pas le temps des longues installations. Entrez dans vos scènes le plus tard possible, souvent au milieu d’une conversation ou d’une action. Sortez dès que le point dramatique est marqué.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="map-pin"></i>
+            <h3>Limitez les décors</h3>
+          </div>
+          <p>Chaque nouveau décor coûte du temps et de l’argent au tournage. Sur un court, visez un à trois décors, pas plus. Plusieurs scènes au même endroit créent aussi une continuité visuelle.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="users"></i>
+            <h3>Réduisez la distribution</h3>
+          </div>
+          <p>Deux ou trois personnages suffisent souvent à faire un court fort. Chaque personnage, c’est un casting et du temps d’écran en plus. Moins de personnages, c’est plus de profondeur pour chacun.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-header">
+            <i data-lucide="eye"></i>
+            <h3>Racontez par l’image</h3>
+          </div>
+          <p>Les courts marchent souvent mieux avec peu de dialogue. Servez-vous des lignes d’action pour raconter par l’image. Un regard, un geste, un objet peuvent remplacer des conversations entières.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Use -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="list-ordered"></i>
+        How to Use
+      </span>
+      <h2 class="section-title">Quatre étapes pour démarrer</h2>
+      <p class="section-intro">
+        Du modèle au scénario, en quelques minutes.
+      </p>
+
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Ouvrir le modèle</h3>
+            <p>Cliquez sur le bouton ci-dessous pour ouvrir le modèle dans Google Docs. Vous tombez sur une page de court métrage d’exemple, avec tout le format déjà réglé.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Make a Copy</h3>
+            <p>Allez dans Fichier → Créer une copie pour garder votre version. Renommez-la avec le titre de votre projet. Le modèle d’origine reste intact pour la prochaine fois.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Remplacer le contenu d’exemple</h3>
+            <p>Supprimez les scènes d’exemple et écrivez les vôtres. Les styles restent en place. Vous tapez vos titres de séquence, vos actions et vos dialogues.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Installer Screenplay Editor (facultatif)</h3>
+            <p>Pour la mise en forme automatique, les raccourcis clavier et les exports, installez le module Google Docs. On écrit plus vite et le format ne dérive pas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <span class="section-label">
+      <i data-lucide="rocket"></i>
+      Ready to Write
+    </span>
+    <h2 class="section-title">Commencez votre court aujourd’hui</h2>
+    <p class="section-intro">
+      Le format professionnel, sans rien régler. Vous ouvrez, vous copiez, vous écrivez.
+    </p>
+    <div class="cta-buttons">
+      <a href="/free-google-docs-screenplay-template" class="cta-button primary">
+        <i data-lucide="download"></i>
+        Obtenir le modèle
+      </a>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button secondary" target="_blank" rel="noopener">
+          <i data-lucide="plus"></i>
+          Installer l’extension Chrome
+        </a>
+        <p style="font-size: 12px; color: var(--gray-400); margin: 0;">Recommandé, la mise en forme la plus rapide</p>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary" target="_blank" rel="noopener">
+          <i data-lucide="plus"></i>
+          Installer le module Workspace
+        </a>
+        <p style="font-size: 12px; color: var(--gray-400); margin: 0;">Fonctionne dans tous les navigateurs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Step -->
+  <section class="bg-gray">
+    <div class="section-inner" style="text-align: center;">
+      <span class="section-label">
+        <i data-lucide="arrow-right"></i>
+        Next Step
+      </span>
+      <h2 class="section-title">Votre scénario est prêt ?</h2>
+      <p class="section-intro" style="margin: 0 auto 28px;">
+        Voyez comment le faire lire par des producteurs. Des méthodes réelles, de vrais mails, par quelqu’un qui l’a fait.
+      </p>
+      <a href="/resources/how-to-get-your-short-film-read-by-producers" class="btn-outline">
+        <i data-lucide="send"></i>
+        How to Reach Producers
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <nav class="footer-nav">
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions d’utilisation</a>
+        <a href="/fr/resources/">Ressources</a>
+      </nav>
+      <p class="footer-copy">© 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

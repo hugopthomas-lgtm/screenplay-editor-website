@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modèle de pilote de série - gratuit pour Google Docs</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Un modèle de pilote de série gratuit pour Google Docs, déjà au format. Avec l’ouverture de Succession : poser un monde, une famille et un conflit en quelques pages.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/resources/tv-pilot-screenplay-template.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/resources/tv-pilot-screenplay-template">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/resources/tv-pilot-screenplay-template.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/resources/tv-pilot-screenplay-template">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Modèle de pilote de série - gratuit pour Google Docs">
+  <meta property="og:description" content="Un modèle de pilote de série gratuit pour Google Docs, déjà au format. Avec l’ouverture de Succession : poser un monde, une famille et un conflit en quelques pages.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/resources/tv-pilot-screenplay-template.html">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: var(--violet);
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: var(--site-header-h, 65px);
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Hero Section - Dark */
+    .hero {
+      padding: 80px 32px 80px;
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      text-align: center;
+    }
+
+    .hero * {
+      color: #fff;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-400);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-400);
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--violet);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hero-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Section Base */
+    section {
+      padding: 80px 32px;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 22px;
+      height: 22px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 700px;
+      line-height: 1.8;
+    }
+
+    .section-intro + .section-intro {
+      margin-top: 20px;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Checklist */
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .checklist-icon {
+      width: 28px;
+      height: 28px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .checklist-icon i {
+      width: 16px;
+      height: 16px;
+      color: #43a047;
+    }
+
+    .checklist-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .checklist-item p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Film Section */
+    .film-image {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .film-content {
+      max-width: 700px;
+    }
+
+    .film-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+    }
+
+    .film-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .film-content strong {
+      color: var(--dark);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-button i {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 32px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
+    }
+
+    .footer-nav {
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 26px;
+      }
+
+      .cta-section .section-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+  <script src="/header.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://screenplayeditor.app/resources/tv-pilot-screenplay-template#main",
+      "headline": "TV Pilot Screenplay Template",
+      "description": "Free TV pilot screenplay template for Google Docs. Formatted opening from Succession (2018). Setup world, characters, and conflict in minutes.",
+      "url": "https://screenplayeditor.app/resources/tv-pilot-screenplay-template",
+      "image": "https://screenplayeditor.app/hero-screenshot.png",
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas",
+        "url": "https://screenplayeditor.app/about",
+        "jobTitle": "Screenwriter and film director"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Screenplay Editor",
+        "url": "https://screenplayeditor.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://screenplayeditor.app/favicon.png"
+        }
+      },
+      "mainEntityOfPage": "https://screenplayeditor.app/resources/tv-pilot-screenplay-template",
+      "datePublished": "2025-12-30",
+      "dateModified": "2026-06-20"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://screenplayeditor.app/resources/tv-pilot-screenplay-template#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://screenplayeditor.app/resources"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "TV Pilot Screenplay Template",
+          "item": "https://screenplayeditor.app/resources/tv-pilot-screenplay-template"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+
+<body>
+  <site-header></site-header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="/fr/">Accueil</a> / <a href="/fr/resources/">Ressources</a> / <span>Modèle pilote de série</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="tv"></i>
+      Modèle gratuit
+    </div>
+    <h1>À qui reviennent les clés du royaume ?</h1>
+    <p class="hero-subtitle">
+      Un modèle de pilote de série pour Google Docs. Déjà au format. Prêt à lancer votre série.
+    </p>
+    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="hero-cta">
+      <i data-lucide="download"></i>
+      Obtenir le modèle (gratuit)
+    </a>
+    <p class="hero-note">Ça s’ouvre dans Google Docs. Faites une copie et écrivez.</p>
+  </section>
+
+  <!-- Pourquoi ce modèle ? -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="help-circle"></i>
+        Pourquoi ce modèle ?
+      </span>
+      <h2 class="section-title">Un pilote vend cent épisodes.</h2>
+      <p class="section-intro">
+        Un pilote n’est pas un premier épisode, c’est une proposition commerciale. Vous demandez à une chaîne ou à une plateforme d’engager des années et des millions sur soixante pages. Ces pages doivent prouver que votre monde est assez profond pour tenir cent heures. Que vos personnages sont assez compliqués pour continuer d’évoluer. Que votre conflit central est un moteur, pas un événement isolé.
+      </p>
+      <p class="section-intro">
+        Les meilleurs pilotes installent tout sans rien expliquer. Ils vous lâchent dans un monde déjà en marche et vous font confiance pour suivre. Chaque entrée de personnage est une déclaration. Chaque scène installe une dynamique qui paiera en saison trois. Le pilote ne lance pas seulement l’histoire, il contient l’ADN de toutes celles que la série racontera.
+      </p>
+      <p class="section-intro">
+        Ce modèle vous donne le format. Découpage en actes, titres de séquence, dialogues de groupe, tout est au standard professionnel. Vous apportez le monde. Les marges sont déjà justes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Ce qu’il contient -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="package"></i>
+        Ce qu’il contient
+      </span>
+      <h2 class="section-title">Tout ce qu’il vous faut</h2>
+
+      <div class="checklist">
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Format professionnel</h4>
+            <p>Courier 12, marges justes</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Structure de séquence déjà posée</h4>
+            <p>À adapter ou à supprimer</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Personnages et dialogues au format</h4>
+            <p>Prêts à l’emploi</p>
+          </div>
+        </div>
+        <div class="checklist-item">
+          <div class="checklist-icon"><i data-lucide="check"></i></div>
+          <div>
+            <h4>Marche avec Screenplay Editor</h4>
+            <p>Mise en forme en un clic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le film derrière le modèle -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="film"></i>
+        Le film derrière le modèle
+      </span>
+      <h2 class="section-title">Succession (2018)</h2>
+      <img src="/succession.webp" alt="Succession (2018) - The Roy Family" class="film-image">
+      <div class="film-content">
+        <p>
+          Ce modèle est bâti autour de l’ouverture de <strong>Succession</strong> (2018), créée par Jesse Armstrong. Le pilote commence dans le noir. Logan Roy, magnat des médias, patriarche milliardaire, se réveille désorienté au milieu de la nuit. Il ne sait pas où il est. Il urine sur la moquette de sa propre chambre. Pas de dialogue. Pas d’exposition. Juste un homme qui a bâti un empire, seul dans le noir, en train de perdre le contrôle de son corps.
+        </p>
+        <p>
+          Puis le petit-déjeuner de famille. Et Armstrong fait une chose extraordinaire : il présente toute une distribution en une seule scène. Kendall joue une assurance qu’il n’a pas. Shiv garde ses distances. Roman esquive par la blague. Connor tourne autour. Chacun entre avec une énergie propre, un rapport propre à Logan, une blessure propre qu’il passera quatre saisons à cacher.
+        </p>
+        <p>
+          Voilà la leçon. L’ouverture dit tout par le comportement, pas par les mots. La fragilité de Logan est le secret sur lequel repose toute la série : un roi mourant qui refuse de désigner son héritier. La scène du petit-déjeuner n’explique pas les rapports de famille, elle les joue. Le spectateur lit la pièce comme on lit un vrai repas de famille. Qui est assis où. Qui parle en premier. Qui se fait couper. Qui rit à la blague et qui ne rit pas.
+        </p>
+        <p>
+          Succession a duré quatre saisons et gagné deux fois l’Emmy de la meilleure série dramatique. Le pilote d’Armstrong est devenu un modèle pour toute une génération de séries de prestige, bâties sur le pouvoir, la famille et l’écart entre la représentation publique et le désespoir privé. Il fonctionne parce qu’il promet exactement ce que la série tient : une famille qui a tout, sauf la seule chose qu’elle veut.
+        </p>
+        <p>
+          <strong>C’est comme ça qu’on ouvre une série. C’est la place que ce modèle vous laisse pour la construire.</strong>
+        </p>
+
+        <!-- SCENE PLACEHOLDER: Succession (2018) - Opening: Logan Roy wakes up disoriented in the middle of the night in his darkened bedroom, stumbles around confused, and urinates on the carpet. Then the family breakfast scene at the Roy compound where the entire ensemble is introduced — Kendall arrives performing confidence, Roman cracks jokes, Shiv maintains distance, Connor lingers at the edges — and the power dynamics of the Roy family are revealed through behavior and subtext as Logan's 80th birthday and the question of succession hang over everything. The formatted scene text will be added here manually. -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <h2 class="section-title">Écrivez.</h2>
+    <p class="section-intro">
+      Le modèle est gratuit. L’empire est à vous.
+    </p>
+    <a href="https://docs.google.com/document/d/1cY2yE_lpTtiHmy7zgWLzQt2gGx8mohqRlWnGLLDy0k4/copy" class="cta-button">
+      <i data-lucide="download"></i>
+      Obtenir le modèle (gratuit)
+    </a>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <nav class="footer-nav">
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions d’utilisation</a>
+        <a href="/fr/resources/">Ressources</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
