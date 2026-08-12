@@ -16,8 +16,6 @@
   <meta property="og:url" content="https://screenplayeditor.app/terms">
   <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     * {
@@ -177,14 +175,14 @@
     }
 
     .page-content > p {
-      font-size: 14px;
+      font-size: 16px; max-width: 68ch;
       color: #555;
       line-height: 1.7;
       margin-bottom: 30px;
     }
 
     .page-content h2 {
-      font-size: 16px;
+      font-size: 28px; letter-spacing: -0.02em;
       font-weight: 600;
       margin-top: 35px;
       margin-bottom: 15px;
@@ -194,7 +192,7 @@
     }
 
     .page-content h3 {
-      font-size: 14px;
+      font-size: 19px;
       font-weight: 600;
       margin-top: 20px;
       margin-bottom: 10px;
@@ -202,7 +200,7 @@
     }
 
     .page-content p {
-      font-size: 14px;
+      font-size: 16px; max-width: 68ch;
       color: #555;
       line-height: 1.7;
       margin-bottom: 15px;
@@ -294,6 +292,7 @@
   </style>
   <script src="/header.js"></script>
   <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
 </head>
