@@ -157,23 +157,60 @@ h1, h2, h3,
 }
 p, li { text-wrap: pretty; }
 
-/* Le chiffre qui compte se pose sur un bloc de couleur plein, très
-   légèrement de travers, comme un coup de surligneur. Sur violet
-   plein il faut du texte sombre : du blanc sur #9D7BEA ne passe pas
-   le contraste. */
+/* Le coup de surligneur. Le bloc n'est pas un rectangle droit : il est
+   penché ET les bords verticaux sont obliques, comme une trace de
+   feutre. Le fond vit dans un pseudo-élément pour que les lettres,
+   elles, restent d'aplomb. */
 span.mark {
+  position: relative;
+  isolation: isolate;
   display: inline-block;
-  padding: 0.08em 0.28em 0.12em;
-  margin: 0 0.1em 0 0.06em;
+  padding: 0.06em 0.32em 0.1em;
+  margin: 0 0.08em 0 0.04em;
   color: #141416;
-  background: #C6AEFA;   /* le violet éclairci : un surligneur doit trancher, */
-  transform: rotate(-2deg);  /* et du texte noir sur #9D7BEA ne tranche pas */
   white-space: nowrap;
 }
-/* sur fond clair, on inverse : violet profond, texte blanc */
-span.mark-dark {
-  background: #6B4FB8;
-  color: #fff;
+/* Un titre serre a 1.12 d'interligne n'a pas la place d'accueillir un
+   bloc : le surlignage mordait sur la ligne du dessus. On rend la place. */
+h1:has(> span.mark), h2:has(> span.mark), h3:has(> span.mark),
+h1:has(span.mark), h2:has(span.mark), h3:has(span.mark) { line-height: 1.34; }
+
+span.mark::before {
+  content: "";
+  position: absolute;
+  inset: 0 -0.06em;
+  z-index: -1;
+  background: #C6AEFA;   /* sur fond clair, le violet eclairci : plein, il */
+  transform: rotate(-1.6deg) skewX(-9deg);  /* ecrase le texte noir pose dessus */
+}
+/* Le trait se peint de gauche à droite quand le bloc entre dans l'écran.
+   Piloté par le défilement, sans une ligne de JavaScript. Par défaut le
+   surlignage est simplement là : on ne cache jamais du contenu derrière
+   une animation que le navigateur ne saurait pas jouer. */
+@keyframes mark-sweep {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@supports (animation-timeline: view()) {
+  span.mark::before {
+    animation: mark-sweep 1s linear both;
+    animation-timeline: view();
+    animation-range: entry 30% cover 20%;
+  }
+  /* Dans le hero, rien ne défile encore : le trait se peint à l'arrivée. */
+  body.hero-loaded .hero span.mark::before {
+    animation: mark-sweep .8s cubic-bezier(.22, .68, .28, 1) 1.15s both;
+    animation-timeline: auto;
+  }
+}
+
+/* Sur fond sombre le rapport s'inverse : c'est le violet plein des
+   boutons qui tranche, l'eclairci y paraitrait laiteux. */
+.hero span.mark::before,
+.cta-section span.mark::before { background: var(--violet); }
+
+@media (prefers-reduced-motion: reduce) {
+  span.mark::before { animation: none !important; clip-path: inset(0 0 0 0); transition: none; }
 }
 
 /* Le ™ de Plus Jakarta Sans a une chasse large et s'assoit sur la
