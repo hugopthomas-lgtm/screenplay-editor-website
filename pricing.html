@@ -43,6 +43,12 @@
     .plan li { font-size: 13px; margin-bottom: 9px; color: #444; }
     .plan.pop li { color: #ddd8e8; }
     .plan .ck { color: var(--violet); font-weight: 700; margin-right: 7px; }
+
+    /* Microcopie de reassurance, juste sous le bouton : c'est la que l'on hesite. */
+    .plan-reassure { margin-top: 12px; font-size: 11.5px; line-height: 1.65; color: #8d8d96; text-align: center; }
+    .plan-reassure strong { color: #5f5f6b; font-weight: 600; }
+    .plan-reassure a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
     .plan-cta { display: block; text-align: center; background: var(--violet); color: #fff; padding: 13px 18px;
       border-radius: 8px; font-size: 13.5px; font-weight: 600; transition: background .2s, transform .2s; }
     .plan-cta:hover { background: var(--violet-dark); transform: translateY(-1px); }
@@ -98,6 +104,7 @@
   <meta property="og:url" content="https://screenplayeditor.app/pricing">
   <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
+  <script src="/footer.js"></script>
 </head>
 <body>
   <site-header></site-header>
@@ -127,6 +134,7 @@
           <li><span class="ck">&#10003;</span>No account, no card</li>
         </ul>
         <a class="plan-cta ghost" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Start free</a>
+        <p class="plan-reassure">No account, no card. It installs in about thirty seconds.</p>
       </div>
 
       <div class="plan pop">
@@ -142,6 +150,7 @@
         </ul>
         <a class="plan-cta" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Add to Chrome</a>
         <a class="plan-second" href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" target="_blank" rel="noopener">or start with the Docs add-on</a>
+        <p class="plan-reassure"><strong>$0 today.</strong> No card to start, and Pro is billed only when you choose it. Cancel in two clicks, your scripts stay in your Drive.</p>
       </div>
     </section>
 
@@ -180,22 +189,7 @@
     </section>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
-      <nav class="footer-nav">
-        <a href="/about">About</a>
-        <a href="/pricing">Pricing</a>
-        <a href="/schools">Schools</a>
-        <a href="/compare">Compare</a>
-        <a href="/blog">Blog</a>
-        <a href="/resources">Resources</a>
-        <a href="/support">Support</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
-      </nav>
-      <p class="footer-copy">&copy; 2026 Screenplay Editor. Made for screenwriters.</p>
-    </div>
-  </footer>
+  <site-footer></site-footer>
+
 </body>
 </html>
