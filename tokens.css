@@ -195,11 +195,14 @@ span.mark::before {
   span.mark::before {
     animation: mark-sweep 1s linear both;
     animation-timeline: view();
-    animation-range: entry 30% cover 20%;
+    /* Le trait ne se peint pas des que le bloc pointe en bas de l'ecran :
+       il attend qu'il soit entierement visible, puis se peint sur une
+       bonne longueur de defilement. Sinon c'est deja fini quand on regarde. */
+    animation-range: entry 95% cover 42%;
   }
   /* Dans le hero, rien ne défile encore : le trait se peint à l'arrivée. */
   body.hero-loaded .hero span.mark::before {
-    animation: mark-sweep .8s cubic-bezier(.22, .68, .28, 1) 1.15s both;
+    animation: mark-sweep .95s cubic-bezier(.22, .68, .28, 1) 1.35s both;
     animation-timeline: auto;
   }
 }
