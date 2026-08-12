@@ -154,8 +154,8 @@
         'display:inline-flex;align-items:center;gap:7px;white-space:nowrap;' +
         'padding:9px 19px;border-radius:999px;font-size:13px;font-weight:600;' +
         'text-decoration:none;}' +
-        '.cta{transition:background .3s cubic-bezier(.4,0,.2,1),border-radius .3s cubic-bezier(.4,0,.2,1),transform .3s cubic-bezier(.4,0,.2,1);}' +
-        '.cta:hover{background:' + VIOLET_DARK + ';transform:translateY(-1px);border-radius:10px;}' +
+        '.cta{transition:background .3s cubic-bezier(.4,0,.2,1),transform .3s cubic-bezier(.4,0,.2,1);}' +
+        '.cta:hover{background:' + VIOLET_DARK + ';transform:translateY(-1px);}' +
         '.cta .flame{width:16px;height:16px;flex-shrink:0;filter:brightness(0) invert(1);}' +
 
         '.burger{display:none;margin-left:14px;margin-right:6px;width:24px;height:18px;' +

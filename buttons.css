@@ -8,8 +8,9 @@
    sépare un bouton fait maison d'un bouton fait par une équipe.
 
    Règle : on ne touche qu'au rayon, à la couleur et à l'ombre.
-   Les boutons en gélule (rayon 999) sont exclus : les carrer
-   entièrement casserait leur forme au lieu de la préciser.
+   Tous les boutons de contenu finissent CARRÉS, gélules comprises :
+   un survol qui s'arrête à mi-chemin rate son effet. Seul le bouton
+   de la pilule du header est exclu, faute de place.
    ============================================================ */
 
 /* Départ plus rond : la feuille est chargée en dernier, elle impose le rayon
@@ -48,18 +49,15 @@
 .hero-cta:hover,
 .btn-outline:hover,
 .uccello-cta:hover,
+.submit-btn:hover,
 .cta-bottom:hover {
   border-radius: 0;
 }
 
-/* Les gélules ne se carrent pas complètement : elles se resserrent,
-   ce qui donne le même signal sans casser la forme. */
-.submit-btn:hover {
-  border-radius: 10px;
-}
-
-/* Le bouton de la pilule du header vit dans un Shadow DOM :
-   son effet est défini dans header.js, pas ici. */
+/* Le bouton de la pilule du header ne change PAS de rayon : la pilule
+   est étroite, un bouton qui se carre dedans dépasse visuellement.
+   Il garde la même courbe et la même durée, sur la couleur seulement
+   (défini dans header.js, ce bouton vit dans un Shadow DOM). */
 
 @media (prefers-reduced-motion: reduce) {
   .cta-button,
@@ -83,4 +81,52 @@
   .submit-btn:hover {
     border-radius: inherit;
   }
+}
+
+/* ------------------------------------------------------------
+   VARIANTE CONTOUR (reprise de Final Draft, dans notre palette)
+   Au repos : un liseré sobre, arrondi.
+   Au survol : le liseré s'allume en dégradé et le bouton se carre.
+   Le dégradé est peint par un pseudo-élément masqué pour n'éclairer
+   que l'anneau : c'est la seule façon d'avoir une bordure dégradée
+   qui suive le rayon ET qui puisse s'animer en opacité.
+   ------------------------------------------------------------ */
+.cta-button-outline,
+.btn-outline {
+  position: relative;
+  isolation: isolate;
+}
+
+.cta-button-outline::after,
+.btn-outline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(100deg, #E879C7 0%, #9D7BEA 38%, #7B9BEA 68%, #6ED8D2 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .3s cubic-bezier(.4, 0, .2, 1),
+              border-radius .3s cubic-bezier(.4, 0, .2, 1);
+  pointer-events: none;
+}
+
+.cta-button-outline:hover::after,
+.btn-outline:hover::after {
+  opacity: 1;
+}
+
+/* la bordure d'origine s'efface pour laisser la place au dégradé */
+.cta-button-outline:hover,
+.btn-outline:hover {
+  border-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-button-outline::after,
+  .btn-outline::after { transition: none; }
 }
