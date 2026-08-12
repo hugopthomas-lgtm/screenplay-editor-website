@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La meilleure astuce de dialogue que je connaisse - Screenplay Editor</title>
+  <meta name="description" content="Pourquoi j’ai arrêté d’inventer des personnages pour copier des gens réels. La méthode d’un scénariste pour des dialogues qui sonnent vrai.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/best-dialogue-hack.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/best-dialogue-hack">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/best-dialogue-hack.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/best-dialogue-hack">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="La meilleure astuce de dialogue que je connaisse - Screenplay Editor">
+  <meta property="og:description" content="Pourquoi j’ai arrêté d’inventer des personnages pour copier des gens réels. La méthode d’un scénariste pour des dialogues qui sonnent vrai.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/best-dialogue-hack.html">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+      --gray-500: #737373;
+      --gray-600: #525252;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      position: relative;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--dark);
+      cursor: pointer;
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: 60px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Article Container */
+    .article-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 60px 30px 100px;
+    }
+
+    .article-date {
+      font-size: 12px;
+      color: var(--violet);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .article-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 40px;
+      line-height: 1.3;
+    }
+
+    /* Article Content */
+    .article-content p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .article-content h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-top: 48px;
+      margin-bottom: 20px;
+    }
+
+    .article-content em {
+      font-style: italic;
+    }
+
+    .article-content strong {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Article Images */
+    .article-hero-wrapper {
+      margin-bottom: 40px;
+    }
+
+    .article-hero {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px dashed var(--violet);
+      padding: 4px;
+      background: var(--violet-light);
+    }
+
+    .article-figure {
+      margin: 32px 0;
+    }
+
+    .article-figure img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px dashed var(--violet);
+      padding: 4px;
+      background: var(--violet-light);
+    }
+
+    .article-figure.document img {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-figure figcaption {
+      font-size: 12px;
+      color: #888;
+      font-style: italic;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Pull Quotes */
+    .pull-quote {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 16px 0 0 0;
+      text-align: center;
+    }
+
+    .pull-quote p {
+      font-size: 24px;
+      font-style: italic;
+      color: var(--violet);
+      line-height: 1.5;
+      border-left: 3px solid var(--violet);
+      padding-left: 24px;
+      text-align: left;
+      margin-bottom: 0;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      margin-top: 50px;
+      padding: 14px 24px;
+      background: var(--violet-light);
+      color: var(--violet);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--violet);
+      margin-bottom: 22px;
+    }
+
+    .footer-nav {
+      margin-bottom: 22px;
+    }
+
+    .footer-nav a {
+      color: #888;
+      margin: 0 14px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-content {
+        padding: 15px 20px;
+      }
+
+      .header-nav a {
+        margin-left: 18px;
+        font-size: 12px;
+      }
+
+      .article-container {
+        padding: 40px 20px 80px;
+      }
+
+      .article-title {
+        font-size: 1.6rem;
+      }
+
+      .footer-nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://screenplayeditor.app/blog/best-dialogue-hack#main",
+      "headline": "La meilleure astuce de dialogue que je connaisse (après dix ans à me tromper)",
+      "description": "Why I stopped inventing characters and started copying real people instead. A screenwriter's guide to authentic dialogue.",
+      "url": "https://screenplayeditor.app/blog/best-dialogue-hack",
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas",
+        "url": "https://screenplayeditor.app/about",
+        "jobTitle": "Screenwriter and film director"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Screenplay Editor",
+        "url": "https://screenplayeditor.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://screenplayeditor.app/favicon.png"
+        }
+      },
+      "mainEntityOfPage": "https://screenplayeditor.app/blog/best-dialogue-hack",
+      "datePublished": "2026-01-15",
+      "dateModified": "2026-02-28"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://screenplayeditor.app/blog/best-dialogue-hack#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://screenplayeditor.app/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "La meilleure astuce de dialogue que je connaisse (après dix ans à me tromper)",
+          "item": "https://screenplayeditor.app/blog/best-dialogue-hack"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/fr/#features">Fonctions</a>
+        <a href="/fr/blog.html" class="highlight">Blog</a>
+        <a href="/fr/resources/">Ressources</a>
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="/fr/">Accueil</a> / <a href="/fr/blog.html">Blog</a> / <span>La meilleure astuce de dialogue</span>
+      </div>
+    </div>
+  </div>
+
+  <article class="article-container">
+    <div class="article-date">15 janvier 2026</div>
+    <h1 class="article-title">La meilleure astuce de dialogue que je connaisse (après dix ans à me tromper)</h1>
+
+    <div class="article-hero-wrapper">
+      <img src="/blog/images/hero.jpg" alt="Hugo Thomas en train d’écrire avec des post-it" class="article-hero">
+    </div>
+
+    <div class="article-content">
+      <p>Pendant une dizaine d’années, j’ai cru que les gens autour de moi n’étaient pas assez intéressants pour le cinéma. Pas par mépris pour eux, plutôt par une forme d’auto-dénigrement, je crois. Ma vie et mon entourage me paraissaient trop ordinaires, trop banals, et je me disais que raconter vraiment quelque chose supposait d’aller chercher ailleurs, plus loin, de quoi mériter l’écran.</p>
+
+      <p>Bref, je me trompais complètement. En fait, tout le monde autour de moi est déglingué à sa manière, de façon précise et fascinante. C’est juste que je ne regardais pas.</p>
+
+      <h2>Ce qui a changé</h2>
+
+      <p>Le basculement est arrivé quand je me suis mis à écrire des nouvelles pour le plaisir. De la satire, surtout : je me moquais de gens que je connaissais. Et il s’est produit une chose bizarre. Ce que je prenais pour de la moquerie était en réalité de la description. J’essayais d’exagérer ces gens, de les pousser vers la caricature, et je ne faisais que les observer. Avec justesse. Ce n’était pas vraiment le but, mais voilà.</p>
+
+      <p>C’est là que j’ai compris la force du procédé. Écrire est devenu plus facile d’un coup, non pas parce que j’inventais mieux, mais parce que j’avais arrêté d’inventer.</p>
+
+      <blockquote class="pull-quote">
+        <p>Ce que je prenais pour de la moquerie était de la description.</p>
+      </blockquote>
+
+      <h2>Pourquoi partir d’un acteur ne marche pas vraiment</h2>
+
+      <p>On conseille souvent d’imaginer un acteur dans le rôle, ou d’écrire avec la voix d’un personnage de fiction qu’on aime. J’ai essayé pendant des années. Ça n’a jamais vraiment marché, en tout cas jamais assez profondément pour compter.</p>
+
+      <p>Je croyais que la « voix » était une affaire de langue. Des choses de surface : la façon de tourner une phrase, les tics de langage. C’est bien plus profond que ça. C’est tout ce qu’il y a derrière les mots. Toute l’architecture psychologique qui décide de ce qu’une personne dirait dans telle situation. Difficile à expliquer, mais on le sent quand ça manque.</p>
+
+      <p>Le problème des personnages de fiction, même ceux qu’on connaît intimement, c’est qu’on ne les connaît pas assez. Prenez Nate Fisher, dans Six Feet Under. C’est sans doute l’un des personnages que je connais le mieux au monde, après avoir revu chaque épisode plusieurs fois. Mais quand j’essaie d’écrire à partir de lui, avec quoi je travaille au juste ? « Bon père de famille, droit, un peu tourmenté, essaie de bien faire. » Et c’est à peu près tout. C’est de la caricature, pas un personnage.</p>
+
+      <figure class="article-figure">
+        <img src="/blog/images/nate-fisher.jpg" alt="Nate Fisher from Six Feet Under">
+        <figcaption>Nate Fisher (Peter Krause) dans Six Feet Under.</figcaption>
+      </figure>
+
+      <p>La fiction ne descend jamais assez profond, parce qu’on part d’une impression de surface, sur quelqu’un que quelqu’un d’autre a déjà inventé. Une copie de copie. Une photo de photo. Des gens réels, en revanche, vous connaissez ce qui n’est jamais arrivé sur aucun écran. Les contradictions qui n’entrent dans aucun arc bien propre. Les détails bizarres et précis qu’aucun auteur n’aurait l’idée d’inventer, parce qu’ils sont trop particuliers, trop étranges, trop vrais.</p>
+
+      <blockquote class="pull-quote">
+        <p>Une copie de copie. Une photo de photo.</p>
+      </blockquote>
+
+      <h2>Ne mélangez pas les gens</h2>
+
+      <p>Autre conseil courant : fabriquer des personnages composites. Un bout de votre oncle, une part de votre voisin, plus ce type de la fac. J’en suis venu à penser que c’est une erreur, en tout cas pour moi.</p>
+
+      <p>Les gens réels contiennent déjà leurs contradictions, et ce sont elles qui les rendent intéressants. Vous pensez « informaticien » et vous attendez le cliché du geek, sauf que celui que vous connaissez est fou de foot, et cette tension, cette combinaison inattendue, fait déjà partie de lui. Vous n’avez rien eu à inventer. C’est là.</p>
+
+      <p>Quand vous mélangez plusieurs personnes, vous perdez cette cohérence interne. Le résultat sonne moins vrai, pas plus. Parce que les contradictions d’une personne réelle ont un sens : la vie le leur a donné, sur des années et des décennies d’expérience et de circonstances. Les contradictions d’un personnage composite ne sont que des assemblages au hasard, sans cette logique en dessous. Ça ne tient pas de la même façon.</p>
+
+      <p>D’où ma règle : un personnage, une personne réelle. Pas de fusion, pas de mélange, pas de traits piochés à droite et à gauche. L’invention, je la garde pour l’intrigue.</p>
+
+      <h2>Les gens reviennent toujours à leur obsession</h2>
+
+      <p>L’observation la plus utile que j’ai faite sur les gens réels, c’est qu’ils sont incroyablement prévisibles. De la meilleure manière qui soit pour un auteur.</p>
+
+      <p>Vous allez voir votre oncle raciste et vous parlez de n’importe quoi. La météo, ce que vous avez mangé, un film vu récemment. Et immanquablement, la conversation revient sur l’immigration. À chaque fois. Sans exception. C’est presque impressionnant.</p>
+
+      <p>Votre cousine à fond dans les huiles essentielles fonctionne pareil. Vous parlez des problèmes de votre enfant à l’école et vous voilà sur la lavande, la régulation des émotions, l’industrie pharmaceutique et tout ce qui ramène à sa préoccupation centrale.</p>
+
+      <p>Ce n’est pas de la fiction, c’est la vie telle qu’elle est. Et c’est assez drôle une fois qu’on le remarque. Quand vous basez un personnage sur quelqu’un que vous connaissez bien, vous savez toujours ce qu’il dirait, parce que les gens réels sont, d’une certaine façon, leur propre caricature. Ils ont leurs obsessions, leurs schémas qui reviennent, leur manière de faire passer chaque expérience par le filtre de leur vision du monde. Vous n’avez rien à inventer de tout ça.</p>
+
+      <h2>Quand la réponse devient évidente</h2>
+
+      <p>Je travaillais sur une nouvelle, qui deviendra peut-être une pièce, on verra, et il y a un moment où une mère quitte sa famille et écrit une lettre à ses filles. D’habitude, ce genre de scène me paralyse. Que doit dire la lettre, sur quel ton, quels détails garder, lesquels couper. Je passe des heures à douter de chaque mot. À tourner en rond.</p>
+
+      <p>Sauf que j’avais construit ce personnage à partir d’une personne réelle. Alors au lieu de me demander « quelle serait la meilleure lettre pour cette scène ? », j’ai posé une autre question : « qu’est-ce qu’ELLE écrirait ? »</p>
+
+      <p>Et d’un coup, c’était évident.</p>
+
+      <p>La lettre serait sentimentale en surface, censément consacrée à ses filles et à son amour pour elles, en réalité entièrement tournée vers elle. Une fausse générosité qui masque un égocentrisme complet. Se faire l’héroïne de son propre départ, au moment même où elle abandonne sa famille. C’est simplement qui elle est.</p>
+
+      <figure class="article-figure document">
+        <img src="/blog/images/letter.png" alt="Screenshot of the letter">
+        <figcaption>La lettre.</figcaption>
+      </figure>
+
+      <p>J’ai tout écrit d’une traite, sans hésiter. Et c’est devenu le sommet émotionnel du texte.</p>
+
+      <p>C’est exactement ce que je n’aurais pas obtenu autrement. Je n’aurais pas pu inventer ça. Le paradoxe d’une lettre d’adieu secrètement égoïste est trop précis, trop bizarre, trop humain pour être fabriqué. Il est venu tout de suite parce que je n’inventais rien. Je demandais juste ce qu’une personne réelle ferait, et comme je la connaissais assez, la réponse était déjà là.</p>
+
+      <blockquote class="pull-quote">
+        <p>L’invention, je la garde pour l’intrigue, là où elle a sa place.</p>
+      </blockquote>
+
+      <h2>Où j’en suis</h2>
+
+      <p>Rien de tout ça ne remplace le métier. Il faut toujours structurer une histoire, écrire des scènes qui fonctionnent, gérer tout ce qui fait tenir un récit. Évidemment.</p>
+
+      <p>Mais pour le dialogue en particulier, pour la voix, pour ces moments où un personnage doit être vivant sur la page, ce qui a le plus changé les choses, c’est d’arrêter d’inventer et de copier la vie. Je connais sans doute cinquante personnes assez bien pour m’en servir comme ça, chacune avec ses tournures, ses obsessions et sa façon particulière d’être agaçante ou attachante, souvent les deux à la fois. Elles sont déjà plus complexes, plus contradictoires et plus intéressantes que tout ce que je pourrais fabriquer. Parce que la vie a passé des années à les faire ainsi.</p>
+
+      <p>L’invention, je la garde pour l’intrigue, là où elle a sa place.</p>
+    </div>
+
+    <a href="/blog" class="back-link">← Retour au blog</a>
+  </article>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR|</div>
+      <nav class="footer-nav">
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions d’utilisation</a>
+        <a href="/fr/blog.html">Blog</a>
+      </nav>
+      <p class="footer-copy">© 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+</body>
+</html>

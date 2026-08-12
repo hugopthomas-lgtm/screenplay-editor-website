@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les meilleurs modules gratuits de mise en forme pour Google Docs (2026)</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <meta name="description" content="Le tour d’horizon honnête, par un scénariste en activité, de tous les modules de mise en forme pour Google Docs en 2026 : Screenplay Editor, Fountainize, Fountain Tools et Screenplay Formatter.">
+  <meta name="keywords" content="best screenplay add-on Google Docs, free screenplay formatting, Google Docs screenwriting, Screenplay Editor, Fountainize, screenplay software free 2026">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/index.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/index">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/index.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/index">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Les meilleurs modules gratuits de mise en forme pour Google Docs (2026)">
+  <meta property="og:description" content="Le tour d’horizon honnête, par un scénariste en activité, de tous les modules de mise en forme pour Google Docs en 2026 : Screenplay Editor, Fountainize, Fountain Tools et Screenplay Formatter.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/index.html">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --dark: #1a1a1a;
+      --green: #34C759;
+      --red: #FF3B30;
+      --orange: #FF9500;
+    }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(248, 246, 252, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 1100px; margin: 0 auto; padding: 18px 30px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      position: relative; font-size: 16px; font-weight: 700;
+      letter-spacing: 1px; color: var(--dark); cursor: pointer;
+    }
+    .logo .cursor { color: var(--violet); }
+    .logo .full-name {
+      position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.2s;
+    }
+    .logo:hover .mark { opacity: 0; }
+    .logo:hover .full-name { opacity: 1; }
+    .header-nav a {
+      margin-left: 30px; font-size: 13px; font-weight: 500;
+      color: #666; transition: color 0.2s;
+    }
+    .header-nav a:hover { color: var(--violet); }
+
+    /* Breadcrumb */
+    .breadcrumb-bar {
+      margin-top: 60px; background: var(--dark); padding: 14px 30px;
+      border-bottom: 1px solid rgba(157, 123, 234, 0.4);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .breadcrumb-content {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 12px; font-size: 13px;
+    }
+    .breadcrumb-content a { color: var(--violet); transition: opacity 0.2s; }
+    .breadcrumb-content .separator { color: #555; }
+    .breadcrumb-content .current { color: #fff; font-weight: 600; }
+
+    /* Article */
+    .article {
+      max-width: 700px; margin: 0 auto; padding: 50px 30px 80px;
+    }
+    .article-date { font-size: 13px; color: #888; margin-bottom: 20px; }
+    .article h1 {
+      font-size: 26px; font-weight: 700; margin-bottom: 30px;
+      color: var(--dark); line-height: 1.3;
+    }
+    .article h2 {
+      font-size: 18px; font-weight: 700; margin-top: 45px; margin-bottom: 16px;
+      color: var(--dark);
+    }
+    .article h3 {
+      font-size: 15px; font-weight: 600; margin-top: 30px; margin-bottom: 12px;
+      color: var(--dark);
+    }
+    .article p {
+      margin-bottom: 18px; color: #444; font-size: 14px; line-height: 1.8;
+    }
+    .article a { color: var(--violet); }
+    .article a:hover { text-decoration: underline; }
+    .article blockquote {
+      border-left: 3px solid var(--violet); padding: 16px 24px;
+      margin: 24px 0; background: var(--violet-light); border-radius: 0 10px 10px 0;
+    }
+    .article blockquote p {
+      font-size: 15px; color: #5a4a7a; font-weight: 500; margin: 0;
+      font-style: italic;
+    }
+    .article strong { color: var(--dark); }
+
+    /* Tool card */
+    .tool-card {
+      background: #fff; border: 1px solid #eee; border-radius: 12px;
+      padding: 28px; margin: 24px 0;
+    }
+    .tool-card.recommended { border-left: 4px solid var(--green); }
+    .tool-card.caution { border-left: 4px solid var(--orange); }
+    .tool-card.dead { border-left: 4px solid var(--red); }
+    .tool-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px;
+    }
+    .tool-name { font-size: 16px; font-weight: 700; color: var(--dark); }
+    .tool-badge {
+      font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;
+    }
+    .tool-card.recommended .tool-badge { background: rgba(52, 199, 89, 0.15); color: var(--green); }
+    .tool-card.caution .tool-badge { background: rgba(255, 149, 0, 0.15); color: var(--orange); }
+    .tool-card.dead .tool-badge { background: rgba(255, 59, 48, 0.15); color: var(--red); }
+    .tool-card p { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 10px; }
+    .tool-card p:last-child { margin-bottom: 0; }
+    .tool-pros { color: var(--green); font-weight: 600; font-size: 12px; }
+    .tool-cons { color: var(--red); font-weight: 600; font-size: 12px; }
+
+    /* Quick pick box */
+    .quick-pick {
+      background: var(--dark); border-radius: 12px; padding: 30px; margin: 30px 0;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .quick-pick h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+    .quick-pick-item {
+      display: flex; gap: 12px; padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+    }
+    .quick-pick-item:last-child { border-bottom: none; }
+    .quick-pick-label { color: #aaa; min-width: 180px; }
+    .quick-pick-value { color: #fff; font-weight: 600; }
+    .quick-pick-value a { color: var(--violet); }
+
+    /* CTA */
+    .cta-box {
+      text-align: center; margin: 40px 0; padding: 30px;
+      background: var(--violet-light); border-radius: 12px;
+    }
+    .cta-box p { font-size: 15px; color: #5a4a7a; font-weight: 500; margin-bottom: 16px; }
+    .cta-button {
+      display: inline-block; background: var(--violet); color: #fff;
+      padding: 14px 28px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cta-button:hover { background: var(--violet-dark); transform: translateY(-1px); text-decoration: none; }
+
+    /* Back link */
+    .back-link {
+      display: inline-block; margin-top: 30px; font-size: 13px;
+      color: var(--violet); font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark); color: #fff; padding: 50px 30px;
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .footer-content { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .footer-logo { font-size: 16px; font-weight: 700; letter-spacing: 1px; color: var(--violet); margin-bottom: 22px; }
+    .footer-nav { margin-bottom: 22px; }
+    .footer-nav a { color: #888; margin: 0 14px; font-size: 12px; font-weight: 500; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-copy { font-size: 11px; color: #555; }
+
+    @media (max-width: 600px) {
+      .header-content { padding: 15px 20px; }
+      .header-nav a { margin-left: 18px; font-size: 12px; }
+      .article { padding: 40px 20px 60px; }
+      .article h1 { font-size: 22px; }
+      .quick-pick-item { flex-direction: column; gap: 4px; }
+      .quick-pick-label { min-width: auto; }
+      .footer-nav a { display: block; margin: 10px 0; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Les meilleurs modules gratuits de mise en forme pour Google Docs (2026)",
+    "description": "A working screenwriter's honest guide to every screenplay formatting add-on available for Google Docs in 2026.",
+    "author": {
+      "@type": "Person",
+      "name": "Hugo Thomas",
+      "url": "https://screenplayeditor.app/about"
+    },
+    "datePublished": "2026-02-05",
+    "dateModified": "2026-02-05",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Screenplay Editor"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">
+        <span class="mark">SCR<span class="cursor">▌</span></span>
+        <span class="full-name">SCREENPLAY EDITOR</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/fr/#features">Fonctions</a>
+        <a href="/fr/blog.html">Blog</a>
+        <a href="/fr/resources/">Ressources</a>
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <a href="/fr/">Accueil</a>
+      <span class="separator">→</span>
+      <a href="/fr/blog.html">Blog</a>
+      <span class="separator">→</span>
+      <span class="current">Les meilleurs modules de scénario pour Google Docs</span>
+    </div>
+  </div>
+
+  <main>
+    <article class="article">
+
+      <p class="article-date">5 février 2026</p>
+
+      <h1>Les meilleurs modules gratuits de mise en forme pour Google Docs (2026)</h1>
+
+      <p>
+        J’écris des scénarios professionnellement depuis plus de dix ans. Mon premier long métrage, <em>Willy 1er</em>, a été présenté à Cannes en 2016. Le deuxième, <em>Juniors</em>, s’est retrouvé sur Netflix. Je suis aussi le développeur de <a href="https://screenplayeditor.app">Screenplay Editor</a>, donc je préviens tout de suite : je suis juge et partie. Cela dit, je vais évaluer honnêtement chaque option.
+      </p>
+
+      <p>
+        Voici où en est la mise en forme du scénario dans Google Docs en février 2026.
+      </p>
+
+      <!-- Quick pick box -->
+      <div class="quick-pick">
+        <h3>La réponse courte</h3>
+        <div class="quick-pick-item">
+          <span class="quick-pick-label">Le meilleur dans l’ensemble :</span>
+          <span class="quick-pick-value"><a href="https://screenplayeditor.app">Screenplay Editor</a> gratuit pour commencer, aucune syntaxe à apprendre</span>
+        </div>
+        <div class="quick-pick-item">
+          <span class="quick-pick-label">Si vous connaissez Fountain :</span>
+          <span class="quick-pick-value">Fountain Tools, entretenu, gratuit, aperçu et export PDF</span>
+        </div>
+        <div class="quick-pick-item">
+          <span class="quick-pick-label">À éviter :</span>
+          <span class="quick-pick-value">Fountainize (abandonné), Screenplay Formatter (mort)</span>
+        </div>
+      </div>
+
+      <h2>Pourquoi écrire un scénario dans Google Docs ?</h2>
+
+      <p>
+        Avant de passer aux modules, il faut dire pourquoi on écrirait un scénario dans Google Docs plutôt que dans un logiciel dédié comme Final Draft (250 $), WriterDuet ou Arc Studio Pro.
+      </p>
+
+      <p>
+        La réponse tient presque toujours en trois mots : collaboration, coût, simplicité. Google Docs donne l’écriture à plusieurs en direct sans rien régler, il est gratuit, et vous savez déjà vous en servir. Pour beaucoup d’auteurs, surtout les étudiants, les débutants et ceux qui écrivent sans commande, la combinaison est difficile à battre.
+      </p>
+
+      <p>
+        Le hic, c’est que Google Docs ne sait pas à quoi ressemble un scénario. Il ignore que les noms de personnage se centrent, que le dialogue a ses marges, que les titres de séquence s’écrivent en majuscules et se collent à gauche. Il faut un module pour ça.
+      </p>
+
+      <h2>Les modules, ce qui existe vraiment</h2>
+
+      <p>
+        Il y a quatre modules liés au scénario sur le Google Workspace Marketplace. Voici un regard honnête sur chacun.
+      </p>
+
+      <!-- Tool 1: Screenplay Editor -->
+      <div class="tool-card recommended">
+        <div class="tool-header">
+          <span class="tool-name">1. Screenplay Editor</span>
+          <span class="tool-badge">✓ Recommandé</span>
+        </div>
+        <p>
+          <strong>Ce qu’il fait :</strong> Il ouvre un panneau dans Google Docs avec un bouton par élément de scénario : titre de séquence, action, personnage, dialogue, didascalie, transition. Vous cliquez, ou vous utilisez un raccourci clavier, et le paragraphe passe au standard du métier. Il y a aussi un bouton qui met en forme tout le document d’un coup.
+        </p>
+        <p>
+          <strong>En plus :</strong> Un panneau de gestion des personnages (suivre et insérer depuis une liste), l’export PDF, la page de titre, un minuteur Pomodoro et un Boneyard pour ranger les scènes coupées qu’on ne veut pas jeter. L’export Final Draft (.fdx) est disponible avec Pro.
+        </p>
+        <p>
+          <strong>Prix :</strong> Une formule gratuite sans limite d’éléments. Pro coûte 7,99 $ par mois et débloque l’export Final Draft (.fdx), les numéros de séquence, le dépouillement de production et le PDF sans filigrane.
+        </p>
+        <p>
+          <strong>État :</strong> Développé activement. Dernière mise à jour : février 2026. Plus de 12 000 utilisateurs.
+        </p>
+        <p>
+          <span class="tool-pros">Pour :</span> Rien à apprendre, aucune limite d’éléments, entretenu, gestion des personnages, export PDF, collaboration en temps réel.
+        </p>
+        <p>
+          <span class="tool-cons">Contre :</span> Outil récent (lancé en décembre 2024), et les exports avancés sont derrière Pro. Biais du développeur : c’est moi qui l’ai construit, prenez mon enthousiasme pour ce qu’il vaut.
+        </p>
+        <p>
+          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476">Installer depuis le Marketplace →</a>
+        </p>
+      </div>
+
+      <!-- Tool 2: Fountain Tools -->
+      <div class="tool-card recommended">
+        <div class="tool-header">
+          <span class="tool-name">2. Fountain Tools</span>
+          <span class="tool-badge">✓ Bonne alternative</span>
+        </div>
+        <p>
+          <strong>Ce qu’il fait :</strong> Si vous écrivez en <a href="https://fountain.io" target="_blank" rel="noopener">syntaxe Fountain</a>, Fountain Tools vous donne un aperçu en direct dans un panneau et un export PDF. Vous écrivez en texte brut avec les conventions Fountain (MAJUSCULES = personnage, INT./EXT. = titre de séquence, etc.) et le module affiche un aperçu mis en forme à côté du document.
+        </p>
+        <p>
+          <strong>Prix :</strong> Gratuit. Aucune limite d’éléments.
+        </p>
+        <p>
+          <strong>État :</strong> Entretenu, avec des mises à jour régulières.
+        </p>
+        <p>
+          <span class="tool-pros">Pour :</span> Gratuit, développé activement, bon export PDF, aperçu en direct, très bien pour qui connaît Fountain.
+        </p>
+        <p>
+          <span class="tool-cons">Contre :</span> Il faut apprendre la syntaxe Fountain. Le Google Doc reste en texte brut : la vue mise en forme n’existe que dans le panneau d’aperçu. Quelques cas limites de reconnaissance de caractères (Unicode, caractères spéciaux).
+        </p>
+        <p>
+          <a href="https://workspace.google.com/marketplace/app/fountain_tools/847298506478">Installer depuis le Marketplace →</a>
+        </p>
+      </div>
+
+      <!-- Tool 3: Fountainize -->
+      <div class="tool-card caution">
+        <div class="tool-header">
+          <span class="tool-name">3. Fountainize</span>
+          <span class="tool-badge">⚠ Abandonné</span>
+        </div>
+        <p>
+          <strong>Ce qu’il fait :</strong> Proche de Fountain Tools, mais au lieu d’un aperçu, il convertit vraiment votre texte Fountain en texte mis en forme dans le Google Doc. Vous écrivez en Fountain, vous appuyez sur un bouton, et les marges et la mise en forme s’appliquent.
+        </p>
+        <p>
+          <strong>Prix :</strong> Version gratuite limitée à 800 éléments, soit une quinzaine de pages. La licence Pro coûte 10 à 20 $, une fois.
+        </p>
+        <p>
+          <strong>État :</strong> Dernière mise à jour en juin 2020. Aucune communication du développeur depuis cinq ans. Des utilisateurs signalent des problèmes de compatibilité avec les évolutions récentes de Google Docs.
+        </p>
+        <p>
+          <span class="tool-pros">Pour :</span> Il met en forme le document lui-même, pas seulement un aperçu. Achat unique pour Pro, sans abonnement.
+        </p>
+        <p>
+          <span class="tool-cons">Contre :</span> La limite de 800 éléments en gratuit est rédhibitoire pour un long. Cinq ans sans mise à jour. Il faut la syntaxe Fountain. Pas d’export PDF. Pas de gestion des personnages.
+        </p>
+        <p>
+          <a href="https://workspace.google.com/marketplace/app/fountainize/82574770793">Voir sur le Marketplace →</a>
+        </p>
+      </div>
+
+      <!-- Tool 4: Screenplay Formatter -->
+      <div class="tool-card dead">
+        <div class="tool-header">
+          <span class="tool-name">4. Screenplay Formatter</span>
+          <span class="tool-badge">✗ Arrêté</span>
+        </div>
+        <p>
+          <strong>Ce que c’était :</strong> Le module de scénario le plus utilisé sur Google Docs, avec plus d’un million d’installations. Simple, gratuit, on cliquait et ça formatait. Beaucoup de guides et de tutoriels le recommandaient.
+        </p>
+        <p>
+          <strong>État :</strong> Arrêté. Plus installable. Beaucoup d’utilisateurs en ont perdu l’accès. Aucune communication officielle du développeur. Les forums d’aide de Google sont pleins de gens qui cherchent où il est passé.
+        </p>
+        <p>
+          Si vous utilisiez Screenplay Formatter, <a href="https://screenplayeditor.app">Screenplay Editor</a> est le remplaçant le plus proche pour la façon de travailler : on clique, ça formate, sans syntaxe à apprendre.
+        </p>
+      </div>
+
+      <h2>Et les logiciels dédiés ?</h2>
+
+      <p>
+        Si vous acceptez de quitter Google Docs, il existe de bonnes options dédiées. <a href="https://www.writerduet.com" target="_blank" rel="noopener">WriterDuet</a> a une formule gratuite généreuse avec la collaboration en temps réel. <a href="https://www.arcstudiopro.com" target="_blank" rel="noopener">Arc Studio Pro</a> est gratuit pour un seul projet et son interface est très belle. <a href="https://www.finaldraft.com" target="_blank" rel="noopener">Final Draft</a> reste le standard du métier, à 250 $.
+      </p>
+
+      <p>
+        Le compromis est toujours le même : les outils dédiés offrent plus de fonctions propres au scénario (suivi des révisions, feuilles de dépouillement, rapports de production), mais vous sortez de l’écosystème Google. Fini le lien Google Docs partagé avec votre coauteur pour écrire en même temps. Fini le scénario rangé dans le même dossier Drive que vos documents de recherche et vos images de référence.
+      </p>
+
+      <p>
+        Pour écrire des versions de travail, travailler à plusieurs et avancer sans commande, un module Google Docs est souvent le choix le plus pratique. Les besoins de mise en forme sont simples : le difficile, c’est d’écrire, pas de choisir un logiciel.
+      </p>
+
+      <h2>Ce que je conseille</h2>
+
+      <p>
+        Si vous ne connaissez pas la syntaxe Fountain et que vous n’avez pas envie de l’apprendre, prenez <a href="https://screenplayeditor.app">Screenplay Editor</a>. C’est l’option la plus intuitive : vous cliquez sur des boutons pour mettre en forme, comme dans n’importe quelle barre d’outils.
+      </p>
+
+      <p>
+        Si vous utilisez déjà Fountain et que vous voulez continuer en texte brut, <a href="https://workspace.google.com/marketplace/app/fountain_tools/847298506478">Fountain Tools</a> est votre meilleur choix. Il est entretenu, et l’aperçu comme l’export PDF fonctionnent bien.
+      </p>
+
+      <p>
+        J’éviterais Fountainize pour un projet sérieux. Cinq ans sans mise à jour, une limite arbitraire en version gratuite et aucune réponse du développeur en font un risque. Votre scénario est trop important pour dépendre d’un logiciel abandonné.
+      </p>
+
+      <p>
+        Et si quelqu’un vous recommande Screenplay Formatter, dites-lui qu’il n’existe plus.
+      </p>
+
+      <div class="cta-box">
+        <p>Envie d’essayer Screenplay Editor ? C’est gratuit pour commencer, et l’installation prend quelques secondes.</p>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button">Installer depuis le Google Workspace Marketplace</a>
+      </div>
+
+      <p>
+        <em>Pour être clair : je suis le développeur de Screenplay Editor. J’ai essayé d’être juste avec les autres outils, mais vous devez savoir d’où je parle. Si vous trouvez que j’ai été injuste avec l’un d’eux, <a href="mailto:hugothomas@hotmail.fr">dites-le-moi</a> , je corrigerai cette page.</em>
+      </p>
+
+      <a href="/blog" class="back-link">← Retour au blog</a>
+
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">SCR▌</div>
+      <nav class="footer-nav">
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions d’utilisation</a>
+        <a href="/fr/blog.html">Blog</a>
+      </nav>
+      <p class="footer-copy">© 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+</body>
+</html>
