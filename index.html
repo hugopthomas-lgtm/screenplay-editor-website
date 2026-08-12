@@ -779,6 +779,30 @@
       .reviews-wall { grid-template-columns: 1fr; }
     }
 
+
+    /* Avis mis en avant : un vrai retour long, au-dessus du mur. */
+    .review-featured {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px 34px;
+      margin-bottom: 16px;
+    }
+    .review-featured .review-stars { margin-bottom: 14px; }
+    .review-featured p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #3c3c44;
+      margin: 0 0 8px;
+      text-wrap: pretty;
+    }
+    .review-featured p + p { margin-top: 14px; }
+    .review-featured .review-author { margin-top: 16px; font-size: 12px; }
+    .review-featured .review-source { font-size: 11px; color: #b0a8c4; margin-top: 4px; }
+    @media (max-width: 620px) {
+      .review-featured { padding: 24px 22px; }
+      .review-featured p { font-size: 14.5px; }
+    }
+
     .review-card {
       background: #fff;
       border-radius: 12px;
@@ -1374,7 +1398,14 @@
     <!-- REVIEWS -->
     <section class="reviews scroll-fade">
       <div class="reviews-inner">
-        <div class="reviews-title">Google Workspace Marketplace Reviews</div>
+        <div class="reviews-title">What writers say</div>
+        <div class="review-featured">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I've been using this extension for several years now and it has served my purposes. I have tried many other apps on various platforms and, while many can do the basics, there always seems to be unnecessary hoops to jump through or, outrageous subscriptions you need to keep forever if you want access to your own work."</p>
+          <p>"I ran into a formatting issue, brought it to the attention of the apps author and received an immediate response and, solution shortly thereafter. Customer service like this is becoming rare but, I am happy to find it here. I'm currently writing my sixth script using this extension and I could not be happier with it."</p>
+          <div class="review-author">Barry Kirsch</div>
+          <div class="review-source">Chrome Web Store &middot; August 9, 2026</div>
+        </div>
         <div class="reviews-wall">
           <div class="review-card">
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>

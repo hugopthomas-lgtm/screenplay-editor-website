@@ -766,6 +766,38 @@
       .reviews-wall { grid-template-columns: 1fr; }
     }
 
+
+    /* Avis mis en avant : un vrai retour long, au-dessus du mur. */
+    .review-featured {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px 34px;
+      margin-bottom: 16px;
+    }
+    .review-featured .review-stars { margin-bottom: 14px; }
+    .review-featured p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #3c3c44;
+      margin: 0 0 8px;
+      text-wrap: pretty;
+    }
+    .review-featured p + p { margin-top: 14px; }
+    .review-featured .review-author { margin-top: 16px; font-size: 12px; }
+    .review-featured .review-source { font-size: 11px; color: #b0a8c4; margin-top: 4px; }
+    @media (max-width: 620px) {
+      .review-featured { padding: 24px 22px; }
+      .review-featured p { font-size: 14.5px; }
+    }
+
+    .reviews-note {
+      text-align: center;
+      font-size: 11px;
+      color: #7d6fa3;
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+
     .review-card {
       background: #fff;
       border-radius: 12px;
@@ -1361,7 +1393,14 @@
     <!-- REVIEWS -->
     <section class="reviews scroll-fade">
       <div class="reviews-inner">
-        <div class="reviews-title">Avis du Google Workspace Marketplace, traduits de l’anglais</div>
+        <div class="reviews-title">Ce que disent les auteurs</div>
+        <div class="review-featured">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>«&nbsp;J’utilise cette extension depuis plusieurs années maintenant et elle fait le travail. J’ai essayé beaucoup d’autres applications sur différentes plateformes et, si beaucoup savent faire l’essentiel, il y a toujours des obstacles inutiles à franchir, ou des abonnements exorbitants qu’il faut garder à vie si on veut accéder à son propre travail.&nbsp;»</p>
+          <p>«&nbsp;J’ai eu un problème de mise en forme, je l’ai signalé à l’auteur de l’application et j’ai reçu une réponse immédiate, puis une solution peu après. Un service client comme celui-là devient rare, et je suis content de le trouver ici. J’écris en ce moment mon sixième scénario avec cette extension et je ne pourrais pas en être plus satisfait.&nbsp;»</p>
+          <div class="review-author">Barry Kirsch</div>
+          <div class="review-source">Chrome Web Store &middot; 9 août 2026 &middot; traduit de l’anglais</div>
+        </div>
         <div class="reviews-wall">
           <div class="review-card">
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -1394,6 +1433,7 @@
             <div class="review-author">Louay K.</div>
           </div>
         </div>
+        <p class="reviews-note">Ces avis ont été publiés en anglais sur le Chrome Web Store et le Google Workspace Marketplace. Ils sont traduits ici.</p>
       </div>
     </section>
 
