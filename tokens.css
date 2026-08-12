@@ -1,0 +1,132 @@
+/* ============================================================
+   JETONS DE DESIGN — source unique des valeurs du site.
+   Chargée avant buttons.css sur toutes les pages.
+
+   Pourquoi ce fichier : au 2026-08-12, l'audit des 96 pages
+   comptait 36 tailles de texte, 14 rayons, 107 couleurs, 26
+   ombres et 25 transitions. Personne n'avait choisi ça, ça
+   s'était déposé page après page. C'est exactement ce qui
+   produit la sensation « légèrement amateur » : à l'échelle
+   d'un écran tout va, à l'échelle du site rien ne concorde.
+
+   Règle : aucune page ne redéclare une valeur. Elle prend un
+   jeton. Si un jeton manque, on l'ajoute ICI.
+   ============================================================ */
+
+:root {
+  /* --- POLICES -------------------------------------------------
+     Plus Jakarta Sans pour toute l'interface (la même que Final
+     Draft, licence SIL, servie en variable 200-800).
+     Le monospace ne sert plus QU'aux extraits de scénario et au
+     code : c'est là qu'il veut dire quelque chose. Final Draft
+     fait exactement ce partage avec sa Courier maison. */
+  --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- ÉCHELLE TYPOGRAPHIQUE : 9 crans, plus rien d'autre ----- */
+  --t-xs:   11px;
+  --t-sm:   13px;
+  --t-base: 15px;
+  --t-md:   18px;
+  --t-lg:   22px;
+  --t-xl:   28px;
+  --t-2xl:  38px;
+  --t-3xl:  56px;
+  --t-display: 72px;
+
+  /* --- INTERLIGNES ------------------------------------------- */
+  --lh-tight: 1.11;   /* titres d'affichage, valeur Final Draft */
+  --lh-snug:  1.25;   /* gros chiffres, sous-titres */
+  --lh-body:  1.5;    /* texte courant, valeur Final Draft */
+  --lh-loose: 1.7;    /* paragraphes longs sur fond sombre */
+
+  /* --- APPROCHE : proportionnelle, jamais en pixels fixes ----- */
+  --ls-display: -0.011em;  /* relevé sur leur H1 : -0.78px / 72px */
+  --ls-number:  -0.04em;   /* relevé sur leurs grands chiffres */
+  --ls-label:   -0.02em;
+  --ls-body:    0;
+  --ls-caps:    0.14em;    /* petites capitales d'étiquette */
+
+  /* --- GRAISSES : 4, pas plus -------------------------------- */
+  --w-normal: 400;
+  --w-medium: 500;
+  --w-bold:   700;
+  --w-black:  800;   /* réservé aux grands chiffres */
+
+  /* --- RAYONS : 4 ------------------------------------------- */
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-full: 999px;
+
+  /* --- COULEURS : 12 ---------------------------------------- */
+  --violet:      #9D7BEA;
+  --violet-dark: #8B6AD4;
+  --violet-soft: #F1EDFB;
+  --ink:         #1A1A1A;   /* noir de fond et de texte */
+  --ink-2:       #3C3C44;   /* texte fort sur clair */
+  --ink-3:       #6B6B73;   /* texte secondaire sur clair */
+  --ink-4:       #9A9AA2;   /* texte tertiaire, légendes */
+  --paper:       #FAFAFA;   /* fond clair */
+  --paper-2:     #FFFFFF;
+  --cream:       #F6F0E6;   /* fond des sections chaudes */
+  --line:        rgba(26,26,26,.10);
+  --line-dark:   rgba(255,255,255,.12);
+
+  /* --- OMBRES : 3 niveaux ------------------------------------ */
+  --shadow-1: 0 10px 30px rgba(26,26,26,.06);
+  --shadow-2: 0 18px 44px rgba(26,26,26,.10);
+  --shadow-3: 0 28px 70px rgba(0,0,0,.28);
+
+  /* --- MOUVEMENT : 2 courbes, pas 25 ------------------------- */
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --fast: .18s var(--ease);
+  --slow: .3s var(--ease);
+}
+
+/* ------------------------------------------------------------
+   APPLICATION GLOBALE
+   Cette feuille est chargée après le <style> des pages : elle
+   impose la police sans avoir à réécrire 96 fichiers.
+   ------------------------------------------------------------ */
+body {
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6,
+button, input, textarea, select,
+.hero h1, .section h2, .plan-name, .plan-price {
+  font-family: var(--sans);
+}
+
+/* L'approche proportionnelle, appliquée par cran de taille. */
+h1 { letter-spacing: var(--ls-display); line-height: var(--lh-tight); }
+h2 { letter-spacing: var(--ls-label); }
+
+/* Le ™ de Plus Jakarta Sans a une chasse large et s'assoit sur la
+   ligne de base : dans un titre il ouvre un trou avant le point.
+   On le réduit, on le remonte, on récupère la chasse. */
+.tm {
+  font-size: .42em;
+  vertical-align: .78em;
+  letter-spacing: 0;
+  margin-left: .02em;
+  margin-right: -.34em;
+}
+
+/* Le monospace reste là où il porte du sens : extraits de
+   scénario, exemples de code, mock du produit. */
+code, pre, kbd, samp,
+.script-example, .script-body, .doc-mock, .mock, .sweep,
+[class*="script-"], [class*="-script"], [class*="mono"] {
+  font-family: var(--mono);
+}
+
+/* Interdit désormais : animer « all ». Ça anime aussi la mise en
+   page et donne ces survols mous. On garde la courbe commune. */
+a, button, .card, .info-card, .feature-card, .plan, .step, .review-card {
+  transition-timing-function: var(--ease);
+}

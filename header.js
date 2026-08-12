@@ -125,7 +125,7 @@
         '.rail{position:fixed;top:14px;left:0;right:0;z-index:1000;' +
         'display:flex;flex-direction:column;align-items:center;pointer-events:none;' +
         'transition:transform .45s cubic-bezier(.4,0,.2,1),opacity .35s ease;' +
-        "font-family:'JetBrains Mono',monospace;}" +
+        "font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.rail.away{transform:translateY(-160%);opacity:0;}' +
 
         '.pill{pointer-events:auto;display:flex;align-items:center;' +
@@ -137,14 +137,14 @@
         'border-radius:999px;padding:7px 7px 7px 26px;' +
         'box-shadow:0 6px 26px rgba(0,0,0,0.22);}' +
 
-        ".logo{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;" +
-        'font-size:19px;font-weight:700;letter-spacing:0.6px;color:#fff;' +
+        ".logo{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;" +
+        'font-size:19px;font-weight:800;letter-spacing:0.6px;color:#fff;' +
         'text-decoration:none;cursor:pointer;line-height:1;}' +
         '.logo .dot{color:' + VIOLET + ';}' +
 
         'nav{display:flex;align-items:center;}' +
         '.nav-links{display:flex;align-items:center;}' +
-        'nav a{margin-left:32px;font-size:13px;font-weight:500;color:#a5a5a5;' +
+        'nav a{margin-left:34px;font-size:14px;font-weight:500;letter-spacing:-0.01em;color:#a5a5a5;' +
         'text-decoration:none;white-space:nowrap;transition:color .2s;}' +
         'nav a:hover{color:#fff;}' +
         /* The brand is its own block: give it more air than the links get. */
@@ -152,7 +152,7 @@
 
         '.cta{margin-left:30px;background:' + VIOLET + ';color:#fff;' +
         'display:inline-flex;align-items:center;gap:7px;white-space:nowrap;' +
-        'padding:9px 19px;border-radius:999px;font-size:13px;font-weight:600;' +
+        'padding:9px 20px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:-0.01em;' +
         'text-decoration:none;}' +
         '.cta{transition:background .3s cubic-bezier(.4,0,.2,1),transform .3s cubic-bezier(.4,0,.2,1);}' +
         '.cta:hover{background:' + VIOLET_DARK + ';transform:translateY(-1px);}' +
@@ -174,7 +174,7 @@
         'border-radius:22px;box-shadow:0 10px 34px rgba(0,0,0,0.30);}' +
         '.mobile-menu a{padding:13px 18px;font-size:15px;font-weight:500;color:#ccc;' +
         'border-radius:14px;text-decoration:none;' +
-        "font-family:'JetBrains Mono',monospace;}" +
+        "font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.mobile-menu a:active{background:rgba(157,123,234,0.16);color:#fff;}' +
 
         '@media(max-width:980px){.nav-links{display:none;}.cta{margin-left:18px;}' +

@@ -6,6 +6,7 @@
   <script>document.documentElement.classList.add('js');</script>
   <title>Screenplay Editor - Le format scénario professionnel dans Google Docs</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <link rel="icon" type="image/png" href="/favicon.png">
   <meta name="description" content="Screenplay Editor transforme Google Docs en vrai logiciel d'écriture de scénario. Le même formatage que Final Draft, la collaboration en temps réel, 7,99 $ par mois, extension et module compris.">
@@ -190,7 +191,7 @@
     }
 
     .hero-inner {
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
@@ -200,25 +201,27 @@
 
 
     .hero h1 {
-      font-size: 56px;
+      font-size: 72px;
       font-weight: 700;
-      line-height: 1.08;
-      margin-bottom: 16px;
-      letter-spacing: -1.6px;
+      line-height: 1.11;
+      margin-bottom: 30px;
+      letter-spacing: -0.011em;
       color: #fff;
-      max-width: 1120px;
+      text-wrap: balance;
+      max-width: 1180px;
       margin-left: auto;
       margin-right: auto;
     }
 
 
     .hero-subtitle {
-      font-size: 16px;
+      font-size: 19px;
       font-weight: 400;
-      color: #888;
-      max-width: 640px;
+      letter-spacing: -0.008em;
+      color: rgba(255, 255, 255, 0.66);
+      max-width: 720px;
       margin: 0 auto 26px;
-      line-height: 1.6;
+      line-height: 1.55;
       text-wrap: balance;
     }
 
@@ -372,12 +375,14 @@
     /* Pain-relief close of the value prop. Same muted voice as the subtitle,
        sits right under "$250 software" as the emotional finish before the CTA. */
     .hero-pain {
-      margin-top: 18px;
+      margin-top: 22px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.44);
     }
 
 
-    @media (max-width: 1180px) { .hero h1 { font-size: 48px; letter-spacing: -1.3px; } }
-    @media (max-width: 940px)  { .hero h1 { font-size: 40px; letter-spacing: -1px; } }
+    @media (max-width: 1240px) { .hero h1 { font-size: 58px; } }
+    @media (max-width: 940px)  { .hero h1 { font-size: 44px; } }
 
     /* Risk reversal row, directly under the CTA */
     .hero-trust {
@@ -1116,7 +1121,7 @@
 
 
       .hero h1 {
-        font-size: 30px;
+        font-size: 34px;
       }
 
       .hero-subtitle {
@@ -1156,6 +1161,7 @@
   </style>
   <script src="/header.js"></script>
   <script src="/footer.js"></script>
+  <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
 </head>
 
@@ -1178,8 +1184,8 @@
             <div class="ref-howto">Installez scrrrr., puis entrez ce code dans l'outil pour débloquer votre mois gratuit.</div>
           </div>
         </div>
-        <h1>Écrivez votre prochain film<br>directement dans Google&nbsp;Docs&trade;.</h1>
-        <p class="hero-subtitle">Le confort d'écriture de Final Draft, la souplesse de Google Docs. Gardez le meilleur des deux mondes, oubliez le logiciel à 250 €.</p>
+        <h1>Écrivez votre prochain film<br>directement dans Google&nbsp;Docs<span class="tm">&trade;</span>.</h1>
+        <p class="hero-subtitle">Le confort d'écriture de Final Draft, la souplesse de Google&nbsp;Docs.<br>Gardez le meilleur des deux mondes, oubliez le logiciel à 250 €.</p>
         <p class="hero-subtitle hero-pain">Vous ne perdrez plus une page parce que Final Draft a planté.<br>Vous ne choisirez plus entre écrire et collaborer.</p>
 
         <div class="hero-ctas">

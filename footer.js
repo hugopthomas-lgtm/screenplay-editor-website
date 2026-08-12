@@ -101,19 +101,19 @@
       root.innerHTML =
         '<style>' +
         ':host{display:block;}' +
-        ".wrap{background:#1a1a1a;color:#fff;padding:62px 30px 34px;font-family:'JetBrains Mono',monospace;}" +
+        ".wrap{background:#1a1a1a;color:#fff;padding:62px 30px 34px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px 30px;}' +
-        ".brand .logo{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:20px;font-weight:700;" +
+        ".brand .logo{font-family:inherit;font-size:20px;font-weight:800;" +
         'letter-spacing:0.6px;color:#fff;text-decoration:none;display:inline-block;}' +
         '.brand .logo .dot{color:' + VIOLET + ';}' +
-        '.brand p{margin-top:12px;font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.42);max-width:260px;}' +
+        '.brand p{margin-top:12px;font-size:13px;line-height:1.7;color:rgba(255,255,255,.42);max-width:260px;}' +
         '.brand .lang{margin-top:18px;display:inline-block;font-size:12px;color:rgba(255,255,255,.55);' +
         'text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 14px;transition:border-color .2s,color .2s;}' +
         '.brand .lang:hover{color:#fff;border-color:rgba(255,255,255,.45);}' +
         '.col h3{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:' + VIOLET + ';margin:2px 0 14px;}' +
         '.col ul{list-style:none;margin:0;padding:0;}' +
         '.col li{margin-bottom:9px;}' +
-        '.col a{font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.62);text-decoration:none;transition:color .2s;}' +
+        '.col a{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.62);text-decoration:none;transition:color .2s;}' +
         '.col a:hover{color:#fff;}' +
         '.base{max-width:1100px;margin:44px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);' +
         'display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}' +
