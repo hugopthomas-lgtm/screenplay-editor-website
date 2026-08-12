@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faire lire son court métrage à des producteurs - la méthode</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Une méthode réelle pour contacter des producteurs, avec le vrai mail qui a mené à un contrat signé. Par un réalisateur primé à Clermont-Ferrand.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/resources/how-to-get-your-short-film-read-by-producers.html">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/resources/how-to-get-your-short-film-read-by-producers">
+  <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/resources/how-to-get-your-short-film-read-by-producers.html">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/resources/how-to-get-your-short-film-read-by-producers">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Faire lire son court métrage à des producteurs - la méthode">
+  <meta property="og:description" content="Une méthode réelle pour contacter des producteurs, avec le vrai mail qui a mené à un contrat signé. Par un réalisateur primé à Clermont-Ferrand.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/resources/how-to-get-your-short-film-read-by-producers.html">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --violet: #9D7BEA;
+      --violet-dark: #8B6AD4;
+      --violet-light: #f8f6fc;
+      --violet-soft: #ede8f7;
+      --dark: #1a1a1a;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(157, 123, 234, 0.18);
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .logo .dot {
+      color: var(--violet);
+    }
+
+    .logo .cursor {
+      color: var(--violet);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo .full-name {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .logo:hover .mark {
+      opacity: 0;
+    }
+
+    .logo:hover .full-name {
+      opacity: 1;
+    }
+
+    .header-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: var(--violet);
+    }
+
+    .header-nav a.highlight {
+      color: var(--violet);
+    }
+
+    /* Breadcrumb Bar */
+    .breadcrumb-bar {
+      background: var(--dark);
+      padding: 14px 30px;
+      margin-top: var(--site-header-h, 65px);
+    }
+
+    .breadcrumb-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .breadcrumb a {
+      color: #888;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--violet);
+    }
+
+    .breadcrumb span {
+      color: var(--violet);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 50px 32px 50px;
+      background: linear-gradient(180deg, var(--violet-light) 0%, #fff 100%);
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+      color: var(--violet);
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--dark);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Section Base */
+    section {
+      padding: 80px 32px;
+    }
+
+    .section-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .section-label i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--dark);
+    }
+
+    .section-intro {
+      font-size: 17px;
+      color: var(--gray-600);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    /* Alternating backgrounds */
+    .bg-white { background: #fff; }
+    .bg-gray { background: var(--gray-50); }
+    .bg-violet { background: var(--violet-light); }
+    .bg-dark {
+      background: var(--dark);
+      background-image:
+        linear-gradient(rgba(157, 123, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(157, 123, 234, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg-dark * { color: #fff; }
+    .bg-dark .section-intro { color: var(--gray-400); }
+
+    /* Steps List */
+    .method-steps {
+      list-style: none;
+      counter-reset: step-counter;
+    }
+
+    .method-steps li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .method-steps li:last-child {
+      border-bottom: none;
+    }
+
+    .method-steps li::before {
+      content: counter(step-counter);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      height: 40px;
+      background: var(--violet);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .method-steps li span {
+      font-size: 16px;
+      color: var(--gray-700);
+      line-height: 1.7;
+      padding-top: 8px;
+    }
+
+    /* Method Text (paragraphs) */
+    .method-text p {
+      font-size: 17px;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .method-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .method-image {
+      margin: 32px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .method-image img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Debrief */
+    .debrief {
+      margin-top: 40px;
+      padding: 28px 32px;
+      background: var(--violet-light);
+      border-left: 4px solid var(--violet);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .debrief p {
+      font-size: 16px;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin: 0 0 16px 0;
+    }
+
+    .debrief p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Author Photo with Caption */
+    .author-photo-block {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .author-photo-block img {
+      width: 400px;
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .author-photo-block figcaption {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--gray-500);
+      font-style: italic;
+    }
+
+    /* Email Block */
+    .email-block {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .email-header {
+      background: var(--gray-50);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .email-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .email-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .email-dots span:nth-child(1) { background: #ff5f56; }
+    .email-dots span:nth-child(2) { background: #ffbd2e; }
+    .email-dots span:nth-child(3) { background: #27ca40; }
+
+    .email-subject {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-left: auto;
+    }
+
+    .email-content {
+      padding: 32px;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--gray-700);
+    }
+
+    .email-content p {
+      margin-bottom: 20px;
+    }
+
+    .email-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .email-content .signature {
+      margin-top: 28px;
+      color: var(--gray-600);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 100px 32px;
+    }
+
+    .cta-section .section-title {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cta-section .section-intro {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      color: var(--gray-400);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .cta-button i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cta-button.primary {
+      background: var(--violet);
+      color: #fff;
+    }
+
+    .cta-button.primary:hover {
+      background: var(--violet-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-button.secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .cta-button.secondary:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 32px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .footer-logo .dot {
+      color: var(--violet);
+    }
+
+    .footer-nav {
+      margin-bottom: 24px;
+    }
+
+    .footer-nav a {
+      color: var(--gray-400);
+      margin: 0 16px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .method-steps li {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .method-steps li::before {
+        min-width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+
+      .email-content {
+        padding: 24px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+  <script src="/header.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://screenplayeditor.app/resources/how-to-get-your-short-film-read-by-producers#main",
+      "headline": "How to Get Your Short Film Read by Producers",
+      "description": "A real method to contact film producers, with an actual email that led to a signed contract. Free advice from a Clermont-Ferrand winner.",
+      "url": "https://screenplayeditor.app/resources/how-to-get-your-short-film-read-by-producers",
+      "image": "https://screenplayeditor.app/hero-screenshot.png",
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas",
+        "url": "https://screenplayeditor.app/about",
+        "jobTitle": "Screenwriter and film director"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Screenplay Editor",
+        "url": "https://screenplayeditor.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://screenplayeditor.app/favicon.png"
+        }
+      },
+      "mainEntityOfPage": "https://screenplayeditor.app/resources/how-to-get-your-short-film-read-by-producers",
+      "datePublished": "2025-12-30",
+      "dateModified": "2026-06-20"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://screenplayeditor.app/resources/how-to-get-your-short-film-read-by-producers#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Resources",
+          "item": "https://screenplayeditor.app/resources"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to Get Your Short Film Read by Producers",
+          "item": "https://screenplayeditor.app/resources/how-to-get-your-short-film-read-by-producers"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+
+<body>
+  <site-header></site-header>
+
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-content">
+      <div class="breadcrumb">
+        <a href="/fr/">Accueil</a> / <a href="/fr/resources/">Ressources</a> / <span>Faire lire son film</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i data-lucide="send"></i>
+      Industry Advice
+    </div>
+    <h1>Ils lisent. Voilà comment les joindre.</h1>
+    <p class="hero-subtitle">
+      L’idée que les producteurs ne lisent pas les scénarios non sollicités est en grande partie fausse. Pour le court métrage, la porte est plus ouverte qu’on ne croit.
+    </p>
+  </section>
+
+  <!-- La méthode -->
+  <section class="bg-gray">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="map"></i>
+        La méthode
+      </span>
+      <h2 class="section-title">Voilà comment j’ai fait.</h2>
+      <div class="method-text">
+        <p>D’abord j’ai cherché les festivals où j’avais vraiment envie d’être sélectionné. Pas seulement les grands noms : des festivals avec lesquels j’avais une affinité, des endroits où j’aurais aimé aller. Vous en connaissez sans doute déjà quelques-uns. Commencez par là.</p>
+        <p>Ensuite j’ai regardé leurs palmarès et leurs sélections des dernières années. Pour chaque film, j’ai trouvé la société de production, en général au générique ou sur IMDb.</p>
+        <div class="method-image">
+          <img src="/palmares.png" alt="Festival selections and winners">
+        </div>
+        <p>Pour chaque société, j’ai trouvé l’adresse mail. La grande majorité a une page contact. Et sinon, il reste Instagram ou Facebook.</p>
+        <p>C’est tout. Vous avez la liste des meilleurs contacts du métier : des gens qui produisent exactement le type de films que vous voulez faire.</p>
+        <p>Reste le plus dur : écrire un mail qui ne soit pas mauvais.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email Example -->
+  <section class="bg-white">
+    <div class="section-inner">
+      <span class="section-label">
+        <i data-lucide="mail"></i>
+        Un mail qui a marché
+      </span>
+      <h2 class="section-title">Un vrai mail, un vrai résultat</h2>
+      <p class="section-intro">
+        Voici un mail que j’ai vraiment envoyé en 2014, à la sortie de l’école. Il a débouché sur un contrat signé.
+      </p>
+
+      <div class="email-block">
+        <div class="email-header">
+          <div class="email-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="email-subject">Objet : Court métrage</span>
+        </div>
+        <div class="email-content">
+          <p>Bonjour,</p>
+          <p>Je me permets de vous écrire car je sors de la première promotion de l’école de cinéma de Luc Besson, en section réalisation.</p>
+          <p>Mes études terminées, je souhaite maintenant réaliser mon premier court métrage produit. J’ai déjà écrit et réalisé un court autoproduit, <em>Premier Métro</em> (7 minutes), sélectionné dans 10 festivals et récompensé 4 fois. Mon deuxième court, <em>Perrault, La Fontaine, Mon Cul&nbsp;!</em> (18 minutes), écrit et réalisé il y a trois mois comme film de fin d’études, a particulièrement retenu l’attention de Luc Besson, qui lui a mis 17/20.</p>
+          <p>Je termine en ce moment le scénario de mon premier long métrage, <em>L’hiver</em>, et c’est pour cela que je souhaite entrer en contact avec une société comme la vôtre, qui produit à la fois des courts et des longs, d’autant qu’<em>Americanos</em> relève de la comédie dramatique, un genre que j’aime particulièrement. J’aimerais réaliser mon premier court produit, qui s’appelle <em>Une Place Pour Les Choses</em>.</p>
+          <p>Je joins le scénario, mon CV et les liens vers mes deux premiers courts, en espérant qu’ils retiendront votre attention.</p>
+          <p><em>Premier Métro</em>: [link]<br><em>Perrault, La Fontaine, Mon Cul!</em>: [link]</p>
+          <p>En vous remerciant par avance de votre réponse.</p>
+          <p class="signature">Bien à vous,<br>Hugo P. THOMAS</p>
+        </div>
+      </div>
+
+      <div class="debrief">
+        <p>Le ton est un peu jeune, d’accord, j’avais 24 ans. Mais ce mail a marché parce qu’il était précis. Je parlais de leur genre, je montrais que j’avais fait mes devoirs, et je prouvais que je n’étais pas un débutant : des films, des sélections, des prix. C’est ce que cherchent les producteurs de courts, de jeunes gens avec du potentiel.</p>
+        <p>Ce mail n’avait rien d’extraordinaire, il était logique. Honnête. Il montrait une trajectoire, et on voyait le potentiel. Faites le vôtre court, factuel et personnel. Pas de flatterie, pas de supplication. Juste : voilà qui je suis, voilà ce que j’ai fait, voilà ce que je veux.</p>
+      </div>
+
+      <figure class="author-photo-block">
+        <img src="/hugo3.jpg" alt="Hugo Thomas at Zlín Film Festival">
+        <figcaption>At Zlín Film Festival, Czech Republic</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-dark cta-section">
+    <span class="section-label">
+      <i data-lucide="pen-tool"></i>
+      À vous
+    </span>
+    <h2 class="section-title">Écrivez le vôtre</h2>
+    <p class="section-intro">
+      Vous avez une idée de court métrage ? Commencez par un scénario au bon format.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://docs.google.com/document/d/1ODFN6TuEbI8hm9hORUNaDehDvN08V8mI1HdiIv5rSf4/copy" class="cta-button primary" target="_blank">
+        <i data-lucide="file-text"></i>
+        Obtenir le modèle de court métrage
+      </a>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button secondary" target="_blank" rel="noopener">
+          <i data-lucide="plus"></i>
+          Installer l’extension Chrome
+        </a>
+        <p style="font-size: 12px; color: var(--gray-400); margin: 0;">Recommandé, la mise en forme la plus rapide</p>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-button secondary" target="_blank" rel="noopener">
+          <i data-lucide="plus"></i>
+          Installer le module Workspace
+        </a>
+        <p style="font-size: 12px; color: var(--gray-400); margin: 0;">Fonctionne dans tous les navigateurs</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">scrrrr<span class="dot">.</span></div>
+      <nav class="footer-nav">
+        <a href="/fr/about.html">À propos</a>
+        <a href="/fr/compare/">Comparer</a>
+        <a href="/fr/support.html">Aide</a>
+        <a href="/fr/privacy.html">Confidentialité</a>
+        <a href="/fr/terms.html">Conditions d’utilisation</a>
+        <a href="/fr/resources/">Ressources</a>
+      </nav>
+      <p class="footer-copy">© 2026 Screenplay Editor. Fait pour les scénaristes.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
