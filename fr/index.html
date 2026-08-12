@@ -411,44 +411,49 @@
 
     /* How it works, 3 steps */
     .how {
-      max-width: 920px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 52px 30px 24px;
+      padding: 64px 30px 28px;
       text-align: center;
     }
 
     .how h2 {
-      font-size: 22px;
-      font-weight: 600;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
       color: var(--dark);
-      margin-bottom: 32px;
+      margin-bottom: 40px;
+      text-wrap: balance;
     }
 
     .how-steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 34px;
+      gap: 44px;
     }
 
     .how-num {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 0.14em;
       color: var(--violet);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .how-step h3 {
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
       color: var(--dark);
-      margin-bottom: 7px;
+      margin-bottom: 9px;
     }
 
     .how-step p {
-      font-size: 13px;
-      color: #666;
+      font-size: 16px;
+      color: #6B6B73;
       line-height: 1.6;
+      text-wrap: pretty;
     }
 
     @media (max-width: 700px) {
@@ -472,11 +477,13 @@
     }
 
     .creed h2 {
-      font-size: 24px;
-      font-weight: 600;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
       color: var(--dark);
-      line-height: 1.35;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      text-wrap: balance;
     }
 
     .creed p {
@@ -502,10 +509,10 @@
     }
 
     .maker h2 {
-      font-size: 30px;
-      font-weight: 800;
+      font-size: 38px;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.2;
+      line-height: 1.12;
       color: var(--dark);
       margin-bottom: 20px;
       text-wrap: balance;
@@ -547,17 +554,21 @@
        FINAL DRAFT PUNCH
        ============================================ */
     .punch {
-      padding: 50px 30px 40px;
+      padding: 64px 30px 48px;
       text-align: center;
-      max-width: 700px;
+      max-width: 820px;
       margin: 0 auto;
       position: relative;
     }
 
     .punch p {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #999;
+      font-size: 19px;
+      line-height: 1.65;
+      letter-spacing: -0.008em;
+      color: #6B6B73;
+      max-width: 720px;
+      margin: 0 auto;
+      text-wrap: balance;
     }
 
     .punch .punch-price {
@@ -573,10 +584,10 @@
     .punch-bandage {
       position: absolute;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-15deg);
-      width: 250px;
-      opacity: 0.3;
+      right: -46px;
+      transform: translateY(-50%) rotate(-15deg);
+      width: 168px;
+      opacity: 0.26;
       pointer-events: none;
       z-index: 0;
     }
@@ -592,10 +603,13 @@
 
     .tools h2 {
       text-align: center;
-      font-size: 24px;
-      font-weight: 600;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
       color: var(--dark);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      text-wrap: balance;
     }
 
     .tools-sub {
@@ -764,10 +778,13 @@
     }
 
     .collab h2 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 16px;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      margin-bottom: 18px;
       color: var(--dark);
+      text-wrap: balance;
     }
 
     .collab p {
@@ -902,7 +919,7 @@
 
     .privacy-section h2 {
       font-size: 38px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.08;
       margin-bottom: 16px;
@@ -935,7 +952,7 @@
       align-items: center; max-width: 1020px; margin: 0 auto;
     }
     .collab-section h2 {
-      font-size: 38px; font-weight: 800; letter-spacing: -0.02em;
+      font-size: 38px; font-weight: 700; letter-spacing: -0.02em;
       line-height: 1.08; margin-bottom: 16px; color: var(--dark);
     }
     .collab-section h2 .g { color: var(--violet); }
@@ -981,9 +998,11 @@
     }
 
     .cta-section h2 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 12px;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      margin-bottom: 16px;
       color: #fff;
       max-width: 620px;
       margin-left: auto;
@@ -1134,7 +1153,7 @@
       }
 
       .punch p {
-        font-size: 15px;
+        font-size: 17px;
       }
 
       .feature-text h3 {
@@ -1184,7 +1203,7 @@
             <div class="ref-howto">Installez scrrrr., puis entrez ce code dans l'outil pour débloquer votre mois gratuit.</div>
           </div>
         </div>
-        <h1>Écrivez votre prochain film<br>directement dans Google&nbsp;Docs<span class="tm">&trade;</span>.</h1>
+        <h1>Écrivez votre prochain film<br>directement dans Google&nbsp;Docs<span class="tm-mark">&trade;</span>.</h1>
         <p class="hero-subtitle">Le confort d'écriture de Final Draft, la souplesse de Google&nbsp;Docs.<br>Gardez le meilleur des deux mondes, oubliez le logiciel à 250 €.</p>
         <p class="hero-subtitle hero-pain">Vous ne perdrez plus une page parce que Final Draft a planté.<br>Vous ne choisirez plus entre écrire et collaborer.</p>
 

@@ -23,16 +23,18 @@
   --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* --- ÉCHELLE TYPOGRAPHIQUE : 9 crans, plus rien d'autre ----- */
-  --t-xs:   11px;
-  --t-sm:   13px;
-  --t-base: 15px;
-  --t-md:   18px;
-  --t-lg:   22px;
-  --t-xl:   28px;
-  --t-2xl:  38px;
-  --t-3xl:  56px;
-  --t-display: 72px;
+  /* --- ÉCHELLE TYPOGRAPHIQUE : 9 crans, plus rien d'autre -----
+     16 px de corps et 19 px de sous-titre viennent de chez eux,
+     pas d'un ratio choisi au hasard. */
+  --t-xs:   11px;   /* étiquettes en capitales */
+  --t-sm:   13px;   /* légendes, mentions */
+  --t-base: 16px;   /* texte courant, valeur Final Draft */
+  --t-md:   19px;   /* chapô, sous-titre de section */
+  --t-lg:   22px;   /* titre de carte */
+  --t-xl:   28px;   /* titre de sous-section */
+  --t-2xl:  38px;   /* titre de section */
+  --t-3xl:  56px;   /* titre de page intérieure */
+  --t-display: 72px; /* H1 d'accueil */
 
   /* --- INTERLIGNES ------------------------------------------- */
   --lh-tight: 1.11;   /* titres d'affichage, valeur Final Draft */
@@ -109,7 +111,7 @@ h2 { letter-spacing: var(--ls-label); }
 /* Le ™ de Plus Jakarta Sans a une chasse large et s'assoit sur la
    ligne de base : dans un titre il ouvre un trou avant le point.
    On le réduit, on le remonte, on récupère la chasse. */
-.tm {
+.tm-mark {
   font-size: .42em;
   vertical-align: .78em;
   letter-spacing: 0;
