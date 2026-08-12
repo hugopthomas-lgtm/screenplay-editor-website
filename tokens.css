@@ -163,13 +163,14 @@ p, li { text-wrap: pretty; }
    le contraste. */
 span.mark {
   display: inline-block;
-  padding: 0.1em 0.3em 0.14em;
-  margin: 0 0.06em;
-  color: var(--ink);
-  background: var(--violet);
-  transform: rotate(-1.2deg);
+  padding: 0.08em 0.28em 0.12em;
+  margin: 0 0.1em 0 0.06em;
+  color: #141416;
+  background: #C6AEFA;   /* le violet éclairci : un surligneur doit trancher, */
+  transform: rotate(-2deg);  /* et du texte noir sur #9D7BEA ne tranche pas */
   white-space: nowrap;
 }
+/* sur fond clair, on inverse : violet profond, texte blanc */
 span.mark-dark {
   background: #6B4FB8;
   color: #fff;

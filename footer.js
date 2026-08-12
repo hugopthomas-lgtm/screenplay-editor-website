@@ -104,7 +104,7 @@
         /* Le pied de page est un objet posé sur la page, pas une bande qui
            la termine : une dalle noire à grands arrondis, détachée des
            bords. La marque y prend enfin sa taille réelle. */
-        ".shell{background:#FAFAFA;padding:0 20px 20px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
+        ".shell{background:#FAFAFA;padding:52px 20px 20px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.wrap{background:#141416;color:#fff;border-radius:40px;padding:66px 60px 30px;' +
         'max-width:1320px;margin:0 auto;overflow:hidden;}' +
         '.inner{display:grid;grid-template-columns:minmax(260px,1.05fr) auto;gap:56px;align-items:start;}' +
@@ -112,7 +112,7 @@
         '.brand{min-width:0;}' +
         '.brand .logo{font-family:inherit;font-size:clamp(58px,8.4vw,132px);font-weight:800;' +
         'letter-spacing:-0.045em;line-height:0.84;color:#fff;text-decoration:none;display:block;}' +
-        '.brand .logo .dot{color:' + VIOLET + ';}' +
+        '.brand .logo .dot{color:' + VIOLET + ';margin-left:-0.07em;}' +
         '.brand p{margin:26px 0 0;font-size:14px;line-height:1.65;color:rgba(255,255,255,.42);max-width:300px;}' +
         '.brand .lang{margin-top:20px;display:inline-block;font-size:13px;color:rgba(255,255,255,.55);' +
         'text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 16px;transition:border-color .2s,color .2s;}' +
@@ -134,7 +134,7 @@
         '@media(max-width:1040px){.inner{grid-template-columns:1fr;gap:44px;}' +
         '.cols{grid-template-columns:repeat(4,minmax(0,1fr));}.wrap{padding:52px 40px 26px;border-radius:32px;}}' +
         '@media(max-width:720px){.cols{grid-template-columns:1fr 1fr;gap:30px 24px;}' +
-        '.wrap{padding:44px 26px 24px;border-radius:26px;}.shell{padding:0 12px 12px;}' +
+        '.wrap{padding:44px 26px 24px;border-radius:26px;}.shell{padding:34px 12px 12px;}' +
         '.brand .logo{font-size:clamp(52px,15vw,80px);}}' +
         '</style>' +
         '<div class="shell"><div class="wrap">' +
