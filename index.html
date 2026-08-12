@@ -1015,14 +1015,66 @@
       max-width: 52ch;
     }
 
-    .privacy-image img {
-      width: 100%;
+    /* Le journal intime : l'image porte maintenant deux couches vivantes,
+       la paupiere du chat et les etincelles sur les autocollants. Le masque
+       et l'inclinaison passent sur le conteneur pour que les couches
+       tournent avec l'objet. Coordonnees relevees sur le fichier 820x820. */
+    .diary {
+      position: relative;
       max-width: 400px;
       margin: 0 auto;
-      display: block;
+      transform: rotate(2.5deg);
       -webkit-mask-image: radial-gradient(closest-side, #000 50%, transparent 96%);
       mask-image: radial-gradient(closest-side, #000 50%, transparent 96%);
-      transform: rotate(2.5deg);
+    }
+    .privacy-image img { width: 100%; display: block; }
+
+    /* Paupieres : deux ovales couleur fourrure qui descendent du haut.
+       Elles ne clignent pas ensemble a la milliseconde, un vrai chat non plus. */
+    .diary .eye {
+      position: absolute;
+      background: linear-gradient(#E9DAC6 0%, #E0CBB2 62%, #D3BB9E 100%);
+      border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
+      transform-origin: top center;
+      transform: scaleY(0);
+      filter: blur(0.4px);
+      pointer-events: none;
+    }
+    .diary .eye-l { left: 40.6%; top: 41.4%; width: 3.5%; height: 3.1%; animation: cligne 5.4s infinite; }
+    .diary .eye-r { left: 46.7%; top: 42.9%; width: 3.7%; height: 3.2%; animation: cligne 5.4s infinite 0.05s; }
+    @keyframes cligne {
+      0%, 90%   { transform: scaleY(0); }
+      93%, 95%  { transform: scaleY(1); }
+      98%, 100% { transform: scaleY(0); }
+    }
+
+    /* Etincelles sur les autocollants : quatre branches, elles tournent en
+       apparaissant. Rien de plus kitsch, c'est le sujet. */
+    .diary .tw {
+      position: absolute;
+      aspect-ratio: 1;
+      background: #fff;
+      clip-path: polygon(50% 0, 57% 43%, 100% 50%, 57% 57%, 50% 100%, 43% 57%, 0 50%, 43% 43%);
+      opacity: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: brille 3.6s ease-in-out infinite;
+    }
+    @keyframes brille {
+      0%, 72%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+      82%           { opacity: 1; transform: scale(1) rotate(35deg); }
+      92%           { opacity: 0; transform: scale(0.5) rotate(70deg); }
+    }
+    .diary .tw1 { left: 33.0%; top: 18.8%; width: 4.2%; animation-delay: 0s; }
+    .diary .tw2 { left: 29.6%; top: 57.8%; width: 3.8%; animation-delay: 1.2s; }
+    .diary .tw3 { left: 56.9%; top: 60.8%; width: 4.0%; animation-delay: 2.1s; }
+    .diary .tw4 { left: 57.8%; top: 74.3%; width: 3.4%; animation-delay: 0.7s; }
+    .diary .tw5 { left: 34.4%; top: 31.4%; width: 2.8%; animation-delay: 2.7s; }
+    .diary .tw6 { left: 54.2%; top: 46.2%; width: 2.6%; animation-delay: 1.7s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .diary .eye, .diary .tw { animation: none; }
+      .diary .tw { opacity: 0; }
     }
 
     /* ============================================
@@ -1331,7 +1383,11 @@
           </div>
         </div>
         <div class="privacy-image">
-          <img src="obj-diary.png" alt="Your screenplay stays private, like a locked diary">
+          <div class="diary">
+            <img src="/obj-diary.png" alt="Your screenplay stays private, like a locked diary">
+            <span class="eye eye-l"></span><span class="eye eye-r"></span>
+            <span class="tw tw1"></span><span class="tw tw2"></span><span class="tw tw3"></span><span class="tw tw4"></span><span class="tw tw5"></span><span class="tw tw6"></span>
+          </div>
         </div>
       </div>
     </section>
