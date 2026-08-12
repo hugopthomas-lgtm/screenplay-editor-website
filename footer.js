@@ -104,7 +104,7 @@
         ".wrap{background:#1a1a1a;color:#fff;padding:62px 30px 34px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px 30px;}' +
         ".brand .logo{font-family:inherit;font-size:20px;font-weight:800;" +
-        'letter-spacing:0.6px;color:#fff;text-decoration:none;display:inline-block;}' +
+        'letter-spacing:0.15px;color:#fff;text-decoration:none;display:inline-block;}' +
         '.brand .logo .dot{color:' + VIOLET + ';}' +
         '.brand p{margin-top:12px;font-size:13px;line-height:1.7;color:rgba(255,255,255,.42);max-width:260px;}' +
         '.brand .lang{margin-top:18px;display:inline-block;font-size:12px;color:rgba(255,255,255,.55);' +

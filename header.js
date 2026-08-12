@@ -138,7 +138,7 @@
         'box-shadow:0 6px 26px rgba(0,0,0,0.22);}' +
 
         ".logo{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;" +
-        'font-size:19px;font-weight:800;letter-spacing:0.6px;color:#fff;' +
+        'font-size:19px;font-weight:800;letter-spacing:0.15px;color:#fff;' +
         'text-decoration:none;cursor:pointer;line-height:1;}' +
         '.logo .dot{color:' + VIOLET + ';}' +
 
