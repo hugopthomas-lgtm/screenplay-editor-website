@@ -73,7 +73,7 @@
 
   function notifyExtension(payload, doneMsg) {
     if (!params.extId || !window.chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
-      fail('Could not reach the extension. Close this tab and try again.');
+      fail('Impossible de joindre l’extension. Fermez cet onglet et réessayez.');
       return;
     }
     chrome.runtime.sendMessage(params.extId, payload, function () {
@@ -91,8 +91,8 @@
 
   var _pickerOpened = false;
   function openPicker() {
-    if (!params.token) { fail('Missing authorization. Close this tab and retry from the extension.'); return; }
-    if (!window.gapi) { fail('Google is still loading. Try the button again in a second.'); return; }
+    if (!params.token) { fail('Autorisation manquante. Fermez cet onglet et relancez depuis l’extension.'); return; }
+    if (!window.gapi) { fail('Google charge encore. Réessayez le bouton dans une seconde.'); return; }
     gapi.load('picker', function () {
       _pickerOpened = true;
       var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
@@ -110,7 +110,7 @@
         .setCallback(function (data) {
           if (data.action === google.picker.Action.PICKED) {
             var ids = (data.docs || []).map(function (d) { return d.id; });
-            notifyExtension({ type: 'SE_PICKER_GRANTED', docIds: ids, requestedDocId: params.docId }, 'See you on the page.');
+            notifyExtension({ type: 'SE_PICKER_GRANTED', docIds: ids, requestedDocId: params.docId }, 'À tout de suite sur la page.');
           } else if (data.action === google.picker.Action.CANCEL) {
             notifyExtension({ type: 'SE_PICKER_CANCELLED', docId: params.docId }, null);
           }
