@@ -204,8 +204,11 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .comparison-table { font-size: 11px; }
-      .comparison-table th, .comparison-table td { padding: 10px 12px; }
+      /* Le tableau garde une taille lisible et defile dans son cadre
+         plutot que de se comprimer jusqu'a l'illisible. */
+      .comparison-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -20px; padding: 0 20px; }
+      .comparison-table { font-size: 13px; min-width: 480px; }
+      .comparison-table th, .comparison-table td { padding: 11px 12px; }
     }
     @media (max-width: 600px) {
       .header-content { padding: 15px 20px; }
@@ -287,7 +290,7 @@
         Screenplay Editor a été construit pour combler exactement ce trou. Même philosophie : un module simple qui met les scénarios au format dans Google Docs. Même principe du clic qui formate. Aucun langage de balisage. Aucune application à apprendre. Avec plus de fonctions que Screenplay Formatter n’en a jamais eu.
       </p>
 
-      <table class="comparison-table">
+      <div class="comparison-wrap"><table class="comparison-table">
         <tr>
           <th>Fonction</th>
           <th>Screenplay Editor</th>
@@ -343,7 +346,7 @@
           <td><span class="yes">Aucune, on clique</span></td>
           <td>C’était faible</td>
         </tr>
-      </table>
+      </table></div>
 
       <!-- When to choose Screenplay Formatter -->
       <h2>Quand choisir Screenplay Formatter</h2>
