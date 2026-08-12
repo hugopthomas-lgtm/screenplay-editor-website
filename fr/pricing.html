@@ -60,6 +60,27 @@
     .note p { font-size: 13px; color: #888; line-height: 1.7; }
     .note a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
 
+
+    /* Engagement prix : sceau SVG inline, aucune dependance. */
+    .pledge-band { max-width: 1020px; margin: 44px auto 0; padding: 0 30px; }
+    .pledge-band .inner { background: #f6f0e6; border-radius: 20px; padding: 38px 40px;
+      display: grid; grid-template-columns: 190px 1fr; column-gap: 44px; align-items: center; }
+    .pledge-band .seal svg { width: 100%; height: auto; display: block; }
+    .pledge-band .seal .ring { animation: seal-spin 34s linear infinite; transform-origin: 120px 120px; }
+    @keyframes seal-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .pledge-band .seal .ring { animation: none; } }
+    .pledge-band .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--violet); margin-bottom: 9px; }
+    .pledge-band h2 { font-size: 25px; font-weight: 700; letter-spacing: -.4px; line-height: 1.2; margin-bottom: 12px; }
+    .pledge-band > .inner > div > p { font-size: 14px; color: #63605a; line-height: 1.75; margin-bottom: 18px; text-wrap: pretty; }
+    .pledge-list { list-style: none; display: grid; gap: 10px; margin: 0; padding: 0; }
+    .pledge-list li { display: flex; gap: 11px; align-items: flex-start; font-size: 13.5px; color: #3c3c44; line-height: 1.6; }
+    .pledge-list .ck { flex: 0 0 auto; width: 19px; height: 19px; border-radius: 50%; background: var(--violet);
+      color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+    @media (max-width: 760px) {
+      .pledge-band .inner { grid-template-columns: 1fr; row-gap: 24px; padding: 30px 26px; }
+      .pledge-band .seal { width: 150px; margin: 0 auto; }
+    }
+
     .schools-band { max-width: 1020px; margin: 40px auto 0; padding: 0 30px; }
     .schools-band .inner { background: #f6f0e6; border-radius: 16px; padding: 30px 34px; display: flex;
       align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
@@ -142,6 +163,44 @@
     <div class="note">
       <p>La lecture à voix haute (voix ElevenLabs) fonctionne avec des packs de crédits séparés, parce que chaque minute de voix nous coûte réellement de l'argent. Tout le reste est couvert par votre abonnement.</p>
     </div>
+
+    <section class="pledge-band">
+      <div class="inner">
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 240 240" role="img">
+            <defs><path id="pledgeRing" d="M 120 24 a 96 96 0 1 1 -0.1 0" fill="none"></path></defs>
+            <g class="ring">
+              <circle cx="120" cy="120" r="112" fill="none" stroke="#9D7BEA" stroke-width="1" opacity=".45"></circle>
+              <text font-family="'JetBrains Mono', monospace" font-size="12.5" font-weight="700" letter-spacing="1.7" fill="#9D7BEA">
+                <textPath href="#pledgeRing" startOffset="0">LE PRIX DE LANCEMENT EST &#192; VIE &#183; UN SEUL ABONNEMENT &#183; </textPath>
+              </text>
+            </g>
+            <circle cx="120" cy="120" r="72" fill="none" stroke="#9D7BEA" stroke-width="1.4"></circle>
+            <circle cx="120" cy="120" r="72" fill="none" stroke="#9D7BEA" stroke-width="7" opacity=".09"></circle>
+            <rect x="87" y="72" width="66" height="96" rx="5" fill="none" stroke="#9D7BEA" stroke-width="1.6" opacity=".55"></rect>
+            <g stroke="#9D7BEA" stroke-width="2.6" stroke-linecap="round" fill="none">
+              <path d="M96 88 h48"></path>
+              <path d="M96 102 h48" opacity=".38"></path>
+              <path d="M96 111 h32" opacity=".38"></path>
+              <path d="M112 128 h16"></path>
+              <path d="M104 142 h32" opacity=".62"></path>
+              <path d="M104 151 h24" opacity=".62"></path>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <div class="label">Engagement prix</div>
+          <h2>Un outil de sc&#233;nario ne devrait pas co&#251;ter un mois de courses.</h2>
+          <p>Final&nbsp;Draft demande 249&nbsp;$ d&#8217;avance. Ici, quatre choses ne bougeront pas.</p>
+          <ul class="pledge-list">
+            <li><span class="ck">&#10003;</span>Le prix de lancement est verrouill&#233;. Il passera &#224; 9,99&nbsp;$, mais pas pour ceux qui se sont abonn&#233;s avant.</li>
+            <li><span class="ck">&#10003;</span>Un seul abonnement couvre l&#8217;extension et le module. Vous ne payez jamais deux fois.</li>
+            <li><span class="ck">&#10003;</span>R&#233;siliation en deux clics, sans justification et sans engagement d&#8217;un an.</li>
+            <li><span class="ck">&#10003;</span>Le prix est affich&#233; en dollars parce que c&#8217;est la devise de facturation. Nous n&#8217;ajoutons aucun supplément.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
     <section class="schools-band">
       <div class="inner">
