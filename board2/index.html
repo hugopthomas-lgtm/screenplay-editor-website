@@ -20,7 +20,7 @@
   /* ── Header ── */
   .header{height:62px;display:flex;align-items:center;gap:14px;padding:0 24px;background:rgba(26,26,26,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:10}
   .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0;letter-spacing:-.5px}
-  .project-title{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:600;border:none;background:none;color:var(--text);outline:none;min-width:120px;padding:5px 10px;border-radius:7px}
+  .project-title{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;border:none;background:none;color:var(--text);outline:none;min-width:120px;padding:5px 10px;border-radius:7px}
   .project-title:hover{background:var(--accent-soft)}
   .project-title:focus{background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}
   .header-spacer{flex:1}
@@ -37,9 +37,9 @@
   /* ── Column ── */
   .column{min-width:280px;max-width:320px;width:280px;background:var(--col-bg);border-radius:12px;border:1px solid var(--border);display:flex;flex-direction:column;max-height:100%;flex-shrink:0}
   .col-header{display:flex;align-items:center;padding:12px 14px;gap:8px;border-bottom:1px solid var(--border)}
-  .col-title{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;flex:1;border:none;background:none;color:var(--text);outline:none;padding:2px 6px;border-radius:4px;cursor:default}
+  .col-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;flex:1;border:none;background:none;color:var(--text);outline:none;padding:2px 6px;border-radius:4px;cursor:default}
   .col-title:focus{background:var(--accent-soft);cursor:text;box-shadow:0 0 0 2px var(--accent)}
-  .col-count{font-size:11px;color:var(--text3);font-weight:500;background:rgba(255,255,255,.06);padding:2px 8px;border-radius:10px}
+  .col-count{font-size:12px;color:var(--text3);font-weight:500;background:rgba(255,255,255,.06);padding:2px 8px;border-radius:10px}
   .col-delete{width:24px;height:24px;border:none;background:none;color:var(--text3);cursor:pointer;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:0;transition:opacity .15s}
   .col-header:hover .col-delete{opacity:1}
   .col-delete:hover{color:#EF4444;background:rgba(239,68,68,.15)}
@@ -52,11 +52,11 @@
 
   /* ── Add Column ── */
   .add-column{min-width:280px;width:280px;flex-shrink:0}
-  .add-col-btn{width:100%;padding:14px;border:2px dashed var(--border);border-radius:12px;background:none;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+  .add-col-btn{width:100%;padding:14px;border:2px dashed var(--border);border-radius:12px;background:none;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
   .add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 
   /* ── Card ── */
-  .card{display:flex;flex-direction:column;background:var(--yellow);border-radius:8px;padding:8px 10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:13px;line-height:1.4;cursor:grab;user-select:none;position:relative;border:1px solid rgba(0,0,0,.08);transition:box-shadow .2s,transform .2s;word-break:break-word;min-height:36px;color:#1a1a2e}
+  .card{display:flex;flex-direction:column;background:var(--yellow);border-radius:8px;padding:8px 10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.4;cursor:grab;user-select:none;position:relative;border:1px solid rgba(0,0,0,.08);transition:box-shadow .2s,transform .2s;word-break:break-word;min-height:36px;color:#1a1a2e}
   .card:active{cursor:grabbing}
   .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.3)}
   .card.dragging{opacity:.4}
@@ -65,22 +65,22 @@
   .card:hover .card-delete{opacity:1}
   .card-delete:hover{background:rgba(239,68,68,.3);color:#EF4444}
   .card[contenteditable=true]{cursor:text;outline:none;box-shadow:0 0 0 2px var(--accent)}
-  .card-text{pointer-events:none;font-size:13px;font-weight:600;color:#1a1a2e;line-height:1.3}
+  .card-text{pointer-events:none;font-size:14px;font-weight:600;color:#1a1a2e;line-height:1.3}
   .card[contenteditable=true] .card-text{pointer-events:auto}
 
   /* ── Card heading + body ── */
   .card .time-dot{position:absolute;top:8px;right:8px}
-  .card-location{font-size:10px;font-weight:500;letter-spacing:.2px;text-transform:uppercase;color:#8B8B9E;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .board-legend{display:flex;align-items:center;gap:19px;padding:7px 24px;font-size:13px;color:#9CA3AF;border-bottom:1px solid rgba(0,0,0,.06);background:rgba(0,0,0,.01);flex-shrink:0}
+  .card-location{font-size:12px;font-weight:500;letter-spacing:.2px;text-transform:uppercase;color:#8B8B9E;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .board-legend{display:flex;align-items:center;gap:19px;padding:7px 24px;font-size:14px;color:#9CA3AF;border-bottom:1px solid rgba(0,0,0,.06);background:rgba(0,0,0,.01);flex-shrink:0}
   .board-legend .legend-group{display:flex;align-items:center;gap:5px}
   .board-legend .legend-swatch{width:12px;height:12px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
   .board-legend .legend-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
-  .card-long{font-size:11px;color:#555;margin-top:3px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card-long{font-size:12px;color:#555;margin-top:3px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
   /* ── AI progress bar ── */
   .ai-progress-wrap{opacity:0;transition:opacity .4s;flex-shrink:0}
   .ai-progress-wrap.active{opacity:1}
-  .ai-progress-label{font-size:11px;color:#9D7BEA;text-align:center;padding:6px 0 4px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;letter-spacing:.2px;animation:ai-pulse 2s ease-in-out infinite}
+  .ai-progress-label{font-size:12px;color:#9D7BEA;text-align:center;padding:6px 0 4px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;letter-spacing:.2px;animation:ai-pulse 2s ease-in-out infinite}
   @keyframes ai-pulse{0%,100%{opacity:.6}50%{opacity:1}}
   .ai-progress{height:2px;background:rgba(157,123,234,.12);overflow:hidden}
   .ai-progress-bar{height:100%;width:30%;background:linear-gradient(90deg,#9D7BEA,#7C5DC4);border-radius:2px;animation:ai-slide 1.8s ease-in-out infinite}
@@ -132,7 +132,7 @@
   .theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
 
   /* ── Sync indicator ── */
-  .sync-status{font-size:13px;color:var(--text3);display:flex;align-items:center;gap:5px;margin-right:5px}
+  .sync-status{font-size:14px;color:var(--text3);display:flex;align-items:center;gap:5px;margin-right:5px}
   .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--text3)}
   .sync-dot.synced{background:#22c55e}
   .sync-dot.syncing{background:#f59e0b;animation:pulse .8s infinite}
@@ -143,18 +143,18 @@
   .loading-splash.fade-out{opacity:0;pointer-events:none}
   .loading-splash-icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;margin-bottom:24px;animation:splash-breathe 2s ease-in-out infinite}
   @keyframes splash-breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(157,123,234,0)}50%{transform:scale(1.05);box-shadow:0 0 30px 8px rgba(157,123,234,.2)}}
-  .loading-splash-title{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;text-align:center}
-  .loading-splash-sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:13px;color:var(--text3);text-align:center;max-width:320px;line-height:1.6;margin-bottom:32px}
+  .loading-splash-title{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;color:var(--text);margin-bottom:8px;text-align:center}
+  .loading-splash-sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:var(--text3);text-align:center;max-width:320px;line-height:1.6;margin-bottom:32px}
   .loading-splash-bar{width:200px;height:3px;background:rgba(157,123,234,.12);border-radius:3px;overflow:hidden}
   .loading-splash-bar-inner{height:100%;width:30%;background:linear-gradient(90deg,#9D7BEA,#7C5DC4);border-radius:3px;animation:ai-slide 1.8s ease-in-out infinite}
-  .loading-splash-step{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);margin-top:14px;opacity:.7;animation:ai-pulse 2s ease-in-out infinite;text-align:center}
+  .loading-splash-step{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);margin-top:14px;opacity:.7;animation:ai-pulse 2s ease-in-out infinite;text-align:center}
 
   /* ── Welcome overlay ── */
   .welcome-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
   .welcome-card{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:32px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)}
   .welcome-logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;margin-bottom:16px}
-  .welcome-title{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
-  .welcome-sub{font-size:13px;color:#888;margin-bottom:28px}
+  .welcome-title{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
+  .welcome-sub{font-size:14px;color:#888;margin-bottom:28px}
   .welcome-options{display:flex;flex-direction:column;gap:10px}
   .welcome-opt{display:flex;align-items:center;gap:14px;padding:16px;border-radius:12px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;transition:all .2s;text-align:left}
   .welcome-opt:hover{border-color:#9D7BEA;background:rgba(157,123,234,.04)}
@@ -166,9 +166,9 @@
   .welcome-opt-icon.yellow{background:rgba(234,179,8,.12);color:#ca8a04}
   .welcome-opt-icon.gray{background:rgba(0,0,0,.06);color:#888}
   .welcome-opt-text{flex:1}
-  .welcome-opt-title{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:#1a1a1a}
-  .welcome-opt-desc{font-size:11px;color:#888;margin-top:2px}
-  .welcome-opt .welcome-opt-badge{font-size:9px;background:#9D7BEA;color:#fff;padding:2px 8px;border-radius:10px;font-weight:600;letter-spacing:.3px}
+  .welcome-opt-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:#1a1a1a}
+  .welcome-opt-desc{font-size:12px;color:#888;margin-top:2px}
+  .welcome-opt .welcome-opt-badge{font-size:12px;background:#9D7BEA;color:#fff;padding:2px 8px;border-radius:10px;font-weight:600;letter-spacing:.3px}
 
   /* ── Scrollbar global ── */
   ::-webkit-scrollbar{width:6px;height:6px}
