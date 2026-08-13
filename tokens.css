@@ -216,9 +216,12 @@ span.mark::before {
 }
 
 /* Sur fond sombre le rapport s'inverse : c'est le violet plein des
-   boutons qui tranche, l'eclairci y paraitrait laiteux. */
+   boutons qui tranche, l'eclairci y paraitrait laiteux, et le texte
+   passe en blanc pour rester dans la logique de la section. */
 .hero span.mark::before,
 .cta-section span.mark::before { background: var(--violet); }
+.hero span.mark,
+.cta-section span.mark { color: #fff; }
 
 @media (prefers-reduced-motion: reduce) {
   span.mark::before { animation: none !important; clip-path: inset(0 0 0 0); transition: none; }
