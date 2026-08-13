@@ -191,6 +191,14 @@ span.mark::before {
   from { clip-path: inset(0 100% 0 0); }
   to   { clip-path: inset(0 0 0 0); }
 }
+/* Meme trace, autre nom. Indispensable : quand la classe hero-loaded
+   arrive, le navigateur ne relance une animation que si son NOM change.
+   Avec le meme nom il gardait la position finale heritee du defilement,
+   et le trait du hero etait deja peint avant d'avoir commence. */
+@keyframes mark-sweep-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
 @supports (animation-timeline: view()) {
   span.mark::before {
     animation: mark-sweep 1s linear both;
@@ -202,7 +210,7 @@ span.mark::before {
   }
   /* Dans le hero, rien ne défile encore : le trait se peint à l'arrivée. */
   body.hero-loaded .hero span.mark::before {
-    animation: mark-sweep .95s cubic-bezier(.22, .68, .28, 1) 1.35s both;
+    animation: mark-sweep-in .95s cubic-bezier(.22, .68, .28, 1) 1.35s both;
     animation-timeline: auto;
   }
 }
