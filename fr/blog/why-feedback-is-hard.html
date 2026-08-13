@@ -50,55 +50,15 @@
     }
 
     /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(248, 246, 252, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee;
-      z-index: 100;
-    }
 
-    .header-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 18px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
 
-    .logo {
-      position: relative;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--dark);
-      cursor: pointer;
-    }
 
-    .logo .cursor {
-      color: var(--violet);
-      animation: blink 1s step-end infinite;
-    }
 
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
 
-    .logo .full-name {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
 
     .logo:hover .mark {
       opacity: 0;
@@ -108,21 +68,8 @@
       opacity: 1;
     }
 
-    .header-nav a {
-      margin-left: 30px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #666;
-      transition: color 0.2s;
-    }
 
-    .header-nav a:hover {
-      color: var(--violet);
-    }
 
-    .header-nav a.highlight {
-      color: var(--violet);
-    }
 
     /* Breadcrumb Bar */
     .breadcrumb-bar {
@@ -366,14 +313,7 @@
 
     /* Responsive */
     @media (max-width: 600px) {
-      .header-content {
-        padding: 15px 20px;
-      }
 
-      .header-nav a {
-        margin-left: 18px;
-        font-size: 12px;
-      }
 
       .article-container {
         padding: 40px 20px 80px;
@@ -449,25 +389,11 @@
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
+  <script src="/header.js"></script>
 </head>
 
 <body>
-  <header>
-    <div class="header-content">
-      <a href="/fr/" class="logo">
-        <span class="mark">SCR<span class="cursor">▌</span></span>
-        <span class="full-name">SCREENPLAY EDITOR</span>
-      </a>
-      <nav class="header-nav">
-        <a href="/fr/#features">Fonctions</a>
-        <a href="/fr/blog.html" class="highlight">Blog</a>
-        <a href="/fr/resources/">Ressources</a>
-        <a href="/fr/about.html">À propos</a>
-        <a href="/fr/compare/">Comparer</a>
-        <a href="/fr/support.html">Aide</a>
-      </nav>
-    </div>
-  </header>
+  <site-header></site-header>
 
   <div class="breadcrumb-bar">
     <div class="breadcrumb-content">
