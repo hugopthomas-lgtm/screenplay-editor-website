@@ -224,6 +224,31 @@ span.mark::before {
   margin-right: -.34em;
 }
 
+/* ------------------------------------------------------------
+   FIL D'ARIANE
+   C'etait un bandeau noir pleine largeur, colle sous la pilule
+   flottante : sur une page claire, ca se lit comme une deuxieme
+   en-tete. Un fil d'Ariane est une mention de service, il se pose
+   discretement au-dessus du contenu et s'aligne sur la gouttiere.
+   ------------------------------------------------------------ */
+.breadcrumb-bar {
+  background: transparent;
+  border-bottom: 0;
+  padding: 26px 30px 0;
+}
+.breadcrumb-content { max-width: 1240px; margin: 0 auto; }
+/* Sur les articles, la colonne de texte est etroite : le fil se cale
+   dessus plutot que de partir seul a l'extreme gauche de la page. */
+body:has(.article) .breadcrumb-content { max-width: 700px; }
+body:has(.page-content) .breadcrumb-content { max-width: 1080px; }
+/* Deux ecritures de fil d'Ariane coexistent : liens directs dans
+   .breadcrumb-content, ou emballes dans un .breadcrumb. Les deux. */
+.breadcrumb-bar, .breadcrumb-bar * { font-size: 13px; color: var(--ink-4); }
+.breadcrumb-bar a { color: var(--ink-3); text-decoration: none; }
+.breadcrumb-bar a:hover { color: var(--violet); }
+/* la page courante etait en blanc, heritee du bandeau noir */
+.breadcrumb-bar .current, .breadcrumb-bar .breadcrumb-content > span:last-child { color: var(--ink-2); }
+
 /* Le monospace reste là où il porte du sens : extraits de
    scénario, exemples de code, mock du produit. */
 code, pre, kbd, samp,
