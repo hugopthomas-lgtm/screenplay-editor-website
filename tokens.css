@@ -183,37 +183,23 @@ span.mark::before {
   background: #C6AEFA;   /* sur fond clair, le violet eclairci : plein, il */
   transform: rotate(-1.6deg) skewX(-9deg);  /* ecrase le texte noir pose dessus */
 }
-/* Le trait se peint de gauche à droite quand le bloc entre dans l'écran.
-   Piloté par le défilement, sans une ligne de JavaScript. Par défaut le
-   surlignage est simplement là : on ne cache jamais du contenu derrière
-   une animation que le navigateur ne saurait pas jouer. */
-@keyframes mark-sweep {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0 0 0); }
-}
-/* Meme trace, autre nom. Indispensable : quand la classe hero-loaded
-   arrive, le navigateur ne relance une animation que si son NOM change.
-   Avec le meme nom il gardait la position finale heritee du defilement,
-   et le trait du hero etait deja peint avant d'avoir commence. */
+/* Le trait se peint de gauche à droite, UNE fois, quand le bloc est
+   franchement entré dans l'écran. On n'utilise pas animation-timeline:
+   view() : cette ligne de temps est pilotée par la position, donc elle
+   rejoue le trait à l'envers quand on remonte la page. Ici c'est un
+   declencheur (voir header.js) qui pose la classe une fois pour toutes.
+   Sans JavaScript, le surlignage est simplement là : on ne cache jamais
+   du contenu derrière une animation. */
 @keyframes mark-sweep-in {
   from { clip-path: inset(0 100% 0 0); }
   to   { clip-path: inset(0 0 0 0); }
 }
-@supports (animation-timeline: view()) {
-  span.mark::before {
-    animation: mark-sweep 1s linear both;
-    animation-timeline: view();
-    /* Le trait ne se peint pas des que le bloc pointe en bas de l'ecran :
-       il attend qu'il soit entierement visible, puis se peint sur une
-       bonne longueur de defilement. Sinon c'est deja fini quand on regarde. */
-    animation-range: entry 95% cover 42%;
-  }
-  /* Dans le hero, rien ne défile encore : le trait se peint à l'arrivée. */
-  body.hero-loaded .hero span.mark::before {
-    animation: mark-sweep-in .95s cubic-bezier(.22, .68, .28, 1) 1.35s both;
-    animation-timeline: auto;
-  }
+.js span.mark::before { clip-path: inset(0 100% 0 0); }
+.js span.mark.mark-on::before {
+  animation: mark-sweep-in .9s cubic-bezier(.22, .68, .28, 1) .15s both;
 }
+/* Dans le hero, le texte lui-même arrive en fondu : le trait attend. */
+.js .hero span.mark.mark-on::before { animation-delay: 1.2s; }
 
 /* Sur fond sombre le rapport s'inverse : c'est le violet plein des
    boutons qui tranche, l'eclairci y paraitrait laiteux, et le texte

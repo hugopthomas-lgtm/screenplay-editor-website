@@ -252,4 +252,33 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fillNow);
   else fillNow();
+
+  /* ----------------------------------------------------------
+     SURLIGNAGES : le trait se peint une fois, quand le bloc est
+     franchement dans l'ecran, et ne se depeint JAMAIS quand on
+     remonte. C'est la raison d'etre de ce bout de code : la
+     solution sans JavaScript (animation-timeline: view()) est
+     pilotee par la position, donc elle rejoue le trait a l'envers
+     au defilement inverse. Ici on pose une classe, une fois, et on
+     arrete d'observer. Le style vit dans tokens.css.
+     ---------------------------------------------------------- */
+  function armeSurlignages() {
+    var marks = document.querySelectorAll('span.mark');
+    if (!marks.length) return;
+    if (!('IntersectionObserver' in window)) {
+      for (var i = 0; i < marks.length; i++) marks[i].classList.add('mark-on');
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add('mark-on');
+          io.unobserve(entries[i].target);
+        }
+      }
+    }, { threshold: 0.9 });
+    for (var j = 0; j < marks.length; j++) io.observe(marks[j]);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', armeSurlignages);
+  else armeSurlignages();
 })();
