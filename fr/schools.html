@@ -80,6 +80,17 @@
     }
     .hero-proof .dot { color: var(--violet); }
 
+    /* La demo : la meme que sur l'accueil, en attendant celle tournee
+       pour la classe. Muette et en boucle, parce qu'une page produit se
+       regarde, elle ne se met pas en lecture. */
+    .hero-screenshot {
+      max-width: 720px;
+      margin: 46px auto 0;
+      filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 45px rgba(157, 123, 234, 0.28));
+    }
+    .hero-demo { display: block; width: 100%; border-radius: 10px; }
+    @media (max-width: 700px) { .hero-screenshot { margin-top: 34px; } }
+
     /* STATS */
     .stats { background: #fff; padding: 52px 30px; box-shadow: 0 10px 30px rgba(26,26,26,0.05); }
     .stats-inner { max-width: 1240px; margin: 0 auto; }
@@ -323,6 +334,11 @@
           <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank" rel="noopener">Ou essayez-le gratuitement avec une classe</a>
         </div>
         <div class="hero-proof"><span>Des élèves dans plus de 100 écoles</span><span class="dot">&middot;</span><span>Fonctionne sur Chromebook</span><span class="dot">&middot;</span><span>Gratuit pour les enseignants</span></div>
+        <div class="hero-screenshot">
+          <video class="hero-demo" autoplay muted loop playsinline preload="metadata" aria-label="Screenplay Editor met en forme un scénario en direct dans un Google Doc">
+            <source src="/demo.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </section>
 
