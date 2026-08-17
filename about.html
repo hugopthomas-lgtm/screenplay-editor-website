@@ -24,6 +24,10 @@
     .story h3 { font-size: 19px; font-weight: 700; color: var(--dark); margin: 0 0 14px; }
     .story p { font-size: 16px; line-height: 1.85; color: #525252; margin-bottom: 20px; text-wrap: balance; }
     .story strong { color: var(--dark); font-weight: 700; }
+    /* Meme traitement que .bio-text a : les liens de .story n'en avaient aucun
+       et tombaient sur le bleu par defaut du navigateur. */
+    .story a { color: var(--violet); text-decoration: none; border-bottom: 1px solid rgba(157,123,234,0.4); }
+    .story .aside { display: block; font-size: 14px; color: #6b6b6b; margin-top: 6px; }
     .team { max-width: 1240px; margin: 0 auto; padding: 24px 30px 30px; }
     .team h2 { font-size: 38px; font-weight: 700; color: var(--violet); margin: 0 0 14px; letter-spacing: -0.02em; text-align: center; }
     .team-note { font-size: 16px; line-height: 1.75; color: #6b6b6b; margin: 0 auto 20px; max-width: 560px; text-align: center; text-wrap: balance; }
@@ -40,22 +44,17 @@
     .member--sm { --d: 196px; }
     .member--drop1 { margin-top: 22px; }
     .member--drop2 { margin-top: 54px; }
-    /* Coupure de ligne forcee : trois portraits en haut, deux en bas, et la
-       seconde ligne decalee vers la gauche pour ne pas retomber sur un axe.
-       Les marges negatives font remonter la seconde ligne dans les creux de la
-       premiere : sans elles, les deux lignes se lisent comme deux blocs. */
-    .team-break { flex-basis: 100%; height: 0; margin: 0; }
-    .team-break + .member { margin-right: 90px; }
-    .member--up { margin-top: -34px; }
+    /* A quatre, les portraits tiennent sur une seule ligne (960 px dans la
+       gouttiere de 1240) : plus de coupure forcee, plus de seconde ligne a
+       recaler. Le desordre tient aux quatre diametres et aux quatre hauteurs.
+       Un cinquieme portrait repasserait a la ligne tout seul (flex-wrap). */
+    .member--up { margin-top: 12px; }
     /* object-position remonte le cadrage : dans un cercle, un visage place haut
        se fait rogner par le bas du cadre carre. 30 % vise les yeux. */
     .member-avatar, .member-initials { width: var(--d); height: var(--d); border-radius: 50%; object-fit: cover; object-position: center 30%; display: block; }
     .member-initials { display: flex; align-items: center; justify-content: center;
       background: rgba(157,123,234,0.12); color: var(--violet); font-size: 48px; font-weight: 700; letter-spacing: 1px; }
     /* La carte chevauche le bas du cercle : c'est ce qui fait toute la signature. */
-    /* Aline en noir et blanc (demande de Hugo). En CSS plutot qu'en
-       reencodant le fichier : reversible en une ligne, sans perte. */
-    .member-avatar[src*="aline"] { filter: grayscale(1); }
     /* Le fond de tapis rouge de Thibault hurlait a cote de quatre photos
        naturelles. On le calme sans virer la photo en noir et blanc. */
     .member-avatar[src*="thibault"] { filter: saturate(0.55); }
@@ -70,8 +69,6 @@
       .member-initials { font-size: 34px; }
       .member-card { margin-top: -28px; }
       .member--drop1, .member--drop2 { margin-top: 0; }
-      .team-break { display: none; }
-      .team-break + .member { margin-right: 0; }
     }
     @media (max-width: 800px) { .team-grid { gap: 22px; } .story { padding: 6px 24px 0; } .team { padding: 32px 24px 6px; } }
     .bio { max-width: 1240px; margin: 0 auto; padding: 66px 30px 20px; display: grid; grid-template-columns: 340px 1fr; gap: 74px; align-items: start; }
@@ -122,7 +119,7 @@
     <section class="team scroll-fade">
       <h2>The team</h2>
       <p class="team-note">It stopped being a one-person project a while ago. These are the people who build it with me.</p>
-      <!-- Cinq portraits, deux lignes, des diametres differents : la variation
+      <!-- Quatre portraits sur une ligne, des diametres differents : la variation
            de taille et les decalages verticaux evitent le trombinoscope. -->
 
       <div class="team-grid">
@@ -140,14 +137,6 @@
             <div class="member-role">Engineering</div>
           </div>
         </div>
-        <div class="member member--xl member--drop1">
-          <img class="member-avatar" src="team-aline.jpg" alt="Aline">
-          <div class="member-card">
-            <div class="member-name">Aline</div>
-            <div class="member-role">Web design</div>
-          </div>
-        </div>
-        <div class="team-break"></div>
         <div class="member member--md member--up">
           <img class="member-avatar" src="team-paul.jpg" alt="Paul">
           <div class="member-card">
@@ -169,6 +158,12 @@
       <h3>How it grew</h3>
       <p>Screenplay Editor started in <strong>2025</strong> as a prototype I built for my own scripts. I showed it to a few writer friends, they asked to keep it, and it went from there.</p>
       <p>Today thousands of screenwriters write with it. <strong>Last month alone it was used in 63 countries</strong>, on six continents, from film schools in Singapore and Las Vegas to writers' rooms in England.</p>
+      <!-- La mention presse vit dans le recit plutot que dans une rubrique
+           "Press" dediee : un seul article dans une section a lui tout seul
+           souligne surtout qu'il est seul. A deplacer dans son propre bloc le
+           jour ou il y en aura trois ou quatre. -->
+      <p>In August 2026, <a href="https://lessorsavoyard.lemessager.fr/649356580/article/2026-08-16/ce-haut-savoyard-revolutionne-l-ecriture-des-scenarios-pour-hollywood-grace-a-son-invention" target="_blank" rel="noopener">L'Essor Savoyard</a>, the paper from the corner of the French Alps I grew up in, ran a piece about it.
+        <span class="aside">In French, and behind their subscription.</span></p>
     </section>
 
     <!-- padding-bottom : le bloc ecoles collait au bandeau sombre en dessous. -->
