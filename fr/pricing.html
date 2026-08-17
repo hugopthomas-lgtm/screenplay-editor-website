@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prix — Screenplay Editor pour Google Docs</title>
   <link rel="icon" type="image/png" href="/favicon.png">
-  <meta name="description" content="Les prix de Screenplay Editor : commencez gratuitement, puis 7,99 $ par mois pour tout, l'extension Chrome et le module Google Docs dans un seul abonnement. Résiliable à tout moment.">
+  <meta name="description" content="Les prix de Screenplay Editor : commencez gratuitement, puis 5,99 $ par mois pour le module Google Docs ou 7,99 $ pour l'extension Chrome. Résiliable à tout moment.">
   <link rel="canonical" href="https://screenplayeditor.app/fr/pricing.html">
   <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/pricing.html">
   <link rel="alternate" hreflang="fr" href="https://screenplayeditor.app/fr/pricing.html">
@@ -26,8 +26,8 @@
     .hero-trust li { font-size: 12px; font-weight: 500; color: #9a9a9a; }
     .hero-trust .ck { color: var(--violet); font-weight: 700; margin-right: 4px; }
 
-    .plans { max-width: 720px; margin: -34px auto 0; padding: 0 30px 26px; display: grid;
-      grid-template-columns: repeat(2, 1fr); gap: 16px; position: relative; z-index: 2; }
+    .plans { max-width: 1080px; margin: -34px auto 0; padding: 0 30px 26px; display: grid;
+      grid-template-columns: repeat(3, 1fr); gap: 16px; position: relative; z-index: 2; }
     .plan { background: #fff; border-radius: 16px; padding: 30px 28px; box-shadow: 0 18px 44px rgba(26,26,26,.10);
       display: flex; flex-direction: column; }
     .plan.pop { background: #1a1a1a; color: #fff; }
@@ -40,9 +40,10 @@
     .plan-desc { margin-top: 16px; font-size: 14px; color: #666; line-height: 1.65; }
     .plan.pop .plan-desc { color: #c9c3d6; }
     .plan ul { list-style: none; margin: 18px 0 24px; padding: 0; flex: 1; }
-    .plan li { font-size: 14px; margin-bottom: 10px; color: #444; line-height: 1.5; text-wrap: pretty; }
+    .plan li { font-size: 14px; margin-bottom: 10px; color: #444; line-height: 1.5; text-wrap: pretty;
+      display: flex; align-items: baseline; gap: 7px; }
     .plan.pop li { color: #ddd8e8; }
-    .plan .ck { color: var(--violet); font-weight: 700; margin-right: 7px; }
+    .plan .ck { color: var(--violet); font-weight: 700; flex: 0 0 auto; }
 
     /* Microcopie de reassurance, juste sous le bouton : c'est la que l'on hesite. */
     .plan-reassure { margin-top: 12px; font-size: 12px; line-height: 1.65; color: #8d8d96; text-align: center; }
@@ -157,20 +158,33 @@
         <p class="plan-reassure">Sans compte, sans carte. L’installation prend une trentaine de secondes.</p>
       </div>
 
+      <div class="plan">
+        <div class="plan-name">Module Docs</div>
+        <div class="plan-price">5,99 $<span> / mois</span></div>
+        <div class="plan-alt">ou 49,99 $ / an</div>
+        <p class="plan-desc">La barre latérale dans Google Docs. Elle marche dans n'importe quel navigateur, sur n'importe quelle machine, et c'est le choix sûr quand votre coauteur n'est pas sur Chrome.</p>
+        <ul>
+          <li><span class="ck">&#10003;</span>Formatage illimité depuis la barre latérale</li>
+          <li><span class="ck">&#10003;</span>Scene Board, page de titre, numéros de scène</li>
+          <li><span class="ck">&#10003;</span>Export PDF et Final&nbsp;Draft (.fdx)</li>
+        </ul>
+        <a class="plan-cta ghost" href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" target="_blank" rel="noopener">Installer le module</a>
+        <p class="plan-reassure">Gratuit pour commencer. Pro n’est facturé que si vous le choisissez.</p>
+      </div>
+
       <div class="plan pop">
-        <div class="pop-badge">UN SEUL PRIX, LES DEUX OUTILS</div>
-        <div class="plan-name">Pro</div>
+        <div class="pop-badge">CELUI AVEC LEQUEL J’ÉCRIS</div>
+        <div class="plan-name">Extension Chrome</div>
         <div class="plan-price">7,99 $<span> / mois</span></div>
         <div class="plan-alt">ou 69 $ / an &middot; 9,99 $ ensuite</div>
-        <p class="plan-desc">Un seul abonnement couvre l'extension Chrome et le module Google Docs. Vous payez une fois et tout est débloqué, sur tous les ordinateurs où vous écrivez.</p>
+        <p class="plan-desc">Entrée et Tab vous déplacent entre l'en-tête de scène, l'action et le dialogue pendant que vous tapez, comme dans Final&nbsp;Draft. C'est la partie qui change la façon d'écrire.</p>
         <ul>
           <li><span class="ck">&#10003;</span>Smart Writing : Entrée et Tab font le travail</li>
-          <li><span class="ck">&#10003;</span>Formatage illimité, sur les deux outils</li>
+          <li><span class="ck">&#10003;</span>Formatage illimité pendant la frappe</li>
           <li><span class="ck">&#10003;</span>Scene Board, page de titre, export PDF et .fdx</li>
         </ul>
         <a class="plan-cta" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Ajouter à Chrome</a>
-        <a class="plan-second" href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" target="_blank" rel="noopener">ou commencer par le module Docs</a>
-        <p class="plan-reassure"><strong>0 $ aujourd’hui.</strong> Aucune carte pour commencer, et Pro n’est facturé que si vous le choisissez. Résiliation en deux clics, vos scénarios restent dans votre Drive.</p>
+        <p class="plan-reassure"><strong>0 $ aujourd’hui.</strong> Aucune carte pour commencer. Résiliation en deux clics, vos scénarios restent dans votre Drive.</p>
       </div>
     </section>
 
@@ -248,7 +262,7 @@
         </details>
         <details class="faq-item" name="faq">
           <summary><span>Est-ce que je paie deux fois si j'utilise l'extension et le module ?</span></summary>
-          <div class="faq-body">Non. Il y a un seul prix et un seul abonnement, et il débloque les deux outils, sur tous les ordinateurs où vous écrivez. Les 7,99 $ sont un prix de lancement, et ceux qui s'abonnent maintenant le gardent.</div>
+          <div class="faq-body">Chaque outil a son propre abonnement : 5,99 $ par mois pour le module Docs, 7,99 $ pour l'extension Chrome. La plupart des gens écrivent avec l'un des deux, pas avec les deux. Celui que vous choisissez marche sur tous les ordinateurs où vous écrivez, et le prix auquel vous vous abonnez est celui que vous gardez.</div>
         </details>
       </div>
     </section>
