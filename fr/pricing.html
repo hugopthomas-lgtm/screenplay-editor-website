@@ -46,6 +46,26 @@
     .plan .ck { color: var(--violet); font-weight: 700; flex: 0 0 auto; }
 
     /* Microcopie de reassurance, juste sous le bouton : c'est la que l'on hesite. */
+    /* Paiement direct depuis la carte : deux interactions, choisir puis payer.
+       Le champ email est le point sensible — la licence est indexée dessus, donc
+       le libellé insiste sur l'adresse du compte Google. */
+    .buy { margin-top: 18px; }
+    .buy-cycle { display: flex; gap: 6px; background: #f1eef8; border-radius: 10px; padding: 4px; margin-bottom: 10px; }
+    .plan.pop .buy-cycle { background: rgba(255,255,255,.08); }
+    .buy-cycle button { flex: 1; border: 0; background: none; cursor: pointer; font: inherit; font-size: 13px;
+      font-weight: 600; color: #6b6b75; padding: 7px 4px; border-radius: 7px; transition: background .16s, color .16s; }
+    .plan.pop .buy-cycle button { color: #b9b2c9; }
+    .buy-cycle button[aria-pressed="true"] { background: #fff; color: var(--violet); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    .plan.pop .buy-cycle button[aria-pressed="true"] { background: var(--violet); color: #fff; }
+    .buy-save { font-size: 11px; font-weight: 700; letter-spacing: .3px; }
+    .buy input { width: 100%; box-sizing: border-box; border: 1px solid #e2dff0; border-radius: 10px;
+      padding: 12px 14px; font: inherit; font-size: 14px; margin-bottom: 8px; background: #fff; color: #1a1a1a; }
+    .buy input::placeholder { color: #a9a4b8; }
+    .buy input:focus { outline: 2px solid var(--violet); outline-offset: -1px; border-color: transparent; }
+    .buy-hint { font-size: 12px; line-height: 1.55; color: #8d8d96; margin: 0 0 10px; }
+    .plan.pop .buy-hint { color: #a49db6; }
+    .buy-error { font-size: 12px; line-height: 1.55; color: #c2410c; margin: 8px 0 0; display: none; }
+    .plan.pop .buy-error { color: #fca5a5; }
     .plan-reassure { margin-top: 12px; font-size: 12px; line-height: 1.65; color: #8d8d96; text-align: center; }
     .plan-reassure strong { color: #5f5f6b; font-weight: 600; }
     .plan-reassure a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
@@ -153,6 +173,7 @@
           <li><span class="ck">&#10003;</span>Fonctionne sur n'importe quel Google Doc</li>
           <li><span class="ck">&#10003;</span>Votre scénario reste dans votre Google Drive</li>
           <li><span class="ck">&#10003;</span>Sans compte, sans carte</li>
+          <li><span class="ck">&#10003;</span>Gratuit pour toujours, pas un essai qui expire</li>
         </ul>
         <a class="plan-cta ghost" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Commencer gratuitement</a>
         <p class="plan-reassure">Sans compte, sans carte. L’installation prend une trentaine de secondes.</p>
@@ -160,31 +181,49 @@
 
       <div class="plan">
         <div class="plan-name">Module Docs</div>
-        <div class="plan-price">5,99 $<span> / mois</span></div>
-        <div class="plan-alt">ou 49,99 $ / an</div>
+        <div class="plan-price" data-price="addon">5,99 $<span> / mois</span></div>
+        <div class="plan-alt" data-alt="addon">ou 49,99 $ / an</div>
         <p class="plan-desc">La barre latérale dans Google Docs. Elle marche dans n'importe quel navigateur, sur n'importe quelle machine, et c'est le choix sûr quand votre coauteur n'est pas sur Chrome.</p>
         <ul>
           <li><span class="ck">&#10003;</span>Formatage illimité depuis la barre latérale</li>
           <li><span class="ck">&#10003;</span>Scene Board, page de titre, numéros de scène</li>
           <li><span class="ck">&#10003;</span>Export PDF et Final&nbsp;Draft (.fdx)</li>
         </ul>
-        <a class="plan-cta ghost" href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" target="_blank" rel="noopener">Installer le module</a>
-        <p class="plan-reassure">Gratuit pour commencer. Pro n’est facturé que si vous le choisissez.</p>
+        <div class="buy" data-surface="addon">
+          <div class="buy-cycle" role="group" aria-label="Périodicité">
+            <button type="button" data-cycle="monthly" aria-pressed="true">Mensuel</button>
+            <button type="button" data-cycle="yearly" aria-pressed="false">Annuel <span class="buy-save">&minus;30&nbsp;%</span></button>
+          </div>
+          <input type="email" inputmode="email" autocomplete="email" placeholder="vous@gmail.com" aria-label="E-mail de votre compte Google">
+          <p class="buy-hint">Utilisez le compte Google avec lequel vous écrivez, pour que Pro se débloque dans vos Docs.</p>
+          <a class="plan-cta ghost" href="#" data-buy>S’abonner &mdash; 5,99 $/mois</a>
+          <p class="buy-error" role="alert"></p>
+        </div>
+        <p class="plan-reassure">Ou <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" target="_blank" rel="noopener">installez-le gratuitement d’abord</a> et passez à Pro plus tard.</p>
       </div>
 
       <div class="plan pop">
         <div class="pop-badge">CELUI AVEC LEQUEL J’ÉCRIS</div>
         <div class="plan-name">Extension Chrome</div>
-        <div class="plan-price">7,99 $<span> / mois</span></div>
-        <div class="plan-alt">ou 69 $ / an &middot; 9,99 $ ensuite</div>
+        <div class="plan-price" data-price="extension">7,99 $<span> / mois</span></div>
+        <div class="plan-alt" data-alt="extension">ou 69 $ / an &middot; 9,99 $ ensuite</div>
         <p class="plan-desc">Entrée et Tab vous déplacent entre l'en-tête de scène, l'action et le dialogue pendant que vous tapez, comme dans Final&nbsp;Draft. C'est la partie qui change la façon d'écrire.</p>
         <ul>
           <li><span class="ck">&#10003;</span>Smart Writing : Entrée et Tab font le travail</li>
           <li><span class="ck">&#10003;</span>Formatage illimité pendant la frappe</li>
           <li><span class="ck">&#10003;</span>Scene Board, page de titre, export PDF et .fdx</li>
         </ul>
-        <a class="plan-cta" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Ajouter à Chrome</a>
-        <p class="plan-reassure"><strong>0 $ aujourd’hui.</strong> Aucune carte pour commencer. Résiliation en deux clics, vos scénarios restent dans votre Drive.</p>
+        <div class="buy" data-surface="extension">
+          <div class="buy-cycle" role="group" aria-label="Périodicité">
+            <button type="button" data-cycle="monthly" aria-pressed="true">Mensuel</button>
+            <button type="button" data-cycle="yearly" aria-pressed="false">Annuel <span class="buy-save">&minus;28&nbsp;%</span></button>
+          </div>
+          <input type="email" inputmode="email" autocomplete="email" placeholder="vous@gmail.com" aria-label="E-mail de votre compte Google">
+          <p class="buy-hint">Utilisez le compte Google avec lequel vous écrivez, pour que Pro se débloque dans vos Docs.</p>
+          <a class="plan-cta" href="#" data-buy>S’abonner &mdash; 7,99 $/mois</a>
+          <p class="buy-error" role="alert"></p>
+        </div>
+        <p class="plan-reassure">Ou <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">ajoutez-la gratuitement d’abord</a> et passez à Pro plus tard. Résiliation en deux clics.</p>
       </div>
     </section>
 
@@ -219,10 +258,9 @@
         <div>
           <div class="label">Engagement prix</div>
           <h2>Un outil de sc&#233;nario ne devrait pas co&#251;ter un mois de courses.</h2>
-          <p>Final&nbsp;Draft demande 249&nbsp;$ d&#8217;avance. Ici, quatre choses ne bougeront pas.</p>
+          <p>Final&nbsp;Draft demande 249&nbsp;$ d&#8217;avance. Ici, trois choses ne bougeront pas.</p>
           <ul class="pledge-list">
             <li><span class="ck">&#10003;</span>Le prix de lancement est verrouill&#233;. Il passera &#224; 9,99&nbsp;$, mais pas pour ceux qui se sont abonn&#233;s avant.</li>
-            <li><span class="ck">&#10003;</span>Un seul abonnement couvre l&#8217;extension et le module. Vous ne payez jamais deux fois.</li>
             <li><span class="ck">&#10003;</span>R&#233;siliation en deux clics, sans justification et sans engagement d&#8217;un an.</li>
             <li><span class="ck">&#10003;</span>Le prix est affich&#233; en dollars parce que c&#8217;est la devise de facturation. Nous n&#8217;ajoutons aucun supplément.</li>
           </ul>
@@ -270,5 +308,83 @@
 
   <site-footer></site-footer>
 
+
+<script>
+// Paiement depuis la page tarifs. Le worker porte la clé API ; ici on n'envoie
+// qu'un e-mail et un price ID, et l'origine sert de garde côté serveur.
+(function () {
+  var API = 'https://screenplay-editor-api.hugopthomas.workers.dev/web/checkout';
+  var PRICES = {
+    addon:     { monthly: { id: 'price_1TXOqxIo301M25CQkzp97U8N', label: '5,99 $/mois',
+                            big: '5,99 $<span> / mois</span>', alt: 'ou 49,99 $ / an' },
+                 yearly:  { id: 'price_1TncVWIo301M25CQ91HJFJ70', label: '49,99 $/an',
+                            big: '49,99 $<span> / an</span>', alt: 'soit 4,16 $ par mois' } },
+    extension: { monthly: { id: 'price_1TlpQFIo301M25CQdrblE8ls', label: '7,99 $/mois',
+                            big: '7,99 $<span> / mois</span>', alt: 'ou 69 $ / an &middot; 9,99 $ ensuite' },
+                 yearly:  { id: 'price_1TlpQZIo301M25CQq6NolBKB', label: '69 $/an',
+                            big: '69 $<span> / an</span>', alt: 'soit 5,75 $ par mois' } }
+  };
+
+  Array.prototype.forEach.call(document.querySelectorAll('.buy'), function (box) {
+    var surface = box.getAttribute('data-surface');
+    var input = box.querySelector('input');
+    var cta = box.querySelector('[data-buy]');
+    var err = box.querySelector('.buy-error');
+    var cycle = 'monthly';
+
+    function fail(msg) { err.textContent = msg; err.style.display = 'block'; }
+    function clear() { err.style.display = 'none'; }
+
+    Array.prototype.forEach.call(box.querySelectorAll('[data-cycle]'), function (btn) {
+      btn.addEventListener('click', function () {
+        cycle = btn.getAttribute('data-cycle');
+        Array.prototype.forEach.call(box.querySelectorAll('[data-cycle]'), function (b) {
+          b.setAttribute('aria-pressed', String(b === btn));
+        });
+        var pick = PRICES[surface][cycle];
+        cta.innerHTML = 'S\u2019abonner &mdash; ' + pick.label;
+        var big = document.querySelector('[data-price="' + surface + '"]');
+        var alt = document.querySelector('[data-alt="' + surface + '"]');
+        if (big) big.innerHTML = pick.big;
+        if (alt) alt.innerHTML = pick.alt;
+        clear();
+      });
+    });
+
+    cta.addEventListener('click', function (e) {
+      e.preventDefault();
+      clear();
+      var email = (input.value || '').trim();
+      if (!email || email.indexOf('@') < 1 || email.indexOf('.', email.indexOf('@')) < 0) {
+        fail('Saisissez l\u2019adresse e-mail de votre compte Google.');
+        input.focus();
+        return;
+      }
+      var original = cta.innerHTML;
+      cta.innerHTML = 'Ouverture du paiement\u2026';
+      cta.style.pointerEvents = 'none';
+
+      fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, priceId: PRICES[surface][cycle].id })
+      }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (res.ok && res.j && res.j.url) { window.location.href = res.j.url; return; }
+          fail((res.j && res.j.error) || 'Une erreur est survenue. R\u00e9essayez, ou \u00e9crivez \u00e0 hugopthomas@gmail.com.');
+          cta.innerHTML = original;
+          cta.style.pointerEvents = '';
+        })
+        .catch(function () {
+          fail('Erreur r\u00e9seau. R\u00e9essayez, ou \u00e9crivez \u00e0 hugopthomas@gmail.com.');
+          cta.innerHTML = original;
+          cta.style.pointerEvents = '';
+        });
+    });
+
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') cta.click(); });
+  });
+})();
+</script>
 </body>
 </html>
