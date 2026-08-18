@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Poster Maker for Your Screenplay</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Drop in your screenplay and get a poster for it, drawn from what is in the pages. Free, and only a short summary of your script leaves your browser.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/screenplay-poster">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/screenplay-poster">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/screenplay-poster">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Movie Poster Maker for Your Screenplay">
+  <meta property="og:description" content="Drop in your screenplay and get a poster for it, drawn from what is in the pages. Free, and only a short summary of your script leaves your browser.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/screenplay-poster">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Screenplay Poster Maker",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/screenplay-poster",
+      "description": "Drop in your screenplay and get a poster for it, drawn from what is in the pages. Free, and only a short summary of your script leaves your browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Screenplay Poster Maker",
+          "item": "https://screenplayeditor.app/tools/screenplay-poster"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does it read from my script?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Who speaks the most, where the film mostly happens, how long it is, and about thirty lines of dialogue taken from across the whole script rather than only the opening. The page shows you exactly what gets sent before you press the button."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use the poster for my film?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is yours to use. Treat it as a sketch: it is drawn from a summary of your script by a model, so it will get the mood closer than the details."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many can I make?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Three a day from the same network. Drawing costs real money on our side, so the limit is low on purpose. Inside Google Docs the add-on has its own allowance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my script not uploaded but the summary is?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because drawing needs a model and a model needs something to read. Everything the site can do without a server is done without one. This tool and the logline writer are the only two that talk to anything."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>A poster for a film that does not exist yet.</h1>
+      <p class="lead">Drop in your screenplay. It reads who is in it, where it happens and how people speak, then draws the poster that film would have. It is the one thing on this site you will actually want to show somebody.</p>
+
+      <div class="dropzone" id="dropzone">
+        <h2 id="dropzone-title">Drop your screenplay here</h2>
+        <p>You can also pick a file from your computer.</p>
+        <label class="cta-button pick" for="file">Choose a file</label>
+        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt">
+        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text. Nothing is uploaded.</p>
+      </div>
+
+      <div class="status" id="status" hidden></div>
+
+      <div class="result" id="result" hidden>
+        <div class="panel">
+          <h3>Your film</h3>
+          <div class="field">
+            <label for="title">Title on the poster</label>
+            <input type="text" id="title" placeholder="Untitled" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="pitch">What is it about? (optional, but it helps a lot)</label>
+            <textarea id="pitch" placeholder="A labour inspector finds something at a construction site that nobody wants found."></textarea>
+          </div>
+
+          <h3>What leaves your browser</h3>
+          <p class="muted" id="leaving"></p>
+          <p class="muted" style="margin-top:10px">The other tools on this site never send anything anywhere. This one has to, because drawing needs a model. It gets a summary, never your pages.</p>
+
+          <button class="cta-button action-button" id="make" type="button" style="margin-top:26px" disabled>Make the poster</button>
+        </div>
+        <div class="panel" id="poster-panel">
+          <h3>The poster</h3>
+          <div id="poster"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>What it is for, honestly</h2>
+      <p>A poster will not get your script read and it will not make it better. What it does is give a project that only exists as pages something a person can look at, which turns out to matter when you are three drafts in and nobody has seen it.</p>
+      <p>It is a sketch of a film, not a promise of one. Put it on your wall, put it at the top of a pitch document, show it to the friend who keeps asking what you are working on.</p>
+    </section>
+
+
+    <div class="wrap">
+      <div class="install-band">
+        <div>
+          <h2>Then go and write it.</h2>
+          <p>Screenplay Editor formats your screenplay while you type in Google Docs, so the script behind the poster stays yours and stays in your Drive. It is free to start.</p>
+        </div>
+        <a class="cta-button" href="https://workspace.google.com/marketplace/app/screenplay_editor/561634900696" target="_blank" rel="noopener">Install it</a>
+      </div>
+    </div>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about posters</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>What does it read from my script?</span></summary>
+          <div class="faq-body">Who speaks the most, where the film mostly happens, how long it is, and about thirty lines of dialogue taken from across the whole script rather than only the opening. The page shows you exactly what gets sent before you press the button.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Can I use the poster for my film?</span></summary>
+          <div class="faq-body">It is yours to use. Treat it as a sketch: it is drawn from a summary of your script by a model, so it will get the mood closer than the details.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>How many can I make?</span></summary>
+          <div class="faq-body">Three a day from the same network. Drawing costs real money on our side, so the limit is low on purpose. Inside Google Docs the add-on has its own allowance.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Why is my script not uploaded but the summary is?</span></summary>
+          <div class="faq-body">Because drawing needs a model and a model needs something to read. Everything the site can do without a server is done without one. This tool and the logline writer are the only two that talk to anything.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/screenplay-converter">
+          <h3>Open your screenplay in Google Docs</h3>
+          <p>A PDF, a Final Draft file or a Fountain file becomes a document that opens already formatted.</p>
+        </a>
+        <a href="/tools/format-checker">
+          <h3>Check your format before you send it</h3>
+          <p>The notes a reader would write, before a reader writes them.</p>
+        </a>
+        <a href="/tools/script-breakdown">
+          <h3>Turn your script into a breakdown sheet</h3>
+          <p>Every scene, its location, its time of day and its cast, in a coloured spreadsheet.</p>
+        </a>
+        <a href="/tools/beat-sheet">
+          <h3>Lay out your beats and start writing</h3>
+          <p>Fifteen beats at their real page numbers, in a document already divided.</p>
+        </a>
+        <a href="/tools/screenplay-title-page">
+          <h3>Make a title page that looks right</h3>
+          <p>Four fields, and the title page a reader expects.</p>
+        </a>
+        <a href="/tools/screenplay-runtime">
+          <h3>How long does your script run?</h3>
+          <p>A real estimate, and where the time actually goes.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/poster.js"></script>
+</body>
+</html>

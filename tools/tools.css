@@ -246,3 +246,19 @@ table.data td:last-child, table.data th:last-child { padding-right: 12px; border
   .hero h1 { font-size: var(--t-2xl); }
   .install-band { flex-direction: column; align-items: flex-start; }
 }
+
+/* ---- Les deux outils qui appellent un modèle ---- */
+.logline { background: var(--paper); border-radius: var(--r-md); padding: 22px 24px; margin-top: 14px; }
+.logline .angle {
+  font-size: var(--t-xs); text-transform: uppercase; letter-spacing: var(--ls-caps);
+  color: var(--violet-dark); font-weight: var(--w-bold); margin: 0 0 8px;
+}
+.logline .line { font-size: var(--t-md); line-height: var(--lh-body); color: var(--ink); margin: 0; max-width: 68ch; }
+.reading { font-size: var(--t-base); color: var(--ink-3); margin: 24px 0 6px; max-width: 70ch; }
+#loglines .muted { margin-top: 18px; }
+
+#poster img { display: block; width: 100%; max-width: 460px; border-radius: var(--r-md); box-shadow: var(--shadow-2); }
+#poster .tagline {
+  font-family: var(--mono); font-size: var(--t-sm); color: var(--ink-3);
+  margin: 18px 0 10px; max-width: 46ch;
+}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logline Generator: Three Loglines Written From Your Actual Script</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Drop in your screenplay and get three loglines written from what is in the pages, each on a different angle. Free, and only a short summary of your script leaves your browser.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/logline-writer">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/logline-writer">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/logline-writer">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Logline Generator: Three Loglines Written From Your Actual Script">
+  <meta property="og:description" content="Drop in your screenplay and get three loglines written from what is in the pages, each on a different angle. Free, and only a short summary of your script leaves your browser.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/logline-writer">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Logline Writer",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/logline-writer",
+      "description": "Drop in your screenplay and get three loglines written from what is in the pages, each on a different angle. Free, and only a short summary of your script leaves your browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Logline Writer",
+          "item": "https://screenplayeditor.app/tools/logline-writer"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What makes a good logline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One sentence naming who the story is about, what they want, what stands in the way and what it costs. It gives the premise away rather than teasing it, and it never opens with in a world where."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does my whole script get sent somewhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Your browser reads the file and builds a short summary: the main character names, the locations, your page count, and about thirty lines of dialogue taken from the beginning, the middle and the end. That summary is what gets sent, and the page shows you exactly what it holds before you press the button."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does it need my script at all?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because a form can only hand back what you typed into it. Reading the pages is the difference between a logline about your film and a logline about the genre you picked from a menu."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many can I make?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A few a day from the same network, which is enough to try each angle on a couple of drafts. The limit is there because writing costs money on our side."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>Three loglines, from your actual script.</h1>
+      <p class="lead">Every logline generator asks you to fill in a form, which means it can only give you back what you already knew. This one reads your screenplay first: who speaks most, where it happens, what people actually say. Then it writes three loglines on three different angles.</p>
+
+      <div class="dropzone" id="dropzone">
+        <h2 id="dropzone-title">Drop your screenplay here</h2>
+        <p>You can also pick a file from your computer.</p>
+        <label class="cta-button pick" for="file">Choose a file</label>
+        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt">
+        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text. Nothing is uploaded.</p>
+      </div>
+
+      <div class="status" id="status" hidden></div>
+
+      <div class="result result-wide" id="result" hidden>
+        <div class="panel">
+          <h3>What it read</h3>
+          <div class="figures" id="summary"></div>
+
+          <h3>What leaves your browser</h3>
+          <p class="muted" id="leaving"></p>
+          <p class="muted" style="margin-top:10px">The other tools on this site never send anything anywhere. This one has to, because writing needs a model. It gets a summary, never your pages.</p>
+
+          <button class="cta-button action-button" id="write" type="button" style="margin-top:26px" disabled>Write the loglines</button>
+
+          <div id="loglines"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>Why three, and why these three</h2>
+      <p>A logline has to carry a want, a pressure and a cost, and most drafts carry one of the three well and the other two badly. So you get one of each, built on the same film, and the useful moment is the one where you notice which angle makes your story sound like a story.</p>
+      <p>None of them is your logline. They are three readings of what you wrote, and the closest one is a starting sentence to argue with.</p>
+    </section>
+
+
+    <div class="wrap">
+      <div class="install-band">
+        <div>
+          <h2>Write the script the loglines describe.</h2>
+          <p>Screenplay Editor formats your screenplay while you type in Google Docs, so the pages this reads from stay yours and stay in your Drive. It is free to start.</p>
+        </div>
+        <a class="cta-button" href="https://workspace.google.com/marketplace/app/screenplay_editor/561634900696" target="_blank" rel="noopener">Install it</a>
+      </div>
+    </div>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about loglines</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>What makes a good logline?</span></summary>
+          <div class="faq-body">One sentence naming who the story is about, what they want, what stands in the way and what it costs. It gives the premise away rather than teasing it, and it never opens with in a world where.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Does my whole script get sent somewhere?</span></summary>
+          <div class="faq-body">No. Your browser reads the file and builds a short summary: the main character names, the locations, your page count, and about thirty lines of dialogue taken from the beginning, the middle and the end. That summary is what gets sent, and the page shows you exactly what it holds before you press the button.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Why does it need my script at all?</span></summary>
+          <div class="faq-body">Because a form can only hand back what you typed into it. Reading the pages is the difference between a logline about your film and a logline about the genre you picked from a menu.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>How many can I make?</span></summary>
+          <div class="faq-body">A few a day from the same network, which is enough to try each angle on a couple of drafts. The limit is there because writing costs money on our side.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/screenplay-converter">
+          <h3>Open your screenplay in Google Docs</h3>
+          <p>A PDF, a Final Draft file or a Fountain file becomes a document that opens already formatted.</p>
+        </a>
+        <a href="/tools/format-checker">
+          <h3>Check your format before you send it</h3>
+          <p>The notes a reader would write, before a reader writes them.</p>
+        </a>
+        <a href="/tools/script-breakdown">
+          <h3>Turn your script into a breakdown sheet</h3>
+          <p>Every scene, its location, its time of day and its cast, in a coloured spreadsheet.</p>
+        </a>
+        <a href="/tools/beat-sheet">
+          <h3>Lay out your beats and start writing</h3>
+          <p>Fifteen beats at their real page numbers, in a document already divided.</p>
+        </a>
+        <a href="/tools/screenplay-title-page">
+          <h3>Make a title page that looks right</h3>
+          <p>Four fields, and the title page a reader expects.</p>
+        </a>
+        <a href="/tools/screenplay-runtime">
+          <h3>How long does your script run?</h3>
+          <p>A real estimate, and where the time actually goes.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/logline.js"></script>
+</body>
+</html>
