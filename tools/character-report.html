@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Character Breakdown: Who Speaks, How Much and Where</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Drop in your script and see every character, how many lines they speak, how many scenes they appear in, and where they disappear. Free, runs in your browser.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/character-report">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/character-report">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/character-report">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Screenplay Character Breakdown: Who Speaks, How Much and Where">
+  <meta property="og:description" content="Drop in your script and see every character, how many lines they speak, how many scenes they appear in, and where they disappear. Free, runs in your browser.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/character-report">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Screenplay Character Report",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/character-report",
+      "description": "Drop in your script and see every character, how many lines they speak, how many scenes they appear in, and where they disappear. Free, runs in your browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Screenplay Character Report",
+          "item": "https://screenplayeditor.app/tools/character-report"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does it know who is a character?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It reads the character cues in your script, the names in capitals above each speech, and strips the extensions like (V.O.) or (CONT\\u2019D) so the same person counts once."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if the same character is spelled two ways?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They come out as two rows, which is exactly what a production report would do. If you see it here, fix it in the script before anyone else builds a schedule from it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it count non speaking characters?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. A character who never speaks has no cue in the script, so nothing on the page marks them. The breakdown sheet is the tool for who is present in a scene."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my script uploaded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Everything runs in this page on your computer."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>See who carries your script.</h1>
+      <p class="lead">Every character, how much they speak, how many scenes they are in, and the page where they walk out of the film and do not come back. It is the table a producer asks for, and the one that tells you your second lead vanishes for thirty pages.</p>
+
+      <div class="dropzone" id="dropzone">
+        <h2 id="dropzone-title">Drop your screenplay here</h2>
+        <p>You can also pick a file from your computer.</p>
+        <label class="cta-button pick" for="file">Choose a file</label>
+        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt">
+        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text. Nothing is uploaded.</p>
+      </div>
+
+      <div class="status" id="status" hidden></div>
+
+      <div class="result result-wide" id="result" hidden>
+        <div class="panel">
+          <h3>The cast</h3>
+          <div class="figures" id="summary"></div>
+          <h3>Who speaks</h3>
+          <div class="table-shell"><table class="data" id="cast"></table></div>
+          <button class="cta-button action-button" id="download" type="button" style="margin-top:26px">Download the table</button>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>What to look for in it</h2>
+      <div class="cols">
+        <div>
+          <h3>The gap</h3>
+          <p>Compare the first and last scene of each character with how many scenes they are in. Somebody who appears in scene 4 and scene 78 and nowhere between is not a supporting character, they are a plot device, and the reader will feel it even if they cannot name it.</p>
+        </div>
+        <div>
+          <h3>The share</h3>
+          <p>If your lead does not hold the largest share of the dialogue, that is worth a reason. Sometimes it is the point. Often it means the film has quietly changed hands and the writer has not noticed yet.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="wrap">
+      <div class="install-band">
+        <div>
+          <h2>Now write in it.</h2>
+          <p>Screenplay Editor formats your script while you type in Google Docs. Enter and Tab move you between a character, a line of dialogue and the next scene, the way Final Draft does. It is free to start.</p>
+        </div>
+        <a class="cta-button" href="https://workspace.google.com/marketplace/app/screenplay_editor/561634900696" target="_blank" rel="noopener">Install it</a>
+      </div>
+    </div>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about the cast</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>How does it know who is a character?</span></summary>
+          <div class="faq-body">It reads the character cues in your script, the names in capitals above each speech, and strips the extensions like (V.O.) or (CONT\u2019D) so the same person counts once.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>What if the same character is spelled two ways?</span></summary>
+          <div class="faq-body">They come out as two rows, which is exactly what a production report would do. If you see it here, fix it in the script before anyone else builds a schedule from it.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Does it count non speaking characters?</span></summary>
+          <div class="faq-body">No. A character who never speaks has no cue in the script, so nothing on the page marks them. The breakdown sheet is the tool for who is present in a scene.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Is my script uploaded?</span></summary>
+          <div class="faq-body">No. Everything runs in this page on your computer.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/screenplay-converter">
+          <h3>Open your screenplay in Google Docs</h3>
+          <p>A PDF, a Final Draft file or a Fountain file becomes a document that opens already formatted.</p>
+        </a>
+        <a href="/tools/format-checker">
+          <h3>Check your format before you send it</h3>
+          <p>The notes a reader would write, before a reader writes them.</p>
+        </a>
+        <a href="/tools/script-breakdown">
+          <h3>Turn your script into a breakdown sheet</h3>
+          <p>Every scene, its location, its time of day and its cast, in a coloured spreadsheet.</p>
+        </a>
+        <a href="/tools/beat-sheet">
+          <h3>Lay out your beats and start writing</h3>
+          <p>Fifteen beats at their real page numbers, in a document already divided.</p>
+        </a>
+        <a href="/tools/screenplay-title-page">
+          <h3>Make a title page that looks right</h3>
+          <p>Four fields, and the title page a reader expects.</p>
+        </a>
+        <a href="/tools/screenplay-runtime">
+          <h3>How long does your script run?</h3>
+          <p>A real estimate, and where the time actually goes.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/characters.js"></script>
+</body>
+</html>

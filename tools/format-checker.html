@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Format Checker: Check Your Script Before You Send It</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Drop in a PDF and read the notes a reader would write: type size, margins, scene headings, long speeches, character names spelled two ways. Free, runs in your browser.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/format-checker">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/format-checker">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/format-checker">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Screenplay Format Checker: Check Your Script Before You Send It">
+  <meta property="og:description" content="Drop in a PDF and read the notes a reader would write: type size, margins, scene headings, long speeches, character names spelled two ways. Free, runs in your browser.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/format-checker">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Screenplay Format Checker",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/format-checker",
+      "description": "Drop in a PDF and read the notes a reader would write: type size, margins, scene headings, long speeches, character names spelled two ways. Free, runs in your browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Screenplay Format Checker",
+          "item": "https://screenplayeditor.app/tools/format-checker"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What screenplay format does it check against?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The industry standard: Courier 12, a 1.5 inch left margin, dialogue and character cues at their usual indents. These are the same measurements Screenplay Editor applies while you write, so the checker and the tool agree."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work on a PDF exported from Final Draft or Celtx?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and those are the easiest cases because they are laid out properly. The checker measures the columns your file actually uses rather than assuming Final Draft numbers, so an export from any software reads correctly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my script uploaded to check it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Everything happens inside this page, on your own computer. Your file never leaves the browser and there is no account to create."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will it tell me if my script is any good?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, and be suspicious of anything that says it will. This checks form, not writing. Form is worth checking because it is the part a reader judges before page one."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>Check your format before someone else does.</h1>
+      <p class="lead">Drop in your script and read the notes a reader would write on it. Type size, margins, scene headings without a time of day, speeches that fill a third of a page, character names spelled two ways. It runs on your computer and nothing is uploaded.</p>
+
+      <div class="dropzone" id="dropzone">
+        <h2 id="dropzone-title">Drop your screenplay here</h2>
+        <p>You can also pick a file from your computer.</p>
+        <label class="cta-button pick" for="file">Choose a file</label>
+        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt">
+        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text. Nothing is uploaded.</p>
+      </div>
+
+      <div class="status" id="status" hidden></div>
+
+      <div class="result result-wide" id="result" hidden>
+        <div class="panel">
+          <h3>What a reader would notice</h3>
+          <div class="figures" id="summary"></div>
+          <h3>The notes</h3>
+          <div class="findings" id="findings"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>What it checks</h2>
+      <div class="cols">
+        <div>
+          <h3>The things a reader sees before reading</h3>
+          <p>Type size and left margin, measured on the page itself rather than trusted. A script set in 11 point looks shorter than it is, and a reader who has held a thousand scripts feels the difference in the first second.</p>
+        </div>
+        <div>
+          <h3>The things that make a reader put it down</h3>
+          <p>Action paragraphs past five lines, speeches past eight, parentheticals doing the director's job, headings that never say whether it is day or night, and the same character spelled two ways so every production report counts them twice.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="wrap">
+      <div class="install-band">
+        <div>
+          <h2>Most of these fix themselves.</h2>
+          <p>If you write in Google Docs with Screenplay Editor, the margins, the indents and the capitals are applied while you type, so the list above mostly never happens. It is free to start.</p>
+        </div>
+        <a class="cta-button" href="https://workspace.google.com/marketplace/app/screenplay_editor/561634900696" target="_blank" rel="noopener">Install it</a>
+      </div>
+    </div>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about format</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>What screenplay format does it check against?</span></summary>
+          <div class="faq-body">The industry standard: Courier 12, a 1.5 inch left margin, dialogue and character cues at their usual indents. These are the same measurements Screenplay Editor applies while you write, so the checker and the tool agree.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Does it work on a PDF exported from Final Draft or Celtx?</span></summary>
+          <div class="faq-body">Yes, and those are the easiest cases because they are laid out properly. The checker measures the columns your file actually uses rather than assuming Final Draft numbers, so an export from any software reads correctly.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Is my script uploaded to check it?</span></summary>
+          <div class="faq-body">No. Everything happens inside this page, on your own computer. Your file never leaves the browser and there is no account to create.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Will it tell me if my script is any good?</span></summary>
+          <div class="faq-body">No, and be suspicious of anything that says it will. This checks form, not writing. Form is worth checking because it is the part a reader judges before page one.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/screenplay-converter">
+          <h3>Open your screenplay in Google Docs</h3>
+          <p>A PDF, a Final Draft file or a Fountain file becomes a document that opens already formatted.</p>
+        </a>
+        <a href="/tools/script-breakdown">
+          <h3>Turn your script into a breakdown sheet</h3>
+          <p>Every scene, its location, its time of day and its cast, in a coloured spreadsheet.</p>
+        </a>
+        <a href="/tools/beat-sheet">
+          <h3>Lay out your beats and start writing</h3>
+          <p>Fifteen beats at their real page numbers, in a document already divided.</p>
+        </a>
+        <a href="/tools/screenplay-title-page">
+          <h3>Make a title page that looks right</h3>
+          <p>Four fields, and the title page a reader expects.</p>
+        </a>
+        <a href="/tools/screenplay-runtime">
+          <h3>How long does your script run?</h3>
+          <p>A real estimate, and where the time actually goes.</p>
+        </a>
+        <a href="/tools/character-report">
+          <h3>See who carries your script</h3>
+          <p>Who speaks, how much, in how many scenes, from which page to which.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/checker.js"></script>
+</body>
+</html>

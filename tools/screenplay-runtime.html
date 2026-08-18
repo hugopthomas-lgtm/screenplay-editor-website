@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Runtime Calculator: How Long Will Your Script Run?</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Drop in your script and get a real runtime estimate with an honest range, plus how much of it is people talking. Free, runs in your browser.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/screenplay-runtime">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/screenplay-runtime">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/screenplay-runtime">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Screenplay Runtime Calculator: How Long Will Your Script Run?">
+  <meta property="og:description" content="Drop in your script and get a real runtime estimate with an honest range, plus how much of it is people talking. Free, runs in your browser.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/screenplay-runtime">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Screenplay Runtime Calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/screenplay-runtime",
+      "description": "Drop in your script and get a real runtime estimate with an honest range, plus how much of it is people talking. Free, runs in your browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Screenplay Runtime Calculator",
+          "item": "https://screenplayeditor.app/tools/screenplay-runtime"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How accurate is a page count as a runtime?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a script with a normal balance of dialogue and action it lands within about five percent. Outside that it drifts by fifteen to twenty percent, which is why this tool gives a range and shows you which way your script leans."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long is a 90 page screenplay?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "About 82 minutes, taking a page as 55 seconds rather than 60. If the script is dialogue heavy it will play longer than that, and if it is action heavy it will usually play shorter."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it count the title page?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. A title page is not screen time, so it is left out of the count."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my script uploaded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The reading happens in this page on your own computer, and nothing is stored anywhere."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>How long does your script actually run?</h1>
+      <p class="lead">One page equals one minute is close enough to be dangerous. Drop in your script and get a real estimate with the range it deserves, plus the thing the rule hides: how much of your film is people talking, and how much is everything else.</p>
+
+      <div class="dropzone" id="dropzone">
+        <h2 id="dropzone-title">Drop your screenplay here</h2>
+        <p>You can also pick a file from your computer.</p>
+        <label class="cta-button pick" for="file">Choose a file</label>
+        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt">
+        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text. Nothing is uploaded.</p>
+      </div>
+
+      <div class="status" id="status" hidden></div>
+
+      <div class="result result-wide" id="result" hidden>
+        <div class="panel">
+          <h3>What it comes to</h3>
+          <div class="figures" id="summary"></div>
+          <h3>Where the time goes</h3>
+          <div class="figures" id="split"></div>
+          <p class="muted" id="method" style="margin-top:22px"></p>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>Why one page is not one minute</h2>
+      <p>Across thousands of finished films, the average script runs about 1.1 pages for every minute on screen, so a page is closer to 55 seconds than to 60. The rule is roughly right for a balanced script and drifts by 15 to 20 percent as soon as a script leans hard towards dialogue or hard towards action.</p>
+      <p>That is why this gives you a range rather than a number, and why it shows you the split. A script that is three quarters dialogue is not wrong, but it will not time like the rule says, and it is better to know that before someone else tells you.</p>
+    </section>
+
+
+    <div class="wrap">
+      <div class="install-band">
+        <div>
+          <h2>Write it, then time it again.</h2>
+          <p>Screenplay Editor formats your script while you type in Google Docs, so the page count you are timing is a real page count and not an accident of margins. It is free to start.</p>
+        </div>
+        <a class="cta-button" href="https://workspace.google.com/marketplace/app/screenplay_editor/561634900696" target="_blank" rel="noopener">Install it</a>
+      </div>
+    </div>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about running time</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>How accurate is a page count as a runtime?</span></summary>
+          <div class="faq-body">For a script with a normal balance of dialogue and action it lands within about five percent. Outside that it drifts by fifteen to twenty percent, which is why this tool gives a range and shows you which way your script leans.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>How long is a 90 page screenplay?</span></summary>
+          <div class="faq-body">About 82 minutes, taking a page as 55 seconds rather than 60. If the script is dialogue heavy it will play longer than that, and if it is action heavy it will usually play shorter.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Does it count the title page?</span></summary>
+          <div class="faq-body">No. A title page is not screen time, so it is left out of the count.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Is my script uploaded?</span></summary>
+          <div class="faq-body">No. The reading happens in this page on your own computer, and nothing is stored anywhere.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/screenplay-converter">
+          <h3>Open your screenplay in Google Docs</h3>
+          <p>A PDF, a Final Draft file or a Fountain file becomes a document that opens already formatted.</p>
+        </a>
+        <a href="/tools/format-checker">
+          <h3>Check your format before you send it</h3>
+          <p>The notes a reader would write, before a reader writes them.</p>
+        </a>
+        <a href="/tools/script-breakdown">
+          <h3>Turn your script into a breakdown sheet</h3>
+          <p>Every scene, its location, its time of day and its cast, in a coloured spreadsheet.</p>
+        </a>
+        <a href="/tools/beat-sheet">
+          <h3>Lay out your beats and start writing</h3>
+          <p>Fifteen beats at their real page numbers, in a document already divided.</p>
+        </a>
+        <a href="/tools/screenplay-title-page">
+          <h3>Make a title page that looks right</h3>
+          <p>Four fields, and the title page a reader expects.</p>
+        </a>
+        <a href="/tools/character-report">
+          <h3>See who carries your script</h3>
+          <p>Who speaks, how much, in how many scenes, from which page to which.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/runtime.js"></script>
+</body>
+</html>

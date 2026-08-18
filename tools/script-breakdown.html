@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Script Breakdown Sheet: Free Generator from a PDF or Final Draft File</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Turn a screenplay into a colour coded breakdown sheet: every scene, interior or exterior, day or night, its location, its cast and its length. Free, downloads as a spreadsheet.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/script-breakdown">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/script-breakdown">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/script-breakdown">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Script Breakdown Sheet: Free Generator from a PDF or Final Draft File">
+  <meta property="og:description" content="Turn a screenplay into a colour coded breakdown sheet: every scene, interior or exterior, day or night, its location, its cast and its length. Free, downloads as a spreadsheet.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/script-breakdown">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Script Breakdown Sheet Generator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/script-breakdown",
+      "description": "Turn a screenplay into a colour coded breakdown sheet: every scene, interior or exterior, day or night, its location, its cast and its length. Free, downloads as a spreadsheet.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Script Breakdown Sheet Generator",
+          "item": "https://screenplayeditor.app/tools/script-breakdown"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a script breakdown sheet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is the document a production works from: one line per scene, saying where it happens, when, who is in it and how long it runs. It is what a schedule and a budget get built on."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What file formats can I use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A PDF, a Final Draft .fdx file, or a Fountain file. A PDF works because screenplay format is a geometry: the tool measures the columns your script uses and reads the scenes back out of them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I open the sheet in Google Sheets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. It downloads as a normal .xlsx file, so Excel, Numbers and Google Sheets all open it, keep the colours and keep the filters on the header row."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my script uploaded anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The whole thing runs in this page on your own computer, and nothing is stored."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>Turn your script into a breakdown sheet.</h1>
+      <p class="lead">Drop in your screenplay and get the sheet a first assistant director works from: every scene numbered, interior or exterior, day or night, its location, who is in it and how long it runs. It downloads as a spreadsheet, coloured so you can find a night scene at a glance.</p>
+
+      <div class="dropzone" id="dropzone">
+        <h2 id="dropzone-title">Drop your screenplay here</h2>
+        <p>You can also pick a file from your computer.</p>
+        <label class="cta-button pick" for="file">Choose a file</label>
+        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt">
+        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text. Nothing is uploaded.</p>
+      </div>
+
+      <div class="status" id="status" hidden></div>
+
+      <div class="result" id="result" hidden>
+        <div class="panel">
+          <h3>What the script contains</h3>
+          <div id="report"></div>
+          <div class="warnings" id="warnings" hidden></div>
+          <button class="cta-button action-button" id="download" type="button">Download the spreadsheet</button>
+          <p class="muted" style="margin-top:14px">Opens in Excel, Numbers and Google Sheets.</p>
+        </div>
+        <div class="panel">
+          <h3>Every scene</h3>
+          <div class="table-shell"><table class="data" id="scenes"></table></div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>What it reads, and what it cannot</h2>
+      <div class="cols">
+        <div>
+          <h3>What the page says</h3>
+          <p>Scene numbers, interior or exterior, time of day, location, the characters who speak in the scene, the page it starts on and its length in eighths of a page. All of it is written in your script already, so all of it is exact.</p>
+        </div>
+        <div>
+          <h3>What it will not invent</h3>
+          <p>Props, wardrobe, vehicles and special effects are not on the page, they are read out of it. That takes judgement, so it lives in the add-on rather than here, where it would guess. This sheet gives you the skeleton, correctly, in about four seconds.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="wrap">
+      <div class="install-band">
+        <div>
+          <h2>Want the elements too?</h2>
+          <p>Inside Google Docs, Screenplay Editor reads each scene and pulls out props, wardrobe, cast, vehicles and effects, then colours them into the same sheet. It is free to start.</p>
+        </div>
+        <a class="cta-button" href="https://workspace.google.com/marketplace/app/screenplay_editor/561634900696" target="_blank" rel="noopener">Install it</a>
+      </div>
+    </div>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about breakdowns</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>What is a script breakdown sheet?</span></summary>
+          <div class="faq-body">It is the document a production works from: one line per scene, saying where it happens, when, who is in it and how long it runs. It is what a schedule and a budget get built on.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>What file formats can I use?</span></summary>
+          <div class="faq-body">A PDF, a Final Draft .fdx file, or a Fountain file. A PDF works because screenplay format is a geometry: the tool measures the columns your script uses and reads the scenes back out of them.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Can I open the sheet in Google Sheets?</span></summary>
+          <div class="faq-body">Yes. It downloads as a normal .xlsx file, so Excel, Numbers and Google Sheets all open it, keep the colours and keep the filters on the header row.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Is my script uploaded anywhere?</span></summary>
+          <div class="faq-body">No. The whole thing runs in this page on your own computer, and nothing is stored.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/screenplay-converter">
+          <h3>Open your screenplay in Google Docs</h3>
+          <p>A PDF, a Final Draft file or a Fountain file becomes a document that opens already formatted.</p>
+        </a>
+        <a href="/tools/format-checker">
+          <h3>Check your format before you send it</h3>
+          <p>The notes a reader would write, before a reader writes them.</p>
+        </a>
+        <a href="/tools/beat-sheet">
+          <h3>Lay out your beats and start writing</h3>
+          <p>Fifteen beats at their real page numbers, in a document already divided.</p>
+        </a>
+        <a href="/tools/screenplay-title-page">
+          <h3>Make a title page that looks right</h3>
+          <p>Four fields, and the title page a reader expects.</p>
+        </a>
+        <a href="/tools/screenplay-runtime">
+          <h3>How long does your script run?</h3>
+          <p>A real estimate, and where the time actually goes.</p>
+        </a>
+        <a href="/tools/character-report">
+          <h3>See who carries your script</h3>
+          <p>Who speaks, how much, in how many scenes, from which page to which.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/breakdown.js"></script>
+</body>
+</html>

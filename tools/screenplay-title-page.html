@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Title Page Template and Maker for Google Docs</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Fill in four fields and get a correctly formatted screenplay title page that opens in Google Docs. Free, no account, nothing uploaded.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/screenplay-title-page">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/screenplay-title-page">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/screenplay-title-page">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Screenplay Title Page Template and Maker for Google Docs">
+  <meta property="og:description" content="Fill in four fields and get a correctly formatted screenplay title page that opens in Google Docs. Free, no account, nothing uploaded.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/screenplay-title-page">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Screenplay Title Page Maker",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/screenplay-title-page",
+      "description": "Fill in four fields and get a correctly formatted screenplay title page that opens in Google Docs. Free, no account, nothing uploaded.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Screenplay Title Page Maker",
+          "item": "https://screenplayeditor.app/tools/screenplay-title-page"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What should a screenplay title page look like?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Courier 12 like the rest of the script, the title centred about a third down, then written by and your name, and your contact details in the bottom left corner. Nothing else."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I put a date or a draft number?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not on a spec script. A date tells a reader how long it has been going around, and a draft number invites a question about the earlier ones. Put them on only when a production asks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a copyright line or a WGA number?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It does not add protection and it reads as nervous. Registration is worth doing, printing it on the cover is not."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get it into Google Docs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You download the file and drag it into Google Drive, then open it with Google Docs. The formatting survives because the document carries the exact margins the format uses."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>A title page that looks right.</h1>
+      <p class="lead">Nobody gets a title page right first time, and everybody needs one the day they send the script. Fill in the four things it actually holds and get a document that opens in Google Docs, centred and spaced the way the industry sets it.</p>
+
+      <div class="result" id="result">
+        <div class="panel">
+          <h3>Your title page</h3>
+          <div class="field">
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="THE LAST WORKSHOP" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="author">Written by</label>
+            <input type="text" id="author" placeholder="Hugo Thomas" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="source">Based on (optional)</label>
+            <input type="text" id="source" placeholder="the novel by Someone Else" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="contact">Contact (optional)</label>
+            <textarea id="contact" placeholder="you@example.com&#10;+33 6 00 00 00 00"></textarea>
+          </div>
+          <div class="options">
+            <p class="group-label">Page size</p>
+            <div class="group">
+              <label><input type="radio" name="page-format" value="US" checked> US Letter</label>
+              <label><input type="radio" name="page-format" value="A4"> A4</label>
+            </div>
+            <label><input type="checkbox" id="draft-date"> Put today's date on it</label>
+          </div>
+          <button class="cta-button action-button" id="download" type="button">Open it in Google Docs</button>
+        </div>
+        <div class="preview-shell">
+          <div class="preview" id="preview"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>What goes on a title page, and what does not</h2>
+      <div class="cols">
+        <div>
+          <h3>What belongs</h3>
+          <p>The title, centred, about a third of the way down. The words written by, then your name. If it is an adaptation, what it is adapted from. Your contact details in the bottom left corner, because that is where a reader looks for them.</p>
+        </div>
+        <div>
+          <h3>What does not</h3>
+          <p>No draft number unless someone asked for one, no date on a spec script, no copyright notice, no WGA registration number, no logline, no image. Every one of those reads as a first script, which is the one thing a title page can tell a reader before they open it.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="wrap">
+      <div class="install-band">
+        <div>
+          <h2>Now write in it.</h2>
+          <p>Screenplay Editor formats your script while you type in Google Docs. Enter and Tab move you between a character, a line of dialogue and the next scene, the way Final Draft does. It is free to start.</p>
+        </div>
+        <a class="cta-button" href="https://workspace.google.com/marketplace/app/screenplay_editor/561634900696" target="_blank" rel="noopener">Install it</a>
+      </div>
+    </div>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about title pages</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>What should a screenplay title page look like?</span></summary>
+          <div class="faq-body">Courier 12 like the rest of the script, the title centred about a third down, then written by and your name, and your contact details in the bottom left corner. Nothing else.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Should I put a date or a draft number?</span></summary>
+          <div class="faq-body">Not on a spec script. A date tells a reader how long it has been going around, and a draft number invites a question about the earlier ones. Put them on only when a production asks.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Do I need a copyright line or a WGA number?</span></summary>
+          <div class="faq-body">No. It does not add protection and it reads as nervous. Registration is worth doing, printing it on the cover is not.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>How do I get it into Google Docs?</span></summary>
+          <div class="faq-body">You download the file and drag it into Google Drive, then open it with Google Docs. The formatting survives because the document carries the exact margins the format uses.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/screenplay-converter">
+          <h3>Open your screenplay in Google Docs</h3>
+          <p>A PDF, a Final Draft file or a Fountain file becomes a document that opens already formatted.</p>
+        </a>
+        <a href="/tools/format-checker">
+          <h3>Check your format before you send it</h3>
+          <p>The notes a reader would write, before a reader writes them.</p>
+        </a>
+        <a href="/tools/script-breakdown">
+          <h3>Turn your script into a breakdown sheet</h3>
+          <p>Every scene, its location, its time of day and its cast, in a coloured spreadsheet.</p>
+        </a>
+        <a href="/tools/beat-sheet">
+          <h3>Lay out your beats and start writing</h3>
+          <p>Fifteen beats at their real page numbers, in a document already divided.</p>
+        </a>
+        <a href="/tools/screenplay-runtime">
+          <h3>How long does your script run?</h3>
+          <p>A real estimate, and where the time actually goes.</p>
+        </a>
+        <a href="/tools/character-report">
+          <h3>See who carries your script</h3>
+          <p>Who speaks, how much, in how many scenes, from which page to which.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/title-page.js"></script>
+</body>
+</html>

@@ -94,6 +94,18 @@ export function isTransitionLoose(text) {
   return isTransition(text.replace(/[\s\u00A0\u202F]+([:.])\s*$/, '$1'));
 }
 
+/**
+ * Le nom d'un personnage, sans ses extensions.
+ *
+ * Il peut y en avoir PLUSIEURS à la suite : « THOMAS LIEBENWERDA (O.S.)
+ * (CONT'D) » existe vraiment, vu dans le scénario de The Teachers' Lounge. Une
+ * règle qui n'en retire qu'une laisse « THOMAS LIEBENWERDA (O.S.) » et le
+ * personnage apparaît deux fois dans tous les rapports.
+ */
+export function characterName(text) {
+  return String(text || '').replace(/(\s*\([^)]*\))+\s*$/, '').trim();
+}
+
 export function isStandaloneParenthetical(text) {
   return /^\([^)]+\)$/.test(text.trim()) && text.length < 60;
 }
@@ -244,7 +256,7 @@ export function summarize(blocks) {
     if (counts[block.type] !== undefined) counts[block.type]++;
     if (block.type === 'SCENE_HEADING') scenes++;
     if (block.type === 'CHARACTER') {
-      characters.add(block.text.replace(/\s*\([^)]*\)\s*$/, '').trim());
+      characters.add(characterName(block.text));
     }
   }
 

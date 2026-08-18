@@ -23,202 +23,115 @@
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
   <link rel="stylesheet" href="/faq.css">
-
-  <style>
-    body { background: var(--paper); color: var(--ink); font-family: var(--sans); }
-    a { color: inherit; text-decoration: none; }
-    /* Une classe qui pose display bat la règle par défaut de [hidden] : sans
-       ça, le panneau de résultat s'affiche vide au chargement de la page. */
-    [hidden] { display: none !important; }
-    main { padding-top: 120px; }
-    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 30px; }
-
-    /* Le repère du site : fond violet, 16/32, 14 px demi-gras. buttons.css
-       ajoute par-dessus le passage au carré au survol. */
-    .cta-button {
-      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-      background: var(--violet); color: #fff; padding: 16px 32px;
-      font-size: 14px; font-weight: 600; border: 0; cursor: pointer;
-      font-family: var(--sans); letter-spacing: var(--ls-label);
-    }
-    .cta-button:hover { background: var(--violet-dark); }
-    .cta-button:disabled { opacity: .5; cursor: default; }
-
-    .hero { padding: 40px 0 46px; }
-    .hero h1 {
-      font-size: var(--t-3xl); font-weight: var(--w-bold);
-      letter-spacing: var(--ls-display); line-height: var(--lh-tight);
-      margin: 0 0 20px; max-width: 16ch; text-wrap: balance;
-    }
-    .hero p.lead {
-      font-size: var(--t-md); line-height: var(--lh-body);
-      color: var(--ink-3); max-width: 58ch; margin: 0;
-    }
-
-    /* ---- Le dépôt de fichier ---- */
-    .dropzone {
-      margin-top: 42px; background: var(--paper-2); border-radius: var(--r-lg);
-      box-shadow: var(--shadow-1); padding: 56px 40px; text-align: center;
-      transition: box-shadow .2s ease, transform .2s ease;
-    }
-    .dropzone.dragging { box-shadow: var(--shadow-2); transform: translateY(-2px); }
-    /* Une fois le scénario converti, la zone de dépôt n'a plus à occuper un
-       écran : elle se replie et ne sert plus qu'à en convertir un autre. */
-    .dropzone.has-result { padding: 22px 30px; display: flex; align-items: center;
-      justify-content: center; gap: 18px; flex-wrap: wrap; }
-    .dropzone.has-result h2 { font-size: var(--t-base); font-weight: var(--w-medium); color: var(--ink-3); margin: 0; }
-    .dropzone.has-result p { display: none; }
-    .dropzone.has-result .cta-button { padding: 12px 22px; }
-    .dropzone h2 {
-      font-size: var(--t-xl); font-weight: var(--w-bold);
-      letter-spacing: var(--ls-label); margin: 0 0 10px; text-wrap: balance;
-    }
-    .dropzone p { color: var(--ink-3); font-size: var(--t-base); margin: 0 0 26px; }
-    .dropzone .formats {
-      font-size: var(--t-sm); color: var(--ink-4); margin: 22px 0 0;
-    }
-    /* Masqué à l'œil mais gardé dans la page : display:none le sortirait de
-       l'ordre de tabulation et le rendrait invisible aux lecteurs d'écran. */
-    #file { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-    .pick:focus-within, #file:focus + .pick { outline: 2px solid var(--violet); outline-offset: 3px; }
-    .pick { cursor: pointer; display: inline-block; }
-
-    .status {
-      margin-top: 22px; padding: 16px 20px; border-radius: var(--r-md);
-      font-size: var(--t-base); background: var(--violet-soft); color: var(--ink-2);
-    }
-    .status-error { background: var(--error-bg); color: var(--error-ink); }
-
-    /* ---- Le résultat ---- */
-    .result { margin-top: 44px; display: grid; grid-template-columns: 420px 1fr; gap: 46px; align-items: start; }
-    .result .panel { position: sticky; top: 108px; }
-    .panel { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 32px; }
-    .panel h3 {
-      font-size: var(--t-xs); text-transform: uppercase; letter-spacing: var(--ls-caps);
-      color: var(--ink-4); font-weight: var(--w-bold); margin: 0 0 18px;
-    }
-    .counts { list-style: none; padding: 0; margin: 0 0 20px; }
-    /* Pas de filets : c'est l'espace qui sépare, pas un trait. */
-    .counts li { font-size: var(--t-base); color: var(--ink-2); padding: 5px 0; }
-    .counts b { font-weight: var(--w-bold); color: var(--ink); }
-    .characters { font-size: var(--t-sm); color: var(--ink-3); line-height: var(--lh-body); margin: 0; }
-
-    .options { margin: 26px 0 24px; }
-    .options label { display: flex; align-items: baseline; gap: 10px; font-size: var(--t-base); color: var(--ink-2); padding: 6px 0; cursor: pointer; }
-    .options label input { flex: none; }
-    /* Le titre du film peut être long : il tient sur sa ligne et se coupe
-       proprement au lieu de pousser une parenthèse orpheline en bout de ligne. */
-    .title-name { display: block; color: var(--ink-3); font-size: var(--t-sm); overflow-wrap: anywhere; }
-    .options .group { display: flex; gap: 20px; margin-bottom: 8px; }
-    .options .group-label { font-size: var(--t-sm); color: var(--ink-4); margin-bottom: 4px; }
-
-    #warnings { margin: 0 0 22px; }
-    #warnings ul { margin: 0; padding-left: 18px; }
-    #warnings li { font-size: var(--t-sm); color: var(--ink-3); line-height: var(--lh-body); margin-bottom: 8px; }
-
-    #download { width: 100%; justify-content: center; }
-
-    /* ---- L'aperçu, à l'échelle de la page ---- */
-    /* L'aperçu défile dans son cadre : quatre-vingts blocs de scénario
-       étireraient sinon la page sur plusieurs écrans avant la suite du texte. */
-    .preview-shell { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
-      padding: 40px 44px; overflow: auto; max-height: 78vh; }
-    #preview {
-      font-family: 'Courier Prime', 'Courier New', monospace;
-      font-size: 12px; line-height: 1.32; color: var(--ink); width: 6in; min-width: 6in;
-    }
-    #preview .pv { margin-top: 0; margin-bottom: 0; white-space: pre-wrap; }
-    #preview .pv-scene-heading { font-weight: var(--w-bold); margin-top: 1.32em; }
-    #preview .pv-character { margin-top: 1.32em; }
-    #preview .pv-action { margin-top: 1.32em; }
-    #preview .pv-transition { margin-top: 1.32em; }
-    #preview .pv-more { margin-top: 2em; font-family: var(--sans); font-size: var(--t-sm); color: var(--ink-4); }
-
-    /* ---- Les trois pas vers Google Docs ---- */
-    .steps { margin-top: 46px; background: var(--ink); color: #fff; border-radius: var(--r-lg); padding: 46px 44px; }
-    .steps h2 { font-size: var(--t-xl); font-weight: var(--w-bold); margin: 0 0 30px; letter-spacing: var(--ls-label); }
-    .steps ol { list-style: none; counter-reset: step; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; }
-    .steps li { counter-increment: step; }
-    .steps li::before {
-      content: counter(step); display: flex; align-items: center; justify-content: center;
-      width: 34px; height: 34px; border-radius: var(--r-full); background: var(--violet);
-      color: #fff; font-weight: var(--w-bold); font-size: var(--t-sm); margin-bottom: 14px;
-    }
-    .steps li p { margin: 0; font-size: var(--t-base); line-height: var(--lh-loose); color: rgba(255,255,255,.82); }
-    .steps li b { color: #fff; font-weight: var(--w-medium); }
-
-    /* ---- Le reste de la page ---- */
-    .section { padding: 78px 0 0; }
-    .section h2 { font-size: var(--t-2xl); font-weight: var(--w-bold); letter-spacing: var(--ls-label); margin: 0 0 18px; }
-    .section p { font-size: var(--t-base); line-height: var(--lh-body); color: var(--ink-3); max-width: 62ch; margin: 0 0 16px; }
-    .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 46px; margin-top: 34px; }
-    .cols h3 { font-size: var(--t-lg); font-weight: var(--w-bold); margin: 0 0 10px; }
-    .cols p { max-width: 52ch; }
-
-    .install-band { margin-top: 82px; background: var(--cream); border-radius: var(--r-lg); padding: 46px 44px; display: flex; align-items: center; justify-content: space-between; gap: 34px; }
-    .install-band h2 { font-size: var(--t-xl); font-weight: var(--w-bold); margin: 0 0 8px; }
-    .install-band p { margin: 0; color: var(--ink-3); font-size: var(--t-base); max-width: 52ch; }
-    .install-band .cta-button { flex: none; }
-
-    @media (max-width: 980px) {
-      .result { grid-template-columns: 1fr; }
-      .steps ol { grid-template-columns: 1fr; gap: 26px; }
-      .cols { grid-template-columns: 1fr; }
-      .hero h1 { font-size: var(--t-2xl); }
-      .install-band { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
+  <link rel="stylesheet" href="/tools/tools.css">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "SoftwareApplication",
-        "name": "Screenplay Converter",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "Any",
-        "url": "https://screenplayeditor.app/tools/screenplay-converter",
-        "description": "Converts a PDF, Final Draft (.fdx) or Fountain screenplay into a Google Docs ready document with industry standard formatting.",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "author": { "@type": "Person", "name": "Hugo Thomas" }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Screenplay Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/screenplay-converter",
+      "description": "Convert a PDF, .fdx or Fountain screenplay into a Google Doc that is already formatted. It is free, it runs in your browser, and your script is never uploaded.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
       },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Screenplay Editor", "item": "https://screenplayeditor.app/" },
-          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://screenplayeditor.app/tools" },
-          { "@type": "ListItem", "position": 3, "name": "Screenplay Converter", "item": "https://screenplayeditor.app/tools/screenplay-converter" }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Can I convert a Final Draft (.fdx) file to Google Docs?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. A .fdx file already records the type of every paragraph, so the conversion keeps your scene headings, characters, parentheticals, dialogue and transitions exactly where Final Draft put them." }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I convert a PDF screenplay to Google Docs?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. A PDF does not label its paragraphs, so the converter reads the layout instead: it measures the columns your script uses and works out what is dialogue, what is action and who is speaking. It also rejoins dialogue that a page break had split in two." }
-          },
-          {
-            "@type": "Question",
-            "name": "Is my script uploaded to a server?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. The conversion runs inside this page, on your own computer. The file never leaves your browser and nothing is stored." }
-          },
-          {
-            "@type": "Question",
-            "name": "Will the formatting survive in Google Docs?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The document carries the exact margins and indents of the industry standard, the same ones Screenplay Editor applies while you write, so the add-on and the Chrome extension recognise every paragraph the moment you open it." }
-          }
-        ]
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Screenplay Converter",
+          "item": "https://screenplayeditor.app/tools/screenplay-converter"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I convert a Final Draft (.fdx) file to Google Docs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A .fdx file already records the type of every paragraph, so nothing has to be guessed. Your scene headings, characters, parentheticals, dialogue and transitions land exactly where Final Draft put them, and your title page comes along."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I convert a PDF screenplay to Google Docs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and this is the case the tool was really built for. A PDF does not label its paragraphs, so the converter measures the columns your script uses and reads the format back out of them. It also removes page numbers, strips scene numbers, and rejoins a speech that a page break had split in two."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work with Fountain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, including forced elements, the title page, notes and the boneyard. Sections and synopses are left out, since they are your working notes and not part of the script."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my script uploaded anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Everything happens inside this page, on your own computer. Your file never leaves the browser, nothing is stored, and there is no account to create."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will the formatting survive in Google Docs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The document carries the exact margins and indents of the industry standard, the same ones Screenplay Editor applies while you write. That is why the add-on and the Chrome extension recognise every paragraph the moment you open the file."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do I download a file instead of getting a Google Doc directly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Creating a document in your Drive would mean asking you to sign in and give access to your files, for a tool you are trying out. Dragging the file into Drive takes about ten seconds and asks nothing of you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I go back to Final Draft afterwards?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not from here yet. This converter goes one way, into Google Docs. Once your script is formatted there, the add-on exports it to PDF and to Fountain."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -233,8 +146,8 @@
         <h2 id="dropzone-title">Drop your screenplay here</h2>
         <p>You can also pick a file from your computer.</p>
         <label class="cta-button pick" for="file">Choose a file</label>
-        <input type="file" id="file" accept=".pdf,.fdx,.fountain,.spmd,.txt">
-        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text.</p>
+        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt">
+        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text. Nothing is uploaded.</p>
       </div>
 
       <div class="status" id="status" hidden></div>
@@ -243,7 +156,7 @@
         <div class="panel">
           <h3>What the file contains</h3>
           <div id="report"></div>
-          <div id="warnings" hidden></div>
+          <div class="warnings" id="warnings" hidden></div>
 
           <div class="options">
             <p class="group-label">Page size</p>
@@ -259,11 +172,11 @@
             </label>
           </div>
 
-          <button class="cta-button" id="download" type="button">Download for Google Docs</button>
+          <button class="cta-button action-button" id="download" type="button">Download for Google Docs</button>
         </div>
 
         <div class="preview-shell">
-          <div id="preview"></div>
+          <div class="preview" id="preview"></div>
         </div>
       </div>
 
@@ -275,6 +188,7 @@
           <li><p>Start writing. If you have the add-on or the Chrome extension, it recognises the script immediately, because the document already carries the margins it expects.</p></li>
         </ol>
       </div>
+
     </section>
 
     <section class="wrap section">
@@ -296,6 +210,7 @@
       <p>A scanned script is an image, not text, so there is nothing to read and the converter says so instead of producing nonsense. A PDF that was never laid out as a screenplay gets read from its words alone, and the page tells you when that happens so you can check the result. Dual dialogue becomes two ordinary blocks. Bold and italic disappear, because screenplay format does not use them.</p>
     </section>
 
+
     <div class="wrap">
       <div class="install-band">
         <div>
@@ -310,10 +225,9 @@
       <div class="faq-intro">
         <div class="faq-badge">?</div>
         <h2>Questions about converting</h2>
-        <p>I built this because I write my own films in Google Docs and I got tired of retyping scripts that lived somewhere else.</p>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
         <a class="faq-ask" href="/support">Ask me something</a>
       </div>
-
       <div class="faq-list">
         <details class="faq-item" name="faq">
           <summary><span>Can I convert a Final Draft (.fdx) file to Google Docs?</span></summary>
@@ -343,16 +257,42 @@
           <summary><span>Can I go back to Final Draft afterwards?</span></summary>
           <div class="faq-body">Not from here yet. This converter goes one way, into Google Docs. Once your script is formatted there, the add-on exports it to PDF and to Fountain.</div>
         </details>
-        <details class="faq-item" name="faq">
-          <summary><span>Does it work on a Chromebook?</span></summary>
-          <div class="faq-body">Yes. It runs in the browser like the rest of the site, so a Chromebook handles it the same way any laptop does.</div>
-        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/format-checker">
+          <h3>Check your format before you send it</h3>
+          <p>The notes a reader would write, before a reader writes them.</p>
+        </a>
+        <a href="/tools/script-breakdown">
+          <h3>Turn your script into a breakdown sheet</h3>
+          <p>Every scene, its location, its time of day and its cast, in a coloured spreadsheet.</p>
+        </a>
+        <a href="/tools/beat-sheet">
+          <h3>Lay out your beats and start writing</h3>
+          <p>Fifteen beats at their real page numbers, in a document already divided.</p>
+        </a>
+        <a href="/tools/screenplay-title-page">
+          <h3>Make a title page that looks right</h3>
+          <p>Four fields, and the title page a reader expects.</p>
+        </a>
+        <a href="/tools/screenplay-runtime">
+          <h3>How long does your script run?</h3>
+          <p>A real estimate, and where the time actually goes.</p>
+        </a>
+        <a href="/tools/character-report">
+          <h3>See who carries your script</h3>
+          <p>Who speaks, how much, in how many scenes, from which page to which.</p>
+        </a>
       </div>
     </section>
   </main>
 
   <site-footer></site-footer>
 
-  <script type="module" src="/tools/converter/app.js"></script>
+  <script type="module" src="/tools/apps/converter.js"></script>
 </body>
 </html>

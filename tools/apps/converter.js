@@ -4,12 +4,12 @@
 // n'est pas seulement une promesse de confidentialité, c'est aussi ce qui
 // permet de convertir un scénario de cent pages sans serveur et sans attente.
 
-import { parseFdx } from './parse-fdx.js';
-import { parseFountain } from './parse-fountain.js';
-import { extractLines, linesToBlocks } from './parse-pdf.js';
-import { buildDocx } from './docx.js';
-import { INDENTS, summarize } from './screenplay.js';
-import { warningText, errorText, converterError } from './messages.js';
+import { parseFdx } from '../engine/parse-fdx.js';
+import { parseFountain } from '../engine/parse-fountain.js';
+import { extractLines, linesToBlocks } from '../engine/parse-pdf.js';
+import { buildDocx } from '../engine/docx.js';
+import { INDENTS, summarize } from '../engine/screenplay.js';
+import { warningText, errorText, converterError } from '../engine/messages.js';
 
 const $ = (selector) => document.querySelector(selector);
 

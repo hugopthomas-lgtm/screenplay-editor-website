@@ -98,7 +98,9 @@ export function buildDocumentXml(blocks, options = {}) {
       paragraphXml(block.text, {
         left: indent.left,
         right: indent.right,
-        align: block.type === 'TRANSITION' ? 'right' : 'left',
+        // CENTERED n'est pas un élément de scénario : c'est ce qui sert aux
+        // pages de titre, où le texte se pose au milieu de la page.
+        align: block.type === 'TRANSITION' ? 'right' : block.type === 'CENTERED' ? 'center' : 'left',
         bold: block.type === 'SCENE_HEADING' && sceneHeadingBold,
         pageBreakBefore: Boolean(title) && first
       })

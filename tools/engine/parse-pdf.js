@@ -20,7 +20,8 @@ import {
   isSceneHeading,
   isTransitionLoose,
   isAllCaps,
-  cleanText
+  cleanText,
+  characterName
 } from './screenplay.js';
 import { converterError } from './messages.js';
 
@@ -70,7 +71,7 @@ export async function extractLines(pdfjsLib, data, onProgress) {
         bucket = { y, items: [] };
         buckets.push(bucket);
       }
-      bucket.items.push({ x, width, str: item.str });
+      bucket.items.push({ x, width, str: item.str, size: item.height || 0 });
     }
 
     buckets.sort((a, b) => b.y - a.y); // de haut en bas
@@ -97,6 +98,9 @@ export async function extractLines(pdfjsLib, data, onProgress) {
         x0: first.x,
         x1: last.x + last.width,
         text,
+        // Le corps de la police sert au vérificateur de format : « ton
+        // scénario n'est pas en 12 » est la première chose qu'un lecteur voit.
+        size: median(bucket.items.map((i) => i.size).filter(Boolean)),
         pageHeight: viewport.height
       });
     }
@@ -390,7 +394,7 @@ export function linesToBlocks(rawLines) {
     if (isContinuation) {
       const bare = line.text.replace(/\s*\(\s*CONT'?D\s*\)\s*$/i, '').trim();
       const previousCharacter = [...blocks].reverse().find((b) => b.type === 'CHARACTER');
-      if (previousCharacter && previousCharacter.text.replace(/\s*\([^)]*\)\s*$/, '').trim() === bare) {
+      if (previousCharacter && characterName(previousCharacter.text) === bare) {
         continue;
       }
     }
@@ -418,7 +422,16 @@ export function linesToBlocks(rawLines) {
 
   if (dropped) warnings.push({ code: 'page-furniture', count: dropped });
 
-  return { blocks, titlePage, warnings, confident: true };
+  return {
+    blocks,
+    titlePage,
+    warnings,
+    confident: true,
+    geometry: {
+      size: median(lines.map((l) => l.size).filter(Boolean)) || null,
+      leftMarginInches: columns.base / 72
+    }
+  };
 }
 
 // Repli quand la géométrie ne dit rien : on recolle les lignes en paragraphes

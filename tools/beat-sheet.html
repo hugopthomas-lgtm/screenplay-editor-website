@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat Sheet Calculator: Your Beats at Their Real Page Numbers</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Enter your page count and get all fifteen beats at their real page numbers, then open a Google Doc already divided by beat and start writing. Free, no account.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/beat-sheet">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/beat-sheet">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/beat-sheet">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Beat Sheet Calculator: Your Beats at Their Real Page Numbers">
+  <meta property="og:description" content="Enter your page count and get all fifteen beats at their real page numbers, then open a Google Doc already divided by beat and start writing. Free, no account.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/beat-sheet">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Beat Sheet Calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/beat-sheet",
+      "description": "Enter your page count and get all fifteen beats at their real page numbers, then open a Google Doc already divided by beat and start writing. Free, no account.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Beat Sheet Calculator",
+          "item": "https://screenplayeditor.app/tools/beat-sheet"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this the Save the Cat beat sheet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is the fifteen beat structure Blake Snyder set out in Save the Cat, with the page numbers scaled to the length you are writing rather than fixed at his 110 pages."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does my script have to follow it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is a map of where a mainstream film usually turns, which is useful to know whether you are following it or deliberately not. Plenty of good films ignore it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use it for a TV pilot or a short?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, that is the point of scaling. Type 32 pages for a half hour pilot or 12 for a short, and every beat moves with it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What do I get when I press the button?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A document that opens in Google Docs already formatted as a screenplay, with each beat in place and space under it. You drag the downloaded file into Google Drive and open it."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>Your beats, at your page numbers.</h1>
+      <p class="lead">The fifteen beats are written for a 110 page screenplay, and almost nobody writes 110 pages. Enter the length you are actually aiming at and every beat moves to its real page. Then open a document already divided, and write in it.</p>
+
+      <div class="result" id="result">
+        <div class="panel">
+          <h3>Your script</h3>
+          <div class="field">
+            <label for="pages">How many pages are you aiming at?</label>
+            <input type="number" id="pages" value="100" min="5" max="240" step="1">
+          </div>
+          <div class="field">
+            <label for="title">Title (optional)</label>
+            <input type="text" id="title" placeholder="Untitled" autocomplete="off">
+          </div>
+          <div class="options">
+            <p class="group-label">Page size</p>
+            <div class="group">
+              <label><input type="radio" name="page-format" value="US" checked> US Letter</label>
+              <label><input type="radio" name="page-format" value="A4"> A4</label>
+            </div>
+          </div>
+          <button class="cta-button action-button" id="download" type="button">Open it in Google Docs</button>
+          <p class="muted" style="margin-top:14px">You get a document with every beat in place and room to write under each one.</p>
+        </div>
+        <div class="panel">
+          <h3>The fifteen beats</h3>
+          <div class="table-shell"><table class="data" id="beats"></table></div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>Why the pages move</h2>
+      <p>Blake Snyder wrote his page numbers for a 110 page screenplay, and they get quoted as if they were laws. A television pilot runs 32 pages and a first feature often runs 95. Applied literally, the midpoint of a 95 page script lands ten pages late, which is exactly the note everybody gets and nobody can explain.</p>
+      <p>So the beats here are held as proportions and scaled to the length you type. What comes out is not more correct than the original, it is just aimed at your script instead of someone else's.</p>
+    </section>
+
+    <section class="wrap section">
+      <h2>What you get</h2>
+      <div class="cols">
+        <div>
+          <h3>The table</h3>
+          <p>Fifteen beats, each at its page, with the spans marked from page to page. It updates as you change the length, so you can see what a shorter script does to your second act before you write it.</p>
+        </div>
+        <div>
+          <h3>The document</h3>
+          <p>The same beats, in a file that opens in Google Docs already formatted, with each beat as a heading and a gap under it. Most beat sheet tools hand you numbers to copy out. This one hands you the page to write on.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="wrap">
+      <div class="install-band">
+        <div>
+          <h2>Now write in it.</h2>
+          <p>Screenplay Editor formats your script while you type in Google Docs. Enter and Tab move you between a character, a line of dialogue and the next scene, the way Final Draft does. It is free to start.</p>
+        </div>
+        <a class="cta-button" href="https://workspace.google.com/marketplace/app/screenplay_editor/561634900696" target="_blank" rel="noopener">Install it</a>
+      </div>
+    </div>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about structure</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>Is this the Save the Cat beat sheet?</span></summary>
+          <div class="faq-body">It is the fifteen beat structure Blake Snyder set out in Save the Cat, with the page numbers scaled to the length you are writing rather than fixed at his 110 pages.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Does my script have to follow it?</span></summary>
+          <div class="faq-body">No. It is a map of where a mainstream film usually turns, which is useful to know whether you are following it or deliberately not. Plenty of good films ignore it.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Can I use it for a TV pilot or a short?</span></summary>
+          <div class="faq-body">Yes, that is the point of scaling. Type 32 pages for a half hour pilot or 12 for a short, and every beat moves with it.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>What do I get when I press the button?</span></summary>
+          <div class="faq-body">A document that opens in Google Docs already formatted as a screenplay, with each beat in place and space under it. You drag the downloaded file into Google Drive and open it.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other free tools</h2>
+      <div class="more-grid">
+        <a href="/tools/screenplay-converter">
+          <h3>Open your screenplay in Google Docs</h3>
+          <p>A PDF, a Final Draft file or a Fountain file becomes a document that opens already formatted.</p>
+        </a>
+        <a href="/tools/format-checker">
+          <h3>Check your format before you send it</h3>
+          <p>The notes a reader would write, before a reader writes them.</p>
+        </a>
+        <a href="/tools/script-breakdown">
+          <h3>Turn your script into a breakdown sheet</h3>
+          <p>Every scene, its location, its time of day and its cast, in a coloured spreadsheet.</p>
+        </a>
+        <a href="/tools/screenplay-title-page">
+          <h3>Make a title page that looks right</h3>
+          <p>Four fields, and the title page a reader expects.</p>
+        </a>
+        <a href="/tools/screenplay-runtime">
+          <h3>How long does your script run?</h3>
+          <p>A real estimate, and where the time actually goes.</p>
+        </a>
+        <a href="/tools/character-report">
+          <h3>See who carries your script</h3>
+          <p>Who speaks, how much, in how many scenes, from which page to which.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/beat-sheet.js"></script>
+</body>
+</html>
