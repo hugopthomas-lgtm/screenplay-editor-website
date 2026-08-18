@@ -18,5 +18,6 @@ Disallow: /filmmaker-ecosystem.html
 Disallow: /filmstill-overview.html
 Disallow: /freemium.html
 Disallow: /board/
+Disallow: /tools/vendor/
 
 Sitemap: https://screenplayeditor.app/sitemap.xml

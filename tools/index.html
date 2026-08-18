@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Tools for Screenwriters | Screenplay Editor</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Free tools for screenwriters that run in your browser. Convert a PDF, Final Draft or Fountain screenplay into a Google Doc that is already formatted.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Free Tools for Screenwriters">
+  <meta property="og:description" content="Free tools for screenwriters that run in your browser. Nothing is uploaded, nothing asks you to sign in.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+
+  <style>
+    body { background: var(--paper); color: var(--ink); font-family: var(--sans); }
+    a { color: inherit; text-decoration: none; }
+    main { padding-top: 120px; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 30px; }
+
+    .cta-button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      background: var(--violet); color: #fff; padding: 16px 32px;
+      font-size: 14px; font-weight: 600; border: 0; cursor: pointer;
+      font-family: var(--sans); letter-spacing: var(--ls-label);
+    }
+    .cta-button:hover { background: var(--violet-dark); }
+
+    .hero { padding: 40px 0 20px; }
+    .hero h1 {
+      font-size: var(--t-3xl); font-weight: var(--w-bold);
+      letter-spacing: var(--ls-display); line-height: var(--lh-tight); margin: 0 0 20px; max-width: 18ch; text-wrap: balance;
+    }
+    .hero p { font-size: var(--t-md); line-height: var(--lh-body); color: var(--ink-3); max-width: 58ch; margin: 0; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; padding: 48px 0 90px; }
+    .card {
+      background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+      padding: 38px 36px; display: flex; flex-direction: column; gap: 14px;
+      transition: box-shadow .2s ease, transform .2s ease;
+    }
+    a.card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+    .card h2 { font-size: var(--t-lg); font-weight: var(--w-bold); margin: 0; letter-spacing: var(--ls-label); }
+    .card p { font-size: var(--t-base); line-height: var(--lh-body); color: var(--ink-3); margin: 0; }
+    .card .tag {
+      font-size: var(--t-xs); text-transform: uppercase; letter-spacing: var(--ls-caps);
+      color: var(--violet); font-weight: var(--w-bold);
+    }
+    /* La carte « à venir » se distingue par sa teinte, pas par un contour :
+       une bordure en pointillés jure avec le reste du site, qui est plat. */
+    .card.soon { box-shadow: none; background: var(--violet-soft); }
+    .card.soon .tag { color: var(--ink-4); }
+    .card.soon h2, .card.soon p { color: var(--ink-3); }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: var(--t-2xl); }
+    }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>Free tools for screenwriters.</h1>
+      <p>These run in your browser. Your script stays on your computer, nothing is uploaded, and none of them asks you to create an account.</p>
+    </section>
+
+    <section class="wrap">
+      <div class="grid">
+        <a class="card" href="/tools/screenplay-converter">
+          <span class="tag">Converter</span>
+          <h2>Open your screenplay in Google Docs</h2>
+          <p>Drop in a PDF, a Final Draft file or a Fountain file, and get back a document that opens in Google Docs already formatted. It reads the columns of a PDF to work out what is dialogue and who is speaking.</p>
+        </a>
+
+        <div class="card soon">
+          <span class="tag">Coming next</span>
+          <h2>Check your format before you send it</h2>
+          <p>Drop in a PDF and see what a reader would flag: margins, dialogue width, scene headings, page count against running time. I am building this one next.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+</body>
+</html>

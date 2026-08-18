@@ -113,6 +113,8 @@
   --paper-2:     #FFFFFF;
   --cream:       #F6F0E6;   /* fond des sections chaudes */
   --line:        rgba(26,26,26,.10);
+  --error-bg:    #FCECEC;   /* fond d'un message d'échec sur clair */
+  --error-ink:   #8A2B2B;   /* texte d'un message d'échec */
   --line-dark:   rgba(255,255,255,.12);
 
   /* --- OMBRES : 3 niveaux ------------------------------------ */
