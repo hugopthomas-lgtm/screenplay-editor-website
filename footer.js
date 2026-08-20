@@ -25,57 +25,57 @@
     ['Le produit', [
       ['Extension Chrome', INSTALL_EXT],
       ['Module Google Docs', INSTALL_ADDON],
-      ['Prix', '/fr/pricing.html'],
-      ['Comparer les outils', '/fr/compare/'],
-      ['Modèle gratuit', '/fr/free-google-docs-screenplay-template.html']
+      ['Prix', '/fr/pricing'],
+      ['Comparer les outils', '/fr/compare'],
+      ['Modèle gratuit', '/fr/free-google-docs-screenplay-template']
     ]],
     ['Apprendre', [
-      ['Écrire un scénario dans Google Docs', '/fr/resources/how-to-write-screenplay-google-docs.html'],
-      ['Le format du scénario', '/fr/resources/screenplay-format-google-docs.html'],
-      ['Modèles par genre', '/fr/resources/'],
-      ['Écrire sur Chromebook', '/fr/resources/chromebook.html'],
-      ['Blog', '/fr/blog.html']
+      ['Écrire un scénario dans Google Docs', '/fr/resources/how-to-write-screenplay-google-docs'],
+      ['Le format du scénario', '/fr/resources/screenplay-format-google-docs'],
+      ['Modèles par genre', '/fr/resources'],
+      ['Écrire sur Chromebook', '/fr/resources/chromebook'],
+      ['Blog', '/fr/blog']
     ]],
     ['Pour qui', [
-      ['Écoles et enseignants', '/fr/schools.html'],
-      ['Étudiants en cinéma', '/fr/landing-students.html'],
-      ['Scénaristes en activité', '/fr/landing-professionals.html'],
-      ['Ateliers d’écriture', '/fr/landing-writers-rooms.html'],
-      ['Théâtre', '/fr/landing-theater.html']
+      ['Écoles et enseignants', '/fr/schools'],
+      ['Étudiants en cinéma', '/fr/landing-students'],
+      ['Scénaristes en activité', '/fr/landing-professionals'],
+      ['Ateliers d’écriture', '/fr/landing-writers-rooms'],
+      ['Théâtre', '/fr/landing-theater']
     ]],
     ['Screenplay Editor', [
-      ['À propos', '/fr/about.html'],
-      ['Aide', '/fr/support.html'],
-      ['Confidentialité', '/fr/privacy.html'],
-      ['Conditions d’utilisation', '/fr/terms.html']
+      ['À propos', '/fr/about'],
+      ['Aide', '/fr/support'],
+      ['Confidentialité', '/fr/privacy'],
+      ['Conditions d’utilisation', '/fr/terms']
     ]]
   ] : [
     ['Product', [
       ['Chrome extension', INSTALL_EXT],
       ['Google Docs add-on', INSTALL_ADDON],
-      ['Pricing', '/pricing.html'],
-      ['Compare the tools', '/compare/'],
+      ['Pricing', '/pricing'],
+      ['Compare the tools', '/compare'],
       ['Free template', '/free-google-docs-screenplay-template']
     ]],
     ['Learn', [
       ['Write a screenplay in Google Docs', '/resources/how-to-write-screenplay-google-docs'],
       ['Screenplay format', '/resources/screenplay-format-google-docs'],
-      ['Genre templates', '/resources/'],
+      ['Genre templates', '/resources'],
       ['Write on a Chromebook', '/resources/chromebook'],
       ['Blog', '/blog']
     ]],
     ['Who it is for', [
-      ['Schools and teachers', '/schools.html'],
-      ['Film students', '/landing-students.html'],
-      ['Working screenwriters', '/landing-professionals.html'],
-      ['Writers rooms', '/landing-writers-rooms.html'],
-      ['Playwrights', '/landing-theater.html']
+      ['Schools and teachers', '/schools'],
+      ['Film students', '/landing-students'],
+      ['Working screenwriters', '/landing-professionals'],
+      ['Writers rooms', '/landing-writers-rooms'],
+      ['Playwrights', '/landing-theater']
     ]],
     ['Screenplay Editor', [
-      ['About', '/about.html'],
-      ['Support', '/support.html'],
-      ['Privacy Policy', '/privacy.html'],
-      ['Terms of Service', '/terms.html']
+      ['About', '/about'],
+      ['Support', '/support'],
+      ['Privacy Policy', '/privacy'],
+      ['Terms of Service', '/terms']
     ]]
   ];
 

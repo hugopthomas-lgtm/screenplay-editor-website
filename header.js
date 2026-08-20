@@ -21,13 +21,13 @@
 
   // Nav links. Absolute paths so they work from any folder depth.
   var NAV = [
-    ['Pricing', '/pricing.html'],
-    ['Schools', '/schools.html'],
-    ['Compare', '/compare/'],
-    ['Tools', '/tools/'],
-    ['Blog', '/blog.html'],
-    ['About', '/about.html'],
-    ['Support', '/support.html']
+    ['Pricing', '/pricing'],
+    ['Schools', '/schools'],
+    ['Compare', '/compare'],
+    ['Tools', '/tools'],
+    ['Blog', '/blog'],
+    ['About', '/about'],
+    ['Support', '/support']
   ];
 
   // Version française (page avec lang="fr") : libellés FR, et les pages qui
@@ -37,12 +37,12 @@
   var IS_FR = (document.documentElement.getAttribute('lang') || '').toLowerCase().indexOf('fr') === 0;
   if (IS_FR) {
     NAV = [
-      ['Prix', '/fr/pricing.html'],
-      ['Écoles', '/fr/schools.html'],
-      ['Comparer', '/fr/compare/'],
-      ['Blog', '/fr/blog.html'],
-      ['À propos', '/fr/about.html'],
-      ['Aide', '/fr/support.html']
+      ['Prix', '/fr/pricing'],
+      ['Écoles', '/fr/schools'],
+      ['Comparer', '/fr/compare'],
+      ['Blog', '/fr/blog'],
+      ['À propos', '/fr/about'],
+      ['Aide', '/fr/support']
     ];
   }
   // Bascule EN/FR : elle mène à la MÊME page dans l'autre langue quand cette
@@ -50,65 +50,68 @@
   // une ligne ici chaque fois qu'une page est traduite.
   var PAIRS = {
     '/': '/fr/',
-    '/pricing.html': '/fr/pricing.html',
-    '/about.html': '/fr/about.html',
-    '/schools.html': '/fr/schools.html',
-    '/support.html': '/fr/support.html',
-    '/privacy.html': '/fr/privacy.html',
-    '/terms.html': '/fr/terms.html',
-    '/compare/': '/fr/compare/',
-    '/resources/': '/fr/resources/',
-    '/blog/best-dialogue-hack.html': '/fr/blog/best-dialogue-hack.html',
-    '/blog/why-feedback-is-hard.html': '/fr/blog/why-feedback-is-hard.html',
-    '/blog/best-screenplay-addons-google-docs/': '/fr/blog/best-screenplay-addons-google-docs.html',
-    '/free-google-docs-screenplay-template.html': '/fr/free-google-docs-screenplay-template.html',
-    '/screenplay-formatter-google-docs.html': '/fr/screenplay-formatter-google-docs.html',
-    '/alternative.html': '/fr/alternative.html',
-    '/success.html': '/fr/success.html',
-    '/cancel.html': '/fr/cancel.html',
-    '/picker.html': '/fr/picker.html',
-    '/uninstall.html': '/fr/uninstall.html',
-    '/uninstall-addon.html': '/fr/uninstall-addon.html',
-    '/blog.html': '/fr/blog.html',
-    '/landing-beginners.html': '/fr/landing-beginners.html',
-    '/landing-budget.html': '/fr/landing-budget.html',
-    '/landing-game-writers.html': '/fr/landing-game-writers.html',
-    '/landing-international.html': '/fr/landing-international.html',
-    '/landing-professionals.html': '/fr/landing-professionals.html',
-    '/landing-students.html': '/fr/landing-students.html',
-    '/landing-teachers.html': '/fr/landing-teachers.html',
-    '/landing-theater.html': '/fr/landing-theater.html',
-    '/landing-writers-rooms.html': '/fr/landing-writers-rooms.html',
-    '/landing-youtube-creators.html': '/fr/landing-youtube-creators.html',
-    '/resources/action-screenplay-template.html': '/fr/resources/action-screenplay-template.html',
-    '/resources/chromebook.html': '/fr/resources/chromebook.html',
-    '/resources/comedy-screenplay-template.html': '/fr/resources/comedy-screenplay-template.html',
-    '/resources/drama-screenplay-template.html': '/fr/resources/drama-screenplay-template.html',
-    '/resources/google-docs-vs-final-draft.html': '/fr/resources/google-docs-vs-final-draft.html',
-    '/resources/horror-screenplay-template.html': '/fr/resources/horror-screenplay-template.html',
-    '/resources/how-to-get-your-short-film-read-by-producers.html': '/fr/resources/how-to-get-your-short-film-read-by-producers.html',
-    '/resources/how-to-write-screenplay-google-docs.html': '/fr/resources/how-to-write-screenplay-google-docs.html',
-    '/resources/sci-fi-screenplay-template.html': '/fr/resources/sci-fi-screenplay-template.html',
-    '/resources/screenplay-format-google-docs.html': '/fr/resources/screenplay-format-google-docs.html',
-    '/resources/short-film-screenplay-template.html': '/fr/resources/short-film-screenplay-template.html',
-    '/resources/thriller-screenplay-template.html': '/fr/resources/thriller-screenplay-template.html',
-    '/resources/tv-pilot-screenplay-template.html': '/fr/resources/tv-pilot-screenplay-template.html',
-    '/compare/screenplay-editor-vs-arc-studio.html': '/fr/compare/screenplay-editor-vs-arc-studio.html',
-    '/compare/screenplay-editor-vs-celtx.html': '/fr/compare/screenplay-editor-vs-celtx.html',
-    '/compare/screenplay-editor-vs-fade-in.html': '/fr/compare/screenplay-editor-vs-fade-in.html',
-    '/compare/screenplay-editor-vs-final-draft.html': '/fr/compare/screenplay-editor-vs-final-draft.html',
-    '/compare/screenplay-editor-vs-highland.html': '/fr/compare/screenplay-editor-vs-highland.html',
-    '/compare/screenplay-editor-vs-screenplay-formatter.html': '/fr/compare/screenplay-editor-vs-screenplay-formatter.html',
-    '/compare/screenplay-editor-vs-writersolo.html': '/fr/compare/screenplay-editor-vs-writersolo.html'
+    '/pricing': '/fr/pricing',
+    '/about': '/fr/about',
+    '/schools': '/fr/schools',
+    '/support': '/fr/support',
+    '/privacy': '/fr/privacy',
+    '/terms': '/fr/terms',
+    '/compare': '/fr/compare',
+    '/resources': '/fr/resources',
+    '/blog/best-dialogue-hack': '/fr/blog/best-dialogue-hack',
+    '/blog/why-feedback-is-hard': '/fr/blog/why-feedback-is-hard',
+    '/blog/best-screenplay-addons-google-docs': '/fr/blog/best-screenplay-addons-google-docs',
+    '/free-google-docs-screenplay-template': '/fr/free-google-docs-screenplay-template',
+    '/screenplay-formatter-google-docs': '/fr/screenplay-formatter-google-docs',
+    '/alternative': '/fr/alternative',
+    '/success': '/fr/success',
+    '/cancel': '/fr/cancel',
+    '/picker': '/fr/picker',
+    '/uninstall': '/fr/uninstall',
+    '/uninstall-addon': '/fr/uninstall-addon',
+    '/blog': '/fr/blog',
+    '/landing-beginners': '/fr/landing-beginners',
+    '/landing-budget': '/fr/landing-budget',
+    '/landing-game-writers': '/fr/landing-game-writers',
+    '/landing-international': '/fr/landing-international',
+    '/landing-professionals': '/fr/landing-professionals',
+    '/landing-students': '/fr/landing-students',
+    '/landing-teachers': '/fr/landing-teachers',
+    '/landing-theater': '/fr/landing-theater',
+    '/landing-writers-rooms': '/fr/landing-writers-rooms',
+    '/landing-youtube-creators': '/fr/landing-youtube-creators',
+    '/resources/action-screenplay-template': '/fr/resources/action-screenplay-template',
+    '/resources/chromebook': '/fr/resources/chromebook',
+    '/resources/comedy-screenplay-template': '/fr/resources/comedy-screenplay-template',
+    '/resources/drama-screenplay-template': '/fr/resources/drama-screenplay-template',
+    '/resources/google-docs-vs-final-draft': '/fr/resources/google-docs-vs-final-draft',
+    '/resources/horror-screenplay-template': '/fr/resources/horror-screenplay-template',
+    '/resources/how-to-get-your-short-film-read-by-producers': '/fr/resources/how-to-get-your-short-film-read-by-producers',
+    '/resources/how-to-write-screenplay-google-docs': '/fr/resources/how-to-write-screenplay-google-docs',
+    '/resources/sci-fi-screenplay-template': '/fr/resources/sci-fi-screenplay-template',
+    '/resources/screenplay-format-google-docs': '/fr/resources/screenplay-format-google-docs',
+    '/resources/short-film-screenplay-template': '/fr/resources/short-film-screenplay-template',
+    '/resources/thriller-screenplay-template': '/fr/resources/thriller-screenplay-template',
+    '/resources/tv-pilot-screenplay-template': '/fr/resources/tv-pilot-screenplay-template',
+    '/compare/screenplay-editor-vs-arc-studio': '/fr/compare/screenplay-editor-vs-arc-studio',
+    '/compare/screenplay-editor-vs-celtx': '/fr/compare/screenplay-editor-vs-celtx',
+    '/compare/screenplay-editor-vs-fade-in': '/fr/compare/screenplay-editor-vs-fade-in',
+    '/compare/screenplay-editor-vs-final-draft': '/fr/compare/screenplay-editor-vs-final-draft',
+    '/compare/screenplay-editor-vs-highland': '/fr/compare/screenplay-editor-vs-highland',
+    '/compare/screenplay-editor-vs-screenplay-formatter': '/fr/compare/screenplay-editor-vs-screenplay-formatter',
+    '/compare/screenplay-editor-vs-writersolo': '/fr/compare/screenplay-editor-vs-writersolo'
   };
   function counterpartHref() {
-    var p = location.pathname.replace(/\/index\.html$/, '/');
+    // Le site n'a plus qu'une seule forme d'URL depuis le 20/08 : sans .html,
+    // et une page d'index se lit comme son dossier. On normalise donc ce que
+    // le navigateur donne avant de chercher, pour que le sélecteur marche
+    // aussi si quelqu'un arrive par une vieille adresse en .html.
+    var p = location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '') || '/';
     if (IS_FR) {
       var en = p.replace(/^\/fr(\/|$)/, '/');
       for (var k in PAIRS) { if (PAIRS[k] === p || k === en) return k; }
       return '/';
     }
-    if (!/\.html$/.test(p) && p !== '/' && !/\/$/.test(p)) p += '.html'; // /schools → /schools.html
     return PAIRS[p] || '/fr/';
   }
   var LANG = IS_FR ? ['EN', counterpartHref(), 'en'] : ['FR', counterpartHref(), 'fr'];
