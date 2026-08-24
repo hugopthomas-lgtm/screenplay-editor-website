@@ -101,18 +101,32 @@
     if (!window.gapi) { fail('Google is still loading. Try the button again in a second.'); return; }
     gapi.load('picker', function () {
       _pickerOpened = true;
-      var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
-      // Pré-navigue le picker sur le doc déjà ouvert : un seul clic à confirmer.
-      // Marche quand le doc est INDEXÉ par Google = le cas de l'extension PUBLIÉE,
-      // qui demande le grant au 1er formatage (doc déjà rempli). Un doc vierge tout
-      // neuf (cas du setup-à-l'activation de la version locale) n'est pas encore
-      // indexé → setFileIds renverrait vide ; ce cas se règle côté extension (faire
-      // que scrrr crée le doc → accès automatique, zéro Picker), pas ici.
-      if (params.docId && view.setFileIds) view.setFileIds(params.docId);
       var builder = new google.picker.PickerBuilder()
         .setOAuthToken(params.token)
-        .setAppId(PICKER_APP_ID)
-        .addView(view)
+        .setAppId(PICKER_APP_ID);
+
+      // Vue 1 — le document déjà ouvert, pré-sélectionné : un seul clic.
+      // Ne marche que si Google l'a INDEXÉ (doc déjà rempli, cas courant).
+      if (params.docId) {
+        var focused = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
+        if (focused.setFileIds) {
+          focused.setFileIds(params.docId);
+          if (focused.setLabel) focused.setLabel('This screenplay');
+          builder.addView(focused);
+        }
+      }
+
+      // Vue 2 — TOUJOURS là, jamais filtrée. Un document tout neuf, ou dont
+      // l'indexation Drive est en retard, sort VIDE de setFileIds : la première
+      // vue n'affiche rien et il n'y a plus rien à cliquer. Cul-de-sac observé
+      // par Hugo (« des fois ça me donnait un dossier vide, rien à faire »).
+      // Celle-ci liste tous ses documents, le plus récent en tête.
+      var all = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
+      if (all.setMode && google.picker.DocsViewMode) all.setMode(google.picker.DocsViewMode.LIST);
+      if (all.setLabel) all.setLabel('All my documents');
+      builder.addView(all);
+
+      builder
         .setCallback(function (data) {
           if (data.action === google.picker.Action.PICKED) {
             var ids = (data.docs || []).map(function (d) { return d.id; });
