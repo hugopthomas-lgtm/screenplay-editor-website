@@ -78,15 +78,16 @@
       padding-top: 18px; border-top: 1px solid #e8e8e8; }
     .paper-credit a { color: var(--violet); text-decoration: none; border-bottom: 1px solid rgba(157,123,234,0.4); }
 
-    /* Le fac-simile : la preuve que ca a bien paru sur du papier. */
-    .facsimile { margin: 40px 0 56px; text-align: center; }
-    .facsimile h2 { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-      color: #8a8a8a; margin-bottom: 16px; }
-    .facsimile a { display: inline-block; max-width: 380px; border-radius: 6px; overflow: hidden;
-      box-shadow: 0 18px 44px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.07); transition: transform 0.35s cubic-bezier(.16,.62,.28,1); }
-    .facsimile a:hover { transform: translateY(-4px); }
+    /* Le fac-simile : la preuve que ca a bien paru sur du papier. En pied de
+       page personne ne l'atteignait, il flotte donc en tete du corps, la ou
+       le lecteur decide en trois secondes de ce qu'il est en train de lire. */
+    .facsimile { float: right; width: 228px; margin: 6px 0 20px 30px; }
+    .facsimile a { display: block; border-radius: 4px; overflow: hidden;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.16), 0 3px 8px rgba(0,0,0,0.07);
+      transition: transform 0.35s cubic-bezier(.16,.62,.28,1); }
+    .facsimile a:hover { transform: translateY(-3px); }
     .facsimile img { width: 100%; height: auto; display: block; }
-    .facsimile figcaption { font-size: 13px; color: #8a8a8a; margin-top: 14px; }
+    .facsimile figcaption { font-size: 12px; line-height: 1.55; color: #8a8a8a; margin-top: 10px; }
 
     @media (max-width: 800px) {
       .paper { padding: 96px 24px 0; }
@@ -96,6 +97,8 @@
       .paper-pull { font-size: 20px; }
       .masthead-section { font-size: 17px; }
       .paper-body > p:first-of-type::first-letter { font-size: 52px; }
+      .facsimile { float: none; width: 100%; max-width: 300px; margin: 0 auto 26px; }
+      .facsimile figcaption { text-align: center; }
     }
   </style>
   <script src="/header.js"></script>
@@ -135,6 +138,13 @@
       </figure>
 
       <div class="paper-body">
+        <figure class="facsimile">
+          <a href="essor-savoyard-page.jpg" target="_blank" rel="noopener">
+            <img src="essor-savoyard-page.jpg" alt="The printed page of L'Essor Savoyard, 20 August 2026" width="1213" height="1300">
+          </a>
+          <figcaption>The page as it ran.<br>L'Essor Savoyard, 20 August 2026.</figcaption>
+        </figure>
+
         <p>He has worked with Vanessa Paradis, he is preparing a new comedy produced by the film giant Path&eacute;, and he comes from Faverges-Seythenex. Hugo Thomas always wanted to direct. Despite a short detour through law school, which did not interest him, he came back to his first love and joined Luc Besson's &Eacute;cole de la Cit&eacute;, then started working, directing his first shorts and features.</p>
 
         <p>But while writing his screenplays, Hugo Thomas grew frustrated. <em>&ldquo;To write a screenplay and lay it out, the norm is to buy Final Draft, which costs 250 dollars, then 80 dollars at every update,&rdquo;</em> the filmmaker explains. <em>&ldquo;And it is outdated on every level. You pay a fortune just for formatting, and if two people want to write a screenplay together they have to email each other codes with ten numbers and letters. It feels like 1985.&rdquo;</em></p>
@@ -163,13 +173,6 @@
         <a href="https://lessorsavoyard.lemessager.fr/649356580/article/2026-08-16/ce-haut-savoyard-revolutionne-l-ecriture-des-scenarios-pour-hollywood-grace-a-son-invention" target="_blank" rel="noopener">Read&nbsp;the&nbsp;French&nbsp;original</a> (subscribers only).
       </p>
 
-      <figure class="facsimile scroll-fade">
-        <h2>The page as it ran</h2>
-        <a href="essor-savoyard-page.jpg" target="_blank" rel="noopener">
-          <img src="essor-savoyard-page.jpg" alt="The printed page of L'Essor Savoyard, 20 August 2026" width="1213" height="1300">
-        </a>
-        <figcaption>L'Essor Savoyard, Thursday 20 August 2026, page 9.</figcaption>
-      </figure>
     </article>
 
     <section class="cta-section">
