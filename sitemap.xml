@@ -454,4 +454,8 @@
     <loc>https://screenplayeditor.app/fr/uninstall-addon</loc>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://screenplayeditor.app/press/lessor-savoyard</loc>
+    <priority>0.6</priority>
+  </url>
 </urlset>

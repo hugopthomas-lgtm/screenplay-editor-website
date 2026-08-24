@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>document.documentElement.classList.add('js');</script>
+  <title>&ldquo;He is revolutionising screenwriting for Hollywood&rdquo; — L'Essor Savoyard on Screenplay Editor</title>
+  <meta name="description" content="English translation of the August 2026 article by Aubane Lemaire in L'Essor Savoyard about Hugo Thomas and Screenplay Editor, the Google Docs screenwriting tool used by 12,000 writers.">
+  <link rel="canonical" href="https://screenplayeditor.app/press/lessor-savoyard">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/press/lessor-savoyard">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/press/lessor-savoyard">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="&quot;He is revolutionising screenwriting for Hollywood with his invention&quot;">
+  <meta property="og:description" content="L'Essor Savoyard, August 2026. How a film director from the French Alps built the screenwriting tool 12,000 writers now use inside Google Docs.">
+  <meta property="og:url" content="https://screenplayeditor.app/press/lessor-savoyard">
+  <meta property="og:image" content="https://screenplayeditor.app/press/hugo-essor-savoyard.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/site-theme.css">
+  <style>
+    /* Cette page ne doit pas se lire comme une page du site mais comme un
+       article de journal : on reprend la maquette du papier (bandeau de
+       rubrique, titre plein, chapeau, signature, lettrine) plutot que le hero
+       sombre des autres pages. Les jetons de couleur et la police ne bougent pas. */
+    body { background: #fff; }
+    .paper { max-width: 820px; margin: 0 auto; padding: 118px 30px 0; }
+
+    /* Le bandeau du papier : rubrique a gauche, titre du journal a droite. */
+    .masthead { display: flex; align-items: baseline; justify-content: space-between;
+      gap: 20px; border-bottom: 2px solid var(--dark); padding-bottom: 12px; }
+    .masthead-section { display: flex; align-items: center; gap: 9px;
+      font-size: 22px; font-weight: 800; letter-spacing: -0.01em; color: var(--dark); text-transform: uppercase; }
+    .masthead-section::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--violet); }
+    .masthead-meta { text-align: right; line-height: 1.4; }
+    .masthead-paper { display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--dark); }
+    .masthead-date { display: block; font-size: 13px; color: #8a8a8a; }
+
+    .paper-title { font-size: 46px; font-weight: 800; line-height: 1.06; letter-spacing: -0.025em;
+      color: var(--dark); margin: 30px 0 0; text-wrap: balance; }
+    .paper-standfirst { font-size: 19px; line-height: 1.62; color: #3f3f3f; margin: 22px 0 0;
+      text-wrap: pretty; }
+    .paper-standfirst b { color: var(--violet); font-weight: 700; }
+
+    /* Signature : c'est elle qui dit qu'un journaliste a ecrit ce texte, pas nous. */
+    .byline { display: flex; align-items: center; gap: 12px; margin-top: 26px;
+      padding-top: 18px; border-top: 1px solid #e8e8e8; }
+    .byline-initials { width: 42px; height: 42px; border-radius: 50%; flex: none;
+      background: rgba(157,123,234,0.14); color: var(--violet);
+      display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; }
+    .byline-name { font-size: 15px; font-weight: 700; color: var(--dark); }
+    .byline-role { font-size: 13px; color: #8a8a8a; margin-top: 1px; }
+
+    .paper-photo { margin: 30px 0 0; }
+    .paper-photo img { width: 100%; height: auto; border-radius: 14px; display: block; }
+    .paper-photo figcaption { font-size: 13px; color: #8a8a8a; margin-top: 10px; }
+
+    .paper-body { margin-top: 34px; }
+    .paper-body h2 { font-size: 22px; font-weight: 800; color: var(--dark); margin: 36px 0 14px; letter-spacing: -0.015em; }
+    .paper-body p { font-size: 17px; line-height: 1.82; color: #3f3f3f; margin-bottom: 22px; }
+    /* Les citations sont longues : en gras elles noircissaient des paragraphes
+       entiers. L'italique est ce qu'utilise le papier, et il allege. */
+    .paper-body em { color: var(--dark); font-style: italic; font-weight: 400; }
+    /* Lettrine : le signal « presse » le moins cher qui existe. */
+    .paper-body > p:first-of-type::first-letter {
+      float: left; font-size: 64px; line-height: 0.84; font-weight: 800;
+      color: var(--dark); padding: 4px 10px 0 0;
+    }
+    /* L'encadre de citation du papier, aux memes bords que la colonne de texte. */
+    /* .paper-body p (0,1,1) battait .paper-pull (0,1,0) : la citation repassait
+       en 17px gris. On la remonte au meme niveau de specificite. */
+    .paper-body .paper-pull { margin: 34px 0; padding: 22px 0; border-top: 1px solid #e8e8e8; border-bottom: 1px solid #e8e8e8;
+      font-size: 25px; line-height: 1.42; font-weight: 700; color: var(--violet);
+      letter-spacing: -0.015em; text-wrap: balance; }
+
+    .paper-credit { font-size: 13px; line-height: 1.75; color: #8a8a8a; margin-top: 6px;
+      padding-top: 18px; border-top: 1px solid #e8e8e8; }
+    .paper-credit a { color: var(--violet); text-decoration: none; border-bottom: 1px solid rgba(157,123,234,0.4); }
+
+    /* Le fac-simile : la preuve que ca a bien paru sur du papier. */
+    .facsimile { margin: 40px 0 56px; text-align: center; }
+    .facsimile h2 { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #8a8a8a; margin-bottom: 16px; }
+    .facsimile a { display: inline-block; max-width: 380px; border-radius: 6px; overflow: hidden;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.07); transition: transform 0.35s cubic-bezier(.16,.62,.28,1); }
+    .facsimile a:hover { transform: translateY(-4px); }
+    .facsimile img { width: 100%; height: auto; display: block; }
+    .facsimile figcaption { font-size: 13px; color: #8a8a8a; margin-top: 14px; }
+
+    @media (max-width: 800px) {
+      .paper { padding: 96px 24px 0; }
+      .paper-title { font-size: 32px; }
+      .paper-standfirst { font-size: 17px; }
+      .paper-body p { font-size: 16px; }
+      .paper-pull { font-size: 20px; }
+      .masthead-section { font-size: 17px; }
+      .paper-body > p:first-of-type::first-letter { font-size: 52px; }
+    }
+  </style>
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+</head>
+<body>
+  <site-header></site-header>
+
+  <main>
+    <article class="paper">
+      <div class="masthead">
+        <span class="masthead-section">Bassin Ann&eacute;cien</span>
+        <span class="masthead-meta">
+          <span class="masthead-paper">L'Essor Savoyard</span>
+          <span class="masthead-date">Thursday 20 August 2026 &middot; page 9</span>
+        </span>
+      </div>
+
+      <h1 class="paper-title">&ldquo;He is revolutionising screenwriting for Hollywood with his invention&rdquo;</h1>
+
+      <p class="paper-standfirst"><b>Faverges-Seythenex.</b> In December 2025, Hugo Thomas, a young director from Faverges-Seythenex, launched Screenplay Editor. The software, which formats screenplays to Hollywood standards, is already used by nearly 12,000 people after only a few months.</p>
+
+      <div class="byline">
+        <span class="byline-initials">AL</span>
+        <span>
+          <span class="byline-name">Aubane Lemaire</span>
+          <span class="byline-role">Journaliste, L'Essor Savoyard &middot; translated from French</span>
+        </span>
+      </div>
+
+      <figure class="paper-photo scroll-fade">
+        <img src="hugo-essor-savoyard.jpg" alt="Hugo Thomas speaking on stage with a microphone" width="1024" height="699">
+        <figcaption>Hugo Thomas launched Screenplay Editor in December 2025. Photo Hugo Thomas.</figcaption>
+      </figure>
+
+      <div class="paper-body">
+        <p>He has worked with Vanessa Paradis, he is preparing a new comedy produced by the film giant Path&eacute;, and he comes from Faverges-Seythenex. Hugo Thomas always wanted to direct. Despite a short detour through law school, which did not interest him, he came back to his first love and joined Luc Besson's &Eacute;cole de la Cit&eacute;, then started working, directing his first shorts and features.</p>
+
+        <p>But while writing his screenplays, Hugo Thomas grew frustrated. <em>&ldquo;To write a screenplay and lay it out, the norm is to buy Final Draft, which costs 250 dollars, then 80 dollars at every update,&rdquo;</em> the filmmaker explains. <em>&ldquo;And it is outdated on every level. You pay a fortune just for formatting, and if two people want to write a screenplay together they have to email each other codes with ten numbers and letters. It feels like 1985.&rdquo;</em></p>
+
+        <h2>A tool that makes writing simpler</h2>
+
+        <p>And yet this formatting is essential, particularly in Hollywood. It separates dialogue from scenery clearly, and it lets the crew find the part that concerns them quickly during the shoot. Above all, <em>&ldquo;it has not changed since the beginnings of cinema&rdquo;</em>. So Hugo Thomas had an idea to make his own life easier.</p>
+
+        <p class="paper-pull">&ldquo;I've always had a bit of a geek side. When I was ten or eleven, I built a Harry Potter website.&rdquo;</p>
+
+        <p><em>&ldquo;And today, AI makes things possible that were not possible before. And I wanted to write my screenplays where I already spend my time: in Google Docs.&rdquo;</em> So he invented Screenplay Editor.</p>
+
+        <p>The software installs directly into Google Docs or Google Chrome, and turns the word processor into a screenplay formatting machine. <em>&ldquo;It is very intuitive,&rdquo;</em> Hugo Thomas says.</p>
+
+        <h2>12,000 users around the world</h2>
+
+        <p>The director launched the tool in December 2025, and it already adds up to nearly 12,000 installs. <em>&ldquo;I have not even started marketing it,&rdquo;</em> he admits. <em>&ldquo;People look for it themselves, and writing a screenplay in Google Docs is such a need that they come to me.&rdquo;</em></p>
+
+        <p>Privacy comes first, so Hugo Thomas does not know precisely who uses his software. Which makes it hard to know whether, one day, major blockbusters will have been written with Screenplay Editor. What he does know is that it is already used all over the world. <em>&ldquo;They come from every continent, even if the leading country is still the United States. I know there are students in New York and Los Angeles. There are also a lot of people in the Philippines.&rdquo;</em></p>
+
+        <p>Students are one of the people he is building for. <em>&ldquo;I would like to be able to equip schools. Every time I was in a film school, I had to work out a way to get hold of screenwriting software myself. So the ultimate dream would be for schools to have Screenplay Editor.&rdquo;</em> To get there, Hugo Thomas will be in Oxford, England, in September, for three days that bring together screenwriting professors from around the world. <em>&ldquo;I have become passionate about this. It is now as exciting as my films.&rdquo;</em></p>
+      </div>
+
+      <p class="paper-credit">
+        Article by Aubane Lemaire, published in French by L'Essor Savoyard on 20 August 2026, Bassin Ann&eacute;cien section, page 9. Translated into English and republished with the paper's permission.
+        <a href="https://lessorsavoyard.lemessager.fr/649356580/article/2026-08-16/ce-haut-savoyard-revolutionne-l-ecriture-des-scenarios-pour-hollywood-grace-a-son-invention" target="_blank" rel="noopener">Read&nbsp;the&nbsp;French&nbsp;original</a> (subscribers only).
+      </p>
+
+      <figure class="facsimile scroll-fade">
+        <h2>The page as it ran</h2>
+        <a href="essor-savoyard-page.jpg" target="_blank" rel="noopener">
+          <img src="essor-savoyard-page.jpg" alt="The printed page of L'Essor Savoyard, 20 August 2026" width="1213" height="1300">
+        </a>
+        <figcaption>L'Essor Savoyard, Thursday 20 August 2026, page 9.</figcaption>
+      </figure>
+    </article>
+
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>Write your screenplay in Google Docs</h2>
+        <p>It formats while you type. Free to start, no account needed.</p>
+        <a href="/" class="cta-button">Try Screenplay Editor</a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+<script src="/site-anim.js"></script>
+</body>
+</html>
