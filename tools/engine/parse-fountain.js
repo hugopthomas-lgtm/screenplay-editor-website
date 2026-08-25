@@ -18,13 +18,20 @@ import { converterError } from './messages.js';
 const TITLE_KEYS = /^(title|credit|author|authors|source|draft date|date|contact|copyright|notes|revision)\s*:/i;
 
 function stripEmphasis(text) {
+  // Un marqueur échappé (\* ou \_) est un caractère ordinaire, pas du gras.
+  // Il faut le mettre de côté AVANT de retirer les marqueurs, sinon le retrait
+  // avale la barre oblique et laisse l'astérisque tout seul.
+  let out = String(text).replace(/\\\*/g, '\uE000').replace(/\\_/g, '\uE001');
+
   // Le format scénario n'a ni gras ni italique : les marqueurs Fountain
   // deviendraient des astérisques visibles dans le document.
-  return text
+  out = out
     .replace(/\*\*\*(.+?)\*\*\*/g, '$1')
     .replace(/\*\*(.+?)\*\*/g, '$1')
     .replace(/\*(.+?)\*/g, '$1')
     .replace(/_(.+?)_/g, '$1');
+
+  return out.replace(/\uE000/g, '*').replace(/\uE001/g, '_');
 }
 
 function preprocess(source) {

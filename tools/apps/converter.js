@@ -8,8 +8,11 @@ import { parseFdx } from '../engine/parse-fdx.js';
 import { parseFountain } from '../engine/parse-fountain.js';
 import { extractLines, linesToBlocks } from '../engine/parse-pdf.js';
 import { buildDocx } from '../engine/docx.js';
+import { buildFdx } from '../engine/write-fdx.js';
+import { buildFountain } from '../engine/write-fountain.js';
 import { INDENTS, summarize } from '../engine/screenplay.js';
 import { warningText, errorText, converterError } from '../engine/messages.js';
+import { track } from './track.js';
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -18,7 +21,34 @@ const state = {
   titlePage: null,
   fileName: 'screenplay',
   pageFormat: 'US',
-  keepTitlePage: true
+  keepTitlePage: true,
+  output: 'docx'
+};
+
+// Ce qui change d'une sortie à l'autre : l'extension, le type MIME, la façon de
+// fabriquer les octets, et ce qu'on dit à la personne une fois le fichier
+// téléchargé. Le reste du convertisseur ne bouge pas.
+const OUTPUTS = {
+  docx: {
+    extension: 'docx',
+    label: 'Download for Google Docs',
+    mime: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    build: (blocks, options) => buildDocx(blocks, options)
+  },
+  fdx: {
+    extension: 'fdx',
+    label: 'Download the Final Draft file',
+    mime: 'application/xml',
+    build: (blocks, options) => buildFdx(blocks, options),
+    note: 'Open it straight from Final Draft, or from any app that reads .fdx: Fade In, Highland, WriterDuet, Arc Studio. What travels is the script itself, not the coloured revisions or the locked scene numbers, which belong to the file you started from.'
+  },
+  fountain: {
+    extension: 'fountain',
+    label: 'Download the Fountain file',
+    mime: 'text/plain',
+    build: (blocks, options) => buildFountain(blocks, options),
+    note: 'Plain text you can open anywhere and will still be able to read in twenty years. Every scene heading, character cue and transition that would be misread has been marked so it comes back exactly as it went in.'
+  }
 };
 
 // Singulier et pluriel : « 1 transitions » dans un rapport de conversion,
@@ -81,6 +111,7 @@ async function convert(file) {
 
   state.blocks = result.blocks;
   state.titlePage = result.titlePage || null;
+  track('run');
   render(result);
 }
 
@@ -145,24 +176,42 @@ function renderPreview() {
 }
 
 function download() {
-  const bytes = buildDocx(state.blocks, {
+  const output = OUTPUTS[state.output];
+  const built = output.build(state.blocks, {
     pageFormat: state.pageFormat,
     titlePage: state.keepTitlePage ? state.titlePage : null
   });
-  const blob = new Blob([bytes], {
-    type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-  });
+
+  // Le .docx sort en octets, le .fdx et le .fountain en texte. Le Blob accepte
+  // les deux, à condition de ne pas mentir sur le type.
+  const blob = new Blob([built], { type: output.mime + (typeof built === 'string' ? ';charset=utf-8' : '') });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${state.fileName}.docx`;
+  a.download = `${state.fileName}.${output.extension}`;
   document.body.appendChild(a);
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 
-  $('#next-steps').hidden = false;
-  $('#next-steps').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  const docsSteps = $('#next-steps');
+  const fileSteps = $('#next-steps-file');
+  docsSteps.hidden = state.output !== 'docx';
+  if (fileSteps) {
+    fileSteps.hidden = state.output === 'docx';
+    if (!fileSteps.hidden) {
+      $('#next-steps-file-title').textContent = `Your .${output.extension} file is ready`;
+      $('#next-steps-file-text').textContent = output.note;
+    }
+  }
+  (state.output === 'docx' ? docsSteps : fileSteps).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/** Le bouton dit où va le scénario, et la taille de page disparaît quand elle ne veut plus rien dire. */
+function syncOutput() {
+  $('#download').textContent = OUTPUTS[state.output].label;
+  const pageSize = $('#page-size');
+  if (pageSize) pageSize.hidden = state.output !== 'docx';
 }
 
 async function handleFile(file) {
@@ -212,3 +261,21 @@ for (const radio of document.querySelectorAll('input[name="page-format"]')) {
 $('#keep-title-page').addEventListener('change', (event) => {
   state.keepTitlePage = event.target.checked;
 });
+
+for (const radio of document.querySelectorAll('input[name="output"]')) {
+  radio.addEventListener('change', () => {
+    if (!radio.checked) return;
+    state.output = radio.value;
+    syncOutput();
+  });
+}
+
+// Une page de paire (« fountain to final draft ») est ce même convertisseur avec
+// une sortie déjà choisie. Elle le dit dans un attribut, rien de plus.
+const preset = document.body.dataset.output;
+if (preset && OUTPUTS[preset]) {
+  state.output = preset;
+  const radio = document.querySelector(`input[name="output"][value="${preset}"]`);
+  if (radio) radio.checked = true;
+}
+syncOutput();

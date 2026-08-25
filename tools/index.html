@@ -19,13 +19,17 @@
 
   <script src="/header.js"></script>
   <script src="/footer.js"></script>
+  <script type="module" src="/tools/apps/track.js"></script>
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/buttons.css">
   <link rel="stylesheet" href="/tools/tools.css">
 
   <style>
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; padding: 48px 0 90px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; padding: 48px 0 0; }
+    .tail { padding-bottom: 90px; }
+    .section h2 { font-size: var(--t-2xl); font-weight: var(--w-bold); letter-spacing: var(--ls-label); margin: 0 0 14px; text-wrap: balance; }
+    .section > p { font-size: var(--t-base); line-height: var(--lh-body); color: var(--ink-3); max-width: 62ch; margin: 0; }
     .card {
       background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
       padding: 38px 36px; display: flex; flex-direction: column; gap: 14px;
@@ -54,8 +58,8 @@
       <div class="grid">
         <a class="card" href="/tools/screenplay-converter">
           <span class="tag">Converter</span>
-          <h2>Open your screenplay in Google Docs</h2>
-          <p>Drop in a PDF, a Final Draft file or a Fountain file, and get back a document that opens in Google Docs already formatted.</p>
+          <h2>Convert your screenplay to anything</h2>
+          <p>Drop in a PDF, a Final Draft file or a Fountain file, and take it out as a Google Doc that is already formatted, a .fdx, or a .fountain.</p>
         </a>
         <a class="card" href="/tools/format-checker">
           <span class="tag">Checker</span>
@@ -96,6 +100,43 @@
           <span class="tag">Poster</span>
           <h2>Make a poster for your film</h2>
           <p>Drop in your screenplay and get the poster that film would have. The one thing here you will want to show somebody.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="wrap section tail">
+      <h2>One conversion at a time</h2>
+      <p>The same converter, with the answer already picked. Each page says what survives the trip and what stays behind, because that part is different every time.</p>
+      <div class="grid">
+        <a class="card" href="/tools/fountain-to-final-draft">
+          <span class="tag">Fountain to Final Draft</span>
+          <h2>Your .fountain, typed into a .fdx</h2>
+          <p>Fountain hides the type of a line in its punctuation. Final Draft writes it down. This reads the first and writes the second.</p>
+        </a>
+        <a class="card" href="/tools/final-draft-to-fountain">
+          <span class="tag">Final Draft to Fountain</span>
+          <h2>Your .fdx as plain text</h2>
+          <p>Plain text you can still read in twenty years, in any editor, under version control if you want it there.</p>
+        </a>
+        <a class="card" href="/tools/pdf-to-final-draft">
+          <span class="tag">PDF to Final Draft</span>
+          <h2>A PDF you can write in again</h2>
+          <p>A PDF records ink, not meaning. The converter measures the columns your script uses and reads the format back out of them.</p>
+        </a>
+        <a class="card" href="/tools/pdf-to-fountain">
+          <span class="tag">PDF to Fountain</span>
+          <h2>A PDF back into plain Fountain</h2>
+          <p>Same reading of the columns, written out as text, with every line that could be misread marked so it comes back right.</p>
+        </a>
+        <a class="card" href="/tools/final-draft-to-google-docs">
+          <span class="tag">Final Draft to Google Docs</span>
+          <h2>Your .fdx in a Doc with the right margins</h2>
+          <p>Nothing is guessed, because a .fdx already records what each paragraph is. The margins are the industry ones, to the point.</p>
+        </a>
+        <a class="card" href="/tools/fountain-to-google-docs">
+          <span class="tag">Fountain to Google Docs</span>
+          <h2>Your .fountain in a Doc with the right margins</h2>
+          <p>Forced elements, title page, notes and boneyard all read. The asterisks stay out of your document.</p>
         </a>
       </div>
     </section>

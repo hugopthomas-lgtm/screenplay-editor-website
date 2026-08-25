@@ -140,7 +140,7 @@
   <main>
     <section class="wrap hero">
       <h1>Open your screenplay in Google Docs.</h1>
-      <p class="lead">Drop in a PDF, a Final Draft file or a Fountain file. You get back a document that opens in Google Docs already formatted, with every scene heading, character cue and line of dialogue in the right place. It runs on your computer and your script is never uploaded.</p>
+      <p class="lead">Drop in a PDF, a Final Draft file or a Fountain file, and take it out as any of the three: a document that opens in Google Docs already formatted, a .fdx, or a .fountain. Every scene heading, character cue and line of dialogue lands in the right place. It runs on your computer and your script is never uploaded.</p>
 
       <div class="dropzone" id="dropzone">
         <h2 id="dropzone-title">Drop your screenplay here</h2>
@@ -159,10 +159,18 @@
           <div class="warnings" id="warnings" hidden></div>
 
           <div class="options">
-            <p class="group-label">Page size</p>
-            <div class="group">
-              <label><input type="radio" name="page-format" value="US" checked> US Letter</label>
-              <label><input type="radio" name="page-format" value="A4"> A4</label>
+            <p class="group-label">Convert to</p>
+            <div class="group stack">
+              <label><input type="radio" name="output" value="docx" checked> Google Docs</label>
+              <label><input type="radio" name="output" value="fdx"> Final Draft</label>
+              <label><input type="radio" name="output" value="fountain"> Fountain</label>
+            </div>
+            <div id="page-size">
+              <p class="group-label">Page size</p>
+              <div class="group">
+                <label><input type="radio" name="page-format" value="US" checked> US Letter</label>
+                <label><input type="radio" name="page-format" value="A4"> A4</label>
+              </div>
             </div>
             <label id="title-page-row" hidden>
               <input type="checkbox" id="keep-title-page" checked>
@@ -187,6 +195,11 @@
           <li><p>Double click the file, then choose <b>Open with Google Docs</b>. Drive converts it and keeps the formatting.</p></li>
           <li><p>Start writing. If you have the add-on or the Chrome extension, it recognises the script immediately, because the document already carries the margins it expects.</p></li>
         </ol>
+      </div>
+
+      <div class="steps" id="next-steps-file" hidden>
+        <h2 id="next-steps-file-title">Your file is ready</h2>
+        <p id="next-steps-file-text"></p>
       </div>
 
     </section>

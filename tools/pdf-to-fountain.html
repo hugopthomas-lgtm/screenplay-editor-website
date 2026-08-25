@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to Fountain: convert a PDF screenplay to .fountain, free</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Convert a PDF screenplay into a plain Fountain file you can edit anywhere. Free, runs in your browser, and your script is never uploaded.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/pdf-to-fountain">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/pdf-to-fountain">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/pdf-to-fountain">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="PDF to Fountain: convert a PDF screenplay to .fountain, free">
+  <meta property="og:description" content="Convert a PDF screenplay into a plain Fountain file you can edit anywhere. Free, runs in your browser, and your script is never uploaded.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/pdf-to-fountain">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "PDF to Fountain converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/pdf-to-fountain",
+      "description": "Convert a PDF screenplay into a plain Fountain file you can edit anywhere. Free, runs in your browser, and your script is never uploaded.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "PDF to Fountain converter",
+          "item": "https://screenplayeditor.app/tools/pdf-to-fountain"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why convert to Fountain rather than to a Word file?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because a .fountain file is plain text and stays readable in anything, including a text editor you already have. If what you want is to keep writing with proper margins, convert to Google Docs instead, and the free tool for that is one click away below."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate is it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On a PDF exported from screenwriting software, it is close to exact. On a PDF typed by hand in a word processor, expect to repair a few paragraphs. What it found is shown before you download anything."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "My PDF is a scan. Will it work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. A scan is a picture of a script, so there is no text in it to read. Optical character recognition would come first, and it usually costs more repair than it saves."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my screenplay uploaded anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Your browser does the reading and the writing. The file never leaves your computer and nothing is stored."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body data-output="fountain">
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>Turn a PDF screenplay into plain Fountain.</h1>
+      <p class="lead">Drop in a PDF and download a .fountain file you can open in any editor. A PDF does not record what its paragraphs are, so the converter reads the format back out of the columns. It runs inside this page and your script is never uploaded.</p>
+
+      <div class="dropzone" id="dropzone">
+        <h2 id="dropzone-title">Drop your PDF here</h2>
+        <p>You can also pick a file from your computer.</p>
+        <label class="cta-button pick" for="file">Choose a file</label>
+        <input type="file" id="file" class="file-input" accept=".pdf">
+        <p class="formats">PDF with a text layer. Nothing is uploaded.</p>
+      </div>
+
+      <div class="status" id="status" hidden></div>
+
+      <div class="result" id="result" hidden>
+        <div class="panel">
+          <h3>What the file contains</h3>
+          <div id="report"></div>
+          <div class="warnings" id="warnings" hidden></div>
+
+          <div class="options">
+            <p class="group-label">Convert to</p>
+            <div class="group stack">
+              <label><input type="radio" name="output" value="docx"> Google Docs</label>
+              <label><input type="radio" name="output" value="fdx"> Final Draft</label>
+              <label><input type="radio" name="output" value="fountain"> Fountain</label>
+            </div>
+            <div id="page-size">
+              <p class="group-label">Page size</p>
+              <div class="group">
+                <label><input type="radio" name="page-format" value="US" checked> US Letter</label>
+                <label><input type="radio" name="page-format" value="A4"> A4</label>
+              </div>
+            </div>
+            <label id="title-page-row" hidden>
+              <input type="checkbox" id="keep-title-page" checked>
+              <span>Keep the title page
+                <span class="title-name" id="title-page-name"></span>
+              </span>
+            </label>
+          </div>
+
+          <button class="cta-button action-button" id="download" type="button">Download</button>
+        </div>
+
+        <div class="preview-shell">
+          <div class="preview" id="preview"></div>
+        </div>
+      </div>
+
+      <div class="steps" id="next-steps" hidden>
+        <h2>Three steps to get it into Google Docs</h2>
+        <ol>
+          <li><p>Open <b>drive.google.com</b> and drag the file you just downloaded into it.</p></li>
+          <li><p>Double click the file, then choose <b>Open with Google Docs</b>. Drive converts it and keeps the formatting.</p></li>
+          <li><p>Start writing. If you have the add-on or the Chrome extension, it recognises the script immediately, because the document already carries the margins it expects.</p></li>
+        </ol>
+      </div>
+
+      <div class="steps" id="next-steps-file" hidden>
+        <h2 id="next-steps-file-title">Your file is ready</h2>
+        <p id="next-steps-file-text"></p>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>From a page of ink to a text file</h2>
+      <div class="cols">
+        <div>
+          <h3>Reading the columns</h3>
+          <p>A PDF only knows where the ink sits. The converter measures the columns your script uses, recognises them by what they contain rather than by a fixed distance, and reads the format back out. Page numbers, headers and scene numbers are removed, and a speech that a page break had split is rejoined.</p>
+        </div>
+        <div>
+          <h3>Writing it so it comes back</h3>
+          <p>Fountain works on punctuation, so anything that would be read back wrongly is marked as it is written. A scene heading that does not start with INT or EXT gets a leading dot, an action line in capitals gets an exclamation mark so it is not mistaken for a character, and a transition that does not end in TO: gets a greater-than sign. None of those marks show when the file is read.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about PDF and Fountain</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>Why convert to Fountain rather than to a Word file?</span></summary>
+          <div class="faq-body">Because a .fountain file is plain text and stays readable in anything, including a text editor you already have. If what you want is to keep writing with proper margins, convert to Google Docs instead, and the free tool for that is one click away below.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>How accurate is it?</span></summary>
+          <div class="faq-body">On a PDF exported from screenwriting software, it is close to exact. On a PDF typed by hand in a word processor, expect to repair a few paragraphs. What it found is shown before you download anything.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>My PDF is a scan. Will it work?</span></summary>
+          <div class="faq-body">No. A scan is a picture of a script, so there is no text in it to read. Optical character recognition would come first, and it usually costs more repair than it saves.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Is my screenplay uploaded anywhere?</span></summary>
+          <div class="faq-body">No. Your browser does the reading and the writing. The file never leaves your computer and nothing is stored.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other conversions</h2>
+      <div class="more-grid">
+        <a href="/tools/fountain-to-final-draft">
+          <h3>Fountain to Final Draft</h3>
+          <p>Your .fountain file, typed paragraph by paragraph into a .fdx.</p>
+        </a>
+        <a href="/tools/final-draft-to-fountain">
+          <h3>Final Draft to Fountain</h3>
+          <p>Your .fdx as plain text you can still read in twenty years.</p>
+        </a>
+        <a href="/tools/pdf-to-final-draft">
+          <h3>PDF to Final Draft</h3>
+          <p>A PDF read back into a .fdx you can keep writing in.</p>
+        </a>
+        <a href="/tools/final-draft-to-google-docs">
+          <h3>Final Draft to Google Docs</h3>
+          <p>Your .fdx in a Doc that already has the right margins.</p>
+        </a>
+        <a href="/tools/fountain-to-google-docs">
+          <h3>Fountain to Google Docs</h3>
+          <p>Your .fountain in a Doc that already has the right margins.</p>
+        </a>
+        <a href="/tools/screenplay-converter">
+          <h3>The converter itself</h3>
+          <p>Every format in, every format out, on one page.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/converter.js"></script>
+</body>
+</html>

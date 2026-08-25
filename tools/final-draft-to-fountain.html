@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Draft to Fountain: convert .fdx to .fountain, free</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Convert a Final Draft (.fdx) screenplay into a plain Fountain file. Free, runs in your browser, and your script is never uploaded.">
+  <link rel="canonical" href="https://screenplayeditor.app/tools/final-draft-to-fountain">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/tools/final-draft-to-fountain">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/tools/final-draft-to-fountain">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Final Draft to Fountain: convert .fdx to .fountain, free">
+  <meta property="og:description" content="Convert a Final Draft (.fdx) screenplay into a plain Fountain file. Free, runs in your browser, and your script is never uploaded.">
+  <meta property="og:url" content="https://screenplayeditor.app/tools/final-draft-to-fountain">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/faq.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Final Draft to Fountain converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://screenplayeditor.app/tools/final-draft-to-fountain",
+      "description": "Convert a Final Draft (.fdx) screenplay into a plain Fountain file. Free, runs in your browser, and your script is never uploaded.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Hugo Thomas"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Screenplay Editor",
+          "item": "https://screenplayeditor.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://screenplayeditor.app/tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Final Draft to Fountain converter",
+          "item": "https://screenplayeditor.app/tools/final-draft-to-fountain"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why would I want Fountain rather than Final Draft?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A .fountain file is plain text. It opens in anything, it reads the same in twenty years, it fits in a git repository, and it does not depend on a company staying in business. Writers who work on several machines, or who want their draft under version control, keep the Fountain copy as the one that lasts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will I lose my revision marks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and there is no way around it. Revision colours, revised page marks and locked scene numbers live in the Final Draft file and have no equivalent in Fountain. If your script is in production, keep the .fdx as well."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the title page survive?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It does. It comes out as the labelled lines Fountain uses at the top of a file, so any Fountain app shows it as a title page again."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my screenplay uploaded anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The reading and the writing both happen in this page, on your computer. Nothing is sent, nothing is stored, and there is no account."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body data-output="fountain">
+  <site-header></site-header>
+
+  <main>
+    <section class="wrap hero">
+      <h1>Turn your Final Draft file into plain Fountain.</h1>
+      <p class="lead">Drop in a .fdx file and download a .fountain file you can open in Highland, Slugline, Beat, WriterDuet, or any text editor you like. It runs inside this page, on your own computer, and your script is never uploaded.</p>
+
+      <div class="dropzone" id="dropzone">
+        <h2 id="dropzone-title">Drop your Final Draft file here</h2>
+        <p>You can also pick a file from your computer.</p>
+        <label class="cta-button pick" for="file">Choose a file</label>
+        <input type="file" id="file" class="file-input" accept=".fdx">
+        <p class="formats">Final Draft (.fdx). Nothing is uploaded.</p>
+      </div>
+
+      <div class="status" id="status" hidden></div>
+
+      <div class="result" id="result" hidden>
+        <div class="panel">
+          <h3>What the file contains</h3>
+          <div id="report"></div>
+          <div class="warnings" id="warnings" hidden></div>
+
+          <div class="options">
+            <p class="group-label">Convert to</p>
+            <div class="group stack">
+              <label><input type="radio" name="output" value="docx"> Google Docs</label>
+              <label><input type="radio" name="output" value="fdx"> Final Draft</label>
+              <label><input type="radio" name="output" value="fountain"> Fountain</label>
+            </div>
+            <div id="page-size">
+              <p class="group-label">Page size</p>
+              <div class="group">
+                <label><input type="radio" name="page-format" value="US" checked> US Letter</label>
+                <label><input type="radio" name="page-format" value="A4"> A4</label>
+              </div>
+            </div>
+            <label id="title-page-row" hidden>
+              <input type="checkbox" id="keep-title-page" checked>
+              <span>Keep the title page
+                <span class="title-name" id="title-page-name"></span>
+              </span>
+            </label>
+          </div>
+
+          <button class="cta-button action-button" id="download" type="button">Download</button>
+        </div>
+
+        <div class="preview-shell">
+          <div class="preview" id="preview"></div>
+        </div>
+      </div>
+
+      <div class="steps" id="next-steps" hidden>
+        <h2>Three steps to get it into Google Docs</h2>
+        <ol>
+          <li><p>Open <b>drive.google.com</b> and drag the file you just downloaded into it.</p></li>
+          <li><p>Double click the file, then choose <b>Open with Google Docs</b>. Drive converts it and keeps the formatting.</p></li>
+          <li><p>Start writing. If you have the add-on or the Chrome extension, it recognises the script immediately, because the document already carries the margins it expects.</p></li>
+        </ol>
+      </div>
+
+      <div class="steps" id="next-steps-file" hidden>
+        <h2 id="next-steps-file-title">Your file is ready</h2>
+        <p id="next-steps-file-text"></p>
+      </div>
+
+    </section>
+
+    <section class="wrap section">
+      <h2>What travels, and what stays behind</h2>
+      <div class="cols">
+        <div>
+          <h3>The screenplay travels whole</h3>
+          <p>Every scene heading, action paragraph, character cue, parenthetical, line of dialogue and transition comes across, along with your title page. Where a line would be read back wrongly, the converter marks it: a scene heading that does not begin with INT or EXT gets a leading dot, a character name carrying a lower case letter gets an at sign, a transition that does not end in TO: gets a greater-than sign. Those marks do not show when the file is read.</p>
+        </div>
+        <div>
+          <h3>Four things stay in the .fdx</h3>
+          <p>Fountain has no revision colours, no locked scene numbers, no script notes and no act breaks, so none of them can follow. That is worth knowing before you leave a production draft behind. Cast lists and act markers are dropped for the same reason: they belong to the Final Draft document rather than to the screenplay.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="faq-intro">
+        <div class="faq-badge">?</div>
+        <h2>Questions about Final Draft and Fountain</h2>
+        <p>I write my own films in Google Docs, so I built the tools I kept wishing existed.</p>
+        <a class="faq-ask" href="/support">Ask me something</a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary><span>Why would I want Fountain rather than Final Draft?</span></summary>
+          <div class="faq-body">A .fountain file is plain text. It opens in anything, it reads the same in twenty years, it fits in a git repository, and it does not depend on a company staying in business. Writers who work on several machines, or who want their draft under version control, keep the Fountain copy as the one that lasts.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Will I lose my revision marks?</span></summary>
+          <div class="faq-body">Yes, and there is no way around it. Revision colours, revised page marks and locked scene numbers live in the Final Draft file and have no equivalent in Fountain. If your script is in production, keep the .fdx as well.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Does the title page survive?</span></summary>
+          <div class="faq-body">It does. It comes out as the labelled lines Fountain uses at the top of a file, so any Fountain app shows it as a title page again.</div>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary><span>Is my screenplay uploaded anywhere?</span></summary>
+          <div class="faq-body">No. The reading and the writing both happen in this page, on your computer. Nothing is sent, nothing is stored, and there is no account.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap more-tools">
+      <h2>The other conversions</h2>
+      <div class="more-grid">
+        <a href="/tools/fountain-to-final-draft">
+          <h3>Fountain to Final Draft</h3>
+          <p>Your .fountain file, typed paragraph by paragraph into a .fdx.</p>
+        </a>
+        <a href="/tools/pdf-to-final-draft">
+          <h3>PDF to Final Draft</h3>
+          <p>A PDF read back into a .fdx you can keep writing in.</p>
+        </a>
+        <a href="/tools/pdf-to-fountain">
+          <h3>PDF to Fountain</h3>
+          <p>A PDF read back into plain Fountain.</p>
+        </a>
+        <a href="/tools/final-draft-to-google-docs">
+          <h3>Final Draft to Google Docs</h3>
+          <p>Your .fdx in a Doc that already has the right margins.</p>
+        </a>
+        <a href="/tools/fountain-to-google-docs">
+          <h3>Fountain to Google Docs</h3>
+          <p>Your .fountain in a Doc that already has the right margins.</p>
+        </a>
+        <a href="/tools/screenplay-converter">
+          <h3>The converter itself</h3>
+          <p>Every format in, every format out, on one page.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/tools/apps/converter.js"></script>
+</body>
+</html>
