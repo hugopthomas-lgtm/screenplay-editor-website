@@ -5,6 +5,7 @@
 
 import { readScreenplay, wireDropzone } from '../engine/intake.js';
 import { errorText, warningText } from '../engine/messages.js';
+import { track } from './track.js';
 
 export const $ = (selector) => document.querySelector(selector);
 
@@ -43,6 +44,7 @@ export function mountScreenplayTool(render) {
     try {
       const result = await readScreenplay(file, (message) => setStatus(message));
       hideStatus();
+      track('run');
       render(result);
       $('#result').hidden = false;
       dropzone.classList.add('has-result');

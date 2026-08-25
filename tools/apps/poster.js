@@ -1,5 +1,6 @@
 // poster.js — une affiche depuis le scénario.
 
+import { track } from './track.js';
 import { mountScreenplayTool, $, escapeHtml, setStatus } from './shared.js';
 import { buildDigest, digestSummary } from '../engine/digest.js';
 
@@ -34,6 +35,7 @@ $('#make').addEventListener('click', async () => {
     if (!response.ok) throw new Error(data.error || 'It did not work.');
 
     $('#status').hidden = true;
+    track('done');
     $('#poster').innerHTML =
       `<img src="${data.posterUrl}" alt="Poster for ${escapeHtml($('#title').value || digest.title)}">` +
       (data.tagline ? `<p class="tagline">${escapeHtml(data.tagline)}</p>` : '') +

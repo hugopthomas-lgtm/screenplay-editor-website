@@ -1,5 +1,6 @@
 // logline.js — trois loglines écrites depuis le scénario, pas depuis un formulaire.
 
+import { track } from './track.js';
 import { mountScreenplayTool, $, figure, escapeHtml, setStatus } from './shared.js';
 import { buildDigest, digestToText, digestSummary } from '../engine/digest.js';
 
@@ -39,6 +40,7 @@ $('#write').addEventListener('click', async () => {
     setStatus('');
     $('#status').hidden = true;
 
+    track('done');
     $('#loglines').innerHTML =
       (data.reading ? `<p class="reading">It reads as: ${escapeHtml(data.reading)}</p>` : '') +
       data.loglines.map((line, i) =>
