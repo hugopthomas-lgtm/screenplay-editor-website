@@ -617,6 +617,13 @@
 
     /* Signature et lien côte à côte, empilés proprement sur petit écran
        plutôt qu'un séparateur qui pendouille en fin de ligne. */
+    /* Deux crédits sous le texte : le laurier de l'ACID à Cannes (2016), et Netflix.
+       En noir, comme le reste : la preuve n'a pas besoin de crier. */
+    .maker-creds { display: flex; justify-content: center; align-items: center; gap: 64px; margin: 30px 0 6px; color: var(--ink); }
+    .maker-creds svg { fill: currentColor; display: block; }
+    .cred-laurel { height: 112px; width: auto; }
+    .cred-netflix { height: 26px; width: auto; }
+    @media (max-width: 620px) { .maker-creds { gap: 36px; } .cred-laurel { height: 90px; } .cred-netflix { height: 22px; } }
     .maker-sign {
       display: flex;
       justify-content: center;
@@ -760,96 +767,41 @@
     /* ============================================
        SOCIAL PROOF (testimonial)
        ============================================ */
-    .reviews {
-      padding: 40px 30px;
-      background: #d8caf7;
-    }
+    /* ============================================
+       REVIEWS — sur le noir. L'avis long en exergue, les six autres défilent
+       à plat sur une rangée (trois copies, on glisse d'une copie, pas de saut).
+       ============================================ */
+    .reviews { padding: 80px 0 88px; background: var(--dark); overflow: hidden; }
+    .reviews-inner { max-width: 1240px; margin: 0 auto; padding: 0 30px; }
+    .reviews-head { text-align: center; color: #fff; margin-bottom: 40px; }
+    .reviews-head .privacy-label { margin-bottom: 12px; }
+    .reviews-head h2 { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.12; margin: 0 0 10px; color: #fff; }
+    .reviews-head p { font-size: 16px; color: rgba(255,255,255,.6); margin: 0; }
+    .review-stars { color: #f5b731; font-size: 14px; letter-spacing: 2px; }
 
-    .reviews-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-    }
+    .review-featured { max-width: 860px; margin: 0 auto 56px; text-align: center; }
+    .review-featured .review-stars { font-size: 18px; letter-spacing: 3px; margin-bottom: 22px; }
+    .review-featured p { font-size: 23px; line-height: 1.45; font-weight: 500; color: #fff; letter-spacing: -0.01em; margin: 0 0 16px; text-wrap: pretty; }
+    .review-featured .review-author { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.8); margin-top: 10px; }
+    .review-featured .review-source { font-size: 13px; color: rgba(255,255,255,.45); margin-top: 4px; }
 
-    .reviews-title {
-      text-align: center;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--violet);
-      margin-bottom: 24px;
+    .reviews-belt-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); }
+    .reviews-belt { display: flex; width: max-content; animation: reviews-drift 70s linear infinite; }
+    .reviews-belt:hover { animation-play-state: paused; }
+    @keyframes reviews-drift { to { transform: translateX(-33.3333%); } }
+    .reviews-wall { display: flex; gap: 16px; padding-right: 16px; }
+    .review-card { width: 380px; flex: none; background: rgba(255,255,255,.07); border-radius: 16px; padding: 24px 26px; }
+    .review-card .review-stars { margin-bottom: 12px; }
+    .review-text { font-size: 16px; line-height: 1.55; color: rgba(255,255,255,.88); margin-bottom: 14px; }
+    .review-author { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.5); }
+    @media (prefers-reduced-motion: reduce) {
+      .reviews-belt { animation: none; width: auto; }
+      .reviews-wall { flex-wrap: wrap; justify-content: center; padding: 0 30px; }
+      .reviews-wall + .reviews-wall { display: none; }
     }
-
-    .reviews-wall {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    @media (max-width: 800px) {
-      .reviews-wall { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 520px) {
-      .reviews-wall { grid-template-columns: 1fr; }
-    }
-
-
-    /* Avis mis en avant : un vrai retour long, au-dessus du mur. */
-    .review-featured {
-      background: #fff;
-      border-radius: 16px;
-      padding: 30px 34px;
-      margin-bottom: 16px;
-    }
-    .review-featured .review-stars { margin-bottom: 14px; }
-    .review-featured p {
-      font-size: 16px;
-      line-height: 1.75;
-      color: #3c3c44;
-      margin: 0 0 8px;
-      text-wrap: pretty;
-    }
-    .review-featured p + p { margin-top: 14px; }
-    .review-featured .review-author { margin-top: 16px; font-size: 12px; }
-    .review-featured .review-source { font-size: 12px; color: #b0a8c4; margin-top: 4px; }
     @media (max-width: 620px) {
-      .review-featured { padding: 24px 22px; }
-      .review-featured p { font-size: 14.5px; }
-    }
-
-    .reviews-note {
-      text-align: center;
-      font-size: 12px;
-      color: #7d6fa3;
-      margin-top: 18px;
-      line-height: 1.6;
-    }
-
-    .review-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px 24px;
-    }
-
-    .review-stars {
-      color: #f5b731;
-      font-size: 12px;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
-
-    .review-text {
-      font-size: 14px;
-      color: #555;
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-
-    .review-author {
-      font-size: 12px;
-      font-weight: 600;
-      color: #999;
+      .review-featured p { font-size: 19px; }
+      .review-card { width: 300px; padding: 20px 22px; }
     }
 
     /* ============================================
@@ -1469,48 +1421,46 @@
     <!-- REVIEWS -->
     <section class="reviews scroll-fade">
       <div class="reviews-inner">
-        <div class="reviews-title">Ce que disent les auteurs</div>
+        <div class="reviews-head">
+          <div class="privacy-label">Ce que disent les auteurs</div>
+          <h2>Noté 4,8 sur 5.</h2>
+          <p>22 avis sur Google Workspace, 9 sur le Chrome Web Store.</p>
+        </div>
         <div class="review-featured">
-          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           <p>«&nbsp;J’utilise cette extension depuis plusieurs années maintenant et elle fait le travail. J’ai essayé beaucoup d’autres applications sur différentes plateformes et, si beaucoup savent faire l’essentiel, il y a toujours des obstacles inutiles à franchir, ou des abonnements exorbitants qu’il faut garder à vie si on veut accéder à son propre travail.&nbsp;»</p>
           <p>«&nbsp;J’ai eu un problème de mise en forme, je l’ai signalé à l’auteur de l’application et j’ai reçu une réponse immédiate, puis une solution peu après. Un service client comme celui-là devient rare, et je suis content de le trouver ici. J’écris en ce moment mon sixième scénario avec cette extension et je ne pourrais pas en être plus satisfait.&nbsp;»</p>
           <div class="review-author">Barry Kirsch</div>
           <div class="review-source">Chrome Web Store &middot; 9 août 2026 &middot; traduit de l’anglais</div>
         </div>
-        <div class="reviews-wall">
-          <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-text">« Essayez, vous ne reviendrez pas en arrière. »</div>
-            <div class="review-author">Peter R.</div>
-          </div>
-          <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-text">« Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait ! »</div>
-            <div class="review-author">Theo L.</div>
-          </div>
-          <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-text">« Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable. »</div>
-            <div class="review-author">Elodie K.</div>
-          </div>
-          <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-text">« Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés. »</div>
-            <div class="review-author">Guillaume T.</div>
-          </div>
-          <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-text">« Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là. »</div>
-            <div class="review-author">Mary G.</div>
-          </div>
-          <div class="review-card">
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-text">« Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou. »</div>
-            <div class="review-author">Louay K.</div>
-          </div>
-        </div>
-        <p class="reviews-note">Ces avis ont été publiés en anglais sur le Chrome Web Store et le Google Workspace Marketplace. Ils sont traduits ici.</p>
       </div>
+      <!-- Trois copies : la rangée glisse d'exactement une copie et boucle sans saut. -->
+      <div class="reviews-belt-wrap" aria-label="Six more reviews"><div class="reviews-belt">
+        <div class="reviews-wall">
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Essayez, vous ne reviendrez pas en arrière. »</div><div class="review-author">Peter R.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait ! »</div><div class="review-author">Theo L.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable. »</div><div class="review-author">Elodie K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés. »</div><div class="review-author">Guillaume T.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là. »</div><div class="review-author">Mary G.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou. »</div><div class="review-author">Louay K.</div></div>
+        </div>
+        <div class="reviews-wall">
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Essayez, vous ne reviendrez pas en arrière. »</div><div class="review-author">Peter R.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait ! »</div><div class="review-author">Theo L.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable. »</div><div class="review-author">Elodie K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés. »</div><div class="review-author">Guillaume T.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là. »</div><div class="review-author">Mary G.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou. »</div><div class="review-author">Louay K.</div></div>
+        </div>
+        <div class="reviews-wall">
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Essayez, vous ne reviendrez pas en arrière. »</div><div class="review-author">Peter R.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait ! »</div><div class="review-author">Theo L.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable. »</div><div class="review-author">Elodie K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés. »</div><div class="review-author">Guillaume T.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là. »</div><div class="review-author">Mary G.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou. »</div><div class="review-author">Louay K.</div></div>
+        </div>
+      </div></div>
     </section>
 
     <!-- TOOLS -->
@@ -1554,6 +1504,7 @@
         <h2>Un scénariste l'a fait, parce qu'il en avait besoin.</h2>
         <p>Je m'appelle Hugo P. Thomas, je suis réalisateur. Mon premier long métrage, <em>Willy&nbsp;1er</em>, a été présenté à l'ACID, au Festival de Cannes. Le deuxième, <em>Juniors</em>, a fait le tour des festivals. Les deux sont sur Netflix.</p>
         <p>J'ai écrit ces films dans Google Docs, en passant des années à me battre contre le formatage au lieu de travailler les scènes. Alors j'ai construit l'outil dont je rêvais, et je réponds encore moi-même aux emails d'assistance.</p>
+        <div class="maker-creds"><svg class="cred-laurel" viewBox="0 0 220 130" role="img" aria-label="ACID, Cannes 2016"><g><path d="M108.0,114.0 A56,56 0 0 1 62.5,28.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M0,0 C3.9,-3.6 9.1,-3.6 13.0,0 C9.1,3.6 3.9,3.6 0,0" transform="translate(104.1,113.7) rotate(146.0)"/><path d="M0,0 C3.7,-3.4 8.6,-3.4 12.3,0 C8.6,3.4 3.7,3.4 0,0" transform="translate(90.8,110.6) rotate(240.0)"/><path d="M0,0 C3.5,-3.2 8.1,-3.2 11.6,0 C8.1,3.2 3.5,3.2 0,0" transform="translate(78.7,104.4) rotate(174.0)"/><path d="M0,0 C3.3,-3.1 7.6,-3.1 10.9,0 C7.6,3.1 3.3,3.1 0,0" transform="translate(68.4,95.5) rotate(268.0)"/><path d="M0,0 C3.1,-2.9 7.1,-2.9 10.2,0 C7.1,2.9 3.1,2.9 0,0" transform="translate(60.6,84.3) rotate(202.0)"/><path d="M0,0 C2.9,-2.7 6.6,-2.7 9.5,0 C6.6,2.7 2.9,2.7 0,0" transform="translate(55.7,71.5) rotate(296.0)"/><path d="M0,0 C2.6,-2.5 6.2,-2.5 8.8,0 C6.2,2.5 2.6,2.5 0,0" transform="translate(54.0,58.0) rotate(230.0)"/><path d="M0,0 C2.4,-2.3 5.7,-2.3 8.1,0 C5.7,2.3 2.4,2.3 0,0" transform="translate(55.7,44.5) rotate(324.0)"/><path d="M0,0 C2.2,-2.1 5.2,-2.1 7.4,0 C5.2,2.1 2.2,2.1 0,0" transform="translate(60.6,31.7) rotate(258.0)"/></g><g transform="translate(220,0) scale(-1,1)"><path d="M108.0,114.0 A56,56 0 0 1 62.5,28.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M0,0 C3.9,-3.6 9.1,-3.6 13.0,0 C9.1,3.6 3.9,3.6 0,0" transform="translate(104.1,113.7) rotate(146.0)"/><path d="M0,0 C3.7,-3.4 8.6,-3.4 12.3,0 C8.6,3.4 3.7,3.4 0,0" transform="translate(90.8,110.6) rotate(240.0)"/><path d="M0,0 C3.5,-3.2 8.1,-3.2 11.6,0 C8.1,3.2 3.5,3.2 0,0" transform="translate(78.7,104.4) rotate(174.0)"/><path d="M0,0 C3.3,-3.1 7.6,-3.1 10.9,0 C7.6,3.1 3.3,3.1 0,0" transform="translate(68.4,95.5) rotate(268.0)"/><path d="M0,0 C3.1,-2.9 7.1,-2.9 10.2,0 C7.1,2.9 3.1,2.9 0,0" transform="translate(60.6,84.3) rotate(202.0)"/><path d="M0,0 C2.9,-2.7 6.6,-2.7 9.5,0 C6.6,2.7 2.9,2.7 0,0" transform="translate(55.7,71.5) rotate(296.0)"/><path d="M0,0 C2.6,-2.5 6.2,-2.5 8.8,0 C6.2,2.5 2.6,2.5 0,0" transform="translate(54.0,58.0) rotate(230.0)"/><path d="M0,0 C2.4,-2.3 5.7,-2.3 8.1,0 C5.7,2.3 2.4,2.3 0,0" transform="translate(55.7,44.5) rotate(324.0)"/><path d="M0,0 C2.2,-2.1 5.2,-2.1 7.4,0 C5.2,2.1 2.2,2.1 0,0" transform="translate(60.6,31.7) rotate(258.0)"/></g><text x="110" y="44" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="2.5">ACID</text><text x="110" y="68" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="21" font-weight="700" letter-spacing="1">CANNES</text><text x="110" y="86" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="500" letter-spacing="2">2016</text></svg><svg class="cred-netflix" viewBox="0 0 1024 276.742" role="img" aria-label="Netflix"><path d="M140.803 258.904c-15.404 2.705-31.079 3.516-47.294 5.676l-49.458-144.856v151.073c-15.404 1.621-29.457 3.783-44.051 5.945v-276.742h41.08l56.212 157.021v-157.021h43.511v258.904zm85.131-157.558c16.757 0 42.431-.811 57.835-.811v43.24c-19.189 0-41.619 0-57.835.811v64.322c25.405-1.621 50.809-3.785 76.482-4.596v41.617l-119.724 9.461v-255.39h119.724v43.241h-76.482v58.105zm237.284-58.104h-44.862v198.908c-14.594 0-29.188 0-43.239.539v-199.447h-44.862v-43.242h132.965l-.002 43.242zm70.266 55.132h59.187v43.24h-59.187v98.104h-42.433v-239.718h120.808v43.241h-78.375v55.133zm148.641 103.507c24.594.539 49.456 2.434 73.51 3.783v42.701c-38.646-2.434-77.293-4.863-116.75-5.676v-242.689h43.24v201.881zm109.994 49.457c13.783.812 28.377 1.623 42.43 3.242v-254.58h-42.43v251.338zm231.881-251.338l-54.863 131.615 54.863 145.127c-16.217-2.162-32.432-5.135-48.648-7.838l-31.078-79.994-31.617 73.51c-15.678-2.705-30.812-3.516-46.484-5.678l55.672-126.75-50.269-129.992h46.482l28.377 72.699 30.27-72.699h47.295z"/></svg></div>
         <p class="maker-sign"><span>Hugo P. Thomas</span><a href="/fr/about">En savoir plus</a></p>
       </div>
     </section>
