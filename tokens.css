@@ -53,6 +53,37 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Courier Prime et Homemade Apple sont réservées aux OBJETS DE PAPIER : la
+   page de titre de la section « It doesn't write it », les pages du
+   sol sous le hero. Courier Prime est la Courier des scénarios,
+   Homemade Apple joue l'écriture à la plume. Jamais pour l'interface.
+   Licence SIL, fichiers dans /fonts (11 ko, 11 ko, 47 ko). */
+@font-face {
+  font-family: 'Courier Prime';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/courierprime-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Courier Prime';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/courierprime-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Homemade Apple';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/homemadeapple-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
 :root {
   /* --- POLICES -------------------------------------------------
      Plus Jakarta Sans pour toute l'interface (la même que Final
@@ -62,6 +93,8 @@
      fait exactement ce partage avec sa Courier maison. */
   --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --courier: 'Courier Prime', 'Courier New', Courier, monospace; /* objets de papier seulement */
+  --hand: 'Homemade Apple', 'Bradley Hand', 'Segoe Script', cursive; /* écriture à la plume, objets de papier seulement */
 
   /* --- ÉCHELLE TYPOGRAPHIQUE : 9 crans, plus rien d'autre -----
      16 px de corps et 19 px de sous-titre viennent de chez eux,
