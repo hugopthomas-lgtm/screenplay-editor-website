@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Editor — Pre-seed, September 2026</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Screenplay Editor: pre-seed deck. Screenwriting software that runs inside the document the writer is already in.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Screenplay Editor — Pre-seed, September 2026">
+  <meta property="og:description" content="Screenwriting software that runs inside the document the writer is already in.">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Source+Sans+3:wght@400;600&family=Courier+Prime:wght@400&display=swap">
+
+<style>
+  :root{
+    --paper:#FAFAF7;
+    --panel:#FFFFFF;
+    --tint:#EAF0F7;
+    --ink:#14171C;
+    --muted:#5E6874;
+    --rule:#DDDCD6;
+    --blue:#2E5C8A;
+    --gold:#B5842C;
+
+    --display:"Newsreader",Georgia,"Times New Roman",serif;
+    --body:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+    --script:"Courier Prime","Courier New",Courier,monospace;
+
+    --gutter:clamp(20px,5vw,64px);
+    --maxw:1120px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#101317;
+      --panel:#171B21;
+      --tint:#1B222B;
+      --ink:#E9E7E1;
+      --muted:#98A1AE;
+      --rule:#2A2F37;
+      --blue:#82ABD6;
+      --gold:#DCAE55;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101317;
+    --panel:#171B21;
+    --tint:#1B222B;
+    --ink:#E9E7E1;
+    --muted:#98A1AE;
+    --rule:#2A2F37;
+    --blue:#82ABD6;
+    --gold:#DCAE55;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+
+  /* ---------- cover ---------- */
+  .cover{padding:clamp(56px,9vw,104px) 0 clamp(44px,6vw,72px);border-bottom:1px solid var(--rule)}
+  .slug{
+    font-family:var(--script);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .cover h1{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(44px,7.2vw,84px);line-height:1.02;
+    letter-spacing:-.015em;margin:18px 0 0;text-wrap:balance;
+  }
+  .cover .lede{
+    font-family:var(--display);font-size:clamp(20px,2.5vw,27px);
+    line-height:1.42;color:var(--ink);max-width:22em;margin:22px 0 0;
+    text-wrap:balance;
+  }
+  .cover .meta{
+    display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:34px;
+    font-family:var(--script);font-size:12.5px;color:var(--muted);
+  }
+  .cover .meta b{color:var(--ink);font-weight:400}
+
+  /* ---------- sections ---------- */
+  section.s{
+    display:grid;grid-template-columns:64px minmax(0,1fr);
+    gap:0 clamp(16px,3vw,40px);
+    padding:clamp(44px,6vw,72px) 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .num{
+    font-family:var(--script);font-size:12.5px;color:var(--gold);
+    letter-spacing:.08em;padding-top:.5em;
+  }
+  .eyebrow{
+    font-family:var(--script);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  h2{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(28px,3.9vw,42px);line-height:1.14;
+    letter-spacing:-.012em;margin:10px 0 0;text-wrap:balance;max-width:19em;
+  }
+  .body{max-width:64ch}
+  .body p{margin:16px 0 0}
+  .body p:first-child{margin-top:20px}
+  .lift{font-family:var(--display);font-size:1.16em;line-height:1.5}
+  em.k{font-style:normal;color:var(--gold)}
+
+  /* ---------- transformation ---------- */
+  .xform{
+    display:grid;grid-template-columns:1fr;gap:2px;
+    margin-top:28px;border:1px solid var(--rule);background:var(--rule);
+    border-radius:3px;overflow:hidden;
+  }
+  @media (min-width:820px){.xform{grid-template-columns:1fr 1fr}}
+  .pane{background:var(--panel);padding:20px 20px 24px;min-width:0}
+  .pane .cap{
+    font-family:var(--script);font-size:11.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:14px;
+  }
+  .typed{font-size:14px;line-height:1.5;color:var(--muted);white-space:pre-wrap;margin:0}
+  .script{
+    font-family:var(--script);font-size:13px;line-height:1.5;
+    white-space:pre;margin:0;overflow-x:auto;color:var(--ink);
+  }
+
+  /* ---------- figures ---------- */
+  .facts{
+    list-style:none;padding:0;margin:26px 0 0;
+    display:grid;gap:0;border-top:1px solid var(--rule);max-width:64ch;
+  }
+  .facts li{
+    display:grid;grid-template-columns:auto 1fr;gap:0 20px;align-items:baseline;
+    padding:13px 0;border-bottom:1px solid var(--rule);
+  }
+  .facts .v{
+    font-family:var(--display);font-size:clamp(23px,3vw,30px);
+    line-height:1;font-variant-numeric:tabular-nums;min-width:4.6ch;
+  }
+  .facts .l{color:var(--muted);font-size:15.5px;line-height:1.45}
+
+  .chartbox{margin-top:28px;max-width:760px}
+  .chartbox svg{width:100%;height:auto;display:block}
+  .chartnote{
+    font-family:var(--script);font-size:11.5px;color:var(--muted);
+    letter-spacing:.05em;margin-top:10px;
+  }
+
+  .note{
+    margin-top:26px;padding:18px 20px;background:var(--tint);
+    border-left:2px solid var(--blue);border-radius:0 3px 3px 0;max-width:64ch;
+  }
+  .note p{margin:0;font-size:16px}
+  .note p + p{margin-top:12px}
+  .note .cap{
+    font-family:var(--script);font-size:11.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--blue);margin-bottom:9px;
+  }
+
+  .rail{list-style:none;padding:0;margin:24px 0 0;max-width:64ch;display:grid;gap:14px}
+  .rail li{display:grid;grid-template-columns:auto 1fr;gap:0 14px;align-items:baseline}
+  .rail .t{font-family:var(--script);font-size:12px;color:var(--gold);letter-spacing:.06em;white-space:nowrap}
+
+  footer{padding:clamp(40px,6vw,64px) 0 72px}
+  footer .sign{font-family:var(--display);font-size:clamp(22px,3vw,30px);line-height:1.3;max-width:20em}
+  footer .meta{
+    margin-top:22px;font-family:var(--script);font-size:12.5px;
+    color:var(--muted);display:grid;gap:5px;
+  }
+  a{color:var(--blue)}
+  a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+  <header class="cover">
+    <div class="slug">Pre-seed &nbsp;·&nbsp; Paris &nbsp;·&nbsp; September 2026</div>
+    <h1>Screenplay Editor</h1>
+    <p class="lede">Screenwriting software that runs inside the document the writer is already in.</p>
+    <div class="meta">
+      <span><b>Hugo Thomas</b> · sole founder</span>
+      <span>hugopthomas@gmail.com</span>
+      <span>screenplayeditor.app</span>
+    </div>
+  </header>
+
+  <section class="s">
+    <div class="num">01</div>
+    <div>
+      <div class="eyebrow">The problem</div>
+      <h2>A script that is not formatted correctly does not get read.</h2>
+      <div class="body">
+        <p class="lift">So every screenwriter buys and learns a second application for one job: putting the words in the right columns.</p>
+        <p>Final Draft sells at $249, plus around $80 per upgrade. 93% of professional screenwriters have used it, and it is used on 95% of film and television productions. It is thirty years old and it is not where anyone writes their first draft.</p>
+        <p>The first draft happens in Google Docs, in Word, on a phone at 2am. Then the writer copies it into the formatting software, which is the part nobody wants to do.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s">
+    <div class="num">02</div>
+    <div>
+      <div class="eyebrow">The product</div>
+      <h2>Type the way you already type. The page formats itself.</h2>
+      <div class="body">
+        <p>Screenplay Editor turns any text editor into a screenwriting application. It formats as you type, handles scene headings, character cues, dialogue and transitions, produces a production breakdown, and exports to Final Draft and PDF.</p>
+      </div>
+      <div class="xform">
+        <div class="pane">
+          <div class="cap">What the writer types</div>
+<p class="typed">INT. KITCHEN - NIGHT
+
+Marta counts the coins on the table. Twice. She puts three of them back in her pocket and pushes the rest toward her brother.
+
+MARTA
+That's what I have.
+
+PAUL
+(not touching them)
+I didn't ask.
+
+MARTA
+You never do.
+
+She stands. The chair scrapes.
+
+CUT TO:</p>
+        </div>
+        <div class="pane">
+          <div class="cap">What appears on the page</div>
+<pre class="script">INT. KITCHEN - NIGHT
+
+Marta counts the coins on the table. Twice. She
+puts three of them back in her pocket and pushes
+the rest toward her brother.
+
+                      MARTA
+          That's what I have.
+
+                      PAUL
+                (not touching them)
+          I didn't ask.
+
+                      MARTA
+          You never do.
+
+She stands. The chair scrapes.
+
+                                       CUT TO:</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s">
+    <div class="num">03</div>
+    <div>
+      <div class="eyebrow">Why me</div>
+      <h2>I am the customer, and I do not have to guess what the customer needs.</h2>
+      <div class="body">
+        <p>I am a filmmaker before I am a software founder. I have directed two feature films, <em class="k">Willy 1er</em> and <em class="k">Juniors</em>, both of which went to Netflix. I have been selected at Cannes. I am writing a third.</p>
+        <p>I built this because I was formatting my own scripts by hand in Google Docs and it was absurd. That matters commercially and not sentimentally: my customers are screenwriters and film students, I am one of them, and the schools I sell to already know who I am.</p>
+        <p>I write all the code, I answer all the support, and I do the sales. No employees, no contractors.</p>
+        <p>Next week I give the closing workshop at the Screenwriting Research Network's international conference at Oxford Brookes. I was invited. That is the difference between selling to film schools and being one of the people they already listen to.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s">
+    <div class="num">04</div>
+    <div>
+      <div class="eyebrow">Traction</div>
+      <h2>Eight months old, and every month has been bigger than the one before it.</h2>
+      <div class="chartbox">
+        <svg viewBox="0 0 700 268" role="img" aria-label="Monthly recurring revenue from March 2026 at $17 to September 2026 at $700">
+          <line x1="14" y1="230.5" x2="686" y2="230.5" stroke="var(--rule)" stroke-width="1"></line>
+
+          <rect x="24"  y="225.4" width="56" height="4.6"   fill="var(--blue)"></rect>
+          <rect x="119" y="209.4" width="56" height="20.6"  fill="var(--blue)"></rect>
+          <rect x="214" y="191.7" width="56" height="38.3"  fill="var(--blue)"></rect>
+          <rect x="309" y="154.6" width="56" height="75.4"  fill="var(--blue)"></rect>
+          <rect x="404" y="131.5" width="56" height="98.5"  fill="var(--blue)"></rect>
+          <rect x="499" y="98.6"  width="56" height="131.4" fill="var(--blue)"></rect>
+          <rect x="594" y="40"    width="56" height="190"   fill="var(--gold)"></rect>
+
+          <g font-family="Courier Prime, Courier New, monospace" font-size="13" fill="var(--ink)" text-anchor="middle">
+            <text x="52"  y="217">$17</text>
+            <text x="147" y="201">$76</text>
+            <text x="242" y="183">$141</text>
+            <text x="337" y="146">$278</text>
+            <text x="432" y="123">$363</text>
+            <text x="527" y="90">$484</text>
+            <text x="622" y="32">$700</text>
+          </g>
+          <g font-family="Courier Prime, Courier New, monospace" font-size="12" fill="var(--muted)" text-anchor="middle">
+            <text x="52"  y="250">MAR</text>
+            <text x="147" y="250">APR</text>
+            <text x="242" y="250">MAY</text>
+            <text x="337" y="250">JUN</text>
+            <text x="432" y="250">JUL</text>
+            <text x="527" y="250">AUG</text>
+            <text x="622" y="250">SEP</text>
+          </g>
+        </svg>
+        <div class="chartnote">Monthly recurring revenue, 2026. First paying customer: February.</div>
+      </div>
+
+      <ul class="facts">
+        <li><span class="v">84</span><span class="l">paying subscribers today, $700 in MRR, $1,766 collected since February</span></li>
+        <li><span class="v">33%</span><span class="l">MRR growth last month, 31% the month before</span></li>
+        <li><span class="v">11k</span><span class="l">installs across the Google Workspace Marketplace and the Chrome and Edge stores</span></li>
+        <li><span class="v">7</span><span class="l">customers have chosen to leave in the life of the business</span></li>
+        <li><span class="v">$300</span><span class="l">total spent on advertising, ever</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="s">
+    <div class="num">05</div>
+    <div>
+      <div class="eyebrow">Where it turns into invoices</div>
+      <h2>244 school accounts arrived before I had called a single school.</h2>
+      <div class="body">
+        <p>Students install it themselves, from a store, with no salesperson and no marketing spend. That is how 244 accounts ended up on 111 school domains. Nobody sold those. They arrived.</p>
+        <p class="lift">The consumer product is not the business. It is the distribution machine that finds the buyer for me.</p>
+      </div>
+      <ul class="rail">
+        <li><span class="t">NEXT WEEK</span><span>I give the closing workshop at the 18th International Conference of the Screenwriting Research Network, Oxford Brookes University, on 12 September. Invited, not bought. The room is screenwriting teachers from around the world, which is to say the people who decide what a class writes in.</span></li>
+        <li><span class="t">SIGNED</span><span>JDS Creative Academy, California. $249 for the year, August 2026.</span></li>
+        <li><span class="t">QUOTED</span><span>An IB school in Singapore accepted $1,200 for 80 students. Settling payment.</span></li>
+        <li><span class="t">INBOUND</span><span>A French BTS Audiovisuel programme, through a teacher who sits on the national examination board. That syllabus is identical in every school that teaches it.</span></li>
+        <li><span class="t">IN MOTION</span><span>50 calls to 25 US film schools this month, by a caller I hired and paid. Community colleges and state schools, not NYU: the big schools already have Final Draft in the lab and a negotiated budget, a community college has neither and one professor decides.</span></li>
+      </ul>
+      <div class="note">
+        <div class="cap">The arithmetic</div>
+        <p>Teachers free for life. Students at roughly $8 a year, invoiced to the department, $250 floor and $600 ceiling. Twenty departments at an average of $400 is $8,000 a year, which more than doubles the business from one channel.</p>
+        <p>It is annual, it is invoiced, and it renews instead of churning. There are several hundred film schools with screenwriting departments in the United States alone.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s">
+    <div class="num">06</div>
+    <div>
+      <div class="eyebrow">The market</div>
+      <h2>A screenwriter is a professional, and a screenwriting tool is a professional tool.</h2>
+      <div class="body">
+        <p>The screen and script writing software market is worth about $236 million in 2026, growing 14.4% a year. It is not a hobby category.</p>
+        <p>Selling formatting software to a screenwriter is the same transaction as selling accounting software to an accountant. The work cannot be delivered without it. That is why a thirty-year-old desktop application can charge $249 and still own the category.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s">
+    <div class="num">07</div>
+    <div>
+      <div class="eyebrow">The risk, in my own words</div>
+      <h2>Almost all my customers arrive through Google's two stores.</h2>
+      <div class="body">
+        <p>I would rather tell you that myself than have you find it in the data. It is also the thing the entire product strategy exists to end, and that work is already shipping.</p>
+        <p>The position I am building toward is Grammarly for screenplay formatting: one formatting engine that follows the writer into whatever they already write in, rather than a Google Docs feature. Google Docs is simply the surface with the most screenwriters on it today.</p>
+      </div>
+      <ul class="rail">
+        <li><span class="t">SHIPPED</span><span>The extension is live on the Edge Add-ons store.</span></li>
+        <li><span class="t">SHIPPED</span><span>Nine free tools on my own domain, including converters that turn a PDF, a Final Draft file or a Fountain file into a formatted Google Doc, so people can find me without a store in the middle.</span></li>
+        <li><span class="t">NEXT</span><span>A macOS Safari application, then a Word add-in, on the same engine.</span></li>
+        <li><span class="t">NO STORE</span><span>The school channel sells by telephone and touches no marketplace at all.</span></li>
+      </ul>
+      <div class="note">
+        <div class="cap">Why this is affordable for one person</div>
+        <p>The formatting engine is never forked. Each new surface is a thin adapter over the same engine and the same test suite, so a fix costs one fix and not one per build. Adding a surface is a week, not a rewrite. That is the mistake I watched other multi-platform tools make.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s">
+    <div class="num">08</div>
+    <div>
+      <div class="eyebrow">The ask</div>
+      <h2>What I need is not only the money.</h2>
+      <div class="body">
+        <p>I have done well on my own so far, but I have never built a company, and I want Screenplay Editor to become the reference for people who write for the screen. To get there I have to change level.</p>
+        <p>Your $100k buys the school channel at scale: more callers, the invoicing and procurement work a department needs, and the Word surface that opens the schools where Google is not the standard.</p>
+        <p class="lift">The Managing Director working with me weekly is the part I am actually applying for.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="sign">I read every message myself, and I answer it myself.</p>
+    <div class="meta">
+      <span>Hugo Thomas · sole founder, Screenplay Editor</span>
+      <span>hugopthomas@gmail.com</span>
+      <span>screenplayeditor.app</span>
+      <span>Paris, France · registered August 2026, converting to a SASU</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
