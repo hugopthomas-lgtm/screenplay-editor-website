@@ -91,10 +91,23 @@
     });
   }
 
+  // Au bout de huit secondes sans le script de Google, on dit ce qui se passe
+  // et on donne une porte de sortie, plutôt que de tourner en silence.
+  function showBlocked() {
+    document.getElementById('headline').textContent = 'Le sélecteur de fichiers Google n\'a pas chargé.';
+    document.getElementById('lead').innerHTML = 'Quelque chose sur ce réseau bloque <strong>apis.google.com</strong> : '
+      + 'souvent le pare-feu d\'une école ou d\'une entreprise, un antivirus, ou un bloqueur de publicités. '
+      + 'Réessayez sur un autre réseau, ou mettez le bloqueur en pause sur cette page.';
+    var b = document.getElementById('openPicker');
+    b.textContent = 'Réessayer';
+    b.onclick = function () { location.reload(); };
+    document.getElementById('hint').textContent = 'Toujours bloqué ? Écrivez à hugopthomas@gmail.com, on règle ça ensemble.';
+  }
+
   var _pickerOpened = false;
   function openPicker() {
     if (!params.token) { fail('Autorisation manquante. Fermez cet onglet et relancez depuis l’extension.'); return; }
-    if (!window.gapi) { fail('Google charge encore. Réessayez le bouton dans une seconde.'); return; }
+    if (!window.gapi) { fail('Le sélecteur de fichiers Google n\'a pas chargé. Voir ci-dessous.'); showBlocked(); return; }
     gapi.load('picker', function () {
       _pickerOpened = true;
       var builder = new google.picker.PickerBuilder()
@@ -140,9 +153,15 @@
 
   // Ouverture automatique dès que gapi est prêt : le user n'a plus qu'à
   // confirmer dans le Picker. Le bouton reste en secours si l'auto-open rate.
+  // Cette attente a tourné SANS FIN pendant des mois : si api.js ne charge pas
+  // (pare-feu, antivirus, bloqueur), la page restait sur son message d'accueil à
+  // l'infini, sans jamais dire ce qui se passait.
+  var _waited = 0;
   function tryAutoOpen() {
     if (_pickerOpened) return;
     if (window.gapi) { openPicker(); return; }
+    _waited += 200;
+    if (_waited >= 8000) { showBlocked(); return; }
     setTimeout(tryAutoOpen, 200);
   }
   window.addEventListener('load', function () { setTimeout(tryAutoOpen, 100); });
