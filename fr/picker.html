@@ -52,6 +52,7 @@
      <strong>Votre scénario est déjà sélectionné</strong>, vous dites oui une fois et vous retournez écrire.</p>
   <button class="btn" id="openPicker">Confirmer mon document</button>
   <div class="hint" id="hint">Ça n’arrive qu’une fois par document, et plus jamais ensuite.</div>
+  <div class="hint" id="mismatch" style="display:none;margin-top:18px;padding:12px 14px;border-radius:10px;background:rgba(248,113,113,0.12);color:#f2f2f7;font-size:13px;line-height:1.55;">Cette liste montre les Google Docs de <b id="mmTok"></b>, le compte connecté à Chrome. Votre document est ouvert avec <b id="mmDoc"></b>. Connectez Chrome à ce compte, ou ouvrez ce document avec le premier, puis réessayez.</div>
   <div class="hint" id="fresh" style="margin-top:22px;">
     Votre document n'est pas dans la liste ? Google n'affiche un document neuf qu'une fois indexé, et certains comptes n'ont aucun autre Google Doc à montrer.<br>
     <button class="btn" id="freshDoc" data-label="Repartir d'un document neuf" style="margin-top:12px;font-size:14px;padding:11px 20px;background:#2c2c2e;color:#f2f2f7;box-shadow:none;">Repartir d'un document neuf</button>
@@ -71,6 +72,15 @@
     if (i > 0) params[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1));
   });
   var statusEl = document.getElementById('status');
+  // B79 : deux comptes Google. L'extension a comparé le compte de la clé et
+  // celui du document ; s'ils diffèrent et que la personne n'a pas voulu
+  // changer de compte, elle arrive ici avec les deux adresses. Sans ça, la
+  // liste vide ne s'expliquait pas.
+  if (params.tokenEmail && params.docEmail) {
+    document.getElementById('mmTok').textContent = params.tokenEmail;
+    document.getElementById('mmDoc').textContent = params.docEmail;
+    document.getElementById('mismatch').style.display = 'block';
+  }
 
   function fail(msg) {
     statusEl.innerHTML = '<div class="err"></div>';

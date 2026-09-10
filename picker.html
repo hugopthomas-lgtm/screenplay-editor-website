@@ -56,6 +56,7 @@
      <strong>Your script is already selected</strong>, you say yes once and you're back to writing.</p>
   <button class="btn" id="openPicker">Confirm my document</button>
   <div class="hint" id="hint">This happens once per document, then never again.</div>
+  <div class="hint" id="mismatch" style="display:none;margin-top:18px;padding:12px 14px;border-radius:10px;background:rgba(248,113,113,0.12);color:#f2f2f7;font-size:13px;line-height:1.55;">This list shows the Google Docs of <b id="mmTok"></b>, the account signed in to Chrome. Your document is open with <b id="mmDoc"></b>. Sign in to Chrome with that account, or open this document with the first one, then try again.</div>
   <div class="hint" id="fresh" style="margin-top:22px;">
     Your document is not in the list? Google lists a new document only once it has indexed it, and some accounts have no other Google Doc to show.<br>
     <button class="btn" id="freshDoc" data-label="Start in a fresh document instead" style="margin-top:12px;font-size:14px;padding:11px 20px;background:#2c2c2e;color:#f2f2f7;box-shadow:none;">Start in a fresh document instead</button>
@@ -75,6 +76,15 @@
     if (i > 0) params[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1));
   });
   var statusEl = document.getElementById('status');
+  // B79 : deux comptes Google. L'extension a comparé le compte de la clé et
+  // celui du document ; s'ils diffèrent et que la personne n'a pas voulu
+  // changer de compte, elle arrive ici avec les deux adresses. Sans ça, la
+  // liste vide ne s'expliquait pas.
+  if (params.tokenEmail && params.docEmail) {
+    document.getElementById('mmTok').textContent = params.tokenEmail;
+    document.getElementById('mmDoc').textContent = params.docEmail;
+    document.getElementById('mismatch').style.display = 'block';
+  }
 
   function fail(msg) {
     statusEl.innerHTML = '<div class="err"></div>';
