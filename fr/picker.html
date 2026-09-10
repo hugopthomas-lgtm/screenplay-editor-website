@@ -52,6 +52,10 @@
      <strong>Votre scénario est déjà sélectionné</strong>, vous dites oui une fois et vous retournez écrire.</p>
   <button class="btn" id="openPicker">Confirmer mon document</button>
   <div class="hint" id="hint">Ça n’arrive qu’une fois par document, et plus jamais ensuite.</div>
+  <div class="hint" id="fresh" style="margin-top:22px;">
+    Votre document n'est pas dans la liste ? Google n'affiche un document neuf qu'une fois indexé, et certains comptes n'ont aucun autre Google Doc à montrer.<br>
+    <button class="btn" id="freshDoc" data-label="Repartir d'un document neuf" style="margin-top:12px;font-size:14px;padding:11px 20px;background:#2c2c2e;color:#f2f2f7;box-shadow:none;">Repartir d'un document neuf</button>
+  </div>
   <div id="status"></div>
 </div>
 
@@ -150,6 +154,34 @@
   }
 
   document.getElementById('openPicker').addEventListener('click', openPicker);
+
+  // Porte de sortie (10/09/2026) : un document vide et non indexé, ou un compte
+  // sans Google Doc, laissait la liste vide et le bouton Select gris. L'extension
+  // sait créer un document qu'elle a le droit de formater : on repart de là.
+  document.getElementById('freshDoc').addEventListener('click', function () {
+    var b = document.getElementById('freshDoc');
+    b.disabled = true; b.textContent = 'Création de votre document…';
+    if (!params.extId || !window.chrome || !chrome.runtime || !chrome.runtime.sendMessage) { fail('Could not reach the extension. Close this tab and try again.'); return; }
+    var answered = false;
+    var guard = setTimeout(function () { if (!answered) { answered = true; b.disabled = false; b.textContent = b.getAttribute('data-label'); fail('Mettez d\'abord Screenplay Editor à jour (chrome://extensions, puis Mettre à jour), et réessayez.'); } }, 5000);
+    try {
+      chrome.runtime.sendMessage(params.extId, { type: 'SE_NEW_SCREENPLAY_FROM_PICKER', docId: params.docId }, function (r) {
+        if (answered) return;
+        answered = true; clearTimeout(guard);
+        if (r && r.ok) {
+          document.getElementById('headline').textContent = 'Done!';
+          document.getElementById('lead').textContent = 'C\'est fait. Votre nouveau document est ouvert, continuez là-bas.';
+          document.getElementById('openPicker').style.display = 'none';
+          document.getElementById('hint').style.display = 'none';
+          document.getElementById('fresh').style.display = 'none';
+          setTimeout(function () { window.close(); }, 1500);
+        } else {
+          b.disabled = false; b.textContent = b.getAttribute('data-label');
+          fail('Mettez d\'abord Screenplay Editor à jour (chrome://extensions, puis Mettre à jour), et réessayez.');
+        }
+      });
+    } catch (_e) { answered = true; clearTimeout(guard); b.disabled = false; b.textContent = b.getAttribute('data-label'); fail('Mettez d\'abord Screenplay Editor à jour (chrome://extensions, puis Mettre à jour), et réessayez.'); }
+  });
 
   // Ouverture automatique dès que gapi est prêt : le user n'a plus qu'à
   // confirmer dans le Picker. Le bouton reste en secours si l'auto-open rate.
