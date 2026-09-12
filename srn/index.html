@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>SRN 2026 workshop — texts to paste</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#fff;--ink:#111;--dim:#777;--line:#e6e6e6;--accent:#6c4cf0}
+@media(prefers-color-scheme:dark){:root{--bg:#111;--ink:#f2f2f2;--dim:#999;--line:#2a2a2a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;padding:32px 20px 80px}
+main{max-width:760px;margin:0 auto}
+h1{font-size:22px;font-weight:600;margin:0 0 6px}
+p.sub{color:var(--dim);margin:0 0 36px}
+h2{font-size:15px;font-weight:600;margin:36px 0 10px}
+h2 span{color:var(--dim);font-weight:400}
+pre{font-family:"Courier New",Courier,monospace;font-size:13.5px;line-height:1.45;white-space:pre-wrap;background:transparent;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin:0}
+button{font:inherit;font-size:14px;margin-top:12px;padding:9px 16px;border:0;border-radius:6px;background:var(--accent);color:#fff;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+footer{margin-top:56px;color:var(--dim);font-size:14px}
+a{color:inherit}
+</style></head><body><main>
+
+<h1>Texts to paste</h1>
+<p class="sub">SRN 2026, workshop 3, room 306. Copy one, paste it into your Google Doc, then format it.</p>
+
+<h2>1. A script written somewhere else <span>— paste this first</span></h2>
+<pre id="t1">INT. STAFF ROOM - DAY
+Thirty exam scripts sit in a pile. MARGARET (58), head of film, pours a coffee she will not drink.
+Margaret
+Who taught them to put the dialogue in the middle of the page?
+DEV (24), teaching assistant, first term, looks at his shoes.
+Dev
+I did. I mean, the software did.
+Margaret
+Then the software marks them.
+She pushes the pile across the table.
+CUT TO:</pre>
+<button data-for="t1">Copy</button>
+
+<h2>2. The same scene, with traps <span>— where it should get it wrong</span></h2>
+<pre id="t2">STAFF ROOM - LATER
+Dev opens his laptop. The pile has not moved.
+Dev
+Can I at least fix the format first?
+Margaret
+Fix the format, then fix the scene. In that order. Always.
+SHE PUSHES THE PILE BACK.
+It's not doing anything.</pre>
+<button data-for="t2">Copy</button>
+
+<h2>3. A collaborator writing in French</h2>
+<pre id="t3">INT. SALLE DES PROFS - JOUR
+La meme pile de copies. MARGARET lit une page en plissant les yeux.
+MARGARET
+Il a mis les dialogues au milieu de la page.
+DEV
+C'est le logiciel.
+MARGARET
+Alors c'est le logiciel qui corrige.
+CUT TO :
+EXT. COUR DE L'ECOLE - JOUR</pre>
+<button data-for="t3">Copy</button>
+
+<footer>Or paste a script of your own. Hugo Thomas, hugopthomas@gmail.com</footer>
+</main>
+<script>
+document.querySelectorAll('button[data-for]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=document.getElementById(b.dataset.for).textContent;
+    navigator.clipboard.writeText(t).then(function(){
+      var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1500);
+    },function(){
+      var r=document.createRange();r.selectNodeContents(document.getElementById(b.dataset.for));
+      var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Select and copy';
+    });
+  });
+});
+</script>
+</body></html>
