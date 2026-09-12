@@ -154,20 +154,26 @@
   // On demande donc à Drive combien de documents cette clé voit. Un nombre,
   // rien d'autre : aucun nom, aucun identifiant ne sort d'ici.
   function inventaire() {
-    if (!params.token) return;
+    if (!params.token) { afficher(-1); return; }
     try {
       fetch('https://www.googleapis.com/drive/v3/files?pageSize=10&fields=files(id)'
         + '&q=' + encodeURIComponent("mimeType='application/vnd.google-apps.document'"), {
         headers: { Authorization: 'Bearer ' + params.token }
       }).then(function (r) {
-        if (!r.ok) { report('la cle ne peut pas lister', 'error', { statut: r.status }); return null; }
+        if (!r.ok) { report('la cle ne peut pas lister', 'error', { statut: r.status }); afficher(-2); return null; }
         return r.json();
       }).then(function (j) {
         if (!j) return;
-        var n = (j.files || []).length;
-        report('documents visibles par la cle', n === 0 ? 'error' : 'info', { n: n });
-      }).catch(function () {});
+        afficher((j.files || []).length);
+      }).catch(function () { afficher(-1); });
     } catch (_e) {}
+  }
+
+  var _vues = 0, _affiche = false;
+  function afficher(n) {
+    if (_affiche) return;
+    _affiche = true;
+    report('fenetre de Google affichee', 'info', { views: _vues, drives: 1, n: n });
   }
 
   var _pickerOpened = false;
@@ -247,7 +253,9 @@
         });
       if (PICKER_API_KEY && PICKER_API_KEY.indexOf('PASTE') === -1) builder.setDeveloperKey(PICKER_API_KEY);
       builder.build().setVisible(true);
-      report('fenetre de Google affichee', 'info', { views: builder.getViews ? (builder.getViews() || []).length : 0, drives: 1 });
+      // Un SEUL rapport par ouverture, une fois le compte de Drive connu : deux
+      // evenements par ouverture reveillaient Hugo pour rien en pleine nuit.
+      _vues = builder.getViews ? (builder.getViews() || []).length : 0;
       inventaire();
     });
   }
