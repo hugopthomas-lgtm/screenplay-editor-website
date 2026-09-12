@@ -1,11 +1,11 @@
 INT. STAFF ROOM - DAY
 
-Thirty exam scripts sit in a pile. MARGARET (58), head of film, pours a coffee she will not drink.
+Thirty exam scripts sit in a pile on the table, still in their plastic wallets. MARGARET (58), head of film, pours a coffee she will not drink and looks at the pile the way you look at weather.
 
 MARGARET
 Who taught them to put the dialogue in the middle of the page?
 
-DEV (24), teaching assistant, first term, looks at his shoes.
+DEV (24), teaching assistant, first term, stands in the doorway with his coat still on. He looks at his shoes, then at the pile, then back at his shoes.
 
 DEV
 I did. I mean, the software did.
@@ -13,6 +13,6 @@ I did. I mean, the software did.
 MARGARET
 Then the software marks them.
 
-She pushes the pile across the table.
+She pushes the pile across the table towards him. It stops exactly where he can reach it, which is worse than if it had fallen.
 
 CUT TO:
