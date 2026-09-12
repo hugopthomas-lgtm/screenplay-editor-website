@@ -146,6 +146,34 @@
     document.getElementById('hint').textContent = 'Still stuck? Write to hugopthomas@gmail.com and I will sort it out with you.';
   }
 
+  // 13/09/2026 — LA QUESTION QUI DÉCIDE DE TOUT : la fenêtre de Google
+  // a-t-elle seulement quelque chose à montrer ?
+  //
+  // Notre clé n'a que la portée `drive.file`, qui ne donne accès qu'aux
+  // fichiers que l'application a créés ou que la personne lui a déjà confiés.
+  // Si la fenêtre de Google dresse sa liste avec CETTE clé, alors quelqu'un qui
+  // n'a encore rien confié voit une liste vide, quel que soit le nombre de
+  // documents qu'il possède. Ça expliquerait Thibault et ses cent mille
+  // fichiers, et les treize ouvertures sans un seul choix de cette nuit.
+  // On demande donc à Drive combien de documents cette clé voit. Un nombre,
+  // rien d'autre : aucun nom, aucun identifiant ne sort d'ici.
+  function inventaire() {
+    if (!params.token) return;
+    try {
+      fetch('https://www.googleapis.com/drive/v3/files?pageSize=10&fields=files(id)'
+        + '&q=' + encodeURIComponent("mimeType='application/vnd.google-apps.document'"), {
+        headers: { Authorization: 'Bearer ' + params.token }
+      }).then(function (r) {
+        if (!r.ok) { report('la cle ne peut pas lister', 'error', { statut: r.status }); return null; }
+        return r.json();
+      }).then(function (j) {
+        if (!j) return;
+        var n = (j.files || []).length;
+        report('documents visibles par la cle', n === 0 ? 'error' : 'info', { n: n });
+      }).catch(function () {});
+    } catch (_e) {}
+  }
+
   var _pickerOpened = false;
   function openPicker() {
     if (!params.token) { fail('Missing authorization. Close this tab and retry from the extension.'); return; }
@@ -207,6 +235,7 @@
       if (PICKER_API_KEY && PICKER_API_KEY.indexOf('PASTE') === -1) builder.setDeveloperKey(PICKER_API_KEY);
       builder.build().setVisible(true);
       report('fenetre de Google affichee', 'info', { views: 2 + (params.docName ? 1 : 0) });
+      inventaire();
     });
   }
 
