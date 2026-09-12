@@ -196,10 +196,26 @@
       // vue n'affiche rien et il n'y a plus rien à cliquer. Cul-de-sac observé
       // par Hugo (« des fois ça me donnait un dossier vide, rien à faire »).
       // Celle-ci liste tous ses documents, le plus récent en tête.
+      // 13/09/2026 — Nos deux vues ne montraient QUE le Drive personnel. Un
+      // scénariste qui travaille avec une production, une agence ou un
+      // co-auteur a ses scénarios dans un Drive partagé ou dans « Partagés avec
+      // moi » : invisibles, donc liste vide, quel que soit le nombre de
+      // documents qu'il possède. Thibault et ses cent mille fichiers ressemble
+      // exactement à ça. Deux réglages, et ils réapparaissent.
       var all = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
       if (all.setMode && google.picker.DocsViewMode) all.setMode(google.picker.DocsViewMode.LIST);
+      if (all.setEnableDrives) all.setEnableDrives(true);
       if (all.setLabel) all.setLabel('Tous mes documents');
       builder.addView(all);
+
+      var partages = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
+      if (partages.setOwnedByMe) {
+        partages.setOwnedByMe(false);
+        if (partages.setMode && google.picker.DocsViewMode) partages.setMode(google.picker.DocsViewMode.LIST);
+        if (partages.setEnableDrives) partages.setEnableDrives(true);
+        if (partages.setLabel) partages.setLabel('Partagés avec moi');
+        builder.addView(partages);
+      }
 
       // 12/09/2026 — Chercher SON scénario parmi cent mille documents.
       // Thibault a 100 000 fichiers : la liste « tous mes documents » ne lui
@@ -212,6 +228,7 @@
         if (byName.setQuery) {
           byName.setQuery(params.docName);
           if (byName.setMode && google.picker.DocsViewMode) byName.setMode(google.picker.DocsViewMode.LIST);
+          if (byName.setEnableDrives) byName.setEnableDrives(true);
           if (byName.setLabel) byName.setLabel('Rechercher par nom');
           builder.addView(byName);
         }
@@ -230,7 +247,7 @@
         });
       if (PICKER_API_KEY && PICKER_API_KEY.indexOf('PASTE') === -1) builder.setDeveloperKey(PICKER_API_KEY);
       builder.build().setVisible(true);
-      report('fenetre de Google affichee', 'info', { views: 2 + (params.docName ? 1 : 0) });
+      report('fenetre de Google affichee', 'info', { views: builder.getViews ? (builder.getViews() || []).length : 0, drives: 1 });
       inventaire();
     });
   }
