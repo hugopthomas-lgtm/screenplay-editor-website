@@ -4,8 +4,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <style>
-:root{--bg:#fff;--ink:#111;--dim:#8a8a8a;--line:#e8e8e8;--accent:#6c4cf0}
-@media(prefers-color-scheme:dark){:root{--bg:#0f0f10;--ink:#f2f2f2;--dim:#8d8d8d;--line:#262628}}
+:root{--bg:#fff;--ink:#111;--dim:#8a8a8a;--line:#e8e8e8;--accent:#6c4cf0;--open:#0f766e;--send:#b4530a}
+@media(prefers-color-scheme:dark){:root{--bg:#0f0f10;--ink:#f2f2f2;--dim:#8d8d8d;--line:#262628;--open:#14b8a6;--send:#f59e0b}}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:32px 20px}
@@ -17,6 +17,8 @@ h1{font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
 .meta{display:block;font-size:14px;font-weight:400;color:var(--dim);margin-top:4px}
 button{flex:none;display:inline-flex;align-items:center;gap:9px;font:inherit;font-size:15px;font-weight:500;padding:12px 20px;border:0;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer}
 button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+a.open button{background:var(--open)}
+form.send button{background:var(--send)}
 button svg{width:17px;height:17px;flex:none}
 footer{margin-top:32px;color:var(--dim);font-size:15px}
 textarea{position:absolute;left:-9999px;top:0}
@@ -37,12 +39,12 @@ textarea{position:absolute;left:-9999px;top:0}
 
 <div class="row">
   <div class="label">Write with me<span class="meta">One screenplay, all of us, at the same time.</span></div>
-  <a href="https://docs.google.com/document/d/12xyKm8sjvFm4Hy6xRNvDOYRApi9sLFfx3z0rIx4t5RY/edit" target="_blank" rel="noopener"><button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>Open</button></a>
+  <a class="open" href="https://docs.google.com/document/d/12xyKm8sjvFm4Hy6xRNvDOYRApi9sLFfx3z0rIx4t5RY/edit" target="_blank" rel="noopener"><button type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>Open</button></a>
 </div>
 
 <div class="row" id="prorow">
   <div class="label">Free Pro, for good<span class="meta">The address you use with Google Docs.</span></div>
-  <form id="proform" style="display:flex;gap:10px;flex:none">
+  <form id="proform" class="send" style="display:flex;gap:10px;flex:none">
     <input id="promail" type="email" required placeholder="you@school.ac.uk" autocomplete="email" style="font:inherit;font-size:15px;padding:11px 14px;min-width:15em;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink)">
     <button type="submit">Send</button>
   </form>
