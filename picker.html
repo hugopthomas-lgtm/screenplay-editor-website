@@ -104,7 +104,7 @@
         where: 'picker-page',
         level: level || 'info',
         release: 'site',
-        tags: { lang: (document.documentElement.lang || 'en') },
+        tags: { lang: (document.documentElement.lang || 'en'), inst: (params.inst || 'unknown') },
         extra: Object.assign({ ms: Date.now() - T0, hasDocId: params.docId ? 1 : 0, named: params.docName ? 1 : 0 }, extra || {})
       };
       fetch('https://screenplay-editor-api.hugopthomas.workers.dev/ext/error', {
