@@ -1,30 +1,44 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<title>SRN 2026 workshop — texts to paste</title>
+<title>SRN 2026 — screenplays to copy</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <style>
-:root{--bg:#fff;--ink:#111;--dim:#777;--line:#e6e6e6;--accent:#6c4cf0}
-@media(prefers-color-scheme:dark){:root{--bg:#111;--ink:#f2f2f2;--dim:#999;--line:#2a2a2a}}
+:root{--bg:#fff;--ink:#111;--dim:#8a8a8a;--line:#e8e8e8;--accent:#6c4cf0}
+@media(prefers-color-scheme:dark){:root{--bg:#0f0f10;--ink:#f2f2f2;--dim:#8d8d8d;--line:#262628}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;padding:32px 20px 80px}
-main{max-width:760px;margin:0 auto}
-h1{font-size:22px;font-weight:600;margin:0 0 6px}
-p.sub{color:var(--dim);margin:0 0 36px}
-h2{font-size:15px;font-weight:600;margin:36px 0 10px}
-h2 span{color:var(--dim);font-weight:400}
-pre{font-family:"Courier New",Courier,monospace;font-size:13.5px;line-height:1.45;white-space:pre-wrap;background:transparent;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin:0}
-button{font:inherit;font-size:14px;margin-top:12px;padding:9px 16px;border:0;border-radius:6px;background:var(--accent);color:#fff;cursor:pointer}
-button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-footer{margin-top:56px;color:var(--dim);font-size:14px}
-a{color:inherit}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+main{width:100%;max-width:620px}
+h1{font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 28px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0;border-top:1px solid var(--line)}
+.row:last-of-type{border-bottom:1px solid var(--line)}
+.label{font-size:22px;font-weight:600;letter-spacing:.01em}
+.meta{display:block;font-size:14px;font-weight:400;color:var(--dim);margin-top:4px}
+button{flex:none;display:inline-flex;align-items:center;gap:9px;font:inherit;font-size:15px;font-weight:500;padding:12px 20px;border:0;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+button svg{width:17px;height:17px;flex:none}
+footer{margin-top:32px;color:var(--dim);font-size:15px}
+textarea{position:absolute;left:-9999px;top:0}
+@media(max-width:520px){.row{flex-direction:column;align-items:flex-start;gap:14px}}
 </style></head><body><main>
 
-<h1>Texts to paste</h1>
-<p class="sub">SRN 2026, workshop 3, room 306. Copy one, paste it into your Google Doc, then format it.</p>
+<h1>SRN 2026 &middot; room 306</h1>
 
-<h2>1. A script written somewhere else <span>— paste this first</span></h2>
-<pre id="t1">INT. STAFF ROOM - DAY
+<div class="row">
+  <div class="label">Short screenplay<span class="meta">One scene.</span></div>
+  <button data-t="s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+</div>
+
+<div class="row">
+  <div class="label">Long screenplay<span class="meta">Nine pages, once it is formatted.</span></div>
+  <button data-t="l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+</div>
+
+<footer>Paste it into a Google Doc, then format it.</footer>
+</main>
+
+<textarea id="s" readonly>INT. STAFF ROOM - DAY
 Thirty exam scripts sit in a pile. MARGARET (58), head of film, pours a coffee she will not drink.
 Margaret
 Who taught them to put the dialogue in the middle of the page?
@@ -34,45 +48,193 @@ I did. I mean, the software did.
 Margaret
 Then the software marks them.
 She pushes the pile across the table.
-CUT TO:</pre>
-<button data-for="t1">Copy</button>
+CUT TO:</textarea>
+<textarea id="l" readonly>THE LAST TRAIN TO HEADINGTON
+INT. UNIVERSITY CORRIDOR - NIGHT
+A corridor of closed doors. Strip lights buzz. One door is open, throwing a rectangle of light onto the floor.
+NORA MBEKI (41), coat still on, walks the corridor reading from a phone. She stops at the open door.
+INT. SEMINAR ROOM 306 - CONTINUOUS
+A long table, twenty chairs, one occupied. TOBIAS FENN (63) sits at the far end with a stack of paper in front of him and a red pen he is not using.
+Nora
+They told me you&#x27;d gone home.
+Tobias
+They tell everyone that. It saves conversation.
+He does not look up. Nora comes in, puts her bag on a chair, does not sit.
+Nora
+The building closes at ten.
+Tobias
+The building has been closing at ten for thirty-one years. I have never once been in it at ten.
+Nora
+It&#x27;s twenty past.
+Now he looks up.
+Tobias
+(mildly)
+Then we are both criminals.
+Nora sits. Between them, the stack of paper. She reads the top page upside down.
+Nora
+Is that the Kramer thesis?
+Tobias
+It is forty scripts by nineteen-year-olds, and they are all the same script.
+Nora
+They can&#x27;t all be the same script.
+Tobias
+A young man returns to the village where his father died. It rains. There is a dog. The dog survives.
+Nora
+(beat)
+That&#x27;s a good film.
+Tobias
+It is forty good films.
+He finally uncaps the red pen, looks at it, caps it again.
+CUT TO:
+INT. SEMINAR ROOM 306 - LATER
+The stack has moved to the middle of the table. Two mugs now. The window is black.
+Nora
+Can I ask you something you won&#x27;t like?
+Tobias
+You may ask. I reserve the right to enjoy it.
+Nora
+Why do you still mark them on paper?
+A long pause. Tobias turns a page over, smooths it with his palm.
+Tobias
+Because on paper I can see how long they held a shot.
+Nora
+You can see that on a screen.
+Tobias
+I can see the number on a screen. On paper I can feel the weight of it in my hand. Two pages of silence is heavy. Two pages of talking is light. The screen makes them the same.
+Nora
+That&#x27;s not true and you know it.
+Tobias
+(cheerfully)
+It is entirely not true. I am sixty-three and I like paper.
+Nora laughs, once, and it surprises her.
+INT. SEMINAR ROOM 306 - LATER
+Nora has taken off her coat. She is reading a script from the middle of the stack. Tobias watches her read.
+Nora
+This one&#x27;s different.
+Tobias
+Page?
+Nora
+Page four. She doesn&#x27;t answer the phone.
+Tobias
+Ah. Yes. That one.
+Nora
+The whole scene is her not answering the phone.
+Tobias
+Two and a half pages of it.
+Nora
+(reading)
+&quot;She lets it ring. She lets it ring. She lets it ring.&quot;
+Tobias
+Three times. He wrote it three times. I nearly crossed out two of them.
+Nora
+Why didn&#x27;t you?
+Tobias
+Because the third one is the one that hurts.
+Nora puts the script down. Something in the room has changed.
+Nora
+Who is he?
+Tobias
+First year. Sits at the back. Has never once spoken.
+Nora
+Does he know it&#x27;s good?
+Tobias
+Nobody has told him.
+DISSOLVE TO:
+EXT. CAMPUS - NIGHT
+The two of them cross an empty car park. Sodium lights. A fox stops, considers them, moves on.
+Nora
+I have a meeting tomorrow about the software.
+Tobias
+The software.
+Nora
+The licences. Forty thousand a year and it doesn&#x27;t run on the machines the students actually own.
+Tobias
+So buy different machines.
+Nora
+With what?
+Tobias
+(not unkindly)
+This is the part of the conversation where I am useless.
+Nora
+You&#x27;re not useless. You&#x27;re just on paper.
+INT. NORA&#x27;S CAR - NIGHT
+Rain begins. Nora does not start the engine. Tobias sits in the passenger seat with his seatbelt already on, patient as a schoolboy.
+Nora
+Can I tell you what I actually want?
+Tobias
+Please.
+Nora
+I want to see the writing happen. Not the final file. The mess. The version where she answers the phone, and the version where she doesn&#x27;t, and the three minutes between them.
+Tobias
+That is not a piece of software. That is a person paying attention.
+Nora
+It could be both.
+Tobias considers this. The rain gets heavier.
+Tobias
+When I was your age I marked a script by a girl who wrote the same scene eleven times. Eleven. I gave her a two-one and told her to make up her mind.
+Nora
+And?
+Tobias
+She stopped writing.
+Silence. The wipers are off. The windscreen blurs completely.
+Tobias (CONT&#x27;D)
+So no. I do not think it is only a person paying attention. I think the person gets tired, and the person is wrong, and the person is me.
+CUT TO:
+EXT. HEADINGTON HILL - NIGHT
+Nora&#x27;s car climbs the hill, tail lights in the rain.
+INT. NORA&#x27;S CAR - CONTINUOUS
+Tobias
+Left at the lights. There is no need to take me to the door.
+Nora
+I&#x27;m taking you to the door.
+Tobias
+There is no need.
+Nora
+There is rain.
+He accepts this.
+EXT. TOBIAS&#x27;S HOUSE - NIGHT
+A narrow terrace. The car stops. Neither of them moves.
+Tobias
+The boy at the back.
+Nora
+Yes.
+Tobias
+Tell him it&#x27;s good. Not from me. From you. It counts for more from someone he does not have to believe.
+Nora
+He&#x27;ll ask what was good about it.
+Tobias
+Then tell him: the third time she lets it ring.
+He gets out. Shuts the door. Leans down to the window, which she lowers.
+Tobias (CONT&#x27;D)
+Nora.
+Nora
+Yes.
+Tobias
+Buy the machines the students own.
+He goes in. The light in the front room comes on, then off again.
+INT. SEMINAR ROOM 306 - MORNING
+Sun through dirty glass. The table is empty except for one script, squared up, a yellow sticky note on the cover.
+Insert: the note, in a hard old-fashioned hand: &quot;PAGE 4. DO IT AGAIN.&quot;
+A DOOR opens. A STUDENT (19), hood up, comes in for a chair and stops when he sees the script with his name on it.
+He reads the note. He reads it again.
+He sits down, in the wrong chair, at the wrong end of the table, and starts to write.
+FADE OUT.
+THE END</textarea>
 
-<h2>2. The same scene, with traps <span>— where it should get it wrong</span></h2>
-<pre id="t2">STAFF ROOM - LATER
-Dev opens his laptop. The pile has not moved.
-Dev
-Can I at least fix the format first?
-Margaret
-Fix the format, then fix the scene. In that order. Always.
-SHE PUSHES THE PILE BACK.
-It's not doing anything.</pre>
-<button data-for="t2">Copy</button>
-
-<h2>3. A collaborator writing in French</h2>
-<pre id="t3">INT. SALLE DES PROFS - JOUR
-La meme pile de copies. MARGARET lit une page en plissant les yeux.
-MARGARET
-Il a mis les dialogues au milieu de la page.
-DEV
-C'est le logiciel.
-MARGARET
-Alors c'est le logiciel qui corrige.
-CUT TO :
-EXT. COUR DE L'ECOLE - JOUR</pre>
-<button data-for="t3">Copy</button>
-
-<footer>Or paste a script of your own. Hugo Thomas, hugopthomas@gmail.com</footer>
-</main>
 <script>
-document.querySelectorAll('button[data-for]').forEach(function(b){
+document.querySelectorAll('button[data-t]').forEach(function(b){
+  var lbl=b.lastChild;
   b.addEventListener('click',function(){
-    var t=document.getElementById(b.dataset.for).textContent;
-    navigator.clipboard.writeText(t).then(function(){
-      var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1500);
-    },function(){
-      var r=document.createRange();r.selectNodeContents(document.getElementById(b.dataset.for));
-      var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Select and copy';
-    });
+    var ta=document.getElementById(b.dataset.t);
+    var done=function(){lbl.textContent='Copied';setTimeout(function(){lbl.textContent='Copy'},1600)};
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(ta.value).then(done,fallback);
+    }else{fallback()}
+    function fallback(){
+      ta.style.position='static';ta.style.left='0';ta.select();
+      try{document.execCommand('copy');done()}catch(e){lbl.textContent='Select all, copy'}
+      ta.style.position='absolute';ta.style.left='-9999px';
+    }
   });
 });
 </script>
