@@ -91,6 +91,29 @@
     statusEl.firstChild.textContent = msg;
   }
 
+  // 12/09/2026 — Cette page était le SEUL endroit du produit sans mouchard.
+  // Thibault : « toujours la fenêtre d'erreur chelou », et nous, rien à lire.
+  // On raconte donc le déroulé (chargé, ouvert, choisi, annulé, bloqué) au même
+  // canal que l'extension. Jamais le nom d'un document ni une adresse : des
+  // états et des durées, rien d'autre.
+  var T0 = Date.now();
+  function report(msg, level, extra) {
+    try {
+      var body = {
+        message: 'picker: ' + msg,
+        where: 'picker-page',
+        level: level || 'info',
+        release: 'site',
+        tags: { lang: (document.documentElement.lang || 'en') },
+        extra: Object.assign({ ms: Date.now() - T0, hasDocId: params.docId ? 1 : 0, named: params.docName ? 1 : 0 }, extra || {})
+      };
+      fetch('https://screenplay-editor-api.hugopthomas.workers.dev/ext/error', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body), keepalive: true
+      }).catch(function () {});
+    } catch (_e) {}
+  }
+
   function notifyExtension(payload, doneMsg) {
     if (!params.extId || !window.chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
       fail('Could not reach the extension. Close this tab and try again.');
@@ -112,6 +135,7 @@
   // Au bout de huit secondes sans le script de Google, on dit ce qui se passe
   // et on donne une porte de sortie, plutôt que de tourner en silence.
   function showBlocked() {
+    report('script de Google jamais charge (8 s)', 'error');
     document.getElementById('headline').textContent = 'Google\'s file picker did not load.';
     document.getElementById('lead').innerHTML = 'Something on this network is blocking <strong>apis.google.com</strong>: '
       + 'often a school or company firewall, an antivirus, or an ad blocker. '
@@ -153,17 +177,36 @@
       if (all.setLabel) all.setLabel('All my documents');
       builder.addView(all);
 
+      // 12/09/2026 — Chercher SON scénario parmi cent mille documents.
+      // Thibault a 100 000 fichiers : la liste « tous mes documents » ne lui
+      // sert à rien, et la vue par identifiant reste vide tant que Google n'a
+      // pas indexé le document. Troisième vue, la seule utile chez lui : la
+      // recherche déjà remplie avec le nom du scénario, que l'extension lit
+      // dans le titre de l'onglet, sans le moindre appel à l'API.
+      if (params.docName) {
+        var byName = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
+        if (byName.setQuery) {
+          byName.setQuery(params.docName);
+          if (byName.setMode && google.picker.DocsViewMode) byName.setMode(google.picker.DocsViewMode.LIST);
+          if (byName.setLabel) byName.setLabel('Search by name');
+          builder.addView(byName);
+        }
+      }
+
       builder
         .setCallback(function (data) {
           if (data.action === google.picker.Action.PICKED) {
             var ids = (data.docs || []).map(function (d) { return d.id; });
+            report('choisi', 'info', { n: ids.length, same: (ids.indexOf(params.docId) >= 0) ? 1 : 0 });
             notifyExtension({ type: 'SE_PICKER_GRANTED', docIds: ids, requestedDocId: params.docId }, 'See you on the page.');
           } else if (data.action === google.picker.Action.CANCEL) {
+            report('ferme sans rien choisir', 'error');
             notifyExtension({ type: 'SE_PICKER_CANCELLED', docId: params.docId }, null);
           }
         });
       if (PICKER_API_KEY && PICKER_API_KEY.indexOf('PASTE') === -1) builder.setDeveloperKey(PICKER_API_KEY);
       builder.build().setVisible(true);
+      report('fenetre de Google affichee', 'info', { views: 2 + (params.docName ? 1 : 0) });
     });
   }
 
