@@ -260,7 +260,6 @@ export function instantDetect(text, currentType) {
   if (!t) return null;
   if (isSceneHeading(t)) return currentType === 'SCENE_HEADING' ? null : 'SCENE_HEADING';
   if (isTransition(t)) return currentType === 'TRANSITION' ? null : 'TRANSITION';
-  if (t.charAt(0) === '(' && (currentType === 'CHARACTER' || currentType === 'DIALOGUE')) return 'PARENTHETICAL';
   if (!currentType) return 'ACTION';
   return null;
 }

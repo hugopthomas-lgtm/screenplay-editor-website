@@ -8,7 +8,7 @@
 import {
   ELEMENTS, STYLE_NAMES, INDENTS_US, INDENTS_A4, SPACE_BEFORE, ALIGNMENT,
   UPPERCASE, NEXT_MODE, elementFromStyleName, classifyParagraphs,
-  cycleNext, cyclePrev, liveDetect, instantDetect, cleanText,
+  cycleNext, cyclePrev, liveDetect, instantDetect, cleanText, TAB_NEXT,
 } from './rules.js';
 
 const FONT = 'Courier New';
@@ -85,29 +85,10 @@ async function instantCheck() {
       diag('sel ' + _selCount + ': ' + JSON.stringify(text.slice(0, 20)) + ' ' + (type || p.style) + ' fli=' + p.firstLineIndent);
     }
 
-    // 1. A Tab. Either Word kept it as a character, or its AutoFormat turned
-    //    it into a first-line indent (all our styles sit at 0).
-    const tabChar = text.charAt(0) === '\t';
-    const tabIndent = !!type && p.firstLineIndent >= 18;
-    if (tabChar || tabIndent) {
-      const rest = tabChar ? text.slice(1) : text;
-      const from = type || 'ACTION';
-      const to = cycleNext(from, !rest.trim());
-      if (to) p.style = STYLE_NAMES[to];
-      if (tabIndent) p.firstLineIndent = 0;
-      if (tabChar) {
-        if (!rest) p.insertText('', Word.InsertLocation.replace);
-        else {
-          const tabs = p.search('^t', { matchCase: false });
-          tabs.load('items');
-          await context.sync();
-          if (tabs.items.length) tabs.items[0].delete();
-          else p.insertText(rest, Word.InsertLocation.replace);
-        }
-      }
-      await context.sync();
-      painted = to || from;
-      diag('Tab: ' + from + (to ? ' → ' + to : ' (no change)'));
+    // 1. A Tab somewhere in the line: Word typed it as a character, or its
+    //    AutoFormat turned it into a first-line indent (our styles sit at 0).
+    if (text.indexOf('\t') >= 0 || (!!type && p.firstLineIndent >= 18)) {
+      painted = await applyTabIntent(context, p, text, type);
       return;
     }
 
@@ -224,33 +205,85 @@ async function smartTab(id) {
   let applied = null;
   await Word.run(async (context) => {
     const p = context.document.getParagraphByUniqueLocalId(id);
-    p.load('text,style,tableNestingLevel');
+    p.load('text,style,tableNestingLevel,firstLineIndent');
     await context.sync();
     if (p.tableNestingLevel > 0) return;
     const text = p.text || '';
-    diag('chg ' + _liveCount.tab + ': ' + JSON.stringify(text.slice(0, 20)) + ' ' + (elementFromStyleName(p.style) || p.style));
-    if (text.charAt(0) !== '\t') return;
-
-    const rest = text.slice(1);
-    const type = elementFromStyleName(p.style) || 'ACTION';
-    const to = cycleNext(type, !rest.trim());
-    if (to) p.style = STYLE_NAMES[to];
-    // Drop the tab. On an empty line a plain replace keeps the caret in place;
-    // with text after the tab we delete just the tab so the caret stays put.
-    if (!rest) {
-      p.insertText('', Word.InsertLocation.replace);
-    } else {
-      const tabs = p.search('^t', { matchCase: false });
-      tabs.load('items');
-      await context.sync();
-      if (tabs.items.length) tabs.items[0].delete();
-      else p.insertText(rest, Word.InsertLocation.replace);
-    }
-    applied = to || type;
-    await context.sync();
-    diag('Tab ' + _liveCount.tab + ': ' + type + (to ? ' → ' + to : ' (no change)'));
+    const type = elementFromStyleName(p.style);
+    diag('chg ' + _liveCount.tab + ': ' + JSON.stringify(text.slice(0, 20)) + ' ' + (type || p.style));
+    if (text.indexOf('\t') < 0 && !(type && p.firstLineIndent >= 18)) return;
+    applied = await applyTabIntent(context, p, text, type);
   });
   if (applied && _onLiveChange) _onLiveChange(applied);
+}
+
+// The Tab of the extension (Arc / Final Draft matrix), reconstructed after
+// the fact from what Word shows us: a tab character in the paragraph.
+//   tab on an EMPTY line (or before any text): change this line's element
+//     (Action → Character, Dialogue → Parenthetical, Character → Action);
+//   tab AFTER text: end-of-line Tab, a new line below in the next element
+//     (Action → Character, Character → Parenthetical, Dialogue →
+//     Parenthetical). Text typed after the tab before we reacted moves to
+//     that new line, and the caret follows it.
+//   Parenthetical gets its "( )" with the caret inside, like the extension.
+async function applyTabIntent(context, p, text, type) {
+  const from = type || 'ACTION';
+  const idx = text.indexOf('\t');
+  const indentOnly = idx < 0;
+  const before = indentOnly ? text : text.slice(0, idx);
+  const after = indentOnly ? '' : text.slice(idx + 1);
+
+  if (indentOnly) p.firstLineIndent = 0;
+
+  // Tab at the start of the line.
+  if (!before.trim()) {
+    const to = cycleNext(from, true);
+    if (to) p.style = STYLE_NAMES[to];
+    if (!indentOnly) {
+      if (!after) p.insertText('', Word.InsertLocation.replace);
+      else await deleteFirstTab(context, p, after);
+    }
+    if (to === 'PARENTHETICAL' && !after.trim()) await openParens(context, p);
+    await context.sync();
+    diag('Tab: ' + from + (to ? ' → ' + to : ' (no change)'));
+    return to || from;
+  }
+
+  // Tab after text: a new line below.
+  const to = TAB_NEXT[from];
+  if (!to) {
+    if (!indentOnly) await deleteFirstTab(context, p, after);
+    await context.sync();
+    diag('Tab: ' + from + ' (no change)');
+    return from;
+  }
+  if (!indentOnly) p.insertText(before, Word.InsertLocation.replace);
+  const np = p.insertParagraph(after, Word.InsertLocation.after);
+  np.style = STYLE_NAMES[to];
+  if (to === 'PARENTHETICAL' && !after.trim()) await openParens(context, np);
+  else np.select(Word.SelectionMode.end);
+  await context.sync();
+  diag('Tab: ' + from + ' → ' + to + ' (new line)');
+  return to;
+}
+
+async function deleteFirstTab(context, p, rest) {
+  try {
+    const tabs = p.search('^t', { matchCase: false });
+    tabs.load('items');
+    await context.sync();
+    if (tabs.items.length) { tabs.items[0].delete(); return; }
+  } catch (_e) { /* fall through */ }
+  p.insertText(rest, Word.InsertLocation.replace);
+}
+
+async function openParens(context, p) {
+  p.insertText('()', Word.InsertLocation.replace);
+  const close = p.search(')', { matchCase: false });
+  close.load('items');
+  await context.sync();
+  if (close.items.length) close.items[0].select(Word.SelectionMode.start);
+  else p.select(Word.SelectionMode.end);
 }
 
 // A brand new document starts on a scene heading, like Final Draft.

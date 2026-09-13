@@ -12,7 +12,7 @@ import {
 } from './word-adapter.js';
 
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '1.2.1';
+const VERSION = '1.2.2';
 
 const $ = (id) => document.getElementById(id);
 
