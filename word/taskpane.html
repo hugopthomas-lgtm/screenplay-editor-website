@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Screenplay Editor</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">Screenplay<span class="brand-dot">.</span></div>
+    <div class="header-sub">for Word</div>
+  </div>
+
+  <main class="screen">
+    <section class="block">
+      <div class="block-title">Element</div>
+      <div class="rail" id="rail">
+        <button class="tile" data-type="SCENE_HEADING"><span class="tile-label">Scene Heading</span><kbd data-key="1"></kbd></button>
+        <button class="tile" data-type="ACTION"><span class="tile-label">Action</span><kbd data-key="2"></kbd></button>
+        <button class="tile" data-type="CHARACTER"><span class="tile-label">Character</span><kbd data-key="3"></kbd></button>
+        <button class="tile" data-type="PARENTHETICAL"><span class="tile-label">Parenthetical</span><kbd data-key="4"></kbd></button>
+        <button class="tile" data-type="DIALOGUE"><span class="tile-label">Dialogue</span><kbd data-key="5"></kbd></button>
+        <button class="tile" data-type="TRANSITION"><span class="tile-label">Transition</span><kbd data-key="6"></kbd></button>
+      </div>
+      <p class="hint" id="flow-hint">Enter after a character name gives you dialogue.</p>
+    </section>
+
+    <section class="block">
+      <div class="block-title">Document</div>
+      <button class="action primary" id="btn-format">
+        <span>Format document</span>
+        <kbd id="kbd-format"></kbd>
+      </button>
+      <button class="action" id="btn-pages">Page numbers</button>
+      <button class="action" id="btn-sample">Insert a sample scene</button>
+      <div class="row">
+        <label class="paper-label" for="paper">Paper</label>
+        <select id="paper" class="paper">
+          <option value="US">US Letter</option>
+          <option value="A4">A4</option>
+        </select>
+      </div>
+    </section>
+
+    <p class="status" id="status" aria-live="polite"></p>
+  </main>
+
+  <footer class="footer">
+    <a href="https://screenplayeditor.app" target="_blank" rel="noopener">screenplayeditor.app</a>
+    <span class="version">v1.0</span>
+  </footer>
+
+  <script type="module" src="taskpane.js"></script>
+</body>
+</html>

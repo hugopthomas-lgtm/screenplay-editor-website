@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+  xsi:type="TaskPaneApp">
+
+  <Id>b8a418ae-2054-45ba-920a-446ab4ec3680</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Hugo Thomas</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Screenplay Editor"/>
+  <Description DefaultValue="Write a screenplay in Word. Six industry-standard styles, smart Enter, keyboard shortcuts, one-click formatting of a whole script."/>
+  <IconUrl DefaultValue="https://screenplayeditor.app/word/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://screenplayeditor.app/word/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://screenplayeditor.app/word"/>
+
+  <AppDomains>
+    <AppDomain>https://screenplayeditor.app</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Document"/>
+  </Hosts>
+
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="SharedRuntime" MinVersion="1.1"/>
+      <Set Name="WordApi" MinVersion="1.3"/>
+    </Sets>
+  </Requirements>
+
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://screenplayeditor.app/word/taskpane.html"/>
+  </DefaultSettings>
+
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <Runtimes>
+          <Runtime resid="Taskpane.Url" lifetime="long"/>
+        </Runtimes>
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <FunctionFile resid="Taskpane.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="SE.Group">
+                <Label resid="Group.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16"/>
+                  <bt:Image size="32" resid="Icon.32"/>
+                  <bt:Image size="80" resid="Icon.80"/>
+                </Icon>
+                <Control xsi:type="Button" id="SE.Open">
+                  <Label resid="Open.Label"/>
+                  <Supertip>
+                    <Title resid="Open.Label"/>
+                    <Description resid="Open.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16"/>
+                    <bt:Image size="32" resid="Icon.32"/>
+                    <bt:Image size="80" resid="Icon.80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://screenplayeditor.app/word/assets/icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://screenplayeditor.app/word/assets/icon-32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://screenplayeditor.app/word/assets/icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://screenplayeditor.app/word/taskpane.html"/>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://screenplayeditor.app/word"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="Group.Label" DefaultValue="Screenplay"/>
+        <bt:String id="Open.Label" DefaultValue="Screenplay Editor"/>
+        <bt:String id="GetStarted.Title" DefaultValue="Screenplay Editor is ready"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="Open.Tooltip" DefaultValue="Open the Screenplay Editor panel: elements, shortcuts and one-click formatting."/>
+        <bt:String id="GetStarted.Description" DefaultValue="Open the panel from the Home tab, then write. Enter after a character name gives you dialogue."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+
+  <ExtendedOverrides Url="https://screenplayeditor.app/word/shortcuts.json"/>
+</OfficeApp>

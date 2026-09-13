@@ -1,0 +1,24 @@
+{
+  "actions": [
+    { "id": "SE_SceneHeading", "type": "ExecuteFunction", "name": "Scene Heading" },
+    { "id": "SE_Action", "type": "ExecuteFunction", "name": "Action" },
+    { "id": "SE_Character", "type": "ExecuteFunction", "name": "Character" },
+    { "id": "SE_Parenthetical", "type": "ExecuteFunction", "name": "Parenthetical" },
+    { "id": "SE_Dialogue", "type": "ExecuteFunction", "name": "Dialogue" },
+    { "id": "SE_Transition", "type": "ExecuteFunction", "name": "Transition" },
+    { "id": "SE_CycleNext", "type": "ExecuteFunction", "name": "Next element type" },
+    { "id": "SE_CyclePrev", "type": "ExecuteFunction", "name": "Previous element type" },
+    { "id": "SE_FormatDocument", "type": "ExecuteFunction", "name": "Format document" }
+  ],
+  "shortcuts": [
+    { "action": "SE_SceneHeading", "key": { "default": "Alt+1" } },
+    { "action": "SE_Action", "key": { "default": "Alt+2" } },
+    { "action": "SE_Character", "key": { "default": "Alt+3" } },
+    { "action": "SE_Parenthetical", "key": { "default": "Alt+4" } },
+    { "action": "SE_Dialogue", "key": { "default": "Alt+5" } },
+    { "action": "SE_Transition", "key": { "default": "Alt+6" } },
+    { "action": "SE_CycleNext", "key": { "default": "Ctrl+Alt+Right", "mac": "Command+Alt+Right" } },
+    { "action": "SE_CyclePrev", "key": { "default": "Ctrl+Alt+Left", "mac": "Command+Alt+Left" } },
+    { "action": "SE_FormatDocument", "key": { "default": "Ctrl+Shift+F", "mac": "Command+Shift+F" } }
+  ]
+}
