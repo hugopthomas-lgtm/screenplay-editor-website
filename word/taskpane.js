@@ -166,9 +166,19 @@ function paintActive(type) {
   document.querySelectorAll('.tile').forEach((t) => t.classList.toggle('active', t.dataset.type === type));
   const hint = $('flow-hint');
   if (!type) { hint.textContent = 'Click a line, then pick its element.'; return; }
-  const parts = [`Enter → ${LABELS[NEXT_MODE[type]]}`];
-  if (TAB_NEXT[type]) parts.push(`${isMac ? '⌥⌘→' : 'Ctrl+Alt+→'} → ${LABELS[TAB_NEXT[type]]}`);
-  hint.textContent = parts.join('   ·   ');
+  hint.textContent = '';
+  const enter = document.createElement('span');
+  enter.textContent = `Enter → ${LABELS[NEXT_MODE[type]]}`;
+  hint.appendChild(enter);
+  if (TAB_NEXT[type]) {
+    const sep = document.createElement('span');
+    sep.className = 'sep';
+    sep.textContent = '·';
+    const cyc = document.createElement('span');
+    cyc.textContent = `${isMac ? '⌥⌘→' : 'Ctrl+Alt+→'} cycles to ${LABELS[TAB_NEXT[type]]}`;
+    hint.appendChild(sep);
+    hint.appendChild(cyc);
+  }
 }
 
 // ---------------------------------------------------------------------------

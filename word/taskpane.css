@@ -87,6 +87,7 @@ kbd {
 }
 
 .hint { margin-top: 10px; font-size: 12px; color: var(--ink-2); min-height: 17px; }
+.hint .sep { margin: 0 8px; color: #c4c4cc; }
 
 .action {
   appearance: none;
