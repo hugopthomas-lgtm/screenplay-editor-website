@@ -104,6 +104,18 @@ export async function ensureStyles(paper = 'US') {
       for (const key of ELEMENTS) objs[key].nextParagraphStyle = STYLE_NAMES[E.NEXT_MODE[key]];
       await context.sync();
     }
+
+    // The page itself, like the add-on: the indents above are measured from
+    // these margins (1.5 in left on US Letter). Desktop Word only.
+    if (caps.allCaps) {
+      try {
+        const ps = context.document.pageSetup;
+        ps.set(paper === 'A4'
+          ? { paperSize: 'A4', leftMargin: 72, rightMargin: 72, topMargin: 72, bottomMargin: 57 }
+          : { paperSize: 'Letter', leftMargin: 108, rightMargin: 72, topMargin: 72, bottomMargin: 72 });
+        await context.sync();
+      } catch (_e) { /* an older Word: the styles still stand */ }
+    }
   });
   return caps;
 }
