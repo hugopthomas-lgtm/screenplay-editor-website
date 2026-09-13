@@ -197,7 +197,7 @@
         if (focused.setFileIds) {
           focused.setFileIds(params.docId);
           if (focused.setLabel) focused.setLabel('This screenplay');
-          builder.addView(focused);
+          builder.addView(focused); _vues++;
         }
       }
 
@@ -216,7 +216,7 @@
       if (all.setMode && google.picker.DocsViewMode) all.setMode(google.picker.DocsViewMode.LIST);
       if (all.setEnableDrives) all.setEnableDrives(true);
       if (all.setLabel) all.setLabel('All my documents');
-      builder.addView(all);
+      builder.addView(all); _vues++;
 
       var partages = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
       if (partages.setOwnedByMe) {
@@ -224,7 +224,7 @@
         if (partages.setMode && google.picker.DocsViewMode) partages.setMode(google.picker.DocsViewMode.LIST);
         if (partages.setEnableDrives) partages.setEnableDrives(true);
         if (partages.setLabel) partages.setLabel('Shared with me');
-        builder.addView(partages);
+        builder.addView(partages); _vues++;
       }
 
       // 12/09/2026 — Chercher SON scénario parmi cent mille documents.
@@ -240,7 +240,7 @@
           if (byName.setMode && google.picker.DocsViewMode) byName.setMode(google.picker.DocsViewMode.LIST);
           if (byName.setEnableDrives) byName.setEnableDrives(true);
           if (byName.setLabel) byName.setLabel('Search by name');
-          builder.addView(byName);
+          builder.addView(byName); _vues++;
         }
       }
 
@@ -259,7 +259,8 @@
       builder.build().setVisible(true);
       // Un SEUL rapport par ouverture, une fois le compte de Drive connu : deux
       // evenements par ouverture reveillaient Hugo pour rien en pleine nuit.
-      _vues = builder.getViews ? (builder.getViews() || []).length : 0;
+      // `builder.getViews()` n'existe pas : le compte tombait toujours à zéro.
+      // On compte nous-mêmes, à chaque vue ajoutée.
       inventaire();
     });
   }
