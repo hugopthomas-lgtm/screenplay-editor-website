@@ -1,2 +1,5 @@
 /mvfc/*
   Access-Control-Allow-Origin: *
+
+/word/*
+  Cache-Control: no-cache
