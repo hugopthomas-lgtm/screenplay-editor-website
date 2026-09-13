@@ -154,3 +154,86 @@
 
   if (!customElements.get('site-footer')) customElements.define('site-footer', SiteFooter);
 })();
+
+/* ------------------------------------------------------------------
+   LE BOUTON NOMME LE NAVIGATEUR DU VISITEUR (13/09/2026)
+
+   Hugo, 12/09 : « sur le site c'est écrit get for chrome, donc les gens qui
+   ont Edge ne cliquent pas et prennent l'add-on en dessous. Alors qu'en fait
+   c'est bon, ils peuvent utiliser l'extension Chrome sur leur Edge. »
+
+   C'est la pratique de toutes les extensions qui vendent : on écrit le nom du
+   navigateur qu'on a sous les yeux. Le lien, lui, ne change pas : le Chrome
+   Web Store sert Edge, Brave, Opera et Vivaldi.
+
+   Ce bloc vit ici parce que footer.js est le seul script chargé par les 108
+   pages : 94 boutons corrigés sans toucher une seule page. On remplace
+   seulement le mot « Chrome » dans le texte du bouton, ce qui marche aussi
+   bien pour « Add to Chrome » que pour « Ajouter à Chrome ».
+
+   Safari et Firefox ne peuvent pas installer l'extension : chez eux on ne
+   touche à rien, « Chrome » est alors une information utile.
+   ------------------------------------------------------------------ */
+(function () {
+  var STORE = 'chromewebstore.google.com';
+
+  function navigateur() {
+    var ua = navigator.userAgent || '';
+    if (/\bEdg\//.test(ua)) return 'Edge';
+    if (/\bOPR\//.test(ua)) return 'Opera';
+    if (/Vivaldi/.test(ua)) return 'Vivaldi';
+    try { if (navigator.brave) return 'Brave'; } catch (e) {}
+    return null;
+  }
+
+  function renommer(lien, nom) {
+    var noeuds = lien.childNodes;
+    for (var i = 0; i < noeuds.length; i++) {
+      var n = noeuds[i];
+      if (n.nodeType === 3 && n.nodeValue.indexOf('Chrome') !== -1) {
+        n.nodeValue = n.nodeValue.replace('Chrome', nom);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function ligneCompatible(nom, fr) {
+    if (nom === 'Edge') {
+      return fr
+        ? 'Edge vous demandera d’autoriser les extensions d’autres boutiques : un clic, en haut de la page.'
+        : 'Edge will ask you to allow extensions from other stores: one click, at the top of the page.';
+    }
+    return fr
+      ? 'Marche aussi dans Edge, Brave, Opera et Arc.'
+      : 'Also works in Edge, Brave, Opera and Arc.';
+  }
+
+  function poser() {
+    var nom = navigateur();
+    var fr = (document.documentElement.getAttribute('lang') || '').toLowerCase().indexOf('fr') === 0;
+
+    if (nom) {
+      var liens = document.querySelectorAll('a[href*="' + STORE + '"]');
+      for (var i = 0; i < liens.length; i++) renommer(liens[i], nom);
+    }
+
+    // Le doute se dissipe avant de se former : on dit la compatibilité sous le
+    // bouton, dans la rangée qui porte déjà « Free to start » et le reste.
+    var rangees = document.querySelectorAll('.hero-trust');
+    for (var j = 0; j < rangees.length; j++) {
+      if (rangees[j].querySelector('[data-se-compat]')) continue;
+      var li = document.createElement('li');
+      li.setAttribute('data-se-compat', '1');
+      var ck = document.createElement('span');
+      ck.className = 'ck';
+      ck.textContent = '✓';
+      li.appendChild(ck);
+      li.appendChild(document.createTextNode(ligneCompatible(nom, fr)));
+      rangees[j].appendChild(li);
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', poser);
+  else poser();
+})();
