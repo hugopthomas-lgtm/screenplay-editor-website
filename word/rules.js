@@ -249,6 +249,22 @@ export function liveDetect(text, currentType) {
   return null;
 }
 
+// Instant re-read, run on every caret move WHILE typing (no Enter yet). Only
+// prefixes that cannot be anything else act here, because the line is not
+// finished: "int." / "ext." make a scene heading the moment the dot lands
+// (the Final Draft reflex), a "(" at the start of a speech line opens a
+// parenthetical, a typed transition is a transition, text in Normal is Action.
+// Character names wait for Enter: "INT" is all caps too, for three keystrokes.
+export function instantDetect(text, currentType) {
+  const t = cleanText(text);
+  if (!t) return null;
+  if (isSceneHeading(t)) return currentType === 'SCENE_HEADING' ? null : 'SCENE_HEADING';
+  if (isTransition(t)) return currentType === 'TRANSITION' ? null : 'TRANSITION';
+  if (t.charAt(0) === '(' && (currentType === 'CHARACTER' || currentType === 'DIALOGUE')) return 'PARENTHETICAL';
+  if (!currentType) return 'ACTION';
+  return null;
+}
+
 // The element to switch to when the user asks for "next type" on a line.
 export function cycleNext(type, lineEmpty) {
   if (lineEmpty) return EMPTY_TAB[type] || null;

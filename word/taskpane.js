@@ -8,10 +8,11 @@ import { ELEMENTS, NEXT_MODE, TAB_NEXT, LABELS } from './rules.js';
 import {
   ensureStyles, applyElement, cycleElement, formatDocument, addPageNumbers,
   currentElement, insertSample, startLiveWriting, startEmptyDocument,
+  startInstantWriting, selectionCount,
 } from './word-adapter.js';
 
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '1.1.2';
+const VERSION = '1.2.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -61,6 +62,7 @@ Office.onReady(async (info) => {
     } else {
       const fresh = await startEmptyDocument();
       const live = await startLiveWriting((type) => paintActive(type), (msg) => setStatus(msg, 'ok'));
+      startInstantWriting((type) => paintActive(type), (msg) => setStatus(msg, 'ok'));
       if (live) {
         setStatus(fresh
           ? 'Ready. Type a scene heading, Enter, then write. Tab on a new line switches the element.'
@@ -73,10 +75,8 @@ Office.onReady(async (info) => {
     setStatus(friendly(e), 'error');
   }
 
-  try {
-    Office.context.document.addHandlerAsync(Office.EventType.DocumentSelectionChanged, refreshActive);
-  } catch (_e) { /* fine without live highlight */ }
   refreshActive();
+  setInterval(() => { document.querySelector('.version').textContent = 'v' + VERSION + ' · ' + selectionCount(); }, 1000);
 });
 
 function wireUi() {

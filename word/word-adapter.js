@@ -8,7 +8,7 @@
 import {
   ELEMENTS, STYLE_NAMES, INDENTS_US, INDENTS_A4, SPACE_BEFORE, ALIGNMENT,
   UPPERCASE, NEXT_MODE, elementFromStyleName, classifyParagraphs,
-  cycleNext, cyclePrev, liveDetect, cleanText,
+  cycleNext, cyclePrev, liveDetect, instantDetect, cleanText,
 } from './rules.js';
 
 const FONT = 'Courier New';
@@ -24,7 +24,97 @@ export function capabilities() {
     chain: supports('WordApi', '1.6'),       // setting nextParagraphStyle
     fields: supports('WordApi', '1.5'),      // insertField(PAGE)
     live: supports('WordApi', '1.6'),        // onParagraphAdded / onParagraphChanged
+    allCaps: supports('WordApiDesktop', '1.3'), // Font.allCaps on a style (desktop only)
   };
+}
+
+// ---------------------------------------------------------------------------
+// Instant layer. Word's paragraph events arrive seconds late; the selection
+// event fires on every caret move, typing included, and reading one paragraph
+// costs a few dozen milliseconds. So while the user types we watch the caret's
+// paragraph and react to the unambiguous signals: a Tab at the start of the
+// line (change the element, eat the tab), "int." / "ext." (scene heading), a
+// "(" on a speech line (parenthetical), text in Normal (action).
+// ---------------------------------------------------------------------------
+let _instantBusy = false;
+let _instantPending = false;
+let _instantOn = false;
+let _selCount = 0;
+
+export function startInstantWriting(onChange, onDiag) {
+  if (_instantOn) return true;
+  _onLiveChange = onChange || _onLiveChange;
+  _onDiag = onDiag || _onDiag;
+  try {
+    Office.context.document.addHandlerAsync(Office.EventType.DocumentSelectionChanged, instantTick);
+    _instantOn = true;
+  } catch (_e) { _instantOn = false; }
+  return _instantOn;
+}
+
+export function selectionCount() { return _selCount; }
+
+function instantTick() {
+  _selCount++;
+  if (_instantBusy) { _instantPending = true; return; }
+  _instantBusy = true;
+  instantCheck()
+    .catch((e) => diag('Live: ' + ((e && (e.message || e.code)) || e)))
+    .finally(() => {
+      _instantBusy = false;
+      if (_instantPending) { _instantPending = false; instantTick(); }
+    });
+}
+
+async function instantCheck() {
+  let painted = null;
+  await Word.run(async (context) => {
+    const paras = context.document.getSelection().paragraphs;
+    paras.load('items/text,items/style,items/firstLineIndent,items/tableNestingLevel');
+    await context.sync();
+    if (paras.items.length !== 1) return;
+    const p = paras.items[0];
+    if (p.tableNestingLevel > 0) return;
+    const text = p.text || '';
+    const type = elementFromStyleName(p.style);
+    painted = type;
+
+    // 1. A Tab. Either Word kept it as a character, or its AutoFormat turned
+    //    it into a first-line indent (all our styles sit at 0).
+    const tabChar = text.charAt(0) === '\t';
+    const tabIndent = !!type && p.firstLineIndent >= 18;
+    if (tabChar || tabIndent) {
+      const rest = tabChar ? text.slice(1) : text;
+      const from = type || 'ACTION';
+      const to = cycleNext(from, !rest.trim());
+      if (to) p.style = STYLE_NAMES[to];
+      if (tabIndent) p.firstLineIndent = 0;
+      if (tabChar) {
+        if (!rest) p.insertText('', Word.InsertLocation.replace);
+        else {
+          const tabs = p.search('^t', { matchCase: false });
+          tabs.load('items');
+          await context.sync();
+          if (tabs.items.length) tabs.items[0].delete();
+          else p.insertText(rest, Word.InsertLocation.replace);
+        }
+      }
+      await context.sync();
+      painted = to || from;
+      diag('Tab: ' + from + (to ? ' → ' + to : ' (no change)'));
+      return;
+    }
+
+    // 2. What the text says, before Enter.
+    const want = instantDetect(text, type);
+    if (want && want !== type) {
+      p.style = STYLE_NAMES[want];
+      await context.sync();
+      painted = want;
+      diag('Live: "' + cleanText(text).slice(0, 24) + '" → ' + want);
+    }
+  });
+  if (_onLiveChange) _onLiveChange(painted);
 }
 
 // ---------------------------------------------------------------------------
@@ -208,6 +298,9 @@ export async function ensureStyles(paper = 'US') {
       f.italic = false;
       f.underline = 'None';
       f.color = '#000000';
+      // Desktop Word displays these lines in capitals whatever is typed, so
+      // "int. kitchen" reads INT. KITCHEN the instant it lands on the page.
+      if (caps.allCaps) { try { f.allCaps = !!UPPERCASE[key]; } catch (_e) { /* not on this build */ } }
       const p = s.paragraphFormat;
       p.leftIndent = indents[key].left;
       p.rightIndent = indents[key].right;
