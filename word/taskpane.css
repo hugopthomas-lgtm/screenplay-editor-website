@@ -2,22 +2,17 @@
 
 :root {
   --violet: #a78bfa;
-  --violet-hover: #c4b5fd;
   --violet-dark: #7c3aed;
-  --violet-glow: rgba(167, 139, 250, 0.15);
   --bg: #F9F9FB;
   --ink: #1c1c1e;
   --ink-2: #6b6b72;
-  --tile: #ffffff;
-  --tile-hover: #f1effb;
 }
 
 html, body { height: 100%; }
 
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-weight: 400;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: -0.01em;
   background: var(--bg);
   color: var(--ink);
@@ -38,107 +33,94 @@ body {
 }
 .header-title { font-size: 19px; font-weight: 700; letter-spacing: -0.3px; }
 .brand-dot { color: var(--violet); }
-.header-sub { font-size: 11px; font-weight: 500; color: var(--ink-2); letter-spacing: 0.1px; }
+.header-sub { font-size: 11px; font-weight: 500; color: var(--ink-2); }
 
-.screen { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 22px; }
+.screen { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 20px; }
 
-.block-title {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-2);
-  margin-bottom: 10px;
+/* The pill: white card, same shadow as the rail, badge on top, hints below. */
+.pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 12px 12px;
+  border-radius: 12px;
+  background: #fff;
+  color: #6b7280;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.rail { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-.tile {
+/* The rail and its labels side by side. */
+.rail-row { display: flex; align-items: flex-start; gap: 14px; padding-left: 4px; }
+.rail-labels { display: flex; flex-direction: column; padding-top: 6px; }
+.rail-label {
   appearance: none;
   border: none;
-  background: var(--tile);
-  border-radius: 10px;
-  padding: 11px 12px;
-  min-height: 46px;
+  background: none;
   font: inherit;
-  font-weight: 500;
-  color: var(--ink);
-  text-align: left;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  transition: background 0.12s ease, box-shadow 0.12s ease, transform 0.08s ease;
-}
-.tile:hover { background: var(--tile-hover); }
-.tile:active { transform: scale(0.985); }
-.tile.active { background: var(--violet); color: #fff; box-shadow: 0 4px 14px var(--violet-glow); }
-.tile.active kbd { color: rgba(255,255,255,0.85); }
-.tile-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-kbd {
-  font-family: inherit;
-  font-size: 10.5px;
-  font-weight: 500;
   color: #9ca3af;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.hint { margin-top: 10px; font-size: 12px; color: var(--ink-2); min-height: 17px; }
-.hint .sep { margin: 0 8px; color: #c4c4cc; }
-
-.action {
-  appearance: none;
-  width: 100%;
-  border: none;
-  background: var(--tile);
-  border-radius: 10px;
-  padding: 12px 14px;
-  font: inherit;
-  font-weight: 500;
-  color: var(--ink);
-  text-align: left;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  gap: 12px;
+  min-width: 190px;
+  padding: 0 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s ease, background 0.12s ease;
+}
+.rail-label:hover { color: var(--ink); background: rgba(0,0,0,0.04); }
+.rail-label.active { color: var(--ink); font-weight: 600; }
+.rail-label kbd { font-family: inherit; font-size: 10.5px; font-weight: 500; color: #c4c4cc; }
+.rail-label.active kbd { color: #9ca3af; }
+
+/* Tools */
+.tools { display: flex; flex-direction: column; gap: 6px; }
+.tool {
+  appearance: none;
+  border: none;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  font-weight: 500;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-align: left;
   transition: background 0.12s ease, transform 0.08s ease;
 }
-.action:hover { background: var(--tile-hover); }
-.action:active { transform: scale(0.99); }
-.action.primary { background: var(--ink); color: #fff; }
-.action.primary:hover { background: #000; }
-.action.primary kbd { color: rgba(255,255,255,0.6); }
-.action[disabled] { opacity: 0.5; cursor: default; }
+.tool:hover { background: #f1effb; }
+.tool:active { transform: scale(0.99); }
+.tool[disabled] { opacity: 0.5; cursor: default; }
+.tool-label { flex: 1; }
+.tool kbd { font-family: inherit; font-size: 10.5px; font-weight: 500; color: #9ca3af; }
+.flame {
+  display: block; width: 16px; height: 16px; background-color: #8b5cf6;
+  mask: url(assets/flame.png) center/contain no-repeat;
+  -webkit-mask: url(assets/flame.png) center/contain no-repeat;
+}
+.tool-icon { width: 16px; text-align: center; color: #8b5cf6; font-weight: 700; }
 
-.row { display: flex; align-items: center; justify-content: space-between; padding: 6px 2px 0; }
-.paper-label { font-size: 12px; color: var(--ink-2); }
+.row { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px 0; }
+.paper-label { color: var(--ink-2); }
 .paper {
   font: inherit;
-  font-size: 12px;
   color: var(--ink);
-  background: var(--tile);
+  background: #fff;
   border: none;
   border-radius: 8px;
   padding: 6px 10px;
   cursor: pointer;
 }
 
-.status { font-size: 12px; color: var(--ink-2); min-height: 17px; }
+.status { color: var(--ink-2); min-height: 17px; }
 .status.ok { color: var(--violet-dark); }
 .status.error { color: #b42318; }
+.log { font: 10.5px/1.5 ui-monospace, Menlo, monospace; color: #b4b4bc; white-space: pre-wrap; word-break: break-all; }
 
-.footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 16px 12px;
-  font-size: 11px;
-  color: #9ca3af;
-}
+.footer { display: flex; justify-content: space-between; padding: 10px 16px 12px; font-size: 11px; color: #9ca3af; }
 .footer a { color: inherit; text-decoration: none; }
 .footer a:hover { color: var(--ink); }
-
-.log { font: 10.5px/1.5 ui-monospace, Menlo, monospace; color: #9ca3af; white-space: pre-wrap; word-break: break-all; }

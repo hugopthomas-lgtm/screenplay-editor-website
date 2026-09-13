@@ -1,18 +1,34 @@
-// Screenplay Editor for Word — the thin Office.js adapter.
+// Screenplay Editor for Word — the Word adapter.
 //
-// Everything that touches the Word object model lives here. The rules
-// (indents, matrices, classifier) come from rules.js and never change between
-// products. If Word behaves differently from Docs, the fix goes here, not in
-// the rules.
+// Everything that touches the Word object model lives here. WHAT to do comes
+// from the shared engine (SEEngine, src/engine.js, the same file the Chrome
+// extension runs); this file only decides HOW to do it in Word.
+//
+// The one thing Word denies an add-in is the keystroke itself: we learn that
+// Enter or Tab happened after the fact, from Word's events, and reconcile.
+//   Enter  → onParagraphAdded (late): re-read the line just left, apply the
+//            live triggers and the casing, give the new line its element
+//            (the chained styles already did it natively, instantly).
+//   Tab    → a tab character shows up in the paragraph (selection or
+//            paragraph events): apply the engine's Tab decision and eat it.
+//   Caps   → the style itself displays capitals (Font.allCaps, desktop Word),
+//            the real letters are fixed on Enter and on manual formats.
+//
+// RULE (2026-09-14, Hugo lost a cue and its dialogue): never rewrite a
+// paragraph with Paragraph.insertText(..., 'Replace'). On Word for Mac that
+// can eat the paragraph mark and merge the line with the next one. Every
+// rewrite here goes through a text RANGE (getRange('Content') or a search
+// result), which never touches the mark.
 
 import {
-  ELEMENTS, STYLE_NAMES, INDENTS_US, INDENTS_A4, SPACE_BEFORE, ALIGNMENT,
-  UPPERCASE, NEXT_MODE, elementFromStyleName, classifyParagraphs,
-  cycleNext, cyclePrev, liveDetect, instantDetect, cleanText, TAB_NEXT,
-} from './rules.js';
+  ELEMENTS, STYLE_NAMES, UPPERCASE, elementFromStyleName, classifyParagraphs, cleanText,
+} from './classifier.js';
 
+const E = globalThis.SEEngine;
 const FONT = 'Courier New';
 const FONT_SIZE = 12;
+const SPACE_BEFORE = { SCENE_HEADING: 12, ACTION: 12, CHARACTER: 12, PARENTHETICAL: 0, DIALOGUE: 0, TRANSITION: 12 };
+const ALIGNMENT = { SCENE_HEADING: 'Left', ACTION: 'Left', CHARACTER: 'Left', PARENTHETICAL: 'Left', DIALOGUE: 'Left', TRANSITION: 'Right' };
 
 function supports(set, version) {
   try { return Office.context.requirements.isSetSupported(set, version); } catch (_e) { return false; }
@@ -20,294 +36,24 @@ function supports(set, version) {
 
 export function capabilities() {
   return {
-    styles: supports('WordApi', '1.5'),      // addStyle, paragraphFormat, font on Style
-    chain: supports('WordApi', '1.6'),       // setting nextParagraphStyle
-    fields: supports('WordApi', '1.5'),      // insertField(PAGE)
-    live: supports('WordApi', '1.6'),        // onParagraphAdded / onParagraphChanged
-    allCaps: supports('WordApiDesktop', '1.3'), // Font.allCaps on a style (desktop only)
+    styles: supports('WordApi', '1.5'),
+    chain: supports('WordApi', '1.6'),
+    fields: supports('WordApi', '1.5'),
+    live: supports('WordApi', '1.6'),
+    allCaps: supports('WordApiDesktop', '1.3'),
   };
 }
 
-// ---------------------------------------------------------------------------
-// Instant layer. Word's paragraph events arrive seconds late; the selection
-// event fires on every caret move, typing included, and reading one paragraph
-// costs a few dozen milliseconds. So while the user types we watch the caret's
-// paragraph and react to the unambiguous signals: a Tab at the start of the
-// line (change the element, eat the tab), "int." / "ext." (scene heading), a
-// "(" on a speech line (parenthetical), text in Normal (action).
-// ---------------------------------------------------------------------------
-let _instantBusy = false;
-let _instantPending = false;
-let _instantOn = false;
-let _selCount = 0;
-let _lastSig = '';
-
-export function startInstantWriting(onChange, onDiag) {
-  if (_instantOn) return true;
-  _onLiveChange = onChange || _onLiveChange;
-  _onDiag = onDiag || _onDiag;
-  try {
-    Office.context.document.addHandlerAsync(Office.EventType.DocumentSelectionChanged, instantTick);
-    _instantOn = true;
-  } catch (_e) { _instantOn = false; }
-  return _instantOn;
-}
-
-export function selectionCount() { return _selCount; }
-
-function instantTick() {
-  _selCount++;
-  if (_instantBusy) { _instantPending = true; return; }
-  _instantBusy = true;
-  instantCheck()
-    .catch((e) => diag('Live: ' + ((e && (e.message || e.code)) || e)))
-    .finally(() => {
-      _instantBusy = false;
-      if (_instantPending) { _instantPending = false; instantTick(); }
-    });
-}
-
-async function instantCheck() {
-  let painted = null;
-  await Word.run(async (context) => {
-    const paras = context.document.getSelection().paragraphs;
-    paras.load('items/text,items/style,items/firstLineIndent,items/tableNestingLevel');
-    await context.sync();
-    if (paras.items.length !== 1) return;
-    const p = paras.items[0];
-    if (p.tableNestingLevel > 0) return;
-    const text = p.text || '';
-    const type = elementFromStyleName(p.style);
-    painted = type;
-    const sig = JSON.stringify([text, p.style, p.firstLineIndent]);
-    if (sig !== _lastSig) {
-      _lastSig = sig;
-      diag('sel ' + _selCount + ': ' + JSON.stringify(text.slice(0, 20)) + ' ' + (type || p.style) + ' fli=' + p.firstLineIndent);
-    }
-
-    // 1. A Tab somewhere in the line: Word typed it as a character, or its
-    //    AutoFormat turned it into a first-line indent (our styles sit at 0).
-    if (text.indexOf('\t') >= 0 || (!!type && p.firstLineIndent >= 18)) {
-      painted = await applyTabIntent(context, p, text, type);
-      return;
-    }
-
-    // 2. What the text says, before Enter.
-    const want = instantDetect(text, type);
-    if (want && want !== type) {
-      p.style = STYLE_NAMES[want];
-      await context.sync();
-      painted = want;
-      diag('Live: "' + cleanText(text).slice(0, 24) + '" → ' + want);
-    }
-  });
-  if (_onLiveChange) _onLiveChange(painted);
+// Rewrite the text of a paragraph without touching its paragraph mark.
+function setParagraphText(p, text) {
+  p.getRange('Content').insertText(text, Word.InsertLocation.replace);
 }
 
 // ---------------------------------------------------------------------------
-// Live writing — the Final Draft feel, on top of the chained styles.
-//   Enter : the line just left is re-read (scene heading, transition,
-//           character name in caps, plain text in Normal) and the new line
-//           receives what must follow.
-//   Tab   : a tab typed at the start of a line changes its element
-//           (Action → Character, Character → Parenthetical, Dialogue →
-//           Parenthetical) and the tab character disappears.
-// Both are driven by Word's own paragraph events (WordApi 1.6), so nothing
-// intercepts the keyboard.
+// Styles
 // ---------------------------------------------------------------------------
-let _liveHandlers = null;
-let _onLiveChange = null;
-let _onDiag = null;
-let _liveCount = { enter: 0, tab: 0 };
-
-function diag(msg) { if (_onDiag) { try { _onDiag(msg); } catch (_e) { /* ui gone */ } } }
-
-export async function startLiveWriting(onChange, onDiag) {
-  if (!capabilities().live || _liveHandlers) return !!_liveHandlers;
-  _onLiveChange = onChange || null;
-  _onDiag = onDiag || null;
-  await Word.run(async (context) => {
-    const added = context.document.onParagraphAdded.add(handleParagraphAdded);
-    const changed = context.document.onParagraphChanged.add(handleParagraphChanged);
-    await context.sync();
-    _liveHandlers = { added, changed };
-  });
-  return true;
-}
-
-export async function stopLiveWriting() {
-  if (!_liveHandlers) return;
-  const h = _liveHandlers;
-  _liveHandlers = null;
-  try {
-    await Word.run(h.added.context, async (context) => {
-      h.added.remove();
-      h.changed.remove();
-      await context.sync();
-    });
-  } catch (_e) { /* document gone */ }
-}
-
-async function handleParagraphAdded(ev) {
-  if (ev.source === 'Remote') return;
-  _liveCount.enter++;
-  for (const id of ev.uniqueLocalIds || []) {
-    try { await smartEnter(id); }
-    catch (e) { diag('Enter ' + _liveCount.enter + ': ' + ((e && (e.message || e.code)) || e)); }
-  }
-}
-
-async function handleParagraphChanged(ev) {
-  if (ev.source === 'Remote') return;
-  _liveCount.tab++;
-  for (const id of ev.uniqueLocalIds || []) {
-    try { await smartTab(id); }
-    catch (e) { diag('Change ' + _liveCount.tab + ': ' + ((e && (e.message || e.code)) || e)); }
-  }
-}
-
-export function liveCounts() { return { ..._liveCount }; }
-
-async function smartEnter(id) {
-  let applied = null;
-  await Word.run(async (context) => {
-    const p = context.document.getParagraphByUniqueLocalId(id);
-    const prev = p.getPreviousOrNullObject();
-    p.load('text,style,tableNestingLevel');
-    prev.load('isNullObject,text,style');
-    await context.sync();
-    if (p.tableNestingLevel > 0 || prev.isNullObject) return;
-
-    const prevText = cleanText(prev.text);
-    const prevType = elementFromStyleName(prev.style);
-    const detected = liveDetect(prevText, prevType);
-    const finalPrev = detected || prevType;
-    if (!finalPrev) return;
-
-    if (detected) {
-      prev.style = STYLE_NAMES[detected];
-      if (UPPERCASE[detected] && prev.text !== prev.text.toUpperCase()) {
-        prev.insertText(prev.text.toUpperCase(), Word.InsertLocation.replace);
-      }
-    }
-    // The new line only gets a style if it is empty (a real Enter at the end
-    // of the line) and does not already carry the right one.
-    const want = STYLE_NAMES[NEXT_MODE[finalPrev]];
-    if (!cleanText(p.text) && p.style !== want) p.style = want;
-    applied = NEXT_MODE[finalPrev];
-    await context.sync();
-    diag('Enter ' + _liveCount.enter + ': "' + prevText.slice(0, 24) + '" ' + (prevType || 'Normal') + ' → ' + finalPrev + ', next ' + applied);
-  });
-  if (applied && _onLiveChange) _onLiveChange(applied);
-}
-
-async function smartTab(id) {
-  let applied = null;
-  await Word.run(async (context) => {
-    const p = context.document.getParagraphByUniqueLocalId(id);
-    p.load('text,style,tableNestingLevel,firstLineIndent');
-    await context.sync();
-    if (p.tableNestingLevel > 0) return;
-    const text = p.text || '';
-    const type = elementFromStyleName(p.style);
-    diag('chg ' + _liveCount.tab + ': ' + JSON.stringify(text.slice(0, 20)) + ' ' + (type || p.style));
-    if (text.indexOf('\t') < 0 && !(type && p.firstLineIndent >= 18)) return;
-    applied = await applyTabIntent(context, p, text, type);
-  });
-  if (applied && _onLiveChange) _onLiveChange(applied);
-}
-
-// The Tab of the extension (Arc / Final Draft matrix), reconstructed after
-// the fact from what Word shows us: a tab character in the paragraph.
-//   tab on an EMPTY line (or before any text): change this line's element
-//     (Action → Character, Dialogue → Parenthetical, Character → Action);
-//   tab AFTER text: end-of-line Tab, a new line below in the next element
-//     (Action → Character, Character → Parenthetical, Dialogue →
-//     Parenthetical). Text typed after the tab before we reacted moves to
-//     that new line, and the caret follows it.
-//   Parenthetical gets its "( )" with the caret inside, like the extension.
-async function applyTabIntent(context, p, text, type) {
-  const from = type || 'ACTION';
-  const idx = text.indexOf('\t');
-  const indentOnly = idx < 0;
-  const before = indentOnly ? text : text.slice(0, idx);
-  const after = indentOnly ? '' : text.slice(idx + 1);
-
-  if (indentOnly) p.firstLineIndent = 0;
-
-  // Tab at the start of the line.
-  if (!before.trim()) {
-    const to = cycleNext(from, true);
-    if (to) p.style = STYLE_NAMES[to];
-    if (!indentOnly) {
-      if (!after) p.insertText('', Word.InsertLocation.replace);
-      else await deleteFirstTab(context, p, after);
-    }
-    if (to === 'PARENTHETICAL' && !after.trim()) await openParens(context, p);
-    await context.sync();
-    diag('Tab: ' + from + (to ? ' → ' + to : ' (no change)'));
-    return to || from;
-  }
-
-  // Tab after text: a new line below.
-  const to = TAB_NEXT[from];
-  if (!to) {
-    if (!indentOnly) await deleteFirstTab(context, p, after);
-    await context.sync();
-    diag('Tab: ' + from + ' (no change)');
-    return from;
-  }
-  if (!indentOnly) p.insertText(before, Word.InsertLocation.replace);
-  const np = p.insertParagraph(after, Word.InsertLocation.after);
-  np.style = STYLE_NAMES[to];
-  if (to === 'PARENTHETICAL' && !after.trim()) await openParens(context, np);
-  else np.select(Word.SelectionMode.end);
-  await context.sync();
-  diag('Tab: ' + from + ' → ' + to + ' (new line)');
-  return to;
-}
-
-async function deleteFirstTab(context, p, rest) {
-  try {
-    const tabs = p.search('^t', { matchCase: false });
-    tabs.load('items');
-    await context.sync();
-    if (tabs.items.length) { tabs.items[0].delete(); return; }
-  } catch (_e) { /* fall through */ }
-  p.insertText(rest, Word.InsertLocation.replace);
-}
-
-async function openParens(context, p) {
-  p.insertText('()', Word.InsertLocation.replace);
-  const close = p.search(')', { matchCase: false });
-  close.load('items');
-  await context.sync();
-  if (close.items.length) close.items[0].select(Word.SelectionMode.start);
-  else p.select(Word.SelectionMode.end);
-}
-
-// A brand new document starts on a scene heading, like Final Draft.
-export async function startEmptyDocument() {
-  let started = false;
-  await Word.run(async (context) => {
-    const paras = context.document.body.paragraphs;
-    paras.load('items/text,items/style');
-    await context.sync();
-    if (paras.items.length !== 1) return;
-    const p = paras.items[0];
-    if (cleanText(p.text)) return;
-    if (elementFromStyleName(p.style)) return;
-    p.style = STYLE_NAMES.SCENE_HEADING;
-    await context.sync();
-    started = true;
-  });
-  return started;
-}
-
-// Create (or refresh) the six paragraph styles and chain them. Idempotent:
-// running it twice leaves the document as it was.
 export async function ensureStyles(paper = 'US') {
-  const indents = paper === 'A4' ? INDENTS_A4 : INDENTS_US;
+  const indents = paper === 'A4' ? E.INDENTS_A4 : E.INDENTS_US;
   const caps = capabilities();
   if (!caps.styles) throw new Error('This version of Word cannot create styles (WordApi 1.5 needed).');
 
@@ -338,8 +84,6 @@ export async function ensureStyles(paper = 'US') {
       f.italic = false;
       f.underline = 'None';
       f.color = '#000000';
-      // Desktop Word displays these lines in capitals whatever is typed, so
-      // "int. kitchen" reads INT. KITCHEN the instant it lands on the page.
       if (caps.allCaps) { try { f.allCaps = !!UPPERCASE[key]; } catch (_e) { /* not on this build */ } }
       const p = s.paragraphFormat;
       p.leftIndent = indents[key].left;
@@ -348,7 +92,7 @@ export async function ensureStyles(paper = 'US') {
       p.alignment = ALIGNMENT[key];
       p.spaceBefore = SPACE_BEFORE[key];
       p.spaceAfter = 0;
-      p.lineSpacing = 12; // single, for a 12 pt Courier
+      p.lineSpacing = 12;
       p.keepWithNext = key === 'SCENE_HEADING' || key === 'CHARACTER' || key === 'PARENTHETICAL';
       p.keepTogether = key === 'DIALOGUE' || key === 'PARENTHETICAL';
       try { s.quickStyle = true; } catch (_e) { /* optional */ }
@@ -357,32 +101,49 @@ export async function ensureStyles(paper = 'US') {
     await context.sync();
 
     if (caps.chain) {
-      for (const key of ELEMENTS) {
-        objs[key].nextParagraphStyle = STYLE_NAMES[NEXT_MODE[key]];
-      }
+      for (const key of ELEMENTS) objs[key].nextParagraphStyle = STYLE_NAMES[E.NEXT_MODE[key]];
       await context.sync();
     }
   });
   return caps;
 }
 
-// Read the element under the cursor (first paragraph of the selection).
+// A brand new document starts on a scene heading.
+export async function startEmptyDocument() {
+  let started = false;
+  await Word.run(async (context) => {
+    const paras = context.document.body.paragraphs;
+    paras.load('items/text,items/style');
+    await context.sync();
+    if (paras.items.length !== 1) return;
+    const p = paras.items[0];
+    if (cleanText(p.text) || elementFromStyleName(p.style)) return;
+    p.style = STYLE_NAMES.SCENE_HEADING;
+    await context.sync();
+    started = true;
+  });
+  return started;
+}
+
+// ---------------------------------------------------------------------------
+// Reading the caret
+// ---------------------------------------------------------------------------
 export async function currentElement() {
-  let result = { type: null, empty: true };
+  let result = { type: null, empty: true, text: '' };
   await Word.run(async (context) => {
     const paras = context.document.getSelection().paragraphs;
     paras.load('items/style,items/text');
     await context.sync();
     if (!paras.items.length) return;
     const p = paras.items[0];
-    result = { type: elementFromStyleName(p.style), empty: !p.text.trim() };
+    result = { type: elementFromStyleName(p.style), empty: !cleanText(p.text), text: p.text };
   });
   return result;
 }
 
-// Apply an element to every paragraph of the selection. Upper cases the text
-// when the element demands it (scene headings, character names, transitions),
-// the same way the extension does.
+// ---------------------------------------------------------------------------
+// Manual formats: the rail and the shortcuts
+// ---------------------------------------------------------------------------
 export async function applyElement(type) {
   if (!ELEMENTS.includes(type)) return;
   await Word.run(async (context) => {
@@ -391,54 +152,253 @@ export async function applyElement(type) {
     await context.sync();
     for (const p of paras.items) {
       p.style = STYLE_NAMES[type];
-      const text = p.text;
-      if (UPPERCASE[type] && text && text !== text.toUpperCase()) {
-        p.insertText(text.toUpperCase(), Word.InsertLocation.replace);
-      }
+      // Same rule as the extension after a rail click: capitals for Scene
+      // Heading / Character / Transition, « ( ) » for a parenthetical.
+      const target = E.caseFixTarget(type, cleanText(p.text));
+      if (target) setParagraphText(p, target);
     }
     await context.sync();
   });
 }
 
-export async function cycleElement(direction) {
-  const cur = await currentElement();
-  const from = cur.type || 'ACTION';
-  const to = direction < 0 ? cyclePrev(from) : cycleNext(from, cur.empty);
-  if (!to) return null;
-  await applyElement(to);
-  return to;
+// ---------------------------------------------------------------------------
+// Live writing
+// ---------------------------------------------------------------------------
+let _liveOn = false;
+let _onChange = null;   // (type, { empty, text, nudge }) → UI
+let _onDiag = null;
+let _busy = false;
+let _pending = false;
+let _selCount = 0;
+let _lastSig = '';
+
+function diag(msg) { if (_onDiag) { try { _onDiag(msg); } catch (_e) { /* ui gone */ } } }
+function changed(type, what) { if (_onChange) { try { _onChange(type, what); } catch (_e) { /* ui gone */ } } }
+
+export function selectionCount() { return _selCount; }
+
+export async function startLiveWriting(onChange, onDiag) {
+  _onChange = onChange || null;
+  _onDiag = onDiag || null;
+  if (_liveOn) return true;
+  const caps = capabilities();
+  try {
+    Office.context.document.addHandlerAsync(Office.EventType.DocumentSelectionChanged, tick);
+  } catch (_e) { /* no selection events: the paragraph events still work */ }
+  if (caps.live) {
+    await Word.run(async (context) => {
+      context.document.onParagraphAdded.add(onParagraphAdded);
+      context.document.onParagraphChanged.add(onParagraphChanged);
+      await context.sync();
+    });
+  }
+  _liveOn = true;
+  return true;
 }
 
-// Format the whole document: classify every paragraph by its text, apply the
-// styles, drop the empty paragraphs the spacing model makes redundant. Word
-// keeps all of it in one undo step per sync, so Ctrl+Z brings the text back.
+function tick() {
+  _selCount++;
+  if (_busy) { _pending = true; return; }
+  _busy = true;
+  reconcileSelection()
+    .catch((e) => diag('Live: ' + ((e && (e.message || e.code)) || e)))
+    .finally(() => {
+      _busy = false;
+      if (_pending) { _pending = false; tick(); }
+    });
+}
+
+async function onParagraphAdded(ev) {
+  if (ev.source === 'Remote') return;
+  for (const id of ev.uniqueLocalIds || []) {
+    try { await reconcileEnter(id); }
+    catch (e) { diag('Enter: ' + ((e && (e.message || e.code)) || e)); }
+  }
+}
+
+async function onParagraphChanged(ev) {
+  if (ev.source === 'Remote') return;
+  for (const id of ev.uniqueLocalIds || []) {
+    try {
+      await Word.run(async (context) => {
+        const p = context.document.getParagraphByUniqueLocalId(id);
+        p.load('text,style,tableNestingLevel,firstLineIndent');
+        await context.sync();
+        if (p.tableNestingLevel > 0) return;
+        await reconcileParagraph(context, p, 'chg');
+      });
+    } catch (e) { diag('Change: ' + ((e && (e.message || e.code)) || e)); }
+  }
+}
+
+async function reconcileSelection() {
+  await Word.run(async (context) => {
+    const paras = context.document.getSelection().paragraphs;
+    paras.load('items/text,items/style,items/firstLineIndent,items/tableNestingLevel');
+    await context.sync();
+    if (paras.items.length !== 1) return;
+    const p = paras.items[0];
+    if (p.tableNestingLevel > 0) return;
+    const sig = JSON.stringify([p.text, p.style, p.firstLineIndent]);
+    if (sig === _lastSig) { changed(elementFromStyleName(p.style), { empty: !cleanText(p.text), text: p.text }); return; }
+    _lastSig = sig;
+    await reconcileParagraph(context, p, 'sel');
+  });
+}
+
+// One paragraph, as Word shows it right now: apply what the engine says.
+async function reconcileParagraph(context, p, via) {
+  const text = p.text || '';
+  const type = elementFromStyleName(p.style);
+
+  // Tab typed somewhere in the line (or turned into an indent by Word).
+  if (text.indexOf('\t') >= 0 || (!!type && p.firstLineIndent >= 18)) {
+    await applyTab(context, p, text, type);
+    return;
+  }
+
+  // Live triggers: « int. », « ext. », a whole transition.
+  const trig = E.lineTrigger(text);
+  if (trig && trig !== type) {
+    p.style = STYLE_NAMES[trig];
+    await context.sync();
+    diag(via + ': "' + cleanText(text).slice(0, 20) + '" → ' + trig);
+    changed(trig, { empty: false, text });
+    return;
+  }
+
+  // Text typed in plain Normal: it is Action (the default element).
+  if (!type && cleanText(text)) {
+    p.style = STYLE_NAMES.ACTION;
+    await context.sync();
+    changed('ACTION', { empty: false, text });
+    return;
+  }
+
+  changed(type, { empty: !cleanText(text), text });
+}
+
+// Enter: the new paragraph `id` exists; the line just left is its previous.
+async function reconcileEnter(id) {
+  await Word.run(async (context) => {
+    const p = context.document.getParagraphByUniqueLocalId(id);
+    const prev = p.getPreviousOrNullObject();
+    p.load('text,style,tableNestingLevel');
+    prev.load('isNullObject,text,style');
+    await context.sync();
+    if (p.tableNestingLevel > 0 || prev.isNullObject) return;
+
+    const prevText = cleanText(prev.text);
+    let prevType = elementFromStyleName(prev.style);
+
+    // Empty line + Enter: the extension blocks the key and nudges the rail.
+    // Word already made the line; we nudge, and leave the document alone.
+    if (!prevText) { changed(prevType, { empty: true, text: '', nudge: true }); return; }
+
+    // The line just left: triggers, then real capitals.
+    const trig = E.lineTrigger(prevText);
+    if (trig && trig !== prevType) { prev.style = STYLE_NAMES[trig]; prevType = trig; }
+    else if (!prevType) { prev.style = STYLE_NAMES.ACTION; prevType = 'ACTION'; }
+    if (UPPERCASE[prevType]) {
+      const fixed = prevType === 'CHARACTER' ? E.upperCueName(prev.text) : prev.text.toUpperCase();
+      if (fixed !== prev.text) setParagraphText(prev, fixed);
+    }
+
+    // The new line: what follows, unless the user already typed into it.
+    const next = E.NEXT_MODE[prevType] || 'ACTION';
+    if (!cleanText(p.text) && p.style !== STYLE_NAMES[next]) p.style = STYLE_NAMES[next];
+    await context.sync();
+    diag('Enter: "' + prevText.slice(0, 20) + '" ' + prevType + ' → ' + next);
+    changed(next, { empty: !cleanText(p.text), text: p.text });
+  });
+}
+
+// Tab, as the engine decides it, from the tab character Word left in the line.
+async function applyTab(context, p, text, type) {
+  const from = type || 'ACTION';
+  const idx = text.indexOf('\t');
+  const indentOnly = idx < 0;
+  const before = indentOnly ? text : text.slice(0, idx);
+  const after = indentOnly ? '' : text.slice(idx + 1);
+  if (indentOnly) p.firstLineIndent = 0;
+
+  const d = E.tabDecision(from, !cleanText(before));
+
+  if (d.kind === 'none') {
+    if (!indentOnly) await deleteTab(context, p, false);
+    await context.sync();
+    diag('Tab: ' + from + ' (nothing)');
+    changed(from, { empty: !cleanText(text), text });
+    return;
+  }
+
+  if (d.kind === 'inplace') {
+    p.style = STYLE_NAMES[d.mode];
+    if (!indentOnly) await deleteTab(context, p, false);
+    if (d.parens && !cleanText(after)) await openParens(context, p);
+    await context.sync();
+    diag('Tab: ' + from + ' → ' + d.mode);
+    changed(d.mode, { empty: !cleanText(after), text: after });
+    return;
+  }
+
+  // newline: the text before the tab stays, a new line below in d.mode with
+  // whatever was typed after the tab, caret at its end.
+  if (!indentOnly) await deleteTab(context, p, true);
+  const np = p.insertParagraph(after, Word.InsertLocation.after);
+  np.style = STYLE_NAMES[d.mode];
+  if (d.parens && !cleanText(after)) await openParens(context, np);
+  else np.select(Word.SelectionMode.end);
+  await context.sync();
+  diag('Tab: ' + from + ' → ' + d.mode + ' (new line)');
+  changed(d.mode, { empty: !cleanText(after), text: after });
+}
+
+// Delete the tab character; with `toEnd`, also everything after it (it moves
+// to the new line). Ranges only: the paragraph mark is never touched.
+async function deleteTab(context, p, toEnd) {
+  const tabs = p.search('^t', { matchCase: false });
+  tabs.load('items');
+  await context.sync();
+  if (!tabs.items.length) return;
+  let r = tabs.items[0];
+  if (toEnd) r = r.expandTo(p.getRange(Word.RangeLocation.end));
+  r.delete();
+}
+
+// « ( ) » with the caret in the middle, like the extension's auto parens.
+async function openParens(context, p) {
+  p.insertText('()', Word.InsertLocation.end);
+  const close = p.search(')', { matchCase: false });
+  close.load('items');
+  await context.sync();
+  if (close.items.length) close.items[0].select(Word.SelectionMode.start);
+  else p.select(Word.SelectionMode.end);
+}
+
+// ---------------------------------------------------------------------------
+// Whole document
+// ---------------------------------------------------------------------------
 export async function formatDocument() {
-  let stats = { paragraphs: 0, removed: 0 };
+  const stats = { paragraphs: 0, removed: 0 };
   await Word.run(async (context) => {
     const paras = context.document.body.paragraphs;
     paras.load('items/text,items/tableNestingLevel');
     await context.sync();
-
     const items = paras.items;
     const texts = items.map((p) => p.text);
     const plan = classifyParagraphs(texts);
-
     const toDelete = [];
     for (let i = 0; i < items.length; i++) {
       const p = items[i];
-      if (p.tableNestingLevel > 0) continue; // never touch tables
+      if (p.tableNestingLevel > 0) continue;
       const { type, text } = plan[i];
-      if (!type) {
-        toDelete.push(p);
-        continue;
-      }
+      if (!type) { toDelete.push(p); continue; }
       p.style = STYLE_NAMES[type];
-      if (text !== texts[i]) p.insertText(text, Word.InsertLocation.replace);
+      if (text !== texts[i]) setParagraphText(p, text);
       stats.paragraphs++;
     }
     await context.sync();
-
-    // Word refuses to delete the very last paragraph of a body.
     const last = items[items.length - 1];
     for (const p of toDelete) {
       if (p === last) continue;
@@ -450,7 +410,6 @@ export async function formatDocument() {
   return stats;
 }
 
-// Page numbers top right, Courier 12, followed by a period, from page 2.
 export async function addPageNumbers() {
   if (!capabilities().fields) throw new Error('This version of Word cannot insert fields (WordApi 1.5 needed).');
   await Word.run(async (context) => {
@@ -469,40 +428,6 @@ export async function addPageNumbers() {
     const dot = p.insertText('.', Word.InsertLocation.end);
     dot.font.name = FONT;
     dot.font.size = FONT_SIZE;
-    await context.sync();
-  });
-}
-
-// A quick check for the sample document button: is the body empty?
-export async function bodyIsEmpty() {
-  let empty = true;
-  await Word.run(async (context) => {
-    const body = context.document.body;
-    body.load('text');
-    await context.sync();
-    empty = !body.text.trim();
-  });
-  return empty;
-}
-
-export async function insertSample() {
-  const lines = [
-    ['SCENE_HEADING', 'INT. KITCHEN - NIGHT'],
-    ['ACTION', 'JULES, 30s, stands at the sink. The tap drips. She does not turn it off.'],
-    ['CHARACTER', 'JULES'],
-    ['PARENTHETICAL', '(without turning)'],
-    ['DIALOGUE', 'You said midnight.'],
-    ['CHARACTER', 'MARC'],
-    ['DIALOGUE', 'I said around midnight.'],
-    ['ACTION', 'She turns off the tap. Silence.'],
-    ['TRANSITION', 'CUT TO:'],
-  ];
-  await Word.run(async (context) => {
-    const body = context.document.body;
-    for (const [type, text] of lines) {
-      const p = body.insertParagraph(text, Word.InsertLocation.end);
-      p.style = STYLE_NAMES[type];
-    }
     await context.sync();
   });
 }
