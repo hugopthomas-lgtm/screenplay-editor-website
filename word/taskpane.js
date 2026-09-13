@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.0.2';
+const VERSION = '2.1.0';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -38,8 +38,15 @@ const ACTIONS = {
   SE_CyclePrev: () => Promise.resolve(),
   SE_FormatDocument: () => runFormat(),
 };
+// Ribbon buttons, context menu items and keyboard shortcuts all land here.
+// A ribbon command hands us an event that must be completed, or Word keeps
+// the button busy.
 for (const [id, fn] of Object.entries(ACTIONS)) {
-  try { Office.actions.associate(id, () => fn().catch(() => {})); } catch (_e) { /* no shared runtime */ }
+  try {
+    Office.actions.associate(id, (event) => fn().catch(() => {}).finally(() => {
+      try { if (event && typeof event.completed === 'function') event.completed(); } catch (_e) { /* not a ribbon event */ }
+    }));
+  } catch (_e) { /* no shared runtime */ }
 }
 
 // ---------------------------------------------------------------------------

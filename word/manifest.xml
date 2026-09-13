@@ -7,11 +7,11 @@
   xsi:type="TaskPaneApp">
 
   <Id>b8a418ae-2054-45ba-920a-446ab4ec3680</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.1.0.0</Version>
   <ProviderName>Hugo Thomas</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Screenplay Editor"/>
-  <Description DefaultValue="Write a screenplay in Word. Six industry-standard styles, smart Enter, keyboard shortcuts, one-click formatting of a whole script."/>
+  <Description DefaultValue="Write a screenplay in Word. Six industry-standard styles, smart Enter and Tab, keyboard shortcuts, one-click formatting of a whole script."/>
   <IconUrl DefaultValue="https://screenplayeditor.app/word/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://screenplayeditor.app/word/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://screenplayeditor.app/word"/>
@@ -50,6 +50,8 @@
             <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
           </GetStarted>
           <FunctionFile resid="Taskpane.Url"/>
+
+          <!-- The rail, in the ribbon: six elements, the flame, the pane. -->
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabHome">
               <Group id="SE.Group">
@@ -59,23 +61,105 @@
                   <bt:Image size="32" resid="Icon.32"/>
                   <bt:Image size="80" resid="Icon.80"/>
                 </Icon>
+                <Control xsi:type="Button" id="SE.Btn.SceneHeading">
+                  <Label resid="SceneHeading.Label"/>
+                  <Supertip><Title resid="SceneHeading.Label"/><Description resid="SceneHeading.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="I.SH.16"/><bt:Image size="32" resid="I.SH.32"/><bt:Image size="80" resid="I.SH.80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>SE_SceneHeading</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="SE.Btn.Action">
+                  <Label resid="Action.Label"/>
+                  <Supertip><Title resid="Action.Label"/><Description resid="Action.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="I.AC.16"/><bt:Image size="32" resid="I.AC.32"/><bt:Image size="80" resid="I.AC.80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>SE_Action</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="SE.Btn.Character">
+                  <Label resid="Character.Label"/>
+                  <Supertip><Title resid="Character.Label"/><Description resid="Character.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="I.CH.16"/><bt:Image size="32" resid="I.CH.32"/><bt:Image size="80" resid="I.CH.80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>SE_Character</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="SE.Btn.Parenthetical">
+                  <Label resid="Parenthetical.Label"/>
+                  <Supertip><Title resid="Parenthetical.Label"/><Description resid="Parenthetical.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="I.PA.16"/><bt:Image size="32" resid="I.PA.32"/><bt:Image size="80" resid="I.PA.80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>SE_Parenthetical</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="SE.Btn.Dialogue">
+                  <Label resid="Dialogue.Label"/>
+                  <Supertip><Title resid="Dialogue.Label"/><Description resid="Dialogue.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="I.DI.16"/><bt:Image size="32" resid="I.DI.32"/><bt:Image size="80" resid="I.DI.80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>SE_Dialogue</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="SE.Btn.Transition">
+                  <Label resid="Transition.Label"/>
+                  <Supertip><Title resid="Transition.Label"/><Description resid="Transition.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="I.TR.16"/><bt:Image size="32" resid="I.TR.32"/><bt:Image size="80" resid="I.TR.80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>SE_Transition</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Button" id="SE.Btn.Format">
+                  <Label resid="Format.Label"/>
+                  <Supertip><Title resid="Format.Label"/><Description resid="Format.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="I.FO.16"/><bt:Image size="32" resid="I.FO.32"/><bt:Image size="80" resid="I.FO.80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>SE_FormatDocument</FunctionName></Action>
+                </Control>
                 <Control xsi:type="Button" id="SE.Open">
                   <Label resid="Open.Label"/>
-                  <Supertip>
-                    <Title resid="Open.Label"/>
-                    <Description resid="Open.Tooltip"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="Icon.16"/>
-                    <bt:Image size="32" resid="Icon.32"/>
-                    <bt:Image size="80" resid="Icon.80"/>
-                  </Icon>
-                  <Action xsi:type="ShowTaskpane">
-                    <SourceLocation resid="Taskpane.Url"/>
-                  </Action>
+                  <Supertip><Title resid="Open.Label"/><Description resid="Open.Tooltip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.16"/><bt:Image size="32" resid="Icon.32"/><bt:Image size="80" resid="Icon.80"/></Icon>
+                  <Action xsi:type="ShowTaskpane"><SourceLocation resid="Taskpane.Url"/></Action>
                 </Control>
               </Group>
             </OfficeTab>
+          </ExtensionPoint>
+
+          <!-- Right click on a line: the six elements. -->
+          <ExtensionPoint xsi:type="ContextMenu">
+            <OfficeMenu id="ContextMenuText">
+              <Control xsi:type="Menu" id="SE.Ctx">
+                <Label resid="Group.Label"/>
+                <Supertip><Title resid="Group.Label"/><Description resid="Ctx.Tip"/></Supertip>
+                <Icon><bt:Image size="16" resid="Icon.16"/><bt:Image size="32" resid="Icon.32"/><bt:Image size="80" resid="Icon.80"/></Icon>
+                <Items>
+                  <Item id="SE.Ctx.SceneHeading">
+                    <Label resid="SceneHeading.Label"/>
+                    <Supertip><Title resid="SceneHeading.Label"/><Description resid="SceneHeading.Tip"/></Supertip>
+                    <Icon><bt:Image size="16" resid="I.SH.16"/><bt:Image size="32" resid="I.SH.32"/><bt:Image size="80" resid="I.SH.80"/></Icon>
+                    <Action xsi:type="ExecuteFunction"><FunctionName>SE_SceneHeading</FunctionName></Action>
+                  </Item>
+                  <Item id="SE.Ctx.Action">
+                    <Label resid="Action.Label"/>
+                    <Supertip><Title resid="Action.Label"/><Description resid="Action.Tip"/></Supertip>
+                    <Icon><bt:Image size="16" resid="I.AC.16"/><bt:Image size="32" resid="I.AC.32"/><bt:Image size="80" resid="I.AC.80"/></Icon>
+                    <Action xsi:type="ExecuteFunction"><FunctionName>SE_Action</FunctionName></Action>
+                  </Item>
+                  <Item id="SE.Ctx.Character">
+                    <Label resid="Character.Label"/>
+                    <Supertip><Title resid="Character.Label"/><Description resid="Character.Tip"/></Supertip>
+                    <Icon><bt:Image size="16" resid="I.CH.16"/><bt:Image size="32" resid="I.CH.32"/><bt:Image size="80" resid="I.CH.80"/></Icon>
+                    <Action xsi:type="ExecuteFunction"><FunctionName>SE_Character</FunctionName></Action>
+                  </Item>
+                  <Item id="SE.Ctx.Parenthetical">
+                    <Label resid="Parenthetical.Label"/>
+                    <Supertip><Title resid="Parenthetical.Label"/><Description resid="Parenthetical.Tip"/></Supertip>
+                    <Icon><bt:Image size="16" resid="I.PA.16"/><bt:Image size="32" resid="I.PA.32"/><bt:Image size="80" resid="I.PA.80"/></Icon>
+                    <Action xsi:type="ExecuteFunction"><FunctionName>SE_Parenthetical</FunctionName></Action>
+                  </Item>
+                  <Item id="SE.Ctx.Dialogue">
+                    <Label resid="Dialogue.Label"/>
+                    <Supertip><Title resid="Dialogue.Label"/><Description resid="Dialogue.Tip"/></Supertip>
+                    <Icon><bt:Image size="16" resid="I.DI.16"/><bt:Image size="32" resid="I.DI.32"/><bt:Image size="80" resid="I.DI.80"/></Icon>
+                    <Action xsi:type="ExecuteFunction"><FunctionName>SE_Dialogue</FunctionName></Action>
+                  </Item>
+                  <Item id="SE.Ctx.Transition">
+                    <Label resid="Transition.Label"/>
+                    <Supertip><Title resid="Transition.Label"/><Description resid="Transition.Tip"/></Supertip>
+                    <Icon><bt:Image size="16" resid="I.TR.16"/><bt:Image size="32" resid="I.TR.32"/><bt:Image size="80" resid="I.TR.80"/></Icon>
+                    <Action xsi:type="ExecuteFunction"><FunctionName>SE_Transition</FunctionName></Action>
+                  </Item>
+                </Items>
+              </Control>
+            </OfficeMenu>
           </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
@@ -85,6 +169,27 @@
         <bt:Image id="Icon.16" DefaultValue="https://screenplayeditor.app/word/assets/icon-16.png"/>
         <bt:Image id="Icon.32" DefaultValue="https://screenplayeditor.app/word/assets/icon-32.png"/>
         <bt:Image id="Icon.80" DefaultValue="https://screenplayeditor.app/word/assets/icon-80.png"/>
+        <bt:Image id="I.SH.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-SCENE_HEADING-16.png"/>
+        <bt:Image id="I.SH.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-SCENE_HEADING-32.png"/>
+        <bt:Image id="I.SH.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-SCENE_HEADING-80.png"/>
+        <bt:Image id="I.AC.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-ACTION-16.png"/>
+        <bt:Image id="I.AC.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-ACTION-32.png"/>
+        <bt:Image id="I.AC.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-ACTION-80.png"/>
+        <bt:Image id="I.CH.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-CHARACTER-16.png"/>
+        <bt:Image id="I.CH.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-CHARACTER-32.png"/>
+        <bt:Image id="I.CH.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-CHARACTER-80.png"/>
+        <bt:Image id="I.PA.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-PARENTHETICAL-16.png"/>
+        <bt:Image id="I.PA.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-PARENTHETICAL-32.png"/>
+        <bt:Image id="I.PA.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-PARENTHETICAL-80.png"/>
+        <bt:Image id="I.DI.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-DIALOGUE-16.png"/>
+        <bt:Image id="I.DI.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-DIALOGUE-32.png"/>
+        <bt:Image id="I.DI.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-DIALOGUE-80.png"/>
+        <bt:Image id="I.TR.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-TRANSITION-16.png"/>
+        <bt:Image id="I.TR.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-TRANSITION-32.png"/>
+        <bt:Image id="I.TR.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-TRANSITION-80.png"/>
+        <bt:Image id="I.FO.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-FORMAT-16.png"/>
+        <bt:Image id="I.FO.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-FORMAT-32.png"/>
+        <bt:Image id="I.FO.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-FORMAT-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Taskpane.Url" DefaultValue="https://screenplayeditor.app/word/taskpane.html"/>
@@ -92,12 +197,27 @@
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="Group.Label" DefaultValue="Screenplay"/>
-        <bt:String id="Open.Label" DefaultValue="Screenplay Editor"/>
+        <bt:String id="Open.Label" DefaultValue="Panel"/>
         <bt:String id="GetStarted.Title" DefaultValue="Screenplay Editor is ready"/>
+        <bt:String id="SceneHeading.Label" DefaultValue="Scene Heading"/>
+        <bt:String id="Action.Label" DefaultValue="Action"/>
+        <bt:String id="Character.Label" DefaultValue="Character"/>
+        <bt:String id="Parenthetical.Label" DefaultValue="Parenthetical"/>
+        <bt:String id="Dialogue.Label" DefaultValue="Dialogue"/>
+        <bt:String id="Transition.Label" DefaultValue="Transition"/>
+        <bt:String id="Format.Label" DefaultValue="Format"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="Open.Tooltip" DefaultValue="Open the Screenplay Editor panel: elements, shortcuts and one-click formatting."/>
-        <bt:String id="GetStarted.Description" DefaultValue="Open the panel from the Home tab, then write. Enter after a character name gives you dialogue."/>
+        <bt:String id="Open.Tooltip" DefaultValue="Open the Screenplay Editor panel: the pill, the rail, page numbers, paper size."/>
+        <bt:String id="GetStarted.Description" DefaultValue="Six elements in the Home tab. Enter after a character name gives you dialogue, Tab switches the element."/>
+        <bt:String id="SceneHeading.Tip" DefaultValue="INT. / EXT. line. Shortcut: Alt+1 (Option+1 on Mac)."/>
+        <bt:String id="Action.Tip" DefaultValue="Description. Shortcut: Alt+2 (Option+2 on Mac)."/>
+        <bt:String id="Character.Tip" DefaultValue="Who speaks. Shortcut: Alt+3 (Option+3 on Mac)."/>
+        <bt:String id="Parenthetical.Tip" DefaultValue="(how the line is said). Shortcut: Alt+4 (Option+4 on Mac)."/>
+        <bt:String id="Dialogue.Tip" DefaultValue="What is said. Shortcut: Alt+5 (Option+5 on Mac)."/>
+        <bt:String id="Transition.Tip" DefaultValue="CUT TO:, FADE OUT. Shortcut: Alt+6 (Option+6 on Mac)."/>
+        <bt:String id="Format.Tip" DefaultValue="Format the whole document as a screenplay. Shortcut: Ctrl+Shift+F (Shift+Cmd+F on Mac)."/>
+        <bt:String id="Ctx.Tip" DefaultValue="Set the element of this line."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
