@@ -12,7 +12,7 @@ import {
 } from './word-adapter.js';
 
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '1.2.0';
+const VERSION = '1.2.1';
 
 const $ = (id) => document.getElementById(id);
 
@@ -193,10 +193,16 @@ function paintActive(type) {
 // ---------------------------------------------------------------------------
 // Plumbing
 // ---------------------------------------------------------------------------
+const _log = [];
 function setStatus(text, kind) {
   const el = $('status');
   el.textContent = text || '';
   el.className = 'status' + (kind ? ' ' + kind : '');
+  if (text) {
+    _log.push(text);
+    while (_log.length > 10) _log.shift();
+    $('log').textContent = _log.join('\n');
+  }
 }
 
 function friendly(e) {

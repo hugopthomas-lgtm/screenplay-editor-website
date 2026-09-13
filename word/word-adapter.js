@@ -40,6 +40,7 @@ let _instantBusy = false;
 let _instantPending = false;
 let _instantOn = false;
 let _selCount = 0;
+let _lastSig = '';
 
 export function startInstantWriting(onChange, onDiag) {
   if (_instantOn) return true;
@@ -78,6 +79,11 @@ async function instantCheck() {
     const text = p.text || '';
     const type = elementFromStyleName(p.style);
     painted = type;
+    const sig = JSON.stringify([text, p.style, p.firstLineIndent]);
+    if (sig !== _lastSig) {
+      _lastSig = sig;
+      diag('sel ' + _selCount + ': ' + JSON.stringify(text.slice(0, 20)) + ' ' + (type || p.style) + ' fli=' + p.firstLineIndent);
+    }
 
     // 1. A Tab. Either Word kept it as a character, or its AutoFormat turned
     //    it into a first-line indent (all our styles sit at 0).
@@ -222,6 +228,7 @@ async function smartTab(id) {
     await context.sync();
     if (p.tableNestingLevel > 0) return;
     const text = p.text || '';
+    diag('chg ' + _liveCount.tab + ': ' + JSON.stringify(text.slice(0, 20)) + ' ' + (elementFromStyleName(p.style) || p.style));
     if (text.charAt(0) !== '\t') return;
 
     const rest = text.slice(1);
