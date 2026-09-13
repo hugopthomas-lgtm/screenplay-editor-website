@@ -151,6 +151,7 @@ async function smartTab(id) {
     }
     applied = to || type;
     await context.sync();
+    diag('Tab ' + _liveCount.tab + ': ' + type + (to ? ' → ' + to : ' (no change)'));
   });
   if (applied && _onLiveChange) _onLiveChange(applied);
 }
