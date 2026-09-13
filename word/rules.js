@@ -222,6 +222,33 @@ export function classifyParagraphs(texts) {
   return out;
 }
 
+// Live writing (the Final Draft feel). Called when the user presses Enter on a
+// line: decide, from the line's text and its current element, whether the
+// line must change element. Returns the new element, or null to leave it as it
+// is. Only STRONG signals act here, because this runs on every Enter and a
+// wrong guess costs more than a missed one:
+//   - a scene heading or a transition always wins, whatever the style;
+//   - a standalone (parenthetical) is a Parenthetical;
+//   - a short ALL CAPS line typed as Action (or in plain Normal) is a Character;
+//   - anything typed in Normal (no element yet) becomes Action.
+export function liveDetect(text, currentType) {
+  const t = cleanText(text);
+  if (!t) return null;
+  if (isSceneHeading(t)) return currentType === 'SCENE_HEADING' ? null : 'SCENE_HEADING';
+  if (isTransition(t)) return currentType === 'TRANSITION' ? null : 'TRANSITION';
+  if (isStandaloneParenthetical(t)) return currentType === 'PARENTHETICAL' ? null : 'PARENTHETICAL';
+  if (!currentType || currentType === 'ACTION') {
+    const lettersOnly = t.replace(/[^a-zA-ZÀ-ÿ]/g, '');
+    const endsWithPunctuation = /[.!?]\s*$/.test(t);
+    if (isAllCaps(t) && lettersOnly.length >= 2 && t.length < 65 && !endsWithPunctuation
+        && !/\b(SONNERIE|SILENCE|BANG|BRUIT|NOIR|FLASH|FONDU|CUT|FADE|GROS PLAN|INSERT)\b/.test(t)) {
+      return 'CHARACTER';
+    }
+  }
+  if (!currentType) return 'ACTION';
+  return null;
+}
+
 // The element to switch to when the user asks for "next type" on a line.
 export function cycleNext(type, lineEmpty) {
   if (lineEmpty) return EMPTY_TAB[type] || null;
