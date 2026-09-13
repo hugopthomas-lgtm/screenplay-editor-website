@@ -12,9 +12,11 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.0.0';
+const VERSION = '2.0.1';
 
 const $ = (id) => document.getElementById(id);
+// Keycap look of the pill (declared before Office.onReady can fire).
+const KEYCAP = 'display:inline-block;background:#fff;border:1px solid #e4e6ea;border-radius:6px;box-shadow:0 1px 0 rgba(16,24,40,0.04);padding:2px 8px;margin:0 6px;font-size:11px;font-weight:500;color:#3c4043;line-height:1.35;';
 
 let isMac = false;
 let stylesReady = false;
@@ -170,7 +172,6 @@ function nudgeRail() {
 // ---------------------------------------------------------------------------
 // The pill: tinted badge + « Press Enter for X · Press Tab for Y ».
 // ---------------------------------------------------------------------------
-const KEYCAP = 'display:inline-block;background:#fff;border:1px solid #e4e6ea;border-radius:6px;box-shadow:0 1px 0 rgba(16,24,40,0.04);padding:2px 8px;margin:0 6px;font-size:11px;font-weight:500;color:#3c4043;line-height:1.35;';
 
 function buildPill() {
   const pill = $('pill');
