@@ -11,7 +11,7 @@ import {
 } from './word-adapter.js';
 
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '1.1.0';
+const VERSION = '1.1.1';
 
 const $ = (id) => document.getElementById(id);
 
@@ -48,6 +48,7 @@ Office.onReady(async (info) => {
   isMac = Office.context.platform === Office.PlatformType.Mac;
   paper = loadPaper();
   $('paper').value = paper;
+  document.querySelector('.version').textContent = 'v' + VERSION;
   paintShortcuts();
   wireUi();
   track('sidebar_open');
@@ -59,13 +60,13 @@ Office.onReady(async (info) => {
       setStatus('Styles are in. This Word cannot chain them, so Enter will not switch elements by itself.', 'error');
     } else {
       const fresh = await startEmptyDocument();
-      const live = await startLiveWriting((type) => paintActive(type));
+      const live = await startLiveWriting((type) => paintActive(type), (msg) => setStatus(msg, 'ok'));
       if (live) {
         setStatus(fresh
           ? 'Ready. Type a scene heading, Enter, then write. Tab on a new line switches the element.'
           : 'Ready. Enter and Tab work like Final Draft. Format document fixes an existing script.', 'ok');
       } else {
-        setStatus('Styles are in. Write, or press Format document on an existing script.', 'ok');
+        setStatus('Styles are in. This Word does not expose paragraph events, so Enter only follows the chained styles.', 'ok');
       }
     }
   } catch (e) {

@@ -40,10 +40,15 @@ export function capabilities() {
 // ---------------------------------------------------------------------------
 let _liveHandlers = null;
 let _onLiveChange = null;
+let _onDiag = null;
+let _liveCount = { enter: 0, tab: 0 };
 
-export async function startLiveWriting(onChange) {
+function diag(msg) { if (_onDiag) { try { _onDiag(msg); } catch (_e) { /* ui gone */ } } }
+
+export async function startLiveWriting(onChange, onDiag) {
   if (!capabilities().live || _liveHandlers) return !!_liveHandlers;
   _onLiveChange = onChange || null;
+  _onDiag = onDiag || null;
   await Word.run(async (context) => {
     const added = context.document.onParagraphAdded.add(handleParagraphAdded);
     const changed = context.document.onParagraphChanged.add(handleParagraphChanged);
@@ -68,17 +73,23 @@ export async function stopLiveWriting() {
 
 async function handleParagraphAdded(ev) {
   if (ev.source === 'Remote') return;
+  _liveCount.enter++;
   for (const id of ev.uniqueLocalIds || []) {
-    try { await smartEnter(id); } catch (_e) { /* paragraph already gone */ }
+    try { await smartEnter(id); }
+    catch (e) { diag('Enter ' + _liveCount.enter + ': ' + ((e && (e.message || e.code)) || e)); }
   }
 }
 
 async function handleParagraphChanged(ev) {
   if (ev.source === 'Remote') return;
+  _liveCount.tab++;
   for (const id of ev.uniqueLocalIds || []) {
-    try { await smartTab(id); } catch (_e) { /* paragraph already gone */ }
+    try { await smartTab(id); }
+    catch (e) { diag('Change ' + _liveCount.tab + ': ' + ((e && (e.message || e.code)) || e)); }
   }
 }
+
+export function liveCounts() { return { ..._liveCount }; }
 
 async function smartEnter(id) {
   let applied = null;
@@ -108,6 +119,7 @@ async function smartEnter(id) {
     if (!cleanText(p.text) && p.style !== want) p.style = want;
     applied = NEXT_MODE[finalPrev];
     await context.sync();
+    diag('Enter ' + _liveCount.enter + ': "' + prevText.slice(0, 24) + '" ' + (prevType || 'Normal') + ' → ' + finalPrev + ', next ' + applied);
   });
   if (applied && _onLiveChange) _onLiveChange(applied);
 }
