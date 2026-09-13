@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.0.1';
+const VERSION = '2.0.2';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -178,9 +178,9 @@ function buildPill() {
   pill.innerHTML = `
     <span id="pill-badge" style="display:inline-block;font-weight:600;font-size:10.5px;letter-spacing:0.7px;text-transform:uppercase;padding:4px 10px;border-radius:7px;min-width:128px;text-align:center;box-sizing:border-box;overflow:hidden;perspective:70px;transition:background-color 0.18s ease,color 0.18s ease;"><span id="pill-badge-text" style="display:inline-block;"></span></span>
     <span id="pill-hints" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 0;margin-top:8px;min-height:22px;">
-      <span id="pill-enter" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Press </span><span style="${KEYCAP}">Enter</span><span style="color:#9aa0ac;"> for </span><span id="pill-enter-target" style="color:#202124;font-weight:500;"></span></span>
-      <span id="pill-scene" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Write </span><span style="${KEYCAP}">INT.</span><span style="color:#9aa0ac;"> or </span><span style="${KEYCAP}">EXT.</span><span style="color:#9aa0ac;"> for a scene heading</span></span>
-      <span id="pill-tab" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Press </span><span style="${KEYCAP}">Tab</span><span style="color:#9aa0ac;"> for </span><span id="pill-tab-target" style="color:#202124;font-weight:500;"></span></span>
+      <span id="pill-enter" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Press </span><span style="${KEYCAP}">Enter</span><span style="color:#9aa0ac;">for&nbsp;</span><span id="pill-enter-target" style="color:#202124;font-weight:500;"></span></span>
+      <span id="pill-scene" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Write </span><span style="${KEYCAP}">INT.</span><span style="color:#9aa0ac;">or</span><span style="${KEYCAP}">EXT.</span><span style="color:#9aa0ac;">for a scene heading</span></span>
+      <span id="pill-tab" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Press </span><span style="${KEYCAP}">Tab</span><span style="color:#9aa0ac;">for&nbsp;</span><span id="pill-tab-target" style="color:#202124;font-weight:500;"></span></span>
     </span>`;
 }
 
