@@ -5,21 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=4.0.2"></script>
+  <script src="engine.js?v=4.1.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=4.0.2">
-  <link rel="stylesheet" href="word.css?v=4.0.2">
+  <link rel="stylesheet" href="panel.css?v=4.1.0">
+  <link rel="stylesheet" href="word.css?v=4.1.0">
 </head>
 <body>
   <div class="screens-container">
   <div class="screen" id="screen-main">
   <div class="header" style="display:flex;align-items:center;justify-content:space-between;">
     <div class="header-title">scrrrr<span class="brand-dot">.</span></div>
-    <div class="header-right" style="display:flex;align-items:center;gap:8px;">
+    <div class="header-right" style="display:flex;align-items:center;gap:10px;">
+      <span class="se-plan" id="se-plan">Pro</span>
       <button id="feedback-header-btn" data-se="feedback" title="Send feedback" style="background:none;border:none;cursor:pointer;padding:6px;color:#9ca3af;display:flex;align-items:center;">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8"/><path d="M8 13h6"/><path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z"/></svg>
       </button>
@@ -69,9 +70,9 @@
     </div>
 
     <div class="se-title">Page</div>
-    <div class="format-scope-row">
-      <button class="format-scope" id="btn-title-page" data-se="titlepage"><i class="ti ti-file-description"></i><span>Title page</span></button>
-      <div class="format-scope se-mini-host"><i class="ti ti-hash"></i><span>Scenes</span><span class="se-minis"><button class="se-mini" data-se="sn-add" title="Add scene numbers"><i class="ti ti-plus"></i></button><button class="se-mini" data-se="sn-remove" title="Remove scene numbers"><i class="ti ti-minus"></i></button></span></div>
+    <div class="se-tiles">
+      <button class="se-tile" id="btn-title-page" data-se="titlepage"><span class="pro-badge">[pro]</span><i class="ti ti-file-description"></i><span class="se-tile-lb">Title Page</span></button>
+      <div class="se-tile" id="btn-scene-numbers"><span class="pro-badge">[pro]</span><i class="ti ti-hash"></i><span class="se-tile-lb">Scene Numbers</span><div class="se-tile-minis"><button class="se-mini" data-se="sn-add" title="Add scene numbers"><i class="ti ti-plus"></i></button><button class="se-mini" data-se="sn-remove" title="Remove scene numbers"><i class="ti ti-minus"></i></button></div></div>
     </div>
     <div class="format-scope-row se-word-row">
       <button class="format-scope" id="btn-pages" data-se="pages"><i class="ti ti-hash"></i><span>Page numbers</span></button>
@@ -338,6 +339,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=4.0.2"></script>
+  <script type="module" src="taskpane.js?v=4.1.0"></script>
 </body>
 </html>
