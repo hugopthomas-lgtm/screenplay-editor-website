@@ -22,6 +22,10 @@ html, body { height: auto; min-height: 0; overflow: auto; background: var(--g-gr
 body { height: auto; overflow-y: auto; }
 .screens-container, .screen { position: static; height: auto; overflow: visible; background: var(--g-ground); }
 .screens-container { display: flex; flex-direction: column; min-height: 100vh; position: relative; }
+/* Hugo's idea (15/09): black at the top, the light gray reached by the tiles. */
+.screens-container { background: linear-gradient(180deg, #141416 0px, #141416 40px, var(--g-ground) 150px, var(--g-ground) 100%) !important; }
+.screen#screen-main { background: transparent !important; }
+.tab-panels-footer { background: transparent !important; }
 .screen#screen-main { padding: 12px 14px 0; flex: 0 0 auto; height: auto !important; min-height: 0 !important; max-height: none !important; background: var(--g-ground); }
 .tab-panels, #panel-home { flex: 0 0 auto !important; }
 .tab-panels, .tab-panel { background: transparent !important; }
@@ -29,7 +33,7 @@ body { height: auto; overflow-y: auto; }
 
 /* ---- the header: the extension's black band, as a rounded card ---- */
 #screen-main .header {
-  background: #000; border-radius: 14px; border: none;
+  background: #000; border-radius: 14px; border: none; box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
   padding: 10px 16px 9px; margin: 0 0 8px;
 }
 #screen-main .header-title { color: #fff; font-size: 17px; }
