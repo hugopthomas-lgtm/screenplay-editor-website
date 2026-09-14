@@ -57,8 +57,8 @@ body::after {
 /* The pill, exactly the one floating over the page in Google Docs: white,
    soft shadow, tinted badge, white keycaps with a hairline border, dividers. */
 .pill {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 0;
-  padding: 8px 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 10px 10px 12px;
   border-radius: 12px;
   background: #fff;
   color: #6b7280;
@@ -74,14 +74,10 @@ body::after {
   transition: background-color 0.18s ease, color 0.18s ease;
 }
 .pill-badge-text { display: inline-block; }
-.pill-hints { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; }
+.pill-hints { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 100%; }
 .pill-hint { display: inline-flex; align-items: center; white-space: nowrap; color: #9aa0ac; }
 .pill-hint[hidden] { display: none; }
 .pill-hint b { font-weight: 500; color: #202124; margin-left: 4px; }
-.pill-hint::before {
-  content: ''; display: inline-block; width: 1px; height: 16px;
-  background: rgba(16,24,40,0.09); border-radius: 1px; margin: 0 14px;
-}
 .pill-hint .pill-kbd {
   display: inline-block; background: #fff; border: 1px solid #e4e6ea; border-radius: 6px;
   box-shadow: 0 1px 0 rgba(16,24,40,0.04); padding: 2px 8px; margin: 0 6px;
