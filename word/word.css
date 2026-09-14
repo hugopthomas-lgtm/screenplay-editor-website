@@ -22,7 +22,7 @@
 }
 
 /* ---- the column: the height of the pane, nothing scrolls ---- */
-html, body { height: auto; min-height: 0; overflow: auto; background: var(--g-ground); color: var(--g-ink); font-weight: 400; }
+html, body { height: auto; min-height: 0; min-width: 0; width: auto; overflow: auto; background: var(--g-ground); color: var(--g-ink); font-weight: 400; }
 body { height: auto; overflow-y: auto; letter-spacing: -0.005em; }
 .screens-container, .screen { position: static; height: auto; overflow: visible; background: var(--g-ground); }
 .screens-container { display: flex; flex-direction: column; min-height: 100vh; position: relative; }
@@ -48,6 +48,7 @@ body { height: auto; overflow-y: auto; letter-spacing: -0.005em; }
 
 /* ---- what Enter and Tab will do: two lines, always reserved ---- */
 .se-hint-row { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin: 0 2px 10px; min-height: 46px; box-sizing: border-box; font-size: 12.5px; color: var(--g-muted); }
+#pill-hints { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
 .se-hint { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .se-hint b { color: var(--g-ink); font-weight: 500; }
 .se-key {
