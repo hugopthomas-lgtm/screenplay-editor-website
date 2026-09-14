@@ -32,52 +32,42 @@
     .story .aside { display: block; font-size: 14px; color: #6b6b6b; margin-top: 6px; }
     .team { max-width: 1240px; margin: 0 auto; padding: 24px 30px 30px; }
     .team h2 { font-size: 38px; font-weight: 700; color: var(--violet); margin: 0 0 14px; letter-spacing: -0.02em; text-align: center; }
-    .team-note { font-size: 16px; line-height: 1.75; color: #6b6b6b; margin: 0 auto 20px; max-width: 560px; text-align: center; text-wrap: balance; }
-    /* Disposition en desordre organique, comme Arc Studio : des cercles poses a
-       des hauteurs differentes plutot qu'une grille reguliere. */
-    .team-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 0 26px; }
-    /* Chaque portrait porte son propre diametre (--d) : c'est la variation de
-       taille qui fait le desordre voulu, la grille reguliere faisait trombinoscope.
-       A deux portraits (520 px dans la gouttiere de 1240), le seul travail du CSS
-       est d'empecher la paire symetrique : un diametre plus gros a gauche, un
-       decalage vers le bas a droite. */
-    .member { width: var(--d); --d: 230px; }
-    .member--xl { --d: 258px; }
-    .member--lg { --d: 236px; }
-    .member--drop1 { margin-top: 22px; }
-    /* object-position remonte le cadrage : dans un cercle, un visage place haut
-       se fait rogner par le bas du cadre carre. 30 % vise les yeux. */
-    .member-avatar, .member-initials { width: var(--d); height: var(--d); border-radius: 50%; object-fit: cover; object-position: center 30%; display: block; }
-    .member-initials { display: flex; align-items: center; justify-content: center;
-      background: rgba(157,123,234,0.12); color: var(--violet); font-size: 48px; font-weight: 700; letter-spacing: 1px; }
-    /* La carte chevauche le bas du cercle : c'est ce qui fait toute la signature. */
+    .team-note { font-size: 16px; line-height: 1.75; color: #6b6b6b; margin: 0 auto 30px; max-width: 560px; text-align: center; text-wrap: balance; }
+    /* Les ronds facon Arc Studio sont tombes le 14/09/2026 : a deux, deux cercles
+       cote a cote font paire de medaillons. Deux portraits verticaux poses comme
+       des photos de casting, legende alignee a gauche dessous, repondent a la
+       grande photo de Hugo juste au-dessus. */
+    .team-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px 56px; }
+    .member { width: 300px; }
+    /* height: auto est obligatoire : les attributs width/height du <img> passent
+       en hints de presentation, et sans ca le 750 de l'attribut gagne sur
+       aspect-ratio. */
+    .member-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 28%;
+      border-radius: 18px; display: block; box-shadow: 0 18px 44px rgba(0,0,0,0.13), 0 4px 10px rgba(0,0,0,0.06); }
     /* Un tapis rouge d'un cote, un portrait de studio tres retouche de l'autre :
        les deux photos sont calmees pour qu'elles se repondent au lieu de se
        disputer. On ne va pas jusqu'au noir et blanc. */
-    .member-avatar[src*="thibault"] { filter: saturate(0.55); }
-    .member-avatar[src*="claude"] { filter: saturate(0.78); }
-    .member-card { position: relative; margin: -38px auto 0; width: calc(var(--d) - 26px); background: #fff; border-radius: 12px;
-      padding: 12px 10px; text-align: center; box-shadow: 0 8px 26px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.05); }
-    .member-name { font-size: 16px; font-weight: 700; color: var(--violet); }
+    .member-photo[src*="thibault"] { filter: saturate(0.55); object-position: center 34%; }
+    .member-photo[src*="claude"] { filter: saturate(0.78); }
+    .member-name { font-size: 18px; font-weight: 700; color: var(--violet); margin-top: 18px; }
     .member-name a { color: inherit; text-decoration: none; }
     .member-name a:hover { text-decoration: underline; }
-    /* hyphens: auto coupait "Partenaire du lance-ment arabe" en plein milieu.
-       On casse aux espaces ; overflow-wrap reste le filet pour un mot trop long. */
-    .member-role { font-size: 14px; font-weight: 700; color: var(--dark); margin-top: 2px; hyphens: manual; overflow-wrap: anywhere; }
-    .member-credit { font-size: 14px; color: #6b6b6b; margin-top: 2px; }
+    .member-role { font-size: 14px; font-weight: 700; color: var(--dark); margin-top: 3px; }
+    .member-credit { font-size: 14px; line-height: 1.5; color: #6b6b6b; margin-top: 4px; }
+    /* Drapeau, ville, Instagram : la ligne qui dit d'ou ils ecrivent et ou les
+       trouver. Les drapeaux sont des SVG en ligne, pas des emoji : Windows ne
+       dessine pas les emoji de drapeau, il affiche les deux lettres du pays. */
+    .member-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin-top: 11px; font-size: 13px; color: #8a8a8a; }
+    .member-meta svg { display: block; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,0.10); }
+    .member-meta a { color: var(--violet); text-decoration: none; }
+    .member-meta a:hover { text-decoration: underline; }
+    .member-meta .sep { color: #cfcfcf; }
     @media (max-width: 820px) {
       .team h2 { font-size: 28px; }
-      /* A deux cote a cote dans 400 px, on obtenait deux cercles de 150 px sous
-         des cartes presque aussi larges qu'eux, et chaque descriptif tombait sur
-         cinq lignes. On empile : un portrait par ligne, plus gros, et la carte
-         a la place de respirer. */
-      .team-grid { flex-direction: column; align-items: center; gap: 30px 0; }
-      .member, .member--xl, .member--lg { --d: 220px; }
-      .member-initials { font-size: 34px; }
-      .member-card { margin-top: -34px; }
-      .member--drop1 { margin-top: 0; }
+      .team-grid { gap: 36px; }
+      .member { width: min(300px, 100%); }
     }
-    @media (max-width: 800px) { .team-grid { gap: 22px; } .story { padding: 6px 24px 0; } .team { padding: 32px 24px 6px; } }
+    @media (max-width: 800px) { .story { padding: 6px 24px 0; } .team { padding: 32px 24px 6px; } }
     .bio { max-width: 1240px; margin: 0 auto; padding: 66px 30px 20px; display: grid; grid-template-columns: 340px 1fr; gap: 74px; align-items: start; }
     .bio p { max-width: 62ch; }
     .bio-photo { position: sticky; top: 100px; }
@@ -126,25 +116,23 @@
     <section class="team scroll-fade">
       <h2>L’équipe</h2>
       <p class="team-note">J’écris toujours le code moi-même. Eux deux me disent quand je me trompe, sur le métier et sur l’édition arabe.</p>
-      <!-- Deux portraits, deux diametres et un decalage vertical : a deux, une
-           paire de cercles identiques et alignes ferait photo d'identite. -->
+      <!-- Deux portraits verticaux, legende alignee a gauche dessous : drapeau,
+           ville, Instagram. Les ronds sont tombes le 14/09/2026. -->
 
       <div class="team-grid">
-        <div class="member member--xl">
-          <img class="member-avatar" src="/team-claude.jpg" alt="Claude Saliba">
-          <div class="member-card">
-            <div class="member-name"><a href="https://www.claudesaliba.com" target="_blank" rel="noopener">Claude Saliba</a></div>
-            <div class="member-role">Partenaire du lancement arabe</div>
-            <div class="member-credit">Scénariste, influenceuse cinéma et enseignante, Beyrouth</div>
-          </div>
+        <div class="member">
+          <img class="member-photo" src="/team-claude.jpg" alt="Claude Saliba" width="600" height="750">
+          <div class="member-name"><a href="https://www.claudesaliba.com" target="_blank" rel="noopener">Claude Saliba</a></div>
+          <div class="member-role">Partenaire du lancement arabe</div>
+          <div class="member-credit">Scénariste, influenceuse cinéma et enseignante</div>
+          <div class="member-meta"><svg width="20" height="14" viewBox="0 0 30 20" role="img" aria-label="Liban"><rect width="30" height="20" fill="#fff"/><rect width="30" height="5" fill="#ee161f"/><rect y="15" width="30" height="5" fill="#ee161f"/><path fill="#00a850" d="M15 6l-2.8 3.4h5.6zM15 8l-4.4 3.6h8.8zM15 10l-6 4h12zM14.3 13.5h1.4v1.6h-1.4z"/></svg><span>Beyrouth</span><span class="sep">·</span><a href="https://www.instagram.com/claude_salibas/" target="_blank" rel="noopener">@claude_salibas</a></div>
         </div>
-        <div class="member member--lg member--drop1">
-          <img class="member-avatar" src="/team-thibault.jpg" alt="Thibault Segouin">
-          <div class="member-card">
-            <div class="member-name">Thibault Segouin</div>
-            <div class="member-role">Conseil éditorial</div>
-            <div class="member-credit">Scénariste, réalisateur et metteur en scène de théâtre, Paris</div>
-          </div>
+        <div class="member">
+          <img class="member-photo" src="/team-thibault.jpg" alt="Thibault Segouin" width="460" height="460">
+          <div class="member-name"><a href="https://www.instagram.com/thibaultsegouin/" target="_blank" rel="noopener">Thibault Segouin</a></div>
+          <div class="member-role">Conseil éditorial</div>
+          <div class="member-credit">Scénariste, réalisateur et metteur en scène de théâtre</div>
+          <div class="member-meta"><svg width="20" height="14" viewBox="0 0 30 20" role="img" aria-label="France"><rect width="10" height="20" fill="#002654"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ce1126"/></svg><span>Paris</span><span class="sep">·</span><a href="https://www.instagram.com/thibaultsegouin/" target="_blank" rel="noopener">@thibaultsegouin</a></div>
         </div>
       </div>
     </section>
