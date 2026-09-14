@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.2.4';
+const VERSION = '3.0.0';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -56,13 +56,14 @@ Office.onReady(async (info) => {
   if (info.host !== Office.HostType.Word) {
     // Design preview in a plain browser: ?preview=MODE
     const m = new URLSearchParams(location.search).get('preview');
-    if (m) { isMac = true; buildRail(); buildPill(); wireUi(); paintMode(m, false, false); return; }
+    if (m) { isMac = true; buildRail(); buildPill(); wireUi(); paintMode(m, false, false); $('log').hidden = true; return; }
     setStatus('Screenplay Editor runs in Word.', 'error');
     return;
   }
   isMac = Office.context.platform === Office.PlatformType.Mac;
   paper = loadPaper();
   $('paper').value = paper;
+  document.querySelectorAll('.paper-opt').forEach((b) => b.classList.toggle('active', b.dataset.paper === paper));
   buildRail();
   buildPill();
   wireUi();
@@ -113,80 +114,38 @@ function onLiveChange(type, what) {
 // active one an anthracite pill pushed toward the text.
 // ---------------------------------------------------------------------------
 function buildRail() {
-  const S = E.RAIL_STYLE;
   const rail = $('rail');
-  rail.style.cssText = S.container + `display:flex;flex-direction:column;align-items:center;gap:${S.gap}px;`;
-  const labels = $('rail-labels');
-  labels.innerHTML = '';
   rail.innerHTML = '';
   const mod = isMac ? '⌥' : 'Alt+';
   for (const item of E.RAIL_ITEMS) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'rail-btn';
-    btn.dataset.mode = item.mode;
-    btn.title = item.label + ' (' + mod + item.key + ')';
-    btn.style.cssText = `all:unset;display:flex;align-items:center;justify-content:center;cursor:pointer;`
-      + `transition:background 0.15s ease,color 0.15s ease,transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94),box-shadow 0.15s ease;`
-      + `width:${S.btnBox}px;height:${S.btnBox}px;border-radius:${S.radius}px;color:${S.inactiveColor};`;
-    btn.innerHTML = iconFor(item.mode, S.svgSize);
-    btn.addEventListener('mousedown', (e) => e.preventDefault());
-    btn.addEventListener('click', (e) => { e.preventDefault(); runElement(item.mode, 'rail'); });
-    btn.addEventListener('mouseenter', () => { if (btn.dataset.active !== '1') { btn.style.color = S.hoverColor; btn.style.transform = 'translateX(6px) scale(1.12)'; } });
-    btn.addEventListener('mouseleave', () => { if (btn.dataset.active !== '1') { btn.style.color = S.inactiveColor; btn.style.transform = 'translateX(0) scale(1)'; } });
-    rail.appendChild(btn);
-
-    const lab = document.createElement('button');
-    lab.type = 'button';
-    lab.className = 'rail-label';
-    lab.dataset.mode = item.mode;
-    lab.style.height = (S.btnBox + S.gap) + 'px';
-    lab.innerHTML = `<span class="rail-label-text">${item.label}</span><kbd>${mod}${item.key}</kbd>`;
-    lab.addEventListener('mousedown', (e) => e.preventDefault());
-    lab.addEventListener('click', (e) => { e.preventDefault(); runElement(item.mode, 'rail'); });
-    labels.appendChild(lab);
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'write-sc';
+    row.dataset.mode = item.mode;
+    row.title = item.label;
+    row.innerHTML = `<span class="help-kbd"><span class="help-kbd-mod">${mod}</span>${item.key}</span><span class="write-sc-label">${item.label}</span>`;
+    row.addEventListener('mousedown', (e) => e.preventDefault());
+    row.addEventListener('click', (e) => { e.preventDefault(); runElement(item.mode, 'rail'); });
+    rail.appendChild(row);
   }
 }
 
-function iconFor(mode, size) {
-  const svg = E.MODE_ICONS[mode];
-  if (svg) return svg.replace(/width="24" height="24"/, `width="${size}" height="${size}"`);
-  // ACTION: the skateboarder, a PNG used as a mask so it takes currentColor.
-  return `<span style="display:block;width:${size}px;height:${size}px;background-color:currentColor;`
-    + `mask:url(assets/skateboarding.png) center/contain no-repeat;-webkit-mask:url(assets/skateboarding.png) center/contain no-repeat;"></span>`;
-}
-
 function highlightRail(mode) {
-  const S = E.RAIL_STYLE;
-  document.querySelectorAll('.rail-btn').forEach((btn) => {
-    const on = btn.dataset.mode === mode;
-    btn.dataset.active = on ? '1' : '0';
-    btn.style.transform = on ? `translateX(${S.activeShift}px) scale(${S.activeScale})` : 'translateX(0) scale(1)';
-    btn.style.background = on ? S.activeBg : 'transparent';
-    btn.style.color = on ? S.activeColor : S.inactiveColor;
-    btn.style.borderRadius = (on ? S.activeRadius : S.radius) + 'px';
-    btn.style.boxShadow = on ? S.activeShadow : 'none';
-    btn.style.cursor = on ? 'default' : 'pointer';
-    btn.style.pointerEvents = on ? 'none' : 'auto';
-  });
-  document.querySelectorAll('.rail-label').forEach((l) => l.classList.toggle('active', l.dataset.mode === mode));
+  document.querySelectorAll('.write-sc').forEach((row) => row.classList.toggle('active', row.dataset.mode === mode));
 }
 
-// The extension's nudge: a violet halo that breathes twice, and a wave down the tiles.
+// The extension's nudge on an empty line + Enter: the rail breathes violet.
 function nudgeRail() {
   const rail = $('rail');
   try {
     rail.animate([
-      { transform: 'scale(1)', filter: 'drop-shadow(0 0 0 rgba(124,58,237,0))' },
-      { transform: 'scale(1.06)', filter: 'drop-shadow(0 0 13px rgba(124,58,237,0.8))', offset: 0.4 },
-      { transform: 'scale(1)', filter: 'drop-shadow(0 0 0 rgba(124,58,237,0))' },
+      { filter: 'drop-shadow(0 0 0 rgba(124,58,237,0))' },
+      { filter: 'drop-shadow(0 0 13px rgba(124,58,237,0.8))', offset: 0.4 },
+      { filter: 'drop-shadow(0 0 0 rgba(124,58,237,0))' },
     ], { duration: 850, easing: 'cubic-bezier(0.33, 1, 0.68, 1)', iterations: 2 });
-    rail.querySelectorAll(':scope > *').forEach((k, i) => {
-      k.animate([
-        { filter: 'none' },
-        { filter: 'drop-shadow(0 0 7px rgba(124,58,237,0.95)) saturate(1.6)' },
-        { filter: 'none' },
-      ], { duration: 380, delay: 110 * i, easing: 'ease-in-out' });
+    rail.querySelectorAll('.help-kbd').forEach((k, i) => {
+      k.animate([{ filter: 'none' }, { filter: 'drop-shadow(0 0 7px rgba(124,58,237,0.95)) saturate(1.6)' }, { filter: 'none' }],
+        { duration: 380, delay: 110 * i, easing: 'ease-in-out' });
     });
   } catch (_e) { /* no Web Animations */ }
 }
@@ -196,13 +155,12 @@ function nudgeRail() {
 // ---------------------------------------------------------------------------
 
 function buildPill() {
-  const pill = $('pill');
-  pill.innerHTML = `
-    <span id="pill-badge" style="display:inline-block;font-weight:600;font-size:10.5px;letter-spacing:0.7px;text-transform:uppercase;padding:4px 10px;border-radius:7px;min-width:128px;text-align:center;box-sizing:border-box;overflow:hidden;perspective:70px;transition:background-color 0.18s ease,color 0.18s ease;"><span id="pill-badge-text" style="display:inline-block;"></span></span>
-    <span id="pill-hints" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 0;margin-top:8px;min-height:22px;">
-      <span id="pill-enter" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Press </span><span style="${KEYCAP}">Enter</span><span style="color:#9aa0ac;">for&nbsp;</span><span id="pill-enter-target" style="color:#202124;font-weight:500;"></span></span>
-      <span id="pill-scene" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Write </span><span style="${KEYCAP}">INT.</span><span style="color:#9aa0ac;">or</span><span style="${KEYCAP}">EXT.</span><span style="color:#9aa0ac;">for a scene heading</span></span>
-      <span id="pill-tab" style="display:none;align-items:center;white-space:nowrap;"><span style="color:#9aa0ac;">Press </span><span style="${KEYCAP}">Tab</span><span style="color:#9aa0ac;">for&nbsp;</span><span id="pill-tab-target" style="color:#202124;font-weight:500;"></span></span>
+  $('pill').innerHTML = `
+    <span class="pill-badge" id="pill-badge"><span class="pill-badge-text" id="pill-badge-text"></span></span>
+    <span class="pill-hints" id="pill-hints">
+      <span class="pill-hint" id="pill-enter" hidden>Press <span class="help-kbd">Enter</span> for <b id="pill-enter-target"></b></span>
+      <span class="pill-hint" id="pill-scene" hidden>Write <span class="help-kbd">INT.</span> or <span class="help-kbd">EXT.</span> for a scene heading</span>
+      <span class="pill-hint" id="pill-tab" hidden>Press <span class="help-kbd">Tab</span> for <b id="pill-tab-target"></b></span>
     </span>`;
 }
 
@@ -210,14 +168,15 @@ function paintPill(mode, lineEmpty, animate) {
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
   const badge = $('pill-badge');
   const txt = $('pill-badge-text');
-  badge.style.backgroundColor = c.colors.tint;
-  badge.style.color = c.colors.ink;
+  // On the dark ground the extension uses the bright gradient of the element.
+  badge.style.background = c.colors.grad;
+  badge.style.boxShadow = `0 4px 14px rgba(${c.colors.glow}, 0.35)`;
   if (animate && txt.textContent && txt.textContent !== c.label) rollBadge(txt, c.label);
   else txt.textContent = c.label;
-  $('pill-enter').style.display = c.enter ? 'inline-flex' : 'none';
+  $('pill-enter').hidden = !c.enter;
   $('pill-enter-target').textContent = c.enter ? E.MODE_LABELS[c.enter] : '';
-  $('pill-scene').style.display = c.scene ? 'inline-flex' : 'none';
-  $('pill-tab').style.display = c.tab ? 'inline-flex' : 'none';
+  $('pill-scene').hidden = !c.scene;
+  $('pill-tab').hidden = !c.tab;
   $('pill-tab-target').textContent = c.tab ? E.MODE_LABELS[c.tab] : '';
 }
 
@@ -244,14 +203,6 @@ function paintMode(mode, lineEmpty, animate) {
   uiEmpty = !!lineEmpty;
   highlightRail(mode);
   paintPill(mode, uiEmpty, animate && changed);
-  if (changed && mode) {
-    const btn = document.querySelector(`.rail-btn[data-mode="${mode}"]`);
-    if (btn) {
-      const S = E.RAIL_STYLE;
-      btn.style.transform = `translateX(${S.activeShift}px) scale(1.18)`;
-      setTimeout(() => { btn.style.transform = `translateX(${S.activeShift}px) scale(${S.activeScale})`; }, 180);
-    }
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -266,9 +217,11 @@ function wireUi() {
       track('scene_numbers', { what: 'page_numbers' });
     } catch (e) { setStatus(friendly(e), 'error'); }
   });
+  document.querySelectorAll('.paper-opt').forEach((b) => b.addEventListener('click', () => { $('paper').value = b.dataset.paper; $('paper').dispatchEvent(new Event('change')); }));
   $('paper').addEventListener('change', async (e) => {
     paper = e.target.value;
     savePaper(paper);
+    document.querySelectorAll('.paper-opt').forEach((b) => b.classList.toggle('active', b.dataset.paper === paper));
     try {
       await ensureStyles(paper);
       setStatus(paper === 'A4' ? 'Indents set for A4.' : 'Indents set for US Letter.', 'ok');
@@ -345,6 +298,7 @@ async function devPoll() {
   } catch (e) {
     result = 'ERR ' + ((e && (e.message || e.code)) || e) + ' ' + JSON.stringify((e && e.debugInfo) || null);
   }
+  $('log').hidden = false;
   setStatus('dev ' + c.id + ': ' + String(result).slice(0, 120), 'ok');
   try { await devSetProp('se_dev', c.id + ' ' + result); } catch (_e) { /* no props */ }
 }

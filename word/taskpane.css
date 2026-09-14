@@ -1,126 +1,160 @@
+/* Screenplay Editor for Word — the pane, in the extension's own design system
+   (sidepanel.html, dark mode): deep grey ground, black header, violet accent,
+   flat cards with a faint violet border, keycaps in JetBrains Mono. */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --violet: #a78bfa;
+  --violet-hover: #c4b5fd;
   --violet-dark: #7c3aed;
-  --bg: #F9F9FB;
-  --ink: #1c1c1e;
-  --ink-2: #6b6b72;
+  --violet-glow: rgba(167, 139, 250, 0.15);
+  --text: #ffffff;
+  --text-secondary: #a8a8b0;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-bg-hover: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(167, 139, 250, 0.12);
+  --card-border-hover: rgba(167, 139, 250, 0.25);
+  --card-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 html, body { height: 100%; }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 12px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  font-weight: 200;
+  font-size: 13px;
   letter-spacing: -0.01em;
-  background: var(--bg);
-  color: var(--ink);
   line-height: 1.4;
+  background-color: #28282a;
+  color: var(--text);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+/* Subtle noise grain, like the extension. */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9998; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
 }
 
+/* Header: black, the wordmark. */
 .header {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 6px;
+  display: flex; align-items: baseline; gap: 8px;
   padding: 14px 16px 12px;
-  background: #fff;
+  background: #000;
 }
-.header-title { font-size: 19px; font-weight: 700; letter-spacing: -0.3px; }
+.header-title { font-size: 19px; font-weight: 700; letter-spacing: -0.3px; color: #fff; }
 .brand-dot { color: var(--violet); }
-.header-sub { font-size: 11px; font-weight: 500; color: var(--ink-2); }
+.header-sub { font-size: 11px; font-weight: 400; color: var(--text-secondary); }
 
-.screen { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 20px; }
+.screen { flex: 1; padding: 16px; display: flex; flex-direction: column; }
 
-/* The pill: white card, same shadow as the rail, badge on top, hints below. */
+/* The pill: badge + what Enter and Tab will do. */
 .pill {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 12px 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 14px 12px 13px;
   border-radius: 12px;
-  background: #fff;
-  color: #6b7280;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.05);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 14px;
 }
+.pill-badge {
+  display: inline-block;
+  font-weight: 600; font-size: 10.5px; letter-spacing: 0.7px; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 7px; min-width: 128px; text-align: center;
+  color: #fff; overflow: hidden; perspective: 70px;
+  transition: background 0.18s ease;
+}
+.pill-badge-text { display: inline-block; }
+.pill-hints { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-size: 12px; color: var(--text-secondary); min-height: 22px; }
+.pill-hint { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.pill-hint b { font-weight: 500; color: var(--text); }
 
-/* The rail and its labels side by side. */
-.rail-row { display: flex; align-items: flex-start; gap: 14px; padding-left: 4px; }
-.rail-labels { display: flex; flex-direction: column; padding-top: 6px; }
-.rail-label {
-  appearance: none;
-  border: none;
-  background: none;
-  font: inherit;
-  color: #9ca3af;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-width: 190px;
-  padding: 0 6px;
-  border-radius: 6px;
-  cursor: pointer;
-  text-align: left;
-  transition: color 0.15s ease, background 0.12s ease;
+/* Keycaps, as in the extension's help. */
+.help-kbd {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  font-size: 11px; font-weight: 600;
+  color: var(--text);
+  background: rgba(128, 128, 128, 0.16);
+  border-radius: 6px; padding: 3px 8px;
+  white-space: nowrap;
 }
-.rail-label:hover { color: var(--ink); background: rgba(0,0,0,0.04); }
-.rail-label.active { color: var(--ink); font-weight: 600; }
-.rail-label kbd { font-family: inherit; font-size: 10.5px; font-weight: 500; color: #c4c4cc; }
-.rail-label.active kbd { color: #9ca3af; }
+.help-kbd-mod { opacity: 0.7; }
 
-/* Tools */
-.tools { display: flex; flex-direction: column; gap: 6px; }
-.tool {
-  appearance: none;
-  border: none;
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px 12px;
-  font: inherit;
-  font-weight: 500;
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.12s ease, transform 0.08s ease;
+/* The primary card: Format document, violet. */
+.hero-card {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; text-align: left;
+  padding: 16px 14px; border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  color: #fff; font-family: inherit; cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.30), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  margin-bottom: 22px;
 }
-.tool:hover { background: #f1effb; }
-.tool:active { transform: scale(0.99); }
-.tool[disabled] { opacity: 0.5; cursor: default; }
-.tool-label { flex: 1; }
-.tool kbd { font-family: inherit; font-size: 10.5px; font-weight: 500; color: #9ca3af; }
-.flame {
-  display: block; width: 16px; height: 16px; background-color: #8b5cf6;
-  mask: url(assets/flame.png) center/contain no-repeat;
-  -webkit-mask: url(assets/flame.png) center/contain no-repeat;
-}
-.tool-icon { width: 16px; text-align: center; color: #8b5cf6; font-weight: 700; }
+.hero-card:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 6px 22px rgba(139, 92, 246, 0.35), 0 2px 6px rgba(0, 0, 0, 0.3); }
+.hero-card:active { transform: translateY(0); }
+.hero-card[disabled] { opacity: 0.7; cursor: default; }
+.hero-card-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 52px; height: 52px; }
+.hero-card-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.hero-card-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.hero-card-desc { font-size: 11px; font-weight: 200; color: rgba(255, 255, 255, 0.85); }
+.hero-kbd { font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; font-size: 9px; font-weight: 500; color: rgba(255, 255, 255, 0.85); }
 
-.row { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px 0; }
-.paper-label { color: var(--ink-2); }
-.paper {
-  font: inherit;
-  color: var(--ink);
-  background: #fff;
-  border: none;
+/* Elements: the rail, as the extension's shortcuts grid, but each row is live. */
+.write-shortcuts { margin-bottom: 18px; }
+.write-shortcuts-title { font-size: 13px; font-weight: 600; color: var(--text); margin: 0 4px 12px; }
+.write-shortcuts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 14px; padding: 0 4px; }
+.write-sc {
+  all: unset;
+  display: flex; align-items: center; gap: 8px;
+  font-family: inherit; font-size: 12px; font-weight: 300; color: var(--text-secondary);
+  cursor: pointer; border-radius: 8px; padding: 2px 4px 2px 2px; margin: -2px -4px -2px -2px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.write-sc:hover { color: var(--text); background: rgba(255, 255, 255, 0.04); }
+.write-sc .help-kbd { min-width: 30px; text-align: center; transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
+.write-sc.active { color: var(--text); font-weight: 500; }
+.write-sc.active .help-kbd { background: var(--violet); color: #fff; transform: scale(1.06); }
+
+/* Two cards, like Title Page and Scene Numbers in the extension. */
+.format-grid-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px; margin-bottom: 16px; }
+.format-tile {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 6px;
+  padding: 14px 4px 12px; min-height: 78px;
   border-radius: 8px;
-  padding: 6px 10px;
-  cursor: pointer;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  color: #aeaeb2; font-family: inherit; font-size: 11px; font-weight: 300; letter-spacing: 0.2px;
+  cursor: pointer; transition: background 0.18s ease, border-color 0.18s ease;
 }
+.format-tile:hover { background: var(--card-bg-hover); border-color: var(--card-border-hover); }
+.format-tile-paper { cursor: default; }
+.format-tile-icon { font-size: 22px; font-weight: 700; color: var(--violet); line-height: 1; }
+.format-tile-label { color: #aeaeb2; }
+.paper-toggle { display: flex; gap: 4px; margin-top: 2px; }
+.paper-opt {
+  all: unset; cursor: pointer;
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; font-size: 10px; font-weight: 600;
+  color: #b0b0b5; background: rgba(128, 128, 128, 0.16); border-radius: 6px; padding: 4px 9px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.paper-opt:hover { color: var(--violet-hover); background: rgba(167, 139, 250, 0.12); }
+.paper-opt.active { color: var(--violet-hover); background: rgba(167, 139, 250, 0.18); }
 
-.status { color: var(--ink-2); min-height: 17px; }
-.status.ok { color: var(--violet-dark); }
-.status.error { color: #b42318; }
-.log { font: 10.5px/1.5 ui-monospace, Menlo, monospace; color: #b4b4bc; white-space: pre-wrap; word-break: break-all; }
+.status { font-size: 11px; font-weight: 500; color: var(--text-secondary); min-height: 16px; text-align: center; padding: 0 4px; }
+.status.ok { color: var(--violet-hover); }
+.status.error { color: #f87171; }
+.log { margin-top: 8px; font: 10px/1.5 "JetBrains Mono", Menlo, monospace; color: #6e6e73; white-space: pre-wrap; word-break: break-all; }
 
-.footer { display: flex; justify-content: space-between; padding: 10px 16px 12px; font-size: 11px; color: #9ca3af; }
+.footer { display: flex; justify-content: space-between; padding: 10px 16px 12px; font-size: 11px; color: #6e6e73; }
 .footer a { color: inherit; text-decoration: none; }
-.footer a:hover { color: var(--ink); }
+.footer a:hover { color: var(--violet-hover); }
