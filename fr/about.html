@@ -34,36 +34,27 @@
     .team h2 { font-size: 38px; font-weight: 700; color: var(--violet); margin: 0 0 14px; letter-spacing: -0.02em; text-align: center; }
     .team-note { font-size: 16px; line-height: 1.75; color: #6b6b6b; margin: 0 auto 20px; max-width: 560px; text-align: center; text-wrap: balance; }
     /* Disposition en desordre organique, comme Arc Studio : des cercles poses a
-       des hauteurs differentes plutot qu'une grille reguliere. Les decalages sont
-       portes par nth-child pour rester lisibles. */
+       des hauteurs differentes plutot qu'une grille reguliere. */
     .team-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 0 26px; }
     /* Chaque portrait porte son propre diametre (--d) : c'est la variation de
-       taille qui fait le desordre voulu, la grille reguliere faisait trombinoscope. */
+       taille qui fait le desordre voulu, la grille reguliere faisait trombinoscope.
+       A deux portraits (520 px dans la gouttiere de 1240), le seul travail du CSS
+       est d'empecher la paire symetrique : un diametre plus gros a gauche, un
+       decalage vers le bas a droite. */
     .member { width: var(--d); --d: 230px; }
     .member--xl { --d: 258px; }
-    .member--lg { --d: 220px; }
-    .member--md { --d: 200px; }
-    .member--sm { --d: 184px; }
+    .member--lg { --d: 236px; }
     .member--drop1 { margin-top: 22px; }
-    .member--drop2 { margin-top: 54px; }
-    .member--drop3 { margin-top: 40px; }
-    /* A cinq, les portraits tiennent encore sur une seule ligne (1112 px dans
-       la gouttiere de 1240) : c'est pour cela que les diametres ont ete reduits
-       en septembre 2026 a l'arrivee de Claude. Le desordre tient aux diametres
-       et aux hauteurs. Un sixieme portrait repasserait a la ligne tout seul. */
-    .member--up { margin-top: 12px; }
     /* object-position remonte le cadrage : dans un cercle, un visage place haut
        se fait rogner par le bas du cadre carre. 30 % vise les yeux. */
     .member-avatar, .member-initials { width: var(--d); height: var(--d); border-radius: 50%; object-fit: cover; object-position: center 30%; display: block; }
     .member-initials { display: flex; align-items: center; justify-content: center;
       background: rgba(157,123,234,0.12); color: var(--violet); font-size: 48px; font-weight: 700; letter-spacing: 1px; }
     /* La carte chevauche le bas du cercle : c'est ce qui fait toute la signature. */
-    /* Le fond de tapis rouge de Thibault hurlait a cote de quatre photos
-       naturelles. On le calme sans virer la photo en noir et blanc. */
+    /* Un tapis rouge d'un cote, un portrait de studio tres retouche de l'autre :
+       les deux photos sont calmees pour qu'elles se repondent au lieu de se
+       disputer. On ne va pas jusqu'au noir et blanc. */
     .member-avatar[src*="thibault"] { filter: saturate(0.55); }
-    /* Meme raison pour Claude : un portrait de studio tres retouche a cote de
-       quatre photos prises dehors. On baisse juste assez pour qu'il rentre dans
-       la rangee sans avoir l'air d'une image de banque. */
     .member-avatar[src*="claude"] { filter: saturate(0.78); }
     .member-card { position: relative; margin: -38px auto 0; width: calc(var(--d) - 26px); background: #fff; border-radius: 12px;
       padding: 12px 10px; text-align: center; box-shadow: 0 8px 26px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.05); }
@@ -76,12 +67,15 @@
     .member-credit { font-size: 14px; color: #6b6b6b; margin-top: 2px; }
     @media (max-width: 820px) {
       .team h2 { font-size: 28px; }
-      .member, .member--xl, .member--lg, .member--md, .member--sm { --d: 150px; }
+      /* A deux cote a cote dans 400 px, on obtenait deux cercles de 150 px sous
+         des cartes presque aussi larges qu'eux, et chaque descriptif tombait sur
+         cinq lignes. On empile : un portrait par ligne, plus gros, et la carte
+         a la place de respirer. */
+      .team-grid { flex-direction: column; align-items: center; gap: 30px 0; }
+      .member, .member--xl, .member--lg { --d: 220px; }
       .member-initials { font-size: 34px; }
-      /* Cartes un peu plus larges qu'en grand format : a 150 px de diametre,
-         "Industry advisor" et "Arabic Launch Partner" se coupaient en trois. */
-      .member-card { margin-top: -28px; width: calc(var(--d) - 8px); }
-      .member--drop1, .member--drop2, .member--drop3 { margin-top: 0; }
+      .member-card { margin-top: -34px; }
+      .member--drop1 { margin-top: 0; }
     }
     @media (max-width: 800px) { .team-grid { gap: 22px; } .story { padding: 6px 24px 0; } .team { padding: 32px 24px 6px; } }
     .bio { max-width: 1240px; margin: 0 auto; padding: 66px 30px 20px; display: grid; grid-template-columns: 340px 1fr; gap: 74px; align-items: start; }
@@ -131,44 +125,25 @@
 
     <section class="team scroll-fade">
       <h2>L’équipe</h2>
-      <p class="team-note">Ça fait un moment que je ne suis plus seul dessus. Voilà les gens qui le fabriquent avec moi.</p>
-      <!-- Quatre portraits sur une ligne, des diametres differents : la variation
-           de taille et les decalages verticaux evitent le trombinoscope. -->
+      <p class="team-note">J’écris toujours le code moi-même. Eux deux me disent quand je me trompe, sur le métier et sur l’édition arabe.</p>
+      <!-- Deux portraits, deux diametres et un decalage vertical : a deux, une
+           paire de cercles identiques et alignes ferait photo d'identite. -->
+
       <div class="team-grid">
-        <div class="member member--lg">
-          <img class="member-avatar" src="/team-jonathan.jpg" alt="Jonathan">
-          <div class="member-card">
-            <div class="member-name">Jonathan</div>
-            <div class="member-role">Développement</div>
-          </div>
-        </div>
-        <div class="member member--sm member--drop2">
-          <img class="member-avatar" src="/team-claire.jpg" alt="Claire">
-          <div class="member-card">
-            <div class="member-name">Claire</div>
-            <div class="member-role">Développement</div>
-          </div>
-        </div>
-        <div class="member member--md member--up">
+        <div class="member member--xl">
           <img class="member-avatar" src="/team-claude.jpg" alt="Claude Saliba">
           <div class="member-card">
             <div class="member-name"><a href="https://www.claudesaliba.com" target="_blank" rel="noopener">Claude Saliba</a></div>
             <div class="member-role">Partenaire du lancement arabe</div>
-            <div class="member-credit">Scénariste et enseignante, Beyrouth</div>
-          </div>
-        </div>
-        <div class="member member--sm member--drop3">
-          <img class="member-avatar" src="/team-paul.jpg" alt="Paul">
-          <div class="member-card">
-            <div class="member-name">Paul</div>
-            <div class="member-role">Design</div>
+            <div class="member-credit">Scénariste, influenceuse cinéma et enseignante, Beyrouth</div>
           </div>
         </div>
         <div class="member member--lg member--drop1">
-          <img class="member-avatar" src="/team-thibault.jpg" alt="Thibault">
+          <img class="member-avatar" src="/team-thibault.jpg" alt="Thibault Segouin">
           <div class="member-card">
-            <div class="member-name">Thibault</div>
+            <div class="member-name">Thibault Segouin</div>
             <div class="member-role">Conseil éditorial</div>
+            <div class="member-credit">Scénariste, réalisateur et metteur en scène de théâtre, Paris</div>
           </div>
         </div>
       </div>
