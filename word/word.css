@@ -5,6 +5,10 @@ body { height: auto; overflow-y: auto; }
 /* The pane is a column the height of the viewport: the panels take what they
    need, the footer sits at the bottom when there is room, nothing scrolls. */
 .screens-container { display: flex; flex-direction: column; min-height: 100vh; }
+/* One background for the whole column (the extension paints it on the screen,
+   which here stops at the last card): the gradient ends on the footer's gray. */
+body.dark-mode .screens-container { background: linear-gradient(180deg, #1f1f21 0%, #36363a 80%, #36363a 100%); }
+body.dark-mode .screen#screen-main { background: transparent; }
 .screen#screen-main { padding: 16px 16px 0; flex: 0 0 auto; height: auto !important; min-height: 0 !important; max-height: none !important; }
 #screen-main .header { padding-top: 10px; padding-bottom: 10px; }
 .tab-panels, #panel-home { flex: 0 0 auto !important; }
@@ -23,8 +27,8 @@ body { height: auto; overflow-y: auto; }
 /* Word row: page numbers, paper. Same family as Current scene / Selection. */
 .se-word-row { margin-top: 6px; margin-bottom: 10px; }
 .se-word-row .format-scope span { white-space: nowrap; }
-.se-paper { cursor: default; justify-content: flex-start; }
-.se-paper-opts { display: inline-flex; gap: 4px; margin-left: auto; }
+.se-paper { cursor: default; justify-content: flex-start; gap: 10px; }
+.se-paper-opts { display: inline-flex; gap: 4px; }
 .se-paper-opt {
   all: unset; cursor: pointer;
   font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 10px; font-weight: 500;
