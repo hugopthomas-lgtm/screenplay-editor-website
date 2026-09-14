@@ -5,54 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=2.2.4"></script>
+  <script src="engine.js?v=3.0.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="taskpane.css?v=2.2.4">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="taskpane.css?v=3.0.0">
 </head>
-<body>
+<body class="dark-mode">
   <div class="header">
-    <div class="header-title">Screenplay<span class="brand-dot">.</span></div>
+    <div class="header-title">scrrrr<span class="brand-dot">.</span></div>
     <div class="header-sub">for Word</div>
   </div>
 
   <main class="screen">
     <div class="pill" id="pill"></div>
 
-    <div class="rail-row">
-      <div id="rail"></div>
-      <div class="rail-labels" id="rail-labels"></div>
+    <button class="hero-card hero-card-primary" id="btn-format">
+      <span class="hero-card-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M9 9h1"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
+      </span>
+      <span class="hero-card-info">
+        <span class="hero-card-title">Format document <kbd class="hero-kbd" id="kbd-format"></kbd></span>
+        <span class="hero-card-desc">One click. Everything in its right place.</span>
+      </span>
+    </button>
+
+    <div class="write-shortcuts">
+      <div class="write-shortcuts-title">Elements</div>
+      <div class="write-shortcuts-grid" id="rail"></div>
     </div>
 
-    <div class="tools">
-      <button class="tool" id="btn-format">
-        <span class="flame"></span>
-        <span class="tool-label">Format my document</span>
-        <kbd id="kbd-format"></kbd>
+    <div class="format-grid-pair">
+      <button class="format-tile" id="btn-pages">
+        <span class="format-tile-icon">#</span>
+        <span class="format-tile-label">Page numbers</span>
       </button>
-      <button class="tool" id="btn-pages">
-        <span class="tool-icon">#</span>
-        <span class="tool-label">Page numbers</span>
-      </button>
-      <div class="row">
-        <label class="paper-label" for="paper">Paper</label>
-        <select id="paper" class="paper">
-          <option value="US">US Letter</option>
-          <option value="A4">A4</option>
-        </select>
+      <div class="format-tile format-tile-paper">
+        <span class="format-tile-label">Paper</span>
+        <div class="paper-toggle" id="paper-toggle">
+          <button type="button" class="paper-opt" data-paper="US">Letter</button>
+          <button type="button" class="paper-opt" data-paper="A4">A4</button>
+        </div>
+        <select id="paper" hidden><option value="US">US Letter</option><option value="A4">A4</option></select>
       </div>
     </div>
 
     <p class="status" id="status" aria-live="polite"></p>
-    <pre class="log" id="log"></pre>
+    <pre class="log" id="log" hidden></pre>
   </main>
 
   <footer class="footer">
     <a href="https://screenplayeditor.app" target="_blank" rel="noopener">screenplayeditor.app</a>
-    <span class="version" id="version">v2.2.4</span>
+    <span class="version" id="version">v3.0.0</span>
   </footer>
 
-  <script type="module" src="taskpane.js?v=2.2.4"></script>
+  <script type="module" src="taskpane.js?v=3.0.0"></script>
 </body>
 </html>
