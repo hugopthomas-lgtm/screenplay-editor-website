@@ -1,22 +1,24 @@
-// Screenplay Editor for Word — the pane: the pill and the rail of the
-// extension, hosted in Word's task pane, driven by the shared engine.
+// Screenplay Editor for Word — the pane. The markup and stylesheet are the
+// extension's own side panel (built by build-pane.py); this file wires its
+// controls to Word through word-adapter.js, on the shared engine.
 //
-// This page is also the add-in's shared runtime: the keyboard shortcuts of
-// shortcuts.json land here through Office.actions.associate.
+// This page is also the add-in's shared runtime: the ribbon buttons, the
+// context menu and the keyboard shortcuts land here through
+// Office.actions.associate.
 
 import { ELEMENTS } from './classifier.js';
 import {
   ensureStyles, applyElement, formatDocument, addPageNumbers,
-  currentElement, startLiveWriting, startEmptyDocument, selectionCount, spikeKeymap, liveCounts, capabilities,
+  currentElement, startLiveWriting, startEmptyDocument, liveCounts, capabilities,
+  formatScope, insertTitlePage, addSceneNumbers, removeSceneNumbers,
+  importFountainText, exportFountainText, docStats,
 } from './word-adapter.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '3.0.5';
+const VERSION = '3.1.0';
 
 const $ = (id) => document.getElementById(id);
-// Keycap look of the pill (declared before Office.onReady can fire).
-const KEYCAP = 'display:inline-block;background:#fff;border:1px solid #e4e6ea;border-radius:6px;box-shadow:0 1px 0 rgba(16,24,40,0.04);padding:2px 8px;margin:0 6px;font-size:11px;font-weight:500;color:#3c4043;line-height:1.35;';
 
 let isMac = false;
 let stylesReady = false;
@@ -25,7 +27,7 @@ let uiMode = null;
 let uiEmpty = true;
 
 // ---------------------------------------------------------------------------
-// Shortcuts → functions, registered before Office.onReady.
+// Ribbon, context menu, shortcuts → functions. Registered before Office.onReady.
 // ---------------------------------------------------------------------------
 const ACTIONS = {
   SE_SceneHeading: () => runElement('SCENE_HEADING', 'shortcut'),
@@ -38,9 +40,6 @@ const ACTIONS = {
   SE_CyclePrev: () => Promise.resolve(),
   SE_FormatDocument: () => runFormat(),
 };
-// Ribbon buttons, context menu items and keyboard shortcuts all land here.
-// A ribbon command hands us an event that must be completed, or Word keeps
-// the button busy.
 for (const [id, fn] of Object.entries(ACTIONS)) {
   try {
     Office.actions.associate(id, (event) => fn().catch(() => {}).finally(() => {
@@ -53,42 +52,37 @@ for (const [id, fn] of Object.entries(ACTIONS)) {
 // Boot
 // ---------------------------------------------------------------------------
 Office.onReady(async (info) => {
+  $('version').textContent = 'v' + VERSION;
   if (info.host !== Office.HostType.Word) {
-    // Design preview in a plain browser: ?preview=MODE
-    const m = new URLSearchParams(location.search).get('preview');
-    if (m) { isMac = true; buildRail(); buildPill(); wireUi(); paintMode(m, false, false); $('log').hidden = true; return; }
+    const q = new URLSearchParams(location.search);
+    const m = q.get('preview');
+    if (m) { isMac = true; buildRail(); buildPill(); wireUi(); paintMode(m, false, false); switchTab(q.get('tab') || 'home'); return; }
     setStatus('Screenplay Editor runs in Word.', 'error');
     return;
   }
   isMac = Office.context.platform === Office.PlatformType.Mac;
   paper = loadPaper();
-  $('paper').value = paper;
-  document.querySelectorAll('.paper-opt').forEach((b) => b.classList.toggle('active', b.dataset.paper === paper));
   buildRail();
   buildPill();
   wireUi();
+  paintPaper();
   track('sidebar_open');
   try { Office.addin.setStartupBehavior(Office.StartupBehavior.load); } catch (_e) { /* optional */ }
 
   try {
     const caps = await ensureStyles(paper);
     stylesReady = true;
-    if (!caps.chain) {
-      setStatus('Styles are in. This Word cannot chain them, so Enter will not switch elements by itself.', 'error');
-    } else {
-      await startEmptyDocument();
-      await startLiveWriting(onLiveChange, (msg) => setStatus(msg, 'ok'));
-    }
+    if (!caps.chain) setStatus('This Word cannot chain styles: Enter will not switch elements by itself.', 'error');
+    await startEmptyDocument();
+    await startLiveWriting(onLiveChange, () => {});
   } catch (e) {
     setStatus(friendly(e), 'error');
   }
-
   try {
     const cur = await currentElement();
     paintMode(cur.type, cur.empty, false);
   } catch (_e) { /* nothing selected yet */ }
-  setInterval(() => { $('version').textContent = 'v' + VERSION + ' · ' + selectionCount(); }, 1000);
-
+  refreshStats();
 });
 
 function onLiveChange(type, what) {
@@ -97,40 +91,49 @@ function onLiveChange(type, what) {
 }
 
 // ---------------------------------------------------------------------------
-// The rail (preset « color » of the extension): six monochrome tiles, the
-// active one an anthracite pill pushed toward the text.
+// Tabs
+// ---------------------------------------------------------------------------
+function switchTab(name) {
+  for (const t of ['home', 'studio', 'export']) {
+    const b = $('tab-btn-' + t); const p = $('panel-' + t);
+    if (b) b.classList.toggle('active', t === name);
+    if (p) p.classList.toggle('active', t === name);
+  }
+  track('tab_' + (name === 'home' ? 'home' : name === 'studio' ? 'tools' : 'export'));
+}
+
+// ---------------------------------------------------------------------------
+// The rail: the shortcuts grid of the extension, made live.
 // ---------------------------------------------------------------------------
 function buildRail() {
-  const rail = $('rail');
-  rail.innerHTML = '';
+  const rows = document.querySelectorAll('.write-shortcuts-grid .write-sc');
   const mod = isMac ? '⌥' : 'Alt+';
-  for (const item of E.RAIL_ITEMS) {
-    const row = document.createElement('button');
-    row.type = 'button';
-    row.className = 'write-sc';
+  E.RAIL_ITEMS.forEach((item, i) => {
+    const row = rows[i];
+    if (!row) return;
     row.dataset.mode = item.mode;
-    row.title = item.label;
-    row.innerHTML = `<span class="help-kbd"><span class="help-kbd-mod">${mod}</span>${item.key}</span><span class="write-sc-label">${item.label}</span>`;
+    row.setAttribute('role', 'button');
+    const modEl = row.querySelector('.help-kbd-mod');
+    if (modEl) modEl.textContent = mod;
     row.addEventListener('mousedown', (e) => e.preventDefault());
-    row.addEventListener('click', (e) => { e.preventDefault(); runElement(item.mode, 'rail'); });
-    rail.appendChild(row);
-  }
+    row.addEventListener('click', () => runElement(item.mode, 'rail'));
+  });
 }
 
 function highlightRail(mode) {
-  document.querySelectorAll('.write-sc').forEach((row) => row.classList.toggle('active', row.dataset.mode === mode));
+  document.querySelectorAll('.write-sc[data-mode]').forEach((row) => row.classList.toggle('active', row.dataset.mode === mode));
 }
 
-// The extension's nudge on an empty line + Enter: the rail breathes violet.
 function nudgeRail() {
-  const rail = $('rail');
+  const grid = document.querySelector('.write-shortcuts-grid');
+  if (!grid) return;
   try {
-    rail.animate([
+    grid.animate([
       { filter: 'drop-shadow(0 0 0 rgba(124,58,237,0))' },
       { filter: 'drop-shadow(0 0 13px rgba(124,58,237,0.8))', offset: 0.4 },
       { filter: 'drop-shadow(0 0 0 rgba(124,58,237,0))' },
     ], { duration: 850, easing: 'cubic-bezier(0.33, 1, 0.68, 1)', iterations: 2 });
-    rail.querySelectorAll('.help-kbd').forEach((k, i) => {
+    grid.querySelectorAll('.help-kbd').forEach((k, i) => {
       k.animate([{ filter: 'none' }, { filter: 'drop-shadow(0 0 7px rgba(124,58,237,0.95)) saturate(1.6)' }, { filter: 'none' }],
         { duration: 380, delay: 110 * i, easing: 'ease-in-out' });
     });
@@ -138,16 +141,15 @@ function nudgeRail() {
 }
 
 // ---------------------------------------------------------------------------
-// The pill: tinted badge + « Press Enter for X · Press Tab for Y ».
+// The pill: badge + what Enter and Tab will do.
 // ---------------------------------------------------------------------------
-
 function buildPill() {
   $('pill').innerHTML = `
-    <span class="pill-badge" id="pill-badge"><span class="pill-badge-text" id="pill-badge-text"></span></span>
-    <span class="pill-hints" id="pill-hints">
-      <span class="pill-hint" id="pill-enter" hidden>Press<span class="pill-kbd">Enter</span>for<b id="pill-enter-target"></b></span>
-      <span class="pill-hint" id="pill-scene" hidden>Write<span class="pill-kbd">INT.</span>or<span class="pill-kbd">EXT.</span>for a scene heading</span>
-      <span class="pill-hint" id="pill-tab" hidden>Press<span class="pill-kbd">Tab</span>for<b id="pill-tab-target"></b></span>
+    <span class="se-pill-badge" id="pill-badge"><span class="se-pill-badge-text" id="pill-badge-text"></span></span>
+    <span class="se-pill-hints">
+      <span class="se-pill-hint" id="pill-enter" hidden>Press <span class="help-kbd">Enter</span> for <b id="pill-enter-target"></b></span>
+      <span class="se-pill-hint" id="pill-scene" hidden>Write <span class="help-kbd">INT.</span> or <span class="help-kbd">EXT.</span> for a scene heading</span>
+      <span class="se-pill-hint" id="pill-tab" hidden>Press <span class="help-kbd">Tab</span> for <b id="pill-tab-target"></b></span>
     </span>`;
 }
 
@@ -155,8 +157,8 @@ function paintPill(mode, lineEmpty, animate) {
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
   const badge = $('pill-badge');
   const txt = $('pill-badge-text');
-  badge.style.backgroundColor = c.colors.tint;
-  badge.style.color = c.colors.ink;
+  badge.style.background = c.colors.grad;
+  badge.style.boxShadow = `0 4px 14px rgba(${c.colors.glow}, 0.3)`;
   if (animate && txt.textContent && txt.textContent !== c.label) rollBadge(txt, c.label);
   else txt.textContent = c.label;
   $('pill-enter').hidden = !c.enter;
@@ -192,28 +194,90 @@ function paintMode(mode, lineEmpty, animate) {
 }
 
 // ---------------------------------------------------------------------------
-// Actions
+// Controls
 // ---------------------------------------------------------------------------
 function wireUi() {
-  $('btn-format').addEventListener('click', () => runFormat());
-  $('btn-pages').addEventListener('click', async () => {
-    try {
-      await addPageNumbers();
-      setStatus('Page numbers added, top right.', 'ok');
-      track('scene_numbers', { what: 'page_numbers' });
-    } catch (e) { setStatus(friendly(e), 'error'); }
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-se]');
+    if (!el) return;
+    const se = el.dataset.se;
+    if (se.startsWith('tab:')) { switchTab(se.slice(4)); return; }
+    e.preventDefault();
+    handle(se, el).catch((err) => setStatus(friendly(err), 'error'));
   });
-  document.querySelectorAll('.paper-opt').forEach((b) => b.addEventListener('click', () => { $('paper').value = b.dataset.paper; $('paper').dispatchEvent(new Event('change')); }));
-  $('paper').addEventListener('change', async (e) => {
-    paper = e.target.value;
-    savePaper(paper);
-    document.querySelectorAll('.paper-opt').forEach((b) => b.classList.toggle('active', b.dataset.paper === paper));
-    try {
+  const fileInput = $('import-file-input');
+  if (fileInput) {
+    fileInput.accept = '.fountain,.txt,.fdx';
+    fileInput.addEventListener('change', async () => {
+      const f = fileInput.files && fileInput.files[0];
+      if (!f) return;
+      try {
+        const text = await f.text();
+        setStatus('Importing…');
+        const n = await importFountainText(f.name.toLowerCase().endsWith('.fdx') ? fdxToText(text) : text);
+        setStatus(`${n} paragraphs imported.`, 'ok');
+        track('import_fountain');
+        refreshStats();
+      } catch (err) { setStatus(friendly(err), 'error'); }
+      fileInput.value = '';
+    });
+  }
+}
+
+async function handle(se, el) {
+  switch (se) {
+    case 'format': return runFormat();
+    case 'scene': {
+      if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
+      const s = await formatScope('scene');
+      setStatus(`Scene formatted, ${s.paragraphs} paragraphs.`, 'ok');
+      track('smart_format', { via: 'scene' });
+      return;
+    }
+    case 'selection': {
+      if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
+      const s = await formatScope('selection');
+      setStatus(`Selection formatted, ${s.paragraphs} paragraphs.`, 'ok');
+      track('smart_format', { via: 'selection' });
+      return;
+    }
+    case 'titlepage': { const f = $('se-titlepage'); f.hidden = !f.hidden; if (!f.hidden) $('tp-title').focus(); return; }
+    case 'titlepage-cancel': $('se-titlepage').hidden = true; return;
+    case 'titlepage-insert': {
+      if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
+      await insertTitlePage($('tp-title').value.trim(), $('tp-author').value.trim(), $('tp-contact').value.trim());
+      $('se-titlepage').hidden = true;
+      setStatus('Title page inserted.', 'ok');
+      track('title_page');
+      return;
+    }
+    case 'sn-add': { const n = await addSceneNumbers(); setStatus(`${n} scenes numbered.`, 'ok'); track('scene_numbers'); return; }
+    case 'sn-remove': { const n = await removeSceneNumbers(); setStatus(`${n} scene numbers removed.`, 'ok'); return; }
+    case 'pages': await addPageNumbers(); setStatus('Page numbers added, top right.', 'ok'); track('scene_numbers', { what: 'page_numbers' }); return;
+    case 'paper': {
+      paper = el.dataset.paper || 'US';
+      savePaper(paper);
+      paintPaper();
       await ensureStyles(paper);
-      setStatus(paper === 'A4' ? 'Indents set for A4.' : 'Indents set for US Letter.', 'ok');
-    } catch (err) { setStatus(friendly(err), 'error'); }
-  });
-  $('kbd-format').textContent = isMac ? '⇧⌘F' : 'Ctrl+Shift+F';
+      setStatus(paper === 'A4' ? 'Page set to A4.' : 'Page set to US Letter.', 'ok');
+      return;
+    }
+    case 'import': { const i = $('import-file-input'); if (i) i.click(); return; }
+    case 'export-fountain': {
+      const text = await exportFountainText();
+      let copied = false;
+      try { await navigator.clipboard.writeText(text); copied = true; } catch (_e) { /* no clipboard in this webview */ }
+      if (copied) setStatus('Fountain copied to the clipboard. Paste it in a .fountain file.', 'ok');
+      else { $('log').hidden = false; $('log').textContent = text; setStatus('Fountain text below: select it and copy.', 'ok'); }
+      track('export_fountain');
+      return;
+    }
+    case 'export-pdf': setStatus('In Word: File › Save a Copy › PDF. Your styles carry over.', 'ok'); return;
+    case 'stats': return refreshStats();
+    case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
+    case 'soon': setStatus('On its way to Word. Already in the Google Docs extension.', 'ok'); return;
+    default: return;
+  }
 }
 
 async function runElement(type, origin) {
@@ -230,85 +294,61 @@ async function runElement(type, origin) {
 }
 
 async function runFormat() {
-  const btn = $('btn-format');
-  btn.disabled = true;
   setStatus('Formatting…');
   try {
     if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
     const stats = await formatDocument();
     setStatus(`Formatted ${stats.paragraphs} paragraphs. Undo brings everything back.`, 'ok');
     track('format_document', { paragraphs: stats.paragraphs, removed: stats.removed });
+    refreshStats();
   } catch (e) {
     setStatus(friendly(e), 'error');
-  } finally {
-    btn.disabled = false;
   }
+}
+
+async function refreshStats() {
+  try {
+    const s = await docStats();
+    $('focus-stat-words').textContent = s.words.toLocaleString();
+    $('focus-stat-chars').textContent = s.chars.toLocaleString();
+  } catch (_e) { /* not in Word */ }
+}
+
+function paintPaper() {
+  document.querySelectorAll('.se-paper-opt').forEach((b) => b.classList.toggle('active', b.dataset.paper === paper));
+}
+
+// Final Draft .fdx → plain lines with Fountain markers, enough for the importer.
+function fdxToText(xml) {
+  const doc = new DOMParser().parseFromString(xml, 'application/xml');
+  const out = [];
+  doc.querySelectorAll('Paragraph').forEach((p) => {
+    const type = (p.getAttribute('Type') || '').toLowerCase();
+    const text = [...p.querySelectorAll('Text')].map((t) => t.textContent).join('').trim();
+    if (!text) return;
+    if (type === 'scene heading') out.push('', '.' + text);
+    else if (type === 'character') out.push('', '@' + text);
+    else if (type === 'transition') out.push('', '> ' + text);
+    else if (type === 'action' || type === 'general') out.push('', '!' + text);
+    else if (type === 'dialogue') out.push('~' + text);
+    else if (type === 'parenthetical') out.push(text);
+  });
+  return out.join('\n');
 }
 
 // ---------------------------------------------------------------------------
 // Plumbing
 // ---------------------------------------------------------------------------
-const _log = [];
-// Development channel (no local server reachable from the pane: https → http
-// is blocked). Commands come from https://screenplayeditor.app/word/dev/cmd.json,
-// results and the journal go into custom document properties, which
-// AppleScript reads on the Mac. Only acts on the document named in the command.
-let _devLastId = null;
-let _devOn = false;
-async function devSetProp(name, value) {
-  await Word.run(async (context) => {
-    const props = context.document.properties.customProperties;
-    props.add(name, String(value).slice(0, 250));
-    await context.sync();
-  });
-}
-async function devPoll() {
-  let c = null;
-  try {
-    const r = await fetch('https://screenplayeditor.app/word/dev/cmd.json?t=' + Date.now(), { cache: 'no-store' });
-    if (!r.ok) return;
-    c = await r.json();
-  } catch (_e) { return; }
-  if (!c || !c.id || c.id === _devLastId) return;
-  const url = (Office.context.document && Office.context.document.url) || '';
-  if (!c.doc || !url.endsWith(c.doc)) return;
-  _devLastId = c.id;
-  _devOn = true;
-  let result = '';
-  try {
-    if (c.cmd === 'reload') { await devSetProp('se_dev', c.id + ' reloading'); location.reload(); return; }
-    if (c.cmd === 'keymap') result = await spikeKeymap(c.bindings || []);
-    else if (c.cmd === 'log') result = JSON.stringify(liveCounts()) + ' || ' + _log.slice(-8).join(' || ');
-    else if (c.cmd === 'eval') result = JSON.stringify(await (new Function('return (async () => { ' + c.code + ' })()'))());
-    else result = 'unknown cmd';
-  } catch (e) {
-    result = 'ERR ' + ((e && (e.message || e.code)) || e) + ' ' + JSON.stringify((e && e.debugInfo) || null);
-  }
-  $('log').hidden = false;
-  setStatus('dev ' + c.id + ': ' + String(result).slice(0, 120), 'ok');
-  try { await devSetProp('se_dev', c.id + ' ' + result); } catch (_e) { /* no props */ }
-}
-setInterval(devPoll, 5000);
-// The journal is written to the document only on demand (cmd 'log'): a write
-// every few seconds competes with the live layer for Word's attention.
-globalThis.SEDBG = { liveCounts, capabilities, log: _log, selectionCount };
-function sink() { /* replaced by the dev channel */ }
 function setStatus(text, kind) {
-  if (text) sink(text);
   const el = $('status');
   el.textContent = text || '';
-  el.className = 'status' + (kind ? ' ' + kind : '');
-  if (text) {
-    _log.push(text);
-    while (_log.length > 8) _log.shift();
-    $('log').textContent = _log.join('\n');
-  }
+  el.className = 'se-status' + (kind ? ' ' + kind : '');
 }
 
 function friendly(e) {
   const msg = (e && (e.message || e.code)) || String(e);
   if (/AccessDenied|ReadOnly/i.test(msg)) return 'This document is read-only. Open an editable copy.';
-  if (/NotImplemented|ApiNotAvailable|InvalidArgument/i.test(msg)) return 'Your Word is missing an API this needs. Word 365 or Word on the web work.';
+  if (/NotImplemented|ApiNotAvailable|InvalidArgument/i.test(msg)) return 'Your Word is missing an API this needs. Word 365 works.';
   return msg;
 }
 
@@ -339,3 +379,5 @@ function track(event, meta) {
     }).catch(() => {});
   } catch (_e) { /* never block the UI on analytics */ }
 }
+
+globalThis.SEDBG = { liveCounts, capabilities };
