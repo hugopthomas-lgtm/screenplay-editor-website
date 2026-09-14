@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.2.2';
+const VERSION = '2.2.3';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -339,6 +339,7 @@ async function devPoll() {
   try {
     if (c.cmd === 'reload') { await devSetProp('se_dev', c.id + ' reloading'); location.reload(); return; }
     if (c.cmd === 'keymap') result = await spikeKeymap(c.bindings || []);
+    else if (c.cmd === 'log') result = JSON.stringify(liveCounts()) + ' || ' + _log.slice(-8).join(' || ');
     else if (c.cmd === 'eval') result = JSON.stringify(await (new Function('return (async () => { ' + c.code + ' })()'))());
     else result = 'unknown cmd';
   } catch (e) {
@@ -348,7 +349,8 @@ async function devPoll() {
   try { await devSetProp('se_dev', c.id + ' ' + result); } catch (_e) { /* no props */ }
 }
 setInterval(devPoll, 5000);
-setInterval(() => { if (_devOn) devSetProp('se_log', JSON.stringify(liveCounts()) + ' || ' + _log.slice(-6).join(' || ')).catch(() => {}); }, 4000);
+// The journal is written to the document only on demand (cmd 'log'): a write
+// every few seconds competes with the live layer for Word's attention.
 globalThis.SEDBG = { liveCounts, capabilities, log: _log, selectionCount };
 function sink() { /* replaced by the dev channel */ }
 function setStatus(text, kind) {
