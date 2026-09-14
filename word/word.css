@@ -16,7 +16,8 @@ body { height: auto; overflow-y: auto; }
 .write-sc.active .help-kbd { background: var(--violet); color: #fff; transform: scale(1.06); }
 
 /* Word row: page numbers, paper. Same family as Current scene / Selection. */
-.se-word-row { margin-top: 6px; }
+.se-word-row { margin-top: 6px; margin-bottom: 10px; }
+.se-word-row .format-scope span { white-space: nowrap; }
 .se-paper { cursor: default; justify-content: flex-start; }
 .se-paper-opts { display: inline-flex; gap: 4px; margin-left: auto; }
 .se-paper-opt {
@@ -48,6 +49,13 @@ body { height: auto; overflow-y: auto; }
 .se-status.error { color: #f87171; }
 .se-log { margin-top: 8px; font: 10px/1.5 'JetBrains Mono', Menlo, monospace; color: #6e6e73; white-space: pre-wrap; word-break: break-all; }
 
-/* The footer (words / characters, Preferences) flows under the panels instead of floating over them. */
-.tab-panels-footer { position: static !important; margin-top: 18px; }
+/* Fit the write tab in the height of a Word task pane, no scrolling: the
+   footer (words / characters, Preferences) flows under the panels instead of
+   floating over them, so the room the extension keeps for it goes away. */
+.tab-panel.active { padding-bottom: 0 !important; }
+.tab-panels-footer { position: static !important; margin-top: 4px; padding: 2px 16px 6px; }
 .tab-panels { padding-bottom: 0; }
+.write-shortcuts { margin-top: 14px; }
+.format-grid-pair { margin-top: 10px; }
+.format-grid-pair .format-tile { padding: 10px 4px 8px; min-height: 64px; }
+#import-home-btn { margin-bottom: 10px; }
