@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.2.3';
+const VERSION = '2.2.4';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).

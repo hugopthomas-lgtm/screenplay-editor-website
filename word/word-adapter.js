@@ -324,9 +324,11 @@ async function reconcileEnter(id) {
       if (fixed !== prev.text) setParagraphText(prev, fixed);
     }
 
-    // The new line: what follows, unless the user already typed into it.
+    // The new line: what follows, unless the user already typed into it or
+    // something else (the chained styles, the Startup template's Tab) already
+    // gave it one of our elements.
     const next = E.NEXT_MODE[prevType] || 'ACTION';
-    if (!cleanText(p.text) && p.style !== STYLE_NAMES[next]) p.style = STYLE_NAMES[next];
+    if (!cleanText(p.text) && !elementFromStyleName(p.style)) p.style = STYLE_NAMES[next];
     await context.sync();
     diag('Enter: "' + prevText.slice(0, 20) + '" ' + prevType + ' → ' + next + ' ' + Math.round(performance.now() - t0) + 'ms');
     changed(next, { empty: !cleanText(p.text), text: p.text });
