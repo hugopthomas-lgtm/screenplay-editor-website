@@ -7,12 +7,12 @@
 import { ELEMENTS } from './classifier.js';
 import {
   ensureStyles, applyElement, formatDocument, addPageNumbers,
-  currentElement, startLiveWriting, startEmptyDocument, selectionCount, spikeKeymap,
+  currentElement, startLiveWriting, startEmptyDocument, selectionCount, spikeKeymap, liveCounts, capabilities,
 } from './word-adapter.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.2.1';
+const VERSION = '2.2.2';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -348,7 +348,8 @@ async function devPoll() {
   try { await devSetProp('se_dev', c.id + ' ' + result); } catch (_e) { /* no props */ }
 }
 setInterval(devPoll, 5000);
-setInterval(() => { if (_devOn) devSetProp('se_log', _log.slice(-6).join(' || ')).catch(() => {}); }, 4000);
+setInterval(() => { if (_devOn) devSetProp('se_log', JSON.stringify(liveCounts()) + ' || ' + _log.slice(-6).join(' || ')).catch(() => {}); }, 4000);
+globalThis.SEDBG = { liveCounts, capabilities, log: _log, selectionCount };
 function sink() { /* replaced by the dev channel */ }
 function setStatus(text, kind) {
   if (text) sink(text);

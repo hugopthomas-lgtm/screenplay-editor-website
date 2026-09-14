@@ -187,6 +187,9 @@ let _lastSig = '';
 function diag(msg) { if (_onDiag) { try { _onDiag(msg); } catch (_e) { /* ui gone */ } } }
 function changed(type, what) { if (_onChange) { try { _onChange(type, what); } catch (_e) { /* ui gone */ } } }
 
+let _chgCount = 0;
+let _addCount = 0;
+export function liveCounts() { return { sel: _selCount, chg: _chgCount, add: _addCount, on: _liveOn, busy: _busy }; }
 export function selectionCount() { return _selCount; }
 
 export async function startLiveWriting(onChange, onDiag) {
@@ -223,6 +226,7 @@ function tick() {
 }
 
 async function onParagraphAdded(ev) {
+  _addCount++;
   if (ev.source === 'Remote') return;
   for (const id of ev.uniqueLocalIds || []) {
     try { await reconcileEnter(id); }
@@ -231,6 +235,7 @@ async function onParagraphAdded(ev) {
 }
 
 async function onParagraphChanged(ev) {
+  _chgCount++;
   if (ev.source === 'Remote') return;
   for (const id of ev.uniqueLocalIds || []) {
     try {
