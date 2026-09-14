@@ -15,6 +15,7 @@ body.dark-mode .screen#screen-main { background: transparent; }
 
 /* The pill: the badge of the current element and what Enter / Tab will do,
    between the shortcuts title and the rail. */
+[hidden] { display: none !important; }
 .se-pill-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: -2px 4px 10px; }
 .se-pill-badge {
   display: inline-block; font-weight: 600; font-size: 10.5px; letter-spacing: 0.7px; text-transform: uppercase;
