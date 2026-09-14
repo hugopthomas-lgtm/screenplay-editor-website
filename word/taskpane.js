@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '3.3.1';
+const VERSION = '4.0.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -106,85 +106,50 @@ function switchTab(name) {
 // The rail: the shortcuts grid of the extension, made live.
 // ---------------------------------------------------------------------------
 function buildRail() {
-  const rows = document.querySelectorAll('.write-shortcuts-grid .write-sc');
-  const mod = isMac ? '⌥' : 'Alt+';
-  E.RAIL_ITEMS.forEach((item, i) => {
-    const row = rows[i];
-    if (!row) return;
-    row.dataset.mode = item.mode;
-    row.setAttribute('role', 'button');
-    const modEl = row.querySelector('.help-kbd-mod');
-    if (modEl) modEl.textContent = mod;
-    row.addEventListener('mousedown', (e) => e.preventDefault());
-    row.addEventListener('click', () => runElement(item.mode, 'rail'));
+  document.querySelectorAll('.se-el[data-mode]').forEach((el) => {
+    const c = E.BADGE_COLORS[el.dataset.mode] || E.BADGE_COLORS.ACTION;
+    el.style.setProperty('--tint', c.tint);
+    el.style.setProperty('--ink', c.ink);
+    el.addEventListener('mousedown', (e) => e.preventDefault());
+    el.addEventListener('click', () => runElement(el.dataset.mode, 'rail'));
   });
 }
 
 function highlightRail(mode) {
-  document.querySelectorAll('.write-sc[data-mode]').forEach((row) => row.classList.toggle('active', row.dataset.mode === mode));
+  document.querySelectorAll('.se-el[data-mode]').forEach((el) => el.classList.toggle('active', el.dataset.mode === mode));
 }
 
 function nudgeRail() {
-  const grid = document.querySelector('.write-shortcuts-grid');
+  const grid = $('rail');
   if (!grid) return;
   try {
-    grid.animate([
-      { filter: 'drop-shadow(0 0 0 rgba(124,58,237,0))' },
-      { filter: 'drop-shadow(0 0 13px rgba(124,58,237,0.8))', offset: 0.4 },
-      { filter: 'drop-shadow(0 0 0 rgba(124,58,237,0))' },
-    ], { duration: 850, easing: 'cubic-bezier(0.33, 1, 0.68, 1)', iterations: 2 });
-    grid.querySelectorAll('.help-kbd').forEach((k, i) => {
-      k.animate([{ filter: 'none' }, { filter: 'drop-shadow(0 0 7px rgba(124,58,237,0.95)) saturate(1.6)' }, { filter: 'none' }],
+    grid.querySelectorAll('.se-el').forEach((k, i) => {
+      k.animate([{ filter: 'none' }, { filter: 'drop-shadow(0 0 7px rgba(124,58,237,0.7)) saturate(1.4)' }, { filter: 'none' }],
         { duration: 380, delay: 110 * i, easing: 'ease-in-out' });
     });
   } catch (_e) { /* no Web Animations */ }
 }
 
 // ---------------------------------------------------------------------------
-// The pill: badge + what Enter and Tab will do.
+// What Enter and Tab will do, above the rail. The active tile says the element.
 // ---------------------------------------------------------------------------
-function buildPill() { /* the pill lives in the markup (build-pane.py) */ }
+function buildPill() { /* the hint row lives in the markup (build-pane.py) */ }
 
-// The pill: the badge of the current element, and what Enter / Tab will do.
-function paintPill(mode, lineEmpty, animate) {
+function paintPill(mode, lineEmpty) {
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
-  const badge = $('pill-badge');
-  const txt = $('pill-badge-text');
-  if (!badge || !txt) return;
-  badge.style.background = c.colors.grad;
-  badge.style.boxShadow = `0 4px 14px rgba(${c.colors.glow}, 0.3)`;
-  if (animate && txt.textContent && txt.textContent !== c.label) rollBadge(txt, c.label);
-  else txt.textContent = c.label;
   const hints = [];
   if (c.enter) hints.push(`<span class="se-hint"><span class="help-kbd">Enter</span><b>${E.MODE_LABELS[c.enter]}</b></span>`);
   else if (c.scene) hints.push(`<span class="se-hint"><span class="help-kbd">INT.</span><b>Scene heading</b></span>`);
   if (c.tab) hints.push(`<span class="se-hint"><span class="help-kbd">Tab</span><b>${E.MODE_LABELS[c.tab]}</b></span>`);
-  $('pill-hints').innerHTML = hints.join('');
-}
-
-// The 3D roll of the extension's badge, ~170 ms.
-function rollBadge(el, finalText) {
-  el.style.transition = 'transform 0.08s ease-in, opacity 0.08s ease-in';
-  el.style.transform = 'translateY(-105%) rotateX(90deg)';
-  el.style.opacity = '0';
-  setTimeout(() => {
-    el.textContent = finalText;
-    el.style.transition = 'none';
-    el.style.transform = 'translateY(105%) rotateX(-90deg)';
-    el.style.opacity = '0';
-    void el.offsetWidth;
-    el.style.transition = 'transform 0.13s cubic-bezier(0.2,0.85,0.3,1), opacity 0.12s ease-out';
-    el.style.transform = 'translateY(0) rotateX(0)';
-    el.style.opacity = '1';
-  }, 85);
+  const h = $('pill-hints');
+  if (h) h.innerHTML = hints.join('');
 }
 
 function paintMode(mode, lineEmpty, animate) {
-  const changed = mode !== uiMode;
   uiMode = mode;
   uiEmpty = !!lineEmpty;
   highlightRail(mode);
-  paintPill(mode, uiEmpty, animate && changed);
+  paintPill(mode, uiEmpty);
 }
 
 // ---------------------------------------------------------------------------
