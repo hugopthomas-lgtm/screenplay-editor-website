@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.2.0';
+const VERSION = '2.2.1';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -310,30 +310,46 @@ async function runFormat() {
 // Plumbing
 // ---------------------------------------------------------------------------
 const _log = [];
-// Development only: when a log sink runs on this machine, mirror the journal
-// to it with a timestamp (measures the real latency of Word's events).
-let _sink = false;
-try { fetch('http://127.0.0.1:4567/').then((r) => { _sink = r.ok; }).catch(() => {}); } catch (_e) { /* none */ }
-// Development only: the sink can hand us commands (reload, spikes).
-setInterval(() => {
-  if (!_sink) return;
-  fetch('http://127.0.0.1:4567/cmd').then((r) => r.json()).then(async (c) => {
-    if (!c) return;
-    if (c.cmd === 'reload') location.reload();
-    if (c.cmd === 'keymap') {
-      try { setStatus('spike keymap: ' + await spikeKeymap(c.bindings || []), 'ok'); }
-      catch (e) { setStatus('spike keymap ERR: ' + ((e && (e.message || e.code)) || e) + ' ' + JSON.stringify(e && e.debugInfo || null).slice(0, 300), 'ok'); }
-    }
-    if (c.cmd === 'eval') {
-      try { setStatus('eval: ' + JSON.stringify(await (new Function('return (async () => { ' + c.code + ' })()'))()).slice(0, 400), 'ok'); }
-      catch (e) { setStatus('eval ERR: ' + ((e && (e.message || e.code)) || e) + ' ' + JSON.stringify(e && e.debugInfo || null).slice(0, 300), 'ok'); }
-    }
-  }).catch(() => {});
-}, 2000);
-function sink(text) {
-  if (!_sink) return;
-  try { fetch('http://127.0.0.1:4567/log', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: Date.now() + ' ' + text }).catch(() => {}); } catch (_e) { /* none */ }
+// Development channel (no local server reachable from the pane: https → http
+// is blocked). Commands come from https://screenplayeditor.app/word/dev/cmd.json,
+// results and the journal go into custom document properties, which
+// AppleScript reads on the Mac. Only acts on the document named in the command.
+let _devLastId = null;
+let _devOn = false;
+async function devSetProp(name, value) {
+  await Word.run(async (context) => {
+    const props = context.document.properties.customProperties;
+    props.add(name, String(value).slice(0, 250));
+    await context.sync();
+  });
 }
+async function devPoll() {
+  let c = null;
+  try {
+    const r = await fetch('https://screenplayeditor.app/word/dev/cmd.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return;
+    c = await r.json();
+  } catch (_e) { return; }
+  if (!c || !c.id || c.id === _devLastId) return;
+  const url = (Office.context.document && Office.context.document.url) || '';
+  if (!c.doc || !url.endsWith(c.doc)) return;
+  _devLastId = c.id;
+  _devOn = true;
+  let result = '';
+  try {
+    if (c.cmd === 'reload') { await devSetProp('se_dev', c.id + ' reloading'); location.reload(); return; }
+    if (c.cmd === 'keymap') result = await spikeKeymap(c.bindings || []);
+    else if (c.cmd === 'eval') result = JSON.stringify(await (new Function('return (async () => { ' + c.code + ' })()'))());
+    else result = 'unknown cmd';
+  } catch (e) {
+    result = 'ERR ' + ((e && (e.message || e.code)) || e) + ' ' + JSON.stringify((e && e.debugInfo) || null);
+  }
+  setStatus('dev ' + c.id + ': ' + String(result).slice(0, 120), 'ok');
+  try { await devSetProp('se_dev', c.id + ' ' + result); } catch (_e) { /* no props */ }
+}
+setInterval(devPoll, 5000);
+setInterval(() => { if (_devOn) devSetProp('se_log', _log.slice(-6).join(' || ')).catch(() => {}); }, 4000);
+function sink() { /* replaced by the dev channel */ }
 function setStatus(text, kind) {
   if (text) sink(text);
   const el = $('status');
