@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.1.1';
+const VERSION = '2.1.2';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -86,6 +86,20 @@ Office.onReady(async (info) => {
     paintMode(cur.type, cur.empty, false);
   } catch (_e) { /* nothing selected yet */ }
   setInterval(() => { $('version').textContent = 'v' + VERSION + ' · ' + selectionCount(); }, 1000);
+
+  // Are the keyboard shortcuts registered on this Word? Word tells us.
+  try {
+    const ks = Office.context.requirements.isSetSupported('KeyboardShortcuts', '1.1');
+    const sr = Office.context.requirements.isSetSupported('SharedRuntime', '1.1');
+    setStatus('Shortcuts API: ' + (ks ? 'yes' : 'no') + ' · shared runtime: ' + (sr ? 'yes' : 'no'), 'ok');
+    if (Office.actions && Office.actions.getShortcuts) {
+      Office.actions.getShortcuts()
+        .then((m) => setStatus('Shortcuts: ' + JSON.stringify(m), 'ok'))
+        .catch((e) => setStatus('Shortcuts: ' + ((e && (e.message || e.code)) || e), 'ok'));
+    } else {
+      setStatus('Shortcuts: Office.actions.getShortcuts absent', 'ok');
+    }
+  } catch (e) { setStatus('Shortcuts: ' + e, 'ok'); }
 });
 
 function onLiveChange(type, what) {
