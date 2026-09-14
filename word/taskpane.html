@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=3.1.2"></script>
+  <script src="engine.js?v=3.2.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=3.1.2">
-  <link rel="stylesheet" href="word.css?v=3.1.2">
+  <link rel="stylesheet" href="panel.css?v=3.2.0">
+  <link rel="stylesheet" href="word.css?v=3.2.0">
 </head>
 <body class="dark-mode">
   <div class="screens-container">
@@ -51,8 +51,6 @@
 
   <!-- ===== HOME PANEL ===== -->
   <div class="tab-panel active" id="panel-home">
-  <div class="se-pill" id="pill"></div>
-
 
   <div class="hero-card hero-card-primary" id="format-doc-btn" data-se="format">
     <div style="width:48px; height:48px; min-width:48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
@@ -92,6 +90,7 @@
   <div class="section write-shortcuts">
     <div class="write-shortcuts-title">Shortcuts &amp; margin toolbar<button class="shortcuts-info-btn" title="How this works" data-se="shortcuts-info"><i class="ti ti-info-circle"></i></button></div>
     <div class="shortcuts-info" id="shortcuts-info" style="display:none;">Two free ways to format a line by hand. Click an icon in your doc's left margin, or press its shortcut below. Each one sets what the current line is: a scene heading, a character, dialogue, and so on.</div>
+    <div class="se-flow-hint" id="pill"><span id="pill-badge-text" hidden></span><span id="pill-hint-line"></span></div>
     <div class="write-shortcuts-grid">
       <div class="write-sc"><span class="help-kbd"><span class="help-kbd-mod">⌥</span>1</span> Scene heading</div>
       <div class="write-sc"><span class="help-kbd"><span class="help-kbd-mod">⌥</span>2</span> Action</div>
@@ -126,20 +125,14 @@
 
   <!-- Section separator (Fincher 42) — Words/Characters déplacé dans le footer -->
 
-  <div class="section">
-    <div class="format-grid-pair">
-      <button class="format-tile format-tile-violet" id="btn-pages" data-se="pages">
-        <i class="ti ti-hash"></i>
-        <span>Page numbers</span>
-      </button>
-      <div class="format-tile format-tile-violet" id="btn-paper">
-        <i class="ti ti-file"></i>
-        <span>Paper</span>
-        <div class="sn-mini-row se-paper-row">
-          <button class="sn-mini se-paper-opt" data-paper="US" data-se="paper" title="US Letter">Letter</button>
-          <button class="sn-mini se-paper-opt" data-paper="A4" data-se="paper" title="A4">A4</button>
-        </div>
-      </div>
+  <div class="format-scope-row se-word-row">
+    <button class="format-scope" id="btn-pages" data-se="pages"><i class="ti ti-hash"></i><span>Page numbers</span></button>
+    <div class="format-scope se-paper">
+      <i class="ti ti-file"></i><span>Paper</span>
+      <span class="se-paper-opts">
+        <button class="se-paper-opt" data-paper="US" data-se="paper" title="US Letter">Letter</button>
+        <button class="se-paper-opt" data-paper="A4" data-se="paper" title="A4">A4</button>
+      </span>
     </div>
   </div>
   <div class="se-titlepage" id="se-titlepage" hidden>
@@ -412,6 +405,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=3.1.2"></script>
+  <script type="module" src="taskpane.js?v=3.2.0"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '3.1.2';
+const VERSION = '3.2.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -143,29 +143,17 @@ function nudgeRail() {
 // ---------------------------------------------------------------------------
 // The pill: badge + what Enter and Tab will do.
 // ---------------------------------------------------------------------------
-function buildPill() {
-  $('pill').innerHTML = `
-    <span class="se-pill-badge" id="pill-badge"><span class="se-pill-badge-text" id="pill-badge-text"></span></span>
-    <span class="se-pill-hints">
-      <span class="se-pill-hint" id="pill-enter" hidden>Press <span class="help-kbd">Enter</span> for <b id="pill-enter-target"></b></span>
-      <span class="se-pill-hint" id="pill-scene" hidden>Write <span class="help-kbd">INT.</span> or <span class="help-kbd">EXT.</span> for a scene heading</span>
-      <span class="se-pill-hint" id="pill-tab" hidden>Press <span class="help-kbd">Tab</span> for <b id="pill-tab-target"></b></span>
-    </span>`;
-}
+function buildPill() { /* the flow hint lives in the markup (build-pane.py) */ }
 
-function paintPill(mode, lineEmpty, animate) {
+// What Enter and Tab will do, one quiet line under the shortcuts title.
+function paintPill(mode, lineEmpty) {
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
-  const badge = $('pill-badge');
-  const txt = $('pill-badge-text');
-  badge.style.background = c.colors.grad;
-  badge.style.boxShadow = `0 4px 14px rgba(${c.colors.glow}, 0.3)`;
-  if (animate && txt.textContent && txt.textContent !== c.label) rollBadge(txt, c.label);
-  else txt.textContent = c.label;
-  $('pill-enter').hidden = !c.enter;
-  $('pill-enter-target').textContent = c.enter ? E.MODE_LABELS[c.enter] : '';
-  $('pill-scene').hidden = !c.scene;
-  $('pill-tab').hidden = !c.tab;
-  $('pill-tab-target').textContent = c.tab ? E.MODE_LABELS[c.tab] : '';
+  const parts = [];
+  if (c.enter) parts.push(`Enter → ${E.MODE_LABELS[c.enter]}`);
+  else if (c.scene) parts.push('INT. or EXT. → Scene heading');
+  if (c.tab) parts.push(`Tab → ${E.MODE_LABELS[c.tab]}`);
+  const line = $('pill-hint-line');
+  if (line) line.textContent = parts.join('   ·   ');
 }
 
 // The 3D roll of the extension's badge, ~170 ms.
@@ -190,7 +178,7 @@ function paintMode(mode, lineEmpty, animate) {
   uiMode = mode;
   uiEmpty = !!lineEmpty;
   highlightRail(mode);
-  paintPill(mode, uiEmpty, animate && changed);
+  paintPill(mode, uiEmpty);
 }
 
 // ---------------------------------------------------------------------------
