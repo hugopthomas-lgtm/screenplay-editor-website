@@ -1,0 +1,59 @@
+/* Word-only pieces on top of the extension's stylesheet (panel.css). */
+html, body { height: auto; min-height: 100vh; overflow: auto; }
+body { height: auto; overflow-y: auto; }
+.screens-container, .screen { position: static; height: auto; overflow: visible; }
+#screen-main { padding: 16px; }
+
+/* The pill: the badge and what Enter / Tab will do, in the dark card language. */
+.se-pill {
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  padding: 12px 12px 12px; margin-bottom: 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.25);
+  font-size: 12px; color: var(--text-secondary);
+}
+.se-pill-badge {
+  display: inline-block; font-weight: 600; font-size: 10.5px; letter-spacing: 0.7px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 7px; min-width: 128px; text-align: center; color: #fff;
+  overflow: hidden; perspective: 70px;
+}
+.se-pill-badge-text { display: inline-block; }
+.se-pill-hints { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.se-pill-hint { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.se-pill-hint[hidden] { display: none; }
+.se-pill-hint b { font-weight: 500; color: var(--text); }
+
+/* The shortcuts grid is the rail: each row applies its element, the current one lights up. */
+.write-sc[data-mode] { cursor: pointer; border-radius: 8px; transition: color 0.15s ease; }
+.write-sc[data-mode]:hover { color: var(--text); }
+.write-sc[data-mode] .help-kbd { transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
+.write-sc.active { color: var(--text); font-weight: 500; }
+.write-sc.active .help-kbd { background: var(--violet); color: #fff; transform: scale(1.06); }
+
+/* Word pair: page numbers, paper. */
+.se-paper-row .sn-mini { width: auto; padding: 0 8px; font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 10px; font-weight: 500; }
+.se-paper-row .sn-mini.active { background: rgba(167, 139, 250, 0.25); color: var(--violet-hover); }
+
+/* Title page form. */
+.se-titlepage { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 4px; }
+.se-input {
+  width: 100%; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid rgba(167, 139, 250, 0.16); background: rgba(255, 255, 255, 0.04);
+  color: var(--text); font-family: inherit; font-size: 13px; font-weight: 300; outline: none;
+}
+.se-input:focus { border-color: rgba(167, 139, 250, 0.5); }
+.se-input::placeholder { color: #8e8e93; }
+.se-titlepage-actions { display: flex; gap: 6px; margin-top: 2px; }
+.se-titlepage-actions .format-scope { flex: 1; justify-content: center; }
+.se-titlepage-actions .se-primary { background: rgba(167, 139, 250, 0.18); border-color: rgba(167, 139, 250, 0.35); }
+
+/* Things on their way to Word. */
+.pro-badge.se-soon { opacity: 0.75; }
+
+/* Status line (Word only), under the panels. */
+.se-status { font-size: 11px; font-weight: 500; color: var(--text-secondary); min-height: 16px; text-align: center; padding: 8px 4px 0; }
+.se-status.ok { color: var(--violet-hover); }
+.se-status.error { color: #f87171; }
+.se-log { margin-top: 8px; font: 10px/1.5 'JetBrains Mono', Menlo, monospace; color: #6e6e73; white-space: pre-wrap; word-break: break-all; }

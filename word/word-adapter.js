@@ -21,7 +21,7 @@
 // result), which never touches the mark.
 
 import {
-  ELEMENTS, STYLE_NAMES, UPPERCASE, elementFromStyleName, classifyParagraphs, cleanText,
+  ELEMENTS, STYLE_NAMES, UPPERCASE, elementFromStyleName, classifyParagraphs, cleanText, isSceneHeading,
 } from './classifier.js';
 
 const E = globalThis.SEEngine;
@@ -502,4 +502,197 @@ export async function spikeKeymap(bindings) {
     report = 'ooxml inserted, added=' + added;
   });
   return report;
+}
+
+// ---------------------------------------------------------------------------
+// The rest of the write tab, in Word
+// ---------------------------------------------------------------------------
+
+// Format only some paragraphs: the selection, or the current scene (from the
+// scene heading above the caret to the one below).
+export async function formatScope(scope) {
+  const stats = { paragraphs: 0, removed: 0 };
+  await Word.run(async (context) => {
+    const all = context.document.body.paragraphs;
+    all.load('items/text,items/tableNestingLevel');
+    const sel = context.document.getSelection().paragraphs;
+    sel.load('items/text');
+    await context.sync();
+    const texts = all.items.map((p) => p.text);
+    // indexes of the selected paragraphs inside the body
+    const selTexts = sel.items.map((p) => p.text);
+    let first = -1, last = -1;
+    for (let i = 0; i < all.items.length; i++) {
+      if (first < 0 && texts[i] === selTexts[0]) {
+        let ok = true;
+        for (let k = 0; k < selTexts.length; k++) if (texts[i + k] !== selTexts[k]) { ok = false; break; }
+        if (ok) { first = i; last = i + selTexts.length - 1; break; }
+      }
+    }
+    if (first < 0) return;
+    if (scope === 'scene') {
+      while (first > 0 && !isSceneHeading(cleanText(texts[first]))) first--;
+      last = first + 1;
+      while (last < texts.length && !isSceneHeading(cleanText(texts[last]))) last++;
+      last--;
+    }
+    const plan = classifyParagraphs(texts);
+    for (let i = first; i <= last; i++) {
+      const p = all.items[i];
+      if (p.tableNestingLevel > 0) continue;
+      const { type, text } = plan[i];
+      if (!type) continue;
+      p.style = STYLE_NAMES[type];
+      if (text !== texts[i]) setParagraphText(p, text);
+      stats.paragraphs++;
+    }
+    await context.sync();
+  });
+  return stats;
+}
+
+// Title page, the industry way: title in caps a third of the way down, "Written
+// by", the name, the contact bottom left, then a page break.
+export async function insertTitlePage(title, author, contact) {
+  await Word.run(async (context) => {
+    const body = context.document.body;
+    const first = body.paragraphs.getFirst();
+    const lines = [];
+    for (let i = 0; i < 16; i++) lines.push('');
+    lines.push((title || '').toUpperCase());
+    lines.push('');
+    lines.push('Written by');
+    lines.push('');
+    lines.push(author || '');
+    for (let i = 0; i < 20; i++) lines.push('');
+    lines.push(contact || '');
+    let anchor = first;
+    for (const line of lines) {
+      const p = anchor.insertParagraph(line, Word.InsertLocation.before);
+      p.style = STYLE_NAMES.ACTION;
+      p.alignment = line === (contact || '') && line === lines[lines.length - 1] ? 'Left' : 'Centered';
+      p.spaceBefore = 0;
+    }
+    first.insertBreak(Word.BreakType.page, Word.InsertLocation.before);
+    await context.sync();
+  });
+}
+
+// Scene numbers, exactly like the add-on: "N.<tab>" hanging into the margin.
+export async function addSceneNumbers() {
+  await removeSceneNumbers();
+  let n = 0;
+  await Word.run(async (context) => {
+    const paras = context.document.body.paragraphs;
+    paras.load('items/text,items/style');
+    await context.sync();
+    for (const p of paras.items) {
+      if (elementFromStyleName(p.style) !== 'SCENE_HEADING' && !isSceneHeading(cleanText(p.text))) continue;
+      n++;
+      p.getRange(Word.RangeLocation.start).insertText(n + '.\t', Word.InsertLocation.before);
+      p.leftIndent = 0;
+      p.firstLineIndent = -36;
+    }
+    await context.sync();
+  });
+  return n;
+}
+
+export async function removeSceneNumbers() {
+  let n = 0;
+  await Word.run(async (context) => {
+    const paras = context.document.body.paragraphs;
+    paras.load('items/text,items/style');
+    await context.sync();
+    for (const p of paras.items) {
+      const m = /^(\d+\.\t)/.exec(p.text || '');
+      if (!m) continue;
+      const r = p.getRange(Word.RangeLocation.start).expandTo(p.search(m[1].trim(), { matchCase: true }).getFirst());
+      const tabs = p.search('^t', { matchCase: false });
+      tabs.load('items');
+      await context.sync();
+      const upto = tabs.items.length ? p.getRange(Word.RangeLocation.start).expandTo(tabs.items[0]) : r;
+      upto.delete();
+      p.firstLineIndent = 0;
+      n++;
+    }
+    await context.sync();
+  });
+  return n;
+}
+
+// Import Fountain (or any plain screenplay text): one paragraph per line,
+// classified like Format document, Fountain markers honoured.
+export async function importFountainText(text) {
+  const raw = text.replace(/\r\n?/g, '\n').split('\n');
+  // drop a title page (key: value lines at the top) and boneyard/notes
+  let lines = raw;
+  if (/^[A-Za-z ]+:\s*\S/.test(lines[0] || '')) {
+    let i = 0;
+    while (i < lines.length && lines[i].trim() !== '') i++;
+    lines = lines.slice(i);
+  }
+  lines = lines.filter((l) => !/^\s*(\[\[.*\]\]|\/\*.*\*\/)\s*$/.test(l));
+  const forced = lines.map((l) => {
+    const t = l.trim();
+    if (/^\./.test(t) && !/^\.\./.test(t)) return { text: t.slice(1), type: 'SCENE_HEADING' };
+    if (/^@/.test(t)) return { text: t.slice(1), type: 'CHARACTER' };
+    if (/^>/.test(t) && !/<$/.test(t)) return { text: t.slice(1).trim(), type: 'TRANSITION' };
+    if (/^!/.test(t)) return { text: t.slice(1), type: 'ACTION' };
+    if (/^~/.test(t)) return { text: t.slice(1), type: 'DIALOGUE' };
+    if (/^=/.test(t) || /^#/.test(t)) return null; // synopsis, sections
+    return { text: t, type: null };
+  }).filter(Boolean);
+  const plan = classifyParagraphs(forced.map((f) => f.text));
+  let count = 0;
+  await Word.run(async (context) => {
+    const body = context.document.body;
+    for (let i = 0; i < forced.length; i++) {
+      const type = forced[i].type || plan[i].type;
+      if (!type) continue;
+      const txt = forced[i].type ? forced[i].text : plan[i].text;
+      const p = body.insertParagraph(UPPERCASE[type] ? txt.toUpperCase() : txt, Word.InsertLocation.end);
+      p.style = STYLE_NAMES[type];
+      count++;
+    }
+    await context.sync();
+  });
+  return count;
+}
+
+// Export the document as Fountain text.
+export async function exportFountainText() {
+  let out = [];
+  await Word.run(async (context) => {
+    const paras = context.document.body.paragraphs;
+    paras.load('items/text,items/style');
+    await context.sync();
+    let prev = null;
+    for (const p of paras.items) {
+      const type = elementFromStyleName(p.style);
+      const t = cleanText(p.text);
+      if (!t) continue;
+      if (type === 'SCENE_HEADING') { out.push('', isSceneHeading(t) ? t : '.' + t, ''); }
+      else if (type === 'CHARACTER') { if (prev !== 'CHARACTER') out.push(''); out.push(t.toUpperCase() === t ? t : '@' + t); }
+      else if (type === 'PARENTHETICAL') out.push(t);
+      else if (type === 'DIALOGUE') out.push(t);
+      else if (type === 'TRANSITION') { out.push('', /TO:$/.test(t) ? t : '> ' + t, ''); }
+      else { out.push('', t); }
+      prev = type;
+    }
+  });
+  return out.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+}
+
+export async function docStats() {
+  let words = 0, chars = 0;
+  await Word.run(async (context) => {
+    const body = context.document.body;
+    body.load('text');
+    await context.sync();
+    const t = body.text || '';
+    chars = t.replace(/\s/g, '').length;
+    words = (t.match(/\S+/g) || []).length;
+  });
+  return { words, chars };
 }
