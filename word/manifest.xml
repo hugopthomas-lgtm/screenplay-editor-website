@@ -7,7 +7,7 @@
   xsi:type="TaskPaneApp">
 
   <Id>b8a418ae-2054-45ba-920a-446ab4ec3680</Id>
-  <Version>1.1.0.0</Version>
+  <Version>1.1.1.0</Version>
   <ProviderName>Hugo Thomas</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Screenplay Editor"/>
@@ -169,27 +169,27 @@
         <bt:Image id="Icon.16" DefaultValue="https://screenplayeditor.app/word/assets/icon-16.png"/>
         <bt:Image id="Icon.32" DefaultValue="https://screenplayeditor.app/word/assets/icon-32.png"/>
         <bt:Image id="Icon.80" DefaultValue="https://screenplayeditor.app/word/assets/icon-80.png"/>
-        <bt:Image id="I.SH.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-SCENE_HEADING-16.png"/>
-        <bt:Image id="I.SH.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-SCENE_HEADING-32.png"/>
-        <bt:Image id="I.SH.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-SCENE_HEADING-80.png"/>
-        <bt:Image id="I.AC.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-ACTION-16.png"/>
-        <bt:Image id="I.AC.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-ACTION-32.png"/>
-        <bt:Image id="I.AC.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-ACTION-80.png"/>
-        <bt:Image id="I.CH.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-CHARACTER-16.png"/>
-        <bt:Image id="I.CH.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-CHARACTER-32.png"/>
-        <bt:Image id="I.CH.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-CHARACTER-80.png"/>
-        <bt:Image id="I.PA.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-PARENTHETICAL-16.png"/>
-        <bt:Image id="I.PA.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-PARENTHETICAL-32.png"/>
-        <bt:Image id="I.PA.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-PARENTHETICAL-80.png"/>
-        <bt:Image id="I.DI.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-DIALOGUE-16.png"/>
-        <bt:Image id="I.DI.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-DIALOGUE-32.png"/>
-        <bt:Image id="I.DI.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-DIALOGUE-80.png"/>
-        <bt:Image id="I.TR.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-TRANSITION-16.png"/>
-        <bt:Image id="I.TR.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-TRANSITION-32.png"/>
-        <bt:Image id="I.TR.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-TRANSITION-80.png"/>
-        <bt:Image id="I.FO.16" DefaultValue="https://screenplayeditor.app/word/assets/rb-FORMAT-16.png"/>
-        <bt:Image id="I.FO.32" DefaultValue="https://screenplayeditor.app/word/assets/rb-FORMAT-32.png"/>
-        <bt:Image id="I.FO.80" DefaultValue="https://screenplayeditor.app/word/assets/rb-FORMAT-80.png"/>
+        <bt:Image id="I.SH.16" DefaultValue="https://screenplayeditor.app/word/assets/rb2-SCENE_HEADING-16.png"/>
+        <bt:Image id="I.SH.32" DefaultValue="https://screenplayeditor.app/word/assets/rb2-SCENE_HEADING-32.png"/>
+        <bt:Image id="I.SH.80" DefaultValue="https://screenplayeditor.app/word/assets/rb2-SCENE_HEADING-80.png"/>
+        <bt:Image id="I.AC.16" DefaultValue="https://screenplayeditor.app/word/assets/rb2-ACTION-16.png"/>
+        <bt:Image id="I.AC.32" DefaultValue="https://screenplayeditor.app/word/assets/rb2-ACTION-32.png"/>
+        <bt:Image id="I.AC.80" DefaultValue="https://screenplayeditor.app/word/assets/rb2-ACTION-80.png"/>
+        <bt:Image id="I.CH.16" DefaultValue="https://screenplayeditor.app/word/assets/rb2-CHARACTER-16.png"/>
+        <bt:Image id="I.CH.32" DefaultValue="https://screenplayeditor.app/word/assets/rb2-CHARACTER-32.png"/>
+        <bt:Image id="I.CH.80" DefaultValue="https://screenplayeditor.app/word/assets/rb2-CHARACTER-80.png"/>
+        <bt:Image id="I.PA.16" DefaultValue="https://screenplayeditor.app/word/assets/rb2-PARENTHETICAL-16.png"/>
+        <bt:Image id="I.PA.32" DefaultValue="https://screenplayeditor.app/word/assets/rb2-PARENTHETICAL-32.png"/>
+        <bt:Image id="I.PA.80" DefaultValue="https://screenplayeditor.app/word/assets/rb2-PARENTHETICAL-80.png"/>
+        <bt:Image id="I.DI.16" DefaultValue="https://screenplayeditor.app/word/assets/rb2-DIALOGUE-16.png"/>
+        <bt:Image id="I.DI.32" DefaultValue="https://screenplayeditor.app/word/assets/rb2-DIALOGUE-32.png"/>
+        <bt:Image id="I.DI.80" DefaultValue="https://screenplayeditor.app/word/assets/rb2-DIALOGUE-80.png"/>
+        <bt:Image id="I.TR.16" DefaultValue="https://screenplayeditor.app/word/assets/rb2-TRANSITION-16.png"/>
+        <bt:Image id="I.TR.32" DefaultValue="https://screenplayeditor.app/word/assets/rb2-TRANSITION-32.png"/>
+        <bt:Image id="I.TR.80" DefaultValue="https://screenplayeditor.app/word/assets/rb2-TRANSITION-80.png"/>
+        <bt:Image id="I.FO.16" DefaultValue="https://screenplayeditor.app/word/assets/rb2-FORMAT-16.png"/>
+        <bt:Image id="I.FO.32" DefaultValue="https://screenplayeditor.app/word/assets/rb2-FORMAT-32.png"/>
+        <bt:Image id="I.FO.80" DefaultValue="https://screenplayeditor.app/word/assets/rb2-FORMAT-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Taskpane.Url" DefaultValue="https://screenplayeditor.app/word/taskpane.html"/>
