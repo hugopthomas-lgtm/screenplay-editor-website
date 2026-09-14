@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=5.4.0"></script>
+  <script src="engine.js?v=5.4.1"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=5.4.0">
-  <link rel="stylesheet" href="word.css?v=5.4.0">
+  <link rel="stylesheet" href="panel.css?v=5.4.1">
+  <link rel="stylesheet" href="word.css?v=5.4.1">
 </head>
 <body>
   <div class="screens-container">
@@ -81,6 +81,7 @@
       <div class="se-row" title="Paper size"><i class="ti ti-file"></i><span class="se-row-lb">Paper</span><span class="se-row-end se-switch"><button class="se-paper-opt" data-paper="US" data-se="paper" title="US Letter">Letter</button><button class="se-paper-opt" data-paper="A4" data-se="paper" title="A4">A4</button></span></div>
     </div>
 
+    <input type="file" id="import-file-input" accept=".fountain,.txt,.fdx" style="display:none;">
     <div class="se-list se-list-import">
       <button class="se-row" id="import-home-btn" data-se="import"><i class="ti ti-upload"></i><span class="se-row-lb">Import a screenplay<span class="se-row-sub">Fade In · Final Draft · PDF · Fountain</span></span><i class="ti ti-chevron-right se-row-end"></i></button>
     </div>
@@ -106,6 +107,7 @@
     </div>
   </div>
   </div>
+  </div><!-- /screen-main -->
   <div class="tab-panels-footer">
     <!-- Fincher 42 — Words/Characters dans le footer, juste au-dessus de Preferences -->
     <div class="focus-stats-bar" id="focus-stats-bar">
@@ -137,6 +139,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=5.4.0"></script>
+  <script type="module" src="taskpane.js?v=5.4.1"></script>
 </body>
 </html>
