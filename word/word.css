@@ -30,7 +30,7 @@ body { height: auto; overflow-y: auto; }
 /* ---- the header: the extension's black band, as a rounded card ---- */
 #screen-main .header {
   background: #000; border-radius: 14px; border: none;
-  padding: 12px 16px 11px; margin: 0 0 10px;
+  padding: 10px 16px 9px; margin: 0 0 8px;
 }
 #screen-main .header-title { color: #fff; font-size: 17px; }
 .se-plan { font-size: 12px; font-weight: 500; color: #b5b5bc; letter-spacing: 0.1px; }
@@ -43,7 +43,7 @@ body { height: auto; overflow-y: auto; }
 .tab-btn.active { color: var(--g-accent); background: var(--g-accent-soft); }
 
 /* ---- what Enter and Tab will do: the light pill of Docs, one line each ---- */
-.se-hint-row { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; margin: 8px 4px 10px; min-height: 18px; font-size: 12.5px; color: var(--g-muted); }
+.se-hint-row { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin: 6px 4px 8px; min-height: 18px; font-size: 12.5px; color: var(--g-muted); }
 .se-hint { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .se-hint b { color: var(--g-ink); font-weight: 600; }
 .se-key {
@@ -70,9 +70,10 @@ body { height: auto; overflow-y: auto; }
 .se-skate { display: block; width: 18px; height: 18px; background: currentColor; mask: url(assets/skateboarding.png) center/contain no-repeat; -webkit-mask: url(assets/skateboarding.png) center/contain no-repeat; }
 
 /* ---- sections: Format, Page ---- */
-.se-title { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--g-muted); margin: 12px 4px 8px; }
+.se-title { font-size: 13px; font-weight: 600; color: var(--g-ink); margin: 12px 4px 6px; }
+.se-title-first { margin-top: 4px; }
 .se-three { grid-template-columns: 1fr 1fr 1fr; }
-.se-three .format-scope { padding: 0 8px; justify-content: center; font-size: 12.5px; }
+.se-three .format-scope { padding: 0 10px; justify-content: flex-start; font-size: 12.5px; gap: 7px; }
 .format-scope-row { margin-top: 0; gap: 8px; }
 .se-word-row { margin-top: 8px; }
 .format-scope {
@@ -106,6 +107,7 @@ body { height: auto; overflow-y: auto; }
 
 /* ---- the two big tiles of the extension: Title Page, Scene Numbers ---- */
 .se-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.se-word-row { margin-top: 0; }
 .se-tile {
   all: unset; box-sizing: border-box; position: relative; cursor: pointer;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
@@ -137,7 +139,7 @@ body { height: auto; overflow-y: auto; }
 .se-titlepage-actions .format-scope { flex: 1; justify-content: center; }
 
 /* ---- import ---- */
-.import-card { background: var(--g-card) !important; border: none !important; box-shadow: none !important; border-radius: 14px; margin: 12px 0 8px; }
+.import-card { background: var(--g-card) !important; border: none !important; box-shadow: none !important; border-radius: 14px; margin: 12px 0 0; padding: 11px 14px !important; }
 .import-title { color: var(--g-ink); }
 .import-desc { color: var(--g-muted); }
 .import-icon-wrap i { color: var(--g-accent); }
@@ -152,17 +154,14 @@ body { height: auto; overflow-y: auto; }
 .se-status.error { color: #dc2626; }
 .se-log { margin: 8px 14px 0; font: 10px/1.5 'JetBrains Mono', Menlo, monospace; color: var(--g-muted); white-space: pre-wrap; word-break: break-all; }
 
-/* ---- the footer: words / characters, Preferences, on one line at the bottom ---- */
+/* ---- the footer: the extension's, centered, at the bottom of the pane ---- */
 .tab-panels-footer {
-  position: static !important; margin-top: auto; padding: 8px 14px 14px; order: 3;
-  flex-direction: row !important; justify-content: space-between; align-items: center; gap: 8px;
+  position: static !important; margin-top: auto; padding: 4px 14px 8px; order: 3;
   background: var(--g-ground) !important; border-top: none !important; box-shadow: none !important;
 }
-.tab-panels-footer .focus-stats-bar { width: auto; flex: 1; justify-content: flex-start; gap: 14px; padding: 0; background: transparent; border: none; box-shadow: none; }
-.tab-panels-footer .focus-stat { flex: 0 0 auto; text-align: left; }
-.tab-panels-footer .focus-stat-divider { display: none; }
+.focus-stats-bar { background: transparent; border: none; box-shadow: none; padding: 2px 4px 0; }
 .focus-stat-value { color: var(--g-ink); }
 .focus-stat-label, .tab-panels-settings-btn { color: var(--g-muted); }
-.focus-stats-refresh { position: static; transform: none; opacity: 1; color: var(--g-muted); }
+.focus-stats-refresh { opacity: 1; color: var(--g-muted); }
 .focus-stats-refresh i { color: var(--g-muted); font-size: 14px; }
 .se-version { position: absolute; right: 14px; bottom: 3px; font-size: 9px; color: #a0a0a8; margin: 0; padding: 0; }

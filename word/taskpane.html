@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=4.1.1"></script>
+  <script src="engine.js?v=4.1.2"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=4.1.1">
-  <link rel="stylesheet" href="word.css?v=4.1.1">
+  <link rel="stylesheet" href="panel.css?v=4.1.2">
+  <link rel="stylesheet" href="word.css?v=4.1.2">
 </head>
 <body>
   <div class="screens-container">
@@ -52,6 +52,7 @@
 
   <!-- ===== HOME PANEL ===== -->
   <div class="tab-panel active" id="panel-home">
+    <div class="se-title se-title-first">Elements</div>
     <div class="se-hint-row" id="pill"><span id="pill-hints"></span></div>
     <div class="se-el-grid" id="rail">
       <button class="se-el" data-mode="SCENE_HEADING" title="Scene heading"><span class="se-el-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.813 11.612c.457 -.38 .918 -.38 1.386 .011l.108 .098l4.986 4.986l.094 .083a1 1 0 0 0 1.403 -1.403l-.083 -.094l-1.292 -1.293l.292 -.293l.106 -.095c.457 -.38 .918 -.38 1.386 .011l.108 .098l4.674 4.675a4 4 0 0 1 -3.775 3.599l-.206 .005h-12a4 4 0 0 1 -3.98 -3.603l6.687 -6.69l.106 -.095zm9.187 -9.612a4 4 0 0 1 3.995 3.8l.005 .2v9.585l-3.293 -3.292l-.15 -.137c-1.256 -1.095 -2.85 -1.097 -4.096 -.017l-.154 .14l-.307 .306l-2.293 -2.292l-.15 -.137c-1.256 -1.095 -2.85 -1.097 -4.096 -.017l-.154 .14l-5.307 5.306v-9.585a4 4 0 0 1 3.8 -3.995l.2 -.005h12zm-2.99 5l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z"/></svg></span><span class="se-el-lb">Scene heading</span></button>
@@ -339,6 +340,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=4.1.1"></script>
+  <script type="module" src="taskpane.js?v=4.1.2"></script>
 </body>
 </html>
