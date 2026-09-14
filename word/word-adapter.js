@@ -208,8 +208,10 @@ export async function startLiveWriting(onChange, onDiag) {
   return true;
 }
 
+let _tickAt = 0;
 function tick() {
   _selCount++;
+  _tickAt = performance.now();
   if (_busy) { _pending = true; return; }
   _busy = true;
   reconcileSelection()
@@ -274,7 +276,7 @@ async function reconcileParagraph(context, p, via) {
   if (trig && trig !== type) {
     p.style = STYLE_NAMES[trig];
     await context.sync();
-    diag(via + ': "' + cleanText(text).slice(0, 20) + '" → ' + trig);
+    diag(via + ': "' + cleanText(text).slice(0, 20) + '" → ' + trig + ' ' + Math.round(performance.now() - _tickAt) + 'ms');
     changed(trig, { empty: false, text });
     return;
   }
@@ -292,6 +294,7 @@ async function reconcileParagraph(context, p, via) {
 
 // Enter: the new paragraph `id` exists; the line just left is its previous.
 async function reconcileEnter(id) {
+  const t0 = performance.now();
   await Word.run(async (context) => {
     const p = context.document.getParagraphByUniqueLocalId(id);
     const prev = p.getPreviousOrNullObject();
@@ -320,13 +323,14 @@ async function reconcileEnter(id) {
     const next = E.NEXT_MODE[prevType] || 'ACTION';
     if (!cleanText(p.text) && p.style !== STYLE_NAMES[next]) p.style = STYLE_NAMES[next];
     await context.sync();
-    diag('Enter: "' + prevText.slice(0, 20) + '" ' + prevType + ' → ' + next);
+    diag('Enter: "' + prevText.slice(0, 20) + '" ' + prevType + ' → ' + next + ' ' + Math.round(performance.now() - t0) + 'ms');
     changed(next, { empty: !cleanText(p.text), text: p.text });
   });
 }
 
 // Tab, as the engine decides it, from the tab character Word left in the line.
 async function applyTab(context, p, text, type) {
+  const t0 = performance.now();
   const from = type || 'ACTION';
   const idx = text.indexOf('\t');
   const indentOnly = idx < 0;
@@ -339,7 +343,7 @@ async function applyTab(context, p, text, type) {
   if (d.kind === 'none') {
     if (!indentOnly) await deleteTab(context, p, false);
     await context.sync();
-    diag('Tab: ' + from + ' (nothing)');
+    diag('Tab: ' + from + ' (nothing) ' + Math.round(performance.now() - t0) + 'ms');
     changed(from, { empty: !cleanText(text), text });
     return;
   }
@@ -349,7 +353,7 @@ async function applyTab(context, p, text, type) {
     if (!indentOnly) await deleteTab(context, p, false);
     if (d.parens && !cleanText(after)) await openParens(context, p);
     await context.sync();
-    diag('Tab: ' + from + ' → ' + d.mode);
+    diag('Tab: ' + from + ' → ' + d.mode + ' ' + Math.round(performance.now() - t0) + 'ms');
     changed(d.mode, { empty: !cleanText(after), text: after });
     return;
   }
@@ -362,7 +366,7 @@ async function applyTab(context, p, text, type) {
   if (d.parens && !cleanText(after)) await openParens(context, np);
   else np.select(Word.SelectionMode.end);
   await context.sync();
-  diag('Tab: ' + from + ' → ' + d.mode + ' (new line)');
+  diag('Tab: ' + from + ' → ' + d.mode + ' (new line) ' + Math.round(performance.now() - t0) + 'ms');
   changed(d.mode, { empty: !cleanText(after), text: after });
 }
 
