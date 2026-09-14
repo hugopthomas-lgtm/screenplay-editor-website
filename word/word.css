@@ -59,18 +59,21 @@ body { height: auto; overflow-y: auto; }
    floating over them, so the room the extension keeps for it goes away. */
 .tab-panel.active { padding-bottom: 0 !important; }
 .tab-panels-footer {
-  position: static !important; margin-top: auto; padding: 8px 16px 8px;
+  position: static !important; margin-top: auto; padding: 8px 16px 14px;
   flex-direction: row !important; justify-content: space-between; align-items: center; gap: 8px;
   order: 3; position: relative !important;
 }
 .tab-panels-footer .focus-stats-bar { width: auto; flex: 1; justify-content: flex-start; gap: 14px; padding: 0; }
 .tab-panels-footer .focus-stat { flex: 0 0 auto; text-align: left; }
 .tab-panels-footer .focus-stat-divider { display: none; }
-.se-version { order: 4; font-size: 9px; color: #6e6e73; text-align: right; padding: 0 16px 4px; margin: 0; }
+.screens-container { position: relative; }
+.se-version { position: absolute; right: 16px; bottom: 3px; font-size: 9px; color: #6e6e73; margin: 0; padding: 0; }
 .se-status { order: 2; }
 .se-status:empty { display: none; }
 .tab-panels { padding-bottom: 0; }
-.write-shortcuts { margin-top: 14px; }
-.format-grid-pair { margin-top: 10px; }
+.write-shortcuts { margin-top: 10px; }
+#format-doc-btn { margin-bottom: 10px; }
+#panel-home > .section { margin-bottom: 10px; }
+.format-grid-pair { margin-top: 8px; }
 .format-grid-pair .format-tile { padding: 10px 4px 8px; min-height: 64px; }
 #import-home-btn { margin-bottom: 10px; }
