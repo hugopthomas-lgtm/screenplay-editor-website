@@ -5,7 +5,7 @@ body { height: auto; overflow-y: auto; }
 /* The pane is a column the height of the viewport: the panels take what they
    need, the footer sits at the bottom when there is room, nothing scrolls. */
 .screens-container { display: flex; flex-direction: column; min-height: 100vh; }
-#screen-main { padding: 16px 16px 0; flex: 0 0 auto; }
+.screen#screen-main { padding: 16px 16px 0; flex: 0 0 auto; height: auto !important; min-height: 0 !important; max-height: none !important; }
 #screen-main .header { padding-top: 10px; padding-bottom: 10px; }
 .tab-panels, #panel-home { flex: 0 0 auto !important; }
 
