@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '3.2.6';
+const VERSION = '3.3.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -143,17 +143,23 @@ function nudgeRail() {
 // ---------------------------------------------------------------------------
 // The pill: badge + what Enter and Tab will do.
 // ---------------------------------------------------------------------------
-function buildPill() { /* the flow hint lives in the markup (build-pane.py) */ }
+function buildPill() { /* the pill lives in the markup (build-pane.py) */ }
 
-// What Enter and Tab will do, one quiet line under the shortcuts title.
-function paintPill(mode, lineEmpty) {
+// The pill: the badge of the current element, and what Enter / Tab will do.
+function paintPill(mode, lineEmpty, animate) {
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
-  const parts = [];
-  if (c.enter) parts.push(`Enter → ${E.MODE_LABELS[c.enter]}`);
-  else if (c.scene) parts.push('INT. or EXT. → Scene heading');
-  if (c.tab) parts.push(`Tab → ${E.MODE_LABELS[c.tab]}`);
-  const line = $('pill-hint-line');
-  if (line) line.textContent = parts.join('   ·   ');
+  const badge = $('pill-badge');
+  const txt = $('pill-badge-text');
+  if (!badge || !txt) return;
+  badge.style.background = c.colors.grad;
+  badge.style.boxShadow = `0 4px 14px rgba(${c.colors.glow}, 0.3)`;
+  if (animate && txt.textContent && txt.textContent !== c.label) rollBadge(txt, c.label);
+  else txt.textContent = c.label;
+  const hints = [];
+  if (c.enter) hints.push(`<span class="se-hint"><span class="help-kbd">Enter</span><b>${E.MODE_LABELS[c.enter]}</b></span>`);
+  else if (c.scene) hints.push(`<span class="se-hint"><span class="help-kbd">INT.</span><b>Scene heading</b></span>`);
+  if (c.tab) hints.push(`<span class="se-hint"><span class="help-kbd">Tab</span><b>${E.MODE_LABELS[c.tab]}</b></span>`);
+  $('pill-hints').innerHTML = hints.join('');
 }
 
 // The 3D roll of the extension's badge, ~170 ms.
@@ -178,7 +184,7 @@ function paintMode(mode, lineEmpty, animate) {
   uiMode = mode;
   uiEmpty = !!lineEmpty;
   highlightRail(mode);
-  paintPill(mode, uiEmpty);
+  paintPill(mode, uiEmpty, animate && changed);
 }
 
 // ---------------------------------------------------------------------------

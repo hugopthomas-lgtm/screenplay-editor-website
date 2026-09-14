@@ -13,9 +13,19 @@ body.dark-mode .screen#screen-main { background: transparent; }
 #screen-main .header { padding-top: 10px; padding-bottom: 10px; }
 .tab-panels, #panel-home { flex: 0 0 auto !important; }
 
-/* What Enter and Tab will do, under the shortcuts title. */
-[hidden] { display: none !important; }
-.se-flow-hint { font-size: 11.5px; color: var(--text-secondary); margin: -6px 4px 6px; min-height: 16px; white-space: pre; }
+/* The pill: the badge of the current element and what Enter / Tab will do,
+   between the shortcuts title and the rail. */
+.se-pill-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: -2px 4px 10px; }
+.se-pill-badge {
+  display: inline-block; font-weight: 600; font-size: 10.5px; letter-spacing: 0.7px; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 7px; min-width: 112px; text-align: center; color: #fff;
+  overflow: hidden; perspective: 70px;
+}
+.se-pill-badge-text { display: inline-block; }
+.se-pill-hints { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+.se-hint { display: inline-flex; align-items: center; gap: 6px; }
+.se-hint .help-kbd { font-size: 10px; padding: 2px 7px; }
+.se-hint b { font-weight: 500; color: var(--text); }
 
 /* The shortcuts grid is the rail: each row applies its element, the current one lights up. */
 .write-sc[data-mode] { cursor: pointer; border-radius: 8px; transition: color 0.15s ease; }
