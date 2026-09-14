@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '5.5.0';
+const VERSION = '5.5.1';
 
 const $ = (id) => document.getElementById(id);
 
@@ -25,6 +25,7 @@ let stylesReady = false;
 let paper = 'US';
 let uiMode = null;
 let uiEmpty = true;
+let hot = false; // Format my document in violet, after an import
 
 // ---------------------------------------------------------------------------
 // Ribbon, context menu, shortcuts → functions. Registered before Office.onReady.
@@ -153,7 +154,6 @@ function paintPill(mode, lineEmpty) {
 }
 
 // Format my document turns violet when it is the thing to do (after an import), and quiet again once done.
-let hot = false;
 function setHot(on, sentence) {
   hot = !!on;
   const b = $('format-doc-btn');
