@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '3.1.0';
+const VERSION = '3.1.1';
 
 const $ = (id) => document.getElementById(id);
 
@@ -275,6 +275,7 @@ async function handle(se, el) {
     case 'export-pdf': setStatus('In Word: File › Save a Copy › PDF. Your styles carry over.', 'ok'); return;
     case 'stats': return refreshStats();
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
+    case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
     case 'soon': setStatus('On its way to Word. Already in the Google Docs extension.', 'ok'); return;
     default: return;
   }
