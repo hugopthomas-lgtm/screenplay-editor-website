@@ -434,23 +434,25 @@ export async function formatDocument() {
 }
 
 export async function addPageNumbers() {
-  if (!capabilities().fields) throw new Error('This version of Word cannot insert fields (WordApi 1.5 needed).');
+  // A PAGE field written as OOXML: Paragraph.insertField is not there on Word
+  // for Mac (checked 15/09/2026), insertOoxml is (WordApi 1.1).
+  const run = (inner) => `<w:r><w:rPr><w:rFonts w:ascii="${FONT}" w:hAnsi="${FONT}" w:cs="${FONT}"/><w:sz w:val="${FONT_SIZE * 2}"/><w:szCs w:val="${FONT_SIZE * 2}"/></w:rPr>${inner}</w:r>`;
+  const para = '<w:p><w:pPr><w:jc w:val="right"/><w:spacing w:before="0" w:after="0"/></w:pPr>'
+    + run('<w:fldChar w:fldCharType="begin"/>') + run('<w:instrText xml:space="preserve"> PAGE </w:instrText>')
+    + run('<w:fldChar w:fldCharType="separate"/>') + run('<w:t>1</w:t>') + run('<w:fldChar w:fldCharType="end"/>')
+    + run('<w:t>.</w:t>') + '</w:p>';
+  const ooxml = '<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">'
+    + '<pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml"><pkg:xmlData>'
+    + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>'
+    + '</pkg:xmlData></pkg:part>'
+    + '<pkg:part pkg:name="/word/document.xml" pkg:contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"><pkg:xmlData>'
+    + '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>' + para + '</w:body></w:document>'
+    + '</pkg:xmlData></pkg:part></pkg:package>';
   await Word.run(async (context) => {
     const section = context.document.sections.getFirst();
     const header = section.getHeader(Word.HeaderFooterType.primary);
     header.clear();
-    const p = header.insertParagraph('', Word.InsertLocation.start);
-    p.alignment = Word.Alignment.right;
-    p.font.name = FONT;
-    p.font.size = FONT_SIZE;
-    p.spaceAfter = 0;
-    p.spaceBefore = 0;
-    const field = p.insertField(Word.InsertLocation.end, Word.FieldType.page, '', false);
-    field.result.font.name = FONT;
-    field.result.font.size = FONT_SIZE;
-    const dot = p.insertText('.', Word.InsertLocation.end);
-    dot.font.name = FONT;
-    dot.font.size = FONT_SIZE;
+    header.insertOoxml(ooxml, Word.InsertLocation.start);
     await context.sync();
   });
 }
