@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '3.0.1';
+const VERSION = '3.0.2';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -158,9 +158,9 @@ function buildPill() {
   $('pill').innerHTML = `
     <span class="pill-badge" id="pill-badge"><span class="pill-badge-text" id="pill-badge-text"></span></span>
     <span class="pill-hints" id="pill-hints">
-      <span class="pill-hint" id="pill-enter" hidden>Press <span class="help-kbd">Enter</span> for <b id="pill-enter-target"></b></span>
-      <span class="pill-hint" id="pill-scene" hidden>Write <span class="help-kbd">INT.</span> or <span class="help-kbd">EXT.</span> for a scene heading</span>
-      <span class="pill-hint" id="pill-tab" hidden>Press <span class="help-kbd">Tab</span> for <b id="pill-tab-target"></b></span>
+      <span class="pill-hint" id="pill-enter" hidden>Press<span class="pill-kbd">Enter</span>for<b id="pill-enter-target"></b></span>
+      <span class="pill-hint" id="pill-scene" hidden>Write<span class="pill-kbd">INT.</span>or<span class="pill-kbd">EXT.</span>for a scene heading</span>
+      <span class="pill-hint" id="pill-tab" hidden>Press<span class="pill-kbd">Tab</span>for<b id="pill-tab-target"></b></span>
     </span>`;
 }
 
@@ -168,9 +168,8 @@ function paintPill(mode, lineEmpty, animate) {
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
   const badge = $('pill-badge');
   const txt = $('pill-badge-text');
-  // On the dark ground the extension uses the bright gradient of the element.
-  badge.style.background = c.colors.grad;
-  badge.style.boxShadow = `0 4px 14px rgba(${c.colors.glow}, 0.35)`;
+  badge.style.backgroundColor = c.colors.tint;
+  badge.style.color = c.colors.ink;
   if (animate && txt.textContent && txt.textContent !== c.label) rollBadge(txt, c.label);
   else txt.textContent = c.label;
   $('pill-enter').hidden = !c.enter;
