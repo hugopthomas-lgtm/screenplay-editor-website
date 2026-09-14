@@ -57,3 +57,7 @@ body { height: auto; overflow-y: auto; }
 .se-status.ok { color: var(--violet-hover); }
 .se-status.error { color: #f87171; }
 .se-log { margin-top: 8px; font: 10px/1.5 'JetBrains Mono', Menlo, monospace; color: #6e6e73; white-space: pre-wrap; word-break: break-all; }
+
+/* The footer (words / characters, Preferences) flows under the panels instead of floating over them. */
+.tab-panels-footer { position: static !important; margin-top: 18px; }
+.tab-panels { padding-bottom: 0; }
