@@ -1,12 +1,17 @@
 /* Word-only pieces on top of the extension's stylesheet (panel.css). */
-html, body { height: auto; min-height: 100vh; overflow: auto; }
+html, body { height: auto; min-height: 0; overflow: auto; }
 body { height: auto; overflow-y: auto; }
 .screens-container, .screen { position: static; height: auto; overflow: visible; }
-#screen-main { padding: 16px; }
+/* The pane is a column the height of the viewport: the panels take what they
+   need, the footer sits at the bottom when there is room, nothing scrolls. */
+.screens-container { display: flex; flex-direction: column; min-height: 100vh; }
+#screen-main { padding: 16px 16px 0; flex: 0 0 auto; }
+#screen-main .header { padding-top: 10px; padding-bottom: 10px; }
+.tab-panels, #panel-home { flex: 0 0 auto !important; }
 
 /* What Enter and Tab will do, under the shortcuts title. */
 [hidden] { display: none !important; }
-.se-flow-hint { font-size: 11.5px; color: var(--text-secondary); margin: -6px 4px 10px; min-height: 16px; white-space: pre; }
+.se-flow-hint { font-size: 11.5px; color: var(--text-secondary); margin: -6px 4px 6px; min-height: 16px; white-space: pre; }
 
 /* The shortcuts grid is the rail: each row applies its element, the current one lights up. */
 .write-sc[data-mode] { cursor: pointer; border-radius: 8px; transition: color 0.15s ease; }
@@ -53,7 +58,17 @@ body { height: auto; overflow-y: auto; }
    footer (words / characters, Preferences) flows under the panels instead of
    floating over them, so the room the extension keeps for it goes away. */
 .tab-panel.active { padding-bottom: 0 !important; }
-.tab-panels-footer { position: static !important; margin-top: 4px; padding: 2px 16px 6px; }
+.tab-panels-footer {
+  position: static !important; margin-top: auto; padding: 8px 16px 8px;
+  flex-direction: row !important; justify-content: space-between; align-items: center; gap: 8px;
+  order: 3; position: relative !important;
+}
+.tab-panels-footer .focus-stats-bar { width: auto; flex: 1; justify-content: flex-start; gap: 14px; padding: 0; }
+.tab-panels-footer .focus-stat { flex: 0 0 auto; text-align: left; }
+.tab-panels-footer .focus-stat-divider { display: none; }
+.se-version { order: 4; font-size: 9px; color: #6e6e73; text-align: right; padding: 0 16px 4px; margin: 0; }
+.se-status { order: 2; }
+.se-status:empty { display: none; }
 .tab-panels { padding-bottom: 0; }
 .write-shortcuts { margin-top: 14px; }
 .format-grid-pair { margin-top: 10px; }
