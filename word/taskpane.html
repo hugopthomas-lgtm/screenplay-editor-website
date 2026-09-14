@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=4.0.1"></script>
+  <script src="engine.js?v=4.0.2"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=4.0.1">
-  <link rel="stylesheet" href="word.css?v=4.0.1">
+  <link rel="stylesheet" href="panel.css?v=4.0.2">
+  <link rel="stylesheet" href="word.css?v=4.0.2">
 </head>
 <body>
   <div class="screens-container">
@@ -75,7 +75,7 @@
     </div>
     <div class="format-scope-row se-word-row">
       <button class="format-scope" id="btn-pages" data-se="pages"><i class="ti ti-hash"></i><span>Page numbers</span></button>
-      <div class="format-scope se-paper" title="Paper size"><i class="ti ti-file"></i><span>Paper</span><span class="se-switch"><button class="se-paper-opt" data-paper="US" data-se="paper" title="US Letter">Letter</button><button class="se-paper-opt" data-paper="A4" data-se="paper" title="A4">A4</button></span></div>
+      <div class="format-scope se-paper" title="Paper size"><i class="ti ti-file"></i><span>Paper</span><span class="se-switch"><button class="se-paper-opt" data-paper="US" data-se="paper" title="US Letter">US</button><button class="se-paper-opt" data-paper="A4" data-se="paper" title="A4">A4</button></span></div>
     </div>
     <div class="se-titlepage" id="se-titlepage" hidden>
       <input class="se-input" id="tp-title" placeholder="Title">
@@ -338,6 +338,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=4.0.1"></script>
+  <script type="module" src="taskpane.js?v=4.0.2"></script>
 </body>
 </html>
