@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '4.1.0';
+const VERSION = '4.1.1';
 
 const $ = (id) => document.getElementById(id);
 
@@ -138,10 +138,10 @@ function buildPill() { /* the hint row lives in the markup (build-pane.py) */ }
 function paintPill(mode, lineEmpty) {
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
   const hints = [];
-  const hint = (key, target) => `<span class="se-hint"><span class="help-kbd">${key}</span><span class="se-arrow">→</span><b>${target}</b></span>`;
-  if (c.enter) hints.push(hint('Enter', E.MODE_LABELS[c.enter]));
-  else if (c.scene) hints.push(hint('INT.', 'Scene heading'));
-  if (c.tab) hints.push(hint('Tab', E.MODE_LABELS[c.tab]));
+  const hint = (verb, key, target) => `<span class="se-hint">${verb} <kbd class="se-key">${key}</kbd> for <b>${target}</b></span>`;
+  if (c.enter) hints.push(hint('Press', 'Enter', E.MODE_LABELS[c.enter]));
+  else if (c.scene) hints.push(hint('Write', 'INT.', 'Scene heading'));
+  if (c.tab) hints.push(hint('Press', 'Tab', E.MODE_LABELS[c.tab]));
   const h = $('pill-hints');
   if (h) h.innerHTML = hints.join('');
 }
