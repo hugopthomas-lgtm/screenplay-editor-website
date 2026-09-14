@@ -447,3 +447,52 @@ export async function addPageNumbers() {
     await context.sync();
   });
 }
+
+// ---------------------------------------------------------------------------
+// Spike (2026-09-14): can an add-in put KEY BINDINGS into the document itself,
+// with no macro? Word stores document-level bindings in a keyMapCustomizations
+// part (verified on a real .docx written by Word for Mac: acd based on fixed
+// command 0x0065 "Style", argValue = base64(0x0002 + style name in UTF-16LE)).
+// If insertOoxml merges that part, Alt/Option+1..6 become native and instant.
+// ---------------------------------------------------------------------------
+function b64utf16le(str) {
+  const bytes = [0x02, 0x00];
+  for (const ch of str) { const c = ch.charCodeAt(0); bytes.push(c & 0xff, c >> 8); }
+  let bin = ''; for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin);
+}
+
+export function keymapOoxml(bindings) {
+  // bindings: [{ kcm: '0831', style: 'Scene Heading' }, ...]
+  const acds = bindings.map((b, i) => `<wne:acd wne:argValue="${b64utf16le(b.style)}" wne:acdName="acd${i}" wne:fciIndexBasedOn="0065"/>`).join('');
+  const maps = bindings.map((b, i) => `<wne:keymap wne:kcmPrimary="${b.kcm}"><wne:acd wne:acdName="acd${i}"/></wne:keymap>`).join('');
+  const manifest = bindings.map((b, i) => `<wne:acdEntry wne:acdName="acd${i}"/>`).join('');
+  const tcg = `<wne:tcg xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml"><wne:keymaps>${maps}</wne:keymaps><wne:toolbars><wne:acdManifest>${manifest}</wne:acdManifest></wne:toolbars><wne:acds>${acds}</wne:acds></wne:tcg>`;
+  return `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">`
+    + `<pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml"><pkg:xmlData><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships></pkg:xmlData></pkg:part>`
+    + `<pkg:part pkg:name="/word/_rels/document.xml.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml"><pkg:xmlData><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.microsoft.com/office/2006/relationships/keyMapCustomizations" Target="customizations.xml"/></Relationships></pkg:xmlData></pkg:part>`
+    + `<pkg:part pkg:name="/word/document.xml" pkg:contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"><pkg:xmlData><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t xml:space="preserve"></w:t></w:r></w:p></w:body></w:document></pkg:xmlData></pkg:part>`
+    + `<pkg:part pkg:name="/word/customizations.xml" pkg:contentType="application/vnd.ms-word.keyMapCustomizations+xml"><pkg:xmlData>${tcg}</pkg:xmlData></pkg:part>`
+    + `</pkg:package>`;
+}
+
+export async function spikeKeymap(bindings) {
+  let report = '';
+  await Word.run(async (context) => {
+    const body = context.document.body;
+    const before = body.paragraphs; before.load('items'); await context.sync();
+    const n0 = before.items.length;
+    const r = body.insertOoxml(keymapOoxml(bindings), Word.InsertLocation.end);
+    await context.sync();
+    const after = body.paragraphs; after.load('items/text'); await context.sync();
+    // remove whatever the insert added at the end (an empty paragraph)
+    const added = after.items.length - n0;
+    for (let i = 0; i < added; i++) {
+      const last = after.items[after.items.length - 1 - i];
+      if (!(last.text || '').trim()) last.delete();
+    }
+    await context.sync();
+    report = 'ooxml inserted, added=' + added;
+  });
+  return report;
+}

@@ -7,12 +7,12 @@
 import { ELEMENTS } from './classifier.js';
 import {
   ensureStyles, applyElement, formatDocument, addPageNumbers,
-  currentElement, startLiveWriting, startEmptyDocument, selectionCount,
+  currentElement, startLiveWriting, startEmptyDocument, selectionCount, spikeKeymap,
 } from './word-adapter.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.1.4';
+const VERSION = '2.2.0';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -67,6 +67,7 @@ Office.onReady(async (info) => {
   buildPill();
   wireUi();
   track('sidebar_open');
+  try { Office.addin.setStartupBehavior(Office.StartupBehavior.load); } catch (_e) { /* optional */ }
 
   try {
     const caps = await ensureStyles(paper);
@@ -313,6 +314,22 @@ const _log = [];
 // to it with a timestamp (measures the real latency of Word's events).
 let _sink = false;
 try { fetch('http://127.0.0.1:4567/').then((r) => { _sink = r.ok; }).catch(() => {}); } catch (_e) { /* none */ }
+// Development only: the sink can hand us commands (reload, spikes).
+setInterval(() => {
+  if (!_sink) return;
+  fetch('http://127.0.0.1:4567/cmd').then((r) => r.json()).then(async (c) => {
+    if (!c) return;
+    if (c.cmd === 'reload') location.reload();
+    if (c.cmd === 'keymap') {
+      try { setStatus('spike keymap: ' + await spikeKeymap(c.bindings || []), 'ok'); }
+      catch (e) { setStatus('spike keymap ERR: ' + ((e && (e.message || e.code)) || e) + ' ' + JSON.stringify(e && e.debugInfo || null).slice(0, 300), 'ok'); }
+    }
+    if (c.cmd === 'eval') {
+      try { setStatus('eval: ' + JSON.stringify(await (new Function('return (async () => { ' + c.code + ' })()'))()).slice(0, 400), 'ok'); }
+      catch (e) { setStatus('eval ERR: ' + ((e && (e.message || e.code)) || e) + ' ' + JSON.stringify(e && e.debugInfo || null).slice(0, 300), 'ok'); }
+    }
+  }).catch(() => {});
+}, 2000);
 function sink(text) {
   if (!_sink) return;
   try { fetch('http://127.0.0.1:4567/log', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: Date.now() + ' ' + text }).catch(() => {}); } catch (_e) { /* none */ }
