@@ -5,6 +5,7 @@ body { height: auto; overflow-y: auto; }
 #screen-main { padding: 16px; }
 
 /* What Enter and Tab will do, under the shortcuts title. */
+[hidden] { display: none !important; }
 .se-flow-hint { font-size: 11.5px; color: var(--text-secondary); margin: -6px 4px 10px; min-height: 16px; white-space: pre; }
 
 /* The shortcuts grid is the rail: each row applies its element, the current one lights up. */
