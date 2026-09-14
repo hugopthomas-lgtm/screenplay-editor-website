@@ -208,9 +208,14 @@
       // moi » : invisibles, donc liste vide, quel que soit le nombre de
       // documents qu'il possède. Thibault et ses cent mille fichiers ressemble
       // exactement à ça. Deux réglages, et ils réapparaissent.
+      // 14/09/2026 — CORRECTION D'UNE BÊTISE DE LA VEILLE. `setEnableDrives(true)`
+      // ne s'ajoute pas au Drive personnel : il REMPLACE la vue par celle des
+      // Drive partagés, et Google impose son propre intitulé. Thibault s'est
+      // donc retrouvé avec deux onglets « Shared drives » et plus aucune trace
+      // de ses propres documents. Une vue, un endroit : le Drive personnel
+      // d'abord, les autres à côté.
       var all = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
       if (all.setMode && google.picker.DocsViewMode) all.setMode(google.picker.DocsViewMode.LIST);
-      if (all.setEnableDrives) all.setEnableDrives(true);
       if (all.setLabel) all.setLabel('Tous mes documents');
       builder.addView(all); _vues++;
 
@@ -218,9 +223,18 @@
       if (partages.setOwnedByMe) {
         partages.setOwnedByMe(false);
         if (partages.setMode && google.picker.DocsViewMode) partages.setMode(google.picker.DocsViewMode.LIST);
-        if (partages.setEnableDrives) partages.setEnableDrives(true);
         if (partages.setLabel) partages.setLabel('Partagés avec moi');
         builder.addView(partages); _vues++;
+      }
+
+      // Les Drive partagés d'une production ou d'une agence, à leur place :
+      // un onglet à eux, qui ne mange pas celui du Drive personnel.
+      var drives = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS);
+      if (drives.setEnableDrives) {
+        drives.setEnableDrives(true);
+        if (drives.setMode && google.picker.DocsViewMode) drives.setMode(google.picker.DocsViewMode.LIST);
+        if (drives.setLabel) drives.setLabel('Drive partagés');
+        builder.addView(drives); _vues++;
       }
 
       // 12/09/2026 — Chercher SON scénario parmi cent mille documents.
@@ -234,7 +248,6 @@
         if (byName.setQuery) {
           byName.setQuery(params.docName);
           if (byName.setMode && google.picker.DocsViewMode) byName.setMode(google.picker.DocsViewMode.LIST);
-          if (byName.setEnableDrives) byName.setEnableDrives(true);
           if (byName.setLabel) byName.setLabel('Rechercher par nom');
           builder.addView(byName); _vues++;
         }
