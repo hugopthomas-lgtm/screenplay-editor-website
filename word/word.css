@@ -237,3 +237,8 @@ div.se-row:hover { background: transparent; }
 .se-primary.se-done { animation: se-done 0.9s ease-out; }
 @media (prefers-reduced-motion: reduce) { .se-el.se-pulse, .se-primary.se-done { animation: none; } }
 .se-voice #pill-hints { display: inline; }
+/* on a blank page there is nothing to format: the button waits for the first word */
+.se-empty:not([hidden]) ~ .se-primary { display: none; }
+.se-empty { padding: 2px 10px 10px; }
+.se-illu { width: 118px; height: 93px; margin-bottom: 4px; }
+.se-empty-sub { margin-top: 3px; }
