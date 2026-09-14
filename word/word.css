@@ -47,7 +47,7 @@ body { height: auto; overflow-y: auto; }
 .tab-btn.active { color: var(--g-accent); background: var(--g-accent-soft); }
 
 /* ---- what Enter and Tab will do: the light pill of Docs, one line each ---- */
-.se-hint-row { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin: 6px 4px 8px; min-height: 18px; font-size: 12.5px; color: var(--g-muted); }
+.se-hint-row { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin: 8px 4px 8px; min-height: 44px; box-sizing: border-box; font-size: 12.5px; color: var(--g-muted); }
 .se-hint { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .se-hint b { color: var(--g-ink); font-weight: 600; }
 .se-key {
@@ -75,7 +75,6 @@ body { height: auto; overflow-y: auto; }
 
 /* ---- sections: Format, Page ---- */
 .se-title { font-size: 13px; font-weight: 600; color: var(--g-ink); margin: 12px 4px 6px; }
-.se-title-first { margin-top: 4px; }
 .se-three { grid-template-columns: 1fr 1fr 1fr; }
 .se-three .format-scope { padding: 0 10px; justify-content: flex-start; font-size: 12.5px; gap: 7px; }
 .format-scope-row { margin-top: 0; gap: 8px; }
