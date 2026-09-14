@@ -12,7 +12,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '2.1.3';
+const VERSION = '2.1.4';
 
 const $ = (id) => document.getElementById(id);
 // Keycap look of the pill (declared before Office.onReady can fire).
@@ -309,7 +309,16 @@ async function runFormat() {
 // Plumbing
 // ---------------------------------------------------------------------------
 const _log = [];
+// Development only: when a log sink runs on this machine, mirror the journal
+// to it with a timestamp (measures the real latency of Word's events).
+let _sink = false;
+try { fetch('http://127.0.0.1:4567/').then((r) => { _sink = r.ok; }).catch(() => {}); } catch (_e) { /* none */ }
+function sink(text) {
+  if (!_sink) return;
+  try { fetch('http://127.0.0.1:4567/log', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: Date.now() + ' ' + text }).catch(() => {}); } catch (_e) { /* none */ }
+}
 function setStatus(text, kind) {
+  if (text) sink(text);
   const el = $('status');
   el.textContent = text || '';
   el.className = 'status' + (kind ? ' ' + kind : '');
