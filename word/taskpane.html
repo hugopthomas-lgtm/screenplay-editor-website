@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=5.3.0"></script>
+  <script src="engine.js?v=5.4.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=5.3.0">
-  <link rel="stylesheet" href="word.css?v=5.3.0">
+  <link rel="stylesheet" href="panel.css?v=5.4.0">
+  <link rel="stylesheet" href="word.css?v=5.4.0">
 </head>
 <body>
   <div class="screens-container">
@@ -86,217 +86,26 @@
     </div>
   </div>
   <div class="tab-panel" id="panel-studio">
-
-    <!-- AI Table Read — hero feature (Pro). Fincher 59 : carte pleine magenta, icône noire posée. -->
-    <div class="studio-hero" id="btn-table-read-hero" data-se="soon">
-      <div class="studio-hero-row">
-        <div style="width:48px; height:48px; min-width:48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <img src="assets/round-table.png" alt="" style="width:40px; height:40px; object-fit: contain; filter: brightness(0);">
-        </div>
-        <div class="studio-hero-text">
-          <div class="studio-hero-title">ElevenLabs Table Read <span class="pro-badge se-soon">[soon]</span></div>
-          <div class="studio-hero-desc">A different voice for each character. Hear your whole script read out loud.</div>
-        </div>
-      </div>
-      <button class="studio-hero-cta" id="btn-listen-scene" data-se="soon">
-        <i class="ti ti-player-play"></i>
-        <span>Listen</span>
-      </button>
+    <div class="se-list">
+      <button class="se-row" data-se="soon"><i class="ti ti-microphone"></i><span class="se-row-lb">ElevenLabs Table Read<span class="se-row-sub">A different voice for each character. Hear your whole script read out loud.</span></span><span class="se-soon">soon</span></button>
+      <button class="se-row" data-se="soon"><i class="ti ti-layout-grid"></i><span class="se-row-lb">Scene Board<span class="se-row-sub">Every scene on a card. Drag, drop, restructure. Your script updates itself.</span></span><span class="se-soon">soon</span></button>
+      <button class="se-row" data-se="soon"><i class="ti ti-chart-bar"></i><span class="se-row-lb">Script Stats<span class="se-row-sub">Industry-standard reports. Characters, scenes, locations, page-by-page metrics.</span></span><span class="se-soon">soon</span></button>
+      <button class="se-row" data-se="soon"><i class="ti ti-movie"></i><span class="se-row-lb">Screenplay Poster<span class="se-row-sub">See your script as a movie poster. Pick a style, get a real-looking film poster in 30s.</span></span><span class="se-soon">soon</span></button>
     </div>
-
-    <!-- AI Table Read full panel (Pro flow — kept hidden until expanded) -->
-    <div class="tts-panel" id="tts-panel">
-      <div class="tts-setup" id="tts-setup">
-        <button class="tts-scan-btn" id="tts-scan-btn" data-se="soon">
-          <i class="ti ti-scan"></i>
-          <span id="tts-scan-text">Scan characters</span>
-        </button>
-        <div class="tts-voice-list internal-scroll" id="tts-voice-list"></div>
-      </div>
-      <div class="tts-options" id="tts-options" style="display:none;">
-        <div class="tts-option-row">
-          <label class="tts-option-label">Start from</label>
-          <div style="flex:1;display:flex;align-items:center;gap:6px;">
-            <label style="font-size:11px;display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--text-secondary);">
-              <input type="checkbox" id="tts-start-cursor" style="accent-color:var(--violet);">
-              Cursor position
-            </label>
-          </div>
-        </div>
-        <div class="tts-option-row">
-          <label class="tts-option-label">Quality</label>
-          <select class="tts-voice-select" id="tts-engine" style="flex:1;">
-            <option value="elevenlabs_fast">Standard</option>
-            <option value="hybrid">High Quality</option>
-          </select>
-        </div>
-        <div class="tts-option-row">
-          <label class="tts-option-label">Language</label>
-          <select class="tts-voice-select" id="tts-language" style="flex:1;">
-            <option value="auto">Auto-detect</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-            <option value="de">German</option>
-            <option value="it">Italian</option>
-            <option value="pt">Portuguese</option>
-            <option value="ja">Japanese</option>
-            <option value="ko">Korean</option>
-            <option value="zh">Chinese</option>
-          </select>
-        </div>
-      </div>
-      <div class="tts-credits-bar" id="tts-credits-bar" style="display:none;">
-        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-secondary);">
-          <i class="ti ti-coins" style="font-size:14px;color:#f59e0b;"></i>
-          <span id="tts-credits-label">Loading...</span>
-        </div>
-        <button class="tts-buy-btn" id="tts-buy-credits-btn" data-se="soon">Buy Credits</button>
-      </div>
-      <div class="tts-controls" id="tts-controls" style="display:none;">
-        <button class="tts-play-btn" id="tts-play-btn" data-se="soon">
-          <i class="ti ti-player-play" id="tts-play-icon"></i>
-          <span id="tts-play-text">Play</span>
-        </button>
-        <button class="tts-stop-btn" id="tts-stop-btn" data-se="soon">
-          <i class="ti ti-player-stop"></i>
-        </button>
-      </div>
-      <div class="tts-progress" id="tts-progress" style="display:none;">
-        <div class="tts-progress-bar">
-          <div class="tts-progress-fill" id="tts-progress-fill"></div>
-        </div>
-        <div class="tts-progress-text">
-          <span id="tts-progress-current">0</span>
-          <span id="tts-progress-total">0</span>
-        </div>
-      </div>
-      <div class="tts-now-playing" id="tts-now-playing">
-        <div class="tts-now-playing-badge" id="tts-now-playing-badge"></div>
-        <div class="tts-now-playing-text" id="tts-now-playing-text"></div>
-      </div>
-    </div>
-
-    <!-- Scene Board — Fincher 61 : carte Pro avec border + shadow + badge [pro] (grammaire Format current scene). -->
-    <div class="studio-card" id="btn-scene-board" data-se="soon">
-      <div class="studio-card-icon">
-        <i class="ti ti-layout-grid"></i>
-      </div>
-      <div class="studio-card-info">
-        <div class="studio-card-title"><span id="label-scene-board">Scene Board</span> <span class="pro-badge se-soon">[soon]</span></div>
-        <div class="studio-card-desc">Every scene on a card. Drag, drop, restructure. Your script updates itself.</div>
-      </div>
-    </div>
-
-    <!-- Script Stats — replaces the old Character Stats. Free, industry-standard. -->
-    <div class="studio-card dashed" id="btn-stats" data-se="soon">
-      <div class="studio-card-icon">
-        <i class="ti ti-chart-bar"></i>
-      </div>
-      <div class="studio-card-info">
-        <div class="studio-card-title">Script Stats</div>
-        <div class="studio-card-desc">Industry-standard reports. Characters, scenes, locations, page-by-page metrics.</div>
-      </div>
-    </div>
-
-    <!-- Note Fincher 49 : duplicate tts-panel (avec même id="tts-panel") supprimé,
-         celui d'au-dessus (ligne ~7252) est conservé. -->
-
-    <!-- Screenplay Poster (Slice 1) : entrée discrete, easter-egg fun -->
-    <div class="studio-card dashed" id="btn-poster" data-se="soon">
-      <div class="studio-card-icon">
-        <i class="ti ti-movie"></i>
-      </div>
-      <div class="studio-card-info">
-        <div class="studio-card-title">Screenplay Poster</div>
-        <div class="studio-card-desc">See your script as a movie poster. Pick a style, get a real-looking film poster in 30s.</div>
-      </div>
-    </div>
-
-  </div><!-- /panel-studio -->
-
-  <!-- ===== SHIP PANEL ===== -->
+  </div>
   <div class="tab-panel" id="panel-export">
-    <input type="file" id="import-file-input" accept=".fountain,.fdx,.fadein,.celtx" style="display:none;">
-
-    <!-- Production Breakdown — Fincher 58 : carte hero signature vert lime pop. -->
-    <div class="ship-hero" id="btn-export-breakdown" data-se="soon">
-      <div class="ship-hero-row">
-        <div class="ship-hero-icon">
-          <svg width="34" height="34" viewBox="0 0 32 32" fill="none">
-            <rect x="2" y="2" width="8" height="8" rx="1.5" fill="black"/>
-            <rect x="12" y="2" width="8" height="8" rx="1.5" stroke="black" stroke-width="1.5"/>
-            <rect x="22" y="2" width="8" height="8" rx="1.5" fill="black"/>
-            <rect x="2" y="12" width="8" height="8" rx="1.5" stroke="black" stroke-width="1.5"/>
-            <rect x="12" y="12" width="8" height="8" rx="1.5" fill="black"/>
-            <rect x="22" y="12" width="8" height="8" rx="1.5" stroke="black" stroke-width="1.5"/>
-            <rect x="2" y="22" width="8" height="8" rx="1.5" fill="black"/>
-            <rect x="12" y="22" width="8" height="8" rx="1.5" stroke="black" stroke-width="1.5"/>
-            <rect x="22" y="22" width="8" height="8" rx="1.5" fill="black"/>
-          </svg>
-        </div>
-        <div class="ship-hero-text">
-          <div class="ship-hero-title"><span id="label-breakdown">Production Breakdown</span> <span class="pro-badge se-soon">[soon]</span></div>
-          <div class="ship-hero-desc">Scene-by-scene breakdown. Cast, props, wardrobe, SFX, everything.</div>
-        </div>
-      </div>
+    <div class="se-list">
+      <button class="se-row" data-se="soon"><i class="ti ti-table-export"></i><span class="se-row-lb">Production Breakdown<span class="se-row-sub">Scene-by-scene breakdown. Cast, props, wardrobe, SFX, everything.</span></span><span class="se-soon">soon</span></button>
+      <button class="se-row" data-se="soon"><i class="ti ti-book"></i><span class="se-row-lb">Print View<span class="se-row-sub">Real pages, real layout, before you hit export.</span></span><span class="se-soon">soon</span></button>
     </div>
-
-    <!-- Breakdown expandable panel -->
-    <div class="breakdown-panel" id="breakdown-panel">
-      <button class="breakdown-scan-btn" id="breakdown-scan-btn" data-se="soon">
-        <i class="ti ti-scan" style="font-size:14px;margin-right:6px;"></i><span id="breakdown-scan-text">Scan Script</span>
-      </button>
-      <div class="breakdown-results internal-scroll" id="breakdown-results"></div>
-      <div class="breakdown-actions" id="breakdown-actions" style="display:none;">
-        <button class="breakdown-export-btn" data-se="soon">
-          <i class="ti ti-table-export"></i>
-          <span>Download again</span>
-        </button>
-      </div>
+    <div class="se-label">Export</div>
+    <div class="se-list">
+      <button class="se-row" data-se="export-pdf"><i class="ti ti-file-type-pdf"></i><span class="se-row-lb">PDF<span class="se-row-sub">File › Save a Copy › PDF. Your styles carry over.</span></span><i class="ti ti-chevron-right se-row-end"></i></button>
+      <button class="se-row" data-se="export-fountain"><i class="ti ti-file-text"></i><span class="se-row-lb">Fountain<span class="se-row-sub">Plain text with the screenplay markers, copied to your clipboard.</span></span><i class="ti ti-chevron-right se-row-end"></i></button>
+      <button class="se-row" data-se="soon"><i class="ti ti-file-export"></i><span class="se-row-lb">Final Draft (.fdx)<span class="se-row-sub">Open your script in Final Draft.</span></span><span class="se-soon">soon</span></button>
     </div>
-
-    <!-- Print View (free, no badge). No "Preview" label : a single card needs none. -->
-    <div class="studio-card" id="btn-preview" data-se="soon">
-      <div class="studio-card-icon">
-        <i class="ti ti-book"></i>
-      </div>
-      <div class="studio-card-info">
-        <div class="studio-card-title" id="label-print-view">Print View</div>
-        <div class="studio-card-desc">Real pages, real layout, before you hit export.</div>
-      </div>
-    </div>
-
-    <!-- Section 3 : Export. Three compact format chips. Final Draft = [pro]. -->
-    <div class="ship-section-label">Export</div>
-    <div class="export-row">
-      <button class="export-chip" id="btn-export-fdx" data-se="soon">
-        <span class="pro-badge se-soon">[soon]</span>
-        <span class="export-chip-icon"><img src="assets/finaldraft.png" alt=""></span>
-        <span class="export-chip-name">Final Draft</span>
-      </button>
-      <button class="export-chip" id="btn-export-pdf" data-se="export-pdf">
-        <span class="export-chip-icon"><i class="ti ti-file-text"></i></span>
-        <span class="export-chip-name">PDF</span>
-      </button>
-      <button class="export-chip" id="btn-export-fountain" data-se="export-fountain">
-        <span class="export-chip-icon"><img src="assets/fountain-transparent.png" alt="" style="filter: brightness(0) invert(1) opacity(0.9);"></span>
-        <span class="export-chip-name">Fountain</span>
-      </button>
-    </div>
-
-    <div id="preview-status" style="display: none; padding: 8px 12px; font-size: 11px; color: var(--text-secondary); text-align: center;"></div>
-
-  </div><!-- /panel-export -->
-
-  </div><!-- /tab-panels -->
-
-  </div><!-- /screen-main -->
-
-  <!-- Preferences footer : moved OUTSIDE .screen#screen-main car .screen a
-       transform + will-change qui créent un containing block, cassant le
-       position:fixed (le footer ancrait au bottom de .screen au lieu du viewport,
-       et .screen dépasse l'écran). Au niveau body, fixed:bottom marche normalement. -->
+  </div>
+  </div>
   <div class="tab-panels-footer">
     <!-- Fincher 42 — Words/Characters dans le footer, juste au-dessus de Preferences -->
     <div class="focus-stats-bar" id="focus-stats-bar">
@@ -328,6 +137,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=5.3.0"></script>
+  <script type="module" src="taskpane.js?v=5.4.0"></script>
 </body>
 </html>
