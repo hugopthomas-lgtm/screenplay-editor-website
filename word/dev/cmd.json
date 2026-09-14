@@ -1,1 +1,1 @@
-{"cmd": "reload", "id": 1789409492, "doc": "int.docx"}
+{"cmd": "eval", "code": "return { c: globalThis.SEDBG.liveCounts(), caps: globalThis.SEDBG.capabilities(), log: globalThis.SEDBG.log.slice(-4) }", "id": 1789409532, "doc": "int.docx"}
