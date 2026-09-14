@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '5.4.1';
+const VERSION = '5.5.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -56,7 +56,7 @@ Office.onReady(async (info) => {
   if (info.host !== Office.HostType.Word) {
     const q = new URLSearchParams(location.search);
     const m = q.get('preview');
-    if (m) { isMac = true; buildRail(); buildPill(); wireUi(); paintMode(m, false, false); switchTab(q.get('tab') || 'home'); return; }
+    if (m) { isMac = true; buildRail(); buildPill(); wireUi(); paintMode(m, false, false); switchTab(q.get('tab') || 'home'); if (q.get('empty')) paintEmpty(true); if (q.get('hot')) setHot(true, '<b>Imported.</b> 118 paragraphs came in. One click puts everything in its place.'); return; }
     setStatus('Screenplay Editor runs in Word.', 'error');
     return;
   }
@@ -86,6 +86,7 @@ Office.onReady(async (info) => {
 });
 
 function onLiveChange(type, what) {
+  if (!(what && what.empty)) paintEmpty(false);
   paintMode(type, !!(what && what.empty), true);
   if (what && what.nudge) nudgeRail();
 }
@@ -136,17 +137,52 @@ function nudgeRail() {
 function buildPill() { /* the hint row lives in the markup (build-pane.py) */ }
 
 function paintPill(mode, lineEmpty) {
+  if (hot) return; // the import sentence stays until the next change of element
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
-  const hints = [];
-  const hint = (verb, key, target) => `<span class="se-hint">${verb} <kbd class="se-key">${key}</kbd> for <b>${target}</b></span>`;
-  if (c.enter) hints.push(hint('Press', 'Enter', E.MODE_LABELS[c.enter]));
-  else if (c.scene) hints.push(hint('Write', 'INT.', 'Scene heading'));
-  if (c.tab) hints.push(hint('Press', 'Tab', E.MODE_LABELS[c.tab]));
+  const low = (m) => E.MODE_LABELS[m].toLowerCase();
+  const key = (k) => `<kbd class="se-key">${k}</kbd>`;
+  const parts = [];
+  if (c.enter) parts.push(`${key('Enter')} takes you to ${low(c.enter)}`);
+  else if (c.scene) parts.push(`Write ${key('INT.')} for a scene heading`);
+  if (c.tab) parts.push(`${key('Tab')} for ${low(c.tab)}`);
+  const tail = parts.length ? parts.join(', ') + '.' : '';
   const h = $('pill-hints');
-  if (h) h.innerHTML = hints.join('');
+  if (h) h.innerHTML = `You're in <b>${low(c.mode)}</b>. ${tail}`;
+  const d = $('pill-dot');
+  if (d) d.style.background = c.colors.grad;
+}
+
+// Format my document turns violet when it is the thing to do (after an import), and quiet again once done.
+let hot = false;
+function setHot(on, sentence) {
+  hot = !!on;
+  const b = $('format-doc-btn');
+  if (b) b.classList.toggle('se-primary-hot', hot);
+  if (hot && sentence) {
+    const h = $('pill-hints'); if (h) h.innerHTML = sentence;
+    const d = $('pill-dot'); if (d) d.style.background = '#6f57ff';
+  }
+}
+
+// The blank page: an illustration instead of the sentence, gone at the first word.
+function paintEmpty(isEmpty) {
+  const e = $('se-empty'); const v = $('pill');
+  if (!e || !v) return;
+  e.hidden = !isEmpty;
+  v.hidden = !!isEmpty;
+}
+
+// The active pill pulses once when the element changes.
+function pulseRail(mode) {
+  const el = document.querySelector(`.se-el[data-mode="${mode}"]`);
+  if (!el) return;
+  el.classList.remove('se-pulse'); void el.offsetWidth; el.classList.add('se-pulse');
 }
 
 function paintMode(mode, lineEmpty, animate) {
+  const changed = mode !== uiMode;
+  if (changed && hot && uiMode !== null) setHot(false);
+  if (changed && animate) pulseRail(mode);
   uiMode = mode;
   uiEmpty = !!lineEmpty;
   highlightRail(mode);
@@ -176,6 +212,8 @@ function wireUi() {
         setStatus('Importing…');
         const n = await importFountainText(f.name.toLowerCase().endsWith('.fdx') ? fdxToText(text) : text);
         setStatus(`${n} paragraphs imported.`, 'ok');
+        paintEmpty(false);
+        setHot(true, `<b>Imported.</b> ${n} paragraphs came in. One click puts everything in its place.`);
         track('import_fountain');
         refreshStats();
       } catch (err) { setStatus(friendly(err), 'error'); }
@@ -260,6 +298,8 @@ async function runFormat() {
     if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
     const stats = await formatDocument();
     setStatus(`Formatted ${stats.paragraphs} paragraphs. Undo brings everything back.`, 'ok');
+    setHot(false); paintPill(uiMode, uiEmpty);
+    const b = $('format-doc-btn'); if (b) { b.classList.remove('se-done'); void b.offsetWidth; b.classList.add('se-done'); }
     track('format_document', { paragraphs: stats.paragraphs, removed: stats.removed });
     refreshStats();
   } catch (e) {
@@ -272,6 +312,7 @@ async function refreshStats() {
     const s = await docStats();
     $('focus-stat-words').textContent = s.words.toLocaleString();
     $('focus-stat-chars').textContent = s.chars.toLocaleString();
+    paintEmpty(s.words === 0);
   } catch (_e) { /* not in Word */ }
 }
 

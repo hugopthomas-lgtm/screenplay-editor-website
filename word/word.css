@@ -72,7 +72,7 @@ body { height: auto; overflow-y: auto; font-family: var(--g-font); font-size: 13
   background: radial-gradient(circle at 0 0, transparent 12.5px, var(--g-panel) 13px);
 }
 
-/* ---- what Enter and Tab will do: two lines, always reserved ---- */
+/* ---- (the two-line hints, kept for the CSS of the keys) ---- */
 .se-hint-row { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin: 2px 6px 12px; min-height: 50px; box-sizing: border-box; font-size: 12.5px; color: var(--g-muted); }
 #pill-hints { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .se-hint { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
@@ -201,3 +201,38 @@ div.se-row:hover { background: transparent; }
 .tab-panels-settings-btn:hover { color: var(--g-ink); background: transparent; }
 .tab-panels-settings-btn i { font-size: 15px; }
 .se-version { position: absolute; right: 14px; bottom: 2px; font-family: var(--g-mono); font-size: 9px; color: #a9a9ae; margin: 0; padding: 0; }
+
+/* ---- warmth (15/09/2026, after Grammarly): duotone icons, a drawing on the blank
+   page, a sentence with a voice, the violet when it means something, motion ---- */
+:root { --duo: #e4ddff; }
+.se-i { width: 16px; height: 16px; flex: 0 0 auto; }
+.se-duo { flex: 0 0 auto; color: var(--g-ink-2); }
+.se-row > .se-duo:first-child { width: 18px; height: 18px; }
+.se-row > .se-i.se-row-end { color: rgba(31,38,46,0.32); }
+.se-el { padding: 0 12px; gap: 8px; }
+.se-el-ic { width: 17px; height: 17px; flex-basis: 17px; position: relative; color: var(--g-ink-2); }
+.se-skate-over { position: absolute; left: 1px; top: 1px; width: 14px; height: 14px; }
+.se-el.active .se-duo, .se-el.active .se-el-ic { color: var(--ink); }
+.se-el.active { --duo: rgba(255, 255, 255, 0.75); }
+.se-mini .se-i { width: 13px; height: 13px; }
+
+.se-empty { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 6px 10px 14px; }
+.se-illu { margin-bottom: 6px; }
+.se-empty-title { font-size: 15px; font-weight: 600; color: var(--g-ink); letter-spacing: -0.02em; }
+.se-empty-sub { font-size: 12.5px; color: var(--g-muted); margin-top: 4px; line-height: 1.5; max-width: 26ch; }
+.se-empty-sub .se-key { font-size: 10px; padding: 1px 7px; }
+
+.se-voice { display: flex; align-items: flex-start; gap: 9px; margin: 2px 6px 14px; min-height: 60px; font-size: 14px; line-height: 1.45; color: var(--g-ink-2); letter-spacing: -0.015em; }
+.se-voice b { color: var(--g-ink); font-weight: 600; }
+.se-voice .se-key { font-size: 10.5px; padding: 1px 8px; vertical-align: 1px; }
+.se-voice-dot { flex: 0 0 9px; width: 9px; height: 9px; border-radius: 50%; margin-top: 7px; background: #8cc81e; box-shadow: 0 0 0 3px rgba(255,255,255,0.7); transition: background 0.3s ease; }
+
+.se-primary-hot { background: linear-gradient(180deg, #7b64ff 0%, #6a51ff 100%); color: #fff; box-shadow: 0 1px 1px rgba(31,38,46,0.06), 0 6px 16px rgba(111,87,255,0.35), inset 0 1px 0 rgba(255,255,255,0.35); font-weight: 600; }
+.se-primary-hot:hover { box-shadow: 0 1px 1px rgba(31,38,46,0.06), 0 8px 20px rgba(111,87,255,0.45), inset 0 1px 0 rgba(255,255,255,0.35); }
+.se-primary-hot .se-flame { filter: brightness(0) invert(1); opacity: 1; }
+
+@keyframes se-pulse { 0% { transform: scale(1); } 35% { transform: scale(1.035); } 100% { transform: scale(1); } }
+.se-el.se-pulse { animation: se-pulse 0.42s cubic-bezier(0.2, 0.8, 0.3, 1); }
+@keyframes se-done { 0% { box-shadow: 0 0 0 0 rgba(111,87,255,0.45), var(--g-soft); } 100% { box-shadow: 0 0 0 14px rgba(111,87,255,0), var(--g-soft); } }
+.se-primary.se-done { animation: se-done 0.9s ease-out; }
+@media (prefers-reduced-motion: reduce) { .se-el.se-pulse, .se-primary.se-done { animation: none; } }
