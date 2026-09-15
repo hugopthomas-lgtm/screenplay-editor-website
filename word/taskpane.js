@@ -18,14 +18,15 @@ import { parseFdx, parseFadeIn, parseCeltx, unzipEntry } from './importers.js';
 import { computeScriptStats } from './stats-core.js';
 import { renderStatsView } from './stats-view.js';
 import { buildStatsPdf } from './stats-pdf.js';
-import { call as cloud, getEmail, setEmail, detectLanguage, scenesForBreakdown } from './cloud.js';
+import { call as cloud, get as cloudGet, getEmail, setEmail, detectLanguage, scenesForBreakdown } from './cloud.js';
 import { renderBreakdown } from './breakdown-view.js';
 import * as License from './license.js';
 import { scanForPoster, renderPosterForm, generatePoster, watermark, renderPosterResult } from './poster.js';
+import * as TableRead from './tableread.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.5.3';
+const VERSION = '7.6.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -345,7 +346,17 @@ async function handle(se, el) {
     case 'poster-again': return openPoster();
     case 'poster-save': { if (posterImg) { const r = await fetch(posterImg); download(docTitle() + ' - poster.png', await r.blob()); setStatus('Poster ready. Choose where to save it.', 'ok'); } return; }
     case 'board-apply': return applyBoardOrder();
-    case 'screen-close': return closeScreen(el.dataset.panel);
+    case 'tableread-open': return openTableRead();
+    case 'tr-start': TableRead.unlockAudio(); return startTableRead();
+    case 'tr-pause': return TableRead.pauseRead();
+    case 'tr-resume': return TableRead.resumeRead();
+    case 'tr-skip': return TableRead.skipRead();
+    case 'tr-stop': TableRead.stopRead(); return openTableRead(true);
+    case 'tr-again': TableRead.unlockAudio(); return startTableRead();
+    case 'tr-cast': TableRead.stopRead(); return openTableRead(true);
+    case 'tr-balance': { try { const d = await cloudGet('/credits/balance'); trBalance = d.balance; const b = document.querySelector('.tr-cost .pg-desc b:last-of-type, #tr-balance'); setStatus(`You have ${d.balance} credits.`, 'ok'); if (b) b.textContent = d.balance; } catch (e) { setStatus(friendly(e), 'error'); } return; }
+    case 'tr-buy': { if (!getEmail()) { openPrefs('Enter your e-mail to buy credits. They follow this address.'); return; } setStatus('Opening the checkout…'); try { const d = await cloud('/credits/checkout', { pack: TableRead.PACK.id }); if (Office.context.ui.openBrowserWindow) Office.context.ui.openBrowserWindow(d.url); else window.open(d.url, '_blank'); setStatus('The checkout is open in your browser. Come back here once it is done.', 'ok'); track('credits_checkout'); } catch (e) { setStatus(friendly(e), 'error'); } return; }
+    case 'screen-close': TableRead.stopRead(); return closeScreen(el.dataset.panel);
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
     case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
     case 'soon': setStatus('On its way to Word. Already in the Google Docs extension.', 'ok'); return;
@@ -489,6 +500,35 @@ async function runPoster() {
     if (code === 'pro_fair_use') { body.innerHTML = '<div class="sv-loading">Twenty posters this month already. The counter resets on the first of next month.</div>'; return; }
     body.innerHTML = `<div class="sv-loading">${friendly(e)}</div>`;
   }
+}
+
+// Table Read: the cast sheet, then the reading, in studio. Credits, not Pro.
+let trParas = null; let trRead = null; let trChosen = null; let trBalance = null; let trOpts = { narration: true, intro: 'first', directions: 'skip' };
+async function openTableRead(again) {
+  const body = openScreen('panel-studio', 'Table Read');
+  if (!getEmail()) { body.innerHTML = '<div class="sv-loading">Enter your e-mail in Preferences first. Twenty credits are offered, enough for a hundred pages.</div><div class="se-titlepage-actions"><button class="se-btn se-btn-dark" data-se="prefs-open">Open Preferences</button></div>'; return; }
+  body.innerHTML = '<div class="sv-loading">Reading your script…</div>';
+  try {
+    if (!again || !trParas) trParas = await readParagraphs();
+    trRead = TableRead.buildRead(trParas, trOpts);
+    if (!trChosen) { const [chosen] = await Promise.all([TableRead.castVoices(trRead.cast), TableRead.loadPreviews()]); trChosen = chosen; }
+    else for (const c of trRead.cast) if (!trChosen[c.name]) Object.assign(trChosen, await TableRead.castVoices(trRead.cast));
+    if (trBalance == null) { try { trBalance = (await cloudGet('/credits/balance')).balance; } catch (_e) { trBalance = null; } }
+    TableRead.renderCast(body, trRead, trChosen, trBalance);
+    body.onchange = (e) => { const sel = e.target.closest('select.tr-select'); if (sel) { trChosen[sel.dataset.who] = sel.value; TableRead.rememberVoice(sel.dataset.who, sel.value); } };
+    body.onclick = (e) => {
+      const hear = e.target.closest('.tr-hear'); if (hear) { if (!TableRead.hearVoice(trChosen[hear.dataset.who])) setStatus('No sample for this voice.', 'error'); return; }
+      const opt = e.target.closest('.tr-seg .se-paper-opt'); if (opt) { const k = opt.closest('.tr-seg').dataset.opt; const v = opt.dataset.val; trOpts[k] = k === 'narration' ? v === 'on' : v; trRead = TableRead.buildRead(trParas, trOpts); TableRead.renderCast(body, trRead, trChosen, trBalance); }
+    };
+    track('tableread_open');
+  } catch (e) { body.innerHTML = `<div class="sv-loading">${friendly(e)}</div>`; }
+}
+function startTableRead() {
+  const body = document.querySelector('#panel-studio .se-screen-body'); if (!body || !trRead || !trRead.lines.length) return;
+  body.onchange = null; body.onclick = null;
+  TableRead.renderReader(body, trRead, trBalance);
+  TableRead.startRead(body, trRead, trChosen, () => { track('tableread_done'); });
+  track('tableread_start', { lines: trRead.lines.length });
 }
 
 // The paywall: Pro features ask first. 'ok' goes on, 'email' asks for the address, 'pro' shows the gate.

@@ -13,6 +13,16 @@ export async function call(path, body) {
   return data;
 }
 
+// A GET through the gate, the e-mail in the query (credits balance).
+export async function get(path, params) {
+  const q = new URLSearchParams(Object.assign({ email: getEmail() }, params || {}));
+  const res = await fetch(API + path + '?' + q.toString());
+  let data = null;
+  try { data = await res.json(); } catch (_e) { /* no body */ }
+  if (!res.ok) { const err = new Error((data && (data.error || data.message)) || `Server said ${res.status}.`); err.status = res.status; err.data = data; throw err; }
+  return data;
+}
+
 export function detectLanguage(text) {
   const fr = (text.match(/\b(le|la|les|un|une|des|du|de|et|est|que|qui|dans|pour|sur|avec|pas|son|ses|mais)\b/gi) || []).length;
   const en = (text.match(/\b(the|a|an|is|are|was|were|has|have|had|this|that|with|for|not|but|and|or)\b/gi) || []).length;
