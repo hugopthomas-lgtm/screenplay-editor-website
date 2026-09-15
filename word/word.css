@@ -539,3 +539,8 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 .se-embed-back { all: unset; cursor: pointer; font-family: var(--g-font); font-size: 12px; font-weight: 400; color: #b7bec7; padding: 9px 14px; background: #17171b; }
 .se-embed-back:hover { color: #fff; }
 .se-embed-frame { flex: 1; width: 100%; border: 0; min-height: 520px; background: #111114; }
+/* the embedded page fills the folder */
+.tab-panels:has(.se-has-embed) { display: flex; flex-direction: column; }
+.tab-panel.se-has-embed { flex: 1 1 auto !important; display: flex !important; flex-direction: column; min-height: 0; }
+.tab-panel.se-has-embed .se-embed { flex: 1 1 auto; min-height: 0; height: auto; }
+.se-embed-frame { min-height: 0; }
