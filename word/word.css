@@ -489,3 +489,16 @@ body.se-stage .se-status.error { color: #fca5a5; }
 .se-el .se-duo, .se-el .se-el-ic { color: #6f57ff; }
 .se-el:hover .se-duo, .se-el:hover .se-el-ic { color: var(--ink); }
 .se-el.active .se-duo, .se-el.active .se-el-ic { color: var(--ink); }
+
+/* ---- finesse (15/09, « affine tout, beaucoup ») : Geist en 300 pour le corps,
+   400 pour ce qui se presse, 500 au plus fort ---- */
+body, #screen-main button, #screen-main input { font-weight: 300; }
+.se-el, .se-primary, .se-row, .se-btn, .se-paper-opt, .tab-panels-settings-btn, .se-tabs .tab-btn { font-weight: 400; }
+.se-el.active, .se-tabs .tab-btn.active span, .se-primary-hot { font-weight: 500; }
+.se-voice, .se-voice-tip, .se-row-sub, .se-empty-sub, .se-label, .focus-stat-label, .se-status { font-weight: 300; }
+.se-voice b, .se-voice-line, .se-empty-title, .focus-stat-value { font-weight: 500; }
+.se-voice-line { font-weight: 300; }
+.se-key { font-weight: 400; }
+.se-plan { font-weight: 400; }
+#screen-main .header-title { font-weight: 500; }
+.se-soon { font-weight: 400; }
