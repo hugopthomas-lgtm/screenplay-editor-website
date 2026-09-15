@@ -24,7 +24,7 @@ import * as License from './license.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.3.2';
+const VERSION = '7.3.3';
 
 const $ = (id) => document.getElementById(id);
 
