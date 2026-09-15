@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.3.13';
+const VERSION = '6.3.14';
 
 const $ = (id) => document.getElementById(id);
 
@@ -112,7 +112,7 @@ function buildRail() {
     const c = E.BADGE_COLORS[el.dataset.mode] || E.BADGE_COLORS.ACTION;
     el.style.setProperty('--tint', c.tint);
     el.style.setProperty('--ink', c.ink);
-    el.style.setProperty('--duo', c.tint);
+    el.style.setProperty('--duo', 'transparent');
     el.style.setProperty('--icon', c.ink);
     el.style.setProperty('--grad', c.grad);
     el.style.setProperty('--glow', c.glow);
