@@ -522,3 +522,6 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 #screen-main .header-title:hover .brand-dot { animation: se-bounce 0.7s var(--m-spring) 1; }
 /* Format my document: the same hover as a list row */
 .se-primary:hover { background: #f7f8fa; }
+/* Format my document: violet at hover, the magic shows when you reach for it */
+.se-primary:hover { background: var(--g-lavender); color: #4a35d6; }
+.se-primary:hover .se-flame { background: #4a35d6; }
