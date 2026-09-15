@@ -31,6 +31,7 @@ export function renderStatsView(el, d, h) {
       <div class="sv-fig"><b>${pct(o.dialogueRatio)}</b><span>dialogue</span></div>
       <div class="sv-fig"><b>${pages(s.avgScenePages).replace(/ pages?$/, '')}</b><span>pages per scene</span></div>
     </div>
+    <div class="sv-card sv-ai"><div class="sv-kicker">Script identity</div><div class="sv-sub" style="margin:4px 0 8px">Logline, conflict, themes and acts, read by the AI.</div><button class="se-screen-act" data-se="stats-ai">Read my script</button></div>
     <div class="se-label">Scenes</div>
     <div class="sv-card">${bar(intext)}${rows(intext.map((x) => ({ l: x.l, r: x.r, c: x.c })))}</div>
     <div class="sv-card">${bar(tod)}${rows(tod.filter((x) => x.v > 0).map((x) => ({ l: x.l, r: x.r, c: x.c })))}</div>

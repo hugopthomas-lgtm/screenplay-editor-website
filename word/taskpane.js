@@ -18,10 +18,12 @@ import { parseFdx, parseFadeIn, parseCeltx, unzipEntry } from './importers.js';
 import { computeScriptStats } from './stats-core.js';
 import { renderStatsView } from './stats-view.js';
 import { buildStatsPdf } from './stats-pdf.js';
+import { call as cloud, getEmail, setEmail, detectLanguage, scenesForBreakdown } from './cloud.js';
+import { renderBreakdown } from './breakdown-view.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.1.2';
+const VERSION = '7.2.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -326,6 +328,10 @@ async function handle(se, el) {
     case 'stats-open': return openStatsInPane();
     case 'preview-open': return openPagesInPane();
     case 'stats-pdf': return exportStatsPdf();
+    case 'stats-ai': return askStatsAi(el);
+    case 'breakdown-open': return openBreakdown();
+    case 'prefs-open': return openPrefs();
+    case 'prefs-save': { const v = ($('pref-email').value || '').trim(); setEmail(v); setStatus(v ? 'Saved. Your licence and credits follow this address.' : 'Address cleared.', 'ok'); closeScreen('panel-home'); return; }
     case 'board-open': return openSceneBoard();
     case 'screen-close': return closeScreen(el.dataset.panel);
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
@@ -467,6 +473,53 @@ async function openPagesInPane() {
     const note = document.createElement('div'); note.className = 'se-pages-note'; note.textContent = `${pdf.numPages} ${pdf.numPages === 1 ? 'page' : 'pages'}. Drag the pane wider for a closer look.`; body.appendChild(note);
     track('print_view');
   } catch (e) { body.innerHTML = `<div class="se-pages-note">${friendly(e)}</div>`; }
+}
+
+// Preferences: the address that carries the licence and the credits, and the paper.
+function openPrefs() {
+  switchTab('home');
+  const body = openScreen('panel-home', 'Preferences');
+  body.innerHTML = `
+    <div class="se-label">Your account</div>
+    <div class="sv-card">
+      <div class="pf-row"><span class="pf-lb">E-mail</span><input class="se-input pf-input" id="pref-email" type="email" placeholder="you@example.com" value="${getEmail().replace(/"/g, '&quot;')}"></div>
+      <div class="sv-sub pf-hint">The address of your Screenplay Editor licence. Pro features, poster quota and Table Read credits follow it.</div>
+      <div class="se-titlepage-actions"><button class="se-btn se-btn-dark" data-se="prefs-save">Save</button></div>
+    </div>
+    <div class="se-label">About</div>
+    <div class="sv-card"><div class="pf-row"><span class="pf-lb">Version</span><span class="sv-row-v">${VERSION}</span></div><div class="pf-row"><span class="pf-lb">Feedback</span><span class="sv-sub">hugo@screenplayeditor.app</span></div></div>`;
+  track('preferences_open');
+}
+
+// The AI card of the stats: logline, conflict, themes, acts.
+async function askStatsAi(btn) {
+  const host = btn.closest('.sv-ai'); if (!host || !lastStats) return;
+  host.innerHTML = '<div class="sv-loading">Reading the whole script…</div>';
+  try {
+    const paras = await readParagraphs();
+    const text = paras.map((p) => p.text).join('\n').slice(0, 60000);
+    const d = await cloud('/stats/ai-insights', { scriptText: text, title: docTitle(), language: detectLanguage(text) });
+    const themes = (d.themes || []).map((t) => `<span class="bd-chip">${(t.name || t).toString().replace(/</g, '&lt;')}</span>`).join('');
+    const acts = (d.acts || []).map((a) => `<div class="sv-row"><span class="sv-row-lb">${(a.name || '').replace(/</g, '&lt;')}<span class="sv-sub">${(a.beat || '').replace(/</g, '&lt;')}</span></span><span class="sv-row-v">${a.endPage ? 'p. ' + a.endPage : ''}</span></div>`).join('');
+    host.innerHTML = `<div class="sv-kicker">${(d.genre || 'Script identity').replace(/</g, '&lt;')}</div><div class="sv-ai-logline">${(d.logline || '').replace(/</g, '&lt;')}</div>${d.coreConflict ? `<div class="sv-sub sv-ai-conflict">${d.coreConflict.replace(/</g, '&lt;')}</div>` : ''}${themes ? `<div class="bd-cat-items sv-ai-themes">${themes}</div>` : ''}${acts}`;
+    track('stats_ai');
+  } catch (e) { host.innerHTML = `<div class="sv-loading">${friendly(e)}</div>`; }
+}
+
+// Production Breakdown: the server reads the scenes, the pane shows them and hands over the spreadsheet.
+async function openBreakdown() {
+  const body = openScreen('panel-export', 'Production Breakdown');
+  body.innerHTML = '<div class="sv-loading">Reading your scenes…</div>';
+  try {
+    const paras = await readParagraphs();
+    const scenes = scenesForBreakdown(paras);
+    if (!scenes.length) { body.innerHTML = '<div class="sv-loading">No scenes yet. Write INT. or EXT. to open one.</div>'; return; }
+    body.innerHTML = `<div class="sv-loading">Breaking down ${scenes.length} ${scenes.length === 1 ? 'scene' : 'scenes'}… about a minute.</div>`;
+    const d = await cloud('/breakdown/analyze', { scenes, language: detectLanguage(scenes.map((s) => s.body).join(' ')) });
+    renderBreakdown(body, d);
+    if (d.xlsx) { const bin = atob(d.xlsx); const bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); download(docTitle() + ' - breakdown.xlsx', new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })); }
+    track('breakdown');
+  } catch (e) { body.innerHTML = `<div class="sv-loading">${friendly(e)}</div>`; }
 }
 
 // A big window (a dialog) for the pages that need room. Same for every one of them.

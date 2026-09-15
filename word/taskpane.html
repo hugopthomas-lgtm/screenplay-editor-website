@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=7.1.2"></script>
+  <script src="engine.js?v=7.2.0"></script>
   <script src="jszip.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=7.1.2">
-  <link rel="stylesheet" href="word.css?v=7.1.2">
+  <link rel="stylesheet" href="panel.css?v=7.2.0">
+  <link rel="stylesheet" href="word.css?v=7.2.0">
 </head>
 <body class="se-stage">
   <div class="screens-container">
@@ -50,7 +50,7 @@
   <div class="tab-panels">
 
   <!-- ===== HOME PANEL ===== -->
-  <div class="tab-panel active" id="panel-home">
+    <div class="tab-panel active" id="panel-home">
     <div class="se-empty" id="se-empty" hidden><svg class="se-illu" width="132" height="104" viewBox="0 0 132 104" fill="none" stroke="#1f262e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <g transform="rotate(-6 66 56)"><rect x="36" y="14" width="60" height="78" rx="6" fill="#fff"/><path d="M44 28h22"/><path d="M44 36h40M44 42h40M44 48h32"/><path d="M62 58h14"/><path d="M52 66h36M52 72h36M52 78h24"/></g>
   <path d="M104 22l2.2 5.6 5.6 2.2-5.6 2.2-2.2 5.6-2.2-5.6-5.6-2.2 5.6-2.2z" fill="#6f57ff" stroke="#6f57ff"/>
@@ -101,7 +101,7 @@
   </div>
   <div class="tab-panel" id="panel-export">
     <div class="se-list">
-      <button class="se-row" data-se="soon"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7M3 10h18M10 3v18M16 19h6M19 16l3 3-3 3"/></g></svg><span class="se-row-lb">Production Breakdown<span class="se-row-sub">Scene-by-scene breakdown. Cast, props, wardrobe, SFX, everything.</span></span><span class="se-soon">soon</span></button>
+      <button class="se-row" data-se="breakdown-open"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7M3 10h18M10 3v18M16 19h6M19 16l3 3-3 3"/></g></svg><span class="se-row-lb">Production Breakdown<span class="se-row-sub">Scene-by-scene breakdown. Cast, props, wardrobe, SFX, everything.</span></span></button>
       <button class="se-row" data-se="preview-open"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19a9 9 0 0 1 9 0 9 9 0 0 1 9 0M3 6a9 9 0 0 1 9 0 9 9 0 0 1 9 0M3 6v13M12 6v13M21 6v13"/></g></svg><span class="se-row-lb">Print View<span class="se-row-sub">Real pages, real layout, before you hit export.</span></span></button>
     </div>
     <div class="se-label">Export</div>
@@ -130,7 +130,7 @@
       </button>
     </div>
     <div class="tab-panels-footer-actions">
-      <button class="tab-panels-settings-btn" data-se="soon">
+      <button class="tab-panels-settings-btn" data-se="prefs-open">
         <i class="ti ti-settings"></i>
         <span id="tab-footer-pref-label">Preferences</span>
       </button>
@@ -144,6 +144,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=7.1.2"></script>
+  <script type="module" src="taskpane.js?v=7.2.0"></script>
 </body>
 </html>
