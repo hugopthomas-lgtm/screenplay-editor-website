@@ -54,8 +54,9 @@ function setParagraphText(p, text) {
 // ---------------------------------------------------------------------------
 export async function ensureStyles(paper = 'US') {
   const indents = paper === 'A4' ? E.INDENTS_A4 : E.INDENTS_US;
-  const caps = capabilities();
-  if (!caps.styles) throw new Error('This version of Word cannot create styles (WordApi 1.5 needed).');
+  // No pre-check on the requirement set: Word for Mac has reported WordApi 1.5 as
+  // missing on a machine where the styles are created fine (15/09/2026). If the API
+  // is really absent, Word.run throws and the pane says so.
 
   await Word.run(async (context) => {
     const styles = context.document.getStyles();

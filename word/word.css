@@ -505,3 +505,8 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 /* the rows that are buttons weigh the same as the rows that are not */
 #screen-main button.se-row, #screen-main button.se-el, #screen-main button.se-primary, #screen-main button.se-btn, #screen-main .se-tabs .tab-btn, #screen-main button.se-paper-opt, #screen-main .tab-panels-settings-btn { font-weight: 400; }
 #screen-main button.se-el.active, #screen-main .se-tabs .tab-btn.active span, #screen-main button.se-primary-hot { font-weight: 500; }
+
+/* studio and ship: the tools sit a little lower in the folder, like the rail does */
+#panel-studio, #panel-export { padding-top: 10px !important; }
+/* no browser focus ring after a click on a tab; keyboard focus keeps its ring */
+.se-tabs .tab-btn:focus:not(:focus-visible) { outline: none; box-shadow: none; }
