@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '5.7.0';
+const VERSION = '5.7.1';
 
 const $ = (id) => document.getElementById(id);
 
