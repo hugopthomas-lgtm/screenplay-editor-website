@@ -19,7 +19,7 @@ import { computeScriptStats } from './stats-core.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.7.5';
+const VERSION = '6.8.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -300,7 +300,7 @@ async function handle(se, el) {
       download(docTitle() + '.fountain', new Blob([text], { type: 'text/plain' }));
       let copied = false;
       try { await navigator.clipboard.writeText(text); copied = true; } catch (_e) { /* no clipboard in this webview */ }
-      setStatus(copied ? 'Fountain file saved, and copied to the clipboard.' : 'Fountain file saved.', 'ok');
+      setStatus(copied ? 'Fountain file ready, and copied to the clipboard.' : 'Fountain file ready. Choose where to save it.', 'ok');
       track('export_fountain');
       return;
     }
@@ -308,7 +308,7 @@ async function handle(se, el) {
       setStatus('Writing the Final Draft file…');
       const xml = await exportFdxText();
       download(docTitle() + '.fdx', new Blob([xml], { type: 'application/xml' }));
-      setStatus('Final Draft file saved. Open it in Final Draft.', 'ok');
+      setStatus('Final Draft file ready. Choose where to save it.', 'ok');
       track('export_fdx');
       return;
     }
@@ -316,12 +316,13 @@ async function handle(se, el) {
       setStatus('Asking Word for the PDF…');
       const blob = await exportPdfBlob();
       download(docTitle() + '.pdf', blob);
-      setStatus('PDF saved.', 'ok');
+      setStatus('PDF ready. Choose where to save it.', 'ok');
       track('export_pdf');
       return;
     }
     case 'stats': return refreshStats();
-    case 'stats-open': return openStatsDialog();
+    case 'stats-open': return openStatsEmbed();
+    case 'stats-close': return closeStatsEmbed();
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
     case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
     case 'soon': setStatus('On its way to Word. Already in the Google Docs extension.', 'ok'); return;
@@ -359,7 +360,34 @@ async function runFormat() {
   }
 }
 
-// Script Stats live in a dialog (the pane is too narrow). The dialog asks, the pane answers.
+// Script Stats, inside the pane: the extension's page in a frame filling the folder,
+// with a way back to studio. The frame asks, the pane answers (postMessage).
+function openStatsEmbed() {
+  const panel = $('panel-studio');
+  if (!panel || $('se-stats-frame')) return;
+  const host = document.createElement('div');
+  host.className = 'se-embed'; host.id = 'se-stats-host';
+  host.innerHTML = '<button class="se-embed-back" data-se="stats-close">‹ studio</button>';
+  const f = document.createElement('iframe');
+  f.id = 'se-stats-frame'; f.className = 'se-embed-frame';
+  f.src = new URL('stats.html?embed=1&v=' + VERSION, location.href).href;
+  host.appendChild(f);
+  panel.appendChild(host);
+  panel.classList.add('se-has-embed');
+  track('stats_open');
+}
+function closeStatsEmbed() {
+  const host = $('se-stats-host'); if (host) host.remove();
+  const panel = $('panel-studio'); if (panel) panel.classList.remove('se-has-embed');
+}
+window.addEventListener('message', async (ev) => {
+  if (ev.origin !== location.origin || !ev.data || ev.data.se !== 'scan') return;
+  const f = $('se-stats-frame'); if (!f) return;
+  try { const paras = await readParagraphs(); f.contentWindow.postMessage({ se: 'stats', payload: JSON.stringify(computeScriptStats(paras)) }, location.origin); }
+  catch (e) { f.contentWindow.postMessage({ se: 'stats', payload: JSON.stringify({ error: friendly(e) }) }, location.origin); }
+});
+
+// (kept) Script Stats in a dialog window.
 let statsDialog = null;
 async function openStatsDialog() {
   const url = new URL('stats.html', location.href).href;

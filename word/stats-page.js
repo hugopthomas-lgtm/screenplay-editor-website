@@ -95,7 +95,11 @@
 
   // ────────── BOOT (Word) ──────────
   // The pane computes the stats and hands them to this dialog. We ask, it answers.
-  function ask() { try { Office.context.ui.messageParent('scan'); } catch (_e) { /* not in a dialog */ } }
+  const EMBED = new URLSearchParams(location.search).get('embed') === '1';
+  function ask() {
+    if (EMBED) { try { window.parent.postMessage({ se: 'scan' }, location.origin); } catch (_e) { /* no parent */ } return; }
+    try { Office.context.ui.messageParent('scan'); } catch (_e) { /* not in a dialog */ }
+  }
   function receive(arg) {
     let d = null;
     try { d = JSON.parse(arg.message); } catch (_e) { return renderError('Could not read the stats.'); }
@@ -105,7 +109,10 @@
     renderResults(d);
   }
   renderLoading();
-  if (typeof Office !== 'undefined') {
+  if (EMBED) {
+    window.addEventListener('message', function(ev) { if (ev.origin === location.origin && ev.data && ev.data.se === 'stats') receive({ message: ev.data.payload }); });
+    ask();
+  } else if (typeof Office !== 'undefined') {
     Office.onReady(function() {
       try { Office.context.ui.addHandlerAsync(Office.EventType.DialogParentMessageReceived, receive); } catch (_e) { /* old host */ }
       ask();

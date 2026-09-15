@@ -1,0 +1,4 @@
+/* The stats page inside the Word pane: narrower, denser, scrolls on its own. */
+html, body { overflow: auto; }
+.st-wrap { padding: 18px 14px 30px; max-width: none; }
+.st-title { font-size: 22px; }
