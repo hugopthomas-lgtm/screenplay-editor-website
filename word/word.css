@@ -510,3 +510,7 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 #panel-studio, #panel-export { padding-top: 10px !important; }
 /* no browser focus ring after a click on a tab; keyboard focus keeps its ring */
 .se-tabs .tab-btn:focus:not(:focus-visible) { outline: none; box-shadow: none; }
+/* separators: inset, from the text, barely there (no full-width lines) */
+.se-row { position: relative; }
+.se-row + .se-row, .se-titlepage + .se-row { box-shadow: none; }
+.se-row + .se-row::before, .se-titlepage + .se-row::before { content: ''; position: absolute; left: 40px; right: 12px; top: 0; height: 1px; background: rgba(31,38,46,0.06); }
