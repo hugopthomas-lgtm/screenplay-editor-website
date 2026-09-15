@@ -194,7 +194,7 @@
   const BADGE_COLORS = {
     SCENE_HEADING:  { grad: 'linear-gradient(135deg,#0ea5e9,#38bdf8)', glow: '56,189,248',  tint: 'rgba(14,165,233,0.13)',  ink: '#0369a1' },
     ACTION:         { grad: 'linear-gradient(135deg,#8b5cf6,#a855f7)', glow: '168,85,247',  tint: 'rgba(139,92,246,0.13)',  ink: '#6d28d9' },
-    CHARACTER:      { grad: 'linear-gradient(135deg,#ec4899,#f472b6)', glow: '244,114,182', tint: 'rgba(236,72,153,0.13)',  ink: '#be185d' },
+    CHARACTER:      { grad: 'linear-gradient(135deg,#ec4899,#f472b6)', glow: '244,114,182', tint: 'rgba(244,114,182,0.20)', ink: '#db2777' },
     DIALOGUE:       { grad: 'linear-gradient(135deg,#8cc81e,#bced52)', glow: '188,237,82',  tint: 'rgba(140,200,30,0.18)',  ink: '#4d7c0f' },
     PARENTHETICAL:  { grad: 'linear-gradient(135deg,#f59e0b,#fbbf24)', glow: '251,191,36',  tint: 'rgba(245,158,11,0.16)',  ink: '#b7791f' },
     TRANSITION:     { grad: 'linear-gradient(135deg,#9f1239,#be123c)', glow: '190,18,60',  tint: 'rgba(159,18,57,0.13)',  ink: '#881337' }
