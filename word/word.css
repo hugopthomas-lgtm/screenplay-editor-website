@@ -1,3 +1,6 @@
+/* Geist and Geist Mono, hosted here: schools behind a firewall do not reach Google Fonts. */
+@font-face { font-family: 'Geist'; src: url(assets/fonts/Geist-Variable.woff2) format('woff2'); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url(assets/fonts/GeistMono-Variable.woff2) format('woff2'); font-weight: 100 900; font-display: swap; }
 /* Word-only stylesheet on top of the extension's (panel.css).
    Soft and tactile, the way Hugo's references are drawn (15/09/2026): a warm
    gray ground, surfaces in pale paper that sit on it with a soft double shadow,
@@ -465,3 +468,16 @@ body.se-stage .se-plan { background: rgba(228, 221, 255, 0.92) !important; color
 .se-el.active { --duo: transparent; }
 .se-flame { background: #5b3fd6; }
 .se-primary-hot .se-flame { background: #fff; }
+
+/* the seam: no inset highlight on the folder (it read as a white line under the tabs) */
+.tab-panels, body.se-stage .tab-panels { box-shadow: 0 24px 60px rgba(0,0,0,0.40), 0 2px 6px rgba(0,0,0,0.22) !important; }
+/* the folder keeps its shape whatever the tab: square top-left, always */
+.tab-panels:has(#tab-btn-home:not(.active)) { border-radius: 0 18px 18px 18px; }
+/* tabs change colour smoothly, the panel enters with a short fade */
+.se-tabs .tab-btn { transition: background var(--m-base) var(--m-ease), color var(--m-base) var(--m-ease), padding var(--m-fast) var(--m-ease); }
+@keyframes se-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+.tab-panel.se-in { animation: se-in var(--m-fast) var(--m-ease); }
+/* the status line reads on the dark ground */
+body.se-stage .se-status { color: #c3cad3; }
+body.se-stage .se-status.ok { color: #cfc6ff; }
+body.se-stage .se-status.error { color: #fca5a5; }
