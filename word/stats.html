@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Script Stats</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    background: radial-gradient(ellipse at center, #1c1c1e 0%, #0f0f10 100%);
+    color: #fff;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+  }
+  body {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.12) transparent;
+  }
+  body::-webkit-scrollbar { width: 8px; }
+  body::-webkit-scrollbar-track { background: transparent; }
+  body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+
+  .st-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  /* ────────── HEADER ────────── */
+  .st-header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .st-pretitle {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #84cc16;
+    margin-bottom: 6px;
+  }
+  .st-title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+  }
+  .st-subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 6px;
+  }
+
+  /* ────────── ANALYZE BUTTON (initial state) ────────── */
+  .st-empty {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .st-analyze-btn {
+    background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+    color: #0a0a0a;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    box-shadow: 0 8px 22px rgba(132,204,22,0.30), inset 0 2px 0 rgba(255,255,255,0.25);
+  }
+  .st-analyze-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(132,204,22,0.45), inset 0 2px 0 rgba(255,255,255,0.30);
+  }
+  .st-analyze-btn:active {
+    transform: translateY(0);
+  }
+  .st-analyze-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .st-empty-hint {
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    margin-top: 16px;
+  }
+
+  /* ────────── LOADING ────────── */
+  .st-loading {
+    text-align: center;
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+    padding: 60px 20px;
+  }
+  .st-spinner {
+    width: 28px;
+    height: 28px;
+    border: 2.5px solid rgba(132,204,22,0.18);
+    border-top-color: #84cc16;
+    border-radius: 50%;
+    animation: stSpin 0.8s linear infinite;
+    margin: 0 auto 14px;
+  }
+  @keyframes stSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ────────── ERROR ────────── */
+  .st-error {
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.25);
+    color: #fca5a5;
+    padding: 14px 18px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  /* ────────── META BAR (refresh + last analyzed) ────────── */
+  .st-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.025);
+    border-radius: 12px;
+    transition: background 0.2s ease;
+  }
+  /* Stale state — doc modified since last scan. Surface clearly. */
+  .st-meta.is-stale {
+    background: rgba(251,191,36,0.10);
+    border: 1px solid rgba(251,191,36,0.30);
+  }
+  .st-meta.is-stale .st-meta-text {
+    color: #fbbf24;
+    font-weight: 600;
+  }
+  .st-meta-text {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.2px;
+  }
+  .st-refresh-btn {
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.85);
+    border: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .st-refresh-btn:hover { background: rgba(255,255,255,0.10); }
+  .st-refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .st-refresh-btn svg { width: 13px; height: 13px; }
+  .st-refresh-btn.is-emphasized {
+    background: #fbbf24;
+    color: #1a1a1a;
+  }
+  .st-refresh-btn.is-emphasized:hover {
+    background: #fde047;
+    transform: translateY(-1px);
+  }
+
+  /* ────────── SECTIONS ────────── */
+  .st-section {
+    margin-bottom: 32px;
+  }
+  .st-section-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+
+  /* ────────── SCRIPT IDENTITY (AI) ────────── */
+  .st-identity-section { /* same .st-section spacing */ }
+  .st-identity-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .st-identity-card {
+    background: rgba(167, 139, 250, 0.05);
+    border: 1px solid rgba(167, 139, 250, 0.14);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .st-identity-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #c4b5fd;
+    margin-bottom: 8px;
+  }
+  .st-identity-logline {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.45;
+    letter-spacing: -0.1px;
+  }
+  .st-identity-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.5;
+  }
+  .st-identity-genre {
+    display: inline-block;
+    background: rgba(167,139,250,0.18);
+    color: #c4b5fd;
+    padding: 4px 11px;
+    border-radius: 99px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .st-identity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .st-identity-item {
+    padding: 6px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .st-identity-item:first-child { border-top: none; padding-top: 0; }
+  .st-identity-item-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .st-identity-item-name .st-identity-page,
+  .st-identity-item-name .st-identity-year {
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    font-size: 12px;
+  }
+  .st-identity-item-sub {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+  .st-identity-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.025);
+    border-radius: 12px;
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+  }
+  .st-spinner-sm {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(167,139,250,0.20);
+    border-top-color: #a78bfa;
+    border-radius: 50%;
+    animation: stSpin 0.8s linear infinite;
+  }
+
+  /* ────────── OVERVIEW ────────── */
+  .st-overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  .st-stat {
+    background: rgba(255,255,255,0.03);
+    border-radius: 14px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .st-stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.4px;
+    line-height: 1;
+  }
+  .st-stat-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-top: 8px;
+  }
+
+  /* ────────── TABLES (Characters, Locations) ────────── */
+  .st-table-wrap {
+    background: rgba(255,255,255,0.025);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .st-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .st-table th, .st-table td {
+    padding: 11px 14px;
+    text-align: left;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .st-table tr:last-child td { border-bottom: none; }
+  .st-table th {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.02);
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s ease;
+  }
+  .st-table th:hover { color: rgba(255,255,255,0.8); }
+  .st-table th.is-sorted { color: #a3e635; }
+  .st-table th .st-sort-arrow {
+    display: inline-block;
+    margin-left: 4px;
+    opacity: 0.25;
+    font-size: 9px;
+    vertical-align: 1px;
+    transition: opacity 0.15s ease;
+  }
+  .st-table th:hover .st-sort-arrow { opacity: 0.55; }
+  .st-table th.is-sorted .st-sort-arrow { opacity: 1; }
+  .st-table td { color: rgba(255,255,255,0.85); }
+  .st-table td.st-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255,255,255,0.75);
+  }
+  .st-table th.st-num { text-align: right; }
+  .st-table td.st-name {
+    font-weight: 600;
+    color: #fff;
+  }
+
+  /* Inline progress bars for character columns */
+  .st-bar-cell {
+    width: 110px;
+    min-width: 100px;
+  }
+  .st-bar {
+    position: relative;
+    height: 5px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .st-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #a3e635 0%, #84cc16 100%);
+    border-radius: 3px;
+  }
+  .st-bar-pct {
+    display: inline-block;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ────────── SCENES (mixed metrics) ────────── */
+  /* Scene Mix : INT/EXT + Day/Night side-by-side. Same conceptual question
+     ("where + when"), grouped into a single block. */
+  .st-scene-mix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 640px) {
+    .st-scene-mix { grid-template-columns: 1fr; }
+  }
+
+  /* "Show all 29 other speaking characters" expand button */
+  .st-show-all {
+    margin-top: 10px;
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.7);
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .st-show-all:hover {
+    background: rgba(163,230,53,0.06);
+    color: #d9f99d;
+    border-color: rgba(163,230,53,0.25);
+  }
+
+  .st-scenes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .st-scene-card {
+    background: rgba(255,255,255,0.025);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+  .st-scene-card-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 10px;
+  }
+  .st-split-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .st-split-row:last-child { margin-bottom: 0; }
+  .st-split-label { color: rgba(255,255,255,0.7); }
+  .st-split-value {
+    font-weight: 700;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+  }
+  .st-split-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+    display: flex;
+  }
+  .st-split-bar-fill {
+    height: 100%;
+    transition: width 0.4s ease;
+  }
+  .st-split-bar-fill.int    { background: #84cc16; }
+  .st-split-bar-fill.ext    { background: #f59e0b; }
+  /* Day = warm cream, Night = deep navy, Dawn/Dusk = violet (twilight feel).
+     Other & unspec = neutral grays so the eye keeps focus on Day vs Night. */
+  .st-split-bar-fill.day    { background: #fde68a; }
+  .st-split-bar-fill.night  { background: #1e3a8a; }
+  .st-split-bar-fill.dusk   { background: #8b5cf6; }
+  .st-split-bar-fill.other  { background: rgba(255,255,255,0.35); }
+  .st-split-bar-fill.unspec { background: rgba(255,255,255,0.18); }
+
+  .st-scene-card-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+  .st-scene-card-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.4;
+  }
+  .st-scene-card-sub .slug {
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+  }
+
+  /* Empty section message */
+  .st-section-empty {
+    background: rgba(255,255,255,0.02);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    color: rgba(255,255,255,0.40);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+  <div class="st-wrap">
+    <div class="st-header">
+      <div class="st-pretitle">Script Stats</div>
+      <div class="st-title">Know your screenplay.</div>
+      <div class="st-subtitle">A quick overview of your screenplay.</div>
+    </div>
+
+    <div id="st-body">
+      <!-- Initial empty state -->
+      <div class="st-empty" id="st-empty">
+        <button class="st-analyze-btn" id="st-analyze-btn">Analyze script</button>
+        <div class="st-empty-hint" id="st-empty-hint">Click to compute stats. Takes under a second.</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script src="stats-page.js"></script>
+</body>
+</html>
