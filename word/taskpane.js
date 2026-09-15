@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '5.7.3';
+const VERSION = '5.8.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -57,7 +57,7 @@ Office.onReady(async (info) => {
   if (info.host !== Office.HostType.Word) {
     const q = new URLSearchParams(location.search);
     const m = q.get('preview');
-    if (m) { isMac = true; buildRail(); buildPill(); wireUi(); paintMode(m, false, false); switchTab(q.get('tab') || 'home'); if (q.get('empty')) paintEmpty(true); if (q.get('hot')) setHot(true, '<b>Imported.</b> 118 paragraphs came in. One click puts everything in its place.'); return; }
+    if (m) { isMac = true; (q.get('theme') || '').split(',').filter(Boolean).forEach((t) => document.body.classList.add('se-' + t)); buildRail(); buildPill(); wireUi(); paintMode(m, false, false); switchTab(q.get('tab') || 'home'); if (q.get('empty')) paintEmpty(true); if (q.get('hot')) setHot(true, '<b>Imported.</b> 118 paragraphs came in. One click puts everything in its place.'); return; }
     setStatus('Screenplay Editor runs in Word.', 'error');
     return;
   }

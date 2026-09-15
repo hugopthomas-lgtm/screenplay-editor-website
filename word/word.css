@@ -292,3 +292,28 @@ div.se-row:hover { background: transparent; }
 
 /* the advice line is always two lines tall, even when it takes one */
 .se-voice-tip { min-height: calc(2 * 1.45em); }
+
+/* ---- « la scène » (essai 15/09) : a dark ground, the folder stays lit ---- */
+body.se-stage { --g-ground: #1c2027; --g-tab: #343b44; }
+body.se-stage, body.se-stage .screens-container, body.se-stage .screen, body.se-stage .screen#screen-main { background: #1c2027; }
+body.se-stage .screens-container { background: linear-gradient(180deg, #232830 0%, #1a1e24 100%); }
+body.se-stage #screen-main .header-title { color: #fff; }
+body.se-stage .se-plan { color: #cfc6ff; background: rgba(111, 87, 255, 0.28); box-shadow: none; }
+body.se-stage .se-tabs .tab-btn:nth-child(1) { background: #3d444e; }
+body.se-stage .se-tabs .tab-btn:nth-child(2) { background: #333a43; }
+body.se-stage .se-tabs .tab-btn:nth-child(3) { background: #2b313a; }
+body.se-stage .se-tabs .tab-btn { color: #aab2bc; }
+body.se-stage .se-tabs .tab-btn:hover { color: #fff; }
+body.se-stage .se-tabs .tab-btn.active { color: var(--g-ink); }
+body.se-stage .se-tabs .tab-btn.active span { text-decoration-color: #9d8bff; }
+body.se-stage .tab-panels { box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 20px 50px rgba(0,0,0,0.35); }
+body.se-stage .focus-stat-value { color: #eef1f4; }
+body.se-stage .focus-stat-label, body.se-stage .tab-panels-settings-btn, body.se-stage .focus-stats-refresh, body.se-stage .focus-stats-refresh i { color: #8f98a3; }
+body.se-stage .focus-stat-divider { background: rgba(255,255,255,0.14); }
+body.se-stage .focus-stats-refresh { background: #1e2229; }
+body.se-stage .tab-panels-settings-btn:hover { color: #fff; }
+body.se-stage .se-status { color: #aab2bc; }
+body.se-stage .se-version { color: #5c646e; }
+/* ---- « natif » (essai 15/09) : the machine's own typeface ---- */
+body.se-sf, body.se-sf #screen-main button, body.se-sf #screen-main input { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI Variable', 'Segoe UI', 'Geist', sans-serif; letter-spacing: 0; }
+body.se-sf .se-key, body.se-sf .focus-stat-value, body.se-sf .se-version { font-family: ui-monospace, 'SF Mono', 'Geist Mono', Menlo, monospace; }
