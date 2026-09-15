@@ -563,3 +563,12 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 /* the pages */
 .se-page { display: block; margin: 10px auto; background: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border-radius: 2px; }
 .se-pages-note { font-family: var(--g-font); font-size: 12px; color: #8f98a3; text-align: center; padding: 14px; }
+/* the stats page at the pane's width: two columns of figures, one column of cards;
+   drag the pane wider and the page spreads out again */
+.se-screen-body { container-type: inline-size; }
+.st-host .st-overview { grid-template-columns: repeat(2, 1fr); }
+.st-host .st-scene-mix, .st-host .st-scenes-grid { grid-template-columns: 1fr; }
+@container (min-width: 620px) {
+  .st-host .st-overview { grid-template-columns: repeat(5, 1fr); }
+  .st-host .st-scene-mix, .st-host .st-scenes-grid { grid-template-columns: repeat(2, 1fr); }
+}
