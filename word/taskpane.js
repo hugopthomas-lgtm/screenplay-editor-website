@@ -25,7 +25,7 @@ import { scanForPoster, renderPosterForm, generatePoster, watermark, renderPoste
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.5.2';
+const VERSION = '7.5.3';
 
 const $ = (id) => document.getElementById(id);
 
