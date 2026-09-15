@@ -514,3 +514,9 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 .se-row { position: relative; }
 .se-row + .se-row, .se-titlepage + .se-row { box-shadow: none; }
 .se-row + .se-row::before, .se-titlepage + .se-row::before { content: ''; position: absolute; left: 40px; right: 12px; top: 0; height: 1px; background: rgba(31,38,46,0.06); }
+
+/* ---- the name, exactly as at the foot of the site: Plus Jakarta Sans 800, tight, the violet dot ---- */
+@font-face { font-family: 'Plus Jakarta Sans'; src: url(/fonts/jakarta-latin.woff2) format('woff2'); font-weight: 200 800; font-display: swap; }
+#screen-main .header-title { font-family: 'Plus Jakarta Sans', var(--g-font); font-size: 21px; font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; color: #fff; }
+#screen-main .header-title .brand-dot { color: #9D7BEA; margin-left: -0.07em; animation: none; }
+#screen-main .header-title:hover .brand-dot { animation: se-bounce 0.7s var(--m-spring) 1; }
