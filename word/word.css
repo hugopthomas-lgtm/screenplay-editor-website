@@ -652,3 +652,7 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 .pg-price span { font-size: 12px; color: var(--g-muted); margin-left: 4px; }
 .pg-buy { margin-top: 6px; }
 .pf-note { font-size: 12.5px; color: #4a35d6; background: var(--g-lavender); border-radius: 10px; padding: 8px 12px; margin: 4px 0 8px; }
+/* [pro] next to the name; air under the blank-page hint */
+.se-row-lb { display: block; }
+.se-row-sub { display: block; }
+.se-empty { padding-bottom: 14px; }
