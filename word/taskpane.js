@@ -23,7 +23,7 @@ import { renderBreakdown } from './breakdown-view.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.2.0';
+const VERSION = '7.2.1';
 
 const $ = (id) => document.getElementById(id);
 
@@ -404,7 +404,7 @@ function openScreen(panelId, title) {
   const panel = $(panelId);
   const host = document.createElement('div');
   host.className = 'se-screen'; host.id = panelId + '-screen';
-  host.innerHTML = `<div class="se-screen-bar"><button class="se-screen-back" data-se="screen-close" data-panel="${panelId}">‹ ${panelId === 'panel-studio' ? 'studio' : 'ship'}</button><span class="se-screen-title">${title}</span></div><div class="se-screen-body"></div>`;
+  host.innerHTML = `<div class="se-screen-bar"><button class="se-screen-back" data-se="screen-close" data-panel="${panelId}">‹ ${({ 'panel-home': 'write', 'panel-studio': 'studio', 'panel-export': 'ship' })[panelId] || 'back'}</button><span class="se-screen-title">${title}</span></div><div class="se-screen-body"></div>`;
   panel.appendChild(host);
   panel.classList.add('se-has-screen');
   return host.querySelector('.se-screen-body');

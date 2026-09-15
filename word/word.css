@@ -636,3 +636,6 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 .bd-chip { font-size: 11px; color: var(--g-ink-2); background: var(--g-lavender); border-radius: 999px; padding: 2px 8px; }
 .bd-scene .sv-empty { padding: 8px 0 10px; }
 .bd-scene > .sv-sub { padding-bottom: 6px; }
+
+/* a screen hides everything else in its tab, the rail included */
+.tab-panel.se-has-screen > :not(.se-screen) { display: none !important; }
