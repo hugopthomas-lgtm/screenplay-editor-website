@@ -20,10 +20,11 @@ import { renderStatsView } from './stats-view.js';
 import { buildStatsPdf } from './stats-pdf.js';
 import { call as cloud, getEmail, setEmail, detectLanguage, scenesForBreakdown } from './cloud.js';
 import { renderBreakdown } from './breakdown-view.js';
+import * as License from './license.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.2.1';
+const VERSION = '7.3.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -75,6 +76,7 @@ Office.onReady(async (info) => {
   wireUi();
   paintPaper();
   track('sidebar_open');
+  License.refresh(true).then(paintPlan).catch(() => {});
   // No startup auto-load: with a sideloaded manifest, Word answers « Ce complément
   // n'est plus disponible » at the next launch (Hugo, 15/09). The ribbon opens the pane.
   try { Office.addin.setStartupBehavior(Office.StartupBehavior.none); } catch (_e) { /* optional */ }
@@ -160,7 +162,7 @@ function paintPill(mode, lineEmpty) {
   if (c.enter) parts.push(`${key('Enter')} takes you to ${low(c.enter)}`);
   else if (c.scene) parts.push(`Write ${key('INT.')} for a scene heading`);
   if (c.tab) parts.push(`${key('Tab')} for ${low(c.tab)}`);
-  const tail = parts.length ? parts.join(', ') + '.' : '';
+  const tail = parts.length ? parts.map((x) => x + '.').join('<br>') : '';
   const h = $('pill-hints');
   if (h) h.innerHTML = `<span class="se-voice-line">You're in <b>${low(c.mode)}</b>.</span>${tail ? `<span class="se-voice-tip">${tail}</span>` : ''}`;
   const d = $('pill-dot');
@@ -261,7 +263,7 @@ function wireUi() {
 
 async function handle(se, el) {
   switch (se) {
-    case 'format': return runFormat();
+    case 'format': if (!(await gate('Format document'))) return; return runFormat();
     case 'scene': {
       if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
       const s = await formatScope('scene');
@@ -276,7 +278,7 @@ async function handle(se, el) {
       track('smart_format', { via: 'selection' });
       return;
     }
-    case 'titlepage': { const f = $('se-titlepage'); f.hidden = !f.hidden; if (!f.hidden) $('tp-title').focus(); return; }
+    case 'titlepage': { if (!(await gate('Title Page'))) return; const f = $('se-titlepage'); f.hidden = !f.hidden; if (!f.hidden) $('tp-title').focus(); return; }
     case 'titlepage-cancel': $('se-titlepage').hidden = true; return;
     case 'titlepage-insert': {
       if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
@@ -286,7 +288,7 @@ async function handle(se, el) {
       track('title_page');
       return;
     }
-    case 'sn-add': { const n = await addSceneNumbers(); setStatus(`${n} scenes numbered.`, 'ok'); track('scene_numbers'); return; }
+    case 'sn-add': { if (!(await gate('Scene Numbers'))) return; const n = await addSceneNumbers(); setStatus(`${n} scenes numbered.`, 'ok'); track('scene_numbers'); return; }
     case 'sn-remove': { const n = await removeSceneNumbers(); setStatus(`${n} scene numbers removed.`, 'ok'); return; }
     case 'pages': await addPageNumbers(); setStatus('Page numbers added, top right.', 'ok'); track('scene_numbers', { what: 'page_numbers' }); return;
     case 'paper': {
@@ -309,6 +311,7 @@ async function handle(se, el) {
       return;
     }
     case 'export-fdx': {
+      if (!(await gate('Final Draft export'))) return;
       setStatus('Writing the Final Draft file…');
       const xml = await exportFdxText();
       download(docTitle() + '.fdx', new Blob([xml], { type: 'application/xml' }));
@@ -331,8 +334,11 @@ async function handle(se, el) {
     case 'stats-ai': return askStatsAi(el);
     case 'breakdown-open': return openBreakdown();
     case 'prefs-open': return openPrefs();
-    case 'prefs-save': { const v = ($('pref-email').value || '').trim(); setEmail(v); setStatus(v ? 'Saved. Your licence and credits follow this address.' : 'Address cleared.', 'ok'); closeScreen('panel-home'); return; }
-    case 'board-open': return openSceneBoard();
+    case 'pro-open': return openProGate(el.dataset.feature || '');
+    case 'pro-buy': { setStatus('Opening the checkout…'); try { const u = await License.checkoutUrl(el.dataset.cycle || 'monthly'); if (Office.context.ui.openBrowserWindow) Office.context.ui.openBrowserWindow(u); else window.open(u, '_blank'); setStatus('The checkout is open in your browser. Come back here once it is done.', 'ok'); track('upgrade_click'); } catch (e) { setStatus(friendly(e), 'error'); } return; }
+    case 'pro-refresh': { const st = await License.refresh(true); if (st.isPro) { closeScreen('panel-home'); setStatus('Welcome to Pro. Everything is open.', 'ok'); paintPlan(); } else setStatus('Not Pro yet on this address.', 'error'); return; }
+    case 'prefs-save': { const v = ($('pref-email').value || '').trim(); setEmail(v); setStatus(v ? 'Saved. Your licence and credits follow this address.' : 'Address cleared.', 'ok'); closeScreen('panel-home'); await License.refresh(true); paintPlan(); return; }
+    case 'board-open': if (!(await gate('Scene Board'))) return; return openSceneBoard();
     case 'screen-close': return closeScreen(el.dataset.panel);
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
     case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
@@ -359,6 +365,7 @@ async function runFormat() {
   try {
     if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
     const stats = await formatDocument();
+    License.logFormat();
     const n = stats.paragraphs;
     const lines = [`${n} paragraphs in place. Take a bow.`, `All set. ${n} paragraphs, each where it belongs.`, `${n} paragraphs, every one in its right place.`, `Done. ${n} paragraphs. Undo brings everything back.`];
     setStatus(lines[Math.floor(Math.random() * lines.length)], 'ok');
@@ -475,11 +482,39 @@ async function openPagesInPane() {
   } catch (e) { body.innerHTML = `<div class="se-pages-note">${friendly(e)}</div>`; }
 }
 
+// The paywall: Pro features ask first. 'ok' goes on, 'email' asks for the address, 'pro' shows the gate.
+async function gate(feature) {
+  const a = await License.allowed();
+  if (a === 'ok') return true;
+  if (a === 'email') { openPrefs('Enter your e-mail to start your free week.'); return false; }
+  track('paywall_hit', { feature });
+  openProGate(feature);
+  return false;
+}
+function openProGate(feature) {
+  switchTab('home');
+  const body = openScreen('panel-home', 'Screenplay Editor Pro');
+  const P = License.PRICES;
+  body.innerHTML = `
+    <div class="pg-hero"><div class="pg-kicker">${feature ? feature + ' is a Pro feature' : 'Your free week is over'}</div><div class="pg-title">Keep writing at full speed.</div><div class="pg-desc">Format document, title page, scene numbers, Final Draft export, Scene Board, the full breakdown. One licence, Google Docs and Word.</div></div>
+    <div class="sv-card pg-plan"><div class="pg-price"><b>${P.yearly.big}</b><span>/ ${P.yearly.per}</span></div><div class="sv-sub">${P.yearly.alt}</div><button class="se-btn se-btn-dark pg-buy" data-se="pro-buy" data-cycle="yearly">Go Pro, yearly</button></div>
+    <div class="sv-card pg-plan"><div class="pg-price"><b>${P.monthly.big}</b><span>/ ${P.monthly.per}</span></div><div class="sv-sub">${P.monthly.alt}</div><button class="se-btn pg-buy" data-se="pro-buy" data-cycle="monthly">Go Pro, monthly</button></div>
+    <div class="sv-foot">Already Pro on this address? <button class="sv-link" data-se="pro-refresh">Check again</button></div>`;
+}
+// The plan, quietly, in the chip.
+function paintPlan() {
+  const st = License.current(); const chip = $('se-plan'); if (!chip) return;
+  if (st.isPro) { chip.textContent = 'Pro'; chip.title = 'Pro'; }
+  else if (st.needsTrialStart) { chip.textContent = 'Free'; chip.title = 'Enter your e-mail in Preferences to start your free week'; }
+  else if (st.isTrialing) { chip.textContent = st.daysRemaining != null ? `${st.daysRemaining}d` : 'Trial'; chip.title = 'Free week in progress'; }
+  else { chip.textContent = 'Free'; chip.title = 'Pro features ask for Pro'; }
+}
+
 // Preferences: the address that carries the licence and the credits, and the paper.
-function openPrefs() {
+function openPrefs(note) {
   switchTab('home');
   const body = openScreen('panel-home', 'Preferences');
-  body.innerHTML = `
+  body.innerHTML = `${note ? `<div class="pf-note">${note}</div>` : ''}
     <div class="se-label">Your account</div>
     <div class="sv-card">
       <div class="pf-row"><span class="pf-lb">E-mail</span><input class="se-input pf-input" id="pref-email" type="email" placeholder="you@example.com" value="${getEmail().replace(/"/g, '&quot;')}"></div>

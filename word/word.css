@@ -639,3 +639,16 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 
 /* a screen hides everything else in its tab, the rail included */
 .tab-panel.se-has-screen > :not(.se-screen) { display: none !important; }
+
+/* the paywall, the extension's grammar: [pro] in violet mono, a gate screen with two plans */
+.pro-badge { font-family: var(--g-mono); font-size: 9.5px; font-weight: 400; color: var(--g-accent); margin-left: 4px; }
+.se-row-lb .pro-badge { display: inline; }
+.pg-hero { padding: 6px 4px 10px; }
+.pg-kicker { font-size: 11px; color: var(--g-accent); text-transform: uppercase; letter-spacing: 0.04em; }
+.pg-title { font-size: 18px; font-weight: 500; color: var(--g-ink); letter-spacing: -0.02em; margin-top: 4px; }
+.pg-desc { font-size: 12.5px; color: var(--g-muted); line-height: 1.45; margin-top: 6px; }
+.pg-plan { display: flex; flex-direction: column; gap: 4px; padding: 12px; }
+.pg-price b { font-family: var(--g-mono); font-size: 22px; font-weight: 500; color: var(--g-ink); }
+.pg-price span { font-size: 12px; color: var(--g-muted); margin-left: 4px; }
+.pg-buy { margin-top: 6px; }
+.pf-note { font-size: 12.5px; color: #4a35d6; background: var(--g-lavender); border-radius: 10px; padding: 8px 12px; margin: 4px 0 8px; }

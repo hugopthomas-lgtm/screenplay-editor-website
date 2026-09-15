@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=7.2.1"></script>
+  <script src="engine.js?v=7.3.0"></script>
   <script src="jszip.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=7.2.1">
-  <link rel="stylesheet" href="word.css?v=7.2.1">
+  <link rel="stylesheet" href="panel.css?v=7.3.0">
+  <link rel="stylesheet" href="word.css?v=7.3.0">
 </head>
 <body class="se-stage">
   <div class="screens-container">
@@ -67,11 +67,11 @@
       <button class="se-el" data-mode="TRANSITION" title="Transition"><span class="se-el-ic"><svg class="se-duo" width="17" height="17" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l5 5l-5 5"/><path d="M13 7l5 5l-5 5"/></g></svg></span><span class="se-el-lb">Transition</span></button>
       </div>
 
-    <button class="se-primary" id="format-doc-btn" data-se="format"><span class="se-flame"></span><span>Format my document</span></button>
+    <button class="se-primary" id="format-doc-btn" data-se="format"><span class="se-flame"></span><span>Format my document</span><span class="pro-badge">[pro]</span></button>
 
     <div class="se-label">Page</div>
     <div class="se-list">
-      <button class="se-row" id="btn-title-page" data-se="titlepage"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 17h6M9 13h6"/></g></svg><span class="se-row-lb">Title page</span><svg class="se-i se-row-end" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="se-row" id="btn-title-page" data-se="titlepage"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 17h6M9 13h6"/></g></svg><span class="se-row-lb">Title page <span class="pro-badge">[pro]</span></span><svg class="se-i se-row-end" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
       <div class="se-titlepage" id="se-titlepage" hidden>
         <input class="se-input" id="tp-title" placeholder="Title">
         <input class="se-input" id="tp-author" placeholder="Written by">
@@ -81,7 +81,7 @@
           <button class="se-btn se-btn-dark" data-se="titlepage-insert">Insert title page</button>
         </div>
       </div>
-      <div class="se-row" id="btn-scene-numbers"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14M5 15h14M11 4L7 20M17 4l-4 16"/></g></svg><span class="se-row-lb">Scene numbers</span><span class="se-row-end se-minis"><button class="se-mini" data-se="sn-add" title="Add scene numbers"><svg class="se-i" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><button class="se-mini" data-se="sn-remove" title="Remove scene numbers"><svg class="se-i" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></button></span></div>
+      <div class="se-row" id="btn-scene-numbers"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14M5 15h14M11 4L7 20M17 4l-4 16"/></g></svg><span class="se-row-lb">Scene numbers <span class="pro-badge">[pro]</span></span><span class="se-row-end se-minis"><button class="se-mini" data-se="sn-add" title="Add scene numbers"><svg class="se-i" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button><button class="se-mini" data-se="sn-remove" title="Remove scene numbers"><svg class="se-i" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></button></span></div>
       <button class="se-row" id="btn-pages" data-se="pages"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 9h1M9 13h6M9 17h6"/></g></svg><span class="se-row-lb">Page numbers</span></button>
       <div class="se-row" title="Paper size"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></g></svg><span class="se-row-lb">Paper</span><span class="se-row-end se-switch"><button class="se-paper-opt" data-paper="US" data-se="paper" title="US Letter">Letter</button><button class="se-paper-opt" data-paper="A4" data-se="paper" title="A4">A4</button></span></div>
     </div>
@@ -94,21 +94,21 @@
   <div class="tab-panel" id="panel-studio">
     <div class="se-list">
       <button class="se-row" data-se="soon"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M8 21h8M12 17v4"/></g></svg><span class="se-row-lb">ElevenLabs Table Read<span class="se-row-sub">A different voice for each character. Hear your whole script read out loud.</span></span><span class="se-soon">soon</span></button>
-      <button class="se-row" data-se="board-open"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></g></svg><span class="se-row-lb">Scene Board<span class="se-row-sub">Every scene on a card. Drag, drop, restructure.</span></span></button>
+      <button class="se-row" data-se="board-open"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></g></svg><span class="se-row-lb">Scene Board <span class="pro-badge">[pro]</span><span class="se-row-sub">Every scene on a card. Drag, drop, restructure.</span></span></button>
       <button class="se-row" data-se="stats-open"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="6" height="8" rx="1"/><rect x="9" y="8" width="6" height="12" rx="1"/><rect x="15" y="4" width="6" height="16" rx="1"/><path d="M4 20h14"/></g></svg><span class="se-row-lb">Script Stats<span class="se-row-sub">Industry-standard reports. Characters, scenes, locations, page-by-page metrics.</span></span></button>
       <button class="se-row" data-se="soon"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v16M16 4v16M4 8h4M4 16h4M4 12h16M16 8h4M16 16h4"/></g></svg><span class="se-row-lb">Screenplay Poster<span class="se-row-sub">See your script as a movie poster. Pick a style, get a real-looking film poster in 30s.</span></span><span class="se-soon">soon</span></button>
     </div>
   </div>
   <div class="tab-panel" id="panel-export">
     <div class="se-list">
-      <button class="se-row" data-se="breakdown-open"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7M3 10h18M10 3v18M16 19h6M19 16l3 3-3 3"/></g></svg><span class="se-row-lb">Production Breakdown<span class="se-row-sub">Scene-by-scene breakdown. Cast, props, wardrobe, SFX, everything.</span></span></button>
+      <button class="se-row" data-se="breakdown-open"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7M3 10h18M10 3v18M16 19h6M19 16l3 3-3 3"/></g></svg><span class="se-row-lb">Production Breakdown <span class="pro-badge">[pro]</span><span class="se-row-sub">Scene-by-scene breakdown. Cast, props, wardrobe, SFX, everything.</span></span></button>
       <button class="se-row" data-se="preview-open"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19a9 9 0 0 1 9 0 9 9 0 0 1 9 0M3 6a9 9 0 0 1 9 0 9 9 0 0 1 9 0M3 6v13M12 6v13M21 6v13"/></g></svg><span class="se-row-lb">Print View<span class="se-row-sub">Real pages, real layout, before you hit export.</span></span></button>
     </div>
     <div class="se-label">Export</div>
     <div class="se-list">
       <button class="se-row" data-se="export-pdf"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M5 18h1.5a1.5 1.5 0 0 0 0-3H5v6M17 18h2M20 15h-3v6M11 15v6h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-1z"/></g></svg><span class="se-row-lb">PDF<span class="se-row-sub">Word renders it, your styles carry over.</span></span></button>
       <button class="se-row" data-se="export-fountain"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 9h1M9 13h6M9 17h6"/></g></svg><span class="se-row-lb">Fountain<span class="se-row-sub">Plain text with the screenplay markers.</span></span></button>
-      <button class="se-row" data-se="export-fdx"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M11.5 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v5M13.5 20a2 2 0 0 0 2 2M21 16l-3 3 3 3M18 19h-3.5"/></g></svg><span class="se-row-lb">Final Draft (.fdx)<span class="se-row-sub">A file Final Draft opens as is.</span></span></button>
+      <button class="se-row" data-se="export-fdx"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M11.5 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v5M13.5 20a2 2 0 0 0 2 2M21 16l-3 3 3 3M18 19h-3.5"/></g></svg><span class="se-row-lb">Final Draft (.fdx) <span class="pro-badge">[pro]</span><span class="se-row-sub">A file Final Draft opens as is.</span></span></button>
     </div>
   </div>
   </div>
@@ -144,6 +144,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=7.2.1"></script>
+  <script type="module" src="taskpane.js?v=7.3.0"></script>
 </body>
 </html>
