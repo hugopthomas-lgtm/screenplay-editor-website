@@ -742,6 +742,44 @@ export async function importTyped(items) {
   return count;
 }
 
+// Reorder the scenes of the document to `order` (indices of scenes as they stand).
+// A scene = its heading and everything down to the next heading; what comes before
+// the first heading (a title page) stays where it is. The body is rewritten in one
+// batch, styles kept; scene numbers are renumbered if the headings carried some.
+export async function reorderScenes(order) {
+  let moved = 0;
+  await Word.run(async (context) => {
+    const paras = context.document.body.paragraphs;
+    paras.load('items/text,items/style,items/alignment');
+    await context.sync();
+    const items = paras.items.map((p) => ({ text: p.text, style: p.style, type: elementFromStyleName(p.style) }));
+    const heads = []; items.forEach((it, i) => { if (it.type === 'SCENE_HEADING' && cleanText(it.text)) heads.push(i); });
+    if (heads.length < 2) return;
+    const preamble = items.slice(0, heads[0]);
+    const scenes = heads.map((h, k) => items.slice(h, k + 1 < heads.length ? heads[k + 1] : items.length));
+    const seen = new Set(); const seq = [];
+    for (const i of order) { if (Number.isInteger(i) && i >= 0 && i < scenes.length && !seen.has(i)) { seen.add(i); seq.push(i); } }
+    for (let i = 0; i < scenes.length; i++) if (!seen.has(i)) seq.push(i); // scenes the board dropped keep their place, at the end
+    if (seq.every((v, i) => v === i)) return;
+    const numbered = scenes.every((sc) => /^\d+\.\t/.test(sc[0].text));
+    const out = preamble.slice();
+    seq.forEach((i, n) => {
+      const sc = scenes[i].map((it) => Object.assign({}, it));
+      if (numbered) sc[0].text = (n + 1) + '.\t' + sc[0].text.replace(/^\d+\.\t/, '');
+      out.push(...sc);
+    });
+    const body = context.document.body;
+    body.clear();
+    for (const it of out) {
+      const p = body.insertParagraph(it.text, Word.InsertLocation.end);
+      if (it.style) p.style = it.style;
+    }
+    await context.sync();
+    moved = seq.length;
+  });
+  return moved;
+}
+
 export async function exportFountainText() {
   let out = [];
   await Word.run(async (context) => {

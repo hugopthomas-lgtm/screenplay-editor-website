@@ -12,7 +12,7 @@ import {
   currentElement, startLiveWriting, startEmptyDocument, liveCounts, capabilities,
   formatScope, insertTitlePage, addSceneNumbers, removeSceneNumbers,
   importFountainText, exportFountainText, docStats,
-  readParagraphs, exportFdxText, exportPdfBlob, importTyped,
+  readParagraphs, exportFdxText, exportPdfBlob, importTyped, reorderScenes,
 } from './word-adapter.js';
 import { parseFdx, parseFadeIn, parseCeltx, unzipEntry } from './importers.js';
 import { computeScriptStats } from './stats-core.js';
@@ -24,7 +24,7 @@ import * as License from './license.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.3.3';
+const VERSION = '7.4.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -339,6 +339,7 @@ async function handle(se, el) {
     case 'pro-refresh': { const st = await License.refresh(true); if (st.isPro) { closeScreen('panel-home'); setStatus('Welcome to Pro. Everything is open.', 'ok'); paintPlan(); } else setStatus('Not Pro yet on this address.', 'error'); return; }
     case 'prefs-save': { const v = ($('pref-email').value || '').trim(); setEmail(v); setStatus(v ? 'Saved. Your licence and credits follow this address.' : 'Address cleared.', 'ok'); closeScreen('panel-home'); await License.refresh(true); paintPlan(); return; }
     case 'board-open': if (!(await gate('Scene Board'))) return; return openSceneBoard();
+    case 'board-apply': return applyBoardOrder();
     case 'screen-close': return closeScreen(el.dataset.panel);
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
     case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
@@ -570,6 +571,17 @@ function openBig(url, onMessage) {
 }
 
 // Scene Board: the web app already online, fed through the worker's sync store.
+let boardDocId = null;
+async function applyBoardOrder() {
+  if (!boardDocId) { setStatus('Open the Scene Board first.', 'error'); return; }
+  setStatus('Reading the board…');
+  const res = await fetch(API_WORKER + '/board/reorder/' + encodeURIComponent(boardDocId));
+  if (!res.ok) { setStatus('The board has not sent an order yet. Move a card, or click « Send to Word » there.', 'error'); return; }
+  const d = await res.json();
+  const n = await reorderScenes(d.order || []);
+  setStatus(n ? `${n} scenes in the board's order. Undo brings the old order back.` : `The order is already the document's.`, 'ok');
+  track('scene_board_apply');
+}
 const API_WORKER = 'https://screenplay-editor-api.hugopthomas.workers.dev';
 const SLUG_RE = /^[\u200B-\u200D\uFEFF]*(INT\.|EXT\.|INT |EXT |INT\/EXT\.|I\/E\.)/i;
 function scenesFrom(paras) {
@@ -597,13 +609,16 @@ async function openSceneBoard() {
   const paras = await readParagraphs();
   const scenes = scenesFrom(paras);
   if (!scenes.length) { setStatus('No scenes yet. Write INT. or EXT. to open one.', 'error'); return; }
-  const syncId = 'word_' + Date.now();
+  const syncId = 'word_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  boardDocId = syncId;
   await fetch(API_WORKER + '/board/sync/' + encodeURIComponent(syncId), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ scenes, title: docTitle() }) });
-  const url = 'https://screenplayeditor.app/board2/?docId=word&sync=' + encodeURIComponent(syncId);
+  const url = 'https://screenplayeditor.app/board2/?docId=' + encodeURIComponent(syncId) + '&sync=' + encodeURIComponent(syncId);
   let opened = false;
   try { if (Office.context.ui.openBrowserWindow) { Office.context.ui.openBrowserWindow(url); opened = true; } } catch (_e) { /* fall back */ }
   if (!opened) await openBig(url);
   setStatus(`${scenes.length} scenes on the board, in your browser.`, 'ok');
+  const body = openScreen('panel-studio', 'Scene Board');
+  body.innerHTML = `<div class="sv-card pg-plan"><div class="pg-kicker">In your browser</div><div class="pg-desc">${scenes.length} scenes are on the board. Move the cards, then come back here.</div><button class="se-btn se-btn-dark pg-buy" data-se="board-apply">Apply the board's order</button><div class="sv-sub" style="margin-top:8px">The document is rewritten in that order, scene by scene. Undo brings the old order back.</div></div>`;
   track('scene_board');
 }
 
