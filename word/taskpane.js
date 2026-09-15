@@ -16,10 +16,12 @@ import {
 } from './word-adapter.js';
 import { parseFdx, parseFadeIn, parseCeltx, unzipEntry } from './importers.js';
 import { computeScriptStats } from './stats-core.js';
+import { renderStatsView } from './stats-view.js';
+import { buildStatsPdf } from './stats-pdf.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.0.1';
+const VERSION = '7.1.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -323,6 +325,7 @@ async function handle(se, el) {
     case 'stats': return refreshStats();
     case 'stats-open': return openStatsInPane();
     case 'preview-open': return openPagesInPane();
+    case 'stats-pdf': return exportStatsPdf();
     case 'board-open': return openSceneBoard();
     case 'screen-close': return closeScreen(el.dataset.panel);
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
@@ -405,19 +408,34 @@ function closeScreen(panelId) {
   const panel = $(panelId); if (panel) panel.classList.remove('se-has-screen');
 }
 
-// Script Stats, in the pane: the extension's page mounted on our element.
+// Script Stats, in the pane, in our own grammar; a PDF of it on demand.
+let lastStats = null;
+let pdflibReady = null;
+function loadPdfLib() {
+  if (!pdflibReady) pdflibReady = new Promise((resolve, reject) => { const sc = document.createElement('script'); sc.src = 'pdf-lib.min.js'; sc.onload = resolve; sc.onerror = reject; document.head.appendChild(sc); });
+  return pdflibReady;
+}
 async function openStatsInPane() {
   const body = openScreen('panel-studio', 'Script Stats');
-  body.classList.add('st-host');
-  const mount = document.createElement('div'); mount.className = 'st-wrap st-wrap-pane'; body.appendChild(mount);
+  const bar = body.parentElement.querySelector('.se-screen-bar');
+  const btn = document.createElement('button'); btn.className = 'se-screen-act'; btn.textContent = 'Export PDF'; btn.dataset.se = 'stats-pdf'; bar.appendChild(btn);
+  body.classList.add('sv-host');
   const compute = async () => {
-    window.SEStats.loading();
-    try { window.SEStats.show(computeScriptStats(await readParagraphs())); }
-    catch (e) { window.SEStats.error(friendly(e)); }
+    body.innerHTML = '<div class="sv-loading">Reading your scenes…</div>';
+    try { lastStats = computeScriptStats(await readParagraphs()); renderStatsView(body, lastStats, { refresh: compute }); }
+    catch (e) { body.innerHTML = `<div class="sv-loading">${friendly(e)}</div>`; }
   };
-  window.SEStats.mount(mount, compute);
   await compute();
   track('stats_open');
+}
+async function exportStatsPdf() {
+  if (!lastStats) return;
+  setStatus('Writing the stats PDF…');
+  await loadPdfLib();
+  const blob = await buildStatsPdf(lastStats, docTitle());
+  download(docTitle() + ' - stats.pdf', blob);
+  setStatus('Stats PDF ready. Choose where to save it.', 'ok');
+  track('stats_pdf');
 }
 
 // Print View, in the pane: the real pages, one under the other, at the pane's width.

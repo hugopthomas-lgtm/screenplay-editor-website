@@ -572,3 +572,40 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
   .st-host .st-overview { grid-template-columns: repeat(5, 1fr); }
   .st-host .st-scene-mix, .st-host .st-scenes-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ---- screens in the folder, in the folder's own grammar (light) ---- */
+.se-screen { background: transparent; }
+.se-screen-bar { background: transparent; padding: 10px 12px 4px; }
+.se-screen-back { color: var(--g-muted); }
+.se-screen-back:hover { color: var(--g-ink); background: rgba(31,38,46,0.06); }
+.se-screen-title { color: var(--g-ink); font-weight: 400; flex: 1; }
+.se-screen-act { all: unset; cursor: pointer; font-family: var(--g-font); font-size: 12px; color: var(--g-ink); background: #fff; border-radius: 9px; padding: 5px 10px; box-shadow: var(--g-soft); }
+.se-screen-act:hover { background: var(--g-lavender); color: #4a35d6; }
+.se-screen-body { padding: 4px 10px 14px; }
+/* the stats, in cards */
+.sv-loading { font-family: var(--g-font); font-size: 12.5px; color: var(--g-muted); text-align: center; padding: 30px 10px; }
+.sv-meta { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--g-muted); margin: 4px 4px 8px; }
+.sv-link { all: unset; cursor: pointer; font-family: var(--g-font); font-size: 11.5px; color: var(--g-accent); }
+.sv-link:hover { text-decoration: underline; }
+.sv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 6px; }
+.sv-fig { background: #fff; border-radius: 12px; padding: 10px 8px 9px; text-align: center; box-shadow: var(--g-soft); }
+.sv-fig b { display: block; font-family: var(--g-mono); font-size: 20px; font-weight: 500; color: var(--g-ink); letter-spacing: -0.02em; }
+.sv-fig span { display: block; font-size: 10.5px; color: var(--g-muted); margin-top: 2px; }
+.sv-card { background: #fff; border-radius: 12px; padding: 8px 12px; box-shadow: var(--g-soft); margin-top: 6px; }
+.sv-bar { display: flex; height: 6px; border-radius: 3px; overflow: hidden; background: rgba(31,38,46,0.06); margin: 4px 0 8px; }
+.sv-bar span { display: block; height: 100%; }
+.sv-row { display: flex; align-items: center; gap: 8px; min-height: 28px; font-size: 12.5px; color: var(--g-ink); }
+.sv-row + .sv-row { box-shadow: inset 0 1px 0 rgba(31,38,46,0.06); }
+.sv-row-2 { min-height: 40px; }
+.sv-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 8px; }
+.sv-row-lb { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sv-row-v { font-family: var(--g-mono); font-size: 11.5px; color: var(--g-ink-2); text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
+.sv-sub { font-family: var(--g-font); font-size: 10.5px; color: var(--g-muted); }
+.sv-scene { display: flex; flex-direction: column; gap: 1px; }
+.sv-kicker { font-size: 10.5px; color: var(--g-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.sv-scene b { font-family: var(--g-mono); font-size: 18px; font-weight: 500; color: var(--g-ink); }
+.sv-slug { font-family: 'Courier New', monospace; font-size: 11.5px; color: var(--g-ink-2); }
+.sv-more { display: block; margin: 6px 0 2px; text-align: center; width: 100%; }
+.sv-empty { font-size: 12px; color: var(--g-muted); padding: 6px 0; }
+.sv-foot { font-size: 10.5px; color: var(--g-muted); text-align: center; margin: 14px 8px 4px; }
+.sv-host .se-label { margin: 14px 4px 6px; }
