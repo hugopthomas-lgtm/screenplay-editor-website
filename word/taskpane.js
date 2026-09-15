@@ -19,7 +19,7 @@ import { computeScriptStats } from './stats-core.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.9.0';
+const VERSION = '7.0.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -321,9 +321,10 @@ async function handle(se, el) {
       return;
     }
     case 'stats': return refreshStats();
-    case 'stats-open': return openStatsDialog();
+    case 'stats-open': return openStatsInPane();
+    case 'preview-open': return openPagesInPane();
     case 'board-open': return openSceneBoard();
-    case 'preview-open': return openPrintView();
+    case 'screen-close': return closeScreen(el.dataset.panel);
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
     case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
     case 'soon': setStatus('On its way to Word. Already in the Google Docs extension.', 'ok'); return;
@@ -388,6 +389,68 @@ window.addEventListener('message', async (ev) => {
   catch (e) { f.contentWindow.postMessage({ se: 'stats', payload: JSON.stringify({ error: friendly(e) }) }, location.origin); }
 });
 
+// A screen inside the folder: the tab's list steps aside, a bar with a way back on top.
+function openScreen(panelId, title) {
+  closeScreen(panelId);
+  const panel = $(panelId);
+  const host = document.createElement('div');
+  host.className = 'se-screen'; host.id = panelId + '-screen';
+  host.innerHTML = `<div class="se-screen-bar"><button class="se-screen-back" data-se="screen-close" data-panel="${panelId}">‹ ${panelId === 'panel-studio' ? 'studio' : 'ship'}</button><span class="se-screen-title">${title}</span></div><div class="se-screen-body"></div>`;
+  panel.appendChild(host);
+  panel.classList.add('se-has-screen');
+  return host.querySelector('.se-screen-body');
+}
+function closeScreen(panelId) {
+  const host = $(panelId + '-screen'); if (host) host.remove();
+  const panel = $(panelId); if (panel) panel.classList.remove('se-has-screen');
+}
+
+// Script Stats, in the pane: the extension's page mounted on our element.
+async function openStatsInPane() {
+  const body = openScreen('panel-studio', 'Script Stats');
+  body.classList.add('st-host');
+  const mount = document.createElement('div'); mount.className = 'st-wrap st-wrap-pane'; body.appendChild(mount);
+  const compute = async () => {
+    window.SEStats.loading();
+    try { window.SEStats.show(computeScriptStats(await readParagraphs())); }
+    catch (e) { window.SEStats.error(friendly(e)); }
+  };
+  window.SEStats.mount(mount, compute);
+  await compute();
+  track('stats_open');
+}
+
+// Print View, in the pane: the real pages, one under the other, at the pane's width.
+let pdfjsReady = null;
+function loadPdfJs() {
+  if (!pdfjsReady) pdfjsReady = new Promise((resolve, reject) => {
+    const sc = document.createElement('script'); sc.src = 'pdf.min.js'; sc.onload = () => { pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js'; resolve(); }; sc.onerror = reject; document.head.appendChild(sc);
+  });
+  return pdfjsReady;
+}
+async function openPagesInPane() {
+  const body = openScreen('panel-export', 'Print View');
+  body.innerHTML = '<div class="se-pages-note">Asking Word for the pages…</div>';
+  try {
+    await loadPdfJs();
+    const blob = await exportPdfBlob();
+    const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await blob.arrayBuffer()) }).promise;
+    body.innerHTML = '';
+    const width = Math.max(200, body.clientWidth - 8);
+    for (let n = 1; n <= pdf.numPages; n++) {
+      const page = await pdf.getPage(n);
+      const scale = width / page.getViewport({ scale: 1 }).width;
+      const vp = page.getViewport({ scale: scale * (window.devicePixelRatio || 1) });
+      const c = document.createElement('canvas'); c.className = 'se-page';
+      c.width = vp.width; c.height = vp.height; c.style.width = width + 'px'; c.style.height = Math.round(vp.height / (window.devicePixelRatio || 1)) + 'px';
+      body.appendChild(c);
+      await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+    }
+    const note = document.createElement('div'); note.className = 'se-pages-note'; note.textContent = `${pdf.numPages} ${pdf.numPages === 1 ? 'page' : 'pages'}. Drag the pane wider for a closer look.`; body.appendChild(note);
+    track('print_view');
+  } catch (e) { body.innerHTML = `<div class="se-pages-note">${friendly(e)}</div>`; }
+}
+
 // A big window (a dialog) for the pages that need room. Same for every one of them.
 function openBig(url, onMessage) {
   return new Promise((resolve, reject) => {
@@ -430,8 +493,11 @@ async function openSceneBoard() {
   if (!scenes.length) { setStatus('No scenes yet. Write INT. or EXT. to open one.', 'error'); return; }
   const syncId = 'word_' + Date.now();
   await fetch(API_WORKER + '/board/sync/' + encodeURIComponent(syncId), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ scenes, title: docTitle() }) });
-  await openBig('https://screenplayeditor.app/board2/?docId=word&sync=' + encodeURIComponent(syncId));
-  setStatus(`${scenes.length} scenes on the board.`, 'ok');
+  const url = 'https://screenplayeditor.app/board2/?docId=word&sync=' + encodeURIComponent(syncId);
+  let opened = false;
+  try { if (Office.context.ui.openBrowserWindow) { Office.context.ui.openBrowserWindow(url); opened = true; } } catch (_e) { /* fall back */ }
+  if (!opened) await openBig(url);
+  setStatus(`${scenes.length} scenes on the board, in your browser.`, 'ok');
   track('scene_board');
 }
 

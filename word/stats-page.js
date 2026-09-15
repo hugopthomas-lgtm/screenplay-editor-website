@@ -15,7 +15,8 @@
   let staleCheckTimer = null;
 
   // ─── DOM ───
-  const $body  = document.getElementById('st-body');
+  let $body  = document.getElementById('st-body');
+  let onScanHook = null;
 
   // ────────── HELPERS ──────────
 
@@ -97,6 +98,7 @@
   // The pane computes the stats and hands them to this dialog. We ask, it answers.
   const EMBED = new URLSearchParams(location.search).get('embed') === '1';
   function ask() {
+    if (onScanHook) { onScanHook(); return; }
     if (EMBED) { try { window.parent.postMessage({ se: 'scan' }, location.origin); } catch (_e) { /* no parent */ } return; }
     try { Office.context.ui.messageParent('scan'); } catch (_e) { /* not in a dialog */ }
   }
@@ -108,6 +110,14 @@
     isStale = false; charsExpanded = false;
     renderResults(d);
   }
+  // In the pane: the pane mounts us on its own element and feeds us.
+  window.SEStats = {
+    mount: function(el, hook) { $body = el; onScanHook = hook || null; },
+    loading: renderLoading,
+    error: renderError,
+    show: function(d) { lastScan = { data: d, timestamp: Date.now() }; isStale = false; charsExpanded = false; renderResults(d); }
+  };
+  if (!$body) return; // pane: nothing to boot, the pane drives
   renderLoading();
   if (EMBED) {
     window.addEventListener('message', function(ev) { if (ev.origin === location.origin && ev.data && ev.data.se === 'stats') receive({ message: ev.data.payload }); });

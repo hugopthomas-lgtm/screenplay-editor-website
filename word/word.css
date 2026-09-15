@@ -544,3 +544,22 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 .tab-panel.se-has-embed { flex: 1 1 auto !important; display: flex !important; flex-direction: column; min-height: 0; }
 .tab-panel.se-has-embed .se-embed { flex: 1 1 auto; min-height: 0; height: auto; }
 .se-embed-frame { min-height: 0; }
+
+/* ---- screens inside the folder (Stats, Print View): the list steps aside ---- */
+.tab-panel.se-has-screen > .se-list, .tab-panel.se-has-screen > .se-label { display: none; }
+.tab-panels:has(.se-has-screen) { padding: 0; overflow: hidden !important; display: flex; flex-direction: column; }
+.tab-panel.se-has-screen { flex: 1 1 auto !important; display: flex !important; flex-direction: column; min-height: 0; padding-top: 0 !important; }
+.se-screen { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; border-radius: 0 18px 18px 18px; overflow: hidden; background: #111114; }
+.se-screen-bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #17171b; flex: 0 0 auto; }
+.se-screen-back { all: unset; cursor: pointer; font-family: var(--g-font); font-size: 12px; color: #b7bec7; padding: 3px 6px; border-radius: 6px; }
+.se-screen-back:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.se-screen-title { font-family: var(--g-font); font-size: 12px; color: #7f8893; }
+.se-screen-body { flex: 1 1 auto; min-height: 0; overflow: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) transparent; }
+.se-screen-body::-webkit-scrollbar { width: 6px; } .se-screen-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 3px; }
+/* the stats page, narrow */
+.st-host { background: radial-gradient(ellipse at center, #1c1c1e 0%, #0f0f10 100%); text-align: center; color: rgba(255,255,255,0.40); font-size: 13px; }
+.st-wrap-pane { padding: 16px 12px 28px; max-width: none; }
+.st-host .st-title { font-size: 20px; }
+/* the pages */
+.se-page { display: block; margin: 10px auto; background: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border-radius: 2px; }
+.se-pages-note { font-family: var(--g-font); font-size: 12px; color: #8f98a3; text-align: center; padding: 14px; }
