@@ -165,7 +165,7 @@
         + '&q=' + encodeURIComponent("mimeType='application/vnd.google-apps.document'"), {
         headers: { Authorization: 'Bearer ' + params.token }
       }).then(function (r) {
-        if (!r.ok) { report('la cle ne peut pas lister', 'error', { statut: r.status }); afficher(-2); return null; }
+        if (!r.ok) { afficher(-2); return null; } // 15/09 : diagnostic silencieux, plus d'alerte
         return r.json();
       }).then(function (j) {
         if (!j) return;
