@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '5.7.1';
+const VERSION = '5.7.2';
 
 const $ = (id) => document.getElementById(id);
 
@@ -209,7 +209,7 @@ function wireUi() {
       if (!f) return;
       try {
         const text = await f.text();
-        setStatus('Importing…');
+        setStatus('Reading your screenplay…');
         const n = await importFountainText(f.name.toLowerCase().endsWith('.fdx') ? fdxToText(text) : text);
         setStatus(`${n} paragraphs imported.`, 'ok');
         paintEmpty(false);
@@ -293,11 +293,11 @@ async function runElement(type, origin) {
 }
 
 async function runFormat() {
-  setStatus('Formatting…');
+  setStatus('Reading your scenes…');
   try {
     if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
     const stats = await formatDocument();
-    setStatus(`Formatted ${stats.paragraphs} paragraphs. Undo brings everything back.`, 'ok');
+    setStatus(`${stats.paragraphs} paragraphs in place. Undo brings everything back.`, 'ok');
     setHot(false); paintPill(uiMode, uiEmpty);
     const b = $('format-doc-btn'); if (b) { b.classList.remove('se-done'); void b.offsetWidth; b.classList.add('se-done'); }
     track('format_document', { paragraphs: stats.paragraphs, removed: stats.removed });
