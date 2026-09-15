@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '5.5.4';
+const VERSION = '5.6.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -148,7 +148,7 @@ function paintPill(mode, lineEmpty) {
   if (c.tab) parts.push(`${key('Tab')} for ${low(c.tab)}`);
   const tail = parts.length ? parts.join(', ') + '.' : '';
   const h = $('pill-hints');
-  if (h) h.innerHTML = `You're in <b>${low(c.mode)}</b>. ${tail}`;
+  if (h) h.innerHTML = `<span class="se-voice-line">You're in <b>${low(c.mode)}</b>.</span>${tail ? `<span class="se-voice-tip">${tail}</span>` : ''}`;
   const d = $('pill-dot');
   if (d) d.style.background = c.colors.grad;
 }

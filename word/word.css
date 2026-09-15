@@ -213,7 +213,7 @@ div.se-row:hover { background: transparent; }
 .se-el-ic { width: 17px; height: 17px; flex-basis: 17px; position: relative; color: var(--g-ink-2); }
 .se-skate-over { position: absolute; left: 1px; top: 1px; width: 14px; height: 14px; }
 .se-el.active .se-duo, .se-el.active .se-el-ic { color: var(--ink); }
-.se-el.active { --duo: rgba(255, 255, 255, 0.75); }
+.se-el.active { --duo: transparent; }
 .se-mini .se-i { width: 13px; height: 13px; }
 
 .se-empty { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 6px 10px 14px; }
@@ -246,3 +246,11 @@ div.se-row:hover { background: transparent; }
 .se-empty { padding: 0 10px 6px; }
 .se-empty-title { font-size: 14px; }
 .se-empty-sub { line-height: 1.4; }
+
+/* the statement on one line, the advice on the next */
+.se-voice #pill-hints { display: block; }
+.se-voice-line { display: block; color: var(--g-ink); }
+.se-voice-tip { display: block; margin-top: 3px; color: var(--g-muted); font-size: 13px; }
+.se-voice-tip .se-key { vertical-align: 0; }
+/* inputs are fields, not buttons: a soft rectangle, not a pill */
+.se-input { border-radius: 12px; }
