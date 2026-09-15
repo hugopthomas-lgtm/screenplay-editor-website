@@ -25,7 +25,7 @@ import { scanForPoster, renderPosterForm, generatePoster, watermark, renderPoste
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.5.1';
+const VERSION = '7.5.2';
 
 const $ = (id) => document.getElementById(id);
 
@@ -382,6 +382,22 @@ async function runFormat() {
   } catch (e) {
     setStatus(friendly(e), 'error');
   }
+}
+
+// A screen inside the folder: the tab's list steps aside, a bar with a way back on top.
+function openScreen(panelId, title) {
+  closeScreen(panelId);
+  const panel = $(panelId);
+  const host = document.createElement('div');
+  host.className = 'se-screen'; host.id = panelId + '-screen';
+  host.innerHTML = `<div class="se-screen-bar"><button class="se-screen-back" data-se="screen-close" data-panel="${panelId}">‹ ${({ 'panel-home': 'write', 'panel-studio': 'studio', 'panel-export': 'ship' })[panelId] || 'back'}</button><span class="se-screen-title">${title}</span></div><div class="se-screen-body"></div>`;
+  panel.appendChild(host);
+  panel.classList.add('se-has-screen');
+  return host.querySelector('.se-screen-body');
+}
+function closeScreen(panelId) {
+  const host = $(panelId + '-screen'); if (host) host.remove();
+  const panel = $(panelId); if (panel) panel.classList.remove('se-has-screen');
 }
 
 // Script Stats, in the pane, in our own grammar; a PDF of it on demand.
