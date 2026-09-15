@@ -393,3 +393,18 @@ body.se-stage .tab-panels-settings-btn { color: #aab2bc; }
 .tab-panel.se-in { animation: se-in var(--m-base) var(--m-ease); }
 .se-el, .se-primary, .se-row, .se-mini, .se-paper-opt { transition-timing-function: var(--m-spring); }
 @media (prefers-reduced-motion: reduce) { .tab-panel.se-in { animation: none; } }
+/* more light behind, and the folder becomes real glass: the ambience tints through it */
+body.se-stage .screens-container {
+  background:
+    radial-gradient(110% 60% at 8% 0%, rgba(124, 100, 255, 0.70), transparent 60%),
+    radial-gradient(80% 50% at 100% 100%, rgba(56, 189, 248, 0.42), transparent 60%),
+    radial-gradient(70% 45% at 70% 45%, rgba(236, 72, 153, 0.18), transparent 60%),
+    linear-gradient(180deg, #1b1f26 0%, #14171c 100%);
+}
+.tab-panels {
+  background: rgba(228, 232, 237, 0.84) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(1.5); backdrop-filter: blur(28px) saturate(1.5);
+}
+body.se-stage .se-tabs .tab-btn.active { background: rgba(228, 232, 237, 0.84) !important; -webkit-backdrop-filter: blur(28px) saturate(1.5); backdrop-filter: blur(28px) saturate(1.5); }
+body.se-stage .se-tabs .tab-btn.active::after { background: radial-gradient(circle at 100% 0, transparent 12.5px, rgba(228,232,237,0.84) 13px); }
+body.se-stage .se-tabs .tab-btn.active:not(:first-child)::before { background: radial-gradient(circle at 0 0, transparent 12.5px, rgba(228,232,237,0.84) 13px); }
