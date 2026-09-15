@@ -454,3 +454,14 @@ body.se-stage .se-tabs .tab-btn.active:not(:first-child)::before { background: r
 .se-tabs .tab-btn.active:nth-child(1) svg, .se-tabs .tab-btn.active:nth-child(2) svg, .se-tabs .tab-btn.active:nth-child(3) svg { color: var(--g-accent); }
 .se-plan { background: var(--g-lavender) !important; color: #4a35d6 !important; }
 body.se-stage .se-plan { background: rgba(228, 221, 255, 0.92) !important; color: #4a35d6 !important; box-shadow: none; }
+
+/* ---- adulte (15/09, « ça fait enfantin ») : les icônes dans l'encre profonde de
+   leur élément, sans tache ; la tuile active en teinte douce, texte dans l'encre ---- */
+.se-el { --duo: transparent; }
+.se-el .se-duo, .se-el .se-el-ic { color: var(--ink, #3a424c); }
+.se-el.active { background: var(--tint); color: var(--ink); box-shadow: 0 1px 2px rgba(31,38,46,0.06), 0 3px 8px rgba(31,38,46,0.05); }
+.se-el.active:hover { background: var(--tint); }
+.se-el.active .se-duo, .se-el.active .se-el-ic { color: var(--ink); }
+.se-el.active { --duo: transparent; }
+.se-flame { background: #5b3fd6; }
+.se-primary-hot .se-flame { background: #fff; }
