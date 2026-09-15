@@ -26,7 +26,7 @@ import * as TableRead from './tableread.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.6.2';
+const VERSION = '7.7.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -331,7 +331,7 @@ async function handle(se, el) {
     }
     case 'stats': return refreshStats();
     case 'stats-open': return openStatsInPane();
-    case 'preview-open': return openPagesInPane();
+    case 'preview-open': return openPrintView();
     case 'stats-pdf': return exportStatsPdf();
     case 'stats-ai': return askStatsAi(el);
     case 'breakdown-open': return openBreakdown();
@@ -439,37 +439,6 @@ async function exportStatsPdf() {
   download(docTitle() + ' - stats.pdf', blob);
   setStatus('Stats PDF ready. Choose where to save it.', 'ok');
   track('stats_pdf');
-}
-
-// Print View, in the pane: the real pages, one under the other, at the pane's width.
-let pdfjsReady = null;
-function loadPdfJs() {
-  if (!pdfjsReady) pdfjsReady = new Promise((resolve, reject) => {
-    const sc = document.createElement('script'); sc.src = 'pdf.min.js'; sc.onload = () => { pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js'; resolve(); }; sc.onerror = reject; document.head.appendChild(sc);
-  });
-  return pdfjsReady;
-}
-async function openPagesInPane() {
-  const body = openScreen('panel-export', 'Print View');
-  body.innerHTML = '<div class="se-pages-note">Asking Word for the pages…</div>';
-  try {
-    await loadPdfJs();
-    const blob = await exportPdfBlob();
-    const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await blob.arrayBuffer()) }).promise;
-    body.innerHTML = '';
-    const width = Math.max(200, body.clientWidth - 8);
-    for (let n = 1; n <= pdf.numPages; n++) {
-      const page = await pdf.getPage(n);
-      const scale = width / page.getViewport({ scale: 1 }).width;
-      const vp = page.getViewport({ scale: scale * (window.devicePixelRatio || 1) });
-      const c = document.createElement('canvas'); c.className = 'se-page';
-      c.width = vp.width; c.height = vp.height; c.style.width = width + 'px'; c.style.height = Math.round(vp.height / (window.devicePixelRatio || 1)) + 'px';
-      body.appendChild(c);
-      await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
-    }
-    const note = document.createElement('div'); note.className = 'se-pages-note'; note.textContent = `${pdf.numPages} ${pdf.numPages === 1 ? 'page' : 'pages'}. Drag the pane wider for a closer look.`; body.appendChild(note);
-    track('print_view');
-  } catch (e) { body.innerHTML = `<div class="se-pages-note">${friendly(e)}</div>`; }
 }
 
 // Screenplay Poster: the scan here, the picture from the server, in the pane.
@@ -671,19 +640,22 @@ async function openSceneBoard() {
 }
 
 // Print View: the extension's flipbook, on the PDF Word renders.
+// Print View: the pages as a book, in the browser. The pane leaves the PDF on the
+// server for an hour under a secret id, the page on the site fetches it.
 async function openPrintView() {
   setStatus('Asking Word for the pages…');
-  const blob = await exportPdfBlob();
-  const b64 = await new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(String(r.result).split(',')[1] || ''); r.onerror = reject; r.readAsDataURL(blob); });
-  const url = new URL('preview.html?v=' + VERSION, location.href).href;
-  await openBig(url, (d, msg) => {
-    if (msg !== 'ready') return;
-    const SIZE = 200000;
-    for (let i = 0; i < b64.length; i += SIZE) d.messageChild('pdf:' + b64.slice(i, i + SIZE));
-    d.messageChild('pdf-end');
-  });
-  setStatus('Pages ready.', 'ok');
-  track('print_view');
+  try {
+    const blob = await exportPdfBlob();
+    const id = Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) => b.toString(36).padStart(2, '0')).join('').slice(0, 24) + Date.now().toString(36);
+    const res = await fetch('https://screenplay-editor-api.hugopthomas.workers.dev/preview/drop/' + id, { method: 'PUT', body: blob });
+    if (!res.ok) throw new Error('The pages could not be sent. Try again in a moment.');
+    const url = 'https://screenplayeditor.app/word/preview.html?id=' + id;
+    let opened = false;
+    try { if (Office.context.ui.openBrowserWindow) { Office.context.ui.openBrowserWindow(url); opened = true; } } catch (_e) { /* fall back */ }
+    if (!opened) window.open(url, '_blank');
+    setStatus('Print View is open in your browser.', 'ok');
+    track('print_view');
+  } catch (e) { setStatus(friendly(e), 'error'); }
 }
 
 async function refreshStats() {

@@ -15,10 +15,7 @@
   let pageWidth = 0;
   let pageHeight = 0;
 
-  async function loadPdf(base64) {
-    const binary = atob(base64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  async function loadPdf(bytes) {
 
     const pdf = await pdfjsLib.getDocument({ data: bytes, standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/", cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/", cMapPacked: true }).promise;
     const numPages = pdf.numPages;
@@ -116,20 +113,16 @@
     if (e.key === 'ArrowLeft') pageFlip.flipPrev();
   });
 
-  // Word: the pane renders the PDF and sends it here in chunks (dialog messages).
-  var _chunks = [];
-  function onParent(arg) {
-    var m = arg.message || '';
-    if (m.indexOf('pdf:') === 0) { _chunks.push(m.slice(4)); return; }
-    if (m === 'pdf-end') { var b64 = _chunks.join(''); _chunks = []; loadPdf(b64); return; }
-    if (m.indexOf('error:') === 0) { document.querySelector('#loading div:last-child').textContent = m.slice(6); }
-  }
-  if (typeof Office !== 'undefined') {
-    Office.onReady(function() {
-      try { Office.context.ui.addHandlerAsync(Office.EventType.DialogParentMessageReceived, onParent); } catch (_e) { /* old host */ }
-      try { Office.context.ui.messageParent('ready'); } catch (_e) { /* not a dialog */ }
-    });
+  // Word: the pane leaves its PDF on the server for an hour, under the id in the URL.
+  var note = document.querySelector('#loading div:last-child');
+  var id = new URLSearchParams(location.search).get('id') || '';
+  if (/^[a-zA-Z0-9_-]{16,128}$/.test(id)) {
+    fetch('https://screenplay-editor-api.hugopthomas.workers.dev/preview/drop/' + id)
+      .then(function (r) { if (!r.ok) throw new Error(r.status === 404 ? 'This preview has expired. Open Print View again from Word.' : 'The pages could not be fetched. Try again from Word.'); return r.arrayBuffer(); })
+      .then(function (ab) { return loadPdf(new Uint8Array(ab)); })
+      .catch(function (e) { note.textContent = e.message; document.querySelector('.loading-spinner').style.display = 'none'; });
   } else {
-    document.querySelector('#loading div:last-child').textContent = 'Open this from the Screenplay Editor pane in Word.';
+    note.textContent = 'Open this from the Screenplay Editor pane in Word.';
+    document.querySelector('.loading-spinner').style.display = 'none';
   }
 })();
