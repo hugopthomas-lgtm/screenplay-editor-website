@@ -209,10 +209,19 @@ export async function startLiveWriting(onChange, onDiag) {
     });
   }
   _liveOn = true;
+  // Word coalesces its selection events; a light poll keeps the display close.
+  if (!_pollTimer) _pollTimer = setInterval(() => { if (!_busy && document.visibilityState !== 'hidden') tick(); }, 800);
   return true;
 }
 
+// The Startup template (VBA) is the engine in Word: Tab, Enter, Space, the
+// capitals, the triggers, all instant. The pane only WATCHES (15/09/2026):
+// writing from here, seconds late, fought the template and made the display
+// hesitate. Set to false only if no template is installed.
+const PASSIVE = true;
+
 let _tickAt = 0;
+let _pollTimer = null;
 function tick() {
   _selCount++;
   _tickAt = performance.now();
@@ -270,6 +279,7 @@ async function reconcileSelection() {
 async function reconcileParagraph(context, p, via) {
   const text = p.text || '';
   const type = elementFromStyleName(p.style);
+  if (PASSIVE) { changed(type || (cleanText(text) ? 'ACTION' : null), { empty: !cleanText(text), text }); return; }
 
   // Tab typed somewhere in the line (or turned into an indent by Word).
   if (text.indexOf('\t') >= 0 || (!!type && p.firstLineIndent >= 18)) {
@@ -311,6 +321,11 @@ async function reconcileEnter(id) {
 
     const prevText = cleanText(prev.text);
     let prevType = elementFromStyleName(prev.style);
+    if (PASSIVE) {
+      const shown = elementFromStyleName(p.style) || E.NEXT_MODE[prevType || 'ACTION'] || 'ACTION';
+      changed(shown, { empty: !cleanText(p.text), text: p.text, nudge: !prevText });
+      return;
+    }
 
     // Empty line + Enter: the extension blocks the key and nudges the rail.
     // Word already made the line; we nudge, and leave the document alone.
