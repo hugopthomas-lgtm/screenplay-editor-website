@@ -421,3 +421,12 @@ body.se-stage {
   background-color: #14171c !important;
 }
 body.se-stage .screens-container, body.se-stage .screen, body.se-stage .screen#screen-main { background: transparent !important; }
+/* the folder goes back to an opaque slab: glass on the tab and on the panel blurred
+   differently and left a seam at the curve (Hugo's capture, 15/09 10:17) */
+.tab-panels { background: linear-gradient(180deg, #e2e7ec 0%, #d6dce2 100%) !important; -webkit-backdrop-filter: none; backdrop-filter: none; }
+body.se-stage .se-tabs .tab-btn.active { background: #e2e7ec !important; -webkit-backdrop-filter: none; backdrop-filter: none; }
+body.se-stage .se-tabs .tab-btn.active::after { background: radial-gradient(circle at 100% 0, transparent 12.5px, #e2e7ec 13px); }
+body.se-stage .se-tabs .tab-btn.active:not(:first-child)::before { background: radial-gradient(circle at 0 0, transparent 12.5px, #e2e7ec 13px); }
+body.se-stage .se-tabs .tab-btn:not(.active) { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(255,255,255,0.14); }
+body.se-stage .se-tabs .tab-btn:nth-child(2):not(.active) { background: rgba(255,255,255,0.10); }
+body.se-stage .se-tabs .tab-btn:nth-child(3):not(.active) { background: rgba(255,255,255,0.07); }
