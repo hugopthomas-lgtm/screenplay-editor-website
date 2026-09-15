@@ -21,10 +21,11 @@ import { buildStatsPdf } from './stats-pdf.js';
 import { call as cloud, getEmail, setEmail, detectLanguage, scenesForBreakdown } from './cloud.js';
 import { renderBreakdown } from './breakdown-view.js';
 import * as License from './license.js';
+import { scanForPoster, renderPosterForm, generatePoster, watermark, renderPosterResult } from './poster.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.4.1';
+const VERSION = '7.5.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -339,6 +340,10 @@ async function handle(se, el) {
     case 'pro-refresh': { const st = await License.refresh(true); if (st.isPro) { closeScreen('panel-home'); setStatus('Welcome to Pro. Everything is open.', 'ok'); paintPlan(); } else setStatus('Not Pro yet on this address.', 'error'); return; }
     case 'prefs-save': { const v = ($('pref-email').value || '').trim(); setEmail(v); setStatus(v ? 'Saved. Your licence and credits follow this address.' : 'Address cleared.', 'ok'); closeScreen('panel-home'); await License.refresh(true); paintPlan(); return; }
     case 'board-open': if (!(await gate('Scene Board'))) return; return openSceneBoard();
+    case 'poster-open': return openPoster();
+    case 'poster-generate': return runPoster();
+    case 'poster-again': return openPoster();
+    case 'poster-save': { if (posterImg) { const r = await fetch(posterImg); download(docTitle() + ' - poster.png', await r.blob()); setStatus('Poster ready. Choose where to save it.', 'ok'); } return; }
     case 'board-apply': return applyBoardOrder();
     case 'screen-close': return closeScreen(el.dataset.panel);
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }

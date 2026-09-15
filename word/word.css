@@ -657,3 +657,10 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 .se-row-sub { display: block; }
 .se-empty { padding-bottom: 14px; }
 .se-empty-sub { line-height: 1.75; }
+
+/* the poster */
+.pt-lb { margin-top: 8px; }
+.pt-area { resize: vertical; min-height: 44px; line-height: 1.4; }
+.pt-img { display: block; width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+.pt-tagline { font-size: 14px; color: var(--g-ink); line-height: 1.4; margin-top: 4px; font-style: italic; }
+.pt-wait { padding: 60px 10px; }
