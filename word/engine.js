@@ -194,10 +194,10 @@
   const BADGE_COLORS = {
     SCENE_HEADING:  { grad: 'linear-gradient(135deg,#0ea5e9,#38bdf8)', glow: '56,189,248',  tint: 'rgba(14,165,233,0.13)',  ink: '#0369a1' },
     ACTION:         { grad: 'linear-gradient(135deg,#ea580c,#f97316)', glow: '249,115,22',  tint: 'rgba(234,88,12,0.14)',  ink: '#c2410c' },
-    CHARACTER:      { grad: 'linear-gradient(135deg,#ec4899,#f472b6)', glow: '244,114,182', tint: 'rgba(244,114,182,0.15)', ink: '#c02671' },
+    CHARACTER:      { grad: 'linear-gradient(135deg,#d946ef,#e879f9)', glow: '232,121,249', tint: 'rgba(232,121,249,0.18)', ink: '#c026d3' },
     DIALOGUE:       { grad: 'linear-gradient(135deg,#8cc81e,#bced52)', glow: '188,237,82',  tint: 'rgba(140,200,30,0.18)',  ink: '#4d7c0f' },
     PARENTHETICAL:  { grad: 'linear-gradient(135deg,#eab308,#facc15)', glow: '250,204,21',  tint: 'rgba(250,204,21,0.30)',  ink: '#ca8a04' },
-    TRANSITION:     { grad: 'linear-gradient(135deg,#9f1239,#e11d48)', glow: '225,29,72',  tint: 'rgba(190,18,60,0.15)',  ink: '#9f1239' }
+    TRANSITION:     { grad: 'linear-gradient(135deg,#9f1239,#e11d48)', glow: '225,29,72',  tint: 'rgba(159,18,57,0.16)',  ink: '#9f1239' }
   };
 
   // Le rail : six tuiles, dans cet ordre, avec leur raccourci (⌥ / Alt + chiffre).
