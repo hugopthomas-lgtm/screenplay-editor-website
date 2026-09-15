@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Print View</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+.loading {
+  color: #888;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.loading-spinner {
+  width: 32px; height: 32px;
+  border: 3px solid #333;
+  border-top-color: #a78bfa;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Book container */
+.book-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+}
+
+#flipbook-container {
+  box-shadow: 0 0 60px rgba(0,0,0,0.5);
+  border-radius: 4px;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  color: #888;
+  font-size: 13px;
+}
+.controls button {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.controls button:hover { background: #3a3a3a; color: #fff; }
+.controls button:disabled { opacity: 0.3; cursor: default; }
+.page-info { min-width: 80px; text-align: center; }
+
+/* Pages inside StPageFlip */
+.page-wrapper {
+  background: white;
+}
+.page-wrapper canvas {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="loading" id="loading">
+  <div class="loading-spinner"></div>
+  <div>Rendering pages...</div>
+</div>
+
+<div class="book-scene" id="book-scene" style="display:none;">
+  <div id="flipbook-container"></div>
+</div>
+
+<div class="controls" id="controls" style="display:none;">
+  <button id="btn-prev">&larr; Previous</button>
+  <div class="page-info" id="page-info">1 / 1</div>
+  <button id="btn-next">Next &rarr;</button>
+</div>
+
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<script src="pdf.min.js"></script>
+<script src="page-flip.browser.js"></script>
+<script src="preview-page.js"></script>
+</body>
+</html>

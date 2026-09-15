@@ -19,7 +19,7 @@ import { computeScriptStats } from './stats-core.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.8.2';
+const VERSION = '6.9.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -322,6 +322,8 @@ async function handle(se, el) {
     }
     case 'stats': return refreshStats();
     case 'stats-open': return openStatsDialog();
+    case 'board-open': return openSceneBoard();
+    case 'preview-open': return openPrintView();
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
     case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
     case 'soon': setStatus('On its way to Word. Already in the Google Docs extension.', 'ok'); return;
@@ -385,6 +387,69 @@ window.addEventListener('message', async (ev) => {
   try { const paras = await readParagraphs(); f.contentWindow.postMessage({ se: 'stats', payload: JSON.stringify(computeScriptStats(paras)) }, location.origin); }
   catch (e) { f.contentWindow.postMessage({ se: 'stats', payload: JSON.stringify({ error: friendly(e) }) }, location.origin); }
 });
+
+// A big window (a dialog) for the pages that need room. Same for every one of them.
+function openBig(url, onMessage) {
+  return new Promise((resolve, reject) => {
+    Office.context.ui.displayDialogAsync(url, { height: 92, width: 84, displayInIframe: false }, (res) => {
+      if (res.status !== Office.AsyncResultStatus.Succeeded) return reject(new Error(res.error && res.error.message || 'Word could not open the window.'));
+      const d = res.value;
+      if (onMessage) d.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => onMessage(d, arg.message));
+      resolve(d);
+    });
+  });
+}
+
+// Scene Board: the web app already online, fed through the worker's sync store.
+const API_WORKER = 'https://screenplay-editor-api.hugopthomas.workers.dev';
+const SLUG_RE = /^[\u200B-\u200D\uFEFF]*(INT\.|EXT\.|INT |EXT |INT\/EXT\.|I\/E\.)/i;
+function scenesFrom(paras) {
+  const scenes = [];
+  for (let i = 0; i < paras.length; i++) {
+    const p = paras[i];
+    const txt = p.text.replace(/^\d+\.\s*/, '');
+    const isSlug = p.type === 'SCENE_HEADING' || SLUG_RE.test(txt);
+    if (!isSlug) continue;
+    const clean = txt.toUpperCase();
+    let type = 'EXT';
+    if (/^(INT\/EXT|I\/E)/i.test(clean)) type = 'INT/EXT'; else if (clean.startsWith('INT')) type = 'INT';
+    const body = [];
+    for (let j = i + 1; j < paras.length && body.length < 8; j++) {
+      const q = paras[j]; const qt = q.text.replace(/^\d+\.\s*/, '');
+      if (q.type === 'SCENE_HEADING' || SLUG_RE.test(qt)) break;
+      body.push(q.text);
+    }
+    scenes.push({ heading: txt, body: body.join('\n'), type, index: scenes.length });
+  }
+  return scenes;
+}
+async function openSceneBoard() {
+  setStatus('Reading your scenes…');
+  const paras = await readParagraphs();
+  const scenes = scenesFrom(paras);
+  if (!scenes.length) { setStatus('No scenes yet. Write INT. or EXT. to open one.', 'error'); return; }
+  const syncId = 'word_' + Date.now();
+  await fetch(API_WORKER + '/board/sync/' + encodeURIComponent(syncId), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ scenes, title: docTitle() }) });
+  await openBig('https://screenplayeditor.app/board2/?docId=word&sync=' + encodeURIComponent(syncId));
+  setStatus(`${scenes.length} scenes on the board.`, 'ok');
+  track('scene_board');
+}
+
+// Print View: the extension's flipbook, on the PDF Word renders.
+async function openPrintView() {
+  setStatus('Asking Word for the pages…');
+  const blob = await exportPdfBlob();
+  const b64 = await new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(String(r.result).split(',')[1] || ''); r.onerror = reject; r.readAsDataURL(blob); });
+  const url = new URL('preview.html?v=' + VERSION, location.href).href;
+  await openBig(url, (d, msg) => {
+    if (msg !== 'ready') return;
+    const SIZE = 200000;
+    for (let i = 0; i < b64.length; i += SIZE) d.messageChild('pdf:' + b64.slice(i, i + SIZE));
+    d.messageChild('pdf-end');
+  });
+  setStatus('Pages ready.', 'ok');
+  track('print_view');
+}
 
 // (kept) Script Stats in a dialog window.
 let statsDialog = null;
