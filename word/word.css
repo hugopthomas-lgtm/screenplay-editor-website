@@ -485,3 +485,7 @@ body.se-stage .se-status.error { color: #fca5a5; }
    tab, its two curves and the panel change on the same frame; only the content fades */
 .se-tabs .tab-btn, .se-tabs .tab-btn::before, .se-tabs .tab-btn::after { transition: none !important; }
 .se-tabs .tab-btn.active { padding-top: 7px; }
+/* at rest the icons wear the brand's violet; the element's colour appears on the active tile only */
+.se-el .se-duo, .se-el .se-el-ic { color: #6f57ff; }
+.se-el:hover .se-duo, .se-el:hover .se-el-ic { color: var(--ink); }
+.se-el.active .se-duo, .se-el.active .se-el-ic { color: var(--ink); }
