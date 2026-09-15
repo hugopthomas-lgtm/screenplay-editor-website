@@ -197,7 +197,7 @@
     CHARACTER:      { grad: 'linear-gradient(135deg,#ec4899,#f472b6)', glow: '244,114,182', tint: 'rgba(236,72,153,0.13)',  ink: '#be185d' },
     DIALOGUE:       { grad: 'linear-gradient(135deg,#8cc81e,#bced52)', glow: '188,237,82',  tint: 'rgba(140,200,30,0.18)',  ink: '#4d7c0f' },
     PARENTHETICAL:  { grad: 'linear-gradient(135deg,#f59e0b,#fbbf24)', glow: '251,191,36',  tint: 'rgba(245,158,11,0.15)',  ink: '#b45309' },
-    TRANSITION:     { grad: 'linear-gradient(135deg,#fb7185,#f43f5e)', glow: '251,113,133', tint: 'rgba(244,63,94,0.13)',   ink: '#be123c' }
+    TRANSITION:     { grad: 'linear-gradient(135deg,#14b8a6,#2dd4bf)', glow: '45,212,191',  tint: 'rgba(20,184,166,0.14)',  ink: '#0f766e' }
   };
 
   // Le rail : six tuiles, dans cet ordre, avec leur raccourci (⌥ / Alt + chiffre).
