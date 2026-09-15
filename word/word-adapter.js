@@ -239,6 +239,8 @@ function tick() {
 async function onParagraphAdded(ev) {
   _addCount++;
   if (ev.source === 'Remote') return;
+  // Passive: whatever paragraph Word talks about, only the cursor's line is shown.
+  if (PASSIVE) { tick(); return; }
   for (const id of ev.uniqueLocalIds || []) {
     try { await reconcileEnter(id); }
     catch (e) { diag('Enter: ' + ((e && (e.message || e.code)) || e)); }
@@ -248,6 +250,7 @@ async function onParagraphAdded(ev) {
 async function onParagraphChanged(ev) {
   _chgCount++;
   if (ev.source === 'Remote') return;
+  if (PASSIVE) { tick(); return; }
   for (const id of ev.uniqueLocalIds || []) {
     try {
       await Word.run(async (context) => {
