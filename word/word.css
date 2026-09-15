@@ -439,3 +439,7 @@ body.se-stage .se-tabs .tab-btn.active:not(:first-child)::before { background: r
 .se-el.active:hover { background: var(--grad); transform: none; }
 .se-el.active .se-duo, .se-el.active .se-el-ic { color: #fff; }
 .se-el.active { --duo: rgba(255,255,255,0.28); }
+
+/* the Pro chip at the right end of the tab row */
+.se-plan-tabs { margin-left: auto; margin-bottom: 7px; margin-right: 2px; }
+#screen-main .header { padding-bottom: 6px; }
