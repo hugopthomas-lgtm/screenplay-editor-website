@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Screenplay Editor</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="engine.js?v=6.5.0"></script>
+  <script src="engine.js?v=6.6.0"></script>
+  <script src="jszip.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="panel.css?v=6.5.0">
-  <link rel="stylesheet" href="word.css?v=6.5.0">
+  <link rel="stylesheet" href="panel.css?v=6.6.0">
+  <link rel="stylesheet" href="word.css?v=6.6.0">
 </head>
 <body class="se-stage">
   <div class="screens-container">
@@ -85,9 +86,9 @@
       <div class="se-row" title="Paper size"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></g></svg><span class="se-row-lb">Paper</span><span class="se-row-end se-switch"><button class="se-paper-opt" data-paper="US" data-se="paper" title="US Letter">Letter</button><button class="se-paper-opt" data-paper="A4" data-se="paper" title="A4">A4</button></span></div>
     </div>
 
-    <input type="file" id="import-file-input" accept=".fountain,.txt,.fdx" style="display:none;">
+    <input type="file" id="import-file-input" accept=".fountain,.txt,.fdx,.fadein,.celtx" style="display:none;">
     <div class="se-list se-list-import">
-      <button class="se-row" id="import-home-btn" data-se="import"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 9l5-5 5 5M12 4v12"/></g></svg><span class="se-row-lb">Import a screenplay<span class="se-row-sub">Fade In · Final Draft · PDF · Fountain</span></span></button>
+      <button class="se-row" id="import-home-btn" data-se="import"><svg class="se-duo" width="18" height="18" viewBox="0 0 28 28"><circle cx="16" cy="16" r="9.5" fill="var(--duo)"/><g transform="translate(2 2)" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 9l5-5 5 5M12 4v12"/></g></svg><span class="se-row-lb">Import a screenplay<span class="se-row-sub">Final Draft · Fade In · Celtx · Fountain</span></span></button>
     </div>
   </div>
   <div class="tab-panel" id="panel-studio">
@@ -143,6 +144,6 @@
   <div class="se-version" id="version"></div>
   </div>
   </div>
-  <script type="module" src="taskpane.js?v=6.5.0"></script>
+  <script type="module" src="taskpane.js?v=6.6.0"></script>
 </body>
 </html>

@@ -707,6 +707,22 @@ export function exportPdfBlob() {
   });
 }
 
+// Typed paragraphs (from an .fdx / .fadein / .celtx) written with our styles, as they are.
+export async function importTyped(items) {
+  let count = 0;
+  await Word.run(async (context) => {
+    const body = context.document.body;
+    for (const it of items) {
+      if (!STYLE_NAMES[it.type]) continue;
+      const p = body.insertParagraph(UPPERCASE[it.type] ? it.text.toUpperCase() : it.text, Word.InsertLocation.end);
+      p.style = STYLE_NAMES[it.type];
+      count++;
+    }
+    await context.sync();
+  });
+  return count;
+}
+
 export async function exportFountainText() {
   let out = [];
   await Word.run(async (context) => {

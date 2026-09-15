@@ -12,12 +12,13 @@ import {
   currentElement, startLiveWriting, startEmptyDocument, liveCounts, capabilities,
   formatScope, insertTitlePage, addSceneNumbers, removeSceneNumbers,
   importFountainText, exportFountainText, docStats,
-  readParagraphs, exportFdxText, exportPdfBlob,
+  readParagraphs, exportFdxText, exportPdfBlob, importTyped,
 } from './word-adapter.js';
+import { parseFdx, parseFadeIn, parseCeltx, unzipEntry } from './importers.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.5.0';
+const VERSION = '6.6.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -226,18 +227,24 @@ function wireUi() {
   });
   const fileInput = $('import-file-input');
   if (fileInput) {
-    fileInput.accept = '.fountain,.txt,.fdx';
+    fileInput.accept = '.fountain,.txt,.fdx,.fadein,.celtx';
     fileInput.addEventListener('change', async () => {
       const f = fileInput.files && fileInput.files[0];
       if (!f) return;
+      const name = f.name.toLowerCase();
       try {
-        const text = await f.text();
         setStatus('Reading your screenplay…');
-        const n = await importFountainText(f.name.toLowerCase().endsWith('.fdx') ? fdxToText(text) : text);
+        if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
+        let n = 0;
+        if (name.endsWith('.fdx')) n = await importTyped(parseFdx(await f.text()));
+        else if (name.endsWith('.fadein')) n = await importTyped(parseFadeIn(await unzipEntry(await f.arrayBuffer(), (x) => /document\.xml$/i.test(x))));
+        else if (name.endsWith('.celtx')) n = await importTyped(parseCeltx(await unzipEntry(await f.arrayBuffer(), (x) => /\.html?$/i.test(x))));
+        else n = await importFountainText(await f.text());
         setStatus(`${n} paragraphs imported.`, 'ok');
         paintEmpty(false);
-        setHot(true, `<b>Imported.</b> ${n} paragraphs came in. One click puts everything in its place.`);
-        track('import_fountain');
+        if (name.endsWith('.fountain') || name.endsWith('.txt')) setHot(true, `<b>Imported.</b> ${n} paragraphs came in. One click puts everything in its place.`);
+        else { const h = $('pill-hints'); if (h) h.innerHTML = `<span class="se-voice-line"><b>Imported.</b></span><span class="se-voice-tip">${n} paragraphs, each with its element. Nothing to format.</span>`; }
+        track('import_fountain', { kind: name.split('.').pop() });
         refreshStats();
       } catch (err) { setStatus(friendly(err), 'error'); }
       fileInput.value = '';
