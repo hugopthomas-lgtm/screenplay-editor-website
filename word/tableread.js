@@ -131,15 +131,22 @@ export function renderCast(el, read, chosen, balance) {
     </div>`;
 }
 
-// The reading: one Audio element for the whole session (Safari unlocks it on the first click), lines fetched one ahead.
-const SILENT = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
-const audio = typeof Audio !== 'undefined' ? new Audio() : null;
+// The reading: Web Audio, one context for the session (unlocked by the first click), lines decoded one ahead.
+let ctx = null; let node = null;
+function ac() { if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; ctx = new C(); } return ctx; }
+export function unlockAudio() { try { ac().resume(); } catch (_e) { /* no audio */ } }
+function stopNode() { if (node) { node.onended = null; try { node.stop(); } catch (_e) { /* already stopped */ } node = null; } }
+function playBuffer(buf, onended) {
+  stopNode();
+  const n = ac().createBufferSource(); n.buffer = buf; n.connect(ac().destination);
+  n.onended = () => { if (node === n) { node = null; onended(); } };
+  node = n; n.start();
+  return n;
+}
 const cache = new Map();
 let run = null;   // { lines, chosen, lang, i, state, el, onDone }
 
-export function unlockAudio() { if (!audio) return; try { audio.src = SILENT; audio.play().catch(() => {}); } catch (_e) { /* no audio */ } }
-
-function toBlobUrl(b64) { const bin = atob(b64); const bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); return URL.createObjectURL(new Blob([bytes], { type: 'audio/mpeg' })); }
+async function decode(b64) { const bin = atob(b64); const bytes = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); return ac().decodeAudioData(bytes.buffer); }
 async function fetchLine(line, chosen, lang) {
   const voice = chosen[line.who] || chosen.NARRATOR || NARRATOR_ID;
   const key = voice + '|' + line.text;
@@ -148,10 +155,10 @@ async function fetchLine(line, chosen, lang) {
   let d;
   try { d = await ask(); }
   catch (e) { if (e.status === 429) { await new Promise((r) => setTimeout(r, 1600)); d = await ask(); } else throw e; }
-  const url = toBlobUrl(d.audio);
-  cache.set(key, url);
+  const buf = await decode(d.audio);
+  cache.set(key, buf);
   if (run && typeof d.creditsRemaining === 'number') { const s = run.el.querySelector('#tr-balance'); if (s) s.textContent = d.creditsRemaining; }
-  return url;
+  return buf;
 }
 
 export function renderReader(el, read, balance) {
@@ -170,7 +177,6 @@ export function startRead(el, read, chosen, onDone) {
   stopRead();
   const lang = detectLanguage(read.lines.map((l) => l.text).join(' ').slice(0, 20000));
   run = { lines: read.lines, chosen, lang, i: 0, state: 'playing', el, onDone };
-  if (audio) audio.onended = () => { if (run && run.state === 'playing') playAt(run.i + 1); };
   playAt(0);
 }
 
@@ -189,8 +195,8 @@ async function playAt(i) {
   if (i >= run.lines.length) { run.state = 'done'; const st = run.el.querySelector('#tr-status'); if (st) st.innerHTML = 'That is the end. <button class="sv-link" data-se="tr-again">Read it again</button> · <button class="sv-link" data-se="tr-cast">Back to the cast</button>'; const p = run.el.querySelector('[data-se="tr-pause"]'); if (p) p.hidden = true; if (run.onDone) run.onDone(); return; }
   run.i = i; mark(i);
   const my = run;
-  let url;
-  try { url = await fetchLine(run.lines[i], run.chosen, run.lang); }
+  let buf;
+  try { buf = await fetchLine(run.lines[i], run.chosen, run.lang); }
   catch (e) {
     if (run !== my) return;
     run.state = 'paused'; pauseButton('Resume');
@@ -200,19 +206,29 @@ async function playAt(i) {
     return;
   }
   if (run !== my || run.state !== 'playing' || run.i !== i) return;
-  if (audio) { audio.src = url; audio.play().catch(() => { run.state = 'paused'; pauseButton('Resume'); }); }
+  playBuffer(buf, () => { if (run === my && run.state === 'playing') playAt(i + 1); });
   if (i + 1 < run.lines.length) fetchLine(run.lines[i + 1], run.chosen, run.lang).catch(() => {});
 }
 
 export function pauseRead() {
   if (!run) return;
-  if (run.state === 'playing') { run.state = 'paused'; if (audio) audio.pause(); pauseButton('Resume'); return; }
-  if (run.state === 'paused') { run.state = 'playing'; pauseButton('Pause'); if (audio && audio.src && audio.src !== SILENT && audio.currentTime > 0 && !audio.ended) audio.play().catch(() => {}); else playAt(run.i); }
+  if (run.state === 'playing') { run.state = 'paused'; try { ac().suspend(); } catch (_e) { /* no audio */ } pauseButton('Resume'); return; }
+  if (run.state === 'paused') { run.state = 'playing'; pauseButton('Pause'); if (node) { try { ac().resume(); } catch (_e) { /* no audio */ } } else { unlockAudio(); playAt(run.i); } }
 }
-export function resumeRead() { if (!run) return; run.state = 'playing'; pauseButton('Pause'); playAt(run.i); }
-export function skipRead() { if (!run) return; if (audio) audio.pause(); run.state = 'playing'; pauseButton('Pause'); playAt(run.i + 1); }
-export function stopRead() { if (audio) { audio.onended = null; try { audio.pause(); } catch (_e) { /* nothing playing */ } } run = null; }
+export function resumeRead() { if (!run) return; run.state = 'playing'; pauseButton('Pause'); unlockAudio(); playAt(run.i); }
+export function skipRead() { if (!run) return; stopNode(); run.state = 'playing'; pauseButton('Pause'); unlockAudio(); playAt(run.i + 1); }
+export function stopRead() { stopNode(); run = null; }
 export function isReading() { return !!run; }
 
-// A voice sample, from ElevenLabs' own preview.
-export function hearVoice(id) { const url = previews && previews[id]; if (!url || !audio) return false; stopRead(); audio.src = url; audio.play().catch(() => {}); return true; }
+// A voice sample, from ElevenLabs' own preview, decoded like a line.
+const sampleCache = new Map();
+export async function hearVoice(id) {
+  const url = previews && previews[id]; if (!url) return false;
+  stopRead(); unlockAudio();
+  try {
+    let buf = sampleCache.get(id);
+    if (!buf) { const r = await fetch(url); const ab = await r.arrayBuffer(); buf = await ac().decodeAudioData(ab); sampleCache.set(id, buf); }
+    playBuffer(buf, () => {});
+    return true;
+  } catch (_e) { return false; }
+}

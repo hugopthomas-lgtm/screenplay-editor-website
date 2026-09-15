@@ -26,7 +26,7 @@ import * as TableRead from './tableread.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.6.1';
+const VERSION = '7.6.2';
 
 const $ = (id) => document.getElementById(id);
 
@@ -517,7 +517,7 @@ async function openTableRead(again) {
     TableRead.renderCast(body, trRead, trChosen, trBalance);
     body.onchange = (e) => { const sel = e.target.closest('select.tr-select'); if (sel) { trChosen[sel.dataset.who] = sel.value; TableRead.rememberVoice(sel.dataset.who, sel.value); } };
     body.onclick = (e) => {
-      const hear = e.target.closest('.tr-hear'); if (hear) { if (!TableRead.hearVoice(trChosen[hear.dataset.who])) setStatus('No sample for this voice.', 'error'); return; }
+      const hear = e.target.closest('.tr-hear'); if (hear) { TableRead.hearVoice(trChosen[hear.dataset.who]).then((ok) => { if (!ok) setStatus('No sample for this voice right now.', 'error'); }); return; }
       const opt = e.target.closest('.tr-seg .se-paper-opt'); if (opt) { const k = opt.closest('.tr-seg').dataset.opt; const v = opt.dataset.val; trOpts[k] = k === 'narration' ? v === 'on' : v; trRead = TableRead.buildRead(trParas, trOpts); TableRead.renderCast(body, trRead, trChosen, trBalance); }
     };
     track('tableread_open');
