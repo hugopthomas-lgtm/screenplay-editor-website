@@ -57,6 +57,7 @@
     Votre document n'est pas dans la liste ? Google n'affiche un document neuf qu'une fois indexé, et certains comptes n'ont aucun autre Google Doc à montrer.<br>
     <button class="btn" id="freshDoc" data-label="Repartir d'un document neuf" style="margin-top:12px;font-size:14px;padding:11px 20px;background:#2c2c2e;color:#f2f2f7;box-shadow:none;">Repartir d'un document neuf</button>
   </div>
+  <div id="se-fresh-float" style="position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:2147483647;display:flex;align-items:center;gap:12px;background:#0e0e10;color:#f2f2f7;padding:12px 18px;border-radius:14px;border:1.5px solid #7c3aed;box-shadow:0 14px 44px rgba(0,0,0,0.55);font-size:14px;font-weight:600;"><span>Pas dans la liste ? Repartir d’un document neuf</span><button id="freshDocFloat" style="background:#7c3aed;color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap;">Repartir d’un document neuf</button></div>
   <div id="status"></div>
 </div>
 
@@ -279,6 +280,7 @@
   // Porte de sortie (10/09/2026) : un document vide et non indexé, ou un compte
   // sans Google Doc, laissait la liste vide et le bouton Select gris. L'extension
   // sait créer un document qu'elle a le droit de formater : on repart de là.
+  document.getElementById('freshDocFloat').addEventListener('click', function () { document.getElementById('freshDoc').click(); });
   document.getElementById('freshDoc').addEventListener('click', function () {
     var b = document.getElementById('freshDoc');
     b.disabled = true; b.textContent = 'Création de votre document…';
