@@ -409,3 +409,27 @@ body.se-stage .se-tabs .tab-btn.active:not(:first-child)::before { background: r
 .se-tabs .tab-btn.active svg { color: var(--g-accent); }
 
 @media (prefers-reduced-motion: reduce) { .se-voice-dot, .se-illu path, .header-title .brand-dot, .se-spark { animation: none !important; } }
+
+
+/* ---- fun at rest (15/09, « le fun doit être là d'entrée ») ---- */
+/* each tile of the rail carries a whisper of its colour */
+.se-el { background: color-mix(in srgb, var(--tint) 55%, #fff); }
+.se-el:hover { background: color-mix(in srgb, var(--tint) 100%, #fff); }
+/* the list icons: coloured tiles, white glyph */
+.se-ic { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 22px; width: 22px; height: 22px; border-radius: 7px; background: var(--ic); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 1px 2px color-mix(in srgb, var(--ic) 35%, transparent); corner-shape: squircle; }
+.se-row > .se-ic:first-child { margin-left: -2px; }
+.se-row:hover > .se-ic { filter: brightness(1.06); }
+#panel-studio .se-row > .se-ic, #panel-export .se-row > .se-ic { width: 26px; height: 26px; flex-basis: 26px; border-radius: 8px; }
+#panel-studio .se-row > .se-ic svg, #panel-export .se-row > .se-ic svg { width: 15px; height: 15px; }
+/* the three tabs, three colours */
+.se-tabs .tab-btn:nth-child(1) svg { color: #a78bfa; }
+.se-tabs .tab-btn:nth-child(2) svg { color: #f472b6; }
+.se-tabs .tab-btn:nth-child(3) svg { color: #38bdf8; }
+.se-tabs .tab-btn.active:nth-child(1) svg { color: #7c3aed; }
+.se-tabs .tab-btn.active:nth-child(2) svg { color: #db2777; }
+.se-tabs .tab-btn.active:nth-child(3) svg { color: #0284c7; }
+/* the flame, in the brand's gradient */
+.se-flame { display: inline-block; width: 15px; height: 15px; background: linear-gradient(135deg, #8b5cf6, #ec4899); mask: url(assets/flame.png) center/contain no-repeat; -webkit-mask: url(assets/flame.png) center/contain no-repeat; filter: none; opacity: 1; }
+.se-primary-hot .se-flame { background: #fff; }
+/* the Pro chip, a little gradient of its own */
+.se-plan { background: linear-gradient(135deg, rgba(139,92,246,0.35), rgba(236,72,153,0.28)) !important; color: #fff !important; }
