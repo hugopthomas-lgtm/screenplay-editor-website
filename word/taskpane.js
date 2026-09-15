@@ -26,7 +26,7 @@ import * as TableRead from './tableread.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.7.1';
+const VERSION = '7.7.2';
 
 const $ = (id) => document.getElementById(id);
 

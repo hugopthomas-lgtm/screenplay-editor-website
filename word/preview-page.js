@@ -41,23 +41,29 @@
     }
     showBook();
 
+    // Pages are drawn nearest to the one on screen first, so flipping ahead never waits long.
     const info = document.getElementById('page-info');
-    for (let i = 1; i <= numPages; i++) {
+    const done = new Array(numPages + 1).fill(false); let left = numPages;
+    const next = function () { const cur = (pageFlip ? pageFlip.getCurrentPageIndex() : 0) + 1; let best = 0, dist = 1e9; for (let i = 1; i <= numPages; i++) { if (done[i]) continue; const d = Math.abs(i - cur); if (d < dist) { dist = d; best = i; } } return best; };
+    while (left > 0) {
+      const i = next(); done[i] = true; left--;
+      const canvas = pages[i - 1]; const ctx = canvas.getContext('2d');
       try {
         const page = i === 1 ? firstPage : await pdf.getPage(i);
         const vp = page.getViewport({ scale: scale * dpr });
-        const ctx = pages[i - 1].getContext('2d');
         await Promise.race([
           page.render({ canvasContext: ctx, viewport: vp }).promise,
           new Promise(function (_r, rej) { setTimeout(function () { rej(new Error('slow page')); }, 30000); })
         ]);
-      } catch (_e) {
-        const ctx = pages[i - 1].getContext('2d');
-        ctx.fillStyle = '#999'; ctx.font = Math.round(12 * dpr) + 'px Courier, monospace'; ctx.textAlign = 'center';
-        ctx.fillText('Page ' + i + ' could not be drawn.', pages[i - 1].width / 2, pages[i - 1].height / 2);
+      } catch (e) {
+        console.warn('Print View, page ' + i + ':', e && e.message);
+        if (e && e.message === 'slow page') {
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.fillStyle = '#999'; ctx.font = Math.round(12 * dpr) + 'px Courier, monospace'; ctx.textAlign = 'center';
+          ctx.fillText('Page ' + i + ' is taking too long to draw.', canvas.width / 2, canvas.height / 2);
+        }
       }
-      if (i < numPages) info.title = 'Drawing page ' + (i + 1) + ' of ' + numPages;
-      else info.title = '';
+      info.title = left ? 'Drawing the pages, ' + left + ' to go' : '';
     }
   }
 
