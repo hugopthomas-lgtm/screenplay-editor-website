@@ -21,7 +21,7 @@ import { buildStatsPdf } from './stats-pdf.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '7.1.1';
+const VERSION = '7.1.2';
 
 const $ = (id) => document.getElementById(id);
 
