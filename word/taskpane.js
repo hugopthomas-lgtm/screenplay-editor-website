@@ -12,11 +12,12 @@ import {
   currentElement, startLiveWriting, startEmptyDocument, liveCounts, capabilities,
   formatScope, insertTitlePage, addSceneNumbers, removeSceneNumbers,
   importFountainText, exportFountainText, docStats,
+  readParagraphs, exportFdxText, exportPdfBlob,
 } from './word-adapter.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.4.6';
+const VERSION = '6.5.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -284,15 +285,31 @@ async function handle(se, el) {
     }
     case 'import': { const i = $('import-file-input'); if (i) i.click(); return; }
     case 'export-fountain': {
+      setStatus('Writing the Fountain file…');
       const text = await exportFountainText();
+      download(docTitle() + '.fountain', new Blob([text], { type: 'text/plain' }));
       let copied = false;
       try { await navigator.clipboard.writeText(text); copied = true; } catch (_e) { /* no clipboard in this webview */ }
-      if (copied) setStatus('Fountain copied to the clipboard. Paste it in a .fountain file.', 'ok');
-      else { $('log').hidden = false; $('log').textContent = text; setStatus('Fountain text below: select it and copy.', 'ok'); }
+      setStatus(copied ? 'Fountain file saved, and copied to the clipboard.' : 'Fountain file saved.', 'ok');
       track('export_fountain');
       return;
     }
-    case 'export-pdf': setStatus('In Word: File › Save a Copy › PDF. Your styles carry over.', 'ok'); return;
+    case 'export-fdx': {
+      setStatus('Writing the Final Draft file…');
+      const xml = await exportFdxText();
+      download(docTitle() + '.fdx', new Blob([xml], { type: 'application/xml' }));
+      setStatus('Final Draft file saved. Open it in Final Draft.', 'ok');
+      track('export_fdx');
+      return;
+    }
+    case 'export-pdf': {
+      setStatus('Asking Word for the PDF…');
+      const blob = await exportPdfBlob();
+      download(docTitle() + '.pdf', blob);
+      setStatus('PDF saved.', 'ok');
+      track('export_pdf');
+      return;
+    }
     case 'stats': return refreshStats();
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
     case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
@@ -365,6 +382,19 @@ function fdxToText(xml) {
 // ---------------------------------------------------------------------------
 // Plumbing
 // ---------------------------------------------------------------------------
+// Hand a file to the user. Word's webview may or may not honour a download link:
+// we try it, and say where the file went.
+function download(name, blob) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name; a.style.display = 'none';
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 4000);
+}
+function docTitle() {
+  try { const u = Office.context.document.url || ''; const base = u.split(/[\\/]/).pop() || 'screenplay'; return base.replace(/\.[a-z0-9]+$/i, '') || 'screenplay'; } catch (_e) { return 'screenplay'; }
+}
+
 function setStatus(text, kind) {
   const el = $('status');
   el.textContent = text || '';

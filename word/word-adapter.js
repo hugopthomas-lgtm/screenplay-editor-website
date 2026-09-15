@@ -664,6 +664,49 @@ export async function importFountainText(text) {
 }
 
 // Export the document as Fountain text.
+// The screenplay as a list of { type, text }, from the styles. Empty paragraphs dropped.
+export async function readParagraphs() {
+  const out = [];
+  await Word.run(async (context) => {
+    const paras = context.document.body.paragraphs;
+    paras.load('items/text,items/style');
+    await context.sync();
+    for (const p of paras.items) {
+      const t = cleanText(p.text);
+      if (!t) continue;
+      out.push({ type: elementFromStyleName(p.style) || 'ACTION', text: t });
+    }
+  });
+  return out;
+}
+
+// Final Draft .fdx, from the styles.
+const FDX_TYPES = { SCENE_HEADING: 'Scene Heading', ACTION: 'Action', CHARACTER: 'Character', PARENTHETICAL: 'Parenthetical', DIALOGUE: 'Dialogue', TRANSITION: 'Transition' };
+function xmlEscape(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+export async function exportFdxText() {
+  const paras = await readParagraphs();
+  const body = paras.map((p) => `    <Paragraph Type="${FDX_TYPES[p.type] || 'General'}">\n      <Text>${xmlEscape(p.text)}</Text>\n    </Paragraph>`).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\n<FinalDraft DocumentType="Script" Template="No" Version="5">\n  <Content>\n${body}\n  </Content>\n</FinalDraft>\n`;
+}
+
+// The document as a PDF, from Word itself (Office common API). Returns a Blob.
+export function exportPdfBlob() {
+  return new Promise((resolve, reject) => {
+    Office.context.document.getFileAsync(Office.FileType.Pdf, { sliceSize: 65536 }, (res) => {
+      if (res.status !== Office.AsyncResultStatus.Succeeded) return reject(new Error(res.error && res.error.message || 'Word could not produce the PDF.'));
+      const file = res.value; const n = file.sliceCount; const parts = []; let i = 0;
+      const next = () => {
+        if (i >= n) { file.closeAsync(); return resolve(new Blob(parts, { type: 'application/pdf' })); }
+        file.getSliceAsync(i, (r) => {
+          if (r.status !== Office.AsyncResultStatus.Succeeded) { file.closeAsync(); return reject(new Error(r.error && r.error.message || 'PDF slice failed.')); }
+          parts.push(new Uint8Array(r.value.data)); i += 1; next();
+        });
+      };
+      next();
+    });
+  });
+}
+
 export async function exportFountainText() {
   let out = [];
   await Word.run(async (context) => {
