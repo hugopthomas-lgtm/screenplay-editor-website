@@ -520,3 +520,5 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 #screen-main .header-title { font-family: 'Plus Jakarta Sans', var(--g-font); font-size: 21px; font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; color: #fff; }
 #screen-main .header-title .brand-dot { color: #9D7BEA; margin-left: -0.07em; animation: none; }
 #screen-main .header-title:hover .brand-dot { animation: se-bounce 0.7s var(--m-spring) 1; }
+/* Format my document: the same hover as a list row */
+.se-primary:hover { background: #f7f8fa; }
