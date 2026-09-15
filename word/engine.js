@@ -193,7 +193,7 @@
   // Jetons teintés de la pilule : fond `tint` (~13 %), texte `ink`.
   const BADGE_COLORS = {
     SCENE_HEADING:  { grad: 'linear-gradient(135deg,#0ea5e9,#38bdf8)', glow: '56,189,248',  tint: 'rgba(14,165,233,0.13)',  ink: '#0369a1' },
-    ACTION:         { grad: 'linear-gradient(135deg,#64748b,#94a3b8)', glow: '148,163,184', tint: 'rgba(100,116,139,0.16)', ink: '#334155' },
+    ACTION:         { grad: 'linear-gradient(135deg,#ea580c,#f97316)', glow: '249,115,22',  tint: 'rgba(234,88,12,0.14)',  ink: '#c2410c' },
     CHARACTER:      { grad: 'linear-gradient(135deg,#ec4899,#f472b6)', glow: '244,114,182', tint: 'rgba(244,114,182,0.15)', ink: '#c02671' },
     DIALOGUE:       { grad: 'linear-gradient(135deg,#8cc81e,#bced52)', glow: '188,237,82',  tint: 'rgba(140,200,30,0.18)',  ink: '#4d7c0f' },
     PARENTHETICAL:  { grad: 'linear-gradient(135deg,#f59e0b,#fbbf24)', glow: '251,191,36',  tint: 'rgba(245,158,11,0.16)',  ink: '#b7791f' },

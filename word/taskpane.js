@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.4.0';
+const VERSION = '6.4.1';
 
 const $ = (id) => document.getElementById(id);
 
@@ -145,7 +145,8 @@ function paintPill(mode, lineEmpty) {
   if (hot) return; // the import sentence stays until the next change of element
   const c = E.pillContent(mode || 'ACTION', lineEmpty);
   const low = (m) => E.MODE_LABELS[m].toLowerCase();
-  const key = (k) => `<kbd class="se-key">${k}</kbd>`;
+  const GLYPH = { Enter: '↵', Tab: '⇥' };
+  const key = (k) => `<kbd class="se-key">${k}${GLYPH[k] ? ` <span class="se-key-glyph">${GLYPH[k]}</span>` : ''}</kbd>`;
   const parts = [];
   if (c.enter) parts.push(`${key('Enter')} takes you to ${low(c.enter)}`);
   else if (c.scene) parts.push(`Write ${key('INT.')} for a scene heading`);
