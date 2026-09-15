@@ -209,8 +209,6 @@ export async function startLiveWriting(onChange, onDiag) {
     });
   }
   _liveOn = true;
-  // Word coalesces its selection events; a light poll keeps the display close.
-  if (!_pollTimer) _pollTimer = setInterval(() => { if (!_busy && document.visibilityState !== 'hidden') tick(); }, 800);
   return true;
 }
 
@@ -227,7 +225,9 @@ function tick() {
   _tickAt = performance.now();
   if (_busy) { _pending = true; return; }
   _busy = true;
-  reconcileSelection()
+  // A Word.run that never answers must not freeze the display for good.
+  const guard = new Promise((_r, rej) => setTimeout(() => rej(new Error('timeout')), 4000));
+  Promise.race([reconcileSelection(), guard])
     .catch((e) => diag('Live: ' + ((e && (e.message || e.code)) || e)))
     .finally(() => {
       _busy = false;
