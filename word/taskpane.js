@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '5.8.0';
+const VERSION = '6.0.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -99,7 +99,7 @@ function switchTab(name) {
   for (const t of ['home', 'studio', 'export']) {
     const b = $('tab-btn-' + t); const p = $('panel-' + t);
     if (b) b.classList.toggle('active', t === name);
-    if (p) p.classList.toggle('active', t === name);
+    if (p) { const was = p.classList.contains('active'); p.classList.toggle('active', t === name); if (t === name && !was) { p.classList.remove('se-in'); void p.offsetWidth; p.classList.add('se-in'); } }
   }
   track('tab_' + (name === 'home' ? 'home' : name === 'studio' ? 'tools' : 'export'));
 }
