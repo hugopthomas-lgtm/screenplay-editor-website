@@ -57,6 +57,7 @@ export async function ensureStyles(paper = 'US') {
   // No pre-check on the requirement set: Word for Mac has reported WordApi 1.5 as
   // missing on a machine where the styles are created fine (15/09/2026). If the API
   // is really absent, Word.run throws and the pane says so.
+  const caps = capabilities();
 
   await Word.run(async (context) => {
     const styles = context.document.getStyles();
