@@ -689,3 +689,9 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 .tr-line.is-now { background: #fff; box-shadow: var(--g-soft); opacity: 1; }
 .tr-line.is-now .tr-line-who { color: var(--g-accent); }
 .tr-line.is-now .tr-line-text { color: var(--g-ink); }
+
+/* Air around the voice: a little more above, between the two lines, and below. */
+.se-voice { margin: 6px 6px 18px; padding-top: 4px; line-height: 1.5; }
+.se-voice-line { margin-bottom: 2px; }
+.se-voice-tip { margin-top: 6px; line-height: 1.75; min-height: calc(2 * 1.75em); }
+.se-voice-dot { margin-top: 8px; }
