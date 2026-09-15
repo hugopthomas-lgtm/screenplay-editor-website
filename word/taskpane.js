@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.1.1';
+const VERSION = '6.2.0';
 
 const $ = (id) => document.getElementById(id);
 
@@ -57,7 +57,7 @@ Office.onReady(async (info) => {
   if (info.host !== Office.HostType.Word) {
     const q = new URLSearchParams(location.search);
     const m = q.get('preview');
-    if (m) { isMac = true; (q.get('theme') || '').split(',').filter(Boolean).forEach((t) => document.body.classList.add('se-' + t)); buildRail(); buildPill(); wireUi(); paintMode(m, false, false); switchTab(q.get('tab') || 'home'); if (q.get('empty')) paintEmpty(true); if (q.get('hot')) setHot(true, '<b>Imported.</b> 118 paragraphs came in. One click puts everything in its place.'); return; }
+    if (m) { isMac = true; (q.get('theme') || '').split(',').filter(Boolean).forEach((t) => document.body.classList.add('se-' + t)); buildRail(); buildPill(); wireUi(); paintMode(m, false, false); switchTab(q.get('tab') || 'home'); if (q.get('empty')) paintEmpty(true); if (q.get('spark')) setTimeout(() => sparkle($('format-doc-btn')), 600); if (q.get('hot')) setHot(true, '<b>Imported.</b> 118 paragraphs came in. One click puts everything in its place.'); return; }
     setStatus('Screenplay Editor runs in Word.', 'error');
     return;
   }
@@ -112,6 +112,8 @@ function buildRail() {
     const c = E.BADGE_COLORS[el.dataset.mode] || E.BADGE_COLORS.ACTION;
     el.style.setProperty('--tint', c.tint);
     el.style.setProperty('--ink', c.ink);
+    el.style.setProperty('--duo', c.tint);
+    el.style.setProperty('--icon', c.ink);
     el.addEventListener('mousedown', (e) => e.preventDefault());
     el.addEventListener('click', () => runElement(el.dataset.mode, 'rail'));
   });
@@ -170,6 +172,23 @@ function paintEmpty(isEmpty) {
   if (!e || !v) return;
   e.hidden = !isEmpty;
   v.hidden = !!isEmpty;
+}
+
+// A small rain of sparks over a button, once.
+function sparkle(el) {
+  const r = el.getBoundingClientRect();
+  for (let i = 0; i < 7; i++) {
+    const sp = document.createElement('span');
+    sp.className = 'se-spark';
+    sp.textContent = i % 2 ? '✦' : '✧';
+    sp.style.left = (r.left + 12 + Math.random() * (r.width - 24)) + 'px';
+    sp.style.top = (r.top + r.height / 2) + 'px';
+    sp.style.setProperty('--dx', (Math.random() * 40 - 20).toFixed(0) + 'px');
+    sp.style.setProperty('--dy', (-30 - Math.random() * 40).toFixed(0) + 'px');
+    sp.style.animationDelay = (Math.random() * 120) + 'ms';
+    document.body.appendChild(sp);
+    setTimeout(() => sp.remove(), 1100);
+  }
 }
 
 // The active pill pulses once when the element changes.
@@ -297,9 +316,11 @@ async function runFormat() {
   try {
     if (!stylesReady) { await ensureStyles(paper); stylesReady = true; }
     const stats = await formatDocument();
-    setStatus(`${stats.paragraphs} paragraphs in place. Undo brings everything back.`, 'ok');
+    const n = stats.paragraphs;
+    const lines = [`${n} paragraphs in place. Take a bow.`, `All set. ${n} paragraphs, each where it belongs.`, `${n} paragraphs, every one in its right place.`, `Done. ${n} paragraphs. Undo brings everything back.`];
+    setStatus(lines[Math.floor(Math.random() * lines.length)], 'ok');
     setHot(false); paintPill(uiMode, uiEmpty);
-    const b = $('format-doc-btn'); if (b) { b.classList.remove('se-done'); void b.offsetWidth; b.classList.add('se-done'); }
+    const b = $('format-doc-btn'); if (b) { b.classList.remove('se-done'); void b.offsetWidth; b.classList.add('se-done'); sparkle(b); }
     track('format_document', { paragraphs: stats.paragraphs, removed: stats.removed });
     refreshStats();
   } catch (e) {
