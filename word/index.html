@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Editor for Word | Screenplay Editor</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Write a screenplay in Microsoft Word. Enter and Tab know where you are, six industry styles, one-click formatting, title page, scene numbers, stats, breakdown, Final Draft and Fountain export. Mac and Windows.">
+  <link rel="canonical" href="https://screenplayeditor.app/word">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Screenplay Editor for Word">
+  <meta property="og:description" content="Write a screenplay in Microsoft Word, with the same smart writing as the Google Docs extension. Mac and Windows.">
+  <meta property="og:url" content="https://screenplayeditor.app/word">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+  <style>
+    .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 60px; align-items: center; padding-bottom: 40px; }
+    .hero .lead { max-width: 52ch; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .hero-note { font-size: var(--t-sm); color: var(--ink-3); margin-top: 14px; }
+    .shot { display: block; width: 100%; max-width: 420px; margin: 0 auto; border-radius: 18px; box-shadow: var(--shadow-2); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 30px 0 0; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .section { padding-top: 70px; }
+    .section h2 { font-size: var(--t-2xl); font-weight: var(--w-bold); letter-spacing: var(--ls-label); margin: 0 0 12px; text-wrap: balance; }
+    .section > p { font-size: var(--t-base); line-height: var(--lh-body); color: var(--ink-3); max-width: 62ch; margin: 0; }
+    .card { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 30px 28px; display: flex; flex-direction: column; gap: 10px; }
+    .card h3 { font-size: var(--t-lg); font-weight: var(--w-bold); margin: 0; letter-spacing: var(--ls-label); }
+    .card p { font-size: var(--t-base); line-height: var(--lh-body); color: var(--ink-3); margin: 0; }
+    .card .tag { font-size: var(--t-xs); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--violet); font-weight: var(--w-bold); }
+    .card ol { margin: 6px 0 0; padding-left: 20px; color: var(--ink-3); font-size: var(--t-base); line-height: var(--lh-body); }
+    .card ol li + li { margin-top: 6px; }
+    .card .cta-button { align-self: flex-start; margin-top: 8px; }
+    .price { font-size: var(--t-2xl); font-weight: var(--w-bold); letter-spacing: var(--ls-label); }
+    .price span { font-size: var(--t-base); font-weight: var(--w-regular); color: var(--ink-3); }
+    .tail { padding-bottom: 90px; }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 34px; } .grid, .grid.two { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main>
+    <section class="wrap hero">
+      <div>
+        <h1>Screenplay Editor, now in Word.</h1>
+        <p class="lead">The same smart writing as the Google Docs extension, inside Microsoft Word. Type INT. and the line becomes a scene heading. Press Enter after a character and you are in dialogue. Press Tab and you are in a parenthetical. Six industry styles, Courier 12, US Letter or A4, and a pane that always says where you are. For the schools and studios that write on Microsoft.</p>
+        <div class="hero-actions">
+          <a class="cta-button" href="/word/download/Screenplay%20Editor%20for%20Word.pkg" download>Download for Mac</a>
+          <a class="cta-button-outline" href="/word/download/Screenplay%20Editor%20for%20Word%20(Windows).zip" download>Download for Windows</a>
+        </div>
+        <p class="hero-note">Microsoft 365 Word on the desktop, Mac or Windows. Word for the web is not supported. Free for a week, then the same licence as the extension.</p>
+      </div>
+      <img class="shot" src="/word/pane.png" alt="The Screenplay Editor pane in Word: the six elements, Format my document, title page, scene numbers, import." width="704" height="1432">
+    </section>
+
+    <section class="wrap section">
+      <h2>What it does.</h2>
+      <p>Everything lives in a pane next to your pages. Word keeps the document, we keep the format.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">Write</span><h3>Enter and Tab that know the element</h3><p>A template loaded at start makes Enter and Tab instant and contextual, the way Final Draft does it. Capitals for headings, characters and transitions come by themselves.</p></div>
+        <div class="card"><span class="tag">Format</span><h3>Format my document, in one click</h3><p>Paste a script from anywhere, or import a Final Draft, Fade In, Celtx or Fountain file. Every line gets its element and its style.</p></div>
+        <div class="card"><span class="tag">Page</span><h3>Title page, scene numbers, page numbers</h3><p>A title page set the way readers expect, scene numbers you can add and remove, page numbers with the period, Letter or A4.</p></div>
+        <div class="card"><span class="tag">Studio</span><h3>Script Stats and Scene Board</h3><p>Pages, scenes, cast, locations, day and night, the longest scene, in the pane and as a PDF. A board of your scenes in the browser, and the document follows the order you give it.</p></div>
+        <div class="card"><span class="tag">Ship</span><h3>PDF, Final Draft, Fountain</h3><p>Word renders the PDF with your styles. The .fdx opens in Final Draft as is. The .fountain is plain text you can keep forever.</p></div>
+        <div class="card"><span class="tag">Breakdown</span><h3>Production breakdown</h3><p>Cast, props, wardrobe, vehicles, effects, scene by scene, in the pane and in a coloured spreadsheet.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <h2>Install it.</h2>
+      <p>Two files go into place: the template Word loads at start, and the add-in that draws the ribbon group and the pane. The installer puts them there for you.</p>
+      <div class="grid two">
+        <div class="card">
+          <span class="tag">Mac</span>
+          <h3>Screenplay Editor for Word.pkg</h3>
+          <ol>
+            <li>Quit Word.</li>
+            <li>Open the package. macOS may ask you to confirm the first time: right-click the file, choose Open.</li>
+            <li>Open Word. The Screenplay group is in the Home tab, with a Panel button for the pane.</li>
+          </ol>
+          <a class="cta-button" href="/word/download/Screenplay%20Editor%20for%20Word.pkg" download>Download for Mac</a>
+        </div>
+        <div class="card">
+          <span class="tag">Windows</span>
+          <h3>Screenplay Editor for Word (Windows).zip</h3>
+          <ol>
+            <li>Quit Word.</li>
+            <li>Unzip the folder and double-click Install.cmd. It installs for your account only, no administrator needed.</li>
+            <li>Open Word. The Screenplay group is in the Home tab, with a Panel button for the pane.</li>
+          </ol>
+          <a class="cta-button-outline" href="/word/download/Screenplay%20Editor%20for%20Word%20(Windows).zip" download>Download for Windows</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <h2>One licence, both apps.</h2>
+      <p>Your first week is free, everything open. Then the Pro features ask for Pro, and the licence you take is the same one as the Google Docs extension: one address, both places.</p>
+      <div class="grid two">
+        <div class="card"><span class="tag">Yearly</span><div class="price">$69 <span>/ year</span></div><p>That is $5.75 a month. Format document, title page, scene numbers, Final Draft export, Scene Board, the full breakdown.</p></div>
+        <div class="card"><span class="tag">Monthly</span><div class="price">$7.99 <span>/ month</span></div><p>Normally $9.99. Cancel any time, your document stays yours, styles included.</p></div>
+      </div>
+      <p style="margin-top:22px">Schools and departments: site licences are four times cheaper than the seat everybody else sells. Write to <a href="mailto:hugo@screenplayeditor.app">hugo@screenplayeditor.app</a>.</p>
+    </section>
+
+    <section class="wrap section tail">
+      <h2>Questions.</h2>
+      <div class="grid two">
+        <div class="card"><h3>Does it change my document?</h3><p>It adds six paragraph styles and uses them. Turn it off, remove it, the document stays a normal Word document in Courier 12 with its styles.</p></div>
+        <div class="card"><h3>Does it work offline?</h3><p>Enter, Tab, capitals and the styles come from the template and work without a connection. The pane needs one.</p></div>
+        <div class="card"><h3>Word for the web, Word on iPad?</h3><p>Not yet. The template that makes writing instant only exists on the desktop.</p></div>
+        <div class="card"><h3>I write in Google Docs.</h3><p>Then you want <a href="/">the extension</a>. Same engine, same licence.</p></div>
+      </div>
+    </section>
+  </main>
+  <site-footer></site-footer>
+</body>
+</html>
