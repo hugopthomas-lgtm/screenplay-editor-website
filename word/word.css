@@ -254,3 +254,5 @@ div.se-row:hover { background: transparent; }
 .se-voice-tip .se-key { vertical-align: 0; }
 /* inputs are fields, not buttons: a soft rectangle, not a pill */
 .se-input { border-radius: 12px; }
+
+.tab-panels-footer-actions { display: flex; gap: 14px; }
