@@ -289,3 +289,6 @@ div.se-row:hover { background: transparent; }
 /* the folder runs down to the footer: a pane, not a card floating in a void */
 .screen#screen-main { flex: 1 1 auto !important; display: flex; flex-direction: column; }
 .tab-panels { flex: 1 1 auto !important; }
+
+/* the advice line is always two lines tall, even when it takes one */
+.se-voice-tip { min-height: calc(2 * 1.45em); }
