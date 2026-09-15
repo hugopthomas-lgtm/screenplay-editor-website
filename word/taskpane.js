@@ -19,7 +19,7 @@ import { computeScriptStats } from './stats-core.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.8.1';
+const VERSION = '6.8.2';
 
 const $ = (id) => document.getElementById(id);
 
@@ -321,8 +321,7 @@ async function handle(se, el) {
       return;
     }
     case 'stats': return refreshStats();
-    case 'stats-open': return openStatsEmbed();
-    case 'stats-close': return closeStatsEmbed();
+    case 'stats-open': return openStatsDialog();
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
     case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
     case 'soon': setStatus('On its way to Word. Already in the Google Docs extension.', 'ok'); return;
@@ -393,7 +392,7 @@ async function openStatsDialog() {
   const url = new URL('stats.html', location.href).href;
   if (statsDialog) { try { statsDialog.close(); } catch (_e) { /* gone */ } statsDialog = null; }
   await new Promise((resolve, reject) => {
-    Office.context.ui.displayDialogAsync(url, { height: 78, width: 56, displayInIframe: false }, (res) => {
+    Office.context.ui.displayDialogAsync(url, { height: 90, width: 80, displayInIframe: false }, (res) => {
       if (res.status !== Office.AsyncResultStatus.Succeeded) return reject(new Error(res.error && res.error.message || 'Word could not open the window.'));
       statsDialog = res.value;
       statsDialog.addEventHandler(Office.EventType.DialogMessageReceived, async (arg) => {
