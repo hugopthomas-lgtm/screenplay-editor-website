@@ -443,3 +443,14 @@ body.se-stage .se-tabs .tab-btn.active:not(:first-child)::before { background: r
 /* the Pro chip at the right end of the tab row */
 .se-plan-tabs { margin-left: auto; margin-bottom: 7px; margin-right: 2px; }
 #screen-main .header { padding-bottom: 6px; }
+
+/* ---- une seule dose (15/09, « la fête à neuneu ») : la couleur vit dans le rail,
+   le reste revient au blanc et à la lavande ---- */
+.se-el { background: #fff; }
+.se-el:hover { background: color-mix(in srgb, var(--tint) 60%, #fff); }
+.se-ic { background: var(--g-lavender); color: #4a35d6; box-shadow: none; }
+.se-row:hover > .se-ic { filter: none; }
+.se-tabs .tab-btn:nth-child(1) svg, .se-tabs .tab-btn:nth-child(2) svg, .se-tabs .tab-btn:nth-child(3) svg { color: inherit; }
+.se-tabs .tab-btn.active:nth-child(1) svg, .se-tabs .tab-btn.active:nth-child(2) svg, .se-tabs .tab-btn.active:nth-child(3) svg { color: var(--g-accent); }
+.se-plan { background: var(--g-lavender) !important; color: #4a35d6 !important; }
+body.se-stage .se-plan { background: rgba(228, 221, 255, 0.92) !important; color: #4a35d6 !important; box-shadow: none; }
