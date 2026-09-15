@@ -528,3 +528,6 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 /* the Pro chip ends on the folder's right edge */
 .tab-bar.se-tabs { padding-right: 0; }
 .se-plan-tabs { margin-right: 0; }
+
+/* the keys show their symbol: Enter ↵, Tab ⇥ */
+.se-key-glyph { font-family: var(--g-font); font-size: 11px; opacity: 0.6; margin-left: 1px; }
