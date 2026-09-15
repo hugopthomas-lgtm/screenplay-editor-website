@@ -15,8 +15,9 @@
   let pageWidth = 0;
   let pageHeight = 0;
 
+  // The book opens as soon as the pages have their size; each page is drawn into
+  // its canvas afterwards, sharp on Retina screens, one page at a time.
   async function loadPdf(bytes) {
-
     const pdf = await pdfjsLib.getDocument({ data: bytes, standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/", cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/", cMapPacked: true }).promise;
     const numPages = pdf.numPages;
 
@@ -24,24 +25,40 @@
     const viewport = firstPage.getViewport({ scale: 1 });
     const maxHeight = window.innerHeight - 100;
     const scale = Math.min(maxHeight / viewport.height, 1.5);
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
     pageWidth = Math.floor(viewport.width * scale);
     pageHeight = Math.floor(viewport.height * scale);
 
     for (let i = 1; i <= numPages; i++) {
-      const page = await pdf.getPage(i);
-      const vp = page.getViewport({ scale });
       const canvas = document.createElement('canvas');
-      canvas.width = pageWidth;
-      canvas.height = pageHeight;
+      canvas.width = Math.floor(pageWidth * dpr);
+      canvas.height = Math.floor(pageHeight * dpr);
+      canvas.style.width = pageWidth + 'px';
+      canvas.style.height = pageHeight + 'px';
       const ctx = canvas.getContext('2d');
-      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
       pages.push(canvas);
-
-      document.querySelector('#loading div:last-child').textContent =
-        'Rendering page ' + i + ' / ' + numPages + '...';
     }
-
     showBook();
+
+    const info = document.getElementById('page-info');
+    for (let i = 1; i <= numPages; i++) {
+      try {
+        const page = i === 1 ? firstPage : await pdf.getPage(i);
+        const vp = page.getViewport({ scale: scale * dpr });
+        const ctx = pages[i - 1].getContext('2d');
+        await Promise.race([
+          page.render({ canvasContext: ctx, viewport: vp }).promise,
+          new Promise(function (_r, rej) { setTimeout(function () { rej(new Error('slow page')); }, 30000); })
+        ]);
+      } catch (_e) {
+        const ctx = pages[i - 1].getContext('2d');
+        ctx.fillStyle = '#999'; ctx.font = Math.round(12 * dpr) + 'px Courier, monospace'; ctx.textAlign = 'center';
+        ctx.fillText('Page ' + i + ' could not be drawn.', pages[i - 1].width / 2, pages[i - 1].height / 2);
+      }
+      if (i < numPages) info.title = 'Drawing page ' + (i + 1) + ' of ' + numPages;
+      else info.title = '';
+    }
   }
 
   function showBook() {
