@@ -256,3 +256,31 @@ div.se-row:hover { background: transparent; }
 .se-input { border-radius: 12px; }
 
 .tab-panels-footer-actions { display: flex; gap: 14px; }
+
+/* ---- desktop density (15/09/2026, « ça fait app de téléphone ») : rows of 34 px,
+   corners of 9 px on controls, capsules kept for keys, chips and the folder tabs ---- */
+.se-el { min-height: 34px; padding: 0 11px; border-radius: 9px; gap: 8px; font-size: 12.5px; }
+.se-el-grid { gap: 6px; }
+.se-el.active { box-shadow: 0 0 0 1.5px var(--ink); }
+.se-primary { min-height: 34px; border-radius: 9px; margin-top: 10px; font-size: 12.5px; }
+.se-voice { margin: 0 4px 10px; min-height: 0; font-size: 13.5px; }
+.se-voice-tip { font-size: 12.5px; margin-top: 2px; }
+.se-voice-dot { margin-top: 6px; width: 8px; height: 8px; flex-basis: 8px; }
+.se-label { margin: 12px 6px 6px; font-size: 11.5px; }
+.se-list { border-radius: 12px; padding: 2px 0; }
+.se-list-import { margin-top: 6px; }
+.se-row { min-height: 34px; padding: 0 12px 0 12px; gap: 10px; font-size: 12.5px; }
+#panel-studio .se-row, #panel-export .se-row { min-height: 46px; padding-top: 5px; padding-bottom: 5px; }
+.se-row > .se-i.se-row-end { width: 14px; height: 14px; color: rgba(31,38,46,0.28); }
+.se-mini { width: 22px; height: 22px; border-radius: 6px; box-shadow: 0 0 0 1px rgba(31,38,46,0.12), 0 1px 1px rgba(31,38,46,0.05); }
+.se-mini .se-i { width: 12px; height: 12px; }
+.se-switch { border-radius: 7px; padding: 2px; }
+.se-paper-opt { border-radius: 5px; padding: 2px 8px; font-size: 11px; }
+.se-titlepage { padding: 6px 12px 10px; }
+.se-input { padding: 6px 10px; border-radius: 8px; font-size: 12.5px; }
+.se-btn { min-height: 28px; line-height: 28px; border-radius: 8px; font-size: 12px; }
+.tab-panels { padding: 10px 10px 12px; border-radius: 0 16px 16px 16px; }
+.se-empty-title { font-size: 14px; }
+.tab-panels-footer { padding: 4px 16px 8px; }
+.focus-stat-value { font-size: 13px; }
+.tab-panels-footer-actions { margin-top: 0; }
