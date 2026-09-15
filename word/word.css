@@ -481,3 +481,7 @@ body.se-stage .se-plan { background: rgba(228, 221, 255, 0.92) !important; color
 body.se-stage .se-status { color: #c3cad3; }
 body.se-stage .se-status.ok { color: #cfc6ff; }
 body.se-stage .se-status.error { color: #fca5a5; }
+/* the folder switches in one piece: no colour or padding animation on the tabs, so the
+   tab, its two curves and the panel change on the same frame; only the content fades */
+.se-tabs .tab-btn, .se-tabs .tab-btn::before, .se-tabs .tab-btn::after { transition: none !important; }
+.se-tabs .tab-btn.active { padding-top: 7px; }
