@@ -19,7 +19,7 @@ import { computeScriptStats } from './stats-core.js';
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.7.2';
+const VERSION = '6.7.3';
 
 const $ = (id) => document.getElementById(id);
 
@@ -71,7 +71,9 @@ Office.onReady(async (info) => {
   wireUi();
   paintPaper();
   track('sidebar_open');
-  try { Office.addin.setStartupBehavior(Office.StartupBehavior.load); } catch (_e) { /* optional */ }
+  // No startup auto-load: with a sideloaded manifest, Word answers « Ce complément
+  // n'est plus disponible » at the next launch (Hugo, 15/09). The ribbon opens the pane.
+  try { Office.addin.setStartupBehavior(Office.StartupBehavior.none); } catch (_e) { /* optional */ }
 
   try {
     const caps = await ensureStyles(paper);
