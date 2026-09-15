@@ -525,3 +525,6 @@ body, #screen-main button, #screen-main input { font-weight: 300; }
 /* Format my document: violet at hover, the magic shows when you reach for it */
 .se-primary:hover { background: var(--g-lavender); color: #4a35d6; }
 .se-primary:hover .se-flame { background: #4a35d6; }
+/* the Pro chip ends on the folder's right edge */
+.tab-bar.se-tabs { padding-right: 0; }
+.se-plan-tabs { margin-right: 0; }
