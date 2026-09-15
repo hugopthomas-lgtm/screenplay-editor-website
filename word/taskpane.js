@@ -16,7 +16,7 @@ import {
 
 const E = globalThis.SEEngine;
 const API = 'https://screenplay-editor-api.hugopthomas.workers.dev';
-const VERSION = '6.2.1';
+const VERSION = '6.2.2';
 
 const $ = (id) => document.getElementById(id);
 
@@ -114,6 +114,8 @@ function buildRail() {
     el.style.setProperty('--ink', c.ink);
     el.style.setProperty('--duo', c.tint);
     el.style.setProperty('--icon', c.ink);
+    el.style.setProperty('--grad', c.grad);
+    el.style.setProperty('--glow', c.glow);
     el.addEventListener('mousedown', (e) => e.preventDefault());
     el.addEventListener('click', () => runElement(el.dataset.mode, 'rail'));
   });

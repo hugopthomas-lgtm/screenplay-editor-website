@@ -433,3 +433,9 @@ body.se-stage .se-tabs .tab-btn.active:not(:first-child)::before { background: r
 .se-primary-hot .se-flame { background: #fff; }
 /* the Pro chip, a little gradient of its own */
 .se-plan { background: linear-gradient(135deg, rgba(139,92,246,0.35), rgba(236,72,153,0.28)) !important; color: #fff !important; }
+
+/* the active tile is the badge of the Docs pill: its gradient, white text, no outline */
+.se-el.active { background: var(--grad); color: #fff; box-shadow: 0 1px 2px rgba(31,38,46,0.10), 0 6px 16px rgba(var(--glow), 0.35); font-weight: 600; }
+.se-el.active:hover { background: var(--grad); transform: none; }
+.se-el.active .se-duo, .se-el.active .se-el-ic { color: #fff; }
+.se-el.active { --duo: rgba(255,255,255,0.28); }
