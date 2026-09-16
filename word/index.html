@@ -42,6 +42,9 @@
     .price span { font-size: var(--t-base); font-weight: var(--w-regular); color: var(--ink-3); }
     .btn-outline { display: inline-flex; align-items: center; justify-content: center; padding: 16px 28px; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; font-size: var(--t-base); font-weight: var(--w-bold); text-decoration: none; letter-spacing: var(--ls-label); }
     .btn-outline:hover { background: var(--ink); color: var(--paper-2); }
+    .tm-mark { font-size: 0.42em; vertical-align: 0.9em; font-weight: var(--w-medium); letter-spacing: 0; }
+    .hero-other { margin-top: 6px; }
+    .hero-other a { color: var(--violet-dark); text-decoration: underline; text-underline-offset: 3px; }
     .tail { padding-bottom: 90px; }
     @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 34px; } .grid, .grid.two { grid-template-columns: 1fr; } }
   </style>
@@ -51,13 +54,14 @@
   <main>
     <section class="wrap hero">
       <div>
-        <h1>Screenplay Editor,<br>now in Word.</h1>
+        <h1>Write your next movie<br>directly inside Microsoft&nbsp;Word<span class="tm-mark">&trade;</span>.</h1>
         <p class="lead">The same smart writing as the Google Docs extension, inside Microsoft Word. Type INT. and the line becomes a scene heading. Press Enter after a character and you are in dialogue. Press Tab and you are in a parenthetical. Six industry styles, Courier 12, US Letter or A4, and a pane that always says where you are. For the schools and studios that write on Microsoft.</p>
-        <div class="hero-actions">
-          <a class="cta-button" href="/word/download/Screenplay%20Editor%20for%20Word.pkg" download>Download for Mac</a>
-          <a class="btn-outline" href="/word/download/Screenplay%20Editor%20for%20Word%20(Windows).zip" download>Download for Windows</a>
+        <div class="hero-actions" id="word-actions">
+          <a class="cta-button" id="dl-mac" href="/word/download/Screenplay%20Editor%20for%20Word.pkg" download>Download for Mac</a>
+          <a class="btn-outline" id="dl-win" href="/word/download/Screenplay%20Editor%20for%20Word%20(Windows).zip" download>Download for Windows</a>
         </div>
         <p class="hero-note">Microsoft 365 Word on the desktop, Mac or Windows. Word for the web is not supported. Free for a week, then the same licence as the extension.</p>
+        <p class="hero-note hero-other">Writing in Google&nbsp;Docs? <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Add it to Chrome</a>, same editor, same licence.</p>
       </div>
       <img class="shot" src="/word/pane.png" alt="The Screenplay Editor pane in Word: the six elements, Format my document, title page, scene numbers, import." width="704" height="1432">
     </section>
@@ -124,5 +128,18 @@
     </section>
   </main>
   <site-footer></site-footer>
+<script>
+  // The visitor's system comes first: on Windows the filled button is the Windows one.
+  (function () {
+    try {
+      var plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+      if (!/win/i.test(plat)) return;
+      var mac = document.getElementById('dl-mac'), win = document.getElementById('dl-win');
+      if (!mac || !win) return;
+      mac.className = 'btn-outline'; win.className = 'cta-button';
+      win.parentNode.insertBefore(win, mac);
+    } catch (e) {}
+  })();
+</script>
 </body>
 </html>
