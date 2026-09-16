@@ -32,6 +32,22 @@
   }
   window.addEventListener('resize', function () { drawArrow(); });
 
+  // At the bottom of the page: the way out, with a smile.
+  var outro = null, outroShown = false, added = 0;
+  function showOutro() {
+    if (outroShown || !canvas) return; outroShown = true;
+    outro = document.createElement('div'); outro.className = 'tryit-outro';
+    outro.innerHTML = '<span class="tryit-outro-text">Now install me and stop copying Sofia Coppola.</span><a class="tryit-outro-btn" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Add to Chrome</a><a class="tryit-outro-alt" href="/word">or get it for Word</a>';
+    canvas.appendChild(outro);
+    requestAnimationFrame(function () { outro.classList.add('in'); });
+  }
+  function checkOutro() {
+    if (outroShown) return;
+    var wrap = sheet.parentElement, last = sheet.lastElementChild; if (!wrap || !last) return;
+    var w = wrap.getBoundingClientRect(), l = last.getBoundingClientRect();
+    if (added >= 6 || l.bottom > w.bottom - 60) showOutro();
+  }
+
   function block(mode, text) {
     var d = document.createElement('div');
     d.className = 'tl'; d.contentEditable = 'true'; d.spellcheck = false;
@@ -85,13 +101,13 @@
       e.preventDefault();
       var cta = pill && pill.querySelector('.tryit-cta'); if (cta) cta.remove();
       var d = E.enterDecision(mode);
-      var n = block(d.mode, ''); el.after(n); caretEnd(n); paint(n); return;
+      var n = block(d.mode, ''); el.after(n); caretEnd(n); paint(n); added++; checkOutro(); return;
     }
     if (e.key === 'Tab') {
       e.preventDefault();
       var td = E.tabDecision(mode, empty);
       if (td.kind === 'inplace') { setMode(el, td.mode); if (td.parens) { el.textContent = '()'; caretEnd(el, true); } paint(el); return; }
-      if (td.kind === 'newline') { var nb = block(td.mode, td.parens ? '()' : ''); el.after(nb); caretEnd(nb, !!td.parens); paint(nb); return; }
+      if (td.kind === 'newline') { var nb = block(td.mode, td.parens ? '()' : ''); el.after(nb); caretEnd(nb, !!td.parens); paint(nb); added++; checkOutro(); return; }
       return;
     }
     if (e.key === 'Backspace' && empty && el.previousElementSibling) {

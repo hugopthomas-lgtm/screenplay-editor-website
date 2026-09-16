@@ -57,3 +57,11 @@
 /* The arrow from the pill to the line being written. */
 .tryit-arrow { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 3; }
 @media (max-width: 900px) { .tryit-arrow { display: none !important; } }
+
+/* The way out, at the bottom of the page. */
+.tryit-outro { position: absolute; left: 50%; bottom: 22px; transform: translate(-50%, 24px); opacity: 0; z-index: 5; display: inline-flex; align-items: center; gap: 14px; background: #1f262e; color: #fff; border-radius: 999px; padding: 10px 12px 10px 20px; box-shadow: 0 16px 40px rgba(0,0,0,0.35); font-family: var(--sans); font-size: 14px; white-space: nowrap; transition: transform 0.45s cubic-bezier(0.34,1.45,0.64,1), opacity 0.3s; }
+.tryit-outro.in { transform: translate(-50%, 0); opacity: 1; }
+.tryit-outro-btn { display: inline-flex; align-items: center; background: var(--violet); color: #fff; border-radius: 999px; padding: 8px 16px; font-weight: 600; text-decoration: none; }
+.tryit-outro-btn:hover { background: var(--violet-dark); }
+.tryit-outro-alt { color: rgba(255,255,255,0.7); text-decoration: underline; text-underline-offset: 3px; font-size: 13px; margin-right: 6px; }
+@media (max-width: 900px) { .tryit-outro { white-space: normal; flex-wrap: wrap; justify-content: center; left: 10px; right: 10px; transform: none; width: auto; border-radius: 16px; } .tryit-outro.in { transform: none; } }
