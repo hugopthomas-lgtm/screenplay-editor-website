@@ -45,7 +45,7 @@
     if (outroShown) return;
     var wrap = sheet.parentElement, last = sheet.lastElementChild; if (!wrap || !last) return;
     var w = wrap.getBoundingClientRect(), l = last.getBoundingClientRect();
-    if (added >= 6 || l.bottom > w.bottom - 60) showOutro();
+    if (added >= 5 || l.bottom > w.bottom - 60) showOutro();
   }
 
   function block(mode, text) {
