@@ -353,19 +353,20 @@
       gap: 4px;
       padding: 4px;
       margin-bottom: 18px;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.10);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
       border-radius: var(--r-full);
     }
     .hero-where-label {
       font-size: var(--t-sm);
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.72);
       padding: 0 10px 0 12px;
     }
     .hero-where button {
       font: inherit;
       font-size: var(--t-sm);
       font-weight: var(--w-medium);
-      color: rgba(255,255,255,0.8);
+      color: #fff;
       background: transparent;
       border: 0;
       border-radius: var(--r-full);
@@ -373,6 +374,7 @@
       cursor: pointer;
       transition: background 0.2s, color 0.2s;
     }
+    .hero-where button:hover { background: rgba(255,255,255,0.12); }
     .hero-where button[aria-pressed="true"] {
       background: var(--paper-2);
       color: var(--ink);
