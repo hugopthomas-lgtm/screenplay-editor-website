@@ -25,7 +25,7 @@
     .hero .lead { max-width: 52ch; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
     .hero-note { font-size: var(--t-sm); color: var(--ink-3); margin-top: 14px; }
-    .shot { display: block; width: 100%; max-width: 300px; height: auto; aspect-ratio: 704 / 1490; margin: 0 auto; border-radius: 16px; box-shadow: var(--shadow-2); }
+    .shot { display: block; width: 100%; max-width: 300px; height: auto; aspect-ratio: 704 / 1490; margin: -56px auto 0; border-radius: 16px; box-shadow: var(--shadow-2); }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 30px 0 0; }
     .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .section { padding-top: 70px; }
@@ -46,7 +46,7 @@
     .hero-other { margin-top: 6px; }
     .hero-other a { color: var(--violet-dark); text-decoration: underline; text-underline-offset: 3px; }
     .tail { padding-bottom: 90px; }
-    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 34px; } .grid, .grid.two { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 34px; } .shot { margin-top: 0; } .grid, .grid.two { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
