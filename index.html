@@ -1542,7 +1542,7 @@
           </ul>
         </div>
         <div class="collab-image">
-          <img src="obj-walkies.png" alt="Two writers, one script, in real time">
+          <img src="obj-walkies.png" id="sf-collab-img" alt="Two writers, one script, in real time">
         </div>
       </div>
     </section>
@@ -1685,6 +1685,8 @@
         if (btn) { btn.href = surface === 'word' ? '/word' : 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'; btn.lastChild.nodeValue = surface === 'word' ? 'Get it for Word' : 'Add to Chrome'; btn.target = surface === 'word' ? '_self' : '_blank'; }
         if (c2) c2.href = surface === 'word' ? 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln' : 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
         document.querySelectorAll('.hero-trust li').forEach(function (li) { if (/Also works in/.test(li.textContent)) li.hidden = surface === 'word'; });
+        var ci = document.getElementById('sf-collab-img');
+        if (ci) { ci.src = surface === 'word' ? 'obj-plane-cut.png' : 'obj-walkies.png'; ci.alt = surface === 'word' ? 'Works on a plane, no internet needed' : 'Two writers, one script, in real time'; }
         var dc = document.getElementById('sf-docs-chrome'), wb = document.getElementById('sf-word-bar');
         if (dc) dc.hidden = surface === 'word';
         if (wb) wb.hidden = surface !== 'word';
