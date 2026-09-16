@@ -9,28 +9,6 @@
   var GLYPH = { Enter: '↵', Tab: '⇥' };
 
   var canvas = sheet.closest('.gdoc-canvas');
-  var arrow = null;
-  if (canvas && pill) {
-    arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    arrow.setAttribute('class', 'tryit-arrow'); arrow.setAttribute('aria-hidden', 'true');
-    arrow.innerHTML = '<defs><marker id="tryit-head" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0.5 0.5 L6.5 4 L0.5 7.5" fill="none" stroke="#9D7BEA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><path d="" fill="none" stroke="#9D7BEA" stroke-width="4" stroke-linecap="round" marker-end="url(#tryit-head)"/>';
-    canvas.appendChild(arrow);
-  }
-  function drawArrow() {
-    if (!arrow) return;
-    var side = pill.parentElement;
-    if (getComputedStyle(side).position !== 'absolute') { arrow.style.display = 'none'; return; }
-    var cur = sheet.querySelector('.tl.is-cur'); if (!cur) { arrow.style.display = 'none'; return; }
-    var c = canvas.getBoundingClientRect(), p = pill.getBoundingClientRect(), l = cur.getBoundingClientRect();
-    var x1 = p.right - 26 - c.left, y1 = p.bottom - 4 - c.top;
-    var x2 = l.left - 16 - c.left, y2 = l.top + l.height / 2 - c.top;
-    if (y2 < y1 + 20) { arrow.style.display = 'none'; return; }
-    arrow.style.display = 'block';
-    arrow.setAttribute('viewBox', '0 0 ' + Math.round(c.width) + ' ' + Math.round(c.height));
-    var d = 'M' + x1 + ' ' + y1 + ' C ' + (x1 + 36) + ' ' + (y1 + 40) + ', ' + (x2 - 60) + ' ' + (y2 - 30) + ', ' + x2 + ' ' + y2;
-    arrow.querySelector('path').setAttribute('d', d);
-  }
-  window.addEventListener('resize', function () { drawArrow(); });
 
   // At the bottom of the page: the way out, with a smile.
   var outro = null, outroShown = false, added = 0;
@@ -57,7 +35,7 @@
     return d;
   }
   function caretEnd(el, inside) {
-    el.focus();
+    el.focus({ preventScroll: true });
     var r = document.createRange(), s = window.getSelection();
     if (inside && el.firstChild) { r.setStart(el.firstChild, Math.max(0, el.textContent.length - 1)); r.collapse(true); }
     else { r.selectNodeContents(el); r.collapse(false); }
@@ -78,7 +56,6 @@
     pill.querySelector('.tryit-dot').style.background = c.colors.ink;
     sheet.querySelectorAll('.tl.is-cur').forEach(function (n) { n.classList.remove('is-cur'); });
     el.classList.add('is-cur');
-    requestAnimationFrame(drawArrow);
   }
   function setMode(el, mode) { el.dataset.mode = mode; el.dataset.ph = PH[mode] || ''; }
   function fixCase(el) {
@@ -131,6 +108,16 @@
   sheet.lastElementChild.dataset.ph = 'Type her line here.';
   sheet.addEventListener('click', function (e) { if (e.target === sheet) { var last = sheet.lastElementChild; if (last) caretEnd(last); } });
   var last = sheet.lastElementChild; paint(last);
+  // Type anywhere: while the page is on screen and nothing else has the focus, keys go to the current line.
+  var onScreen = false;
+  if ('IntersectionObserver' in window) { new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; }, { threshold: 0.35 }).observe(sheet); } else { onScreen = true; }
+  function editable(el) { return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)); }
+  document.addEventListener('keydown', function (e) {
+    if (!onScreen || editable(document.activeElement) || e.metaKey || e.ctrlKey || e.altKey) return;
+    var cur = sheet.querySelector('.tl.is-cur') || sheet.lastElementChild; if (!cur) return;
+    if (e.key === 'Enter' || e.key === 'Tab') { caretEnd(cur); onKey({ currentTarget: cur, key: e.key, preventDefault: function () { e.preventDefault(); } }); return; }
+    if (e.key.length === 1 || e.key === 'Backspace') { caretEnd(cur); }
+  });
   document.querySelectorAll('.tryit-keys button').forEach(function (b) {
     b.addEventListener('click', function () {
       var cur = sheet.querySelector('.tl.is-cur') || sheet.lastElementChild; if (!cur) return;
