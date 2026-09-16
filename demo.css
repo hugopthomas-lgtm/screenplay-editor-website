@@ -13,30 +13,22 @@
 .tryit-keys { display: flex; gap: 8px; margin-top: 14px; }
 .tryit-keys button { font: inherit; font-family: var(--mono); font-size: 13px; color: #f2f2f4; background: rgba(255,255,255,0.08); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14); }
 .tryit-keys button:hover { background: rgba(255,255,255,0.14); }
-.tryit-sheet { background: #fff; color: #000; border-radius: 2px 2px 0 0; box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15); font-family: var(--courier); font-size: 13px; line-height: 1; padding: 44px 57px 30px 86px; min-height: 500px; width: 100%; max-width: 560px; margin: 0 0 0 auto; cursor: text; position: relative; }
-.tryit-sheet::before { content: '1.'; position: absolute; top: 18px; right: 57px; font-family: var(--courier); font-size: 13px; color: #000; }
+.tryit-sheet { background: #fff; color: #000; border-radius: 2px 2px 0 0; box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15); font-family: var(--courier); font-size: 16px; line-height: 1; padding: 58px 90px 40px 140px; min-height: 560px; width: 100%; margin: 0; cursor: text; position: relative; }
+.tryit-sheet::before { content: '1.'; position: absolute; top: 26px; right: 90px; font-family: var(--courier); font-size: 16px; color: #000; }
 .tl { outline: none; white-space: pre-wrap; word-break: break-word; min-height: 1em; margin-top: 1em; caret-color: #000; }
 .tl:first-child { margin-top: 0; }
-.tl[data-mode="CHARACTER"] { margin-left: 154px; margin-top: 1em; }
-.tl[data-mode="DIALOGUE"] { margin-left: 80px; margin-right: 75px; margin-top: 0; }
-.tl[data-mode="PARENTHETICAL"] { margin-left: 120px; margin-right: 109px; margin-top: 0; }
+.tl[data-mode="CHARACTER"] { margin-left: 277px; margin-top: 1em; }
+.tl[data-mode="DIALOGUE"] { margin-left: 144px; margin-right: 134px; margin-top: 0; }
+.tl[data-mode="PARENTHETICAL"] { margin-left: 216px; margin-right: 196px; margin-top: 0; }
 .tl[data-mode="TRANSITION"] { text-align: right; }
 .tl:empty::after { content: attr(data-ph); color: #b8b8b8; }
 .tl.is-cur:empty::after { color: #9a9a9a; }
-@media (max-width: 900px) {
-  .tryit-grid { grid-template-columns: 1fr; gap: 28px; }
-  .tryit-sheet { padding: 40px 28px 40px 44px; font-size: 13px; min-height: 380px; }
-  .tryit-sheet::before { top: 20px; right: 28px; font-size: 13px; }
-  .tl[data-mode="CHARACTER"] { margin-left: 120px; }
-  .tl[data-mode="DIALOGUE"] { margin-left: 56px; margin-right: 40px; }
-  .tl[data-mode="PARENTHETICAL"] { margin-left: 88px; margin-right: 60px; }
-}
 
 /* The Google Docs frame: a real capture of the 2026 chrome on top, the grey canvas, the page. */
 .gdoc { background: #fff; border-radius: 12px; overflow: visible; box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3); position: relative; }
 .gdoc-chrome { display: block; width: 100%; height: auto; border-radius: 12px 12px 0 0; }
-.gdoc-canvas { position: relative; background: #f9fbfd; padding: 26px 40px 0 40px; overflow: visible; border-radius: 0 0 12px 12px; display: flex; justify-content: center; }
-.gdoc-pagewrap { width: 100%; max-width: 560px; overflow: hidden; margin-left: 120px; }
+.gdoc-canvas { position: relative; background: #f9fbfd; padding: 22px 22px 0; overflow: visible; border-radius: 0 0 12px 12px; display: flex; justify-content: center; }
+.gdoc-pagewrap { width: 100%; overflow: hidden; margin: 0; }
 .tryit-side { position: absolute; left: -150px; top: 44px; width: 300px; z-index: 2; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 .tryit-side .tryit-pill { font-size: 14px; background: #eef0f3; box-shadow: 0 10px 30px rgba(31,38,46,0.18), 0 1px 3px rgba(31,38,46,0.10); }
 .tryit-side .tryit-keys { margin-top: 0; }
@@ -47,7 +39,10 @@
 .js .hero-inner > .hero-tryit { opacity: 1; transform: none; }
 @media (max-width: 900px) {
   .gdoc-canvas { padding: 12px 10px 0; display: block; }
-  .gdoc-pagewrap { margin: 0 auto; }
   .tryit-side { position: static; width: auto; margin-bottom: 12px; }
-  .tryit-sheet { margin: 0 auto; }
+  .tryit-sheet { font-size: 13px; padding: 40px 28px 30px 44px; min-height: 380px; }
+  .tryit-sheet::before { top: 20px; right: 28px; font-size: 13px; }
+  .tl[data-mode="CHARACTER"] { margin-left: 120px; }
+  .tl[data-mode="DIALOGUE"] { margin-left: 56px; margin-right: 40px; }
+  .tl[data-mode="PARENTHETICAL"] { margin-left: 88px; margin-right: 60px; }
 }
