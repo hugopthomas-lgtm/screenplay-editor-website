@@ -38,6 +38,7 @@
     pill.querySelector('.tryit-dot').style.background = c.colors.ink;
     sheet.querySelectorAll('.tl.is-cur').forEach(function (n) { n.classList.remove('is-cur'); });
     el.classList.add('is-cur');
+    requestAnimationFrame(drawArrow);
   }
   function setMode(el, mode) { el.dataset.mode = mode; el.dataset.ph = PH[mode] || ''; }
   function fixCase(el) {
@@ -48,6 +49,7 @@
   }
   function onInput(e) {
     var el = e.currentTarget, t = el.textContent;
+    var cta = pill && pill.querySelector('.tryit-cta'); if (cta && t.trim() && cta.dataset.step !== '1') { cta.dataset.step = '1'; cta.textContent = 'Now press Enter'; }
     var trig = E.lineTrigger(t);
     if (trig && trig !== el.dataset.mode && (el.dataset.mode === 'ACTION' || el.dataset.mode === 'SCENE_HEADING' || el.dataset.mode === 'TRANSITION')) { setMode(el, trig); }
     fixCase(el);
@@ -57,6 +59,7 @@
     var el = e.currentTarget, mode = el.dataset.mode, empty = !el.textContent.trim();
     if (e.key === 'Enter') {
       e.preventDefault();
+      var cta = pill && pill.querySelector('.tryit-cta'); if (cta) cta.remove();
       var d = E.enterDecision(mode);
       var n = block(d.mode, ''); el.after(n); caretEnd(n); paint(n); return;
     }

@@ -53,3 +53,7 @@
 .tl.is-cur:empty:not(:focus)::before { content: ''; display: inline-block; width: 1.5px; height: 1em; background: #000; vertical-align: -0.1em; margin-right: 1px; animation: tryit-blink 1.1s steps(1) infinite; }
 @keyframes tryit-blink { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .tl.is-cur:empty:not(:focus)::before { animation: none; } }
+
+/* The arrow from the pill to the line being written. */
+.tryit-arrow { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 1; }
+@media (max-width: 900px) { .tryit-arrow { display: none !important; } }
