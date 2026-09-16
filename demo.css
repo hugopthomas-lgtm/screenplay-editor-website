@@ -1,7 +1,7 @@
 /* Try it: the real engine, on a sheet of paper, under the visitor's fingers. */
 .tryit { background: #141416; color: #f2f2f4; padding: 72px 0 84px; }
 .tryit .wrap { max-width: 1240px; margin: 0 auto; padding: 0 30px; }
-.tryit-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
+.tryit-grid { display: grid; grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr); gap: 48px; align-items: start; }
 .tryit-kicker { font-size: var(--t-xs); letter-spacing: var(--ls-caps); text-transform: uppercase; color: var(--violet); font-weight: var(--w-bold); margin: 0 0 14px; }
 .tryit h2 { font-size: var(--t-2xl); line-height: var(--lh-tight); letter-spacing: var(--ls-display); margin: 0 0 18px; text-wrap: balance; }
 .tryit p { font-size: var(--t-md); line-height: var(--lh-body); color: rgba(255,255,255,0.72); max-width: 44ch; margin: 0 0 22px; }
@@ -13,7 +13,7 @@
 .tryit-keys { display: flex; gap: 8px; margin-top: 14px; }
 .tryit-keys button { font: inherit; font-family: var(--mono); font-size: 13px; color: #f2f2f4; background: rgba(255,255,255,0.08); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14); }
 .tryit-keys button:hover { background: rgba(255,255,255,0.14); }
-.tryit-sheet { background: #fff; color: #000; border-radius: 2px 2px 0 0; box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15); font-family: var(--courier); font-size: 13px; line-height: 1; padding: 44px 57px 30px 86px; min-height: 330px; width: 100%; max-width: 486px; margin: 0 auto; cursor: text; position: relative; }
+.tryit-sheet { background: #fff; color: #000; border-radius: 2px 2px 0 0; box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15); font-family: var(--courier); font-size: 13px; line-height: 1; padding: 44px 57px 30px 86px; min-height: 330px; width: 100%; max-width: 580px; margin: 0 auto; cursor: text; position: relative; }
 .tryit-sheet::before { content: '1.'; position: absolute; top: 18px; right: 57px; font-family: var(--courier); font-size: 13px; color: #000; }
 .tl { outline: none; white-space: pre-wrap; word-break: break-word; min-height: 1em; margin-top: 1em; caret-color: #000; }
 .tl:first-child { margin-top: 0; }
@@ -36,7 +36,7 @@
 .gdoc { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3); }
 .gdoc-chrome { display: block; width: 100%; height: auto; }
 .gdoc-canvas { position: relative; background: #f9fbfd; padding: 22px 24px 0; overflow: hidden; }
-.gdoc-rail { position: absolute; left: calc(50% - 243px - 44px); top: 70px; background: #fff; padding: 6px 5px; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 4px; z-index: 2; }
+.gdoc-rail { position: absolute; left: calc(50% - 290px - 44px); top: 70px; background: #fff; padding: 6px 5px; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 4px; z-index: 2; }
 .gdoc-rail span { width: 22px; height: 22px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; color: #d1d5db; transition: transform 0.25s cubic-bezier(0.34,1.45,0.64,1), background 0.2s, color 0.2s; }
 .gdoc-rail span svg { width: 14px; height: 14px; }
 .gdoc-rail span .ti { font-size: 14px; color: inherit; }
