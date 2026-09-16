@@ -38,6 +38,7 @@
     pill.querySelector('.tryit-dot').style.background = c.colors.ink;
     sheet.querySelectorAll('.tl.is-cur').forEach(function (n) { n.classList.remove('is-cur'); });
     el.classList.add('is-cur');
+    lightRail(mode);
   }
   function setMode(el, mode) { el.dataset.mode = mode; el.dataset.ph = PH[mode] || ''; }
   function fixCase(el) {
