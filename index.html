@@ -378,6 +378,13 @@
     .hero-where button { display: inline-flex; align-items: center; gap: 7px; }
     .hero-where-ico { width: 15px; height: 15px; flex-shrink: 0; }
     .hero-where button:hover { background: rgba(255,255,255,0.12); }
+    /* On wide screens the switch lives in the empty space at the left, beside the buttons. */
+    @media (min-width: 1200px) {
+      .hero-where { position: absolute; left: 0; top: 0; margin: 0; flex-direction: column; align-items: stretch; gap: 6px; padding: 10px; border-radius: 18px; }
+      .hero-where-label { padding: 2px 6px 6px; }
+      .hero-where button { justify-content: flex-start; padding: 9px 14px; }
+      .hero-where.is-placed { top: var(--where-top, 0); }
+    }
     .hero-where button[aria-pressed="true"] {
       background: var(--paper-2);
       color: var(--ink);
@@ -1677,6 +1684,14 @@
         if (remember) { try { localStorage.setItem('se_surface', surface); } catch (e) {} }
       }
       apply(detect(), false);
+      function placeWhere() {
+        var w = document.querySelector('.hero-where'), ctas = document.querySelector('.hero-ctas'), inner = document.querySelector('.hero-inner');
+        if (!w || !ctas || !inner) return;
+        if (window.innerWidth < 1200) { w.classList.remove('is-placed'); return; }
+        var top = ctas.getBoundingClientRect().top - inner.getBoundingClientRect().top - 12;
+        w.style.setProperty('--where-top', Math.round(top) + 'px'); w.classList.add('is-placed');
+      }
+      placeWhere(); window.addEventListener('resize', placeWhere); window.addEventListener('load', placeWhere);
       document.querySelectorAll('.hero-where button').forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.surface, true); }); });
     })();
     requestAnimationFrame(function () { requestAnimationFrame(function () { document.body.classList.add('hero-loaded'); }); });
