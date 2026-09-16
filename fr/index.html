@@ -1373,7 +1373,7 @@
           <li><span class="ck">&#10003;</span>Sans carte bancaire</li>
           <li><span class="ck">&#10003;</span>Installé en quelques secondes</li>
         </ul>
-        <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Votre scénario est gardé par <b>Google</b>, pas par nous.</span></a>
+        <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span id="hero-safety-text">Votre scénario est gardé par <b>Google</b>, pas par nous.</span></a>
 
 
         <div class="hero-screenshot">
@@ -1620,12 +1620,14 @@
           h1: 'Écrivez votre prochain film<br>directement dans Google&nbsp;Docs<span class="tm-mark">&trade;</span>.',
           sub: 'Le confort d\'écriture de Final Draft, la souplesse de Google&nbsp;Docs.<br>Gardez le meilleur des deux mondes, oubliez le logiciel à 250 $.',
           cta: 'Ajouter à Chrome', href: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln',
+          safety: 'Votre scénario est gardé par <b>Google</b>, pas par nous.',
           cta2: 'Ou installez le module Google Docs', href2: 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476'
         },
         word: {
           h1: 'Écrivez votre prochain film<br>directement dans Microsoft&nbsp;Word.',
           sub: 'Le confort d\'écriture de Final Draft, la souplesse de Word.<br>Gardez le meilleur des deux mondes, oubliez le logiciel à 250 $.',
           cta: 'L\'installer dans Word', href: '/word',
+          safety: 'Votre scénario reste dans votre fichier Word, sur votre ordinateur. Pas chez nous.',
           cta2: 'Ou ajoutez-le à Chrome, pour Google Docs', href2: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'
         }
       };
@@ -1644,6 +1646,7 @@
         if (sub) sub.innerHTML = c.sub;
         if (cta) { cta.href = c.href; cta.lastChild.nodeValue = c.cta; cta.target = surface === 'word' ? '_self' : '_blank'; }
         if (cta2) { cta2.href = c.href2; cta2.textContent = c.cta2; }
+        var safe = document.getElementById('hero-safety-text'); if (safe && c.safety) safe.innerHTML = c.safety;
         document.querySelectorAll('.hero-where button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.surface === surface ? 'true' : 'false'); });
         if (remember) { try { localStorage.setItem('se_surface', surface); } catch (e) {} }
       }

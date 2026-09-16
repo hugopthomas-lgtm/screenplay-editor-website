@@ -1386,7 +1386,7 @@
           <li><span class="ck">&#10003;</span>No credit card</li>
           <li><span class="ck">&#10003;</span>Installs in seconds</li>
         </ul>
-        <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Your script is guarded by <b>Google</b>, not by us.</span></a>
+        <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span id="hero-safety-text">Your script is guarded by <b>Google</b>, not by us.</span></a>
 
 
         <div class="hero-screenshot">
@@ -1633,12 +1633,14 @@
           h1: 'Write your next movie<br>directly inside Google&nbsp;Docs<span class="tm-mark">&trade;</span>.',
           sub: 'The writing workflow of Final Draft, the comfort of Google&nbsp;Docs.<br>Keep the best of both worlds, skip the $250 software.',
           cta: 'Add to Chrome', href: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln',
+          safety: 'Your script is guarded by <b>Google</b>, not by us.',
           cta2: 'Or get the Google Docs add-on', href2: 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476'
         },
         word: {
           h1: 'Write your next movie<br>directly inside Microsoft&nbsp;Word.',
           sub: 'The writing workflow of Final Draft, the comfort of Word.<br>Keep the best of both worlds, skip the $250 software.',
           cta: 'Get it for Word', href: '/word',
+          safety: 'Your script stays in your Word file, on your computer. Not with us.',
           cta2: 'Or add it to Chrome, for Google Docs', href2: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'
         }
       };
@@ -1657,6 +1659,7 @@
         if (sub) sub.innerHTML = c.sub;
         if (cta) { cta.href = c.href; cta.lastChild.nodeValue = c.cta; cta.target = surface === 'word' ? '_self' : '_blank'; }
         if (cta2) { cta2.href = c.href2; cta2.textContent = c.cta2; }
+        var safe = document.getElementById('hero-safety-text'); if (safe && c.safety) safe.innerHTML = c.safety;
         document.querySelectorAll('.hero-where button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.surface === surface ? 'true' : 'false'); });
         if (remember) { try { localStorage.setItem('se_surface', surface); } catch (e) {} }
       }
