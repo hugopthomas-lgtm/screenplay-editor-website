@@ -109,11 +109,10 @@
   sheet.addEventListener('click', function (e) { if (e.target === sheet) { var last = sheet.lastElementChild; if (last) caretEnd(last); } });
   var last = sheet.lastElementChild; paint(last);
   // Type anywhere: while the page is on screen and nothing else has the focus, keys go to the current line.
-  var onScreen = false;
-  if ('IntersectionObserver' in window) { new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; }, { threshold: 0.35 }).observe(sheet); } else { onScreen = true; }
+  function onScreen() { var r = sheet.getBoundingClientRect(); return r.bottom > 120 && r.top < window.innerHeight - 120; }
   function editable(el) { return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)); }
   document.addEventListener('keydown', function (e) {
-    if (!onScreen || editable(document.activeElement) || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!onScreen() || editable(document.activeElement) || e.metaKey || e.ctrlKey || e.altKey) return;
     var cur = sheet.querySelector('.tl.is-cur') || sheet.lastElementChild; if (!cur) return;
     if (e.key === 'Enter' || e.key === 'Tab') { caretEnd(cur); onKey({ currentTarget: cur, key: e.key, preventDefault: function () { e.preventDefault(); } }); return; }
     if (e.key.length === 1 || e.key === 'Backspace') { caretEnd(cur); }
