@@ -7,15 +7,6 @@
   var pill = document.getElementById('tryit-pill');
   var PH = { SCENE_HEADING: 'INT. KITCHEN - NIGHT', ACTION: 'What we see.', CHARACTER: 'WHO SPEAKS', DIALOGUE: 'What they say.', PARENTHETICAL: '(how)', TRANSITION: 'CUT TO:' };
   var GLYPH = { Enter: '↵', Tab: '⇥' };
-  var rail = document.getElementById('tryit-rail');
-  if (rail) {
-    E.RAIL_ITEMS.forEach(function (it) {
-      var b = document.createElement('span'); b.dataset.mode = it.mode; b.title = it.label;
-      b.innerHTML = E.MODE_ICONS[it.mode] || '<i class="ti ti-run"></i>';
-      rail.appendChild(b);
-    });
-  }
-  function lightRail(mode) { if (!rail) return; rail.querySelectorAll('span').forEach(function (b) { b.classList.toggle('on', b.dataset.mode === mode); }); }
 
   function block(mode, text) {
     var d = document.createElement('div');
@@ -47,8 +38,6 @@
     pill.querySelector('.tryit-dot').style.background = c.colors.ink;
     sheet.querySelectorAll('.tl.is-cur').forEach(function (n) { n.classList.remove('is-cur'); });
     el.classList.add('is-cur');
-    lightRail(mode);
-    lightRail(mode);
   }
   function setMode(el, mode) { el.dataset.mode = mode; el.dataset.ph = PH[mode] || ''; }
   function fixCase(el) {
@@ -84,7 +73,17 @@
   }
   function wire(el) { el.addEventListener('input', onInput); el.addEventListener('keydown', onKey); el.addEventListener('focus', function () { paint(el); }); }
 
-  var seed = [['SCENE_HEADING', 'INT. KITCHEN - NIGHT'], ['ACTION', 'The kettle whistles. MARIE does not move.'], ['CHARACTER', 'MARIE'], ['DIALOGUE', '']];
+  var seed = [
+    ['SCENE_HEADING', 'INT. HOTEL BAR, TOKYO - NIGHT'],
+    ['ACTION', 'Neon through the window. BOB, sixty, tie undone, nurses a whisky he did not order.'],
+    ['CHARACTER', 'CHARLOTTE'],
+    ['PARENTHETICAL', '(one stool over)'],
+    ['DIALOGUE', "You're not going to sleep either."],
+    ['CHARACTER', 'BOB'],
+    ['DIALOGUE', "I haven't slept since Thursday. Which Thursday, I couldn't tell you."],
+    ['CHARACTER', 'CHARLOTTE'],
+    ['DIALOGUE', '']
+  ];
   seed.forEach(function (s) { sheet.appendChild(block(s[0], s[1])); });
   sheet.addEventListener('click', function (e) { if (e.target === sheet) { var last = sheet.lastElementChild; if (last) caretEnd(last); } });
   var last = sheet.lastElementChild; paint(last);
