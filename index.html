@@ -19,7 +19,7 @@
   </script>
   <title>Screenplay Editor - Professional Screenplay Formatting for Google Docs</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="/demo.css?v=6">
+  <link rel="stylesheet" href="/demo.css?v=7">
   <link rel="icon" type="image/png" href="favicon.png">
   <meta name="description" content="Screenplay Editor turns Google Docs into professional screenwriting software. Same formatting as Final Draft. Real-time collaboration. $5.99/month for the Google Docs add-on.">
   <link rel="canonical" href="https://screenplayeditor.app/">
@@ -1395,7 +1395,8 @@
 
         <div class="hero-tryit">
           <div class="gdoc" aria-label="A document, the way Google Docs shows it">
-            <img class="gdoc-chrome" src="/docs-chrome.png?v=7" alt="" width="1568" height="189">
+            <img class="gdoc-chrome" id="sf-docs-chrome" src="/docs-chrome.png?v=7" alt="" width="1568" height="189">
+            <div class="word-bar" id="sf-word-bar" hidden><span class="word-bar-icon">W</span><span class="word-bar-auto"><i></i>AutoSave</span><span class="word-bar-title">Tokyo thing v12 (FINAL final).docx</span><span class="word-bar-right">Home &nbsp; Insert &nbsp; Draw &nbsp; Design &nbsp; Layout &nbsp; References &nbsp; Review &nbsp; View &nbsp; <b>Screenplay</b></span></div>
             <div class="gdoc-canvas">
               <div class="tryit-side">
                 <div class="tryit-pill" id="tryit-pill"><span class="tryit-dot"></span><span><span class="tryit-cta">Try it. Type Charlotte's line.</span><span class="tryit-line">You're in <b>dialogue</b>.</span><span class="tryit-tip"></span></span></div>
@@ -1423,13 +1424,13 @@
       <div class="how-steps">
         <div class="how-step">
           <div class="how-num">STEP 1</div>
-          <h3>Install it</h3>
-          <p>Add the Chrome extension or the Google Docs add-on. It takes about ten seconds.</p>
+          <h3 id="sf-step1-h">Install it</h3>
+          <p id="sf-step1-p">Add the Chrome extension or the Google Docs add-on. It takes about ten seconds.</p>
         </div>
         <div class="how-step">
           <div class="how-num">STEP 2</div>
-          <h3>Open a Google Doc</h3>
-          <p>Start a fresh script or paste a draft you already have. There is no new app to learn.</p>
+          <h3 id="sf-step2-h">Open a Google Doc</h3>
+          <p id="sf-step2-p">Start a fresh script or paste a draft you already have. There is no new app to learn.</p>
         </div>
         <div class="how-step">
           <div class="how-num">STEP 3</div>
@@ -1462,14 +1463,14 @@
       <div class="privacy-inner">
         <div>
           <div class="privacy-label">Privacy</div>
-          <h2>Guarded by <span class="g">Google</span>.<br>Not by us.</h2>
-          <p>Your script lives in your own Google Drive, behind the same security as Gmail. We never store it, and we never see it.</p>
+          <h2 id="sf-priv-h">Guarded by <span class="g">Google</span>.<br>Not by us.</h2>
+          <p id="sf-priv-p">Your script lives in your own Google Drive, behind the same security as Gmail. We never store it, and we never see it.</p>
           <div class="cloud-table">
             <div class="chead">Your script lives in&hellip;</div>
             <div class="crow"><span class="cwho">Final Draft</span><span class="cwhere">Final Draft&rsquo;s cloud</span></div>
             <div class="crow"><span class="cwho">Arc Studio</span><span class="cwhere">Arc Studio&rsquo;s cloud</span></div>
             <div class="crow"><span class="cwho">Celtx</span><span class="cwhere">Celtx&rsquo;s cloud</span></div>
-            <div class="crow us"><span class="cwho">Screenplay Editor</span><span class="cwhere">your Google Drive</span></div>
+            <div class="crow us"><span class="cwho">Screenplay Editor</span><span class="cwhere" id="sf-priv-us">your Google Drive</span></div>
           </div>
         </div>
         <div class="privacy-image">
@@ -1532,9 +1533,9 @@
       <div class="collab-inner">
         <div>
           <div class="privacy-label">The killer feature</div>
-          <h2>Write together.<br><span class="mark">In real time.</span></h2>
-          <p>Final Draft can't do this. Comments, suggestions, live co-writing with multiple cursors: your co-writer is already in the room, because it's Google Docs.</p>
-          <ul class="collab-list">
+          <h2 id="sf-collab-h">Write together.<br><span class="mark">In real time.</span></h2>
+          <p id="sf-collab-p">Final Draft can't do this. Comments, suggestions, live co-writing with multiple cursors: your co-writer is already in the room, because it's Google Docs.</p>
+          <ul class="collab-list" id="sf-collab-list">
             <li><span class="ck">&#10003;</span>Live co-editing with multiple cursors</li>
             <li><span class="ck">&#10003;</span>Comments and suggestions built in</li>
             <li><span class="ck">&#10003;</span>No file sharing, no merging, no conflicts</li>
@@ -1547,14 +1548,14 @@
     </section>
 
     <section id="features" class="tools scroll-fade">
-      <h2>Every tool, right inside Google Docs.</h2>
-      <p class="tools-sub">No new software to learn. It all lives in one sidebar.</p>
+      <h2 id="sf-tools-h">Every tool, right inside Google Docs.</h2>
+      <p class="tools-sub" id="sf-tools-p">No new software to learn. It all lives in one sidebar.</p>
       <div class="tools-grid">
         <div class="tool-card"><i class="tm ti ti-wand"></i><div><h3>Live formatting</h3><p>Type, and scene headings, action, and dialogue format themselves as you go.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-file-text"></i><div><h3>Format My Document</h3><p>Paste a messy draft and format the whole script in one click.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-layout-kanban"></i><div><h3>Scene Board</h3><p>Every scene on a card. Drag to reorder and your script rewrites itself.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-eye"></i><div><h3>Screenplay Preview</h3><p>See your script as a real printed page while you write.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-headphones"></i><div><h3>ElevenLabs Table Read</h3><p>Hear your screenplay out loud, with a different AI voice for each character.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-eye"></i><div><h3 id="sf-preview-h">Screenplay Preview</h3><p>See your script as a real printed page while you write.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-headphones"></i><div><h3 id="sf-tableread-h">ElevenLabs Table Read</h3><p>Hear your screenplay out loud, with a different AI voice for each character.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-photo"></i><div><h3>Movie Poster</h3><p>Turn your script into a movie poster, made from your own story.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-layout-grid"></i><div><h3>Production Breakdown</h3><p>Cast, props, wardrobe, and SFX pulled from every scene in one click.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-file-export"></i><div><h3>Final Draft export</h3><p>Export to industry-standard .fdx, ready to send to anyone.</p></div></div>
@@ -1576,16 +1577,16 @@
     <!-- CTA -->
     <section class="cta-section">
       <h2>Start writing today</h2>
-      <p>Screenplay Editor installs in seconds. Start free, then $7.99 a month for the Chrome extension or $5.99 for the Google Docs add-on. Cancel anytime.</p>
+      <p id="sf-cta-p">Screenplay Editor installs in seconds. Start free, then $7.99 a month for the Chrome extension or $5.99 for the Google Docs add-on. Cancel anytime.</p>
       <div class="hero-ctas">
-        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Add to Chrome</a>
-        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Or get the Google Docs add-on</a>
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" id="sf-cta-btn" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Add to Chrome</a>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" id="sf-cta-2" target="_blank">Or get the Google Docs add-on</a>
       </div>
       <ul class="hero-trust" style="margin-top:22px;margin-bottom:0;">
         <li><span class="ck">&#10003;</span>Free to start</li>
         <li><span class="ck">&#10003;</span>No credit card</li>
         <li><span class="ck">&#10003;</span>Installs in seconds</li>
-        <li aria-hidden="true" style="flex-basis:100%;height:0;margin:0;padding:0;list-style:none;"></li><li><span class="ck">&#10003;</span>Secured by Google, not us</li>
+        <li aria-hidden="true" style="flex-basis:100%;height:0;margin:0;padding:0;list-style:none;"></li><li id="sf-cta-secured"><span class="ck">&#10003;</span>Secured by Google, not us</li>
       </ul>
     </section>
   </main>
@@ -1656,6 +1657,38 @@
           cta2: 'Or add it to Chrome, for Google Docs', href2: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'
         }
       };
+      // The rest of the page follows the choice: steps, privacy, the killer feature, the tools, the last call.
+      var PAGE = {
+        docs: {
+          'sf-step1-h': 'Install it', 'sf-step1-p': 'Add the Chrome extension or the Google Docs add-on. It takes about ten seconds.',
+          'sf-step2-h': 'Open a Google Doc', 'sf-step2-p': 'Start a fresh script or paste a draft you already have. There is no new app to learn.',
+          'sf-priv-h': 'Guarded by <span class="g">Google</span>.<br>Not by us.', 'sf-priv-p': 'Your script lives in your own Google Drive, behind the same security as Gmail. We never store it, and we never see it.', 'sf-priv-us': 'your Google Drive',
+          'sf-collab-h': 'Write together.<br><span class="mark">In real time.</span>', 'sf-collab-p': "Final Draft can't do this. Comments, suggestions, live co-writing with multiple cursors: your co-writer is already in the room, because it's Google Docs.",
+          'sf-collab-list': '<li><span class="ck">&#10003;</span>Live co-editing with multiple cursors</li><li><span class="ck">&#10003;</span>Comments and suggestions built in</li><li><span class="ck">&#10003;</span>No file sharing, no merging, no conflicts</li>',
+          'sf-tools-h': 'Every tool, right inside Google Docs.', 'sf-tools-p': 'No new software to learn. It all lives in one sidebar.', 'sf-preview-h': 'Screenplay Preview', 'sf-tableread-h': 'ElevenLabs Table Read',
+          'sf-cta-p': 'Screenplay Editor installs in seconds. Start free, then $7.99 a month for the Chrome extension or $5.99 for the Google Docs add-on. Cancel anytime.', 'sf-cta-2': 'Or get the Google Docs add-on', 'sf-cta-secured': '<span class="ck">&#10003;</span>Secured by Google, not us'
+        },
+        word: {
+          'sf-step1-h': 'Install it', 'sf-step1-p': 'Download the installer for Mac or Windows and run it. About a minute, once.',
+          'sf-step2-h': 'Open Word', 'sf-step2-p': 'The Screenplay group is in the Home tab. Start a fresh script or paste a draft you already have.',
+          'sf-priv-h': 'Your file.<br>Your computer.', 'sf-priv-p': 'Your script is a .docx on your own machine, or in your own OneDrive, behind Microsoft&rsquo;s security. We never store it, and we never see it.', 'sf-priv-us': 'your own .docx',
+          'sf-collab-h': 'Instant.<br><span class="mark">Native to Word.</span>', 'sf-collab-p': 'A template loaded when Word starts makes Enter and Tab part of Word itself: no lag, no browser, no internet needed. The file stays a .docx any producer can open.',
+          'sf-collab-list': '<li><span class="ck">&#10003;</span>Enter and Tab answer instantly, natively</li><li><span class="ck">&#10003;</span>Works offline, on a plane, in a classroom</li><li><span class="ck">&#10003;</span>A .docx that opens everywhere, formatting kept</li>',
+          'sf-tools-h': 'Every tool, right inside Word.', 'sf-tools-p': 'No new software to learn. It all lives in one side panel.', 'sf-preview-h': 'Print View', 'sf-tableread-h': 'Table Read',
+          'sf-cta-p': 'Screenplay Editor for Word installs in a minute. Start free for a week, then $7.99 a month or $69 a year, the same licence as the Google Docs extension. Cancel anytime.', 'sf-cta-2': 'Or add it to Chrome, for Google Docs', 'sf-cta-secured': '<span class="ck">&#10003;</span>Your file stays on your computer'
+        }
+      };
+      function applyPage(surface) {
+        var t = PAGE[surface] || PAGE.docs;
+        for (var id in t) { var el = document.getElementById(id); if (el) el.innerHTML = t[id]; }
+        var btn = document.getElementById('sf-cta-btn'), c2 = document.getElementById('sf-cta-2');
+        if (btn) { btn.href = surface === 'word' ? '/word' : 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'; btn.lastChild.nodeValue = surface === 'word' ? 'Get it for Word' : 'Add to Chrome'; btn.target = surface === 'word' ? '_self' : '_blank'; }
+        if (c2) c2.href = surface === 'word' ? 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln' : 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
+        document.querySelectorAll('.hero-trust li').forEach(function (li) { if (/Also works in/.test(li.textContent)) li.hidden = surface === 'word'; });
+        var dc = document.getElementById('sf-docs-chrome'), wb = document.getElementById('sf-word-bar');
+        if (dc) dc.hidden = surface === 'word';
+        if (wb) wb.hidden = surface !== 'word';
+      }
       function detect() {
         try { var saved = localStorage.getItem('se_surface'); if (saved === 'docs' || saved === 'word') return saved; } catch (e) {}
         var brands = (navigator.userAgentData && navigator.userAgentData.brands || []).map(function (b) { return b.brand; }).join(' ');
@@ -1672,6 +1705,7 @@
         if (cta) { cta.href = c.href; cta.lastChild.nodeValue = c.cta; cta.target = surface === 'word' ? '_self' : '_blank'; }
         if (cta2) { cta2.href = c.href2; cta2.textContent = c.cta2; }
         var safe = document.getElementById('hero-safety-text'); if (safe && c.safety) safe.innerHTML = c.safety;
+        applyPage(surface);
         document.querySelectorAll('.hero-where button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.surface === surface ? 'true' : 'false'); });
         if (remember) { try { localStorage.setItem('se_surface', surface); } catch (e) {} }
       }
