@@ -13,8 +13,8 @@
 .tryit-keys { display: flex; gap: 8px; margin-top: 14px; }
 .tryit-keys button { font: inherit; font-family: var(--mono); font-size: 13px; color: #f2f2f4; background: rgba(255,255,255,0.08); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14); }
 .tryit-keys button:hover { background: rgba(255,255,255,0.14); }
-.tryit-sheet { background: #fff; color: #000; border-radius: 2px; box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15); font-family: var(--courier); font-size: 13px; line-height: 1; padding: 57px 57px 57px 86px; min-height: 629px; width: 100%; max-width: 486px; margin: 0 auto; cursor: text; position: relative; }
-.tryit-sheet::before { content: '1.'; position: absolute; top: 28px; right: 57px; font-family: var(--courier); font-size: 13px; color: #000; }
+.tryit-sheet { background: #fff; color: #000; border-radius: 2px 2px 0 0; box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15); font-family: var(--courier); font-size: 13px; line-height: 1; padding: 44px 57px 30px 86px; min-height: 330px; width: 100%; max-width: 486px; margin: 0 auto; cursor: text; position: relative; }
+.tryit-sheet::before { content: '1.'; position: absolute; top: 18px; right: 57px; font-family: var(--courier); font-size: 13px; color: #000; }
 .tl { outline: none; white-space: pre-wrap; word-break: break-word; min-height: 1em; margin-top: 1em; caret-color: #000; }
 .tl:first-child { margin-top: 0; }
 .tl[data-mode="CHARACTER"] { margin-left: 154px; margin-top: 1em; }
@@ -32,52 +32,14 @@
   .tl[data-mode="PARENTHETICAL"] { margin-left: 88px; margin-right: 60px; }
 }
 
-/* The Google Docs frame around the sheet, the way Docs draws it in 2026. */
-.gdoc { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3); font-family: 'Google Sans', 'Product Sans', Roboto, var(--sans); color: #444746; }
-.gdoc .ti { font-size: 18px; line-height: 1; color: #444746; }
-.gdoc-top { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px 0 12px; }
-.gdoc-icon { flex: 0 0 auto; width: 30px; height: 40px; margin-top: 2px; border-radius: 3px 3px 5px 5px; background: #4285f4; position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 3px; padding: 0 7px 9px; box-sizing: border-box; }
-.gdoc-icon::before { content: ''; position: absolute; top: 0; right: 0; width: 9px; height: 9px; background: #a1c2fa; border-radius: 0 3px 0 0; clip-path: polygon(0 0, 100% 100%, 0 100%); }
-.gdoc-icon i { display: block; height: 2px; background: #fff; border-radius: 1px; }
-.gdoc-icon i:last-child { width: 55%; }
-.gdoc-head { flex: 1 1 auto; min-width: 0; }
-.gdoc-titlerow { display: flex; align-items: center; gap: 8px; height: 26px; }
-.gdoc-title { font-size: 18px; color: #1f1f1f; padding: 0 4px; margin-right: 2px; border-radius: 4px; }
-.gdoc-titlerow .ti { font-size: 17px; }
-.gdoc-menu { display: flex; gap: 0; font-size: 13px; color: #1f1f1f; margin-left: 0; white-space: nowrap; }
-.gdoc-menu span { padding: 2px 6px; border-radius: 4px; }
-.gdoc-menu span:hover { background: #e8eaed; }
-.gdoc-right { display: flex; align-items: center; gap: 12px; margin-left: auto; padding-top: 6px; flex: 0 0 auto; }
-.gdoc-right .ti { font-size: 20px; }
-.gdoc-video { display: inline-flex; align-items: center; gap: 2px; padding: 6px 8px; border-radius: 999px; box-shadow: inset 0 0 0 1px #c4c7c5; }
-.gdoc-video .ti-chevron-down { font-size: 14px; }
-.gdoc-share { display: inline-flex; align-items: center; gap: 8px; background: #c2e7ff; color: #001d35; border-radius: 999px; padding: 8px 20px 8px 16px; font-size: 14px; font-weight: 500; }
-.gdoc-share .ti { font-size: 16px; color: #001d35; }
-.gdoc-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #9D7BEA, #6f57ff); }
-.gdoc-tools { display: flex; align-items: center; gap: 10px; margin: 8px 12px 6px; padding: 7px 14px; background: #edf2fa; border-radius: 999px; font-size: 14px; color: #1f1f1f; white-space: nowrap; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
-.gdoc-tools .ti { font-size: 18px; }
-.gdoc-sep { width: 1px; height: 20px; background: #c7c7c7; flex: 0 0 1px; }
-.gdoc-field { display: inline-flex; align-items: center; gap: 4px; color: #1f1f1f; }
-.gdoc-field .ti { font-size: 14px; }
-.gdoc-edit { margin-left: auto; }
-.gdoc-ruler { position: relative; height: 18px; margin: 0 24px; background: repeating-linear-gradient(90deg, transparent 0 7px, #b0b4b8 7px 8px) center bottom / 100% 4px no-repeat, #fff; border-bottom: 1px solid #e3e3e3; }
-.gdoc-ruler::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 486px; max-width: 100%; transform: translateX(-50%); background: #fff; box-shadow: inset 0 -1px 0 #c7c7c7; }
-.gdoc-ruler-l, .gdoc-ruler-r { position: absolute; top: 2px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid #4285f4; z-index: 1; }
-.gdoc-ruler-l { left: calc(50% - 243px + 86px - 5px); }
-.gdoc-ruler-r { left: calc(50% + 243px - 57px - 5px); }
-.gdoc-canvas { position: relative; background: #f9fbfd; padding: 26px 24px 34px; }
-.gdoc-outline { position: absolute; left: 14px; top: 26px; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: transparent; }
-.gdoc-outline .ti { font-size: 20px; }
-.gdoc-rail { position: absolute; left: calc(50% - 243px - 44px); top: 96px; background: #fff; padding: 6px 5px; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 4px; z-index: 2; }
+/* The Google Docs frame: a real capture of the 2026 chrome on top, the grey canvas, the page. */
+.gdoc { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3); }
+.gdoc-chrome { display: block; width: 100%; height: auto; }
+.gdoc-canvas { position: relative; background: #f9fbfd; padding: 22px 24px 0; overflow: hidden; }
+.gdoc-rail { position: absolute; left: calc(50% - 243px - 44px); top: 70px; background: #fff; padding: 6px 5px; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 4px; z-index: 2; }
 .gdoc-rail span { width: 22px; height: 22px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; color: #d1d5db; transition: transform 0.25s cubic-bezier(0.34,1.45,0.64,1), background 0.2s, color 0.2s; }
 .gdoc-rail span svg { width: 14px; height: 14px; }
 .gdoc-rail span .ti { font-size: 14px; color: inherit; }
 .gdoc-rail span.on { background: #3a4046; color: #fff; border-radius: 7px; transform: translateX(10px) scale(1.12); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
-@media (max-width: 1280px) { .gdoc-right .ti-history, .gdoc-right .ti-message, .gdoc-video { display: none; } .gdoc-menu { font-size: 12.5px; } .gdoc-menu span { padding: 2px 5px; } }
 @media (max-width: 1100px) { .gdoc-rail { display: none; } }
-@media (max-width: 900px) {
-  .gdoc-menu, .gdoc-titlerow .ti, .gdoc-right .ti-history, .gdoc-right .ti-message, .gdoc-video, .gdoc-ruler, .gdoc-outline { display: none; }
-  .gdoc-tools { gap: 8px; font-size: 12px; }
-  .gdoc-canvas { padding: 16px 10px 20px; }
-  .tryit-pill { max-width: 100%; }
-}
+@media (max-width: 900px) { .gdoc-canvas { padding: 12px 10px 0; } .tryit-pill { max-width: 100%; } }
