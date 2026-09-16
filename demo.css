@@ -33,19 +33,21 @@
 }
 
 /* The Google Docs frame: a real capture of the 2026 chrome on top, the grey canvas, the page. */
-.gdoc { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3); }
-.gdoc-chrome { display: block; width: 100%; height: auto; }
-.gdoc-canvas { position: relative; background: #f9fbfd; padding: 26px 40px 0 40px; overflow: hidden; display: flex; justify-content: flex-end; }
-.tryit-side { position: absolute; left: calc(100% - 40px - 560px - 170px); top: 44px; width: 300px; z-index: 2; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.gdoc { background: #fff; border-radius: 12px; overflow: visible; box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3); position: relative; }
+.gdoc-chrome { display: block; width: 100%; height: auto; border-radius: 12px 12px 0 0; }
+.gdoc-canvas { position: relative; background: #f9fbfd; padding: 26px 40px 0 40px; overflow: visible; border-radius: 0 0 12px 12px; display: flex; justify-content: center; }
+.gdoc-pagewrap { width: 100%; max-width: 560px; overflow: hidden; margin-left: 120px; }
+.tryit-side { position: absolute; left: -150px; top: 44px; width: 300px; z-index: 2; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 .tryit-side .tryit-pill { font-size: 14px; background: #eef0f3; box-shadow: 0 10px 30px rgba(31,38,46,0.18), 0 1px 3px rgba(31,38,46,0.10); }
 .tryit-side .tryit-keys { margin-top: 0; }
 .tryit-side .tryit-keys button { color: #1f262e; background: #fff; box-shadow: 0 1px 2px rgba(31,38,46,0.12), 0 2px 6px rgba(31,38,46,0.06); }
-.tryit-hint { font-size: 12.5px; color: #66707b; margin: 0; }
+.tryit-hint { font-size: 12.5px; color: #9aa3ad; margin: 0; }
 .hero-tryit { max-width: 960px; margin: 34px auto 0; text-align: left; }
-.hero-tryit .tryit-sheet { margin-right: 0; }
+.hero-tryit .tryit-sheet { margin: 0; }
 .js .hero-inner > .hero-tryit { opacity: 1; transform: none; }
 @media (max-width: 900px) {
   .gdoc-canvas { padding: 12px 10px 0; display: block; }
+  .gdoc-pagewrap { margin: 0 auto; }
   .tryit-side { position: static; width: auto; margin-bottom: 12px; }
   .tryit-sheet { margin: 0 auto; }
 }
