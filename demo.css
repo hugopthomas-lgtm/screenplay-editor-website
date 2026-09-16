@@ -29,7 +29,7 @@
 .gdoc-chrome { display: block; width: 100%; height: auto; border-radius: 12px 12px 0 0; }
 .gdoc-canvas { position: relative; background: #f9fbfd; padding: 22px 22px 0; overflow: visible; border-radius: 0 0 12px 12px; display: flex; justify-content: center; }
 .gdoc-pagewrap { width: 100%; overflow: hidden; margin: 0; }
-.tryit-side { position: absolute; left: -150px; top: 44px; width: 300px; z-index: 2; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.tryit-side { position: absolute; left: -150px; top: 44px; width: 300px; z-index: 4; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 .tryit-side .tryit-pill { font-size: 14px; background: #ece6ff; box-shadow: 0 10px 30px rgba(31,38,46,0.22), 0 1px 3px rgba(31,38,46,0.10), inset 0 0 0 1px rgba(111,87,255,0.18); }
 .tryit-side .tryit-tip { color: #4f4b66; }
 .tryit-cta { display: block; font-size: 14.5px; font-weight: 600; color: #4a35d6; margin-bottom: 6px; }
@@ -55,5 +55,5 @@
 @media (prefers-reduced-motion: reduce) { .tl.is-cur:empty:not(:focus)::before { animation: none; } }
 
 /* The arrow from the pill to the line being written. */
-.tryit-arrow { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 1; }
+.tryit-arrow { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 3; }
 @media (max-width: 900px) { .tryit-arrow { display: none !important; } }
