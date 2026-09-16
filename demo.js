@@ -85,6 +85,7 @@
     ['DIALOGUE', '']
   ];
   seed.forEach(function (s) { sheet.appendChild(block(s[0], s[1])); });
+  sheet.lastElementChild.dataset.ph = 'Type her line here.';
   sheet.addEventListener('click', function (e) { if (e.target === sheet) { var last = sheet.lastElementChild; if (last) caretEnd(last); } });
   var last = sheet.lastElementChild; paint(last);
   document.querySelectorAll('.tryit-keys button').forEach(function (b) {
