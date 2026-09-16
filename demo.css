@@ -36,8 +36,8 @@
 .gdoc { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3); }
 .gdoc-chrome { display: block; width: 100%; height: auto; }
 .gdoc-canvas { position: relative; background: #f9fbfd; padding: 26px 40px 0 40px; overflow: hidden; display: flex; justify-content: flex-end; }
-.tryit-side { position: absolute; left: 34px; top: 42px; width: 300px; z-index: 2; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
-.tryit-side .tryit-pill { font-size: 14px; box-shadow: 0 8px 24px rgba(31,38,46,0.16), 0 1px 3px rgba(31,38,46,0.10); }
+.tryit-side { position: absolute; left: calc(100% - 40px - 560px - 170px); top: 44px; width: 300px; z-index: 2; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.tryit-side .tryit-pill { font-size: 14px; background: #eef0f3; box-shadow: 0 10px 30px rgba(31,38,46,0.18), 0 1px 3px rgba(31,38,46,0.10); }
 .tryit-side .tryit-keys { margin-top: 0; }
 .tryit-side .tryit-keys button { color: #1f262e; background: #fff; box-shadow: 0 1px 2px rgba(31,38,46,0.12), 0 2px 6px rgba(31,38,46,0.06); }
 .tryit-hint { font-size: 12.5px; color: #66707b; margin: 0; }
