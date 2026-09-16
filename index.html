@@ -346,6 +346,39 @@
       color: var(--violet);
     }
 
+    /* Where do you write? One door per visitor, detected, and a switch to change it. */
+    .hero-where {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      margin-bottom: 18px;
+      background: var(--violet-soft);
+      border-radius: var(--r-full);
+    }
+    .hero-where-label {
+      font-size: var(--t-sm);
+      color: var(--ink-3);
+      padding: 0 10px 0 12px;
+    }
+    .hero-where button {
+      font: inherit;
+      font-size: var(--t-sm);
+      font-weight: var(--w-medium);
+      color: var(--ink-2);
+      background: transparent;
+      border: 0;
+      border-radius: var(--r-full);
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero-where button[aria-pressed="true"] {
+      background: var(--paper-2);
+      color: var(--ink);
+      box-shadow: 0 1px 2px rgba(26,26,26,0.10), 0 2px 6px rgba(26,26,26,0.06);
+    }
+
     .hero-proof {
       font-size: 19px;
       font-weight: 500;
@@ -1328,13 +1361,19 @@
             <div class="ref-howto">Install scrrrr., then enter this code inside it to unlock your free month.</div>
           </div>
         </div>
-        <h1>Write your next movie<br>directly inside Google&nbsp;Docs<span class="tm-mark">&trade;</span>.</h1>
-        <p class="hero-subtitle">The writing workflow of Final Draft, the comfort of Google&nbsp;Docs.<br>Keep the best of both worlds, skip the $250 software.</p>
+        <h1 id="hero-h1">Write your next movie<br>directly inside Google&nbsp;Docs<span class="tm-mark">&trade;</span>.</h1>
+        <p class="hero-subtitle" id="hero-sub">The writing workflow of Final Draft, the comfort of Google&nbsp;Docs.<br>Keep the best of both worlds, skip the $250 software.</p>
         <p class="hero-subtitle hero-pain">No more lost pages when Final Draft crashes.<br>No more choosing between writing and collaborating.</p>
 
+        <div class="hero-where" role="group" aria-label="Where do you write?">
+          <span class="hero-where-label">Where do you write?</span>
+          <button type="button" data-surface="docs" aria-pressed="true">Google Docs</button>
+          <button type="button" data-surface="word" aria-pressed="false">Microsoft Word</button>
+        </div>
+
         <div class="hero-ctas">
-          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Add to Chrome</a>
-          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Or get the Google Docs add-on</a>
+          <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" id="hero-cta" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Add to Chrome</a>
+          <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" id="hero-cta-2" target="_blank">Or get the Google Docs add-on</a>
         </div>
 
         <div class="hero-proof">
@@ -1585,6 +1624,45 @@
     document.querySelectorAll('.hero-inner > *:not(.float-obj)').forEach(function (el, i) {
       el.style.setProperty('--d', (i * 85) + 'ms');
     });
+    // Where do you write? Grammarly's question, answered by detection first: a
+    // Chromium browser gets Google Docs, anything else gets Word. The switch
+    // remembers the answer. One door per visitor, the other stays a line below.
+    (function () {
+      var COPY = {
+        docs: {
+          h1: 'Write your next movie<br>directly inside Google&nbsp;Docs<span class="tm-mark">&trade;</span>.',
+          sub: 'The writing workflow of Final Draft, the comfort of Google&nbsp;Docs.<br>Keep the best of both worlds, skip the $250 software.',
+          cta: 'Add to Chrome', href: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln',
+          cta2: 'Or get the Google Docs add-on', href2: 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476'
+        },
+        word: {
+          h1: 'Write your next movie<br>directly inside Microsoft&nbsp;Word.',
+          sub: 'The writing workflow of Final Draft, the comfort of Word.<br>Keep the best of both worlds, skip the $250 software.',
+          cta: 'Get it for Word', href: '/word',
+          cta2: 'Or add it to Chrome, for Google Docs', href2: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'
+        }
+      };
+      function detect() {
+        try { var saved = localStorage.getItem('se_surface'); if (saved === 'docs' || saved === 'word') return saved; } catch (e) {}
+        var brands = (navigator.userAgentData && navigator.userAgentData.brands || []).map(function (b) { return b.brand; }).join(' ');
+        var ua = navigator.userAgent || '';
+        var chromium = /Chromium|Google Chrome|Microsoft Edge|Brave|Opera/.test(brands) || (/Chrome\//.test(ua) && !/Edg|OPR/.test(ua)) || /Edg\//.test(ua);
+        return chromium ? 'docs' : 'word';
+      }
+      function apply(surface, remember) {
+        var c = COPY[surface] || COPY.docs;
+        var h1 = document.getElementById('hero-h1'), sub = document.getElementById('hero-sub');
+        var cta = document.getElementById('hero-cta'), cta2 = document.getElementById('hero-cta-2');
+        if (h1) h1.innerHTML = c.h1;
+        if (sub) sub.innerHTML = c.sub;
+        if (cta) { cta.href = c.href; cta.lastChild.nodeValue = c.cta; cta.target = surface === 'word' ? '_self' : '_blank'; }
+        if (cta2) { cta2.href = c.href2; cta2.textContent = c.cta2; }
+        document.querySelectorAll('.hero-where button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.surface === surface ? 'true' : 'false'); });
+        if (remember) { try { localStorage.setItem('se_surface', surface); } catch (e) {} }
+      }
+      apply(detect(), false);
+      document.querySelectorAll('.hero-where button').forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.surface, true); }); });
+    })();
     requestAnimationFrame(function () { requestAnimationFrame(function () { document.body.classList.add('hero-loaded'); }); });
 
     } catch (e) {
