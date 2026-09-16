@@ -64,14 +64,3 @@
 .tryit-outro-alt { color: rgba(255,255,255,0.7); text-decoration: underline; text-underline-offset: 3px; font-size: 13px; margin-right: 6px; }
 @media (max-width: 900px) { .tryit-outro { white-space: normal; flex-wrap: wrap; justify-content: center; left: 10px; right: 10px; transform: none; width: auto; border-radius: 16px; } .tryit-outro.in { transform: none; } }
 
-/* Word's title bar, when the visitor writes in Word. */
-.word-bar { display: flex; align-items: center; gap: 14px; height: 56px; padding: 0 18px; background: #2b579a; color: #fff; font-family: -apple-system, 'Segoe UI', var(--sans); font-size: 13px; border-radius: 12px 12px 0 0; white-space: nowrap; overflow: hidden; }
-.word-bar[hidden] { display: none; }
-.word-bar-icon { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 4px; background: #fff; color: #2b579a; font-weight: 800; font-size: 15px; }
-.word-bar-auto { display: inline-flex; align-items: center; gap: 6px; opacity: 0.9; }
-.word-bar-auto i { width: 26px; height: 14px; border-radius: 7px; background: #4cd964; position: relative; }
-.word-bar-auto i::after { content: ''; position: absolute; right: 2px; top: 2px; width: 10px; height: 10px; border-radius: 50%; background: #fff; }
-.word-bar-title { font-weight: 600; }
-.word-bar-right { margin-left: auto; opacity: 0.85; }
-.word-bar-right b { opacity: 1; text-decoration: underline; text-underline-offset: 5px; }
-@media (max-width: 900px) { .word-bar-right { display: none; } }
