@@ -8,6 +8,30 @@
   var PH = { SCENE_HEADING: 'INT. KITCHEN - NIGHT', ACTION: 'What we see.', CHARACTER: 'WHO SPEAKS', DIALOGUE: 'What they say.', PARENTHETICAL: '(how)', TRANSITION: 'CUT TO:' };
   var GLYPH = { Enter: '↵', Tab: '⇥' };
 
+  var canvas = sheet.closest('.gdoc-canvas');
+  var arrow = null;
+  if (canvas && pill) {
+    arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    arrow.setAttribute('class', 'tryit-arrow'); arrow.setAttribute('aria-hidden', 'true');
+    arrow.innerHTML = '<defs><marker id="tryit-head" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0.5 0.5 L6.5 4 L0.5 7.5" fill="none" stroke="#9D7BEA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><path d="" fill="none" stroke="#9D7BEA" stroke-width="4" stroke-linecap="round" marker-end="url(#tryit-head)"/>';
+    canvas.appendChild(arrow);
+  }
+  function drawArrow() {
+    if (!arrow) return;
+    var side = pill.parentElement;
+    if (getComputedStyle(side).position !== 'absolute') { arrow.style.display = 'none'; return; }
+    var cur = sheet.querySelector('.tl.is-cur'); if (!cur) { arrow.style.display = 'none'; return; }
+    var c = canvas.getBoundingClientRect(), p = pill.getBoundingClientRect(), l = cur.getBoundingClientRect();
+    var x1 = p.right - 26 - c.left, y1 = p.bottom - 4 - c.top;
+    var x2 = l.left - 16 - c.left, y2 = l.top + l.height / 2 - c.top;
+    if (y2 < y1 + 20) { arrow.style.display = 'none'; return; }
+    arrow.style.display = 'block';
+    arrow.setAttribute('viewBox', '0 0 ' + Math.round(c.width) + ' ' + Math.round(c.height));
+    var d = 'M' + x1 + ' ' + y1 + ' C ' + (x1 + 36) + ' ' + (y1 + 40) + ', ' + (x2 - 60) + ' ' + (y2 - 30) + ', ' + x2 + ' ' + y2;
+    arrow.querySelector('path').setAttribute('d', d);
+  }
+  window.addEventListener('resize', function () { drawArrow(); });
+
   function block(mode, text) {
     var d = document.createElement('div');
     d.className = 'tl'; d.contentEditable = 'true'; d.spellcheck = false;
