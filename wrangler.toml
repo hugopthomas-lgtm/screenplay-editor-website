@@ -2,7 +2,8 @@
 name = "screenplay-editor-site"
 compatibility_date = "2026-09-01"
 routes = [
-  { pattern = "screenplayeditor.app", custom_domain = true }
+  { pattern = "screenplayeditor.app", custom_domain = true },
+  { pattern = "www.screenplayeditor.app", custom_domain = true }
 ]
 [assets]
 directory = "."
