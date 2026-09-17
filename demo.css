@@ -30,7 +30,7 @@
 .gdoc-chrome[hidden] { display: none; }
 .gdoc-canvas { position: relative; background: #f9fbfd; padding: 22px 22px 0; overflow: visible; border-radius: 0 0 12px 12px; display: flex; justify-content: center; }
 .gdoc-pagewrap { width: 100%; overflow: hidden; margin: 0; }
-.tryit-side { position: absolute; left: -150px; top: auto; bottom: 36px; width: 300px; z-index: 4; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.tryit-side { position: absolute; left: -150px; top: 190px; width: 300px; z-index: 4; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 .tryit-side .tryit-pill { font-size: 14px; background: #ece6ff; box-shadow: 0 10px 30px rgba(31,38,46,0.22), 0 1px 3px rgba(31,38,46,0.10), inset 0 0 0 1px rgba(111,87,255,0.18); }
 .tryit-side .tryit-tip { color: #4f4b66; }
 .tryit-cta { display: block; font-size: 14.5px; font-weight: 600; color: #4a35d6; margin-bottom: 6px; }
