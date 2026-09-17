@@ -1,0 +1,12 @@
+heidi-tmp/
+tarzan-tmp/
+medecin-crayons-tmp/
+medecin-tmp/
+.git/
+.DS_Store
+**/.DS_Store
+wrangler.toml
+.wrangler/
+CNAME
+netlify.toml
+_redirects

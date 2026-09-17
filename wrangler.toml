@@ -1,0 +1,7 @@
+# The site as Cloudflare static assets (preview on workers.dev; the domain stays on Netlify until decided).
+name = "screenplay-editor-site"
+compatibility_date = "2026-09-01"
+[assets]
+directory = "."
+html_handling = "auto-trailing-slash"
+not_found_handling = "none"
