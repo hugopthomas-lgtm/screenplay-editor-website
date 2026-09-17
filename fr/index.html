@@ -1689,6 +1689,7 @@
         var btn = document.getElementById('sf-cta-btn'), c2 = document.getElementById('sf-cta-2');
         if (btn) { btn.href = surface === 'word' ? '/word' : 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'; btn.lastChild.nodeValue = surface === 'word' ? 'Télécharger pour Word' : 'Ajouter à Chrome'; btn.target = surface === 'word' ? '_self' : '_blank'; }
         if (c2) c2.href = surface === 'word' ? 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln' : 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
+        document.querySelectorAll('.hero-trust li').forEach(function (li) { if (/Marche aussi/.test(li.textContent)) li.hidden = surface === 'word'; });
         var ci = document.getElementById('sf-collab-img');
         if (ci) { ci.src = surface === 'word' ? '/obj-plane-cut.png' : '/obj-walkies.png'; ci.alt = surface === 'word' ? "Fonctionne dans un avion, sans internet" : 'Deux auteurs, un scénario, en temps réel'; }
         var dc = document.getElementById('sf-docs-chrome'), wb = document.getElementById('sf-word-chrome');
