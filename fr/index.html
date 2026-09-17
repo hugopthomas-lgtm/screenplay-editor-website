@@ -1695,6 +1695,7 @@
         if (dc) dc.hidden = surface === 'word';
         if (wb) wb.hidden = surface !== 'word';
         var gd = document.querySelector('.gdoc'); if (gd) gd.classList.toggle('is-word', surface === 'word');
+        try { document.dispatchEvent(new CustomEvent('se-surface', { detail: surface })); } catch (e) {}
       }
       apply(detect(), false);
       document.querySelectorAll('.hero-where button').forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.surface, true); }); });
@@ -1749,6 +1750,6 @@
   })();
   </script>
   <script src="/engine.js?v=1"></script>
-  <script src="/demo.js?v=9"></script>
+  <script src="/demo.js?v=10"></script>
 </body>
 </html>

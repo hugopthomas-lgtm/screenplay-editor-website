@@ -12,13 +12,13 @@
     labels: { SCENE_HEADING: 'intitulé de scène', ACTION: 'action', CHARACTER: 'personnage', DIALOGUE: 'dialogue', PARENTHETICAL: 'parenthèse', TRANSITION: 'transition' },
     keyEnter: 'Entrée', keyTab: 'Tab',
     youre: 'Vous êtes en <b>', takes: ' vous emmène en ', write: 'Écrivez ', forHeading: ' pour un intitulé de scène', forX: ' pour ',
-    nowEnter: 'Appuyez sur Entrée', outro: 'Installez-moi, et arrêtez de copier Sofia Coppola.', outroBtn: 'Ajouter à Chrome', typeHere: 'Tapez sa réplique ici.',
+    nowEnter: 'Appuyez sur Entrée', outro: 'Installez-moi, et arrêtez de copier Sofia Coppola.', outroBtn: 'Ajouter à Chrome', outroBtnWord: 'Télécharger pour Word', typeHere: 'Tapez sa réplique ici.',
     seed: [['SCENE_HEADING', 'INT. BAR DE L\'HÔTEL, TOKYO - NUIT'], ['ACTION', 'Le néon par la fenêtre. BOB, soixante ans, cravate défaite, sirote un whisky qu\'il n\'a pas commandé.'], ['CHARACTER', 'CHARLOTTE'], ['PARENTHETICAL', '(un tabouret plus loin)'], ['DIALOGUE', 'Vous non plus, vous n\'allez pas dormir.'], ['CHARACTER', 'BOB'], ['DIALOGUE', 'Je n\'ai pas dormi depuis jeudi. Lequel, je ne saurais pas dire.'], ['CHARACTER', 'CHARLOTTE'], ['DIALOGUE', '']]
   } : {
     ph: { SCENE_HEADING: 'INT. KITCHEN - NIGHT', ACTION: 'What we see.', CHARACTER: 'WHO SPEAKS', DIALOGUE: 'What they say.', PARENTHETICAL: '(how)', TRANSITION: 'CUT TO:' },
     labels: null, keyEnter: 'Enter', keyTab: 'Tab',
     youre: "You're in <b>", takes: ' takes you to ', write: 'Write ', forHeading: ' for a scene heading', forX: ' for ',
-    nowEnter: 'Now press Enter', outro: 'Now install me and stop copying Sofia Coppola.', outroBtn: 'Add to Chrome', typeHere: 'Type her line here.',
+    nowEnter: 'Now press Enter', outro: 'Now install me and stop copying Sofia Coppola.', outroBtn: 'Add to Chrome', outroBtnWord: 'Get it for Word', typeHere: 'Type her line here.',
     seed: [['SCENE_HEADING', 'INT. HOTEL BAR, TOKYO - NIGHT'], ['ACTION', 'Neon through the window. BOB, sixty, tie undone, nurses a whisky he did not order.'], ['CHARACTER', 'CHARLOTTE'], ['PARENTHETICAL', '(one stool over)'], ['DIALOGUE', "You're not going to sleep either."], ['CHARACTER', 'BOB'], ['DIALOGUE', "I haven't slept since Thursday. Which Thursday, I couldn't tell you."], ['CHARACTER', 'CHARLOTTE'], ['DIALOGUE', '']]
   };
   var PH = T.ph;
@@ -31,10 +31,19 @@
   function showOutro() {
     if (outroShown || !canvas) return; outroShown = true;
     outro = document.createElement('div'); outro.className = 'tryit-outro';
-    outro.innerHTML = '<span class="tryit-outro-text">' + T.outro + '</span><a class="tryit-outro-btn" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">' + T.outroBtn + '</a>';
+    outro.innerHTML = '<span class="tryit-outro-text">' + T.outro + '</span><a class="tryit-outro-btn" target="_blank" rel="noopener"></a>';
+    aimOutro();
     canvas.appendChild(outro);
     requestAnimationFrame(function () { outro.classList.add('in'); });
   }
+  // Which door: Chrome for Google Docs, the Word page when the demo is in Word mode.
+  var CWS = 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln';
+  function isWord() { var g = document.querySelector('.gdoc'); return !!(g && g.classList.contains('is-word')); }
+  function aimOutro() {
+    if (!outro) return; var a = outro.querySelector('.tryit-outro-btn'); if (!a) return;
+    var w = isWord(); a.href = w ? '/word' : CWS; a.textContent = w ? T.outroBtnWord : T.outroBtn; a.target = w ? '_self' : '_blank';
+  }
+  document.addEventListener('se-surface', aimOutro);
   function checkOutro() {
     if (outroShown) return;
     var wrap = sheet.parentElement, last = sheet.lastElementChild; if (!wrap || !last) return;
