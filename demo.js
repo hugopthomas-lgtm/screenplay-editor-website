@@ -41,7 +41,7 @@
   function isWord() { var g = document.querySelector('.gdoc'); return !!(g && g.classList.contains('is-word')); }
   function aimOutro() {
     if (!outro) return; var a = outro.querySelector('.tryit-outro-btn'); if (!a) return;
-    var w = isWord(); a.href = w ? '/word' : CWS; a.textContent = w ? T.outroBtnWord : T.outroBtn; a.target = w ? '_self' : '_blank';
+    var w = isWord(); a.href = w ? (FR ? '/fr/word' : '/word') : CWS; a.textContent = w ? T.outroBtnWord : T.outroBtn; a.target = w ? '_self' : '_blank';
   }
   document.addEventListener('se-surface', aimOutro);
   function checkOutro() {

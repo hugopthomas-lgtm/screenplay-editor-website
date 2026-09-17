@@ -50,6 +50,8 @@
   // une ligne ici chaque fois qu'une page est traduite.
   var PAIRS = {
     '/': '/fr/',
+    '/word': '/fr/word',
+    '/word/': '/fr/word/',
     '/pricing': '/fr/pricing',
     '/about': '/fr/about',
     '/schools': '/fr/schools',

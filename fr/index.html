@@ -1638,7 +1638,7 @@
         word: {
           h1: 'Écrivez votre prochain film<br>dans Microsoft&nbsp;Word<span class="tm-mark">&trade;</span>.',
           sub: 'Le confort d\'écriture de Final Draft, la souplesse de Word.<br>Gardez le meilleur des deux mondes, oubliez le logiciel à 250 $.',
-          cta: 'Télécharger pour Word', href: '/word',
+          cta: 'Télécharger pour Word', href: '/fr/word',
           safety: 'Votre scénario reste dans votre fichier Word, sur votre ordinateur. Pas chez nous.',
           cta2: 'Ou ajoutez-le à Chrome, pour Google Docs', href2: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'
         }
@@ -1687,7 +1687,7 @@
         var t = PAGE[surface] || PAGE.docs;
         for (var id in t) { var el = document.getElementById(id); if (el) el.innerHTML = t[id]; }
         var btn = document.getElementById('sf-cta-btn'), c2 = document.getElementById('sf-cta-2');
-        if (btn) { btn.href = surface === 'word' ? '/word' : 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'; btn.lastChild.nodeValue = surface === 'word' ? 'Télécharger pour Word' : 'Ajouter à Chrome'; btn.target = surface === 'word' ? '_self' : '_blank'; }
+        if (btn) { btn.href = surface === 'word' ? '/fr/word' : 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'; btn.lastChild.nodeValue = surface === 'word' ? 'Télécharger pour Word' : 'Ajouter à Chrome'; btn.target = surface === 'word' ? '_self' : '_blank'; }
         if (c2) c2.href = surface === 'word' ? 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln' : 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
         document.querySelectorAll('.hero-trust li').forEach(function (li) { if (/Marche aussi/.test(li.textContent)) li.hidden = surface === 'word'; });
         var ci = document.getElementById('sf-collab-img');
@@ -1752,6 +1752,6 @@
   })();
   </script>
   <script src="/engine.js?v=1"></script>
-  <script src="/demo.js?v=10"></script>
+  <script src="/demo.js?v=11"></script>
 </body>
 </html>

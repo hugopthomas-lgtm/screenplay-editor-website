@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenplay Editor pour Word | Screenplay Editor</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Write a screenplay in Microsoft Word. Enter and Tab know where you are, six industry styles, one-click formatting, title page, scene numbers, stats, breakdown, Final Draft and Fountain export. Mac and Windows.">
+  <link rel="canonical" href="https://screenplayeditor.app/fr/word">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="Screenplay Editor pour Word">
+  <meta property="og:description" content="Écrivez un scénario dans Microsoft Word, avec la même écriture intelligente que l'extension Google Docs. Mac et Windows.">
+  <meta property="og:url" content="https://screenplayeditor.app/fr/word">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+  <style>
+    .hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 60px; align-items: start; padding-bottom: 40px; }
+    .hero .lead { max-width: 52ch; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .hero-note { font-size: var(--t-sm); color: var(--ink-3); margin-top: 14px; }
+    .shot { display: block; width: 100%; max-width: 300px; height: auto; aspect-ratio: 704 / 1490; margin: -56px auto 0; border-radius: 16px; box-shadow: var(--shadow-2); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 30px 0 0; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .section { padding-top: 70px; }
+    .section h2 { font-size: var(--t-2xl); font-weight: var(--w-bold); letter-spacing: var(--ls-label); margin: 0 0 12px; text-wrap: balance; }
+    .section > p { font-size: var(--t-base); line-height: var(--lh-body); color: var(--ink-3); max-width: 62ch; margin: 0; }
+    .card { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 30px 28px; display: flex; flex-direction: column; gap: 10px; }
+    .card h3 { font-size: var(--t-lg); font-weight: var(--w-bold); margin: 0; letter-spacing: var(--ls-label); }
+    .card p { font-size: var(--t-base); line-height: var(--lh-body); color: var(--ink-3); margin: 0; }
+    .card .tag { font-size: var(--t-xs); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--violet); font-weight: var(--w-bold); }
+    .card ol { margin: 6px 0 0; padding-left: 20px; color: var(--ink-3); font-size: var(--t-base); line-height: var(--lh-body); }
+    .card ol li + li { margin-top: 6px; }
+    .card .cta-button { align-self: flex-start; margin-top: 8px; }
+    .price { font-size: var(--t-2xl); font-weight: var(--w-bold); letter-spacing: var(--ls-label); }
+    .price span { font-size: var(--t-base); font-weight: var(--w-regular); color: var(--ink-3); }
+    .btn-outline { display: inline-flex; align-items: center; justify-content: center; padding: 16px 28px; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; font-size: var(--t-base); font-weight: var(--w-bold); text-decoration: none; letter-spacing: var(--ls-label); }
+    .btn-outline:hover { background: var(--ink); color: var(--paper-2); }
+    .tm-mark { font-size: 0.42em; vertical-align: 0.9em; font-weight: var(--w-medium); letter-spacing: 0; }
+    .hero-other { margin-top: 6px; }
+    .hero-other a { color: var(--violet-dark); text-decoration: underline; text-underline-offset: 3px; }
+    .tail { padding-bottom: 90px; }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 34px; } .shot { margin-top: 0; } .grid, .grid.two { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main>
+    <section class="wrap hero">
+      <div>
+        <h1>Écrivez votre prochain film<br>dans Microsoft&nbsp;Word<span class="tm-mark">&trade;</span>.</h1>
+        <p class="lead">La même écriture intelligente que Final Draft, dans Microsoft Word. Tapez INT. et la ligne devient un intitulé de scène. Entrée après un personnage, vous êtes en dialogue. Tab, vous êtes en parenthèse. Six styles professionnels, Courier 12, Letter ou A4, et un volet latéral qui dit toujours où vous êtes. Pour les écoles et les studios qui écrivent sur Microsoft.</p>
+        <div class="hero-actions" id="word-actions">
+          <a class="cta-button" id="dl-mac" href="/word/download/Screenplay%20Editor%20for%20Word.pkg" download>Télécharger pour Mac</a>
+          <a class="btn-outline" id="dl-win" href="/word/download/Screenplay%20Editor%20for%20Word%20(Windows).zip" download>Télécharger pour Windows</a>
+        </div>
+        <p class="hero-note">Word de Microsoft 365 sur ordinateur, Mac ou Windows. Word pour le web n'est pas pris en charge. Gratuit une semaine, puis la même licence que l'extension.</p>
+        <p class="hero-note hero-other">Vous écrivez dans Google&nbsp;Docs ? <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Ajoutez-le à Chrome</a>, même éditeur, même licence.</p>
+      </div>
+      <img class="shot" src="/word/pane.png?v=3" alt="Le volet Screenplay Editor dans Word : les six éléments, Formater mon document, page de titre, numéros de scène, import." width="704" height="1490">
+    </section>
+
+    <section class="wrap section">
+      <h2>Ce qu'il fait.</h2>
+      <p>Tout vit dans un volet à côté de vos pages. Word garde le document, nous gardons le format.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">Écrire</span><h3>Entrée et Tab qui connaissent l'élément</h3><p>Un modèle chargé au démarrage rend Entrée et Tab instantanés et contextuels, comme dans Final Draft. Les capitales des intitulés, des personnages et des transitions viennent toutes seules.</p></div>
+        <div class="card"><span class="tag">Formater</span><h3>Formater mon document, en un clic</h3><p>Collez un scénario venu de n'importe où, ou importez un fichier Final Draft, Fade In, Celtx ou Fountain. Chaque ligne reçoit son élément et son style.</p></div>
+        <div class="card"><span class="tag">Page</span><h3>Page de titre, numéros de scène, numéros de page</h3><p>Une page de titre composée comme les lecteurs l'attendent, des numéros de scène qu'on ajoute et retire, des numéros de page avec le point, Letter ou A4.</p></div>
+        <div class="card"><span class="tag">Studio</span><h3>Script Stats et Scene Board</h3><p>Pages, scènes, distribution, décors, jour et nuit, la scène la plus longue, dans le volet et en PDF. Un tableau de vos scènes dans le navigateur, et le document suit l'ordre que vous lui donnez.</p></div>
+        <div class="card"><span class="tag">Studio</span><h3>Table Read et affiche de film</h3><p>Une voix différente pour chaque personnage, le narrateur pour l'action, tout votre scénario lu à voix haute dans le volet. Et une affiche de cinéma tirée de votre scénario, celle qu'un festival imprimerait.</p></div>
+        <div class="card"><span class="tag">Livrer</span><h3>PDF, Final Draft, Fountain, Print View</h3><p>Word produit le PDF avec vos styles. Le .fdx s'ouvre dans Final Draft tel quel. Le .fountain est du texte brut que vous gardez pour toujours. Print View tourne les pages comme un scénario relié, dans votre navigateur.</p></div>
+        <div class="card"><span class="tag">Dépouillement</span><h3>Dépouillement de production</h3><p>Rôles, accessoires, costumes, véhicules, effets, scène par scène, dans le volet et dans un tableur en couleurs.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <h2>Installez-le.</h2>
+      <p>Deux fichiers se mettent en place : le modèle que Word charge au démarrage, et le complément qui dessine le groupe du ruban et le volet. L'installateur les pose pour vous.</p>
+      <div class="grid two">
+        <div class="card">
+          <span class="tag">Mac</span>
+          <h3>Screenplay Editor for Word.pkg</h3>
+          <ol>
+            <li>Quittez Word.</li>
+            <li>Double-cliquez sur le paquet. Il est signé et notarisé par Apple : il s'ouvre sans avertissement et s'installe pour votre compte.</li>
+            <li>Ouvrez Word. Le groupe Screenplay est dans l'onglet Accueil, avec un bouton Panel pour le volet.</li>
+          </ol>
+          <p class="hero-note">Version 7.8.3 &middot; 5 Mo &middot; Notarisé par Apple. Avec un guide de démarrage de six pages, la police Courier Prime et un désinstalleur.</p>
+          <a class="cta-button" href="/word/download/Screenplay%20Editor%20for%20Word.pkg" download>Télécharger pour Mac</a>
+        </div>
+        <div class="card">
+          <span class="tag">Windows</span>
+          <h3>Screenplay Editor for Word (Windows).zip</h3>
+          <ol>
+            <li>Quittez Word.</li>
+            <li>Décompressez le dossier et double-cliquez sur Install.cmd. Il s'installe pour votre compte seulement, sans administrateur.</li>
+            <li>Ouvrez Word. Le groupe Screenplay est dans l'onglet Accueil, avec un bouton Panel pour le volet.</li>
+          </ol>
+          <a class="btn-outline" href="/word/download/Screenplay%20Editor%20for%20Word%20(Windows).zip" download>Télécharger pour Windows</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <h2>Une licence, les deux applications.</h2>
+      <p>Votre première semaine est gratuite, tout est ouvert. Ensuite les fonctions Pro demandent Pro, et la licence que vous prenez est la même que celle de l'extension Google Docs : une adresse, les deux endroits.</p>
+      <div class="grid two">
+        <div class="card"><span class="tag">Annuel</span><div class="price">69 $ <span>/ an</span></div><p>Soit 5,75 $ par mois. Formater le document, page de titre, numéros de scène, export Final Draft, Scene Board, le dépouillement complet.</p></div>
+        <div class="card"><span class="tag">Mensuel</span><div class="price">7,99 $ <span>/ mois</span></div><p>Normalement 9,99 $. Résiliable à tout moment, votre document reste à vous, styles compris.</p></div>
+      </div>
+      <p style="margin-top:22px">Écoles et départements : les licences de site coûtent quatre fois moins cher que le siège que tout le monde vend. Écrivez à <a href="mailto:hugo@screenplayeditor.app">hugo@screenplayeditor.app</a>.</p>
+    </section>
+
+    <section class="wrap section tail">
+      <h2>Questions.</h2>
+      <div class="grid two">
+        <div class="card"><h3>Est-ce que ça modifie mon document ?</h3><p>Il ajoute six styles de paragraphe et les utilise. Désactivez-le, retirez-le, le document reste un document Word normal en Courier 12 avec ses styles.</p></div>
+        <div class="card"><h3>Est-ce que ça marche hors ligne ?</h3><p>Entrée, Tab, les capitales et les styles viennent du modèle et marchent sans connexion. Le volet en a besoin d'une.</p></div>
+        <div class="card"><h3>Word pour le web, Word sur iPad ?</h3><p>Pas encore. Le modèle qui rend l'écriture instantanée n'existe que sur ordinateur.</p></div>
+        <div class="card"><h3>J'écris dans Google Docs.</h3><p>Alors il vous faut <a href="/fr/">l'extension</a>. Même moteur, même licence.</p></div>
+      </div>
+    </section>
+  </main>
+  <site-footer></site-footer>
+<script>
+  // The visitor's system comes first: on Windows the filled button is the Windows one.
+  (function () {
+    try {
+      var plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+      if (!/win/i.test(plat)) return;
+      var mac = document.getElementById('dl-mac'), win = document.getElementById('dl-win');
+      if (!mac || !win) return;
+      mac.className = 'btn-outline'; win.className = 'cta-button';
+      win.parentNode.insertBefore(win, mac);
+    } catch (e) {}
+  })();
+</script>
+</body>
+</html>
