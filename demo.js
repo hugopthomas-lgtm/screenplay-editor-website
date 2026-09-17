@@ -5,7 +5,23 @@
   var E = window.SEEngine; if (!E) return;
   var sheet = document.getElementById('tryit-sheet'); if (!sheet) return;
   var pill = document.getElementById('tryit-pill');
-  var PH = { SCENE_HEADING: 'INT. KITCHEN - NIGHT', ACTION: 'What we see.', CHARACTER: 'WHO SPEAKS', DIALOGUE: 'What they say.', PARENTHETICAL: '(how)', TRANSITION: 'CUT TO:' };
+  // The words, in the language of the page (the engine is the same).
+  var FR = /^fr/i.test(document.documentElement.lang || '');
+  var T = FR ? {
+    ph: { SCENE_HEADING: 'INT. CUISINE - NUIT', ACTION: 'Ce qu\'on voit.', CHARACTER: 'QUI PARLE', DIALOGUE: 'Ce qu\'il dit.', PARENTHETICAL: '(comment)', TRANSITION: 'CUT TO:' },
+    labels: { SCENE_HEADING: 'intitulé de scène', ACTION: 'action', CHARACTER: 'personnage', DIALOGUE: 'dialogue', PARENTHETICAL: 'parenthèse', TRANSITION: 'transition' },
+    keyEnter: 'Entrée', keyTab: 'Tab',
+    youre: 'Vous êtes en <b>', takes: ' vous emmène en ', write: 'Écrivez ', forHeading: ' pour un intitulé de scène', forX: ' pour ',
+    nowEnter: 'Appuyez sur Entrée', outro: 'Installez-moi, et arrêtez de copier Sofia Coppola.', outroBtn: 'Ajouter à Chrome', typeHere: 'Tapez sa réplique ici.',
+    seed: [['SCENE_HEADING', 'INT. BAR DE L\'HÔTEL, TOKYO - NUIT'], ['ACTION', 'Le néon par la fenêtre. BOB, soixante ans, cravate défaite, sirote un whisky qu\'il n\'a pas commandé.'], ['CHARACTER', 'CHARLOTTE'], ['PARENTHETICAL', '(un tabouret plus loin)'], ['DIALOGUE', 'Vous non plus, vous n\'allez pas dormir.'], ['CHARACTER', 'BOB'], ['DIALOGUE', 'Je n\'ai pas dormi depuis jeudi. Lequel, je ne saurais pas dire.'], ['CHARACTER', 'CHARLOTTE'], ['DIALOGUE', '']]
+  } : {
+    ph: { SCENE_HEADING: 'INT. KITCHEN - NIGHT', ACTION: 'What we see.', CHARACTER: 'WHO SPEAKS', DIALOGUE: 'What they say.', PARENTHETICAL: '(how)', TRANSITION: 'CUT TO:' },
+    labels: null, keyEnter: 'Enter', keyTab: 'Tab',
+    youre: "You're in <b>", takes: ' takes you to ', write: 'Write ', forHeading: ' for a scene heading', forX: ' for ',
+    nowEnter: 'Now press Enter', outro: 'Now install me and stop copying Sofia Coppola.', outroBtn: 'Add to Chrome', typeHere: 'Type her line here.',
+    seed: [['SCENE_HEADING', 'INT. HOTEL BAR, TOKYO - NIGHT'], ['ACTION', 'Neon through the window. BOB, sixty, tie undone, nurses a whisky he did not order.'], ['CHARACTER', 'CHARLOTTE'], ['PARENTHETICAL', '(one stool over)'], ['DIALOGUE', "You're not going to sleep either."], ['CHARACTER', 'BOB'], ['DIALOGUE', "I haven't slept since Thursday. Which Thursday, I couldn't tell you."], ['CHARACTER', 'CHARLOTTE'], ['DIALOGUE', '']]
+  };
+  var PH = T.ph;
   var GLYPH = { Enter: '↵', Tab: '⇥' };
 
   var canvas = sheet.closest('.gdoc-canvas');
@@ -15,7 +31,7 @@
   function showOutro() {
     if (outroShown || !canvas) return; outroShown = true;
     outro = document.createElement('div'); outro.className = 'tryit-outro';
-    outro.innerHTML = '<span class="tryit-outro-text">Now install me and stop copying Sofia Coppola.</span><a class="tryit-outro-btn" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">Add to Chrome</a><a class="tryit-outro-alt" href="/word">or get it for Word</a>';
+    outro.innerHTML = '<span class="tryit-outro-text">' + T.outro + '</span><a class="tryit-outro-btn" href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" target="_blank" rel="noopener">' + T.outroBtn + '</a>';
     canvas.appendChild(outro);
     requestAnimationFrame(function () { outro.classList.add('in'); });
   }
@@ -41,17 +57,17 @@
     else { r.selectNodeContents(el); r.collapse(false); }
     s.removeAllRanges(); s.addRange(r);
   }
-  function low(m) { return E.MODE_LABELS[m].toLowerCase(); }
-  function key(k) { return '<span class="tryit-key">' + k + (GLYPH[k] ? ' ' + GLYPH[k] : '') + '</span>'; }
+  function low(m) { return T.labels ? T.labels[m] : E.MODE_LABELS[m].toLowerCase(); }
+  function key(k) { var name = k === 'Enter' ? T.keyEnter : k === 'Tab' ? T.keyTab : k; return '<span class="tryit-key">' + name + (GLYPH[k] ? ' ' + GLYPH[k] : '') + '</span>'; }
   function paint(el) {
     if (!pill) return;
     var mode = el.dataset.mode, empty = !el.textContent.trim();
     var c = E.pillContent(mode, empty);
     var parts = [];
-    if (c.enter) parts.push(key('Enter') + ' takes you to ' + low(c.enter));
-    else if (c.scene) parts.push('Write ' + key('INT.') + ' for a scene heading');
-    if (c.tab) parts.push(key('Tab') + ' for ' + low(c.tab));
-    pill.querySelector('.tryit-line').innerHTML = "You're in <b>" + low(c.mode) + '</b>.';
+    if (c.enter) parts.push(key('Enter') + T.takes + low(c.enter));
+    else if (c.scene) parts.push(T.write + key('INT.') + T.forHeading);
+    if (c.tab) parts.push(key('Tab') + T.forX + low(c.tab));
+    pill.querySelector('.tryit-line').innerHTML = T.youre + low(c.mode) + '</b>.';
     pill.querySelector('.tryit-tip').innerHTML = parts.map(function (p) { return p + '.'; }).join('<br>');
     pill.querySelector('.tryit-dot').style.background = c.colors.ink;
     sheet.querySelectorAll('.tl.is-cur').forEach(function (n) { n.classList.remove('is-cur'); });
@@ -66,7 +82,7 @@
   }
   function onInput(e) {
     var el = e.currentTarget, t = el.textContent;
-    var cta = pill && pill.querySelector('.tryit-cta'); if (cta && t.trim() && cta.dataset.step !== '1') { cta.dataset.step = '1'; cta.textContent = 'Now press Enter'; }
+    var cta = pill && pill.querySelector('.tryit-cta'); if (cta && t.trim() && cta.dataset.step !== '1') { cta.dataset.step = '1'; cta.textContent = T.nowEnter; }
     var trig = E.lineTrigger(t);
     if (trig && trig !== el.dataset.mode && (el.dataset.mode === 'ACTION' || el.dataset.mode === 'SCENE_HEADING' || el.dataset.mode === 'TRANSITION')) { setMode(el, trig); }
     fixCase(el);
@@ -93,19 +109,9 @@
   }
   function wire(el) { el.addEventListener('input', onInput); el.addEventListener('keydown', onKey); el.addEventListener('focus', function () { paint(el); }); }
 
-  var seed = [
-    ['SCENE_HEADING', 'INT. HOTEL BAR, TOKYO - NIGHT'],
-    ['ACTION', 'Neon through the window. BOB, sixty, tie undone, nurses a whisky he did not order.'],
-    ['CHARACTER', 'CHARLOTTE'],
-    ['PARENTHETICAL', '(one stool over)'],
-    ['DIALOGUE', "You're not going to sleep either."],
-    ['CHARACTER', 'BOB'],
-    ['DIALOGUE', "I haven't slept since Thursday. Which Thursday, I couldn't tell you."],
-    ['CHARACTER', 'CHARLOTTE'],
-    ['DIALOGUE', '']
-  ];
+  var seed = T.seed;
   seed.forEach(function (s) { sheet.appendChild(block(s[0], s[1])); });
-  sheet.lastElementChild.dataset.ph = 'Type her line here.';
+  sheet.lastElementChild.dataset.ph = T.typeHere;
   sheet.addEventListener('click', function (e) { if (e.target === sheet) { var last = sheet.lastElementChild; if (last) caretEnd(last); } });
   var last = sheet.lastElementChild; paint(last);
   // Type anywhere: while the page is on screen and nothing else has the focus, keys go to the current line.

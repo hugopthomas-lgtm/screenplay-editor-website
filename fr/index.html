@@ -1330,6 +1330,7 @@
   <script src="/footer.js"></script>
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/demo.css?v=9">
   <link rel="stylesheet" href="/buttons.css">
 </head>
 
@@ -1379,10 +1380,18 @@
         <a class="hero-safety" href="#privacy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span id="hero-safety-text">Votre scénario est gardé par <b>Google</b>, pas par nous.</span></a>
 
 
-        <div class="hero-screenshot">
-          <video class="hero-demo" autoplay muted loop playsinline aria-label="Screenplay Editor met un scénario en forme en direct dans Google Docs">
-            <source src="/demo.mp4" type="video/mp4">
-          </video>
+        <div class="hero-tryit">
+          <div class="gdoc" aria-label="Un document, tel que Google Docs l'affiche">
+            <img class="gdoc-chrome" id="sf-docs-chrome" src="/docs-chrome.png?v=9" alt="" width="1568" height="189">
+            <img class="gdoc-chrome" id="sf-word-chrome" src="/word-chrome.png?v=2" alt="" width="2940" height="290" hidden>
+            <div class="gdoc-canvas">
+              <div class="tryit-side">
+                <div class="tryit-pill" id="tryit-pill"><span class="tryit-dot"></span><span><span class="tryit-cta">Essayez. Tapez la réplique de Charlotte.</span><span class="tryit-line">Vous êtes en <b>dialogue</b>.</span><span class="tryit-tip"></span></span></div>
+                <div class="tryit-keys" aria-label="Sur un téléphone, utilisez ces touches"><button type="button" data-key="Enter">Entrée ↵</button><button type="button" data-key="Tab">Tab ⇥</button></div>
+              </div>
+              <div class="gdoc-pagewrap"><div class="tryit-sheet" id="tryit-sheet" aria-label="Une page de scénario où vous pouvez écrire"></div></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1651,6 +1660,7 @@
         if (cta2) { cta2.href = c.href2; cta2.textContent = c.cta2; }
         var safe = document.getElementById('hero-safety-text'); if (safe && c.safety) safe.innerHTML = c.safety;
         document.querySelectorAll('.hero-where button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.surface === surface ? 'true' : 'false'); });
+        var dc = document.getElementById('sf-docs-chrome'), wc = document.getElementById('sf-word-chrome'); if (dc && wc) { dc.hidden = surface === 'word'; wc.hidden = surface !== 'word'; }
         if (remember) { try { localStorage.setItem('se_surface', surface); } catch (e) {} }
       }
       apply(detect(), false);
@@ -1705,5 +1715,7 @@
     } catch (e) {}
   })();
   </script>
+  <script src="/engine.js?v=1"></script>
+  <script src="/demo.js?v=9"></script>
 </body>
 </html>
