@@ -1330,7 +1330,7 @@
   <script src="/footer.js"></script>
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
-  <link rel="stylesheet" href="/demo.css?v=11">
+  <link rel="stylesheet" href="/demo.css?v=12">
   <link rel="stylesheet" href="/buttons.css">
 </head>
 
@@ -1383,7 +1383,7 @@
         <div class="hero-tryit">
           <div class="gdoc" aria-label="Un document, tel que Google Docs l'affiche">
             <img class="gdoc-chrome" id="sf-docs-chrome" src="/docs-chrome.png?v=9" alt="" width="1568" height="189">
-            <img class="gdoc-chrome" id="sf-word-chrome" src="/word-chrome.png?v=2" alt="" width="2940" height="290" hidden>
+            <img class="gdoc-chrome" id="sf-word-chrome" src="/word-chrome-crop.png?v=1" alt="" width="1372" height="290" hidden>
             <div class="gdoc-canvas">
               <div class="tryit-side">
                 <div class="tryit-pill" id="tryit-pill"><span class="tryit-dot"></span><span><span class="tryit-cta">Essayez. Tapez la réplique de Charlotte.</span><span class="tryit-line">Vous êtes en <b>dialogue</b>.</span><span class="tryit-tip"></span></span></div>
@@ -1410,13 +1410,13 @@
       <div class="how-steps">
         <div class="how-step">
           <div class="how-num">ÉTAPE 1</div>
-          <h3>Installez-le</h3>
-          <p>Ajoutez l'extension Chrome ou le module Google Docs. Cela prend une dizaine de secondes.</p>
+          <h3 id="sf-step1-h">Installez-le</h3>
+          <p id="sf-step1-p">Ajoutez l'extension Chrome ou le module Google Docs. Cela prend une dizaine de secondes.</p>
         </div>
         <div class="how-step">
           <div class="how-num">ÉTAPE 2</div>
-          <h3>Ouvrez un Google Doc</h3>
-          <p>Commencez un scénario ou collez un brouillon existant. Il n'y a aucune application nouvelle à apprendre.</p>
+          <h3 id="sf-step2-h">Ouvrez un Google Doc</h3>
+          <p id="sf-step2-p">Commencez un scénario ou collez un brouillon existant. Il n'y a aucune application nouvelle à apprendre.</p>
         </div>
         <div class="how-step">
           <div class="how-num">ÉTAPE 3</div>
@@ -1449,8 +1449,8 @@
       <div class="privacy-inner">
         <div>
           <div class="privacy-label">Confidentialité</div>
-          <h2>Gardé par <span class="g">Google</span>.<br>Pas par nous.</h2>
-          <p>Votre scénario vit dans votre propre Google Drive, derrière la même sécurité que Gmail. Nous ne le stockons jamais, et nous ne le voyons jamais.</p>
+          <h2 id="sf-priv-h">Gardé par <span class="g">Google</span>.<br>Pas par nous.</h2>
+          <p id="sf-priv-p">Votre scénario vit dans votre propre Google Drive, derrière la même sécurité que Gmail. Nous ne le stockons jamais, et nous ne le voyons jamais.</p>
           <div class="cloud-table">
             <div class="chead">Votre scénario vit dans&hellip;</div>
             <div class="crow"><span class="cwho">Final Draft</span><span class="cwhere">les serveurs de Final Draft</span></div>
@@ -1519,29 +1519,29 @@
       <div class="collab-inner">
         <div>
           <div class="privacy-label">La fonction reine</div>
-          <h2>Écrivez à plusieurs.<br><span class="mark">En temps réel.</span></h2>
-          <p>Final Draft ne sait pas faire ça. Commentaires, suggestions, co-écriture en direct avec plusieurs curseurs : votre co-auteur est déjà dans la pièce, parce que c'est Google Docs.</p>
-          <ul class="collab-list">
+          <h2 id="sf-collab-h">Écrivez à plusieurs.<br><span class="mark">En temps réel.</span></h2>
+          <p id="sf-collab-p">Final Draft ne sait pas faire ça. Commentaires, suggestions, co-écriture en direct avec plusieurs curseurs : votre co-auteur est déjà dans la pièce, parce que c'est Google Docs.</p>
+          <ul class="collab-list" id="sf-collab-list">
             <li><span class="ck">&#10003;</span>Co-écriture en direct avec plusieurs curseurs</li>
             <li><span class="ck">&#10003;</span>Commentaires et suggestions intégrés</li>
             <li><span class="ck">&#10003;</span>Aucun fichier à envoyer, aucune fusion, aucun conflit</li>
           </ul>
         </div>
         <div class="collab-image">
-          <img src="/obj-walkies.png" alt="Deux auteurs, un scénario, en temps réel">
+          <img src="/obj-walkies.png" id="sf-collab-img" alt="Deux auteurs, un scénario, en temps réel">
         </div>
       </div>
     </section>
 
     <section id="features" class="tools scroll-fade">
-      <h2>Tous les outils, dans Google Docs.</h2>
-      <p class="tools-sub">Aucun logiciel à apprendre. Tout vit dans un seul panneau latéral.</p>
+      <h2 id="sf-tools-h">Tous les outils, dans Google Docs.</h2>
+      <p id="sf-tools-p" class="tools-sub">Aucun logiciel à apprendre. Tout vit dans un seul panneau latéral.</p>
       <div class="tools-grid">
         <div class="tool-card"><i class="tm ti ti-wand"></i><div><h3>Formatage en direct</h3><p>Tapez, et les intitulés de scène, l'action et les dialogues se mettent en forme tout seuls.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-file-text"></i><div><h3>Formater mon document</h3><p>Collez un brouillon en vrac et mettez tout le scénario en forme en un clic.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-layout-kanban"></i><div><h3>Scene Board</h3><p>Chaque scène sur une carte. Glissez pour réordonner et votre scénario se réécrit.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-eye"></i><div><h3>Aperçu scénario</h3><p>Voyez votre scénario comme une vraie page imprimée pendant que vous écrivez.</p></div></div>
-        <div class="tool-card"><i class="tm ti ti-headphones"></i><div><h3>Lecture à voix haute ElevenLabs</h3><p>Écoutez votre scénario, avec une voix différente pour chaque personnage.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-eye"></i><div><h3 id="sf-preview-h">Aperçu scénario</h3><p>Voyez votre scénario comme une vraie page imprimée pendant que vous écrivez.</p></div></div>
+        <div class="tool-card"><i class="tm ti ti-headphones"></i><div><h3 id="sf-tableread-h">Lecture à voix haute ElevenLabs</h3><p>Écoutez votre scénario, avec une voix différente pour chaque personnage.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-photo"></i><div><h3>Affiche de film</h3><p>Transformez votre scénario en affiche de cinéma, tirée de votre propre histoire.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-layout-grid"></i><div><h3>Dépouillement de production</h3><p>Rôles, accessoires, costumes et effets extraits de chaque scène en un clic.</p></div></div>
         <div class="tool-card"><i class="tm ti ti-file-export"></i><div><h3>Export Final Draft</h3><p>Exportez au format .fdx, le standard du métier, prêt à envoyer à n'importe qui.</p></div></div>
@@ -1563,16 +1563,16 @@
     <!-- CTA -->
     <section class="cta-section">
       <h2>Commencez à écrire aujourd'hui</h2>
-      <p>Screenplay Editor s'installe en quelques secondes. Commencez gratuitement, puis 7,99 $ par mois pour l'extension Chrome ou 5,99 $ pour le module Google Docs. Résiliable à tout moment.</p>
+      <p id="sf-cta-p">Screenplay Editor s'installe en quelques secondes. Commencez gratuitement, puis 7,99 $ par mois pour l'extension Chrome ou 5,99 $ pour le module Google Docs. Résiliable à tout moment.</p>
       <div class="hero-ctas">
-        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Ajouter à Chrome</a>
-        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank">Ou installez le module Google Docs</a>
+        <a href="https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln" class="cta-button" id="sf-cta-btn" target="_blank"><img class="cta-flame" src="/flame.png" alt="" aria-hidden="true">Ajouter à Chrome</a>
+        <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" id="sf-cta-2" target="_blank">Ou installez le module Google Docs</a>
       </div>
       <ul class="hero-trust" style="margin-top:22px;margin-bottom:0;">
         <li><span class="ck">&#10003;</span>Gratuit pour commencer</li>
         <li><span class="ck">&#10003;</span>Sans carte bancaire</li>
         <li><span class="ck">&#10003;</span>Installé en quelques secondes</li>
-        <li aria-hidden="true" style="flex-basis:100%;height:0;margin:0;padding:0;list-style:none;"></li><li><span class="ck">&#10003;</span>Sécurisé par Google, pas par nous</li>
+        <li aria-hidden="true" style="flex-basis:100%;height:0;margin:0;padding:0;list-style:none;"></li><li id="sf-cta-secured"><span class="ck">&#10003;</span>Sécurisé par Google, pas par nous</li>
       </ul>
     </section>
   </main>
@@ -1660,8 +1660,41 @@
         if (cta2) { cta2.href = c.href2; cta2.textContent = c.cta2; }
         var safe = document.getElementById('hero-safety-text'); if (safe && c.safety) safe.innerHTML = c.safety;
         document.querySelectorAll('.hero-where button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.surface === surface ? 'true' : 'false'); });
-        var dc = document.getElementById('sf-docs-chrome'), wc = document.getElementById('sf-word-chrome'); if (dc && wc) { dc.hidden = surface === 'word'; wc.hidden = surface !== 'word'; }
+        applyPage(surface);
         if (remember) { try { localStorage.setItem('se_surface', surface); } catch (e) {} }
+      }
+      var PAGE = {
+        docs: {
+          'sf-step1-h': 'Installez-le', 'sf-step1-p': "Ajoutez l'extension Chrome ou le module Google Docs. Cela prend une dizaine de secondes.",
+          'sf-step2-h': 'Ouvrez un Google Doc', 'sf-step2-p': "Commencez un scénario ou collez un brouillon existant. Il n'y a aucune application nouvelle à apprendre.",
+          'sf-priv-h': 'Gardé par <span class="g">Google</span>.<br>Pas par nous.', 'sf-priv-p': 'Votre scénario vit dans votre propre Google Drive, derrière la même sécurité que Gmail. Nous ne le stockons jamais, et nous ne le voyons jamais.',
+          'sf-collab-h': 'Écrivez à plusieurs.<br><span class="mark">En temps réel.</span>', 'sf-collab-p': "Final Draft ne sait pas faire ça. Commentaires, suggestions, co-écriture en direct avec plusieurs curseurs : votre co-auteur est déjà dans la pièce, parce que c'est Google Docs.",
+          'sf-collab-list': '<li><span class="ck">&#10003;</span>Co-écriture en direct avec plusieurs curseurs</li><li><span class="ck">&#10003;</span>Commentaires et suggestions intégrés</li><li><span class="ck">&#10003;</span>Aucun fichier à envoyer, aucune fusion, aucun conflit</li>',
+          'sf-tools-h': 'Tous les outils, dans Google Docs.', 'sf-preview-h': 'Aperçu scénario', 'sf-tableread-h': 'Lecture à voix haute ElevenLabs',
+          'sf-cta-p': "Screenplay Editor s'installe en quelques secondes. Commencez gratuitement, puis 7,99 $ par mois pour l'extension Chrome ou 5,99 $ pour le module Google Docs. Résiliable à tout moment.", 'sf-cta-2': 'Ou installez le module Google Docs', 'sf-cta-secured': '<span class="ck">&#10003;</span>Sécurisé par Google, pas par nous'
+        },
+        word: {
+          'sf-step1-h': 'Installez-le', 'sf-step1-p': "Téléchargez l'installateur pour Mac ou Windows et lancez-le. Une minute, une seule fois.",
+          'sf-step2-h': 'Ouvrez Word', 'sf-step2-p': "Le groupe Screenplay est dans l'onglet Accueil. Commencez un scénario ou collez un brouillon existant.",
+          'sf-priv-h': 'Votre fichier.<br>Votre ordinateur.', 'sf-priv-p': 'Votre scénario est un .docx sur votre propre machine, ou dans votre propre OneDrive, derrière la sécurité de Microsoft. Nous ne le stockons jamais, et nous ne le voyons jamais.',
+          'sf-collab-h': 'Instantané.<br><span class="mark">Natif dans Word.</span>', 'sf-collab-p': "Un modèle chargé au démarrage de Word fait d'Entrée et de Tab une partie de Word lui-même : aucun délai, pas de navigateur, pas besoin d'internet. Le fichier reste un .docx que n'importe quel producteur peut ouvrir.",
+          'sf-collab-list': '<li><span class="ck">&#10003;</span>Entrée et Tab répondent instantanément, nativement</li><li><span class="ck">&#10003;</span>Fonctionne hors ligne, dans un avion, dans une salle de classe</li><li><span class="ck">&#10003;</span>Un .docx qui s\'ouvre partout, mise en forme conservée</li>',
+          'sf-tools-h': 'Tous les outils, dans Word.', 'sf-preview-h': 'Print View', 'sf-tableread-h': 'Table Read',
+          'sf-cta-p': "Screenplay Editor pour Word s'installe en une minute. Une semaine gratuite, puis 7,99 $ par mois ou 69 $ par an, la même licence que l'extension Google Docs. Résiliable à tout moment.", 'sf-cta-2': 'Ou ajoutez-le à Chrome, pour Google Docs', 'sf-cta-secured': '<span class="ck">&#10003;</span>Votre fichier reste sur votre ordinateur'
+        }
+      };
+      function applyPage(surface) {
+        var t = PAGE[surface] || PAGE.docs;
+        for (var id in t) { var el = document.getElementById(id); if (el) el.innerHTML = t[id]; }
+        var btn = document.getElementById('sf-cta-btn'), c2 = document.getElementById('sf-cta-2');
+        if (btn) { btn.href = surface === 'word' ? '/word' : 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'; btn.lastChild.nodeValue = surface === 'word' ? 'Télécharger pour Word' : 'Ajouter à Chrome'; btn.target = surface === 'word' ? '_self' : '_blank'; }
+        if (c2) c2.href = surface === 'word' ? 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln' : 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
+        var ci = document.getElementById('sf-collab-img');
+        if (ci) { ci.src = surface === 'word' ? '/obj-plane-cut.png' : '/obj-walkies.png'; ci.alt = surface === 'word' ? "Fonctionne dans un avion, sans internet" : 'Deux auteurs, un scénario, en temps réel'; }
+        var dc = document.getElementById('sf-docs-chrome'), wb = document.getElementById('sf-word-chrome');
+        if (dc) dc.hidden = surface === 'word';
+        if (wb) wb.hidden = surface !== 'word';
+        var gd = document.querySelector('.gdoc'); if (gd) gd.classList.toggle('is-word', surface === 'word');
       }
       apply(detect(), false);
       document.querySelectorAll('.hero-where button').forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.surface, true); }); });
