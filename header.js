@@ -122,11 +122,11 @@
   // Deux bascules, pas deux onglets. La langue et la surface d'ecriture ne
   // menent pas a une page de plus : elles rejouent la meme chose ailleurs.
   // Elles portent donc une pastille et ne ressemblent pas aux liens.
-  var DOCS_ICO = '<svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true">' +
+  var DOCS_ICO = '<svg class="seg-ico" viewBox="0 0 24 24" aria-hidden="true">' +
     '<path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#4285F4"/>' +
     '<path d="M14 2v5h5" fill="#A1C2FA"/>' +
     '<path d="M8 12h8M8 15h8M8 18h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>';
-  var WORD_ICO = '<svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true">' +
+  var WORD_ICO = '<svg class="seg-ico" viewBox="0 0 24 24" aria-hidden="true">' +
     '<path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#2B579A"/>' +
     '<path d="M14 2v5h5" fill="#9CC0F5"/>' +
     '<path d="M7.2 11l1.6 7h1.5l1.4-5 1.4 5h1.5l1.6-7h-1.5l-1 5-1.4-5h-1.2l-1.4 5-1-5z" fill="#fff"/></svg>';
@@ -135,17 +135,21 @@
   // page d'accueil. Depuis n'importe quelle autre page, un scenariste qui
   // ecrit sur Word n'avait aucun chemin vers sa version.
   var ON_WORD = /^\/(fr\/)?word(\/|$)/.test(location.pathname);
-  var SURFACE = ON_WORD
-    ? ['Docs', IS_FR ? '/fr/' : '/', DOCS_ICO]
-    : ['Word', IS_FR ? '/fr/word' : '/word', WORD_ICO];
+  function segItem(on, label, href, ico) {
+    return '<a class="seg-item' + (on ? ' is-on' : '') + '" href="' + href + '"' +
+      (on ? ' aria-current="true"' : '') + '>' + ico + label + '</a>';
+  }
 
   var navHtml = NAV.map(function (n) {
     return '<a href="' + n[1] + '">' + n[0] + '</a>';
   }).join('');
 
   var switchHtml =
-    '<a class="chip" href="' + SURFACE[1] + '">' + SURFACE[2] + SURFACE[0] + '</a>' +
-    '<a class="chip lang-switch" data-lang="' + LANG[2] + '" href="' + LANG[1] + '">' + LANG[0] + '</a>';
+    '<span class="seg" role="group" aria-label="' + (IS_FR ? 'Ou vous ecrivez' : 'Where you write') + '">' +
+      segItem(!ON_WORD, 'Docs', IS_FR ? '/fr/' : '/', DOCS_ICO) +
+      segItem(ON_WORD, 'Word', IS_FR ? '/fr/word' : '/word', WORD_ICO) +
+    '</span>' +
+    '<a class="lang-switch" data-lang="' + LANG[2] + '" href="' + LANG[1] + '">' + LANG[0] + '</a>';
 
   class SiteHeader extends HTMLElement {
     connectedCallback() {
@@ -172,45 +176,52 @@
            hero behind it and dark against the light pages. */
         'background:rgba(14,14,16,0.86);-webkit-backdrop-filter:blur(16px) saturate(160%);' +
         'backdrop-filter:blur(16px) saturate(160%);' +
-        'border-radius:999px;padding:7px 7px 7px 26px;' +
+        'border-radius:999px;padding:8px 8px 8px 26px;' +
         'box-shadow:0 6px 26px rgba(0,0,0,0.22);}' +
 
         ".logo{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;" +
-        'font-size:19px;font-weight:800;letter-spacing:-0.04em;color:#fff;' +
+        'font-size:21px;font-weight:800;letter-spacing:-0.04em;color:#fff;' +
         'text-decoration:none;cursor:pointer;line-height:1;}' +
         '.logo .dot{color:' + VIOLET + ';}' +
 
         'nav{display:flex;align-items:center;}' +
-        /* Chaque zone porte une largeur fixe. Sinon un libelle plus long
-           (Docs contre Word, Installer contre Install, le francais contre
-           l'anglais) decale tout ce qui est a sa gauche, et les onglets
-           sautent d'une page a l'autre sous les yeux du lecteur. */
-        '.nav-links{display:flex;align-items:center;box-sizing:border-box;' +
-        'width:400px;margin-left:44px;justify-content:space-between;}' +
+        /* Ecart constant entre les liens, et tout ce qui est a leur droite
+           porte une largeur fixe. Dans une langue donnee, toutes les pages
+           sont alors identiques au pixel : rien ne saute d'une page a
+           l'autre. Le jeu part entre le logo et le premier lien. */
+        '.nav-links{display:flex;align-items:center;gap:36px;margin-left:46px;}' +
         'nav a{margin-left:34px;font-size:14px;font-weight:500;letter-spacing:-0.01em;color:#a5a5a5;' +
         'text-decoration:none;white-space:nowrap;transition:color .2s;}' +
         'nav a:hover{color:#fff;}' +
-        '.nav-links a{margin-left:0;}' +
+        '.nav-links a{margin-left:0;font-size:15px;color:#9c9ca3;}' +
+        '.nav-links a:hover{color:#fff;}' +
 
-        /* Les bascules : une pastille pleine, sans contour, plus petite que
-           les liens. On voit au premier coup d'oeil que ce n'est pas un
-           onglet de plus mais un interrupteur. */
-        '.switches{display:flex;align-items:center;gap:7px;margin-left:30px;' +
-        'width:130px;justify-content:flex-end;box-sizing:border-box;}' +
-        '.chip{display:inline-flex;align-items:center;justify-content:center;gap:6px;' +
-        'margin-left:0;box-sizing:border-box;width:82px;' +
-        'padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.09);' +
-        'color:#d0d0d0;font-size:13px;font-weight:600;letter-spacing:-0.01em;' +
-        'text-decoration:none;white-space:nowrap;transition:background .2s,color .2s;}' +
-        '.chip:hover{background:rgba(255,255,255,0.17);color:#fff;}' +
-        '.chip.lang-switch{width:41px;}' +
-        '.chip-ico{width:14px;height:14px;flex-shrink:0;}' +
-        '.mobile-menu .switches{margin:6px 0 2px 10px;}' +
+        /* La surface d'ecriture est un choix, pas une destination : un rail
+           qui montre les deux et remplit celle ou l'on est. Les deux
+           etiquettes sont toujours la, donc le bloc ne change jamais de
+           taille. La langue reste du texte, elle ne merite pas un objet. */
+        '.switches{display:flex;align-items:center;margin-left:38px;}' +
+        '.seg{display:flex;align-items:center;gap:2px;padding:3px;' +
+        'border-radius:999px;background:rgba(255,255,255,0.06);}' +
+        '.seg-item{display:inline-flex;align-items:center;justify-content:center;gap:7px;' +
+        'margin-left:0;box-sizing:border-box;width:80px;height:30px;border-radius:999px;' +
+        'font-size:13px;font-weight:600;letter-spacing:-0.01em;color:#8b8b92;' +
+        'text-decoration:none;white-space:nowrap;transition:background .25s,color .25s;}' +
+        '.seg-item:hover{color:#e8e8ea;}' +
+        '.seg-item.is-on{background:rgba(255,255,255,0.13);color:#fff;}' +
+        '.seg-ico{width:14px;height:14px;flex-shrink:0;}' +
+        '.lang-switch{margin-left:24px;box-sizing:border-box;width:24px;' +
+        'text-align:center;font-size:13px;font-weight:600;color:#8b8b92;}' +
+        '.lang-switch:hover{color:#fff;}' +
+        '.mobile-menu .switches{margin:10px 8px 4px;}' +
+        '.mobile-menu .seg{flex:1;}' +
+        '.mobile-menu .seg-item{flex:1;width:auto;height:38px;font-size:14px;}' +
+        '.mobile-menu .lang-switch{width:auto;padding:10px 16px;font-size:14px;}' +
 
-        '.cta{margin-left:30px;background:' + VIOLET + ';color:#fff;' +
+        '.cta{margin-left:26px;background:' + VIOLET + ';color:#fff;' +
         'display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;' +
-        'box-sizing:border-box;width:132px;' +
-        'padding:9px 20px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:-0.01em;' +
+        'box-sizing:border-box;width:134px;' +
+        'height:40px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:-0.01em;' +
         'text-decoration:none;}' +
         '.cta{transition:background .3s cubic-bezier(.4,0,.2,1),transform .3s cubic-bezier(.4,0,.2,1);}' +
         '.cta:hover{background:' + VIOLET_DARK + ';transform:translateY(-1px);}' +
@@ -235,7 +246,7 @@
         "font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.mobile-menu a:active{background:rgba(157,123,234,0.16);color:#fff;}' +
 
-        '@media(min-width:981px){.pill{width:860px;}}' +
+        '@media(min-width:981px){.pill{width:920px;}}' +
         '@media(max-width:980px){.nav-links{display:none;}.pill .switches{display:none;}.cta{margin-left:18px;}' +
         '.pill{padding:7px 7px 7px 20px;}.burger{display:block;}' +
         '.rail.open .mobile-menu{display:flex;}}' +
