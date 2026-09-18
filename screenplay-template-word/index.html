@@ -33,7 +33,7 @@
     .section p { font-size: var(--t-base); line-height: var(--lh-body); color: var(--ink-3); max-width: 64ch; margin: 0 0 14px; }
     .section ol, .section ul { max-width: 64ch; color: var(--ink-3); font-size: var(--t-base); line-height: var(--lh-body); margin: 0 0 14px; padding-left: 22px; }
     .section li + li { margin-top: 8px; }
-    .section a { color: var(--violet-dark); text-decoration: underline; text-underline-offset: 3px; }
+    .section a:not(.cta-button):not(.btn-outline) { color: var(--violet-dark); text-decoration: underline; text-underline-offset: 3px; }
     .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding: 18px 0 0; }
     .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .card { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 28px 26px; display: flex; flex-direction: column; gap: 10px; }
@@ -42,9 +42,14 @@
     .card .tag { font-size: var(--t-xs); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--violet); font-weight: var(--w-bold); }
     .btn-outline { display: inline-flex; align-items: center; justify-content: center; padding: 16px 28px; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; font-size: var(--t-base); font-weight: var(--w-bold); text-decoration: none; letter-spacing: var(--ls-label); }
     .btn-outline:hover { background: var(--ink); color: var(--paper-2); }
-    .sheet { background: #fff; box-shadow: var(--shadow-2); border-radius: 3px; padding: 44px 40px 40px; font-family: 'Courier Prime', 'Courier New', monospace; font-size: 12px; line-height: 1; color: #111; aspect-ratio: 8.5 / 11; overflow: hidden; }
+    .hero-actions .cta-button, .hero-actions .btn-outline { display: inline-flex; flex-direction: column; align-items: center; gap: 1px; text-align: center; line-height: 1.25; padding-top: 13px; padding-bottom: 13px; }
+    .std { font-size: var(--t-xs); font-weight: var(--w-regular); opacity: 0.7; letter-spacing: 0; }
+    .dl { display: flex; align-items: center; gap: 18px; }
+    .dl .pages { flex: 0 0 66px; height: 86px; background: #fff; box-shadow: var(--shadow-1); border-radius: 3px; position: relative; overflow: hidden; }
+    .dl .pages span { position: absolute; left: 7px; right: 7px; top: 11px; display: block; height: 2.5px; background: #e0e0e4; border-radius: 2px; box-shadow: 0 7px 0 #e0e0e4, 0 14px 0 #e0e0e4, 0 26px 0 #ededf0, 0 33px 0 #ededf0, 0 45px 0 #e0e0e4, 0 52px 0 #e0e0e4; }
+    .sheet { background: #fff; box-shadow: var(--shadow-2); border-radius: 3px; padding: 40px 34px; font-family: 'Courier Prime', 'Courier New', monospace; font-size: 11.5px; line-height: 1.02; color: #111; aspect-ratio: 8.5 / 11; overflow: hidden; }
     .sheet div { margin: 0; }
-    .sheet .b { height: 12px; }
+    .sheet .b { height: 11.7px; }
     .sheet .num { text-align: right; color: #8a8a8a; }
     .sheet .ch { margin-left: 45%; }
     .sheet .pa { margin-left: 35%; margin-right: 32%; }
@@ -64,8 +69,8 @@
         <h1>A free screenplay template<br>for Microsoft&nbsp;Word.</h1>
         <p class="lead">Six industry paragraph styles that chain when you press Enter, the right margins, capitals that type themselves, a title page and numbered pages. Open it and write. No macros, no sign-up, no email.</p>
         <div class="hero-actions">
-          <a class="cta-button" href="/word/download/Screenplay%20Template%20(US%20Letter).docx" download>Download for US Letter</a>
-          <a class="btn-outline" href="/word/download/Screenplay%20Template%20(A4).docx" download>Download for A4</a>
+          <a class="cta-button" href="/word/download/Screenplay%20Template%20(US%20Letter).docx" download>Download for US&nbsp;Letter <span class="std">American standard</span></a>
+          <a class="btn-outline" href="/word/download/Screenplay%20Template%20(A4).docx" download>Download for A4 <span class="std">European standard</span></a>
         </div>
         <p class="hero-note">.docx, 4&nbsp;KB, opens in Word on Mac, Windows, iPad and the web. Also fine in Google Docs, Pages and LibreOffice.</p>
       </div>
@@ -74,20 +79,27 @@
         <div class="b"></div>
         <div>INT. HOTEL BAR, TOKYO - NIGHT</div>
         <div class="b"></div>
-        <div>Neon through the window. BOB, sixty, tie</div>
-        <div>undone, nurses a whisky he did not order.</div>
+        <div>Neon through the window. BOB, sixty, tie undone, nurses a whisky he did not order.</div>
         <div class="b"></div>
         <div class="ch">CHARLOTTE</div>
         <div class="pa">(one stool over)</div>
         <div class="di">You're not going to sleep either.</div>
         <div class="b"></div>
         <div class="ch">BOB</div>
-        <div class="di">I haven't slept since Thursday. Which</div>
-        <div class="di">Thursday, I couldn't tell you.</div>
+        <div class="di">I haven't slept since Thursday. Which Thursday, I couldn't tell you.</div>
         <div class="b"></div>
-        <div>She almost smiles. He almost stays.</div>
+        <div>She almost smiles. He almost stays. Outside, a taxi pulls up, hesitates, and drives away with nobody in it.</div>
+        <div class="b"></div>
+        <div class="ch">CHARLOTTE</div>
+        <div class="di">That was my ride.</div>
+        <div class="b"></div>
+        <div>She does not move. Neither does he.</div>
         <div class="b"></div>
         <div class="tr">CUT TO:</div>
+        <div class="b"></div>
+        <div>EXT. TOKYO STREET - DAWN</div>
+        <div class="b"></div>
+        <div>The city, washed and empty. Somewhere a shutter goes up.</div>
       </div>
     </section>
 
@@ -126,6 +138,32 @@
           <p>A plain .docx of four kilobytes. No code, no tracking, nothing that asks for permission. Look inside if you like.</p>
         </div>
       </div>
+    </section>
+
+    <section class="wrap section">
+      <h2>Two more, already written.</h2>
+      <p>A blank template is a blank page with better margins. These two are screenplays you can read, take apart, and write over. Same six styles, same file, nothing to set up.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="tag">Horror</span>
+          <h3>The opening of Scream</h3>
+          <p>Twelve minutes, one location, one character and a phone call that becomes a trap. Kevin Williamson&rsquo;s opening is a horror short with a beginning, a middle and an end, and it is the best lesson in dread you can read in fifteen pages.</p>
+          <div class="dl">
+            <div class="pages" aria-hidden="true"><span></span></div>
+            <a class="cta-button" href="/word/download/Scream%20opening%20screenplay%20template.docx" download>Download the scene</a>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tag">Feature</span>
+          <h3>Room 306, a whole screenplay</h3>
+          <p>An original feature-length script, fifty pages, written for a screenwriting conference in Oxford and given away here. Read it, delete it, keep the shape. It is the fastest way to see what ninety scenes look like when the format never moves.</p>
+          <div class="dl">
+            <div class="pages" aria-hidden="true"><span></span></div>
+            <a class="cta-button" href="/word/download/Room%20306%20-%20a%20complete%20screenplay.docx" download>Download the screenplay</a>
+          </div>
+        </div>
+      </div>
+      <p class="hero-note">Both are US Letter .docx files, in the same six styles. The Scream pages are there to be studied, and the script belongs to its author.</p>
     </section>
 
     <section class="wrap section">
