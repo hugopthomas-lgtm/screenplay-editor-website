@@ -6,7 +6,7 @@
 // pour les types que Final Draft laisse flous ("General").
 
 import { parseXml, findAll, textOf } from './xml.js';
-import { calculateScores, getTypeFromScores, cleanText } from './screenplay.js';
+import { calculateScores, getTypeFromScores, cleanText, titlePageFromLines } from './screenplay.js';
 import { converterError } from './messages.js';
 
 // Types Final Draft vers les nôtres. Shot et General n'ont pas d'équivalent :
@@ -41,30 +41,7 @@ function paragraphText(paragraph) {
 function readTitlePage(finalDraft) {
   const titlePages = childrenNamed(finalDraft, 'TitlePage');
   if (!titlePages.length) return null;
-
-  const lines = findAll(titlePages[0], 'Paragraph')
-    .map(paragraphText)
-    .filter(Boolean);
-  if (!lines.length) return null;
-
-  const meta = {};
-  const loose = [];
-  for (const line of lines) {
-    const m = line.match(/^(Title|Credit|Author|Authors|Source|Draft date|Date|Contact|Copyright)\s*:\s*(.*)$/i);
-    if (m && m[2]) meta[m[1].toLowerCase()] = m[2].trim();
-    else loose.push(line);
-  }
-
-  // Une page de titre Final Draft n'est presque jamais étiquetée : c'est du
-  // texte centré. Sans étiquette, la première ligne est le titre et ce qui suit
-  // un "written by" est l'auteur.
-  if (!meta.title && loose.length) meta.title = loose[0];
-  if (!meta.author) {
-    const byIndex = loose.findIndex((l) => /^(written|screenplay|story)\s+by$/i.test(l.trim()));
-    if (byIndex !== -1 && loose[byIndex + 1]) meta.author = loose[byIndex + 1];
-  }
-
-  return { ...meta, lines };
+  return titlePageFromLines(findAll(titlePages[0], 'Paragraph').map(paragraphText));
 }
 
 /**

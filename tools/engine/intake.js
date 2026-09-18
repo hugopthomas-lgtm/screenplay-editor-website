@@ -8,9 +8,13 @@
 import { parseFdx } from './parse-fdx.js';
 import { parseFountain } from './parse-fountain.js';
 import { extractLines, linesToBlocks } from './parse-pdf.js';
+import { parseOsf } from './parse-osf.js';
+import { parseDocxXml } from './parse-docx.js';
+import { parseCeltx } from './parse-celtx.js';
+import { unzip } from './unzip.js';
 import { converterError } from './messages.js';
 
-export const ACCEPT = '.pdf,.fdx,.fountain,.spmd,.txt';
+export const ACCEPT = '.pdf,.fdx,.fountain,.spmd,.txt,.fadein,.osf,.docx,.celtx,.highland';
 export const MAX_BYTES = 40 * 1024 * 1024;
 
 let pdfjsPromise = null;
@@ -32,6 +36,43 @@ function detectKind(file, text) {
   if (name.endsWith('.fdx')) return 'fdx';
   if (text && text.trimStart().startsWith('<?xml') && text.includes('<FinalDraft')) return 'fdx';
   return 'fountain';
+}
+
+/** Un ZIP commence toujours par PK, quel que soit le nom du fichier. */
+async function isZip(file) {
+  const head = new Uint8Array(await file.slice(0, 4).arrayBuffer());
+  return head[0] === 0x50 && head[1] === 0x4b && head[2] === 0x03 && head[3] === 0x04;
+}
+
+/**
+ * Quatre formats de scénario sont des archives ZIP, et l'extension ment
+ * souvent (un .fadein renommé, un .docx téléchargé sous un autre nom). On
+ * regarde donc ce qu'il y a DEDANS, pas comment le fichier s'appelle.
+ */
+async function readZipped(data, name, onProgress) {
+  const files = await unzip(data);
+  const decode = (bytes) => new TextDecoder().decode(bytes);
+
+  if (files.has('word/document.xml')) {
+    onProgress('Reading the document…');
+    return { ...parseDocxXml(decode(files.get('word/document.xml'))), kind: 'docx' };
+  }
+
+  if (files.has('document.xml')) {
+    onProgress('Reading the Fade In file…');
+    return { confident: true, ...parseOsf(decode(files.get('document.xml'))), kind: 'fadein' };
+  }
+
+  // Highland range un fichier Fountain dans une archive.
+  for (const [entry, bytes] of files) {
+    if (/\.(fountain|spmd|txt)$/i.test(entry)) {
+      onProgress('Reading the Highland file…');
+      return { confident: true, ...parseFountain(decode(bytes)), kind: 'highland' };
+    }
+  }
+
+  onProgress('Reading the Celtx project…');
+  return { ...(await parseCeltx(data)), kind: 'celtx' };
 }
 
 /**
@@ -56,6 +97,12 @@ export async function readScreenplay(file, onProgress = () => {}) {
     onProgress('Reading the columns…');
     const result = linesToBlocks(lines);
     return { ...result, kind: 'pdf', name, pages: Math.max(...lines.map((l) => l.page)) };
+  }
+
+  if (await isZip(file)) {
+    const data = new Uint8Array(await file.arrayBuffer());
+    const result = await readZipped(data, name, onProgress);
+    return { confident: true, warnings: [], ...result, name, pages: null };
   }
 
   const text = await file.text();

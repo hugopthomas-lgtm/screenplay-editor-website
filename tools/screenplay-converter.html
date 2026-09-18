@@ -139,15 +139,15 @@
 
   <main>
     <section class="wrap hero">
-      <h1>Open your screenplay in Google Docs.</h1>
-      <p class="lead">Drop in a PDF, a Final Draft file or a Fountain file, and take it out as any of the three: a document that opens in Google Docs already formatted, a .fdx, or a .fountain. Every scene heading, character cue and line of dialogue lands in the right place. It runs on your computer and your script is never uploaded.</p>
+      <h1>Convert your screenplay,<br>in any direction.</h1>
+      <p class="lead">Drop in a PDF, a Final Draft file, a Fade In file, a Word or Google Docs document, a Celtx project, a Highland file or plain Fountain. Take it out as a document that opens in Google Docs or Microsoft Word already formatted, a .fdx, a .fadein or a .fountain. Every scene heading, character cue and line of dialogue lands in the right place, and your script never leaves your computer.</p>
 
       <div class="dropzone" id="dropzone">
         <h2 id="dropzone-title">Drop your screenplay here</h2>
         <p>You can also pick a file from your computer.</p>
         <label class="cta-button pick" for="file">Choose a file</label>
-        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt">
-        <p class="formats">PDF, Final Draft (.fdx), Fountain (.fountain, .spmd) and plain text. Nothing is uploaded.</p>
+        <input type="file" id="file" class="file-input" accept=".pdf,.fdx,.fountain,.spmd,.txt,.fadein,.osf,.docx,.celtx,.highland">
+        <p class="formats">PDF, Final Draft (.fdx), Fade In (.fadein), Word or Google Docs (.docx), Celtx, Highland, Fountain and plain text. Nothing is uploaded.</p>
       </div>
 
       <div class="status" id="status" hidden></div>
@@ -163,6 +163,7 @@
             <div class="group stack">
               <label><input type="radio" name="output" value="docx" checked> Google Docs</label>
               <label><input type="radio" name="output" value="fdx"> Final Draft</label>
+              <label><input type="radio" name="output" value="fadein"> Fade In</label>
               <label><input type="radio" name="output" value="fountain"> Fountain</label>
             </div>
             <div id="page-size">

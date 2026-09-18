@@ -17,6 +17,10 @@ export const WARNINGS = {
     `${plural(count, 'element', 'elements')} that belong to Final Draft rather than to the script (cast lists, act markers) ${count === 1 ? 'was' : 'were'} left out.`,
   'page-furniture': ({ count }) =>
     `${plural(count, 'line', 'lines')} of page furniture (page numbers, CONTINUED marks) ${count === 1 ? 'was' : 'were'} removed.`,
+  'docx-columns-guessed': () =>
+    'This document does not carry the indents of the screenplay standard, so the elements were worked out from the columns it does use. Check the character cues and the dialogue before you send it anywhere.',
+  'celtx-classes-unknown': () =>
+    'This Celtx project does not label its paragraphs the way Celtx used to, so the elements were worked out from the words alone. Exporting from Celtx as Fountain gives a cleaner result.',
   'no-columns': () =>
     'This PDF is not laid out like a screenplay, so the elements were worked out from the words alone. Check the characters and the dialogue before you send the document anywhere.'
 };
@@ -25,6 +29,12 @@ export const ERRORS = {
   'not-fdx': 'This file does not look like a Final Draft file: there is no FinalDraft tag inside it.',
   'empty-fdx': 'This Final Draft file holds no screenplay text.',
   'empty-file': 'This file is empty, so there is nothing to convert.',
+  'not-osf': 'This file does not look like a Fade In screenplay: there is no Open Screenplay Format document inside it.',
+  'empty-osf': 'This Fade In file holds no screenplay text.',
+  'not-docx': 'This file does not look like a Word or Google Docs document.',
+  'empty-docx': 'This document holds no readable line of screenplay.',
+  'not-celtx': 'This file does not look like a Celtx project. If it came from the Celtx website, export your script as Fountain and drop that file here instead.',
+  'empty-celtx': 'This Celtx project holds no script text. Export your script from Celtx as Fountain and drop that file here instead.',
   'empty-pdf': 'This PDF holds no readable line of screenplay.',
   'scanned-pdf':
     'This PDF contains an image and no text. It probably comes from a scan or a photo, so it needs to go through character recognition before it can be converted.',

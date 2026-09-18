@@ -262,3 +262,51 @@ export function summarize(blocks) {
 
   return { counts, scenes, characters: [...characters].sort() };
 }
+
+// ============================================
+// PAGE DE TITRE
+// ============================================
+
+const TITLE_LABEL = /^(Title|Credit|Author|Authors|Source|Draft date|Date|Contact|Copyright)\s*:\s*(.*)$/i;
+
+/**
+ * Lit une page de titre à partir de ses lignes, étiquetées ou non.
+ *
+ * Une page de titre de Final Draft ou de Fade In n'est presque jamais
+ * étiquetée : c'est du texte centré. Sans étiquette, la première ligne est le
+ * titre, et ce qui suit un « written by » est l'auteur.
+ *
+ * @param {string[]} lines lignes non vides, dans l'ordre
+ * @returns {Object|null}
+ */
+export function titlePageFromLines(lines) {
+  const kept = (lines || []).map((l) => cleanText(l)).filter(Boolean);
+  if (!kept.length) return null;
+
+  const meta = {};
+  const loose = [];
+  for (const line of kept) {
+    const m = line.match(TITLE_LABEL);
+    if (m && m[2]) meta[m[1].toLowerCase()] = m[2].trim();
+    else loose.push(line);
+  }
+
+  if (!meta.title && loose.length) meta.title = loose[0];
+
+  if (!meta.author) {
+    // « Written by » seul sur sa ligne, le nom en dessous. C'est la mise en
+    // page anglo-saxonne, et celle que produit Final Draft.
+    const byIndex = loose.findIndex((l) => /^(written|screenplay|story)\s+by$/i.test(l.trim()));
+    if (byIndex !== -1 && loose[byIndex + 1]) meta.author = loose[byIndex + 1];
+  }
+
+  if (!meta.author) {
+    // La mise en page française met tout sur une ligne : « Écrit par X et Y ».
+    for (const line of loose) {
+      const m = line.match(/^(?:written|screenplay|story)\s+by\s+(.+)$|^(?:un\s+)?(?:sc[ée]nario\s+(?:de|par)|[ée]crit\s+par)\s+(.+)$/i);
+      if (m) { meta.author = (m[1] || m[2]).replace(/\.$/, '').trim(); break; }
+    }
+  }
+
+  return { ...meta, lines: kept };
+}

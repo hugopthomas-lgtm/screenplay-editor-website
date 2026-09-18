@@ -1,0 +1,93 @@
+/* ------------------------------------------------------------
+   LE SOL — de vraies cartes de scénario sur un plan incliné, qui
+   défilent en boucle sous le hero et sous le dernier appel.
+   Ce n'est pas une image : un conteneur avec perspective, UNE
+   rotation sur le plan, et une piste de trois copies identiques
+   qui glisse d'exactement une copie, donc jamais de saut ni de
+   bord visible. Les cartes sont fabriquées par /floor.js.
+
+   À poser dans une section `position: relative` sur fond sombre :
+     <div class="floor-stage" aria-hidden="true">
+       <div class="floor-plane"><div class="floor-track"></div></div>
+       <div class="floor-haze"></div>
+     </div>
+   Réglages par section, en variables : --floor-h (hauteur de la
+   bande), --floor-speed (durée d'un tour), --floor-ground (couleur
+   du fond dans lequel le lointain s'efface).
+   ------------------------------------------------------------ */
+.floor-stage {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: var(--floor-h, 340px);
+  overflow: hidden; pointer-events: none; z-index: 0;
+  perspective: 1000px; perspective-origin: 50% 100%;
+}
+.floor-plane {
+  position: absolute; left: 0; top: 8%;
+  width: max-content;
+  transform: rotateX(22deg);
+  transform-origin: 50% 0;
+  opacity: .82;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.12) 26%, #000 60%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.12) 26%, #000 60%, #000 100%);
+}
+.floor-track { display: flex; animation: floor-drift var(--floor-speed, 42s) linear infinite; will-change: transform; }
+@keyframes floor-drift { to { transform: translateX(-33.3333%); } }
+.floor-set { display: flex; }
+.floor-tile { display: grid; grid-template-columns: repeat(3, 160px); grid-auto-rows: 150px; gap: 16px; margin-right: 16px; }
+.floor-haze {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to bottom, var(--floor-ground, var(--dark)) 0, transparent 40%),
+    linear-gradient(to right, var(--floor-ground, var(--dark)) 0, transparent 12%, transparent 88%, var(--floor-ground, var(--dark)) 100%);
+}
+
+/* Les objets du sol. Préfixe fc- pour ne jamais croiser les classes des pages. */
+.fc { font-family: var(--sans); background: var(--paper-2); color: var(--ink-2); border-radius: var(--r-md); padding: 14px 16px; overflow: hidden; font-size: 13px; line-height: 1.35; box-shadow: 0 16px 36px rgba(0,0,0,.45); }
+.fc-tall { grid-row: span 2; }
+.fc-eyebrow { font-size: 10.5px; letter-spacing: var(--ls-caps); text-transform: uppercase; color: var(--ink-4); font-weight: var(--w-bold); margin-bottom: 7px; }
+
+/* Une page : colonnes du vrai format à l'échelle de la carte (personnage à 3,7 po,
+   parenthèse à 3,1 po, dialogue de 2,5 à 6 po sur un bloc de 1,5 à 7,5 po), Courier à
+   interligne SIMPLE, une ligne vide entre les éléments, jamais de gras ni de gris. */
+.fc-page { font-family: var(--courier); font-size: 9.5px; line-height: 1; color: var(--ink); padding: 14px 12px; position: relative; }
+.fc-page .num { position: absolute; top: 8px; right: 12px; color: var(--ink-4); }
+.fc-page .slug { text-transform: uppercase; margin-bottom: 1em; }
+.fc-page .act { margin-bottom: 1em; }
+.fc-page .who { margin-left: 37%; text-transform: uppercase; margin-top: 1em; }
+.fc-page .par { margin-left: 27%; width: 58%; }
+.fc-page .say { margin-left: 17%; width: 62%; }
+.fc-page .trans { text-align: right; text-transform: uppercase; margin-top: 1em; }
+.fc-page.fc-title { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 6px; }
+.fc-page.fc-title .t { font-size: 13px; font-weight: var(--w-bold); letter-spacing: .06em; }
+
+.fc-poster { position: relative; background: var(--violet); color: var(--ink); display: flex; flex-direction: column; justify-content: center; padding: 16px; }
+.fc-poster .fc-eyebrow { position: absolute; top: 14px; left: 16px; margin: 0; color: rgba(26,26,26,.5); }
+.fc-poster .t { font-family: var(--sans); font-size: 24px; font-weight: var(--w-bold); line-height: 1; letter-spacing: -0.6px; }
+.fc-poster .by { font-family: var(--courier); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(26,26,26,.6); margin-top: 10px; }
+
+.fc-scenes { display: flex; flex-direction: column; gap: 7px; font-family: var(--courier); font-size: 10.5px; color: var(--ink); }
+.fc-scenes span { display: flex; gap: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fc-scenes b { color: var(--ink-4); font-weight: var(--w-normal); min-width: 16px; }
+.fc-people { display: flex; flex-direction: column; gap: 8px; color: var(--ink); }
+.fc-people span { display: flex; align-items: center; gap: 9px; font-weight: var(--w-medium); }
+.fc-people i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.fc-chips { display: flex; flex-direction: column; gap: 10px; }
+.fc-chip { font-family: var(--sans); background: var(--paper-2); color: var(--ink); border-radius: var(--r-md); box-shadow: 0 16px 36px rgba(0,0,0,.45); padding: 0 16px; height: 46px; display: flex; align-items: center; gap: 10px; font-weight: var(--w-medium); font-size: 13px; white-space: nowrap; overflow: hidden; }
+.fc-chip.fc-mono { font-family: var(--courier); font-size: 11.5px; }
+.fc-chip svg { width: 16px; height: 16px; flex: none; color: var(--violet-dark); }
+.fc-avatars { display: flex; }
+.fc-avatars b { width: 22px; height: 22px; border-radius: 50%; margin-left: -6px; font-size: 9px; font-weight: var(--w-bold); display: grid; place-items: center; color: #fff; border: 2px solid #fff; }
+.fc-avatars b:first-child { margin-left: 0; }
+.fc-strong { color: var(--ink); font-weight: var(--w-bold); margin-top: 10px; }
+.fc-note { font-style: italic; color: var(--ink-3); }
+.fc-counts { display: flex; gap: 14px; margin-top: 4px; color: var(--ink); }
+.fc-counts b { display: block; font-size: 20px; font-weight: var(--w-bold); letter-spacing: -0.5px; }
+.fc-counts small { font-size: 10px; color: var(--ink-4); text-transform: uppercase; letter-spacing: .08em; }
+
+@media (max-width: 720px) {
+  .floor-stage { --floor-h: 220px; }
+  .floor-plane { transform: rotateX(26deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floor-track { animation: none; }
+}

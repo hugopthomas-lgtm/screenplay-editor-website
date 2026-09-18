@@ -4,12 +4,11 @@
 // n'est pas seulement une promesse de confidentialité, c'est aussi ce qui
 // permet de convertir un scénario de cent pages sans serveur et sans attente.
 
-import { parseFdx } from '../engine/parse-fdx.js';
-import { parseFountain } from '../engine/parse-fountain.js';
-import { extractLines, linesToBlocks } from '../engine/parse-pdf.js';
+import { readScreenplay, MAX_BYTES } from '../engine/intake.js';
 import { buildDocx } from '../engine/docx.js';
 import { buildFdx } from '../engine/write-fdx.js';
 import { buildFountain } from '../engine/write-fountain.js';
+import { buildFadeIn } from '../engine/write-osf.js';
 import { INDENTS, summarize } from '../engine/screenplay.js';
 import { warningText, errorText, converterError } from '../engine/messages.js';
 import { track } from './track.js';
@@ -42,6 +41,13 @@ const OUTPUTS = {
     build: (blocks, options) => buildFdx(blocks, options),
     note: 'Open it straight from Final Draft, or from any app that reads .fdx: Fade In, Highland, WriterDuet, Arc Studio. What travels is the script itself, not the coloured revisions or the locked scene numbers, which belong to the file you started from.'
   },
+  fadein: {
+    extension: 'fadein',
+    label: 'Download the Fade In file',
+    mime: 'application/zip',
+    build: (blocks, options) => buildFadeIn(blocks, options),
+    note: 'Fade In opens it with every paragraph already typed, and your title page in its own fields. It is also the Open Screenplay Format, which several other programs read.'
+  },
   fountain: {
     extension: 'fountain',
     label: 'Download the Fountain file',
@@ -73,42 +79,9 @@ function hideStatus() {
   $('#status').hidden = true;
 }
 
-async function loadPdfjs() {
-  const pdfjsLib = await import('../vendor/pdf.mjs');
-  pdfjsLib.GlobalWorkerOptions.workerSrc = '/tools/vendor/pdf.worker.mjs';
-  return pdfjsLib;
-}
-
-function detectKind(file, text) {
-  const name = file.name.toLowerCase();
-  if (name.endsWith('.pdf')) return 'pdf';
-  if (name.endsWith('.fdx')) return 'fdx';
-  if (text && text.trimStart().startsWith('<?xml') && text.includes('<FinalDraft')) return 'fdx';
-  return 'fountain';
-}
-
 async function convert(file) {
   state.fileName = file.name.replace(/\.[^.]+$/, '') || 'screenplay';
-
-  const isPdf = file.name.toLowerCase().endsWith('.pdf');
-  let result;
-
-  if (isPdf) {
-    setStatus('Reading the PDF…');
-    const pdfjsLib = await loadPdfjs();
-    const data = new Uint8Array(await file.arrayBuffer());
-    const lines = await extractLines(pdfjsLib, data, (ratio) => {
-      setStatus(`Reading the PDF… ${Math.round(ratio * 100)}%`);
-    });
-    setStatus('Reading the columns…');
-    result = linesToBlocks(lines);
-  } else {
-    const text = await file.text();
-    const kind = detectKind(file, text);
-    setStatus(kind === 'fdx' ? 'Reading the Final Draft file…' : 'Reading the Fountain file…');
-    result = kind === 'fdx' ? parseFdx(text) : parseFountain(text);
-  }
-
+  const result = await readScreenplay(file, (message) => setStatus(message));
   state.blocks = result.blocks;
   state.titlePage = result.titlePage || null;
   track('run');
@@ -216,7 +189,7 @@ function syncOutput() {
 
 async function handleFile(file) {
   if (!file) return;
-  if (file.size > 40 * 1024 * 1024) {
+  if (file.size > MAX_BYTES) {
     setStatus(errorText(converterError('too-large')), 'error');
     return;
   }
