@@ -1692,7 +1692,6 @@
         if (dc) dc.hidden = surface === 'word';
         if (wb) wb.hidden = surface !== 'word';
         var gd = document.querySelector('.gdoc'); if (gd) gd.classList.toggle('is-word', surface === 'word');
-        var pain = document.querySelector('.hero-pain'); if (pain) pain.hidden = surface === 'word';
         try { document.dispatchEvent(new CustomEvent('se-surface', { detail: surface })); } catch (e) {}
       }
       function detect() {
