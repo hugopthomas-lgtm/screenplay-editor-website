@@ -136,7 +136,7 @@
   // ecrit sur Word n'avait aucun chemin vers sa version.
   var ON_WORD = /^\/(fr\/)?word(\/|$)/.test(location.pathname);
   var SURFACE = ON_WORD
-    ? ['Google Docs', IS_FR ? '/fr/' : '/', DOCS_ICO]
+    ? ['Docs', IS_FR ? '/fr/' : '/', DOCS_ICO]
     : ['Word', IS_FR ? '/fr/word' : '/word', WORD_ICO];
 
   var navHtml = NAV.map(function (n) {
@@ -181,27 +181,35 @@
         '.logo .dot{color:' + VIOLET + ';}' +
 
         'nav{display:flex;align-items:center;}' +
-        '.nav-links{display:flex;align-items:center;}' +
+        /* Chaque zone porte une largeur fixe. Sinon un libelle plus long
+           (Docs contre Word, Installer contre Install, le francais contre
+           l'anglais) decale tout ce qui est a sa gauche, et les onglets
+           sautent d'une page a l'autre sous les yeux du lecteur. */
+        '.nav-links{display:flex;align-items:center;box-sizing:border-box;' +
+        'width:400px;margin-left:44px;justify-content:space-between;}' +
         'nav a{margin-left:34px;font-size:14px;font-weight:500;letter-spacing:-0.01em;color:#a5a5a5;' +
         'text-decoration:none;white-space:nowrap;transition:color .2s;}' +
         'nav a:hover{color:#fff;}' +
-        /* The brand is its own block: give it more air than the links get. */
-        '.nav-links a:first-child{margin-left:44px;}' +
+        '.nav-links a{margin-left:0;}' +
 
         /* Les bascules : une pastille pleine, sans contour, plus petite que
            les liens. On voit au premier coup d'oeil que ce n'est pas un
            onglet de plus mais un interrupteur. */
-        '.switches{display:flex;align-items:center;gap:7px;margin-left:34px;}' +
-        '.chip{display:inline-flex;align-items:center;gap:6px;margin-left:0;' +
+        '.switches{display:flex;align-items:center;gap:7px;margin-left:30px;' +
+        'width:130px;justify-content:flex-end;box-sizing:border-box;}' +
+        '.chip{display:inline-flex;align-items:center;justify-content:center;gap:6px;' +
+        'margin-left:0;box-sizing:border-box;width:82px;' +
         'padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.09);' +
         'color:#d0d0d0;font-size:13px;font-weight:600;letter-spacing:-0.01em;' +
         'text-decoration:none;white-space:nowrap;transition:background .2s,color .2s;}' +
         '.chip:hover{background:rgba(255,255,255,0.17);color:#fff;}' +
+        '.chip.lang-switch{width:41px;}' +
         '.chip-ico{width:14px;height:14px;flex-shrink:0;}' +
         '.mobile-menu .switches{margin:6px 0 2px 10px;}' +
 
         '.cta{margin-left:30px;background:' + VIOLET + ';color:#fff;' +
-        'display:inline-flex;align-items:center;gap:7px;white-space:nowrap;' +
+        'display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;' +
+        'box-sizing:border-box;width:132px;' +
         'padding:9px 20px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:-0.01em;' +
         'text-decoration:none;}' +
         '.cta{transition:background .3s cubic-bezier(.4,0,.2,1),transform .3s cubic-bezier(.4,0,.2,1);}' +
@@ -227,7 +235,7 @@
         "font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.mobile-menu a:active{background:rgba(157,123,234,0.16);color:#fff;}' +
 
-        '@media(min-width:981px){.pill{width:820px;}}' +
+        '@media(min-width:981px){.pill{width:860px;}}' +
         '@media(max-width:980px){.nav-links{display:none;}.pill .switches{display:none;}.cta{margin-left:18px;}' +
         '.pill{padding:7px 7px 7px 20px;}.burger{display:block;}' +
         '.rail.open .mobile-menu{display:flex;}}' +
