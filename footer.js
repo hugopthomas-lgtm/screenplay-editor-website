@@ -106,10 +106,7 @@
         /* Le pied de page est un objet posé sur la page, pas une bande qui
            la termine : une dalle noire à grands arrondis, détachée des
            bords. La marque y prend enfin sa taille réelle. */
-        /* Transparent, pas #FAFAFA : le pied de page se pose sur le fond de la
-   page. Sur les pages claires cela ne change rien, et sur une page
-   au sol charbon il n'y a plus de bande blanche autour du bloc. */
-        ".shell{background:transparent;padding:52px 20px 20px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
+        ".shell{background:#FAFAFA;padding:52px 20px 20px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.wrap{background:#141416;color:#fff;border-radius:40px;padding:66px 60px 30px;' +
         'max-width:1240px;margin:0 auto;overflow:hidden;}' +
         '.inner{display:grid;grid-template-columns:minmax(260px,1.05fr) auto;gap:56px;align-items:start;}' +

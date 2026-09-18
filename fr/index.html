@@ -1325,62 +1325,6 @@
         margin: 10px 0;
       }
     }
-    /* ============================================
-       SOL CHARBON (18/09/2026)
-       Une seule page sombre au lieu de bandes claires et sombres en
-       alternance. Regle : tout est charbon, et les seuls objets clairs
-       sont ceux qui sont du PAPIER (la page du Doc, la feuille de
-       scenario) ou une capture de produit. Ce bloc vient apres les
-       sections pour gagner la cascade sans retoucher chaque regle.
-       ============================================ */
-    body { background: var(--dark); color: #F2F2F4; }
-    .punch, .how, .collab-section, .creed, .privacy-section, .tools, .maker { background: transparent; }
-
-    /* Le surlignage se peint de gauche a droite au defilement. Sur fond
-       clair, le texte restait lisible avant la peinture ; sur le charbon
-       il disparaissait. On prend donc le traitement du hero partout :
-       violet plein, lettres blanches, lisible des la premiere image. */
-    body span.mark { color: #fff; }
-    body span.mark::before { background: var(--violet); }
-
-    .punch p { color: rgba(255,255,255,0.70); }
-    .how h2, .collab-section h2, .creed h2, .privacy-section h2, .tools h2, .maker h2 { color: #F2F2F4; }
-    .collab-section p, .creed p, .privacy-section p, .maker p, .maker-inner p { color: rgba(255,255,255,0.64); }
-    .tools-sub { color: rgba(255,255,255,0.58); }
-
-    .how-step { background: rgba(157,123,234,0.13); }
-    .how-step h3 { color: #F2F2F4; }
-    .how-step p { color: rgba(255,255,255,0.64); }
-
-    .collab-list li { color: rgba(255,255,255,0.78); }
-
-    .cloud-table { background: rgba(255,255,255,0.045); box-shadow: none; }
-    .cloud-table .chead { color: rgba(255,255,255,0.38); }
-    .cloud-table .crow { color: #F2F2F4; }
-    .cloud-table .cwho { color: rgba(255,255,255,0.56); }
-    .cloud-table .cwhere { color: rgba(255,255,255,0.82); }
-    .cloud-table .crow.us { background: rgba(157,123,234,0.16); }
-
-    .tool-card { background: rgba(255,255,255,0.045); box-shadow: none; }
-    .tool-card h3 { color: #F2F2F4; }
-    .tool-card p { color: rgba(255,255,255,0.62); }
-
-    /* Les lauriers d'ACID Cannes et le logo Netflix sont des aplats noirs :
-       sur le charbon ils disparaissent, on les retourne en blanc. */
-    .maker-creds img, .maker-creds svg { filter: invert(1) brightness(1.25); }
-    /* Les titres de films etaient en noir plein dans le texte de Hugo. */
-    .maker p em { color: #F2F2F4; }
-
-    /* Le tableau : le nom du logiciel porte, l'endroit ou dort le fichier
-       recule. Selecteur long parce que la regle claire est elle-meme
-       longue et gagnerait autrement. */
-    .privacy-section .cloud-table .crow .cwho { color: rgba(255,255,255,0.88); }
-    .privacy-section .cloud-table .crow .cwhere { color: rgba(255,255,255,0.55); }
-    .privacy-section .cloud-table .chead { color: rgba(255,255,255,0.38); }
-
-    /* Le papier reste du papier : la feuille de scenario du manifeste
-       garde son encre noire, elle n'est pas une surface de l'interface. */
-
   </style>
   <script src="/header.js"></script>
   <script src="/footer.js"></script>
