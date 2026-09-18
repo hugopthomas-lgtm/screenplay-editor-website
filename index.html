@@ -1440,6 +1440,25 @@
       </div>
     </section>
 
+    <!-- TOOLS -->
+    <section class="collab-section scroll-fade">
+      <div class="collab-inner">
+        <div>
+          <div class="privacy-label">The killer feature</div>
+          <h2 id="sf-collab-h">Write together.<br><span class="mark">In real time.</span></h2>
+          <p id="sf-collab-p">Final Draft can't do this. Comments, suggestions, live co-writing with multiple cursors: your co-writer is already in the room, because it's Google Docs.</p>
+          <ul class="collab-list" id="sf-collab-list">
+            <li><span class="ck">&#10003;</span>Live co-editing with multiple cursors</li>
+            <li><span class="ck">&#10003;</span>Comments and suggestions built in</li>
+            <li><span class="ck">&#10003;</span>No file sharing, no merging, no conflicts</li>
+          </ul>
+        </div>
+        <div class="collab-image">
+          <img src="obj-walkies.png?v=2" id="sf-collab-img" alt="Two writers, one script, in real time">
+        </div>
+      </div>
+    </section>
+
     <!-- WHAT IT WON'T DO -->
     <section class="creed scroll-fade">
       <div class="creed-text">
@@ -1528,24 +1547,6 @@
       </div></div>
     </section>
 
-    <!-- TOOLS -->
-    <section class="collab-section scroll-fade">
-      <div class="collab-inner">
-        <div>
-          <div class="privacy-label">The killer feature</div>
-          <h2 id="sf-collab-h">Write together.<br><span class="mark">In real time.</span></h2>
-          <p id="sf-collab-p">Final Draft can't do this. Comments, suggestions, live co-writing with multiple cursors: your co-writer is already in the room, because it's Google Docs.</p>
-          <ul class="collab-list" id="sf-collab-list">
-            <li><span class="ck">&#10003;</span>Live co-editing with multiple cursors</li>
-            <li><span class="ck">&#10003;</span>Comments and suggestions built in</li>
-            <li><span class="ck">&#10003;</span>No file sharing, no merging, no conflicts</li>
-          </ul>
-        </div>
-        <div class="collab-image">
-          <img src="obj-walkies.png" id="sf-collab-img" alt="Two writers, one script, in real time">
-        </div>
-      </div>
-    </section>
 
     <section id="features" class="tools scroll-fade">
       <h2 id="sf-tools-h">Every tool, right inside Google Docs.</h2>
@@ -1672,8 +1673,8 @@
           'sf-step1-h': 'Install it', 'sf-step1-p': 'Download the installer for Mac or Windows and run it. About a minute, once.',
           'sf-step2-h': 'Open Word', 'sf-step2-p': 'The Screenplay group is in the Home tab. Start a fresh script or paste a draft you already have.',
           'sf-priv-h': 'Your file.<br>Your computer.', 'sf-priv-p': 'Your script is a .docx on your own machine, or in your own OneDrive, behind Microsoft&rsquo;s security. We never store it, and we never see it.', 'sf-priv-us': 'your own .docx',
-          'sf-collab-h': 'Instant.<br><span class="mark">Native to Word.</span>', 'sf-collab-p': 'A template loaded when Word starts makes Enter and Tab part of Word itself: no lag, no browser, no internet needed. The file stays a .docx any producer can open. And you still write together: put it in OneDrive, share it, and everyone is in the same script at once.',
-          'sf-collab-list': '<li><span class="ck">&#10003;</span>Enter and Tab answer instantly, natively</li><li><span class="ck">&#10003;</span>Works offline, on a plane, in a classroom</li><li><span class="ck">&#10003;</span>A .docx that opens everywhere, formatting kept</li><li><span class="ck">&#10003;</span>Write together too: share the file in OneDrive, comments and live cursors included</li>',
+          'sf-collab-h': 'Write together.<br><span class="mark">In real time.</span>', 'sf-collab-p': "Final Draft can't do this either. Put the file in OneDrive, share it, and you are all in the same script at once: live cursors, comments, suggestions. And Enter and Tab stay instant, because they come from Word itself and not from a browser.",
+          'sf-collab-list': '<li><span class="ck">&#10003;</span>Live co-writing with everyone&rsquo;s cursor, in OneDrive</li><li><span class="ck">&#10003;</span>Comments and suggestions, the ones Word already has</li><li><span class="ck">&#10003;</span>Enter and Tab answer instantly, natively, even offline</li><li><span class="ck">&#10003;</span>A .docx that opens everywhere, formatting kept</li>',
           'sf-tools-h': 'Every tool, right inside Word.', 'sf-tools-p': 'No new software to learn. It all lives in one side panel.', 'sf-preview-h': 'Print View', 'sf-tableread-h': 'Table Read',
           'sf-cta-p': 'Screenplay Editor for Word installs in a minute. Start free for a week, then $7.99 a month or $69 a year, the same licence as the Google Docs extension. Cancel anytime.', 'sf-cta-2': 'Or add it to Chrome, for Google Docs', 'sf-cta-secured': '<span class="ck">&#10003;</span>Your file stays on your computer'
         }
@@ -1686,7 +1687,7 @@
         if (c2) c2.href = surface === 'word' ? 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln' : 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
         document.querySelectorAll('.hero-trust li').forEach(function (li) { if (/Also works in/.test(li.textContent)) li.hidden = surface === 'word'; });
         var ci = document.getElementById('sf-collab-img');
-        if (ci) { ci.src = surface === 'word' ? 'obj-plane-cut.png' : 'obj-walkies.png'; ci.alt = surface === 'word' ? 'Works on a plane, no internet needed' : 'Two writers, one script, in real time'; }
+        if (ci) { ci.alt = surface === 'word' ? 'Two writers, one script, in Word' : 'Two writers, one script, in real time'; }
         var dc = document.getElementById('sf-docs-chrome'), wb = document.getElementById('sf-word-chrome');
         if (dc) dc.hidden = surface === 'word';
         if (wb) wb.hidden = surface !== 'word';

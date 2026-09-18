@@ -46,9 +46,9 @@
     .page { background: #fff; box-shadow: var(--shadow-1); border-radius: 4px; padding: 34px 40px; margin: 8px 0 18px; font-family: 'Courier Prime', 'Courier New', monospace; font-size: 14px; line-height: 1; color: #111; max-width: 560px; }
     .page div { margin: 0; }
     .page .b { height: 14px; }
-    .page .ch { margin-left: 38%; }
-    .page .pa { margin-left: 30%; }
-    .page .di { margin-left: 20%; margin-right: 12%; }
+    .page .ch { margin-left: 45%; }
+    .page .pa { margin-left: 35%; margin-right: 32%; }
+    .page .di { margin-left: 23%; margin-right: 22%; }
     .page .tr { text-align: right; }
     .card { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 28px 26px; display: flex; flex-direction: column; gap: 10px; }
     .card h3 { margin: 0; font-size: var(--t-lg); font-weight: var(--w-bold); letter-spacing: var(--ls-label); }
@@ -57,8 +57,10 @@
     .cta-band { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 34px 32px; margin-top: 22px; }
     .cta-band p { margin-bottom: 18px; }
     .tail { padding-bottom: 90px; }
-    .toc { margin: 22px 0 0; padding: 0; list-style: none; max-width: 64ch; }
-    .toc li { margin-top: 6px; }
+    .toc { margin: 26px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px 14px; max-width: 64ch; }
+    .toc li { margin: 0; }
+    .toc a { display: inline-block; font-size: var(--t-sm); color: var(--violet-dark); background: var(--paper-2); box-shadow: var(--shadow-1); border-radius: 999px; padding: 7px 14px; text-decoration: none; }
+    .toc a:hover { color: var(--paper-2); background: var(--violet-dark); }
     @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .page { padding: 24px 20px; font-size: 12px; } }
   </style>
 </head>
@@ -76,6 +78,8 @@
         <li><a href="#addin">The one-minute way</a></li>
         <li><a href="#together">Writing together in Word</a></li>
       </ul>
+      <div class="hero-actions"><a class="cta-button" href="/word">Get it for Word</a></div>
+      <p class="hero-note">Free for a week, Mac and Windows. Or read on and do it by hand, it works too.</p>
     </section>
 
     <section class="wrap section" id="format">

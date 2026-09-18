@@ -1426,6 +1426,25 @@
       </div>
     </section>
 
+    <!-- TOOLS -->
+    <section class="collab-section scroll-fade">
+      <div class="collab-inner">
+        <div>
+          <div class="privacy-label">La fonction reine</div>
+          <h2 id="sf-collab-h">Écrivez à plusieurs.<br><span class="mark">En temps réel.</span></h2>
+          <p id="sf-collab-p">Final Draft ne sait pas faire ça. Commentaires, suggestions, co-écriture en direct avec plusieurs curseurs : votre co-auteur est déjà dans la pièce, parce que c'est Google Docs.</p>
+          <ul class="collab-list" id="sf-collab-list">
+            <li><span class="ck">&#10003;</span>Co-écriture en direct avec plusieurs curseurs</li>
+            <li><span class="ck">&#10003;</span>Commentaires et suggestions intégrés</li>
+            <li><span class="ck">&#10003;</span>Aucun fichier à envoyer, aucune fusion, aucun conflit</li>
+          </ul>
+        </div>
+        <div class="collab-image">
+          <img src="/obj-walkies.png?v=2" id="sf-collab-img" alt="Deux auteurs, un scénario, en temps réel">
+        </div>
+      </div>
+    </section>
+
     <!-- WHAT IT WON'T DO -->
     <section class="creed scroll-fade">
       <div class="creed-text">
@@ -1514,24 +1533,6 @@
       </div></div>
     </section>
 
-    <!-- TOOLS -->
-    <section class="collab-section scroll-fade">
-      <div class="collab-inner">
-        <div>
-          <div class="privacy-label">La fonction reine</div>
-          <h2 id="sf-collab-h">Écrivez à plusieurs.<br><span class="mark">En temps réel.</span></h2>
-          <p id="sf-collab-p">Final Draft ne sait pas faire ça. Commentaires, suggestions, co-écriture en direct avec plusieurs curseurs : votre co-auteur est déjà dans la pièce, parce que c'est Google Docs.</p>
-          <ul class="collab-list" id="sf-collab-list">
-            <li><span class="ck">&#10003;</span>Co-écriture en direct avec plusieurs curseurs</li>
-            <li><span class="ck">&#10003;</span>Commentaires et suggestions intégrés</li>
-            <li><span class="ck">&#10003;</span>Aucun fichier à envoyer, aucune fusion, aucun conflit</li>
-          </ul>
-        </div>
-        <div class="collab-image">
-          <img src="/obj-walkies.png" id="sf-collab-img" alt="Deux auteurs, un scénario, en temps réel">
-        </div>
-      </div>
-    </section>
 
     <section id="features" class="tools scroll-fade">
       <h2 id="sf-tools-h">Tous les outils, dans Google Docs.</h2>
@@ -1677,8 +1678,8 @@
           'sf-step1-h': 'Installez-le', 'sf-step1-p': "Téléchargez l'installateur pour Mac ou Windows et lancez-le. Une minute, une seule fois.",
           'sf-step2-h': 'Ouvrez Word', 'sf-step2-p': "Le groupe Screenplay est dans l'onglet Accueil. Commencez un scénario ou collez un brouillon existant.",
           'sf-priv-h': 'Votre fichier.<br>Votre ordinateur.', 'sf-priv-p': 'Votre scénario est un .docx sur votre propre machine, ou dans votre propre OneDrive, derrière la sécurité de Microsoft. Nous ne le stockons jamais, et nous ne le voyons jamais.',
-          'sf-collab-h': 'Instantané.<br><span class="mark">Natif dans Word.</span>', 'sf-collab-p': "Un modèle chargé au démarrage de Word fait d'Entrée et de Tab une partie de Word lui-même : aucun délai, pas de navigateur, pas besoin d'internet. Le fichier reste un .docx que n'importe quel producteur peut ouvrir. Et vous écrivez quand même à plusieurs : mettez-le dans OneDrive, partagez-le, tout le monde est dans le même scénario en même temps.",
-          'sf-collab-list': '<li><span class="ck">&#10003;</span>Entrée et Tab répondent instantanément, nativement</li><li><span class="ck">&#10003;</span>Fonctionne hors ligne, dans un avion, dans une salle de classe</li><li><span class="ck">&#10003;</span>Un .docx qui s\'ouvre partout, mise en forme conservée</li><li><span class="ck">&#10003;</span>À plusieurs aussi : le fichier partagé dans OneDrive, commentaires et curseurs en direct compris</li>',
+          'sf-collab-h': 'Écrivez à plusieurs.<br><span class="mark">En temps réel.</span>', 'sf-collab-p': "Final Draft ne sait pas faire ça non plus. Mettez le fichier dans OneDrive, partagez-le, et vous êtes tous dans le même scénario en même temps : curseurs en direct, commentaires, suggestions. Et Entrée et Tab restent instantanés, parce qu'ils viennent de Word lui-même et pas d'un navigateur.",
+          'sf-collab-list': '<li><span class="ck">&#10003;</span>Co-écriture en direct avec le curseur de chacun, dans OneDrive</li><li><span class="ck">&#10003;</span>Commentaires et suggestions, ceux que Word a déjà</li><li><span class="ck">&#10003;</span>Entrée et Tab instantanés, nativement, même hors ligne</li><li><span class="ck">&#10003;</span>Un .docx qui s\'ouvre partout, mise en forme conservée</li>',
           'sf-tools-h': 'Tous les outils, dans Word.', 'sf-preview-h': 'Print View', 'sf-tableread-h': 'Table Read',
           'sf-cta-p': "Screenplay Editor pour Word s'installe en une minute. Une semaine gratuite, puis 7,99 $ par mois ou 69 $ par an, la même licence que l'extension Google Docs. Résiliable à tout moment.", 'sf-cta-2': 'Ou ajoutez-le à Chrome, pour Google Docs', 'sf-cta-secured': '<span class="ck">&#10003;</span>Votre fichier reste sur votre ordinateur'
         }
@@ -1691,7 +1692,7 @@
         if (c2) c2.href = surface === 'word' ? 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln' : 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
         document.querySelectorAll('.hero-trust li').forEach(function (li) { if (/Marche aussi/.test(li.textContent)) li.hidden = surface === 'word'; });
         var ci = document.getElementById('sf-collab-img');
-        if (ci) { ci.src = surface === 'word' ? '/obj-plane-cut.png' : '/obj-walkies.png'; ci.alt = surface === 'word' ? "Fonctionne dans un avion, sans internet" : 'Deux auteurs, un scénario, en temps réel'; }
+        if (ci) { ci.alt = surface === 'word' ? 'Deux auteurs, un scénario, dans Word' : 'Deux auteurs, un scénario, en temps réel'; }
         var dc = document.getElementById('sf-docs-chrome'), wb = document.getElementById('sf-word-chrome');
         if (dc) dc.hidden = surface === 'word';
         if (wb) wb.hidden = surface !== 'word';
