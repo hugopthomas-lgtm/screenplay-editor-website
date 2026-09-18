@@ -144,7 +144,7 @@
   --ink-4:       #9A9AA2;   /* texte tertiaire, légendes */
   --paper:       #FAFAFA;   /* fond clair */
   --paper-2:     #FFFFFF;
-  --cream:       #F6F0E6;   /* fond des sections chaudes */
+  --cream:       #F3F1F8;   /* fond des sections calmes : un gris tire vers le violet de la marque, jamais un creme (18/09) */
   --line:        rgba(26,26,26,.10);
   --error-bg:    #FCECEC;   /* fond d'un message d'échec sur clair */
   --error-ink:   #8A2B2B;   /* texte d'un message d'échec */

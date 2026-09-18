@@ -21,8 +21,11 @@
 .tl[data-mode="DIALOGUE"] { margin-left: 144px; margin-right: 134px; margin-top: 0; }
 .tl[data-mode="PARENTHETICAL"] { margin-left: 216px; margin-right: 196px; margin-top: 0; }
 .tl[data-mode="TRANSITION"] { text-align: right; }
-.tl:empty::after { content: attr(data-ph); color: #b8b8b8; }
-.tl.is-cur:empty::after { color: #9a9a9a; }
+/* Le texte fantome ne vit que sur la ligne ou est le curseur. Sinon une
+   suite de lignes vides empile le meme fantome, ce qu'aucun traitement de
+   texte ne fait, et la demo se met a mentir sur le produit. */
+.tl:empty::after { content: '\200b'; }
+.tl.is-cur:empty::after { content: attr(data-ph); color: #9a9a9a; }
 
 /* The Google Docs frame: a real capture of the 2026 chrome on top, the grey canvas, the page. */
 .gdoc { background: #fff; border-radius: 12px; overflow: visible; box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3); position: relative; }

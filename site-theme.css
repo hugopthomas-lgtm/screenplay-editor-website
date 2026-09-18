@@ -151,7 +151,7 @@ a { color: inherit; }
 .info-card .price span { font-size: 13px; font-weight: 500; color: #888; }
 
 /* PRIVACY (fond crème + objet) */
-.privacy-section { padding: 74px 30px 78px; background: #f6f0e6; }
+.privacy-section { padding: 74px 30px 78px; background: #F3F1F8; }
 .privacy-inner { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; max-width: 1020px; margin: 0 auto; }
 .privacy-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--violet); margin-bottom: 10px; }
 .privacy-section h2 { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; color: var(--dark); }
