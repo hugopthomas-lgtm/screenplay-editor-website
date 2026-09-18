@@ -24,6 +24,7 @@
     ['Pricing', '/pricing'],
     ['Schools', '/schools'],
     ['Compare', '/compare'],
+    ['Templates', '/resources'],
     ['Tools', '/tools'],
     ['Blog', '/blog'],
     ['About', '/about'],
@@ -40,6 +41,8 @@
       ['Prix', '/fr/pricing'],
       ['Écoles', '/fr/schools'],
       ['Comparer', '/fr/compare'],
+      ['Modèles', '/fr/resources'],
+      ['Outils', '/tools'],
       ['Blog', '/fr/blog'],
       ['À propos', '/fr/about'],
       ['Aide', '/fr/support']
