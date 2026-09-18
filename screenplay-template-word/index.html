@@ -58,6 +58,15 @@
     .cta-band { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 34px 32px; margin-top: 22px; }
     .cta-band p { margin-bottom: 18px; }
     .tail { padding-bottom: 90px; }
+    .tbl { width: 100%; border-collapse: collapse; margin: 6px 0 4px; font-size: var(--t-sm); }
+    .tbl th, .tbl td { text-align: left; padding: 12px 14px; border-bottom: 1px solid rgba(0,0,0,0.08); vertical-align: top; }
+    .tbl th { font-size: var(--t-xs); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--violet); }
+    .tbl td { color: var(--ink-3); }
+    .tbl td:first-child { font-weight: var(--w-bold); color: var(--ink); }
+    .tbl td.yes { color: var(--ink); }
+    .tbl td.yes::before { content: '\2713'; color: var(--violet); font-weight: var(--w-bold); margin-right: 8px; }
+    .tbl td.no::before { content: '\2013'; color: #b9b9c0; font-weight: var(--w-bold); margin-right: 8px; }
+    .tblwrap { overflow-x: auto; }
     @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 30px; } .grid, .grid.three { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -68,9 +77,9 @@
       <div>
         <h1>A free screenplay template<br>for Microsoft&nbsp;Word.</h1>
         <p class="lead">Six industry paragraph styles that chain when you press Enter, the right margins, capitals that type themselves, a title page and numbered pages. Open it and write. No macros, no sign-up, no email.</p>
-        <div class="hero-actions">
-          <a class="cta-button" href="/word/download/Screenplay%20Template%20(US%20Letter).docx" download>Download for US&nbsp;Letter <span class="std">American standard</span></a>
-          <a class="btn-outline" href="/word/download/Screenplay%20Template%20(A4).docx" download>Download for A4 <span class="std">European standard</span></a>
+        <div class="hero-actions" id="dl">
+          <a class="cta-button" id="dl-letter" href="/word/download/Screenplay%20Template%20(US%20Letter).docx" download>Download for US&nbsp;Letter <span class="std">American standard</span></a>
+          <a class="btn-outline" id="dl-a4" href="/word/download/Screenplay%20Template%20(A4).docx" download>Download for A4 <span class="std">European standard</span></a>
         </div>
         <p class="hero-note">.docx, 4&nbsp;KB, opens in Word on Mac, Windows, iPad and the web. Also fine in Google Docs, Pages and LibreOffice.</p>
       </div>
@@ -100,6 +109,24 @@
         <div>EXT. TOKYO STREET - DAWN</div>
         <div class="b"></div>
         <div>The city, washed and empty. Somewhere a shutter goes up.</div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <h2>Why this one and not the other twelve.</h2>
+      <p>Every screenwriting site gives away a Word template. Almost all of them are a document with the margins changed, which is the easy half. Here is the difference, and you can check every line of it in the file.</p>
+      <div class="tblwrap">
+        <table class="tbl">
+          <tr><th>&nbsp;</th><th>A typical free template</th><th>This one</th></tr>
+          <tr><td>Margins and font</td><td class="no">Usually right</td><td class="yes">Right</td></tr>
+          <tr><td>Named paragraph styles</td><td class="no">Often none: direct formatting you cannot reuse</td><td class="yes">Six, one per element</td></tr>
+          <tr><td>Enter moves to the next element</td><td class="no">No</td><td class="yes">Yes, every style knows its successor</td></tr>
+          <tr><td>Capitals without holding Shift</td><td class="no">No</td><td class="yes">Yes, on headings, cues and transitions</td></tr>
+          <tr><td>Title page</td><td class="no">Sometimes</td><td class="yes">Yes, laid out the way readers expect</td></tr>
+          <tr><td>Page numbers with the full stop</td><td class="no">Rarely, and page one is numbered</td><td class="yes">Yes, and page one is not</td></tr>
+          <tr><td>Something to read inside</td><td class="no">A blank page</td><td class="yes">Two real screenplays, below</td></tr>
+          <tr><td>What it costs you</td><td class="no">An email address, often</td><td class="yes">Nothing, no form</td></tr>
+        </table>
       </div>
     </section>
 
@@ -219,6 +246,21 @@
     </section>
   </main>
   <site-footer></site-footer>
+  <script>
+  // The visitor's own paper standard goes first: Letter in the Americas, A4 elsewhere.
+  (function () {
+    try {
+      var tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+      var lang = (navigator.language || '');
+      var american = /^America\//.test(tz) || /^en-(US|CA)$/i.test(lang) || /^(Pacific\/Honolulu|US\/)/.test(tz);
+      if (american) return;                                  // Letter is already the filled button
+      var letter = document.getElementById('dl-letter'), a4 = document.getElementById('dl-a4');
+      if (!letter || !a4) return;
+      letter.className = 'btn-outline'; a4.className = 'cta-button';
+      a4.parentNode.insertBefore(a4, letter);
+    } catch (e) {}
+  })();
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
