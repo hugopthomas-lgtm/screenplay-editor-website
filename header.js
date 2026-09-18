@@ -119,10 +119,33 @@
   }
   var LANG = IS_FR ? ['EN', counterpartHref(), 'en'] : ['FR', counterpartHref(), 'fr'];
 
+  // Deux bascules, pas deux onglets. La langue et la surface d'ecriture ne
+  // menent pas a une page de plus : elles rejouent la meme chose ailleurs.
+  // Elles portent donc une pastille et ne ressemblent pas aux liens.
+  var DOCS_ICO = '<svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#4285F4"/>' +
+    '<path d="M14 2v5h5" fill="#A1C2FA"/>' +
+    '<path d="M8 12h8M8 15h8M8 18h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  var WORD_ICO = '<svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#2B579A"/>' +
+    '<path d="M14 2v5h5" fill="#9CC0F5"/>' +
+    '<path d="M7.2 11l1.6 7h1.5l1.4-5 1.4 5h1.5l1.6-7h-1.5l-1 5-1.4-5h-1.2l-1.4 5-1-5z" fill="#fff"/></svg>';
+
+  // La page Word n'etait atteignable que par l'interrupteur du hero, sur la
+  // page d'accueil. Depuis n'importe quelle autre page, un scenariste qui
+  // ecrit sur Word n'avait aucun chemin vers sa version.
+  var ON_WORD = /^\/(fr\/)?word(\/|$)/.test(location.pathname);
+  var SURFACE = ON_WORD
+    ? ['Google Docs', IS_FR ? '/fr/' : '/', DOCS_ICO]
+    : ['Word', IS_FR ? '/fr/word' : '/word', WORD_ICO];
+
   var navHtml = NAV.map(function (n) {
     return '<a href="' + n[1] + '">' + n[0] + '</a>';
-  }).join('') +
-    '<a class="lang-switch" data-lang="' + LANG[2] + '" href="' + LANG[1] + '">' + LANG[0] + '</a>';
+  }).join('');
+
+  var switchHtml =
+    '<a class="chip" href="' + SURFACE[1] + '">' + SURFACE[2] + SURFACE[0] + '</a>' +
+    '<a class="chip lang-switch" data-lang="' + LANG[2] + '" href="' + LANG[1] + '">' + LANG[0] + '</a>';
 
   class SiteHeader extends HTMLElement {
     connectedCallback() {
@@ -165,6 +188,18 @@
         /* The brand is its own block: give it more air than the links get. */
         '.nav-links a:first-child{margin-left:44px;}' +
 
+        /* Les bascules : une pastille pleine, sans contour, plus petite que
+           les liens. On voit au premier coup d'oeil que ce n'est pas un
+           onglet de plus mais un interrupteur. */
+        '.switches{display:flex;align-items:center;gap:7px;margin-left:34px;}' +
+        '.chip{display:inline-flex;align-items:center;gap:6px;margin-left:0;' +
+        'padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.09);' +
+        'color:#d0d0d0;font-size:13px;font-weight:600;letter-spacing:-0.01em;' +
+        'text-decoration:none;white-space:nowrap;transition:background .2s,color .2s;}' +
+        '.chip:hover{background:rgba(255,255,255,0.17);color:#fff;}' +
+        '.chip-ico{width:14px;height:14px;flex-shrink:0;}' +
+        '.mobile-menu .switches{margin:6px 0 2px 10px;}' +
+
         '.cta{margin-left:30px;background:' + VIOLET + ';color:#fff;' +
         'display:inline-flex;align-items:center;gap:7px;white-space:nowrap;' +
         'padding:9px 20px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:-0.01em;' +
@@ -192,8 +227,8 @@
         "font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.mobile-menu a:active{background:rgba(157,123,234,0.16);color:#fff;}' +
 
-        '@media(min-width:981px){.pill{width:680px;}}' +
-        '@media(max-width:980px){.nav-links{display:none;}.cta{margin-left:18px;}' +
+        '@media(min-width:981px){.pill{width:820px;}}' +
+        '@media(max-width:980px){.nav-links{display:none;}.pill .switches{display:none;}.cta{margin-left:18px;}' +
         '.pill{padding:7px 7px 7px 20px;}.burger{display:block;}' +
         '.rail.open .mobile-menu{display:flex;}}' +
         '@media(prefers-reduced-motion:reduce){.rail{transition:none;}}' +
@@ -202,12 +237,13 @@
         '<a href="/" class="logo">scrrrr<span class="dot">.</span></a>' +
         '<nav>' +
         '<span class="nav-links">' + navHtml + '</span>' +
+        '<span class="switches">' + switchHtml + '</span>' +
         '<a class="cta" href="' + INSTALL + '" target="_blank" rel="noopener">' +
         '<img class="flame" src="/flame.png" alt="" aria-hidden="true">' +
         (IS_FR ? 'Installer' : 'Install') + '</a>' +
         '<button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>' +
         '</nav></div>' +
-        '<div class="mobile-menu">' + navHtml + '</div>' +
+        '<div class="mobile-menu">' + navHtml + '<div class="switches">' + switchHtml + '</div></div>' +
         '</div>';
 
       var rail = root.querySelector('.rail');
