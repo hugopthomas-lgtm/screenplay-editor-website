@@ -3,6 +3,11 @@
   <!-- Construit depuis les balises canonical des pages : le sitemap et
        les pages disent la meme chose, sinon Google choisit lui-meme. -->
   <url>
+    <loc>https://screenplayeditor.app/screenplay-template-word</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://screenplayeditor.app/write-a-screenplay-in-word</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
