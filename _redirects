@@ -1,4 +1,14 @@
-https://dreamscene.eu/* https://screenplayeditor.app/:splat 301!
-https://www.dreamscene.eu/* https://screenplayeditor.app/:splat 301!
-https://www.screenplayeditor.app/* https://screenplayeditor.app/:splat 301!
-/board2/* /board2/index.html 200
+# Cloudflare (assets statiques) n'accepte QUE des chemins relatifs ici.
+#
+# Retiré lors du passage Netlify -> Cloudflare (les règles ci-dessous étaient
+# écrites pour Netlify et faisaient échouer TOUT déploiement) :
+#   - dreamscene.eu/* et www.dreamscene.eu/* -> screenplayeditor.app : redirections
+#     CROSS-DOMAINE en URL absolue, impossibles dans un _redirects Cloudflare.
+#   - www.screenplayeditor.app/* -> apex : idem (cross-domaine). www est déjà servi
+#     par le worker (custom_domain dans wrangler.toml).
+#   - /board2/* -> /board2/index.html 200 : inutile (board2 n'a pas de routing par
+#     sous-chemin, juste des query params) et Cloudflare y voyait une boucle infinie.
+#     /board2/ est servi directement par html_handling = "auto-trailing-slash".
+#
+# Pour canonicaliser www -> apex ou rediriger dreamscene.eu : passer par des
+# "Redirect Rules" Cloudflare (dashboard), pas par ce fichier.
