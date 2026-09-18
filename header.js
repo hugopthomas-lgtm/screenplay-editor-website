@@ -18,17 +18,19 @@
   // gap above the pill + the pill itself + a little air underneath.
   var HEADER_H = 86; // px (14 top gap + ~53 pill + 19 air)
   try { document.documentElement.style.setProperty('--site-header-h', HEADER_H + 'px'); } catch (e) {}
+  // Sans cela, une page qui defile et une page qui ne defile pas ne centrent
+  // pas la capsule au meme endroit sur Windows : elle saute lateralement.
+  try { document.documentElement.style.scrollbarGutter = 'stable'; } catch (e) {}
 
   // Nav links. Absolute paths so they work from any folder depth.
+  // Quatre entrees, pas huit : au dela de cinq, une barre de navigation
+  // cesse d'orienter et devient une liste a lire. Blog, A propos, Aide et
+  // Outils vivent dans le pied de page, qui est fait pour ca.
   var NAV = [
     ['Pricing', '/pricing'],
-    ['Schools', '/schools'],
-    ['Compare', '/compare'],
     ['Templates', '/resources'],
-    ['Tools', '/tools'],
-    ['Blog', '/blog'],
-    ['About', '/about'],
-    ['Support', '/support']
+    ['Compare', '/compare'],
+    ['Schools', '/schools']
   ];
 
   // Version française (page avec lang="fr") : libellés FR, et les pages qui
@@ -39,13 +41,9 @@
   if (IS_FR) {
     NAV = [
       ['Prix', '/fr/pricing'],
-      ['Écoles', '/fr/schools'],
-      ['Comparer', '/fr/compare'],
       ['Modèles', '/fr/resources'],
-      ['Outils', '/tools'],
-      ['Blog', '/fr/blog'],
-      ['À propos', '/fr/about'],
-      ['Aide', '/fr/support']
+      ['Comparer', '/fr/compare'],
+      ['Écoles', '/fr/schools']
     ];
   }
   // Bascule EN/FR : elle mène à la MÊME page dans l'autre langue quand cette
@@ -139,8 +137,14 @@
         "font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.rail.away{transform:translateY(-160%);opacity:0;}' +
 
-        '.pill{pointer-events:auto;display:flex;align-items:center;' +
+        '.pill{pointer-events:auto;display:flex;align-items:center;box-sizing:border-box;' +
         'max-width:calc(100vw - 28px);' +
+        /* Largeur FIXE au-dessus du seuil mobile. Une barre qui grandit
+           ou retrecit d'une page a l'autre (libelles anglais plus longs
+           que les francais, police pas encore chargee) se voit d'autant
+           plus qu'elle flotte au-dessus du reste. Le jeu part entre le
+           logo et le premier lien, jamais dans la boite elle-meme. */
+        'justify-content:space-between;' +
         /* No outline: the capsule reads by its fill, lighter than the dark
            hero behind it and dark against the light pages. */
         'background:rgba(14,14,16,0.86);-webkit-backdrop-filter:blur(16px) saturate(160%);' +
@@ -188,6 +192,7 @@
         "font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}" +
         '.mobile-menu a:active{background:rgba(157,123,234,0.16);color:#fff;}' +
 
+        '@media(min-width:981px){.pill{width:680px;}}' +
         '@media(max-width:980px){.nav-links{display:none;}.cta{margin-left:18px;}' +
         '.pill{padding:7px 7px 7px 20px;}.burger{display:block;}' +
         '.rail.open .mobile-menu{display:flex;}}' +

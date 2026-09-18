@@ -34,6 +34,7 @@
       ['Le format du scénario', '/fr/resources/screenplay-format-google-docs'],
       ['Modèles par genre', '/fr/resources'],
       ['Écrire sur Chromebook', '/fr/resources/chromebook'],
+      ['Outils gratuits', '/tools'],
       ['Blog', '/fr/blog']
     ]],
     ['Pour qui', [
@@ -62,6 +63,7 @@
       ['Screenplay format', '/resources/screenplay-format-google-docs'],
       ['Genre templates', '/resources'],
       ['Write on a Chromebook', '/resources/chromebook'],
+      ['Free tools', '/tools'],
       ['Blog', '/blog']
     ]],
     ['Who it is for', [
