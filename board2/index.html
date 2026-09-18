@@ -333,6 +333,13 @@ function applyTheme(theme){
 // ── Init ──
 let _pendingScenes = null;
 
+// Prévient l'extension (le content script parent) qu'un VRAI board est à l'écran
+// (scan importé ou board sauvegardé restauré) → elle masque son overlay « Analyze ».
+// Silencieux sur l'écran d'accueil : là, l'overlay doit rester pour lancer le scan.
+function _seBoardReady(){
+  try{ if(window.parent && window.parent !== window) window.parent.postMessage({type:'SE_BOARD_READY'}, '*'); }catch(e){}
+}
+
 async function init(){
   initTheme();
   const params = new URLSearchParams(location.search);
@@ -371,6 +378,7 @@ async function init(){
     save();
     render();
     _pendingScenes = null;
+    _seBoardReady();
     return;
   }
 
@@ -379,6 +387,7 @@ async function init(){
   if(state.columns.length){
     document.getElementById('projectTitle').value = state.title;
     render();
+    _seBoardReady();
     return;
   }
 
