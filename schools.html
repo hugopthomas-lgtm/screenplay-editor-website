@@ -88,12 +88,12 @@
     .hero-tryit .gdoc {
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(157, 123, 234, 0.22);
     }
-    .hero-tryit .tryit-above {
-      position: static; width: auto; flex-direction: row; align-items: center;
-      justify-content: center; gap: 14px; margin: 0 auto 20px; top: auto; left: auto;
-    }
-    @media (max-width: 860px) {
-      .hero-tryit .tryit-above { flex-direction: column; align-items: stretch; }
+    /* Sous 1200px il n'y a plus la place pour la pastille a gauche du
+       document : on reprend la disposition que demo.css applique deja au
+       telephone, la pastille au-dessus, dans le cadre. */
+    @media (max-width: 1200px) {
+      .hero-tryit .gdoc-canvas { display: block; }
+      .hero-tryit .tryit-side { position: static; width: auto; margin-bottom: 14px; }
     }
     @media (max-width: 700px) { .hero-tryit { margin-top: 34px; } }
 
@@ -342,13 +342,13 @@
         </div>
         <div class="hero-proof"><span>Students in 100+ schools</span><span class="dot">&middot;</span><span>Works on Chromebooks</span><span class="dot">&middot;</span><span>Free for teachers</span></div>
         <div class="hero-tryit">
-          <div class="tryit-side tryit-above">
-            <div class="tryit-pill" id="tryit-pill"><span class="tryit-dot"></span><span><span class="tryit-cta">Try it. Type Charlotte&#8217;s line.</span><span class="tryit-line">You&#8217;re in <b>dialogue</b>.</span><span class="tryit-tip"></span></span></div>
-            <div class="tryit-keys" aria-label="On a phone, use these"><button type="button" data-key="Enter">Enter &#8629;</button><button type="button" data-key="Tab">Tab &#8677;</button></div>
-          </div>
           <div class="gdoc" aria-label="A document, the way Google Docs shows it">
             <img class="gdoc-chrome" src="/docs-chrome.png?v=9" alt="" width="1568" height="189">
             <div class="gdoc-canvas">
+              <div class="tryit-side">
+                <div class="tryit-pill" id="tryit-pill"><span class="tryit-dot"></span><span><span class="tryit-cta">Try it. Type Charlotte&#8217;s line.</span><span class="tryit-line">You&#8217;re in <b>dialogue</b>.</span><span class="tryit-tip"></span></span></div>
+                <div class="tryit-keys" aria-label="On a phone, use these"><button type="button" data-key="Enter">Enter &#8629;</button><button type="button" data-key="Tab">Tab &#8677;</button></div>
+              </div>
               <div class="gdoc-pagewrap"><div class="tryit-sheet" id="tryit-sheet" aria-label="A screenplay page you can type in"></div></div>
             </div>
           </div>
