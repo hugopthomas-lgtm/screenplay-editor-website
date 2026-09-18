@@ -101,6 +101,14 @@
     var el = e.currentTarget, mode = el.dataset.mode, empty = !el.textContent.trim();
     if (e.key === 'Enter') {
       e.preventDefault();
+      // Comme dans Final Draft, on ne laisse pas de ligne vide derriere soi :
+      // Entree sur une ligne vide ne fait rien. C'est deja la regle du moteur,
+      // pillContent() n'annonce aucune cible d'Entree quand la ligne est vide.
+      // Seule exception, la parenthese vide qui redevient du dialogue.
+      if (empty) {
+        if (mode === 'PARENTHETICAL') { setMode(el, 'DIALOGUE'); el.textContent = ''; caretEnd(el); paint(el); }
+        return;
+      }
       var cta = pill && pill.querySelector('.tryit-cta'); if (cta) cta.remove();
       var d = E.enterDecision(mode);
       var n = block(d.mode, ''); el.after(n); caretEnd(n); paint(n); added++; checkOutro(); return;
