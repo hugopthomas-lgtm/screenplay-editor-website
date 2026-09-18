@@ -80,16 +80,22 @@
     }
     .hero-proof .dot { color: var(--violet); }
 
-    /* La demo : la meme que sur l'accueil, en attendant celle tournee
-       pour la classe. Muette et en boucle, parce qu'une page produit se
-       regarde, elle ne se met pas en lecture. */
-    .hero-screenshot {
-      max-width: 720px;
-      margin: 46px auto 0;
-      filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 45px rgba(157, 123, 234, 0.28));
+    /* La demo du hero, celle de l'accueil : on tape dedans au lieu de
+       regarder une video. Le hero des ecoles est centre et porte un
+       overflow:hidden, donc la pastille d'aide ne peut pas flotter sur le
+       cote comme sur l'accueil : elle passe au-dessus du document. */
+    .hero-tryit { max-width: 960px; margin: 46px auto 0; text-align: left; }
+    .hero-tryit .gdoc {
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(157, 123, 234, 0.22);
     }
-    .hero-demo { display: block; width: 100%; border-radius: 10px; }
-    @media (max-width: 700px) { .hero-screenshot { margin-top: 34px; } }
+    .hero-tryit .tryit-above {
+      position: static; width: auto; flex-direction: row; align-items: center;
+      justify-content: center; gap: 14px; margin: 0 auto 20px; top: auto; left: auto;
+    }
+    @media (max-width: 860px) {
+      .hero-tryit .tryit-above { flex-direction: column; align-items: stretch; }
+    }
+    @media (max-width: 700px) { .hero-tryit { margin-top: 34px; } }
 
     /* STATS */
     .stats { background: #fff; padding: 52px 30px; box-shadow: 0 10px 30px rgba(26,26,26,0.05); }
@@ -315,6 +321,7 @@
   <script src="/footer.js"></script>
   <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/demo.css?v=14">
   <link rel="stylesheet" href="/buttons.css">
   <link rel="stylesheet" href="/faq.css">
 </head>
@@ -334,10 +341,17 @@
           <a href="https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476" class="cta-secondary" target="_blank" rel="noopener">Ou essayez-le gratuitement avec une classe</a>
         </div>
         <div class="hero-proof"><span>Des élèves dans plus de 100 écoles</span><span class="dot">&middot;</span><span>Fonctionne sur Chromebook</span><span class="dot">&middot;</span><span>Gratuit pour les enseignants</span></div>
-        <div class="hero-screenshot">
-          <video class="hero-demo" autoplay muted loop playsinline preload="metadata" aria-label="Screenplay Editor met en forme un scénario en direct dans un Google Doc">
-            <source src="/demo.mp4" type="video/mp4">
-          </video>
+        <div class="hero-tryit">
+          <div class="tryit-side tryit-above">
+            <div class="tryit-pill" id="tryit-pill"><span class="tryit-dot"></span><span><span class="tryit-cta">Essayez. Tapez la r&eacute;plique de Charlotte.</span><span class="tryit-line">Vous &ecirc;tes en <b>dialogue</b>.</span><span class="tryit-tip"></span></span></div>
+            <div class="tryit-keys" aria-label="Sur t&eacute;l&eacute;phone, utilisez ces touches"><button type="button" data-key="Enter">Entr&eacute;e &#8629;</button><button type="button" data-key="Tab">Tab &#8677;</button></div>
+          </div>
+          <div class="gdoc" aria-label="Un document, tel que Google Docs le montre">
+            <img class="gdoc-chrome" src="/docs-chrome.png?v=9" alt="" width="1568" height="189">
+            <div class="gdoc-canvas">
+              <div class="gdoc-pagewrap"><div class="tryit-sheet" id="tryit-sheet" aria-label="Une page de sc&eacute;nario dans laquelle vous pouvez taper"></div></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -618,5 +632,7 @@
     });
   })();
   </script>
+  <script src="/engine.js?v=1"></script>
+  <script src="/demo.js?v=11"></script>
 </body>
 </html>
