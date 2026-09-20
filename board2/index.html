@@ -224,11 +224,11 @@
   <span class="legend-group"><span class="legend-swatch" style="background:var(--blue)"></span> EXT</span>
   <span class="legend-group"><span class="legend-swatch" style="background:var(--green)"></span> INT/EXT</span>
   <span style="margin-left:8px;opacity:.3">|</span>
-  <span class="legend-group"><span class="legend-dot" style="background:#FDA4AF"></span> Aube</span>
-  <span class="legend-group"><span class="legend-dot" style="background:#93C5FD"></span> Matin</span>
-  <span class="legend-group"><span class="legend-dot" style="background:#FBBF24"></span> Jour</span>
-  <span class="legend-group"><span class="legend-dot" style="background:#F97316"></span> Soir</span>
-  <span class="legend-group"><span class="legend-dot" style="background:#3B82F6"></span> Nuit</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#FDA4AF"></span> Dawn</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#93C5FD"></span> Morning</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#FBBF24"></span> Day</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#F97316"></span> Evening</span>
+  <span class="legend-group"><span class="legend-dot" style="background:#3B82F6"></span> Night</span>
 </div>
 <div class="ai-progress-wrap" id="aiProgress"><div class="ai-progress-label" id="aiLabel"></div><div class="ai-progress"><div class="ai-progress-bar"></div></div></div>
 <div class="board" id="board"></div>
@@ -244,18 +244,15 @@
 
 <div class="welcome-overlay" id="welcomeOverlay" style="display:none">
   <div class="welcome-card">
-    <div class="welcome-logo">scrrrr<span class="dot">.</span></div>
     <div class="welcome-illu"><svg width="150" height="110" viewBox="0 0 150 110" fill="none" stroke="#dfe0e6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-5 75 55)"><rect x="26" y="18" width="98" height="74" rx="8" fill="#26262b"/><path d="M26 33h98"/><rect x="35" y="41" width="22" height="13" rx="3" fill="rgba(167,139,250,.22)" stroke="#a78bfa"/><rect x="35" y="58" width="22" height="13" rx="3"/><rect x="35" y="75" width="22" height="9" rx="3"/><rect x="64" y="41" width="22" height="13" rx="3"/><rect x="64" y="58" width="22" height="17" rx="3"/><rect x="93" y="41" width="22" height="9" rx="3"/><rect x="93" y="54" width="22" height="13" rx="3"/><rect x="93" y="71" width="22" height="13" rx="3"/></g><path d="M131 20l1.8 4.6 4.6 1.8-4.6 1.8-1.8 4.6-1.8-4.6-4.6-1.8 4.6-1.8z" fill="#a78bfa" stroke="#a78bfa"/><path d="M15 64l1.3 3.4 3.4 1.3-3.4 1.3-1.3 3.4-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#5b4a86" stroke="#8b5cf6"/><path d="M137 58h6M140 55v6" stroke="#a78bfa"/></svg></div>
     <div class="welcome-title">Build your Scene Board</div>
-    <div class="welcome-sub">Turn your screenplay into cards you can move around.</div>
     <div class="welcome-options">
       <div class="welcome-opt primary" onclick="welcomeChoice('build')">
         <div class="welcome-opt-icon green">&#9635;</div>
         <div class="welcome-opt-text">
           <div class="welcome-opt-title">Build my board</div>
-          <div class="welcome-opt-desc">Every scene from your document becomes a card. No AI.</div>
+          <div class="welcome-opt-desc">Every scene from your document becomes a card. <u>No AI.</u></div>
         </div>
-        <span class="welcome-opt-badge">RECOMMENDED</span>
       </div>
       <div class="welcome-opt" onclick="welcomeChoice('build-ai')">
         <div class="welcome-opt-icon violet">&#10024;</div>
@@ -620,6 +617,9 @@ function _hideSplash(el){
 function importScenes(scenes, useAI){
   // Detect language before building columns
   boardLang = detectBoardLang(scenes);
+  // La legende ne suivait pas : elle n'etait repeinte que sur le chemin IA,
+  // donc un scenario anglais gardait les mots francais ecrits en dur.
+  updateBoardLabels();
   state.title = 'Imported Scenes';
   state.columns = [
     {id:uid(),title:t('act1'),cards:[]},
