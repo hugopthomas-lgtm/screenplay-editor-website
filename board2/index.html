@@ -479,28 +479,14 @@ function parseHeading(heading){
   return {type, location, time};
 }
 
-// Slugline propre pour la carte (façon Arc Studio : la scène est le titre).
+// Titre de carte = le LIEU seul. INT./EXT. sont portés par la couleur de fond,
+// l'horaire par la pastille -> on ne les répète pas dans le texte (retour Hugo).
 function _cardSlug(card){
-  if(card.type || card.location){
-    var s = card.type ? (card.type + '. ') : '';
-    s += (card.location || '').toString().toUpperCase();
-    return s.trim();
-  }
-  return (card._rawHeading || '').toString().trim().toUpperCase();
+  if(card.location) return card.location.toString().toUpperCase();
+  var h = (card._rawHeading || '').toString().trim();
+  return (h.replace(/^(INT\/EXT|I\/E|INT|EXT)[.\s/]*/i,'').toUpperCase()) || h.toUpperCase();
 }
 
-function makeFallbackSummary(body){
-  // Avant (et si la synthèse IA échoue), la carte ne doit PAS rester « … » : sur
-  // un gros scénario (ex. un long-métrage), /board/summarize peut revenir vide et
-  // les cartes restaient « … » à vie (retour Hugo). On renvoie un extrait du corps
-  // s'il existe, sinon rien -> le rendu retombe sur le titre de scène (toujours
-  // dispo), donc le board est lisible tout de suite. L'IA remplace ça quand elle
-  // arrive.
-  if(!body) return '';
-  var s = String(body).replace(/\s+/g,' ').trim();
-  if(!s) return '';
-  return s.length > 90 ? s.slice(0,88).replace(/\s+\S*$/,'') + '…' : s;
-}
 
 // ── Language detection & i18n ──
 let boardLang = 'en';
@@ -645,11 +631,13 @@ function importScenes(scenes, useAI){
     const heading = s.heading || s.text || (typeof s === 'string' ? s : '');
     const parsed = parseHeading(heading);
     const color = parsed.type ? (typeColors[parsed.type] || 'purple') : (s.color || 'yellow');
-    const summary = s.summary || makeFallbackSummary(s.body);
+    // Pas de « résumé » sans IA : un synopsis honnête ne peut venir que de l'IA
+    // (ou de ce que l'utilisateur écrit lui-même). Sinon la ligne reste vide.
+    const summary = s.summary || '';
     const body = s.body ? s.body.slice(0, 240) : '';
     state.columns[colIdx].cards.push({
       id:uid(),
-      text: summary || heading,
+      text: summary,
       location: parsed.location,
       type: parsed.type,
       time: parsed.time,
