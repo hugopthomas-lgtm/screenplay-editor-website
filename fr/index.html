@@ -1334,52 +1334,60 @@
        explorable vers le reste du site, et il sert aussi au visiteur
        qui vient de lire la page et se demande où aller.
        ------------------------------------------------------------- */
-    .directory { background: var(--cream, #F3F1F8); padding: 72px 30px 80px; }
+    .directory { background: var(--cream, #F3F1F8); padding: 78px 30px 84px; }
     .directory-inner { max-width: 1240px; margin: 0 auto; }
     .directory h2 {
       font-size: 38px; font-weight: 700; letter-spacing: -0.02em;
-      line-height: 1.11; margin: 0 0 12px; color: var(--dark, #1A1A1A);
+      line-height: 1.34; margin: 0 0 14px; color: var(--dark, #1A1A1A);
     }
     .directory-sub {
-      font-size: 16px; line-height: 1.5; color: #6B6B73;
-      max-width: 56ch; margin: 0 0 44px;
+      font-size: 16px; line-height: 1.6; color: #6B6B73;
+      max-width: 54ch; margin: 0 0 52px;
     }
     .directory-grid {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px 40px;
     }
-    /* Les pages par profil sont dix, les autres colonnes cinq ou six : en
-       colonne elles creusaient un vide sous les trois autres. Elles passent
-       en une seule rangée qui court sur toute la largeur. */
-    .dir-wide { margin-top: 46px; }
-    .dir-wide ul {
-      list-style: none; margin: 0; padding: 0;
-      /* En flex, la deuxième ligne repartait sous des largeurs différentes et
-         l'ensemble avait l'air tombé là. En grille, les entrées s'alignent. */
-      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 13px 30px;
-    }
-    /* La marge des listes en colonne (li + li) s'appliquait aussi dans la
-       grille et décalait les entrées 2 à 5 de onze pixels vers le bas :
-       ici c'est l'écart de la grille qui espace, pas la marge. */
-    .dir-wide ul li, .dir-wide ul li + li { margin: 0; }
+    /* L'étiquette porte un trait court : sans lui, quatre colonnes de liens
+       gris de la même taille font une page de bottin. */
     .dir-label {
       font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: #9D7BEA; margin: 0 0 16px;
+      text-transform: uppercase; color: #9D7BEA; margin: 0 0 18px;
+      padding-bottom: 12px; border-bottom: 1px solid rgba(157,123,234,0.28);
     }
     .dir-col ul { list-style: none; margin: 0; padding: 0; }
-    .dir-col li + li { margin-top: 11px; }
+    .dir-col li + li { margin-top: 13px; }
     .dir-col a {
-      font-size: 15px; line-height: 1.4; color: #3C3C44;
+      font-size: 16px; line-height: 1.45; color: #3C3C44;
       text-decoration: none; border-bottom: 1px solid transparent;
+      transition: color .18s cubic-bezier(.4,0,.2,1), border-color .18s cubic-bezier(.4,0,.2,1);
     }
-    .dir-col a:hover { color: #1A1A1A; border-bottom-color: rgba(157,123,234,0.5); }
+    .dir-col a:hover { color: #1A1A1A; border-bottom-color: #9D7BEA; }
+    /* Les pages par profil sont dix : en colonne elles creusaient un vide sous
+       les trois autres, et en liste elles se confondaient avec elles. Elles
+       deviennent des pastilles, le même objet que la table des matières des
+       pages guides : ça donne à la rangée une texture au lieu d'une liste. */
+    .dir-wide { margin-top: 54px; }
+    .dir-wide .dir-label { display: inline-block; border-bottom: 0; padding-bottom: 0; margin-bottom: 20px; }
+    .dir-wide ul {
+      list-style: none; margin: 0; padding: 0;
+      display: flex; flex-wrap: wrap; gap: 12px 12px;
+    }
+    .dir-wide ul li, .dir-wide ul li + li { margin: 0; }
+    .dir-wide a {
+      display: inline-block; background: #fff; border-radius: 16px;
+      padding: 10px 18px; font-size: 15px; color: #3C3C44;
+      box-shadow: 0 10px 30px rgba(26,26,26,.06); border-bottom: 0;
+      transition: border-radius .3s cubic-bezier(.4,0,.2,1), background-color .3s cubic-bezier(.4,0,.2,1), color .3s cubic-bezier(.4,0,.2,1);
+    }
+    .dir-wide a:hover { background: #1A1A1A; color: #fff; border-radius: 0; border-bottom: 0; }
     @media (max-width: 900px) {
-      .directory { padding: 56px 20px 64px; }
+      .directory { padding: 58px 20px 66px; }
       .directory h2 { font-size: 28px; }
+      .directory-sub { margin-bottom: 38px; }
       .directory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 24px; }
-      .dir-wide { margin-top: 34px; }
-      .dir-wide ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px 22px; }
+      .dir-wide { margin-top: 38px; }
     }
-    @media (max-width: 520px) { .directory-grid, .dir-wide ul { grid-template-columns: 1fr; } }
+    @media (max-width: 520px) { .directory-grid { grid-template-columns: 1fr; } }
   </style>
   <script src="/header.js"></script>
   <script src="/footer.js"></script>
@@ -1554,8 +1562,8 @@
         </div>
         <div class="review-featured">
           <div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p>«&nbsp;J’utilise cette extension depuis plusieurs années maintenant et elle fait le travail. J’ai essayé beaucoup d’autres applications sur différentes plateformes et, si beaucoup savent faire l’essentiel, il y a toujours des obstacles inutiles à franchir, ou des abonnements exorbitants qu’il faut garder à vie si on veut accéder à son propre travail.&nbsp;»</p>
-          <p>«&nbsp;J’ai eu un problème de mise en forme, je l’ai signalé à l’auteur de l’application et j’ai reçu une réponse immédiate, puis une solution peu après. Un service client comme celui-là devient rare, et je suis content de le trouver ici. J’écris en ce moment mon sixième scénario avec cette extension et je ne pourrais pas en être plus satisfait.&nbsp;»</p>
+          <p>«&nbsp;&nbsp;J’utilise cette extension depuis plusieurs années maintenant et elle fait le travail. J’ai essayé beaucoup d’autres applications sur différentes plateformes et, si beaucoup savent faire l’essentiel, il y a toujours des obstacles inutiles à franchir, ou des abonnements exorbitants qu’il faut garder à vie si on veut accéder à son propre travail.&nbsp;&nbsp;»</p>
+          <p>«&nbsp;&nbsp;J’ai eu un problème de mise en forme, je l’ai signalé à l’auteur de l’application et j’ai reçu une réponse immédiate, puis une solution peu après. Un service client comme celui-là devient rare, et je suis content de le trouver ici. J’écris en ce moment mon sixième scénario avec cette extension et je ne pourrais pas en être plus satisfait.&nbsp;&nbsp;»</p>
           <div class="review-author">Barry Kirsch</div>
           <div class="review-source">Chrome Web Store &middot; 9 août 2026 &middot; traduit de l’anglais</div>
         </div>
@@ -1563,28 +1571,28 @@
       <!-- Trois copies : la rangée glisse d'exactement une copie et boucle sans saut. -->
       <div class="reviews-belt-wrap" aria-label="Six more reviews"><div class="reviews-belt">
         <div class="reviews-wall">
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Essayez, vous ne reviendrez pas en arrière. »</div><div class="review-author">Peter R.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait ! »</div><div class="review-author">Theo L.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable. »</div><div class="review-author">Elodie K.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés. »</div><div class="review-author">Guillaume T.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là. »</div><div class="review-author">Mary G.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou. »</div><div class="review-author">Louay K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Essayez, vous ne reviendrez pas en arrière.&nbsp;»</div><div class="review-author">Peter R.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait !&nbsp;»</div><div class="review-author">Theo L.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable.&nbsp;»</div><div class="review-author">Elodie K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés.&nbsp;»</div><div class="review-author">Guillaume T.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là.&nbsp;»</div><div class="review-author">Mary G.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou.&nbsp;»</div><div class="review-author">Louay K.</div></div>
         </div>
         <div class="reviews-wall">
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Essayez, vous ne reviendrez pas en arrière. »</div><div class="review-author">Peter R.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait ! »</div><div class="review-author">Theo L.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable. »</div><div class="review-author">Elodie K.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés. »</div><div class="review-author">Guillaume T.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là. »</div><div class="review-author">Mary G.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou. »</div><div class="review-author">Louay K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Essayez, vous ne reviendrez pas en arrière.&nbsp;»</div><div class="review-author">Peter R.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait !&nbsp;»</div><div class="review-author">Theo L.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable.&nbsp;»</div><div class="review-author">Elodie K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés.&nbsp;»</div><div class="review-author">Guillaume T.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là.&nbsp;»</div><div class="review-author">Mary G.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou.&nbsp;»</div><div class="review-author">Louay K.</div></div>
         </div>
         <div class="reviews-wall">
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Essayez, vous ne reviendrez pas en arrière. »</div><div class="review-author">Peter R.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait ! »</div><div class="review-author">Theo L.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable. »</div><div class="review-author">Elodie K.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés. »</div><div class="review-author">Guillaume T.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là. »</div><div class="review-author">Mary G.</div></div>
-          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">« Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou. »</div><div class="review-author">Louay K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Essayez, vous ne reviendrez pas en arrière.&nbsp;»</div><div class="review-author">Peter R.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Plus besoin de payer une fortune pour un logiciel commercial médiocre. Merci de l’avoir fait !&nbsp;»</div><div class="review-author">Theo L.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Je cherchais un remplaçant à Screenplay Formatter depuis qu’il a cessé de marcher. C’est bien mieux. Enfin quelque chose de fiable.&nbsp;»</div><div class="review-author">Elodie K.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Propre et moderne. Bien mieux que les outils de scénario habituels, complètement dépassés.&nbsp;»</div><div class="review-author">Guillaume T.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Sans hésiter l’un des outils les plus fluides que j’ai essayés. Si vous écrivez du scénario dans Google Docs, c’est celui-là.&nbsp;»</div><div class="review-author">Mary G.</div></div>
+          <div class="review-card"><div class="review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">«&nbsp;Indispensable pour qui écrit des scénarios dans Google Docs ! La mise en forme en direct fait gagner un temps fou.&nbsp;»</div><div class="review-author">Louay K.</div></div>
         </div>
       </div></div>
     </section>
@@ -1635,8 +1643,8 @@
 
     <section class="directory">
       <div class="directory-inner">
-        <h2>Le reste du site.</h2>
-        <p class="directory-sub">Les prix, les comparatifs, les modèles et les outils gratuits, et les pages écrites pour votre façon de travailler.</p>
+        <h2>Vous cherchez <span class="mark">encore</span>&nbsp;?</h2>
+        <p class="directory-sub">Les prix, les comparatifs, les modèles et les outils gratuits. Et les pages écrites pour votre façon de travailler.</p>
         <div class="directory-grid">
           <div class="dir-col">
             <p class="dir-label">Où vous écrivez</p>

@@ -314,6 +314,69 @@
   }
   customElements.define('site-header', SiteHeader);
 
+  /* ----------------------------------------------------------------
+     SUR LES DEUX ACCUEILS, LA PILULE DOCS/WORD NE CHANGE PAS DE PAGE
+
+     Hugo, 20/09/2026 : « quand on clique sur Word, dans la barre, je
+     préférerais que ça ait simplement l'effet de bascule qui change la
+     landing page. Que ça ne nous amène pas ailleurs. »
+
+     L'accueil porte déjà l'interrupteur `.hero-where`, qui réécrit le
+     titre, les boutons, la capture et le texte de la section finale.
+     On ne refait donc pas ce travail ici : on CLIQUE le bouton du hero,
+     ce qui garde une seule mécanique et un seul `localStorage`.
+
+     Ailleurs que sur un accueil, `.hero-where` n'existe pas et les deux
+     éléments restent de vrais liens : c'est le seul chemin vers la
+     version Word depuis le reste du site, et un robot doit le suivre.
+     C'est aussi pour ça qu'on garde des <a href> et qu'on se contente
+     d'empêcher le clic gauche simple : le clic milieu et « ouvrir dans
+     un nouvel onglet » continuent de marcher.
+     ---------------------------------------------------------------- */
+  function brancherBascule() {
+    var hero = document.querySelector('.hero-where');
+    if (!hero) return;
+    var entete = document.querySelector('site-header');
+    if (!entete || !entete.shadowRoot) return;
+    // ATTENTION : la pilule est rendue DEUX fois, une pour la barre et une
+    // pour le menu déroulant du mobile. Il y a donc quatre `.seg-item`, pas
+    // deux, et on reconnaît chacun à son lien plutôt qu'à sa position.
+    var segs = entete.shadowRoot.querySelectorAll('.seg-item');
+    if (!segs.length) return;
+
+    function surface(a) {
+      return /\/word\/?$/.test(a.getAttribute('href') || '') ? 'word' : 'docs';
+    }
+
+    function refleter(s) {
+      for (var i = 0; i < segs.length; i++) {
+        var actif = surface(segs[i]) === s;
+        segs[i].classList.toggle('is-on', actif);
+        if (actif) segs[i].setAttribute('aria-current', 'true');
+        else segs[i].removeAttribute('aria-current');
+      }
+    }
+
+    for (var i = 0; i < segs.length; i++) {
+      segs[i].addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        var b = hero.querySelector('button[data-surface="' + surface(this) + '"]');
+        if (!b) return;
+        e.preventDefault();
+        b.click();
+      });
+    }
+
+    // L'interrupteur du hero s'applique pendant l'analyse de la page, donc
+    // AVANT qu'on écoute : on lit son état au lieu d'attendre l'événement.
+    var presse = hero.querySelector('button[aria-pressed="true"]');
+    if (presse) refleter(presse.dataset.surface);
+    document.addEventListener('se-surface', function (e) { refleter(e.detail); });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', brancherBascule);
+  else brancherBascule();
+
   // Keep any ".now-month" element on the current month/year, so Screenplay
   // Editor's "Last Update" in the comparison tables always reads as freshly
   // maintained. (Competitors' dates stay hardcoded.)
