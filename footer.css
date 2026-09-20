@@ -1,0 +1,122 @@
+/* ============================================================
+   LE PIED DE PAGE, EN FEUILLE SÉPARÉE.
+
+   Pourquoi ce fichier existe : jusqu'au 20/09/2026 le pied de
+   page n'existait qu'à l'exécution, dans le Shadow DOM de
+   <site-footer>. Un robot qui lit le HTML servi ne voyait donc
+   AUCUN lien interne. Mesuré : l'accueil portait six balises
+   <a>, dont une seule vers une autre page du site. Google avait
+   87 pages « découvertes, jamais explorées ».
+
+   Le pied de page est maintenant écrit DANS chaque page par
+   `build-footer.js`, qui va chercher ses liens dans `footer.js`.
+   `footer.js` reste la source unique de vérité : on change les
+   liens LÀ, on relance le script, ça change partout. Cette
+   feuille porte ce que la balise <style> du Shadow DOM portait,
+   avec le préfixe `ftr-` pour ne rien heurter dans les pages.
+
+   Ne pas modifier le HTML du pied de page à la main : il est
+   régénéré, la modification serait perdue.
+   ============================================================ */
+
+.ftr-shell {
+  background: #FAFAFA;
+  padding: 52px 20px 20px;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+/* Une dalle noire à grands arrondis, détachée des bords : le pied de page
+   est un objet posé sur la page, pas une bande qui la termine. */
+.ftr-wrap {
+  background: #141416;
+  color: #fff;
+  border-radius: 40px;
+  padding: 66px 60px 30px;
+  max-width: 1240px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.ftr-inner {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.05fr) auto;
+  gap: 56px;
+  align-items: start;
+}
+
+.ftr-brand { min-width: 0; }
+.ftr-logo {
+  font-family: inherit;
+  font-size: clamp(58px, 8.4vw, 132px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.84;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+.ftr-dot { color: #9D7BEA; margin-left: -0.07em; }
+.ftr-tag {
+  margin: 26px 0 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, .42);
+  max-width: 300px;
+}
+.ftr-lang {
+  margin-top: 20px;
+  display: inline-block;
+  font-size: 13px;
+  color: rgba(255, 255, 255, .55);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 999px;
+  padding: 7px 16px;
+  transition: border-color .2s, color .2s;
+}
+.ftr-lang:hover { color: #fff; border-color: rgba(255, 255, 255, .45); }
+
+.ftr-cols { display: grid; grid-template-columns: repeat(4, minmax(140px, auto)); gap: 34px; }
+.ftr-col h3 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9D7BEA;
+  margin: 6px 0 16px;
+}
+.ftr-col ul { list-style: none; margin: 0; padding: 0; }
+.ftr-col li { margin-bottom: 10px; }
+.ftr-col a {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, .62);
+  text-decoration: none;
+  transition: color .2s;
+}
+.ftr-col a:hover { color: #fff; }
+
+.ftr-base {
+  margin-top: 54px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.ftr-base p { font-size: 12px; color: rgba(255, 255, 255, .3); margin: 0; }
+.ftr-base a { font-size: 12px; color: rgba(255, 255, 255, .3); text-decoration: none; }
+.ftr-base a:hover { color: rgba(255, 255, 255, .65); }
+
+@media (max-width: 1040px) {
+  .ftr-inner { grid-template-columns: 1fr; gap: 44px; }
+  .ftr-cols { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ftr-wrap { padding: 52px 40px 26px; border-radius: 32px; }
+}
+@media (max-width: 720px) {
+  .ftr-cols { grid-template-columns: 1fr 1fr; gap: 30px 24px; }
+  .ftr-wrap { padding: 44px 26px 24px; border-radius: 26px; }
+  .ftr-shell { padding: 34px 12px 12px; }
+  .ftr-logo { font-size: clamp(52px, 15vw, 80px); }
+}

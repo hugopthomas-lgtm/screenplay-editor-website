@@ -12,6 +12,22 @@
    Il s'adapte à la langue de la page (<html lang="fr">) et
    expose la profondeur du site : les ressources, les
    comparatifs et les pages par profil, invisibles jusqu'ici.
+
+   ⚠ DEPUIS LE 20/09/2026, LE PIED DE PAGE EST ÉCRIT DANS LES
+   PAGES. Il ne se construisait qu'à l'exécution, dans ce Shadow
+   DOM, donc le HTML servi ne contenait AUCUN lien interne et
+   Google avait 87 pages découvertes qu'il n'explorait pas.
+   `build-footer.js` vient lire COLS, TAG, MADE et SWITCH ICI et
+   les écrit dans les 113 pages, avec les styles de /footer.css.
+
+   DONC : après toute modification des liens ci-dessous,
+   lancer `node build-footer.js`, sinon rien ne bouge sur le
+   site. `node build-footer.js --check` dit ce qui est en retard.
+
+   Ce fichier reste chargé par toutes les pages : il porte aussi
+   le renommage du bouton « Add to Chrome » plus bas. Et
+   <site-footer> reste défini, ce qui sert de filet pour une page
+   qui n'aurait pas été régénérée.
    ============================================================ */
 (function () {
   var VIOLET = '#9D7BEA';
