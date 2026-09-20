@@ -65,7 +65,11 @@
   .card:hover .card-delete{opacity:1}
   .card-delete:hover{background:rgba(239,68,68,.3);color:#EF4444}
   .card[contenteditable=true]{cursor:text;outline:none;box-shadow:0 0 0 2px var(--accent)}
-  .card-text{pointer-events:none;font-size:14px;font-weight:600;color:#1a1a2e;line-height:1.3}
+  .card-head{display:flex;align-items:baseline;gap:7px;padding-right:16px}
+  .card-num{font-size:11px;font-weight:700;color:rgba(26,26,46,.34);font-variant-numeric:tabular-nums;flex-shrink:0;line-height:1.32}
+  .card-slug{font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#1a1a2e;line-height:1.32;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card-text{pointer-events:none;font-size:12.5px;font-weight:400;color:rgba(26,26,46,.6);line-height:1.4;margin-top:4px;word-break:break-word}
+  .card-text:empty{margin-top:0}
   .card[contenteditable=true] .card-text{pointer-events:auto}
 
   /* ── Card heading + body ── */
@@ -473,6 +477,16 @@ function parseHeading(heading){
   return {type, location, time};
 }
 
+// Slugline propre pour la carte (façon Arc Studio : la scène est le titre).
+function _cardSlug(card){
+  if(card.type || card.location){
+    var s = card.type ? (card.type + '. ') : '';
+    s += (card.location || '').toString().toUpperCase();
+    return s.trim();
+  }
+  return (card._rawHeading || '').toString().trim().toUpperCase();
+}
+
 function makeFallbackSummary(body){
   // Avant (et si la synthèse IA échoue), la carte ne doit PAS rester « … » : sur
   // un gros scénario (ex. un long-métrage), /board/summarize peut revenir vide et
@@ -742,20 +756,28 @@ function createCardEl(card, col){
   dot.title = t === 'unknown' ? 'Non spécifié' : t.charAt(0).toUpperCase() + t.slice(1);
   el.appendChild(dot);
 
-  // Summary (1-line, main text)
+  // Header : numéro de scène + slugline (façon Arc Studio — la scène d'abord).
+  const head = document.createElement('div');
+  head.className = 'card-head';
+  const slugText = _cardSlug(card);
+  if(typeof card._sceneIdx === 'number'){
+    const num = document.createElement('span');
+    num.className = 'card-num';
+    num.textContent = (card._sceneIdx + 1);
+    head.appendChild(num);
+  }
+  const slug = document.createElement('div');
+  slug.className = 'card-slug';
+  slug.textContent = slugText || 'SCENE';
+  head.appendChild(slug);
+  el.appendChild(head);
+
+  // Synopsis (secondaire) : résumé IA si présent, sinon un extrait d'action.
+  const synText = (card.text && card.text !== card._rawHeading && card.text !== slugText) ? card.text : '';
   const text = document.createElement('div');
   text.className = 'card-text';
-  text.textContent = card.text;
+  text.textContent = synText;
   el.appendChild(text);
-
-  // Long summary (140 chars, tiny text, always visible)
-  const longText = card.body || card._rawHeading || '';
-  if(longText){
-    const longEl = document.createElement('div');
-    longEl.className = 'card-long';
-    longEl.textContent = longText.slice(0, 140);
-    el.appendChild(longEl);
-  }
 
   const del = document.createElement('button');
   del.className = 'card-delete';
