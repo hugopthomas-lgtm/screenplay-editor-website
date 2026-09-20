@@ -595,8 +595,10 @@ async function fetchAISummaries(scenes){
             if(typeof idx !== 'number') return;
             const local = idx - start; // index dans CE lot
             if(local < 0 || local >= chunk.length) return;
-            if(data.short && data.short[local]) card.text = data.short[local];
-            if(data.long && data.long[local]) card.body = data.long[local];
+            // Synopsis de carte = la phrase longue (meilleur qu'un résumé télégraphique) ;
+            // repli sur le court si le long manque pour ce lot.
+            if(data.long && data.long[local]) card.text = data.long[local];
+            else if(data.short && data.short[local]) card.text = data.short[local];
           });
         });
         save();
