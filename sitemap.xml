@@ -50,11 +50,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/cancel</loc>
-    <lastmod>2026-08-20</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://screenplayeditor.app/compare/</loc>
     <lastmod>2026-08-20</lastmod>
     <priority>0.8</priority>
@@ -255,11 +250,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/success</loc>
-    <lastmod>2026-08-20</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://screenplayeditor.app/support</loc>
     <lastmod>2026-08-20</lastmod>
     <priority>0.7</priority>
@@ -350,16 +340,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/uninstall</loc>
-    <lastmod>2026-08-20</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://screenplayeditor.app/uninstall-addon</loc>
-    <lastmod>2026-08-20</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://screenplayeditor.app/fr/</loc>
     <lastmod>2026-09-18</lastmod>
     <priority>0.9</priority>
@@ -391,11 +371,6 @@
   </url>
   <url>
     <loc>https://screenplayeditor.app/fr/blog/why-feedback-is-hard</loc>
-    <lastmod>2026-08-20</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://screenplayeditor.app/fr/cancel</loc>
     <lastmod>2026-08-20</lastmod>
     <priority>0.5</priority>
   </url>
@@ -585,27 +560,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://screenplayeditor.app/fr/success</loc>
-    <lastmod>2026-08-20</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://screenplayeditor.app/fr/support</loc>
     <lastmod>2026-08-20</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://screenplayeditor.app/fr/terms</loc>
-    <lastmod>2026-08-20</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://screenplayeditor.app/fr/uninstall</loc>
-    <lastmod>2026-08-20</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://screenplayeditor.app/fr/uninstall-addon</loc>
     <lastmod>2026-08-20</lastmod>
     <priority>0.5</priority>
   </url>
