@@ -527,45 +527,64 @@ async function fetchAISummaries(scenes){
   // long-métrage) était tronqué à ~50 scènes ou revenait vide -> cartes « … » à
   // vie (retour Hugo). On résume par lots de 25 (le worker gère très bien), avec
   // un compteur de progression qui sert d'indicateur d'attente.
-  const CHUNK = 25;
+  const CHUNK = 25;   // le worker (llama-8b) plafonne max_tokens 2000 -> ~50 scènes max/appel
+  const CONC = 4;     // lots EN PARALLÈLE (avant : en série -> lent sur un long-métrage)
   const total = scenes.length;
-  const setStep = function(done){
-    if(!progLabel) return;
-    progLabel.textContent = (boardLang==='fr' ? 'Résumé des scènes ' : 'Summarizing scenes ') + Math.min(done, total) + ' / ' + total;
+
+  // Compteur qui monte chiffre par chiffre vers la cible (les lots avancent par 25,
+  // l'affichage grimpe 1 à 1 pour ne pas sauter — retour Hugo).
+  const _label = (boardLang==='fr' ? 'Résumé des scènes ' : 'Summarizing scenes ');
+  let _shown = 0, _target = 0, _tick = null;
+  const _paint = function(){ if(progLabel) progLabel.textContent = _label + Math.min(_shown, total) + ' / ' + total; };
+  const bump = function(done){
+    _target = Math.min(done, total);
+    if(!_tick){ _tick = setInterval(function(){ if(_shown < _target){ _shown++; _paint(); } }, 45); }
   };
-  setStep(0);
-  try{
-    for(let start=0; start<total; start+=CHUNK){
-      const chunk = scenes.slice(start, start+CHUNK);
-      let data = null;
-      try{
-        const ctrl = new AbortController();
-        const to = setTimeout(function(){ ctrl.abort(); }, 20000);
-        const r = await fetch(API+'/board/summarize',{
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({scenes:chunk, lang:boardLang}), signal: ctrl.signal
+  bump(0); _paint();
+
+  const chunks = [];
+  for(let start=0; start<total; start+=CHUNK) chunks.push({ start: start, list: scenes.slice(start, start+CHUNK) });
+  let doneScenes = 0;
+
+  const runChunk = async function(ch){
+    let data = null;
+    try{
+      const ctrl = new AbortController();
+      const to = setTimeout(function(){ ctrl.abort(); }, 25000);
+      const r = await fetch(API+'/board/summarize', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ scenes: ch.list, lang: boardLang }), signal: ctrl.signal
+      });
+      clearTimeout(to);
+      data = await r.json();
+    }catch(e){ data = null; } // lot en échec : ses cartes gardent leur slugline, on continue
+    if(data){
+      state.columns.forEach(function(col){
+        col.cards.forEach(function(card){
+          const idx = card._sceneIdx;
+          if(typeof idx !== 'number') return;
+          const local = idx - ch.start;
+          if(local < 0 || local >= ch.list.length) return;
+          if(data.long && data.long[local]) card.text = data.long[local];
+          else if(data.short && data.short[local]) card.text = data.short[local];
         });
-        clearTimeout(to);
-        data = await r.json();
-      }catch(e){ data = null; } // un lot qui échoue : ses cartes gardent le titre de scène, on continue
-      if(data){
-        state.columns.forEach(function(col){
-          col.cards.forEach(function(card){
-            const idx = card._sceneIdx;
-            if(typeof idx !== 'number') return;
-            const local = idx - start; // index dans CE lot
-            if(local < 0 || local >= chunk.length) return;
-            // Synopsis de carte = la phrase longue (meilleur qu'un résumé télégraphique) ;
-            // repli sur le court si le long manque pour ce lot.
-            if(data.long && data.long[local]) card.text = data.long[local];
-            else if(data.short && data.short[local]) card.text = data.short[local];
-          });
-        });
-        save();
-      }
-      setStep(start + CHUNK);
+      });
+      save();
     }
+    doneScenes += ch.list.length;
+    bump(doneScenes);
+  };
+
+  try{
+    // Pool de concurrence : CONC ouvriers tirent les lots d'une file commune.
+    let next = 0;
+    const worker = async function(){
+      while(next < chunks.length){ const ch = chunks[next++]; await runChunk(ch); }
+    };
+    await Promise.all(Array.from({ length: Math.min(CONC, chunks.length) }, worker));
   } finally {
+    if(_tick){ clearInterval(_tick); _tick = null; }
+    _shown = total; _paint();
     render();
     if(progLabel) progLabel.textContent = t('done');
     setTimeout(function(){ if(prog) prog.classList.remove('active'); if(progLabel) progLabel.textContent = ''; }, 1000);
