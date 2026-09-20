@@ -4,27 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scene Board — Kanban</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --bg:#1a1a1a;--col-bg:#242424;--border:#333;
+    --bg:#232327;--col-bg:#2a2a2e;--border:#3a3a40;
     --text:#e8e8e8;--text2:#999;--text3:#666;
-    --accent:#9D7BEA;--accent-hover:#8B6AD4;--accent-soft:rgba(157,123,234,.1);
+    --accent:#8b5cf6;--accent-hover:#7c3aed;--accent-soft:rgba(139,92,246,.1);
     --yellow:#FFF9DB;--pink:#FFE4E8;--blue:#DBEAFE;--green:#DCFCE7;
     --purple:#EDE9FE;--orange:#FFEDD5;--white:#FFFFFF;--gray:#F3F4F6;
-    --drop:#9D7BEA;
+    --drop:#8b5cf6;
   }
-  html,body{height:100%;overflow:hidden;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text)}
+  html,body{height:100%;overflow:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text)}
 
   /* ── Header ── */
   .header{height:62px;display:flex;align-items:center;gap:14px;padding:0 24px;background:rgba(26,26,26,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:10}
-  .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0;letter-spacing:-.5px}
-  .project-title{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;border:none;background:none;color:var(--text);outline:none;min-width:120px;padding:5px 10px;border-radius:7px}
+  .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0;letter-spacing:-.5px}
+  .project-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;font-weight:600;border:none;background:none;color:var(--text);outline:none;min-width:120px;padding:5px 10px;border-radius:7px}
   .project-title:hover{background:var(--accent-soft)}
   .project-title:focus{background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}
   .header-spacer{flex:1}
-  .header-btn{height:41px;padding:0 17px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s}
+  .header-btn{height:41px;padding:0 17px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s}
   .header-btn:hover{border-color:var(--accent);color:var(--accent)}
   .header-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
   .header-btn.primary:hover{background:var(--accent-hover)}
@@ -32,12 +32,12 @@
   input[type=file]{display:none}
 
   /* ── Board ── */
-  .board{display:flex;gap:16px;padding:16px;height:calc(100% - 62px);overflow-x:auto;overflow-y:hidden;align-items:flex-start;background-image:linear-gradient(rgba(157,123,234,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(157,123,234,.03) 1px,transparent 1px);background-size:60px 60px}
+  .board{display:flex;gap:16px;padding:16px;height:calc(100% - 62px);overflow-x:auto;overflow-y:hidden;align-items:flex-start;background-image:linear-gradient(rgba(139,92,246,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.03) 1px,transparent 1px);background-size:60px 60px}
 
   /* ── Column ── */
   .column{min-width:280px;max-width:320px;width:280px;background:var(--col-bg);border-radius:12px;border:1px solid var(--border);display:flex;flex-direction:column;max-height:100%;flex-shrink:0}
   .col-header{display:flex;align-items:center;padding:12px 14px;gap:8px;border-bottom:1px solid var(--border)}
-  .col-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;flex:1;border:none;background:none;color:var(--text);outline:none;padding:2px 6px;border-radius:4px;cursor:default}
+  .col-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;font-weight:600;flex:1;border:none;background:none;color:var(--text);outline:none;padding:2px 6px;border-radius:4px;cursor:default}
   .col-title:focus{background:var(--accent-soft);cursor:text;box-shadow:0 0 0 2px var(--accent)}
   .col-count{font-size:12px;color:var(--text3);font-weight:500;background:rgba(255,255,255,.06);padding:2px 8px;border-radius:10px}
   .col-delete{width:24px;height:24px;border:none;background:none;color:var(--text3);cursor:pointer;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px;opacity:0;transition:opacity .15s}
@@ -47,12 +47,12 @@
   .col-cards::-webkit-scrollbar{width:4px}
   .col-cards::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
   .col-add{padding:8px;border-top:1px solid var(--border)}
-  .col-add-btn{width:100%;padding:8px;border:1px dashed var(--border);border-radius:8px;background:none;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;transition:all .2s}
+  .col-add-btn{width:100%;padding:8px;border:1px dashed var(--border);border-radius:8px;background:none;color:var(--text3);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;cursor:pointer;transition:all .2s}
   .col-add-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 
   /* ── Add Column ── */
   .add-column{min-width:280px;width:280px;flex-shrink:0}
-  .add-col-btn{width:100%;padding:14px;border:2px dashed var(--border);border-radius:12px;background:none;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+  .add-col-btn{width:100%;padding:14px;border:2px dashed var(--border);border-radius:12px;background:none;color:var(--text3);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
   .add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 
   /* ── Card ── */
@@ -80,10 +80,10 @@
   /* ── AI progress bar ── */
   .ai-progress-wrap{opacity:0;transition:opacity .4s;flex-shrink:0}
   .ai-progress-wrap.active{opacity:1}
-  .ai-progress-label{font-size:12px;color:#9D7BEA;text-align:center;padding:6px 0 4px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;letter-spacing:.2px;animation:ai-pulse 2s ease-in-out infinite}
+  .ai-progress-label{font-size:12px;color:#8b5cf6;text-align:center;padding:6px 0 4px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;letter-spacing:.2px;animation:ai-pulse 2s ease-in-out infinite}
   @keyframes ai-pulse{0%,100%{opacity:.6}50%{opacity:1}}
-  .ai-progress{height:2px;background:rgba(157,123,234,.12);overflow:hidden}
-  .ai-progress-bar{height:100%;width:30%;background:linear-gradient(90deg,#9D7BEA,#7C5DC4);border-radius:2px;animation:ai-slide 1.8s ease-in-out infinite}
+  .ai-progress{height:2px;background:rgba(139,92,246,.12);overflow:hidden}
+  .ai-progress-bar{height:100%;width:30%;background:linear-gradient(90deg,#a78bfa,#8b5cf6);border-radius:2px;animation:ai-slide 1.8s ease-in-out infinite}
   @keyframes ai-slide{0%{transform:translateX(-100%)}50%{transform:translateX(250%)}100%{transform:translateX(-100%)}}
 
   /* ── Time of day indicator ── */
@@ -105,20 +105,20 @@
   .color-swatch.active{border-color:var(--accent)}
 
   /* ── Toast ── */
-  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;z-index:10001;opacity:0;transition:opacity .3s;pointer-events:none}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 20px;border-radius:8px;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;z-index:10001;opacity:0;transition:opacity .3s;pointer-events:none}
   .toast.show{opacity:1}
 
   /* ── Light mode ── */
   body.light-mode{
     --bg:#F8F8FC;--col-bg:#FFFFFF;--border:#E2E2E8;
     --text:#2D2A3E;--text2:#6E6B7B;--text3:#9997A3;
-    --accent:#9D7BEA;--accent-hover:#8B6AD4;--accent-soft:rgba(157,123,234,.08);
+    --accent:#8b5cf6;--accent-hover:#7c3aed;--accent-soft:rgba(139,92,246,.08);
     --yellow:#FFF9DB;--pink:#FFE4E8;--blue:#DBEAFE;--green:#DCFCE7;
     --purple:#EDE9FE;--orange:#FFEDD5;--white:#FFFFFF;--gray:#F3F4F6;
   }
   body.light-mode{background:var(--bg);color:var(--text)}
   body.light-mode .header{background:rgba(255,255,255,.95)}
-  body.light-mode .board{background-image:linear-gradient(rgba(157,123,234,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(157,123,234,.04) 1px,transparent 1px)}
+  body.light-mode .board{background-image:linear-gradient(rgba(139,92,246,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.04) 1px,transparent 1px)}
   body.light-mode .card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
   body.light-mode .card.drag-clone{box-shadow:0 8px 24px rgba(0,0,0,.18)}
   body.light-mode .card-delete{background:rgba(0,0,0,.06);color:rgba(0,0,0,.4)}
@@ -141,34 +141,36 @@
   /* ── Loading splash ── */
   .loading-splash{position:fixed;inset:0;background:var(--bg);z-index:10001;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0;transition:opacity .5s;padding:20px}
   .loading-splash.fade-out{opacity:0;pointer-events:none}
-  .loading-splash-icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;margin-bottom:24px;animation:splash-breathe 2s ease-in-out infinite}
-  @keyframes splash-breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(157,123,234,0)}50%{transform:scale(1.05);box-shadow:0 0 30px 8px rgba(157,123,234,.2)}}
-  .loading-splash-title{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;color:var(--text);margin-bottom:8px;text-align:center}
+  .loading-splash-icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;margin-bottom:24px;animation:splash-breathe 2s ease-in-out infinite}
+  @keyframes splash-breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(139,92,246,0)}50%{transform:scale(1.05);box-shadow:0 0 30px 8px rgba(139,92,246,.2)}}
+  .loading-splash-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:19px;font-weight:700;color:var(--text);margin-bottom:8px;text-align:center}
   .loading-splash-sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:var(--text3);text-align:center;max-width:320px;line-height:1.6;margin-bottom:32px}
-  .loading-splash-bar{width:200px;height:3px;background:rgba(157,123,234,.12);border-radius:3px;overflow:hidden}
-  .loading-splash-bar-inner{height:100%;width:30%;background:linear-gradient(90deg,#9D7BEA,#7C5DC4);border-radius:3px;animation:ai-slide 1.8s ease-in-out infinite}
-  .loading-splash-step{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);margin-top:14px;opacity:.7;animation:ai-pulse 2s ease-in-out infinite;text-align:center}
+  .loading-splash-bar{width:200px;height:3px;background:rgba(139,92,246,.12);border-radius:3px;overflow:hidden}
+  .loading-splash-bar-inner{height:100%;width:30%;background:linear-gradient(90deg,#a78bfa,#8b5cf6);border-radius:3px;animation:ai-slide 1.8s ease-in-out infinite}
+  .loading-splash-step{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;color:var(--accent);margin-top:14px;opacity:.7;animation:ai-pulse 2s ease-in-out infinite;text-align:center}
 
   /* ── Welcome overlay ── */
-  .welcome-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
-  .welcome-card{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:32px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)}
-  .welcome-logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#9D7BEA,#7C5DC4);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;margin-bottom:16px}
-  .welcome-title{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:6px}
-  .welcome-sub{font-size:14px;color:#888;margin-bottom:28px}
+  .welcome-overlay{position:fixed;inset:0;background:rgba(15,15,18,.72);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
+  .welcome-card{background:#26262a;border:1px solid rgba(255,255,255,.08);border-radius:20px;max-width:480px;width:100%;padding:30px 30px 24px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .welcome-logo{font-weight:700;font-size:22px;letter-spacing:-.5px;color:#fff;margin-bottom:14px}
+  .welcome-logo .dot{color:#a78bfa}
+  .welcome-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:-.02em}
+  .welcome-sub{font-size:14px;color:#9a9aa6;margin-bottom:22px}
   .welcome-options{display:flex;flex-direction:column;gap:10px}
-  .welcome-opt{display:flex;align-items:center;gap:14px;padding:16px;border-radius:12px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;transition:all .2s;text-align:left}
-  .welcome-opt:hover{border-color:#9D7BEA;background:rgba(157,123,234,.04)}
-  .welcome-opt.primary{border:2px solid #9D7BEA;background:rgba(157,123,234,.06)}
-  .welcome-opt.primary:hover{background:rgba(157,123,234,.12)}
+  .welcome-opt{display:flex;align-items:center;gap:14px;padding:15px;border-radius:13px;border:1px solid rgba(255,255,255,.09);background:#2f2f36;cursor:pointer;transition:all .18s;text-align:left}
+  .welcome-opt:hover{border-color:#8b5cf6;background:#34343c}
+  .welcome-opt.primary{border:1.5px solid #8b5cf6;background:rgba(139,92,246,.14)}
+  .welcome-opt.primary:hover{background:rgba(139,92,246,.2)}
   .welcome-opt.disabled{opacity:.4;pointer-events:none}
-  .welcome-opt-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-  .welcome-opt-icon.violet{background:rgba(157,123,234,.12);color:#9D7BEA}
-  .welcome-opt-icon.yellow{background:rgba(234,179,8,.12);color:#ca8a04}
-  .welcome-opt-icon.gray{background:rgba(0,0,0,.06);color:#888}
-  .welcome-opt-text{flex:1}
-  .welcome-opt-title{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:#1a1a1a}
-  .welcome-opt-desc{font-size:12px;color:#888;margin-top:2px}
-  .welcome-opt .welcome-opt-badge{font-size:12px;background:#9D7BEA;color:#fff;padding:2px 8px;border-radius:10px;font-weight:600;letter-spacing:.3px}
+  .welcome-opt-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .welcome-opt-icon.violet{background:rgba(167,139,250,.16);color:#c4b5fd}
+  .welcome-opt-icon.green{background:rgba(188,206,82,.18);color:#bced52}
+  .welcome-opt-icon.gray{background:rgba(255,255,255,.07);color:#b8b8c0}
+  .welcome-opt-text{flex:1;min-width:0}
+  .welcome-opt-title{font-size:14px;font-weight:600;color:#fff}
+  .welcome-opt-desc{font-size:12px;color:#9a9aa6;margin-top:2px;line-height:1.45}
+  .welcome-opt .welcome-opt-badge{font-size:11px;background:#8b5cf6;color:#fff;padding:2px 8px;border-radius:10px;font-weight:600;letter-spacing:.3px}
+  .welcome-consent{font-size:12px;color:#7f7f8a;line-height:1.5;margin-top:18px}
 
   /* ── Scrollbar global ── */
   ::-webkit-scrollbar{width:6px;height:6px}
@@ -187,9 +189,9 @@
   <div class="header-spacer"></div>
   <span style="font-size:12px;color:#9CA3AF">v31</span>
   <div class="sync-status" id="syncStatus"><span class="sync-dot" id="syncDot"></span><span id="syncLabel"></span></div>
-  <button class="header-btn" onclick="newProject()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-    New
+  <button class="header-btn" onclick="newProject()" title="Start over — reopens the build options">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+    Start over
   </button>
   <button class="header-btn" onclick="sendOrderToWord(true)" id="wordBtn" style="display:none" title="Send this order to your Word document">Send to Word</button>
   <button class="header-btn" onclick="syncBoard()" id="syncBtn">
@@ -237,33 +239,34 @@
 
 <div class="welcome-overlay" id="welcomeOverlay" style="display:none">
   <div class="welcome-card">
-    <div class="welcome-logo">SB</div>
-    <div class="welcome-title">Scene Board</div>
-    <div class="welcome-sub">Organize your screenplay visually</div>
+    <div class="welcome-logo">scrrrr<span class="dot">.</span></div>
+    <div class="welcome-title">Build your Scene Board</div>
+    <div class="welcome-sub">Turn your screenplay into cards you can move around.</div>
     <div class="welcome-options">
-      <div class="welcome-opt primary" id="welcome-import" onclick="welcomeChoice('import')">
-        <div class="welcome-opt-icon violet">&#8645;</div>
+      <div class="welcome-opt primary" onclick="welcomeChoice('build')">
+        <div class="welcome-opt-icon green">&#9635;</div>
         <div class="welcome-opt-text">
-          <div class="welcome-opt-title">Import my script</div>
-          <div class="welcome-opt-desc">Sync scenes from your Google Doc</div>
+          <div class="welcome-opt-title">Build my board</div>
+          <div class="welcome-opt-desc">Every scene from your document becomes a card. No AI.</div>
         </div>
         <span class="welcome-opt-badge">RECOMMENDED</span>
       </div>
-      <div class="welcome-opt" onclick="welcomeChoice('demo')">
-        <div class="welcome-opt-icon yellow">&#9733;</div>
+      <div class="welcome-opt" onclick="welcomeChoice('build-ai')">
+        <div class="welcome-opt-icon violet">&#10024;</div>
         <div class="welcome-opt-text">
-          <div class="welcome-opt-title">See Pulp Fiction demo</div>
-          <div class="welcome-opt-desc">Explore a full breakdown of Tarantino's classic</div>
+          <div class="welcome-opt-title">Build my board + AI summaries</div>
+          <div class="welcome-opt-desc">Same, plus a one-line summary of each scene, written by AI.</div>
         </div>
       </div>
-      <div class="welcome-opt" onclick="welcomeChoice('empty')">
+      <div class="welcome-opt" onclick="welcomeChoice('blank')">
         <div class="welcome-opt-icon gray">&#43;</div>
         <div class="welcome-opt-text">
-          <div class="welcome-opt-title">Start blank</div>
-          <div class="welcome-opt-desc">Empty board with Act 1, 2A, 2B, 3</div>
+          <div class="welcome-opt-title">Blank board</div>
+          <div class="welcome-opt-desc">Start empty with Act 1, 2A, 2B, 3.</div>
         </div>
       </div>
     </div>
+    <div class="welcome-consent">We don't run AI on your writing by default. You choose it, above.</div>
   </div>
 </div>
 
@@ -368,11 +371,19 @@ async function init(){
     history.replaceState({}, '', location.pathname + (docId ? '?docId=' + encodeURIComponent(docId) : ''));
   }
 
+  // Choix « Blank board » (depuis l'extension) : board vierge, on ne scanne rien.
+  if(params.has('blank')){
+    state = {title:'Untitled Project', columns:[
+      {id:uid(),title:'Act 1',cards:[]},{id:uid(),title:'Act 2A',cards:[]},
+      {id:uid(),title:'Act 2B',cards:[]},{id:uid(),title:'Act 3',cards:[]},
+    ]};
+    save(); document.getElementById('projectTitle').value = state.title; render(); _seBoardReady(); return;
+  }
+
   // If coming from sidebar with fresh scenes, import them directly
-  // importScenes() will show the loading splash during AI summarization
   if(_pendingScenes && _pendingScenes.length){
     const syncTitle = document.getElementById('projectTitle').value;
-    importScenes(_pendingScenes);
+    importScenes(_pendingScenes, params.get('ai') !== '0'); // ?ai=0 => choix sans IA
     if(syncTitle) state.title = syncTitle;
     document.getElementById('projectTitle').value = state.title;
     save();
@@ -391,25 +402,27 @@ async function init(){
     return;
   }
 
-  // First visit: show welcome overlay
+  // First visit (no saved board) : on montre les 3 choix. Les options « build »
+  // demandent le scan au parent (l'extension lit le Doc).
   const overlay = document.getElementById('welcomeOverlay');
   overlay.style.display = 'flex';
-
-  // Disable import option if no scenes available
-  if(!_pendingScenes || !_pendingScenes.length){
-    const importOpt = document.getElementById('welcome-import');
-    importOpt.classList.add('disabled');
-    importOpt.querySelector('.welcome-opt-desc').textContent = 'Open Scene Board from the sidebar to import';
-    importOpt.querySelector('.welcome-opt-badge').style.display = 'none';
-  }
 }
 
 function welcomeChoice(choice){
   document.getElementById('welcomeOverlay').style.display = 'none';
+  // « Build » / « Build + AI » : le scan du Doc se fait côté extension. On demande
+  // au parent (content.js) de lancer le scan avec/sans IA ; il recharge le board
+  // avec ?sync=&ai=. En standalone (hors extension), pas de doc -> board vierge.
+  if(choice === 'build' || choice === 'build-ai'){
+    try{
+      if(window.parent && window.parent !== window){
+        window.parent.postMessage({type:'SE_BOARD_SCAN', ai: (choice === 'build-ai')}, '*');
+        return;
+      }
+    }catch(e){}
+  }
   if(choice === 'import' && _pendingScenes && _pendingScenes.length){
-    importScenes(_pendingScenes);
-  } else if(choice === 'demo'){
-    state = getDemoData();
+    importScenes(_pendingScenes, true);
   } else {
     state = {title:'Untitled Project', columns:[
       {id:uid(),title:'Act 1',cards:[]},
@@ -421,7 +434,6 @@ function welcomeChoice(choice){
   save();
   document.getElementById('projectTitle').value = state.title;
   render();
-  // Clean URL params
   if(history.replaceState) history.replaceState(null, '', location.pathname);
 }
 
@@ -601,7 +613,7 @@ function _hideSplash(el){
   setTimeout(function(){ el.style.display='none'; el.classList.remove('fade-out'); }, 500);
 }
 
-function importScenes(scenes){
+function importScenes(scenes, useAI){
   // Detect language before building columns
   boardLang = detectBoardLang(scenes);
   state.title = 'Imported Scenes';
@@ -633,8 +645,8 @@ function importScenes(scenes){
   });
   const legend = document.getElementById('boardLegend');
   if(legend) legend.style.display = '';
-  // Fetch AI summaries asynchronously
-  fetchAISummaries(scenes);
+  // Résumés IA seulement si l'utilisateur a choisi « + AI »
+  if(useAI !== false) fetchAISummaries(scenes);
 }
 
 // ── UID ──
@@ -959,18 +971,15 @@ function addColumn(){
 
 // ── New Project ──
 function newProject(){
-  if(!confirm('Start a new project? Current board will be cleared.')) return;
-  state = {title:'Untitled Project', columns:[
-    {id:uid(),title:'Act 1',cards:[]},
-    {id:uid(),title:'Act 2A',cards:[]},
-    {id:uid(),title:'Act 2B',cards:[]},
-    {id:uid(),title:'Act 3',cards:[]},
-  ]};
-  localStorage.removeItem('kanban_sync_id');
-  save();
-  document.getElementById('projectTitle').value = state.title;
-  updateSyncStatus('none');
-  render();
+  // Recommencer = rouvrir les 3 choix (reconstruire sans IA / avec IA, ou vierge).
+  if(!confirm('Start over? This reopens the build options.')) return;
+  try{
+    if(window.parent && window.parent !== window){
+      window.parent.postMessage({type:'SE_BOARD_RECHOOSE'}, '*'); // l'extension ré-affiche l'écran de choix
+      return;
+    }
+  }catch(e){}
+  document.getElementById('welcomeOverlay').style.display = 'flex';
 }
 
 // ── Sync ──
