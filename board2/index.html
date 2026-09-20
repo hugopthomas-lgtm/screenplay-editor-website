@@ -66,7 +66,7 @@
   .card[contenteditable=true]{cursor:text;outline:none;box-shadow:0 0 0 2px var(--accent)}
   .card-head{display:flex;align-items:baseline;gap:7px;padding-right:16px}
   .card-num{font-size:11px;font-weight:700;color:rgba(26,26,46,.34);font-variant-numeric:tabular-nums;flex-shrink:0;line-height:1.32}
-  .card-slug{font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#1a1a2e;line-height:1.32;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card-slug{font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#1a1a2e;line-height:1.32;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .card-text{pointer-events:none;font-size:12.5px;font-weight:400;color:rgba(26,26,46,.6);line-height:1.4;margin-top:4px;word-break:break-word}
   .card-text:empty{margin-top:0}
   .card[contenteditable=true] .card-text{pointer-events:auto}
@@ -74,7 +74,7 @@
   /* ── Card heading + body ── */
   .card .time-dot{position:absolute;top:8px;right:8px}
   .card-location{font-size:12px;font-weight:500;letter-spacing:.2px;text-transform:uppercase;color:#8B8B9E;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .board-legend{display:flex;align-items:center;gap:19px;padding:7px 24px;font-size:14px;color:#9CA3AF;border-bottom:1px solid rgba(0,0,0,.06);background:rgba(0,0,0,.01);flex-shrink:0}
+  .board-legend{display:flex;align-items:center;gap:13px;font-size:12px;color:var(--text2);flex-shrink:0;margin-left:8px;white-space:nowrap}
   .board-legend .legend-group{display:flex;align-items:center;gap:5px}
   .board-legend .legend-swatch{width:12px;height:12px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
   .board-legend .legend-dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
@@ -191,30 +191,26 @@
 <div class="header">
   <div class="logo"><svg viewBox="0 0 150 110" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-5 75 55)"><rect x="26" y="18" width="98" height="74" rx="8"/><path d="M26 33h98"/><rect x="35" y="41" width="22" height="13" rx="3" fill="rgba(139,92,246,.18)" stroke="#a78bfa"/><rect x="35" y="58" width="22" height="13" rx="3"/><rect x="35" y="75" width="22" height="9" rx="3"/><rect x="64" y="41" width="22" height="13" rx="3"/><rect x="64" y="58" width="22" height="17" rx="3"/><rect x="93" y="41" width="22" height="9" rx="3"/><rect x="93" y="54" width="22" height="13" rx="3"/><rect x="93" y="71" width="22" height="13" rx="3"/></g><path d="M131 20l1.8 4.6 4.6 1.8-4.6 1.8-1.8 4.6-1.8-4.6-4.6-1.8 4.6-1.8z" fill="#a78bfa" stroke="#a78bfa"/><path d="M15 64l1.3 3.4 3.4 1.3-3.4 1.3-1.3 3.4-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#a78bfa" stroke="#a78bfa"/><path d="M137 58h6M140 55v6" stroke="#a78bfa"/></svg></div>
   <input id="projectTitle" type="hidden" value="Untitled Project">
-  <div class="header-spacer"></div>
-  <button class="header-btn" onclick="newProject()" title="Start over — reopens the build options">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
-    Start over
-  </button>
-  <button class="header-btn" onclick="sendOrderToWord(true)" id="wordBtn" style="display:none" title="Send this order to your Word document">Send to Word</button>
-  <button class="header-btn primary" onclick="addCardToFirstColumn()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    New card
-  </button>
-  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">&#9790;</button>
-</div>
-
-<div class="board-legend" id="boardLegend" style="display:none">
+  <div class="board-legend" id="boardLegend" style="display:none">
   <span class="legend-group"><span class="legend-swatch" style="background:var(--yellow)"></span> INT</span>
   <span class="legend-group"><span class="legend-swatch" style="background:var(--blue)"></span> EXT</span>
   <span class="legend-group"><span class="legend-swatch" style="background:var(--green)"></span> INT/EXT</span>
-  <span style="margin-left:8px;opacity:.3">|</span>
+  <span style="margin-left:4px;opacity:.3">|</span>
   <span class="legend-group"><span class="legend-dot" style="background:#FDA4AF"></span> Dawn</span>
   <span class="legend-group"><span class="legend-dot" style="background:#93C5FD"></span> Morning</span>
   <span class="legend-group"><span class="legend-dot" style="background:#FBBF24"></span> Day</span>
   <span class="legend-group"><span class="legend-dot" style="background:#F97316"></span> Evening</span>
   <span class="legend-group"><span class="legend-dot" style="background:#3B82F6"></span> Night</span>
 </div>
+  <div class="header-spacer"></div>
+  <button class="header-btn" onclick="newProject()" title="Start over — reopens the build options">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+    Start over
+  </button>
+  <button class="header-btn" onclick="sendOrderToWord(true)" id="wordBtn" style="display:none" title="Send this order to your Word document">Send to Word</button>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">&#9790;</button>
+</div>
+
 <div class="ai-progress-wrap" id="aiProgress"><div class="ai-progress-label" id="aiLabel"></div><div class="ai-progress"><div class="ai-progress-bar"></div></div></div>
 <div class="board" id="board"></div>
 <div class="toast" id="toast"></div>
@@ -952,11 +948,6 @@ function addCard(colId){
   // Focus the new card for editing
   const cardEl = document.querySelector(`[data-card-id="${card.id}"]`);
   if(cardEl) startEditCard(cardEl, card);
-}
-
-function addCardToFirstColumn(){
-  if(!state.columns.length) return;
-  addCard(state.columns[0].id);
 }
 
 function addColumn(){
