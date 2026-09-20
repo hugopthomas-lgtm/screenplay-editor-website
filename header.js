@@ -28,8 +28,8 @@
   // Outils vivent dans le pied de page, qui est fait pour ca.
   var NAV = [
     ['Pricing', '/pricing'],
-    ['Templates', '/resources'],
-    ['Compare', '/compare'],
+    ['Templates', '/resources/'],
+    ['Compare', '/compare/'],
     ['Schools', '/schools']
   ];
 
@@ -41,8 +41,8 @@
   if (IS_FR) {
     NAV = [
       ['Prix', '/fr/pricing'],
-      ['Modèles', '/fr/resources'],
-      ['Comparer', '/fr/compare'],
+      ['Modèles', '/fr/resources/'],
+      ['Comparer', '/fr/compare/'],
       ['Écoles', '/fr/schools']
     ];
   }
@@ -51,7 +51,6 @@
   // une ligne ici chaque fois qu'une page est traduite.
   var PAIRS = {
     '/': '/fr/',
-    '/word': '/fr/word',
     '/word/': '/fr/word/',
     '/pricing': '/fr/pricing',
     '/about': '/fr/about',
@@ -59,11 +58,11 @@
     '/support': '/fr/support',
     '/privacy': '/fr/privacy',
     '/terms': '/fr/terms',
-    '/compare': '/fr/compare',
-    '/resources': '/fr/resources',
+    '/compare/': '/fr/compare/',
+    '/resources/': '/fr/resources/',
     '/blog/best-dialogue-hack': '/fr/blog/best-dialogue-hack',
     '/blog/why-feedback-is-hard': '/fr/blog/why-feedback-is-hard',
-    '/blog/best-screenplay-addons-google-docs': '/fr/blog/best-screenplay-addons-google-docs',
+    '/blog/best-screenplay-addons-google-docs/': '/fr/blog/best-screenplay-addons-google-docs',
     '/free-google-docs-screenplay-template': '/fr/free-google-docs-screenplay-template',
     '/screenplay-formatter-google-docs': '/fr/screenplay-formatter-google-docs',
     '/alternative': '/fr/alternative',
@@ -110,12 +109,20 @@
     // le navigateur donne avant de chercher, pour que le sélecteur marche
     // aussi si quelqu'un arrive par une vieille adresse en .html.
     var p = location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '') || '/';
+    // Le serveur sert les pages en dossier avec une barre finale (/compare/) et
+    // les autres sans. On compare donc SANS la barre des deux côtés : la
+    // bascule marche qu'on arrive par /compare ou par /compare/, et elle ne
+    // retombe plus sur l'accueil de l'autre langue. C'est ce qui se passait
+    // sur les onze pages en dossier.
+    var bare = function (x) { return x.length > 1 ? x.replace(/\/+$/, '') : x; };
+    var pb = bare(p);
     if (IS_FR) {
-      var en = p.replace(/^\/fr(\/|$)/, '/');
-      for (var k in PAIRS) { if (PAIRS[k] === p || k === en) return k; }
+      var en = bare(pb.replace(/^\/fr(\/|$)/, '/'));
+      for (var k in PAIRS) { if (bare(PAIRS[k]) === pb || bare(k) === en) return k; }
       return '/';
     }
-    return PAIRS[p] || '/fr/';
+    for (var k2 in PAIRS) { if (bare(k2) === pb) return PAIRS[k2]; }
+    return '/fr/';
   }
   var LANG = IS_FR ? ['EN', counterpartHref(), 'en'] : ['FR', counterpartHref(), 'fr'];
 
@@ -147,7 +154,7 @@
   var switchHtml =
     '<span class="seg" role="group" aria-label="' + (IS_FR ? 'Ou vous ecrivez' : 'Where you write') + '">' +
       segItem(!ON_WORD, 'Docs', IS_FR ? '/fr/' : '/', DOCS_ICO) +
-      segItem(ON_WORD, 'Word', IS_FR ? '/fr/word' : '/word', WORD_ICO) +
+      segItem(ON_WORD, 'Word', IS_FR ? '/fr/word/' : '/word/', WORD_ICO) +
     '</span>' +
     '<a class="lang-switch" data-lang="' + LANG[2] + '" href="' + LANG[1] + '">' + LANG[0] + '</a>';
 

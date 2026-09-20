@@ -26,15 +26,15 @@
       ['Extension Chrome', INSTALL_EXT],
       ['Module Google Docs', INSTALL_ADDON],
       ['Prix', '/fr/pricing'],
-      ['Comparer les outils', '/fr/compare'],
+      ['Comparer les outils', '/fr/compare/'],
       ['Modèle gratuit', '/fr/free-google-docs-screenplay-template']
     ]],
     ['Apprendre', [
       ['Écrire un scénario dans Google Docs', '/fr/resources/how-to-write-screenplay-google-docs'],
       ['Le format du scénario', '/fr/resources/screenplay-format-google-docs'],
-      ['Modèles par genre', '/fr/resources'],
+      ['Modèles par genre', '/fr/resources/'],
       ['Écrire sur Chromebook', '/fr/resources/chromebook'],
-      ['Outils gratuits', '/tools'],
+      ['Outils gratuits', '/tools/'],
       ['Blog', '/fr/blog']
     ]],
     ['Pour qui', [
@@ -55,15 +55,15 @@
       ['Chrome extension', INSTALL_EXT],
       ['Google Docs add-on', INSTALL_ADDON],
       ['Pricing', '/pricing'],
-      ['Compare the tools', '/compare'],
+      ['Compare the tools', '/compare/'],
       ['Free template', '/free-google-docs-screenplay-template']
     ]],
     ['Learn', [
       ['Write a screenplay in Google Docs', '/resources/how-to-write-screenplay-google-docs'],
       ['Screenplay format', '/resources/screenplay-format-google-docs'],
-      ['Genre templates', '/resources'],
+      ['Genre templates', '/resources/'],
       ['Write on a Chromebook', '/resources/chromebook'],
-      ['Free tools', '/tools'],
+      ['Free tools', '/tools/'],
       ['Blog', '/blog']
     ]],
     ['Who it is for', [
