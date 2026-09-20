@@ -534,7 +534,7 @@ function updateBoardLabels(){
   });
 }
 
-function fetchAISummaries(scenes){
+async function fetchAISummaries(scenes){
   const API='https://screenplay-editor-api.hugopthomas.workers.dev';
   // Detect language from scene headings
   boardLang = detectBoardLang(scenes);
@@ -547,32 +547,53 @@ function fetchAISummaries(scenes){
     splash.classList.remove('fade-out');
     document.querySelector('.loading-splash-title').textContent = t('splashTitle');
     document.querySelector('.loading-splash-sub').textContent = t('splashSub');
-    splashStep.textContent = getAiPhrase();
   }
-  let _phraseInterval = setInterval(function(){
-    if(splashStep) splashStep.textContent = getAiPhrase();
-  }, 3000);
-  fetch(API+'/board/summarize',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({scenes:scenes, lang:boardLang})
-  }).then(r=>r.json()).then(data=>{
-    clearInterval(_phraseInterval);
-    if((!data.short||!data.short.length)&&(!data.long||!data.long.length)){
-      _hideSplash(splash); return;
+  // Découpage en LOTS : le worker (llama-8b) plafonne la sortie à max_tokens 2000
+  // et l'entrée au contexte du modèle. Un seul appel géant (ex. 190 scènes d'un
+  // long-métrage) était tronqué à ~50 scènes ou revenait vide -> cartes « … » à
+  // vie (retour Hugo). On résume par lots de 25 (le worker gère très bien), avec
+  // un compteur de progression qui sert d'indicateur d'attente.
+  const CHUNK = 25;
+  const total = scenes.length;
+  const setStep = function(done){
+    if(!splashStep) return;
+    splashStep.textContent = (boardLang==='fr' ? 'Résumé des scènes ' : 'Summarizing scenes ') + Math.min(done, total) + ' / ' + total;
+  };
+  setStep(0);
+  try{
+    for(let start=0; start<total; start+=CHUNK){
+      const chunk = scenes.slice(start, start+CHUNK);
+      let data = null;
+      try{
+        const ctrl = new AbortController();
+        const to = setTimeout(function(){ ctrl.abort(); }, 20000);
+        const r = await fetch(API+'/board/summarize',{
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({scenes:chunk, lang:boardLang}), signal: ctrl.signal
+        });
+        clearTimeout(to);
+        data = await r.json();
+      }catch(e){ data = null; } // un lot qui échoue : ses cartes gardent le titre de scène, on continue
+      if(data){
+        state.columns.forEach(function(col){
+          col.cards.forEach(function(card){
+            const idx = card._sceneIdx;
+            if(typeof idx !== 'number') return;
+            const local = idx - start; // index dans CE lot
+            if(local < 0 || local >= chunk.length) return;
+            if(data.short && data.short[local]) card.text = data.short[local];
+            if(data.long && data.long[local]) card.body = data.long[local];
+          });
+        });
+        save();
+      }
+      setStep(start + CHUNK);
     }
-    state.columns.forEach(col=>{
-      col.cards.forEach(card=>{
-        const idx = card._sceneIdx;
-        if(typeof idx !== 'number') return;
-        if(data.short && data.short[idx]) card.text = data.short[idx];
-        if(data.long && data.long[idx]) card.body = data.long[idx];
-      });
-    });
-    save(); render();
+  } finally {
+    render();
     if(splashStep) splashStep.textContent = t('done');
-    setTimeout(function(){ _hideSplash(splash); }, 600);
-  }).catch(()=>{ clearInterval(_phraseInterval); _hideSplash(splash); });
+    setTimeout(function(){ _hideSplash(splash); }, 500);
+  }
 }
 function _hideSplash(el){
   if(!el) return;
