@@ -1339,6 +1339,61 @@
         margin: 10px 0;
       }
     }
+    /* ---- L'annuaire du site -------------------------------------
+       Raison d'être : le menu et le pied de page sont des Web
+       Components en Shadow DOM, donc AUCUN lien interne n'existe dans
+       le HTML servi. Mesuré le 20/09/2026 : cette page, la plus
+       explorée du site, portait SIX balises <a> dans son corps, dont
+       une seule vers une autre page. Ce bloc est la porte d'entrée
+       explorable vers le reste du site, et il sert aussi au visiteur
+       qui vient de lire la page et se demande où aller.
+       ------------------------------------------------------------- */
+    .directory { background: var(--cream, #F3F1F8); padding: 72px 30px 80px; }
+    .directory-inner { max-width: 1240px; margin: 0 auto; }
+    .directory h2 {
+      font-size: 38px; font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.11; margin: 0 0 12px; color: var(--dark, #1A1A1A);
+    }
+    .directory-sub {
+      font-size: 16px; line-height: 1.5; color: #6B6B73;
+      max-width: 56ch; margin: 0 0 44px;
+    }
+    .directory-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px 40px;
+    }
+    /* Les pages par profil sont dix, les autres colonnes cinq ou six : en
+       colonne elles creusaient un vide sous les trois autres. Elles passent
+       en une seule rangée qui court sur toute la largeur. */
+    .dir-wide { margin-top: 46px; }
+    .dir-wide ul {
+      list-style: none; margin: 0; padding: 0;
+      /* En flex, la deuxième ligne repartait sous des largeurs différentes et
+         l'ensemble avait l'air tombé là. En grille, les entrées s'alignent. */
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 13px 30px;
+    }
+    /* La marge des listes en colonne (li + li) s'appliquait aussi dans la
+       grille et décalait les entrées 2 à 5 de onze pixels vers le bas :
+       ici c'est l'écart de la grille qui espace, pas la marge. */
+    .dir-wide ul li, .dir-wide ul li + li { margin: 0; }
+    .dir-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #9D7BEA; margin: 0 0 16px;
+    }
+    .dir-col ul { list-style: none; margin: 0; padding: 0; }
+    .dir-col li + li { margin-top: 11px; }
+    .dir-col a {
+      font-size: 15px; line-height: 1.4; color: #3C3C44;
+      text-decoration: none; border-bottom: 1px solid transparent;
+    }
+    .dir-col a:hover { color: #1A1A1A; border-bottom-color: rgba(157,123,234,0.5); }
+    @media (max-width: 900px) {
+      .directory { padding: 56px 20px 64px; }
+      .directory h2 { font-size: 28px; }
+      .directory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 24px; }
+      .dir-wide { margin-top: 34px; }
+      .dir-wide ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px 22px; }
+    }
+    @media (max-width: 520px) { .directory-grid, .dir-wide ul { grid-template-columns: 1fr; } }
   </style>
   <script src="/header.js"></script>
   <script src="/footer.js"></script>
@@ -1589,6 +1644,63 @@
         <li><span class="ck">&#10003;</span>Installs in seconds</li>
         <li aria-hidden="true" style="flex-basis:100%;height:0;margin:0;padding:0;list-style:none;"></li><li id="sf-cta-secured"><span class="ck">&#10003;</span>Secured by Google, not us</li>
       </ul>
+    </section>
+
+    <section class="directory">
+      <div class="directory-inner">
+        <h2>The rest of the site.</h2>
+        <p class="directory-sub">Prices, comparisons, templates and the free tools, plus the pages written for the way you work.</p>
+        <div class="directory-grid">
+          <div class="dir-col">
+            <p class="dir-label">Where you write</p>
+            <ul>
+              <li><a href="/word/">Screenplay Editor for Word</a></li>
+              <li><a href="/write-a-screenplay-in-word/">How to write a screenplay in Word</a></li>
+              <li><a href="/free-google-docs-screenplay-template">Free Google Docs template</a></li>
+              <li><a href="/screenplay-template-word/">Free Word template</a></li>
+              <li><a href="/resources/chromebook">Writing on a Chromebook</a></li>
+            </ul>
+          </div>
+          <div class="dir-col">
+            <p class="dir-label">Before you decide</p>
+            <ul>
+              <li><a href="/pricing">Pricing</a></li>
+              <li><a href="/compare/">Compare the tools</a></li>
+              <li><a href="/alternative">An alternative to Final Draft</a></li>
+              <li><a href="/schools">Schools and teachers</a></li>
+              <li><a href="/about">Who makes it</a></li>
+            </ul>
+          </div>
+          <div class="dir-col">
+            <p class="dir-label">Learn and use</p>
+            <ul>
+              <li><a href="/resources/">Genre templates</a></li>
+              <li><a href="/resources/screenplay-format-google-docs">Screenplay format</a></li>
+              <li><a href="/resources/how-to-write-screenplay-google-docs">Write a screenplay in Google Docs</a></li>
+              <li><a href="/tools/">Free tools</a></li>
+              <li><a href="/filmstill/">Film Still, see your script</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/made">Your script became a film?</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dir-col dir-wide">
+          <p class="dir-label">Written for</p>
+          <ul>
+              <li><a href="/landing-students">Film students</a></li>
+              <li><a href="/landing-beginners">A first screenplay</a></li>
+              <li><a href="/landing-professionals">Working screenwriters</a></li>
+              <li><a href="/landing-writers-rooms">Writers rooms</a></li>
+              <li><a href="/landing-teachers">Teachers</a></li>
+              <li><a href="/landing-theater">Playwrights</a></li>
+              <li><a href="/landing-youtube-creators">YouTube creators</a></li>
+              <li><a href="/landing-game-writers">Game writers</a></li>
+              <li><a href="/landing-international">Writing in another language</a></li>
+              <li><a href="/landing-budget">Writing on a budget</a></li>
+          </ul>
+        </div>
+      </div>
     </section>
   </main>
 
