@@ -987,7 +987,9 @@ function addColumn(){
 // ── New Project ──
 function newProject(){
   // Recommencer = rouvrir les 3 choix (reconstruire sans IA / avec IA, ou vierge).
-  if(!confirm('Start over? This reopens the build options.')) return;
+  // Pas de confirm() natif : moche dans une iframe (« Une page intégrée… ») et il
+  // bloque l'extension. Rien n'est effacé tant qu'aucune option n'est choisie, donc
+  // ré-ouvrir l'écran de choix ne nécessite pas de confirmation.
   try{
     if(window.parent && window.parent !== window){
       window.parent.postMessage({type:'SE_BOARD_RECHOOSE'}, '*'); // l'extension ré-affiche l'écran de choix
