@@ -531,20 +531,22 @@ async function fetchAISummaries(scenes){
   const CONC = 4;     // lots EN PARALLÈLE (avant : en série -> lent sur un long-métrage)
   const total = scenes.length;
 
-  // Compteur qui monte chiffre par chiffre vers la cible (les lots avancent par 25,
-  // l'affichage grimpe 1 à 1 pour ne pas sauter — retour Hugo).
-  const _label = (boardLang==='fr' ? 'Résumé des scènes ' : 'Summarizing scenes ');
-  let _shown = 0, _target = 0, _tick = null;
-  const _paint = function(){ if(progLabel) progLabel.textContent = _label + Math.min(_shown, total) + ' / ' + total; };
-  const bump = function(done){
-    _target = Math.min(done, total);
-    if(!_tick){ _tick = setInterval(function(){ if(_shown < _target){ _shown++; _paint(); } }, 45); }
-  };
-  bump(0); _paint();
-
   const chunks = [];
   for(let start=0; start<total; start+=CHUNK) chunks.push({ start: start, list: scenes.slice(start, start+CHUNK) });
   let doneScenes = 0;
+
+  // Compteur chiffre par chiffre. Les lots partent EN PARALLÈLE (progrès par vagues),
+  // donc au lieu de sauter à chaque lot fini, on fait monter le nombre 1 à 1 à débit
+  // lissé, borné par (scènes finies + une vague en vol) : pas de temps mort à 0 au
+  // démarrage, et ça reste honnête (retour Hugo : « ça saute, pas chiffre par chiffre »).
+  const _label = (boardLang==='fr' ? 'Résumé des scènes ' : 'Summarizing scenes ');
+  let _shown = 0;
+  const _paint = function(){ if(progLabel) progLabel.textContent = _label + Math.min(_shown, total) + ' / ' + total; };
+  const _ceiling = function(){ return Math.min(total, doneScenes + CHUNK * CONC); };
+  const _estMs = Math.ceil(total / CHUNK) / CONC * 4500;   // durée estimée
+  const _stepMs = Math.max(18, Math.round(_estMs / Math.max(1, total)));
+  const _tick = setInterval(function(){ if(_shown < _ceiling()){ _shown++; _paint(); } }, _stepMs);
+  _paint();
 
   const runChunk = async function(ch){
     let data = null;
@@ -572,7 +574,6 @@ async function fetchAISummaries(scenes){
       save();
     }
     doneScenes += ch.list.length;
-    bump(doneScenes);
   };
 
   try{
@@ -583,7 +584,7 @@ async function fetchAISummaries(scenes){
     };
     await Promise.all(Array.from({ length: Math.min(CONC, chunks.length) }, worker));
   } finally {
-    if(_tick){ clearInterval(_tick); _tick = null; }
+    clearInterval(_tick);
     _shown = total; _paint();
     render();
     if(progLabel) progLabel.textContent = t('done');
