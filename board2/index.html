@@ -16,14 +16,12 @@
     --drop:#8b5cf6;
   }
   html,body{height:100%;overflow:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text)}
+  body{display:flex;flex-direction:column}
 
   /* ── Header ── */
   .header{height:62px;display:flex;align-items:center;gap:14px;padding:0 24px;background:rgba(26,26,26,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:10}
-  .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0;letter-spacing:-.5px}
-  .logo svg{width:22px;height:22px;display:block}
-  .project-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;font-weight:600;border:none;background:none;color:var(--text);outline:none;min-width:120px;padding:5px 10px;border-radius:7px}
-  .project-title:hover{background:var(--accent-soft)}
-  .project-title:focus{background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}
+  .logo{display:flex;align-items:center;flex-shrink:0}
+  .logo svg{height:40px;width:auto;display:block}
   .header-spacer{flex:1}
   .header-btn{height:41px;padding:0 17px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s}
   .header-btn:hover{border-color:var(--accent);color:var(--accent)}
@@ -33,7 +31,7 @@
   input[type=file]{display:none}
 
   /* ── Board ── */
-  .board{display:flex;gap:16px;padding:16px;height:calc(100% - 62px);overflow-x:auto;overflow-y:hidden;align-items:flex-start;background-image:linear-gradient(rgba(139,92,246,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.03) 1px,transparent 1px);background-size:60px 60px}
+  .board{display:flex;gap:16px;padding:16px;flex:1;min-height:0;overflow-x:auto;overflow-y:hidden;align-items:flex-start;background-image:linear-gradient(rgba(139,92,246,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.03) 1px,transparent 1px);background-size:60px 60px}
 
   /* ── Column ── */
   .column{min-width:280px;max-width:320px;width:280px;background:var(--col-bg);border-radius:12px;border:1px solid var(--border);display:flex;flex-direction:column;max-height:100%;flex-shrink:0}
@@ -191,32 +189,18 @@
 <body>
 
 <div class="header">
-  <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><rect x="5.6" y="7.6" width="3.4" height="8.8" rx="1"/><rect x="10.3" y="7.6" width="3.4" height="5.6" rx="1"/><rect x="15" y="7.6" width="3.4" height="8.8" rx="1"/></svg></div>
-  <input class="project-title" id="projectTitle" value="Untitled Project" spellcheck="false">
+  <div class="logo"><svg viewBox="0 0 150 110" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-5 75 55)"><rect x="26" y="18" width="98" height="74" rx="8"/><path d="M26 33h98"/><rect x="35" y="41" width="22" height="13" rx="3" fill="rgba(139,92,246,.18)" stroke="#a78bfa"/><rect x="35" y="58" width="22" height="13" rx="3"/><rect x="35" y="75" width="22" height="9" rx="3"/><rect x="64" y="41" width="22" height="13" rx="3"/><rect x="64" y="58" width="22" height="17" rx="3"/><rect x="93" y="41" width="22" height="9" rx="3"/><rect x="93" y="54" width="22" height="13" rx="3"/><rect x="93" y="71" width="22" height="13" rx="3"/></g><path d="M131 20l1.8 4.6 4.6 1.8-4.6 1.8-1.8 4.6-1.8-4.6-4.6-1.8 4.6-1.8z" fill="#a78bfa" stroke="#a78bfa"/><path d="M15 64l1.3 3.4 3.4 1.3-3.4 1.3-1.3 3.4-1.3-3.4-3.4-1.3 3.4-1.3z" fill="#a78bfa" stroke="#a78bfa"/><path d="M137 58h6M140 55v6" stroke="#a78bfa"/></svg></div>
+  <input id="projectTitle" type="hidden" value="Untitled Project">
   <div class="header-spacer"></div>
-  <div class="sync-status" id="syncStatus"><span class="sync-dot" id="syncDot"></span><span id="syncLabel"></span></div>
   <button class="header-btn" onclick="newProject()" title="Start over — reopens the build options">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
     Start over
   </button>
   <button class="header-btn" onclick="sendOrderToWord(true)" id="wordBtn" style="display:none" title="Send this order to your Word document">Send to Word</button>
-  <button class="header-btn" onclick="syncBoard()" id="syncBtn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-    Sync
-  </button>
   <button class="header-btn primary" onclick="addCardToFirstColumn()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     New card
   </button>
-  <button class="header-btn" onclick="exportJSON()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    Export
-  </button>
-  <label class="header-btn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-    Import
-    <input type="file" accept=".json" onchange="importJSON(event)">
-  </label>
   <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">&#9790;</button>
 </div>
 
@@ -1002,97 +986,7 @@ function newProject(){
 // ── Sync ──
 const SYNC_API = 'https://screenplay-editor-api.hugopthomas.workers.dev/board/sync/';
 
-function getSyncId(){
-  let id = localStorage.getItem('kanban_sync_id');
-  if(!id){
-    id = uid()+uid();
-    localStorage.setItem('kanban_sync_id', id);
-  }
-  return id;
-}
-
-async function syncBoard(){
-  const syncId = getSyncId();
-  updateSyncStatus('syncing');
-  try{
-    // Try to load remote first
-    const res = await fetch(SYNC_API + syncId);
-    if(res.ok){
-      const remote = await res.json();
-      // If remote exists and is newer or local is fresh demo, ask
-      const useRemote = confirm('A synced version exists in the cloud.\n\nOK = Load from cloud\nCancel = Overwrite cloud with current board');
-      if(useRemote){
-        state = remote;
-        save();
-        document.getElementById('projectTitle').value = state.title;
-        render();
-        updateSyncStatus('synced');
-        toast('Loaded from cloud');
-        return;
-      }
-    }
-    // Save to cloud
-    save();
-    await fetch(SYNC_API + syncId, {
-      method:'PUT',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(state)
-    });
-    updateSyncStatus('synced');
-    toast('Synced to cloud');
-  }catch(e){
-    console.error('Sync error', e);
-    updateSyncStatus('error');
-    toast('Sync failed');
-  }
-}
-
-function updateSyncStatus(status){
-  const dot = document.getElementById('syncDot');
-  const label = document.getElementById('syncLabel');
-  dot.className = 'sync-dot';
-  if(status==='synced'){ dot.classList.add('synced'); label.textContent='synced'; }
-  else if(status==='syncing'){ dot.classList.add('syncing'); label.textContent='syncing...'; }
-  else if(status==='error'){ label.textContent='error'; }
-  else { label.textContent=''; }
-}
-
-// Auto-sync on save if sync ID exists
-const _origSave = save;
-
-// ── Project title ──
-document.getElementById('projectTitle').addEventListener('input', save);
-
-// ── Export / Import ──
-function exportJSON(){
-  save();
-  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = (state.title||'kanban')+'.json';
-  a.click();
-  URL.revokeObjectURL(a.href);
-  toast('Exported!');
-}
-
-function importJSON(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev)=>{
-    try{
-      const data = JSON.parse(ev.target.result);
-      if(!data.columns) throw new Error('Invalid format');
-      state = data;
-      save();
-      document.getElementById('projectTitle').value = state.title||'Untitled';
-      render();
-      toast('Imported!');
-    }catch(err){ toast('Invalid JSON file'); }
-  };
-  reader.readAsText(file);
-  e.target.value = '';
-}
+// (Sync manuel + Export/Import retirés : auto-save local par-doc. SYNC_API sert au boot.)
 
 // ── Toast ──
 function toast(msg){
