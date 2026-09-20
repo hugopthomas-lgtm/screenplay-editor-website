@@ -142,6 +142,7 @@
   --ink-2:       #3C3C44;   /* texte fort sur clair */
   --ink-3:       #6B6B73;   /* texte secondaire sur clair */
   --ink-4:       #9A9AA2;   /* texte tertiaire, légendes */
+  --ink-lift:    #24242B;   /* surface sombre POSÉE sur --ink : une carte qui flotte au-dessus du noir de fond, sinon elle s'y dissout */
   --paper:       #FAFAFA;   /* fond clair */
   --paper-2:     #FFFFFF;
   --cream:       #F3F1F8;   /* fond des sections calmes : un gris tire vers le violet de la marque, jamais un creme (18/09) */

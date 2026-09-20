@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First Draft November. 90 pages, 30 days.</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="Write a feature-length first draft in November. Ninety pages in thirty days, free, no jury and no prize. Your pages count themselves inside your document.">
+  <!-- NOINDEX tant que le nom et les dates ne sont pas validés par Hugo. Retirer cette ligne au lancement, ajouter la page au sitemap et au header. -->
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://screenplayeditor.app/november">
+  <link rel="alternate" hreflang="en" href="https://screenplayeditor.app/november">
+  <link rel="alternate" hreflang="x-default" href="https://screenplayeditor.app/november">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Screenplay Editor">
+  <meta property="og:title" content="First Draft November. 90 pages, 30 days.">
+  <meta property="og:description" content="One feature-length first draft, written from a blank page, finished by the end of the month. Free. Your pages count themselves.">
+  <meta property="og:url" content="https://screenplayeditor.app/november">
+  <meta property="og:image" content="https://screenplayeditor.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="/header.js"></script>
+  <script src="/footer.js"></script>
+  <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/buttons.css">
+  <link rel="stylesheet" href="/tools/tools.css">
+  <style>
+    /* Cette page ne redéclare aucune valeur : tout vient de /tokens.css.
+       Elle n'a que ce que les pages d'outils n'ont pas : la bande sombre
+       d'ouverture, les deux grands nombres, et la maquette du compteur. */
+
+    main { padding-top: 0; }
+
+    /* ---- Ouverture, sur fond sombre comme l'accueil ---- */
+    .top {
+      background: var(--ink);
+      background-image: radial-gradient(ellipse 75% 60% at 50% 0%, rgba(157,123,234,.22), transparent 70%);
+      border-bottom: 1px solid rgba(157,123,234,.4);
+      padding: 150px 0 84px;
+      color: #fff;
+    }
+    .eyebrow {
+      font-size: var(--t-xs); font-weight: var(--w-bold);
+      letter-spacing: var(--ls-caps); text-transform: uppercase;
+      color: var(--violet); margin: 0 0 22px;
+    }
+    .top h1 {
+      font-size: var(--t-display); font-weight: var(--w-bold);
+      letter-spacing: var(--ls-display); line-height: var(--lh-tight);
+      margin: 0 0 22px; max-width: 14ch; color: #fff;
+    }
+    .top .lead {
+      font-size: var(--t-md); line-height: var(--lh-loose);
+      color: rgba(255,255,255,.72); max-width: 54ch; margin: 0;
+    }
+    .top .wrap { display: grid; grid-template-columns: 1.02fr .98fr; gap: 64px; align-items: center; }
+
+    /* La feuille et le compteur posé dessus. Le seul objet de la page, et
+       c'est une vraie page de scénario : Courier, interligne égal au corps,
+       une ligne vide entre les éléments, colonnes en pourcentage de la
+       largeur de feuille. Le numéro en haut à droite est le même 34 que le
+       compteur affiche : c'est toute l'histoire de la page en une image. */
+    .stage { display: grid; gap: 16px; }
+    .sheet {
+      background: #fff; border-radius: 4px; box-shadow: var(--shadow-3);
+      padding: 26px 26px 30px 40px; color: #111;
+      font-family: var(--courier); font-size: 12px; line-height: 1;
+    }
+    .sheet div { margin: 0; }
+    .sheet .b { height: 12px; }
+    .sheet .pno { text-align: right; margin-bottom: 26px; }
+    .sheet .ch { margin-left: 45%; }
+    .sheet .pa { margin-left: 35%; margin-right: 32%; }
+    .sheet .di { margin-left: 23%; margin-right: 22%; }
+    .sheet .tr { text-align: right; }
+    
+
+    /* Les deux nombres. Le contrat tient dedans, donc ils sont la seule
+       chose de la page qui a le droit d'être énorme. */
+    .numbers { display: flex; gap: 60px; margin: 52px 0 0; flex-wrap: wrap; }
+    .num { display: flex; flex-direction: column; gap: 6px; }
+    .num b {
+      font-size: 96px; font-weight: var(--w-black);
+      letter-spacing: var(--ls-number); line-height: 1; color: #fff;
+    }
+    .num span {
+      font-size: var(--t-xs); font-weight: var(--w-bold);
+      letter-spacing: var(--ls-caps); text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+    }
+    .num.soft b { color: var(--violet); }
+
+    /* ---- Le formulaire ---- */
+    .join { margin-top: 48px; max-width: 520px; }
+    .join form { display: flex; gap: 10px; flex-wrap: wrap; }
+    .join input[type=email] {
+      flex: 1 1 260px; min-width: 0; padding: 16px 18px;
+      font-family: var(--sans); font-size: var(--t-base); color: var(--ink);
+      background: #fff; border: 0; border-radius: var(--r-lg);
+    }
+    .join input[type=email]::placeholder { color: var(--ink-4); }
+    .join input[type=email]:focus { outline: 2px solid var(--violet); outline-offset: 2px; }
+    .join .hp { position: absolute; left: -9999px; }
+    .join .note { font-size: var(--t-sm); color: rgba(255,255,255,.45); margin: 16px 0 0; line-height: var(--lh-body); }
+    .join .said { font-size: var(--t-base); color: #fff; margin: 0; line-height: var(--lh-body); }
+    .join .said b { color: var(--violet); }
+    .join .bad { font-size: var(--t-sm); color: #FFB4B4; margin: 12px 0 0; }
+    /* Sur fond clair, en bas de page, le même bloc change de peau. */
+    .join.light .note { color: var(--ink-3); }
+    .join.light .said { color: var(--ink); }
+    .join.light input[type=email] { box-shadow: var(--shadow-1); }
+
+    /* ---- Corps de page ---- */
+    .band { padding-top: 76px; }
+    .band.calm { background: var(--cream); padding-top: 76px; padding-bottom: 84px; margin-top: 76px; }
+    .band h2 {
+      font-size: var(--t-2xl); font-weight: var(--w-bold);
+      letter-spacing: var(--ls-label); margin: 0 0 14px; max-width: 20ch;
+    }
+    .band p {
+      font-size: var(--t-base); line-height: var(--lh-body);
+      color: var(--ink-3); max-width: 62ch; margin: 0 0 14px;
+    }
+    .cols { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 50px; margin-top: 30px; }
+    .cols p { max-width: 52ch; }
+    .cols p:last-child { margin-bottom: 0; }
+    .band a.inline { color: var(--violet-dark); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ---- Les quatre règles, numérotées par le CSS ---- */
+    .rules { list-style: none; counter-reset: rule; margin: 38px 0 0; padding: 0;
+             display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 26px; }
+    .rules li {
+      counter-increment: rule; background: var(--paper-2); border-radius: var(--r-lg);
+      box-shadow: var(--shadow-1); padding: 30px 28px;
+    }
+    .rules li::before {
+      content: counter(rule); display: block;
+      font-size: var(--t-lg); font-weight: var(--w-black);
+      letter-spacing: var(--ls-number); color: var(--violet); margin-bottom: 12px;
+    }
+    .rules h3 { font-size: var(--t-lg); font-weight: var(--w-bold); letter-spacing: var(--ls-label); margin: 0 0 8px; }
+    .rules p { margin: 0; max-width: none; }
+
+    /* ---- La maquette du compteur ---- */
+        .panel {
+      background: var(--ink-lift); border-radius: var(--r-lg); box-shadow: var(--shadow-3);
+      padding: 24px 24px 26px; color: #fff;
+    }
+    /* étiquette du compteur */
+    .panel .p-top {
+      font-size: var(--t-xs); font-weight: var(--w-bold); letter-spacing: var(--ls-caps);
+      text-transform: uppercase; color: var(--violet); margin: 0 0 18px;
+    }
+    .panel .p-big { font-size: 38px; font-weight: var(--w-black); letter-spacing: var(--ls-number); line-height: 1; margin: 0; }
+    .panel .p-big i { font-style: normal; font-size: var(--t-base); font-weight: var(--w-medium); letter-spacing: var(--ls-body); color: rgba(255,255,255,.45); margin-left: 8px; }
+    .panel .p-bar { height: 6px; border-radius: var(--r-full); background: rgba(255,255,255,.14); margin: 20px 0 14px; overflow: hidden; }
+    .panel .p-bar span { display: block; height: 100%; width: 38%; background: var(--violet); border-radius: var(--r-full); }
+    .panel .p-line { display: flex; gap: 18px; flex-wrap: wrap; margin: 0; font-size: var(--t-sm); color: rgba(255,255,255,.55); }
+    .panel .p-line .ok { color: var(--violet); margin-left: auto; }
+    .panel .p-line b { color: #fff; font-weight: var(--w-medium); }
+
+    /* ---- Ce qu'on reçoit ---- */
+    .gets { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 26px; margin-top: 38px; }
+    .get { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 30px 28px; }
+    .get h3 { font-size: var(--t-lg); font-weight: var(--w-bold); letter-spacing: var(--ls-label); margin: 0 0 10px; }
+    .get p { margin: 0; max-width: none; }
+
+    /* ---- La note signée ---- */
+    .note-block { display: grid; grid-template-columns: 96px 1fr; gap: 26px; align-items: start; max-width: 780px; margin-top: 36px; }
+    .note-block img { width: 96px; height: 96px; border-radius: var(--r-full); object-fit: cover; }
+    .note-block p { max-width: 58ch; }
+    .sig { font-family: var(--hand); font-size: var(--t-xl); color: var(--ink-2); margin-top: 26px; }
+    .sig small { display: block; font-family: var(--sans); font-size: var(--t-sm); color: var(--ink-4); margin-top: 14px; }
+
+    .band.tail { padding-top: 76px; padding-bottom: 88px; }
+    .fineprint { font-size: var(--t-sm); color: var(--ink-4); line-height: var(--lh-body); max-width: 62ch; margin: 54px 0 0; }
+
+    @media (max-width: 900px) {
+      .top { padding: 120px 0 64px; }
+      .top h1 { font-size: 44px; }
+      .num b { font-size: 68px; }
+      .numbers { gap: 40px; }
+      .top .wrap { grid-template-columns: 1fr; gap: 46px; }
+      /* Le Courier ne se replie pas comme une police proportionnelle : sous
+         900 px la feuille doit rendre ses caractères plus petits, sinon une
+         ligne d'action déborde et la page de scénario ment. */
+      .sheet { font-size: 11px; padding: 22px 20px 26px 30px; }
+      .sheet .b { height: 11px; }
+      .rules, .gets, .cols { grid-template-columns: 1fr; }
+      .cols { gap: 0; margin-top: 18px; }
+        .note-block { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 460px) {
+      .top h1 { font-size: 38px; }
+      .num b { font-size: 54px; }
+      .numbers { gap: 26px; }
+      .band, .band.calm, .band.tail { padding-top: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main>
+
+    <!-- ============ OUVERTURE ============ -->
+    <section class="top">
+      <div class="wrap">
+        <div>
+        <p class="eyebrow">November 1 to 30, 2026</p>
+        <h1>First Draft November.</h1>
+        <p class="lead">One feature-length first draft, started from a blank page on the first of the month, finished by the last. It is free. There is no jury, no prize and no entry fee, and nobody reads your script. The only thing anyone counts is your pages.</p>
+
+        <div class="numbers">
+          <div class="num"><b>90</b><span>pages</span></div>
+          <div class="num"><b>30</b><span>days</span></div>
+          <div class="num soft"><b>3</b><span>pages a day</span></div>
+        </div>
+
+        <div class="join" id="join-top">
+          <form novalidate>
+            <input type="email" name="email" placeholder="you@example.com" autocomplete="email" aria-label="Your email">
+            <input type="text" name="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="cta-button">Count me in</button>
+          </form>
+          <p class="note">We write to you once a day in November, and then we stop. No account to create.</p>
+        </div>
+        </div>
+
+        <div class="stage">
+          <div class="sheet" aria-label="Page 34 of a screenplay, formatted">
+            <div class="pno">34.</div>
+            <div>INT. HOTEL BAR, TOKYO - NIGHT</div>
+            <div class="b"></div>
+            <div>Neon through the window. BOB, sixty,</div>
+            <div>nurses a whisky he did not order.</div>
+            <div>A woman takes the stool beside him.</div>
+            <div class="b"></div>
+            <div class="ch">CHARLOTTE</div>
+            <div class="pa">(one stool over)</div>
+            <div class="di">You're not going to sleep either.</div>
+            <div class="b"></div>
+            <div class="ch">BOB</div>
+            <div class="di">I haven't slept since Thursday.</div>
+            <div class="b"></div>
+            <div class="tr">CUT TO:</div>
+          </div>
+          <div class="panel" aria-label="What the counter looks like">
+            <p class="p-top">First Draft November</p>
+            <p class="p-big">34<i>of 90 pages</i></p>
+            <div class="p-bar"><span></span></div>
+            <div class="p-line"><span>Day <b>12</b> of 30</span><span><b>3</b> pages today</span><span class="ok">Two ahead</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LES RÈGLES ============ -->
+    <section class="band">
+      <div class="wrap">
+      <h2>The deal.</h2>
+      <p>Four rules, and they all fit in one screen. Everything else is up to you.</p>
+      <ul class="rules">
+        <li>
+          <h3>A blank page on the first.</h3>
+          <p>Notes, outlines and index cards are yours to bring, as many as you want. Pages written before November are not. Everyone starts the month on the same empty page.</p>
+        </li>
+        <li>
+          <h3>Ninety pages.</h3>
+          <p>A feature, in screenplay format. Ninety formatted pages is roughly ninety minutes of film, which is why that number and not a word count.</p>
+        </li>
+        <li>
+          <h3>Done by the thirtieth.</h3>
+          <p>Three pages a day gets you there with a day to spare. Miss one and the next day costs you four. That arithmetic is the whole challenge.</p>
+        </li>
+        <li>
+          <h3>Bad pages count.</h3>
+          <p>A first draft is allowed to be bad, and the ones that reach the end usually are. Nobody here is judging it. You are being counted, not read.</p>
+        </li>
+      </ul>
+      </div>
+    </section>
+
+    <!-- ============ LE COMPTEUR ============ -->
+    <section class="band">
+      <div class="wrap">
+      <h2>Your pages count themselves.</h2>
+      <p>Every writing month before this one ran on the honour system: you typed your own number into a box at the end of the day. This one does not need you to. If you write in Google&nbsp;Docs or Word with Screenplay Editor installed, it already knows what a formatted page is, so it counts them as you write.</p>
+      <div class="cols">
+        <p>Nothing leaves your document except that number. We do not read a line of your script, we do not store your text, and there is nothing to upload anywhere. That has been true of this software since the first day, and a writing challenge is not a reason to change it. <a class="inline" href="/privacy">How we handle your writing</a>.</p>
+        <p>No extension, or you write somewhere else entirely? You are still welcome. You enter your page count yourself, the way writers have always done it. The counter is the easy version, it is not the ticket in.</p>
+      </div>
+      </div>
+    </section>
+
+    <!-- ============ CE QU'ON REÇOIT ============ -->
+    <section class="band calm">
+      <div class="wrap">
+        <h2>What you get for signing up.</h2>
+        <p>Three things, and none of them is a badge.</p>
+        <div class="gets">
+          <div class="get">
+            <h3>The counter</h3>
+            <p>Pages today, pages so far, days left, and whether you are ahead or behind. It is the one number that tells you the truth at eleven at night.</p>
+          </div>
+          <div class="get">
+            <h3>An email each morning</h3>
+            <p>Two minutes to read, written by a director who has had to finish drafts on a deadline. One problem of the craft a day, not a motivational quote.</p>
+          </div>
+          <div class="get">
+            <h3>A poster on day thirty</h3>
+            <p>Your title, your pages, your name, made to print. Yours whether you reach ninety or stop at forty, because forty is forty more than you had.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ QUI ============ -->
+    <section class="band">
+      <div class="wrap">
+      <h2>Who is behind this.</h2>
+      <div class="note-block">
+        <img src="/hugo5.jpg" alt="Hugo Thomas">
+        <div>
+          <p>I am a French director living in Rome. I wrote both of my features in Google&nbsp;Docs, badly formatted, because the software made for this costs two hundred and fifty dollars and I did not have it. That is where this tool comes from.</p>
+          <p>The reason I am running a month and not a competition is that the hardest thing about a first screenplay has never been talent or notes or coverage. It is arriving at page ninety at all. A deadline that other people are also keeping is the only trick I know that works, and the one everybody used for it shut down last year. So here is another one.</p>
+          <p class="sig">Hugo<small>Hugo Thomas, director of <em>Willy 1er</em> (Cannes, ACID) and <em>Juniors</em>.</small></p>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- ============ INSCRIPTION, BAS DE PAGE ============ -->
+    <section class="band tail">
+      <div class="wrap">
+      <h2>Ninety pages is closer than it looks.</h2>
+      <div class="join light" id="join-bottom">
+        <form novalidate>
+          <input type="email" name="email" placeholder="you@example.com" autocomplete="email" aria-label="Your email">
+          <input type="text" name="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="cta-button">Count me in</button>
+        </form>
+        <p class="note">Free. One email a day in November, then we leave you alone.</p>
+      </div>
+      <p class="fineprint">Open to anyone, anywhere, writing in any language. Features, pilots and stage plays all welcome, ninety pages is ninety pages. You keep every right to everything you write, we make no claim on it and we never see it.</p>
+      </div>
+    </section>
+
+  </main>
+  <site-footer></site-footer>
+
+  <script>
+    (function () {
+      var API = 'https://screenplay-editor-api.hugopthomas.workers.dev/november/join';
+
+      document.querySelectorAll('.join').forEach(function (box) {
+        var form = box.querySelector('form');
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var email = (form.email.value || '').trim();
+          var old = box.querySelector('.bad');
+          if (old) old.remove();
+
+          if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+            var bad = document.createElement('p');
+            bad.className = 'bad';
+            bad.textContent = 'That address does not look right. Try again?';
+            box.appendChild(bad);
+            return;
+          }
+
+          var btn = form.querySelector('button');
+          btn.disabled = true;
+          btn.textContent = 'One second';
+
+          fetch(API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, hp: form.hp.value, src: box.id })
+          }).then(function (r) { return r.json(); }).then(function (d) {
+            if (!d || !d.ok) throw new Error('nope');
+            // On ne remercie pas, on rappelle la date : c'est elle qui compte.
+            box.innerHTML = '<p class="said">You are signed up. A note is on its way to you now, then nothing until <b>November 1st</b>.</p>';
+          }).catch(function () {
+            btn.disabled = false;
+            btn.textContent = 'Count me in';
+            var err = document.createElement('p');
+            err.className = 'bad';
+            err.textContent = 'That did not go through. Try once more, or write to hugo@screenplayeditor.app.';
+            box.appendChild(err);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
