@@ -462,8 +462,16 @@ function parseHeading(heading){
 }
 
 function makeFallbackSummary(body){
-  if(!body) return '…';
-  return '…';
+  // Avant (et si la synthèse IA échoue), la carte ne doit PAS rester « … » : sur
+  // un gros scénario (ex. un long-métrage), /board/summarize peut revenir vide et
+  // les cartes restaient « … » à vie (retour Hugo). On renvoie un extrait du corps
+  // s'il existe, sinon rien -> le rendu retombe sur le titre de scène (toujours
+  // dispo), donc le board est lisible tout de suite. L'IA remplace ça quand elle
+  // arrive.
+  if(!body) return '';
+  var s = String(body).replace(/\s+/g,' ').trim();
+  if(!s) return '';
+  return s.length > 90 ? s.slice(0,88).replace(/\s+\S*$/,'') + '…' : s;
 }
 
 // ── Language detection & i18n ──
