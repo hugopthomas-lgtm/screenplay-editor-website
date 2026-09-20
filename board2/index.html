@@ -68,7 +68,7 @@
   .card-head{display:flex;align-items:baseline;gap:7px;padding-right:16px}
   .card-num{font-size:11px;font-weight:700;color:rgba(26,26,46,.34);font-variant-numeric:tabular-nums;flex-shrink:0;line-height:1.32}
   .card-slug{font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#1a1a2e;line-height:1.32;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .card-text{pointer-events:none;font-size:12.5px;font-weight:400;color:rgba(26,26,46,.6);line-height:1.4;margin-top:4px;word-break:break-word}
+  .card-text{pointer-events:none;font-size:12.5px;font-weight:400;color:rgba(26,26,46,.6);line-height:1.4;margin-top:4px;overflow-wrap:break-word}
   .card-text:empty{margin-top:0}
   .card[contenteditable=true] .card-text{pointer-events:auto}
 
@@ -143,15 +143,6 @@
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
   /* ── Loading splash ── */
-  .loading-splash{position:fixed;inset:0;background:var(--bg);z-index:10001;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0;transition:opacity .5s;padding:20px}
-  .loading-splash.fade-out{opacity:0;pointer-events:none}
-  .loading-splash-icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;margin-bottom:24px;animation:splash-breathe 2s ease-in-out infinite}
-  @keyframes splash-breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(139,92,246,0)}50%{transform:scale(1.05);box-shadow:0 0 30px 8px rgba(139,92,246,.2)}}
-  .loading-splash-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:19px;font-weight:700;color:var(--text);margin-bottom:8px;text-align:center}
-  .loading-splash-sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:var(--text3);text-align:center;max-width:320px;line-height:1.6;margin-bottom:32px}
-  .loading-splash-bar{width:200px;height:3px;background:rgba(139,92,246,.12);border-radius:3px;overflow:hidden}
-  .loading-splash-bar-inner{height:100%;width:30%;background:linear-gradient(90deg,#a78bfa,#8b5cf6);border-radius:3px;animation:ai-slide 1.8s ease-in-out infinite}
-  .loading-splash-step{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;color:var(--accent);margin-top:14px;opacity:.7;animation:ai-pulse 2s ease-in-out infinite;text-align:center}
 
   /* ── Welcome overlay ── */
   .welcome-overlay{position:fixed;inset:0;background:rgba(15,15,18,.72);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
@@ -216,13 +207,6 @@
 <div class="board" id="board"></div>
 <div class="toast" id="toast"></div>
 
-<div class="loading-splash" id="loadingSplash" style="display:none">
-  <div class="loading-splash-icon">SB</div>
-  <div class="loading-splash-title">Reading your screenplay.</div>
-  <div class="loading-splash-sub">We're parsing every scene, extracting locations and characters, and building your board from scratch. This takes a few seconds.</div>
-  <div class="loading-splash-bar"><div class="loading-splash-bar-inner"></div></div>
-  <div class="loading-splash-step" id="loadingSplashStep">Fetching document...</div>
-</div>
 
 <div class="welcome-overlay" id="welcomeOverlay" style="display:none">
   <div class="welcome-card">
@@ -533,14 +517,11 @@ async function fetchAISummaries(scenes){
   boardLang = detectBoardLang(scenes);
   updateBoardLabels();
 
-  const splash = document.getElementById('loadingSplash');
-  const splashStep = document.getElementById('loadingSplashStep');
-  if(splash){
-    splash.style.display = 'flex';
-    splash.classList.remove('fade-out');
-    document.querySelector('.loading-splash-title').textContent = t('splashTitle');
-    document.querySelector('.loading-splash-sub').textContent = t('splashSub');
-  }
+  // Le board est déjà affiché : pas de splash plein écran (il faisait doublon avec le
+  // loader du scan). On remplit les résumés en tâche de fond avec une barre discrète.
+  const prog = document.getElementById('aiProgress');
+  const progLabel = document.getElementById('aiLabel');
+  if(prog) prog.classList.add('active');
   // Découpage en LOTS : le worker (llama-8b) plafonne la sortie à max_tokens 2000
   // et l'entrée au contexte du modèle. Un seul appel géant (ex. 190 scènes d'un
   // long-métrage) était tronqué à ~50 scènes ou revenait vide -> cartes « … » à
@@ -549,8 +530,8 @@ async function fetchAISummaries(scenes){
   const CHUNK = 25;
   const total = scenes.length;
   const setStep = function(done){
-    if(!splashStep) return;
-    splashStep.textContent = (boardLang==='fr' ? 'Résumé des scènes ' : 'Summarizing scenes ') + Math.min(done, total) + ' / ' + total;
+    if(!progLabel) return;
+    progLabel.textContent = (boardLang==='fr' ? 'Résumé des scènes ' : 'Summarizing scenes ') + Math.min(done, total) + ' / ' + total;
   };
   setStep(0);
   try{
@@ -586,14 +567,9 @@ async function fetchAISummaries(scenes){
     }
   } finally {
     render();
-    if(splashStep) splashStep.textContent = t('done');
-    setTimeout(function(){ _hideSplash(splash); }, 500);
+    if(progLabel) progLabel.textContent = t('done');
+    setTimeout(function(){ if(prog) prog.classList.remove('active'); if(progLabel) progLabel.textContent = ''; }, 1000);
   }
-}
-function _hideSplash(el){
-  if(!el) return;
-  el.classList.add('fade-out');
-  setTimeout(function(){ el.style.display='none'; el.classList.remove('fade-out'); }, 500);
 }
 
 function importScenes(scenes, useAI){
