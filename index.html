@@ -1760,8 +1760,7 @@
     document.querySelectorAll('.hero-inner > *:not(.float-obj)').forEach(function (el, i) {
       el.style.setProperty('--d', (i * 85) + 'ms');
     });
-    // Where do you write? Grammarly's question, answered by detection first: a
-    // Chromium browser gets Google Docs, anything else gets Word. The switch
+    // Where do you write? Google Docs by default, Word is in beta. The switch
     // remembers the answer. One door per visitor, the other stays a line below.
     (function () {
       var COPY = {
@@ -1775,7 +1774,7 @@
         word: {
           h1: 'Write your next movie<br>directly inside Microsoft&nbsp;Word<span class="tm-mark">&trade;</span>.',
           sub: 'The writing workflow of Final Draft, the comfort of Word.<br>Keep the best of both worlds, skip the $250 software.',
-          cta: 'Get it for Word', href: '/word',
+          cta: 'Get it for Word (Beta)', href: '/word',
           safety: 'Your script stays in your Word file, on your computer. Not with us.',
           cta2: 'Or add it to Chrome, for Google Docs', href2: 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'
         }
@@ -1805,7 +1804,7 @@
         var t = PAGE[surface] || PAGE.docs;
         for (var id in t) { var el = document.getElementById(id); if (el) el.innerHTML = t[id]; }
         var btn = document.getElementById('sf-cta-btn'), c2 = document.getElementById('sf-cta-2');
-        if (btn) { btn.href = surface === 'word' ? '/word' : 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'; btn.lastChild.nodeValue = surface === 'word' ? 'Get it for Word' : 'Add to Chrome'; btn.target = surface === 'word' ? '_self' : '_blank'; }
+        if (btn) { btn.href = surface === 'word' ? '/word' : 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln'; btn.lastChild.nodeValue = surface === 'word' ? 'Get it for Word (Beta)' : 'Add to Chrome'; btn.target = surface === 'word' ? '_self' : '_blank'; }
         if (c2) c2.href = surface === 'word' ? 'https://chromewebstore.google.com/detail/scrrrr-screenplay-editor/cgnainjnmiaimmeephomhkhpcjahmfln' : 'https://workspace.google.com/marketplace/app/screenplay_editor_script_formatter_for_d/611158558476';
         document.querySelectorAll('.hero-trust li').forEach(function (li) { if (/Also works in/.test(li.textContent)) li.hidden = surface === 'word'; });
         var ci = document.getElementById('sf-collab-img');
@@ -1818,10 +1817,7 @@
       }
       function detect() {
         try { var saved = localStorage.getItem('se_surface'); if (saved === 'docs' || saved === 'word') return saved; } catch (e) {}
-        var brands = (navigator.userAgentData && navigator.userAgentData.brands || []).map(function (b) { return b.brand; }).join(' ');
-        var ua = navigator.userAgent || '';
-        var chromium = /Chromium|Google Chrome|Microsoft Edge|Brave|Opera/.test(brands) || (/Chrome\//.test(ua) && !/Edg|OPR/.test(ua)) || /Edg\//.test(ua);
-        return chromium ? 'docs' : 'word';
+        return 'docs';
       }
       function apply(surface, remember) {
         var c = COPY[surface] || COPY.docs;
@@ -1852,7 +1848,7 @@
   </script>
 
   <script src="/engine.js?v=1"></script>
-  <script src="/demo.js?v=12"></script>
+  <script src="/demo.js?v=13"></script>
   <!-- PIED DE PAGE : écrit par build-footer.js depuis footer.js. Ne pas modifier à la main. -->
   <footer class="ftr-shell">
     <div class="ftr-wrap">
