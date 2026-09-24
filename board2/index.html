@@ -527,7 +527,7 @@ async function fetchAISummaries(scenes){
   // long-métrage) était tronqué à ~50 scènes ou revenait vide -> cartes « … » à
   // vie (retour Hugo). On résume par lots de 25 (le worker gère très bien), avec
   // un compteur de progression qui sert d'indicateur d'attente.
-  const CHUNK = 40;   // Haiku suit le format de façon fiable et encaisse de gros lots
+  const CHUNK = 20;   // lots réduits : un gros lot en français dépassait max_tokens côté worker -> réponse tronquée -> résumés VIDES (retour Hugo 24/09, « seul l'acte 3 »)
   const CONC = 3;     // lots en parallèle (vitesse pas critique, on reste doux sur l'API)
   const total = scenes.length;
 
@@ -542,7 +542,12 @@ async function fetchAISummaries(scenes){
   const _label = (boardLang==='fr' ? 'Résumé des scènes ' : 'Summarizing scenes ');
   let _shown = 0;
   const _paint = function(){ if(progLabel) progLabel.textContent = _label + Math.min(_shown, total) + ' / ' + total; };
-  const _ceiling = function(){ return Math.min(total, doneScenes + CHUNK * CONC); };
+  // Compteur HONNÊTE (retour Hugo 24/09 : « ça arrive à 51/51 puis on attend longtemps »).
+  // Avant : plafond = doneScenes + CHUNK*CONC, toujours >= total sur un doc court, donc le
+  // compteur filait à total/total avant que l'IA réponde. Maintenant : tant que tout n'est
+  // pas fini, il ne dépasse pas total-1 (on voit qu'il travaille encore) et ne rejoint total
+  // qu'à la vraie fin (le bloc finally pose _shown = total).
+  const _ceiling = function(){ return doneScenes >= total ? total : Math.min(total - 1, doneScenes + CHUNK); };
   const _estMs = Math.ceil(total / CHUNK) / CONC * 4500;   // durée estimée
   const _stepMs = Math.max(18, Math.round(_estMs / Math.max(1, total)));
   const _tick = setInterval(function(){ if(_shown < _ceiling()){ _shown++; _paint(); } }, _stepMs);
