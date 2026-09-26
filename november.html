@@ -158,7 +158,7 @@
     .panel .p-line b { color: #fff; font-weight: var(--w-medium); }
 
     /* ---- Ce qu'on reçoit ---- */
-    .gets { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 26px; margin-top: 38px; }
+    .gets { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 26px; margin-top: 38px; }
     .get { background: var(--paper-2); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: 30px 28px; }
     .get h3 { font-size: var(--t-lg); font-weight: var(--w-bold); letter-spacing: var(--ls-label); margin: 0 0 10px; }
     .get p { margin: 0; max-width: none; }
@@ -184,9 +184,13 @@
          ligne d'action déborde et la page de scénario ment. */
       .sheet { font-size: 11px; padding: 22px 20px 26px 30px; }
       .sheet .b { height: 11px; }
-      .rules, .gets, .cols { grid-template-columns: 1fr; }
+      .rules, .cols { grid-template-columns: 1fr; }
+      .gets { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .cols { gap: 0; margin-top: 18px; }
         .note-block { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .gets { grid-template-columns: 1fr; }
     }
     @media (max-width: 460px) {
       .top h1 { font-size: 38px; }
@@ -221,7 +225,7 @@
             <input type="text" name="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button type="submit" class="cta-button">Count me in</button>
           </form>
-          <p class="note">We write to you once a day in November, and then we stop. No account to create.</p>
+          <p class="note">No account to create. Use the address you write with, it is the one we switch Pro on for. We write to you once a day in November, then we stop.</p>
         </div>
         </div>
 
@@ -295,8 +299,12 @@
     <section class="band calm">
       <div class="wrap">
         <h2>What you get for signing up.</h2>
-        <p>Three things, and none of them is a badge.</p>
+        <p>Four things, and none of them is a badge.</p>
         <div class="gets">
+          <div class="get">
+            <h3>The month, on us</h3>
+            <p>Screenplay Editor caps how much it formats for you each day when you are not paying, and at three pages a day that cap is in the way. It is off for all of November for everyone who signs up. Finish, and you keep it two months longer, through January, which is when the rewrite happens anyway.</p>
+          </div>
           <div class="get">
             <h3>The counter</h3>
             <p>Pages today, pages so far, days left, and whether you are ahead or behind. It is the one number that tells you the truth at eleven at night.</p>
@@ -338,7 +346,7 @@
           <input type="text" name="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
           <button type="submit" class="cta-button">Count me in</button>
         </form>
-        <p class="note">Free. One email a day in November, then we leave you alone.</p>
+        <p class="note">Free. Sign up with the address you already use with Screenplay Editor, that is how the free months get unlocked. One email a day, then we leave you alone.</p>
       </div>
       <p class="fineprint">Open to anyone, anywhere, writing in any language. Features, pilots and stage plays all welcome, ninety pages is ninety pages. You keep every right to everything you write, we make no claim on it and we never see it.</p>
       </div>
