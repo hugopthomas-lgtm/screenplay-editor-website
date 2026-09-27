@@ -13,13 +13,13 @@
     keyEnter: 'Entrée', keyTab: 'Tab',
     youre: 'Vous êtes en <b>', takes: ' vous emmène en ', write: 'Écrivez ', forHeading: ' pour un intitulé de scène', forX: ' pour ',
     nowEnter: 'Appuyez sur Entrée', outro: 'Installez-moi, et arrêtez de copier Sofia Coppola.', outroBtn: 'Ajouter à Chrome', outroBtnWord: 'Télécharger pour Word (Bêta)', typeHere: 'Tapez sa réplique ici.',
-    seed: [['SCENE_HEADING', 'INT. BAR DE L\'HÔTEL, TOKYO - NUIT'], ['ACTION', 'Le néon par la fenêtre. BOB, soixante ans, cravate défaite, sirote un whisky qu\'il n\'a pas commandé.'], ['CHARACTER', 'CHARLOTTE'], ['PARENTHETICAL', '(un tabouret plus loin)'], ['DIALOGUE', 'Vous non plus, vous n\'allez pas dormir.'], ['CHARACTER', 'BOB'], ['DIALOGUE', 'Je n\'ai pas dormi depuis jeudi. Je ne compte plus les jeudis.'], ['CHARACTER', 'CHARLOTTE'], ['DIALOGUE', '']]
+    seed: [['SCENE_HEADING', 'INT. BAR DE L\'HÔTEL, TOKYO - NUIT'], ['ACTION', 'Le néon par la fenêtre. BOB, soixante ans, cravate défaite, sirote un whisky qu\'il n\'a pas commandé.'], ['CHARACTER', 'CHARLOTTE'], ['PARENTHETICAL', '(un tabouret plus loin)'], ['DIALOGUE', 'Vous n\'arrivez pas à dormir non plus.'], ['CHARACTER', 'BOB'], ['DIALOGUE', 'Le décalage horaire. Je n\'ai pas dormi depuis Los Angeles.'], ['CHARACTER', 'CHARLOTTE'], ['DIALOGUE', '']]
   } : {
     ph: { SCENE_HEADING: 'INT. KITCHEN - NIGHT', ACTION: 'What we see.', CHARACTER: 'WHO SPEAKS', DIALOGUE: 'What they say.', PARENTHETICAL: '(how)', TRANSITION: 'CUT TO:' },
     labels: null, keyEnter: 'Enter', keyTab: 'Tab',
     youre: "You're in <b>", takes: ' takes you to ', write: 'Write ', forHeading: ' for a scene heading', forX: ' for ',
     nowEnter: 'Now press Enter', outro: 'Now install me and stop copying Sofia Coppola.', outroBtn: 'Add to Chrome', outroBtnWord: 'Get it for Word (Beta)', typeHere: 'Type her line here.',
-    seed: [['SCENE_HEADING', 'INT. HOTEL BAR, TOKYO - NIGHT'], ['ACTION', 'Neon through the window. BOB, sixty, tie undone, nurses a whisky he did not order.'], ['CHARACTER', 'CHARLOTTE'], ['PARENTHETICAL', '(one stool over)'], ['DIALOGUE', "You're not going to sleep either."], ['CHARACTER', 'BOB'], ['DIALOGUE', "I haven't slept since Thursday. I've lost count of the Thursdays."], ['CHARACTER', 'CHARLOTTE'], ['DIALOGUE', '']]
+    seed: [['SCENE_HEADING', 'INT. HOTEL BAR, TOKYO - NIGHT'], ['ACTION', 'Neon through the window. BOB, sixty, tie undone, nurses a whisky he did not order.'], ['CHARACTER', 'CHARLOTTE'], ['PARENTHETICAL', '(one stool over)'], ['DIALOGUE', "You can't sleep either."], ['CHARACTER', 'BOB'], ['DIALOGUE', "Jet lag. I haven't slept since Los Angeles."], ['CHARACTER', 'CHARLOTTE'], ['DIALOGUE', '']]
   };
   var PH = T.ph;
   var GLYPH = { Enter: '↵', Tab: '⇥' };
