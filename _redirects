@@ -12,3 +12,8 @@
 #
 # Pour canonicaliser www -> apex ou rediriger dreamscene.eu : passer par des
 # "Redirect Rules" Cloudflare (dashboard), pas par ce fichier.
+
+# Réservation d'une démo de 20 min (Calendly). Adresse à imprimer partout : /demo.
+# Si le lien Calendly change, ne modifier QUE cette ligne.
+/demo  https://calendly.com/hugopthomas/30min  302
+/demo/  https://calendly.com/hugopthomas/30min  302
