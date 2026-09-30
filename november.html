@@ -421,6 +421,14 @@
   <script>
     (function () {
       var API = 'https://screenplay-editor-api.hugopthomas.workers.dev/november/join';
+      // D'où vient l'inscrit : ?ref= posé dans chaque lien de canal (subreddit,
+      // newsletter, podcast…), sinon le site d'origine, sinon direct. Le serveur
+      // garde 40 caractères : « ref:formulaire ».
+      var params = new URLSearchParams(location.search);
+      var ref = params.get('ref') || params.get('utm_source') || '';
+      if (!ref) { try { ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch (_e) {} }
+      if (!ref || ref === location.hostname) ref = 'direct';
+      ref = ref.replace(/[^a-zA-Z0-9._-]/g, '').slice(0, 28);
 
       document.querySelectorAll('.join').forEach(function (box) {
         var form = box.querySelector('form');
@@ -445,7 +453,7 @@
           fetch(API, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, hp: form.hp.value, src: box.id })
+            body: JSON.stringify({ email: email, hp: form.hp.value, src: ref + ':' + box.id })
           }).then(function (r) { return r.json(); }).then(function (d) {
             if (!d || !d.ok) throw new Error('nope');
             // On ne remercie pas, on rappelle la date : c'est elle qui compte.
@@ -455,7 +463,7 @@
             btn.textContent = 'Count me in';
             var err = document.createElement('p');
             err.className = 'bad';
-            err.textContent = 'That did not go through. Try once more, or write to hugo@screenplayeditor.app.';
+            err.textContent = 'That did not go through. Try once more, or write to hugopthomas@gmail.com.';
             box.appendChild(err);
           });
         });

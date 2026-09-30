@@ -358,7 +358,7 @@ async function handle(se, el) {
     case 'tr-buy': { if (!getEmail()) { openPrefs('Enter your e-mail to buy credits. They follow this address.'); return; } setStatus('Opening the checkout…'); try { const d = await cloud('/credits/checkout', { pack: TableRead.PACK.id }); if (Office.context.ui.openBrowserWindow) Office.context.ui.openBrowserWindow(d.url); else window.open(d.url, '_blank'); setStatus('The checkout is open in your browser. Come back here once it is done.', 'ok'); track('credits_checkout'); } catch (e) { setStatus(friendly(e), 'error'); } return; }
     case 'screen-close': TableRead.stopRead(); return closeScreen(el.dataset.panel);
     case 'shortcuts-info': { const i = $('shortcuts-info'); if (i) i.style.display = i.style.display === 'none' ? 'block' : 'none'; return; }
-    case 'feedback': setStatus('Write to hugo@screenplayeditor.app, every message is read.', 'ok'); return;
+    case 'feedback': setStatus('Write to hugopthomas@gmail.com, every message is read.', 'ok'); return;
     case 'soon': setStatus('On its way to Word. Already in the Google Docs extension.', 'ok'); return;
     default: return;
   }
@@ -540,7 +540,7 @@ function openPrefs(note) {
       <div class="se-titlepage-actions"><button class="se-btn se-btn-dark" data-se="prefs-save">Save</button></div>
     </div>
     <div class="se-label">About</div>
-    <div class="sv-card"><div class="pf-row"><span class="pf-lb">Version</span><span class="sv-row-v">${VERSION}</span></div><div class="pf-row"><span class="pf-lb">Feedback</span><span class="sv-sub">hugo@screenplayeditor.app</span></div></div>`;
+    <div class="sv-card"><div class="pf-row"><span class="pf-lb">Version</span><span class="sv-row-v">${VERSION}</span></div><div class="pf-row"><span class="pf-lb">Feedback</span><span class="sv-sub">hugopthomas@gmail.com</span></div></div>`;
   track('preferences_open');
 }
 
