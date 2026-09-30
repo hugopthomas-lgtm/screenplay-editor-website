@@ -17,3 +17,8 @@
 # Si le lien Calendly change, ne modifier QUE cette ligne.
 /demo  https://calendly.com/hugopthomas/30min  302
 /demo/  https://calendly.com/hugopthomas/30min  302
+
+# First Draft November vit sur son propre domaine depuis le 01/10/2026 ; les
+# 300 mails déjà partis et le lien CipherWrite pointent encore ici.
+/november  https://firstdraftnovember.org/  301
+/november/  https://firstdraftnovember.org/  301
